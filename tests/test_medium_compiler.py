@@ -184,6 +184,63 @@ class MediumCompilerTests(unittest.TestCase):
         self.assertEqual(result["status"], "VALID")
         self.assertEqual(result["semantic_correctness"], "NOT_ASSESSED")
 
+    def _assemble_valid_run(self) -> str:
+        self._through_stage5()
+        draft = (self.run_dir / "semantic-draft.md").read_text(encoding="utf-8")
+        self._submit(6, text=draft)
+        mc.assemble(self.run_dir)
+        mc.build_receipt(self.run_dir)
+        return draft
+
+    def test_issue_proof_requires_real_article_change(self):
+        self._assemble_valid_run()
+        canonical = self.run_dir / "medium-canonical.md"
+        with self.assertRaisesRegex(mc.CompilerError, "real article byte change"):
+            mc.prove_article_update(
+                self.run_dir,
+                1,
+                canonical,
+                canonical,
+                self.root / "proof.json",
+            )
+
+    def test_issue_proof_requires_after_to_match_canonical(self):
+        self._assemble_valid_run()
+        before = self.root / "before.md"
+        after = self.root / "after.md"
+        before.write_text("older real article\n", encoding="utf-8")
+        after.write_text(
+            (self.run_dir / "medium-canonical.md").read_text(encoding="utf-8")
+            + "\nmanual drift\n",
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(mc.CompilerError, "not the canonical final article"):
+            mc.prove_article_update(
+                self.run_dir,
+                1,
+                before,
+                after,
+                self.root / "proof.json",
+            )
+
+    def test_issue_proof_binds_article_update_and_valid_receipt(self):
+        self._assemble_valid_run()
+        before = self.root / "before.md"
+        after = self.root / "after.md"
+        before.write_text("older real article\n", encoding="utf-8")
+        after.write_bytes((self.run_dir / "medium-canonical.md").read_bytes())
+        proof = mc.prove_article_update(
+            self.run_dir,
+            1,
+            before,
+            after,
+            self.root / "proof.json",
+        )
+        self.assertTrue(proof["article_changed"])
+        self.assertTrue(proof["after_matches_canonical"])
+        self.assertEqual(proof["validation_status"], "VALID")
+        self.assertEqual(proof["semantic_correctness"], "NOT_ASSESSED")
+
     def test_style_lint_is_advisory(self):
         path = self.root / "article.md"
         path.write_text(
