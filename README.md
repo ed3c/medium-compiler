@@ -1,214 +1,127 @@
 # medium-compiler
 
-A small, writing-only compiler for staged Medium technical articles.
+A writing-only CLI and [P-class skill](SKILL.md) for technical Medium articles.
+No model adapter, publishing service, image generator, card compiler or scheduler.
+The Agent writes prose; the CLI controls accepted files and assembles the result.
 
-The repository intentionally does **not** contain a card pipeline, publisher, model adapter,
-Google integration, landing framework, image generator, or general Agent runtime. It owns one
-thing: turning a zero-context technical article into a staged, checkable writing flow.
+## Two entry paths
 
-Tracked by [#1](https://github.com/ed3c/medium-compiler/issues/1).
-
-## Writing contract
-
-The P-class skill preserves this causal spine:
+A new article uses the existing stages:
 
 ```text
-Problem -> Decision -> Representation -> Runtime -> Internals
--> Alternatives -> Complexity -> Implementation -> Interview -> Master Map
+0 TOC + decision/data-flow maps
+1 Problem -> property -> representation
+2 Runtime witness -> internals
+3 Alternative -> decision boundary -> cost
+4 Implementation -> correctness -> edge cases
+5 Interview -> master map
+6 Prose-only edit
+7 Exact-byte assembly
 ```
-
-Only five choices stay semantic:
-
-1. the central reader question;
-2. the governing property/invariant;
-3. the primary representation or architecture;
-4. one runtime witness;
-5. one useful alternative.
-
-The CLI owns the mechanics: legal stage order, declared claim coverage, technical-term
-identity, protected literals/code blocks, deterministic final assembly, and validation bound
-to the final article bytes.
-
-A green CLI result is **not** proof that a technical claim is true. It proves only the
-mechanically checkable writing contract.
-
-## Stages
-
-```text
-0  TOC + decision map + runtime/data-flow map
-1  Problem -> governing property -> representation
-2  runtime witness -> necessary internals
-3  alternative -> decision boundary -> complexity/cost
-4  implementation -> correctness -> edge cases
-5  interview compression -> master map
-6  meaning-preserving prose pass after semantic freeze
-7  deterministic canonical Medium assembly
-```
-
-Stage 0 is planning output and is not concatenated into the final article. Stages 1-5 form
-the semantic draft. Stage 6 is the complete copyedited article. Stage 7 is not another model
-generation step: the CLI copies the admitted Stage 6 bytes into `medium-canonical.md`.
-
-## Quick start
-
-The implementation uses only the Python standard library.
 
 ```sh
-python3 medium_compiler.py init --spec examples/spec.json --run-dir /tmp/article-run
-python3 medium_compiler.py next --run-dir /tmp/article-run
+python3 medium_compiler.py init --spec examples/spec.json --run-dir /tmp/new-article
+python3 medium_compiler.py next --run-dir /tmp/new-article
 ```
 
-For each stage 0-6, provide the text and a small coverage sidecar:
+For an existing article, do not fabricate earlier stages or regenerate the whole piece:
 
 ```sh
-python3 medium_compiler.py submit \
-  --run-dir /tmp/article-run \
-  --stage 0 \
-  --input stage-00.md \
-  --coverage stage-00.coverage.json
+python3 medium_compiler.py init --spec spec.json --draft before.md --run-dir /tmp/revision
+python3 medium_compiler.py next --run-dir /tmp/revision
+# next_stage = 6
+python3 medium_compiler.py submit --run-dir /tmp/revision --stage 6 \
+  --input after.md --coverage copyedit.json
+python3 medium_compiler.py assemble --run-dir /tmp/revision
+python3 medium_compiler.py verify --run-dir /tmp/revision
+python3 medium_compiler.py prove-update --run-dir /tmp/revision --issue 1 \
+  --before before.md --after after.md --output /tmp/article-update.json
+python3 medium_compiler.py next --run-dir /tmp/revision
+# VALIDATED, next = null; this does not mean semantic correctness was assessed.
 ```
 
-The coverage file declares only the structural obligations and bound IDs for that stage:
+`copyedit.json` contains:
 
 ```json
-{
-  "elements": ["toc", "decision_map", "runtime_map"],
-  "claims": [],
-  "terms": []
-}
+{"elements":["copyedit"],"claims":[],"terms":[]}
 ```
 
-After Stage 5 the compiler materializes `semantic-draft.md`. Stage 6 must preserve all
-protected literals, canonical technical terms, and fenced code blocks from that draft.
+`spec.json` contains a topic and optional claim/term declarations. See
+[examples/spec.json](examples/spec.json). For authoring stages, each coverage sidecar
+names the exact elements and claim/term IDs due in that stage. These are structural
+accounting declarations, not evidence that the prose entails each claim. Imported
+articles explicitly report declared claim coverage as `NOT_ASSESSED`.
 
-Then:
+## What is enforced
+
+- Bind the imported draft, spec and accepted parts/coverage to their exact bytes.
+- Refuse out-of-order submissions on the authoring path.
+- Preserve fenced code/text blocks, inline code, Markdown link destinations and
+  the exact literals/terms named in the spec during prose-only editing.
+- Assemble by copying admitted Stage 6 bytes, without another prose generation.
+- Recheck current artifacts when producing or checking a receipt. Merely replacing
+  the recorded digest cannot turn mutated code into a new valid receipt.
+- End the local flow after successful validation. `check-receipt` is read-only.
+- Bind `prove-update` to the imported baseline and current canonical article;
+  refuse unchanged/edge-whitespace-only articles and output paths that overwrite inputs.
+
+The prose guard supports top-level Markdown fences and ordinary inline links,
+reference definitions and autolinks. It is conservative, not a full Markdown parser.
+An intentional code, link, markup or technical-claim change needs an explicitly
+scoped technical revision; do not weaken this prose-only check to make it pass.
+
+## Issue evidence
+
+Every writing atom uses a real article before/after, not only synthetic fixtures.
+The after article must match the canonical file and its current validation receipt.
+The article identity/revision, changed passages and semantic review belong in the
+issue evidence, outside the copyable Medium text. Byte inequality alone is not
+proof of useful improvement; a keyword count is not a style score.
+
+[Issue #1 evidence and replay](evidence/issue-1/README.md) contains one real four-span
+article revision plus a planted control demonstrating the old verifier's false PASS.
+The old candidate JSON is historical; the executed evidence is now authoritative for
+this scoped local experiment.
+
+## Limits
+
+`VALIDATED` means the stated mechanical contract passed. The CLI does not prove
+factual truth, no semantic loss, human preference, or cross-topic writing quality.
+Author review, independent-reader testing, fresh writer A/B and publication retain
+separate statuses. No command publishes to Medium or closes a GitHub issue.
+
+Local admission state assumes a single cooperative writer. It is not a security
+boundary against an actor rewriting the source, state, verifier and receipt together.
+A changed admitted artifact requires a fresh run. Legacy unbound runs are refused;
+there is no silent migration or invented authoring history.
+
+The style lint is advisory:
 
 ```sh
-python3 medium_compiler.py assemble --run-dir /tmp/article-run
-python3 medium_compiler.py verify --run-dir /tmp/article-run
-python3 medium_compiler.py check-receipt --run-dir /tmp/article-run
+python3 medium_compiler.py style-lint --input articles/ai-engineer-learning-path.md
 ```
-
-`verify` writes `validation-receipt.json`; `check-receipt` refuses if the canonical
-article or bound spec bytes have changed.
-
-An advisory style lint is also available:
-
-```sh
-python3 medium_compiler.py style-lint --input /tmp/article-run/medium-canonical.md
-```
-
-It flags repeated generic scaffolding such as `本文將` or `前進條件`. Findings are not a
-hard correctness gate because those phrases can occasionally be legitimate.
-
-## Spec
-
-A spec binds the topic, article claims that must be accounted for, and technical terms that
-must not drift.
-
-```json
-{
-  "topic": "Example topic",
-  "claims": [
-    {
-      "id": "C1",
-      "stage": 1,
-      "description": "The source-backed claim rendered in Stage 1",
-      "protected_literals": ["exact identifier or number that must survive copyedit"]
-    }
-  ],
-  "terms": [
-    {
-      "id": "T1",
-      "canonical": "canonical key",
-      "first_stage": 3,
-      "forbidden_variants": ["標準鍵值"]
-    }
-  ]
-}
-```
-
-Use `protected_literals` only for exact values, identifiers, quotations within the allowed
-quotation policy, versions, or other bytes that truly must survive. Do not freeze whole
-sentences merely to make semantic evaluation deterministic.
-
-## Verification boundary
-
-The CLI can prove:
-
-- stages were submitted in the fixed order;
-- each stage declared the exact structural elements and claim/term IDs due there;
-- forbidden term variants did not enter the draft;
-- canonical terms introduced by the spec survive the final prose pass;
-- exact protected literals survive;
-- fenced code blocks are byte-identical through Stage 6;
-- Stage 7 adds no prose because assembly is deterministic;
-- the validation receipt names the current canonical/spec bytes.
-
-It cannot prove:
-
-- a claim is factually true;
-- the selected invariant is the best one;
-- an alternative is pedagogically useful;
-- a paragraph preserves meaning merely because IDs were declared;
-- a human prefers the prose.
-
-Those remain source review / semantic-eval responsibilities.
-
-
-## Issue-atom closure law
-
-Synthetic fixtures and planted failures are allowed only to prove that a guard can
-discriminate good and bad states. They can never close a writing issue.
-
-Every writing issue atom must change a real Medium article and bind its closure evidence to
-that update:
-
-```text
-real article before
-  -> one scoped writing/compiler change
-  -> real article after
-  -> canonical Medium assembly
-  -> final-byte validation receipt
-  -> issue proof
-```
-
-Required closure evidence:
-
-1. one real article path under `articles/`;
-2. a readable before revision and after revision of that same article;
-3. a non-empty article diff caused by the atom;
-4. the after bytes equal `medium-canonical.md`;
-5. `check-receipt` returns `VALID` for those final bytes;
-6. `prove-update` writes an issue proof with different before/after digests;
-7. semantic/human review status is reported separately and is never inferred from the
-   structural proof.
-
-Generate the closure proof only after the article has actually changed:
-
-```sh
-git show <before-commit>:articles/<slug>.md > /tmp/article-before.md
-cp articles/<slug>.md /tmp/article-after.md
-
-python3 medium_compiler.py prove-update \
-  --run-dir /tmp/article-run \
-  --issue 123 \
-  --before /tmp/article-before.md \
-  --after /tmp/article-after.md \
-  --output evidence/issue-123/article-update.json
-```
-
-A test file may use synthetic prose to exercise this command. That test proves the gate; the
-`evidence/issue-<n>/article-update.json` used for closure must refer to a real article
-revision.
-
 
 ## Tests
 
+Python 3.10+ standard library only:
+
 ```sh
 python3 -m unittest discover -s tests -v
+python3 medium_compiler.py check-receipt --run-dir evidence/issue-1/run
 ```
 
-The tests include planted negative controls for skipped stages, dropped coverage, technical
-term drift, code-block mutation, protected-literal loss, machine-sidecar leakage and stale
-final-byte receipts.
+To reproduce the real article and candidate controls in a fresh output directory:
+
+```sh
+python3 evidence/issue-1/replay.py --out /tmp/medium-replay-new
+```
+
+To also reproduce the historical false acceptance, extract the pinned old CLI first:
+
+```sh
+git show 3876cbbf1cff627647e2c3c6c13ffda80fa8c1c0:medium_compiler.py > /tmp/medium-old.py
+python3 evidence/issue-1/replay.py --out /tmp/medium-replay-paired --baseline-cli /tmp/medium-old.py
+```
+
+The replay writes only to its new output directory. It does not call a model or
+regenerate the article. It records a deterministic correction, not a fresh-writer A/B.

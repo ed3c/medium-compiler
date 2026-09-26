@@ -1,0 +1,73 @@
+{
+  "selection": "all refusals, actual article checks/proof, and the baseline false-positive verify; full log is reproducible by replay.py",
+  "commands": [
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/medium-atom-work/repo/medium_compiler.py",
+        "check-receipt",
+        "--run-dir",
+        "/mnt/data/medium-atom-work/executed/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"status\": \"VALID\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/medium-atom-work/repo/medium_compiler.py",
+        "prove-update",
+        "--run-dir",
+        "/mnt/data/medium-atom-work/executed/run",
+        "--issue",
+        "1",
+        "--before",
+        "/mnt/data/medium-atom-work/repo/evidence/issue-1/before.md",
+        "--after",
+        "/mnt/data/medium-atom-work/repo/articles/ai-engineer-learning-path.md",
+        "--output",
+        "/mnt/data/medium-atom-work/executed/article-update.json"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"after_matches_canonical\": true,\n  \"after_sha256\": \"sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f\",\n  \"article_changed\": true,\n  \"before_sha256\": \"sha256:6f8df3e9c7cbd106b893ad7894d8e0c5e967836e6e43495b127c6d7446b44541\",\n  \"canonical_sha256\": \"sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f\",\n  \"closure_authority\": \"ARTICLE_UPDATE_EVIDENCE_ONLY\",\n  \"issue\": 1,\n  \"schema_version\": \"medium-issue-article-proof@1\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"style_after\": {\n    \"blocking\": false,\n    \"finding_count\": 0,\n    \"findings\": [],\n    \"schema_version\": \"medium-style-lint@1\"\n  },\n  \"style_before\": {\n    \"blocking\": false,\n    \"finding_count\": 0,\n    \"findings\": [],\n    \"schema_version\": \"medium-style-lint@1\"\n  },\n  \"topic\": \"AI Engineer learning path: bounded prose edit\",\n  \"validation_receipt_sha256\": \"sha256:c7f2c9cca76de5e53f574088d36862d203f076e9e2ae0bc3c681cac13ff58646\",\n  \"validation_status\": \"VALID\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/medium-atom-work/repo/medium_compiler.py",
+        "verify",
+        "--run-dir",
+        "/mnt/data/medium-atom-work/executed/negative"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "medium-compiler refused: admitted artifact changed: parts/stage-06.md\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/medium-atom-work/repo/medium_compiler.py",
+        "verify",
+        "--run-dir",
+        "/mnt/data/medium-atom-work/executed/candidate-control/run"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "medium-compiler refused: admitted artifact changed: parts/stage-06.md\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/medium-atom-work/baseline/medium_compiler.py",
+        "verify",
+        "--run-dir",
+        "/mnt/data/medium-atom-work/executed/baseline-control/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:2f7b14ed3616718364a3b9bc46490fe3a3ad621e3cb973b850dff7f3ef1eee5f\",\n  \"checks\": {\n    \"copyedit_fenced_blocks\": true,\n    \"declared_claim_coverage\": true,\n    \"deterministic_assembly\": true,\n    \"protected_literals\": true,\n    \"stage_order\": true,\n    \"technical_term_identity\": true\n  },\n  \"human_preference\": \"NOT_ASSESSED\",\n  \"schema_version\": \"medium-compiler-validation@1\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"spec_sha256\": \"sha256:0e779f20c9905322d55b1cd0e847a68b5a9693f8a813211a5683f9ee55051681\",\n  \"stage_sha256\": {\n    \"0\": \"sha256:4ce2c9ca1b3c82aac4b2a0adbc4dee2dd2b570738f651010091623a0d99cded9\",\n    \"1\": \"sha256:bc9fa7437f47e84fa8162b8c852daf1258fc32902284ee86d0d37bc16489c3b7\",\n    \"2\": \"sha256:5976f5534f2ef9baae1a112d55844e09d6a62b4bd475ae5edb619dede49db4d8\",\n    \"3\": \"sha256:89125a6a5663c509be3278cf83d488148a7d7dbc36f27f2cffdb8b74d1670c40\",\n    \"4\": \"sha256:8f6a58e83cc01b3eb2d0d2e14d2ff5e55eb2692fb7228c60f076d6ef1bfb8d13\",\n    \"5\": \"sha256:d32ba251f03a11d5a94392621a9a51ba85e9bb28bf9593d665dd60fbde675bde\",\n    \"6\": \"sha256:2f7b14ed3616718364a3b9bc46490fe3a3ad621e3cb973b850dff7f3ef1eee5f\"\n  },\n  \"topic\": \"guard-control\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

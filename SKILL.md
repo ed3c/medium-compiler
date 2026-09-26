@@ -6,7 +6,7 @@ description: >-
   implementation. Use the repository CLI for stage order and completion; keep semantic
   choices in the writing layer. No generated images are required.
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Zero-Context Medium Writing
@@ -173,3 +173,27 @@ only this article can answer:
 
 If the article itself does not contain the answer, repair the affected stage. Do not rely on
 the reader's outside knowledge to fill the gap.
+
+## Existing article: bounded revision, not fictional regeneration
+
+When the task is to improve an existing article, use `init --draft BEFORE.md`.
+The CLI snapshots that article and routes directly to Stage 6. Do not manufacture
+Stages 0-5, a fresh writer run, or coverage claims for work that did not occur.
+New articles keep the staged path above.
+
+Choose a concrete prose defect and edit only its affected passages. Replace vague
+checkpoint narration with the existing operation, output or reader question;
+do not simply replace 「前進條件」 with 「做到這裡」 everywhere. Do not turn all
+headings into questions. Preserve the exact technical claim, scope, negation,
+uncertainty and reading goal. Keep a before/after note for each changed passage.
+
+Use the CLI to preserve fenced blocks, inline code, source-link destinations and
+specified literals. Submit once, assemble, verify, then prove-update against the
+imported baseline. A changed admitted file requires a new run; do not repair the
+state JSON or refresh a receipt to hide the change. `next` returns no next action
+after a valid receipt. Code or source corrections require a separately declared
+technical edit, not a weakened prose-only guard.
+
+A nonempty diff is only change evidence. Keep author review, independent reader
+results, natural writer A/B and publication status separate; report only what was
+actually executed. Identical protected bytes do not prove semantic fidelity.

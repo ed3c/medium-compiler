@@ -1,0 +1,26 @@
+{
+  "article_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+  "artifact_sha256": {
+    "parts/stage-06.coverage.json": "sha256:60c183bcbfb5f5c11f064e9d6ee4ab0a11c3f63f82ae7782c9c476b2211ccb12",
+    "parts/stage-06.md": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+    "semantic-draft.md": "sha256:6f8df3e9c7cbd106b893ad7894d8e0c5e967836e6e43495b127c6d7446b44541",
+    "spec.json": "sha256:34aaff0b1ad05b1b887cc2dc9fa9f1daaeaec1d1df33a4ba30c8206be623b67d"
+  },
+  "checks": {
+    "copyedit_fenced_blocks": true,
+    "current_artifacts_rechecked": true,
+    "declared_claim_coverage": "NOT_ASSESSED",
+    "deterministic_assembly": true,
+    "inline_code_and_links": true,
+    "protected_literals": true,
+    "stage_order": true,
+    "technical_term_identity": true
+  },
+  "compiler_sha256": "sha256:82b37776db28b2c00325abfa5a2ae95e6b963aabfb9f0ee051d37bbab0ef2730",
+  "human_preference": "NOT_ASSESSED",
+  "mode": "revision",
+  "schema_version": "medium-compiler-validation@2",
+  "semantic_correctness": "NOT_ASSESSED",
+  "state_sha256": "sha256:0ce3d1bfd9b2abc0b0dcd1e6624a14fb66dcee2bebcaf41c66c08a26c37e76cf",
+  "topic": "AI Engineer learning path: bounded prose edit"
+}

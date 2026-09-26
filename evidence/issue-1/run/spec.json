@@ -1,0 +1,28 @@
+{
+  "topic": "AI Engineer learning path: bounded prose edit",
+  "claims": [
+    {
+      "id": "C1",
+      "stage": 1,
+      "description": "preserve factual boundaries",
+      "protected_literals": [
+        "引用存在，不足以證明回答忠於引用。",
+        "2 GiB",
+        "不代表已測試真實 LLM 的回答品質",
+        "O(M + K + V + R + C)"
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "id": "T1",
+      "first_stage": 1,
+      "canonical": "behavior hill climb"
+    },
+    {
+      "id": "T2",
+      "first_stage": 1,
+      "canonical": "KV cache"
+    }
+  ]
+}

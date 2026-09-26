@@ -1,0 +1,54 @@
+{
+  "issue": 1,
+  "source_commit": "3876cbbf1cff627647e2c3c6c13ffda80fa8c1c0",
+  "before_git_blob": "aed314c86ef9bf6af33af95a9f193b86be9b9f79",
+  "before_sha256": "sha256:6f8df3e9c7cbd106b893ad7894d8e0c5e967836e6e43495b127c6d7446b44541",
+  "after_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+  "compiler_sha256": "sha256:82b37776db28b2c00325abfa5a2ae95e6b963aabfb9f0ee051d37bbab0ef2730",
+  "skill_sha256": "sha256:f20aed3740ccd716a31cc84a1fbde65274236dbfda9e12b2ae0b665cdc5db497",
+  "real_article_changed": true,
+  "changed_prose_spans": 4,
+  "unchanged_fenced_blocks": 10,
+  "digit_tokens_unchanged": true,
+  "all_other_text_exact": true,
+  "article_update_proof": {
+    "after_matches_canonical": true,
+    "after_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+    "article_changed": true,
+    "before_sha256": "sha256:6f8df3e9c7cbd106b893ad7894d8e0c5e967836e6e43495b127c6d7446b44541",
+    "canonical_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+    "closure_authority": "ARTICLE_UPDATE_EVIDENCE_ONLY",
+    "issue": 1,
+    "schema_version": "medium-issue-article-proof@1",
+    "semantic_correctness": "NOT_ASSESSED",
+    "style_after": {
+      "blocking": false,
+      "finding_count": 0,
+      "findings": [],
+      "schema_version": "medium-style-lint@1"
+    },
+    "style_before": {
+      "blocking": false,
+      "finding_count": 0,
+      "findings": [],
+      "schema_version": "medium-style-lint@1"
+    },
+    "topic": "AI Engineer learning path: bounded prose edit",
+    "validation_receipt_sha256": "sha256:c7f2c9cca76de5e53f574088d36862d203f076e9e2ae0bc3c681cac13ff58646",
+    "validation_status": "VALID"
+  },
+  "baseline_planted_control": {
+    "fixture": "same post-admission code mutation",
+    "verify_exit": 0
+  },
+  "candidate_planted_control": {
+    "fixture": "same post-admission code mutation",
+    "verify_exit": 2
+  },
+  "unit_test_exit": 0,
+  "semantic_review": "AUTHOR_REVIEW_OF_FOUR_SPANS; NOT_INDEPENDENT",
+  "fresh_writer_ab": "NOT_RUN",
+  "independent_reader": "NOT_RUN",
+  "medium_publication": "NOT_REQUESTED_OR_PERFORMED",
+  "conclusion": "SCOPED_DETERMINISTIC_CORRECTION_AND_REAL_ARTICLE_UPDATE"
+}

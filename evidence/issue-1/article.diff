@@ -1,0 +1,38 @@
+--- before.md
++++ articles/ai-engineer-learning-path.md
+@@ -8,7 +8,7 @@
+ 
+ 只看 JSON 是否合法，會漏掉文件版本錯誤；只確認引用存在，會漏掉引用是否支持回答；只換一個更大的模型，則沒有修正資料選擇的條件。這個教學案例把一個 AI 應用拆成幾個可以分別檢查的問題：輸入是什麼、證據從哪裡來、模型能決定什麼，以及錯誤在哪一層被發現。
+ 
+-起點是已具備程式設計、Git、HTTP API 與基本測試經驗的軟體工程師。先用現成大型語言模型（Large Language Model，LLM）做出能建構、評估與維運的應用，再依實際瓶頸深入模型實作與基礎設施。從零訓練大型基礎模型，不是完成第一個應用的先決條件。
++起點是已具備程式設計、Git、HTTP API 與基本測試經驗的軟體工程師。以現成大型語言模型（Large Language Model，LLM）建構應用，學習評估回答與維運服務；遇到瓶頸時，再深入模型實作與基礎設施。從零訓練大型基礎模型，不是完成第一個應用的先決條件。
+ 
+ 這條路徑與文件助理是教學用方案，並非各教材共同指定的課綱。資源入口與公開目錄核對於 **2026 年 9 月 26 日**。文中的 Python 範例已執行；它使用可控制的模型替身，不代表已測試真實 LLM 的回答品質。
+ 
+@@ -75,7 +75,7 @@
+ 
+ `chunk_id` 也不是授權證明。在這個離線範例裡，文件都是合成資料；真正加入內部文件前，還需要使用者身分、資料存取控制，以及能重現內容的來源版本或快照。服務名稱相同，不代表使用者有權閱讀該服務的所有文件。
+ 
+-學習這一段，可先讀《AI工程》第 1、5 章，再做課程的 [Structured Outputs](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/03-structured-outputs&learningPath=building-and-deploying-ai-applications)。做到這裡，應留下請求與回應契約、錯誤處理及測試。你應該能把無效輸入、證據不足和模型錯誤分開，而不是只展示一次成功回答。
++學習這一段，可先讀《AI工程》第 1、5 章，再做課程的 [Structured Outputs](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/03-structured-outputs&learningPath=building-and-deploying-ai-applications)。把請求與回應契約、錯誤處理及測試存進專案。除了正常回答，測試結果也要分清無效輸入、證據不足與模型錯誤。
+ 
+ ## 4. v2 問題進來後，資料怎麼走？
+ 
+@@ -222,7 +222,7 @@
+ 
+ 這裡沒有實作真正的 deadline。`except TimeoutError` 只處理 adapter 已經回報的逾時；真實 adapter 仍須設定逾時、回應大小限制與有界重試，也要保留供診斷使用的錯誤紀錄。範例同樣沒有實作語意拒答：找到文件但內容無關時，後續模型契約需要能明確表達證據不足。
+ 
+-做到這裡，應該能在乾淨環境重現正常與拒絕路徑，也能指出程式尚未驗證什麼。若 Python 環境、JSON 或測試隔離仍不熟，先回到課程的 [Software Engineering Fundamentals](https://aiengineeringfromscratch.com/learning-paths.html)；不必同時補完整個深度學習課程。
++在乾淨環境執行正常與拒絕案例，確認結果可以重現，並列出程式尚未驗證的部分。若 Python 環境、JSON 或測試隔離仍不熟，先回到課程的 [Software Engineering Fundamentals](https://aiengineeringfromscratch.com/learning-paths.html)；不必同時補完整個深度學習課程。
+ 
+ ## 6. 這段程式真正花在哪裡？
+ 
+@@ -312,7 +312,7 @@
+ 
+ 若 baseline 和新版都沒有發生目標錯誤，這批案例最多顯示未觀察到退步，不能證明錯誤率下降。若缺少某次結果，要補查或標記缺失，不能把它當成成功。用來反覆調整系統的案例也不能繼續稱為 untouched holdout；holdout 指未參與這輪調整的保留評估資料。
+ 
+-做完一次 eval 後，你應該能說清楚「改了哪裡、為什麼、哪些案例受益、哪些仍然失敗」。案例數量要依錯誤分布與可承擔成本決定，不從別人的文章抄一個通過率當作通用門檻。
++把修改內容、修改理由、改善的案例與仍然失敗的案例，寫進這次 eval 的比較紀錄。案例數量要依錯誤分布與可承擔成本決定，不從別人的文章抄一個通過率當作通用門檻。
+ 
+ ## 10. 模型可以呼叫工具，但誰決定能不能執行？
+ 

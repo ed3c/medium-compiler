@@ -1,0 +1,28 @@
+{
+  "scope": "four prose spans; no headings/code/links/measurements changed",
+  "reviewer": "authoring assistant, same session",
+  "independent": false,
+  "edits": [
+    {
+      "before": "先用現成大型語言模型（Large Language Model，LLM）做出能建構、評估與維運的應用，再依實際瓶頸深入模型實作與基礎設施。",
+      "after": "以現成大型語言模型（Large Language Model，LLM）建構應用，學習評估回答與維運服務；遇到瓶頸時，再深入模型實作與基礎設施。",
+      "verdict": "meaning retained in same paragraph; concrete activity replaces editorial instruction"
+    },
+    {
+      "before": "做到這裡，應留下請求與回應契約、錯誤處理及測試。你應該能把無效輸入、證據不足和模型錯誤分開，而不是只展示一次成功回答。",
+      "after": "把請求與回應契約、錯誤處理及測試存進專案。除了正常回答，測試結果也要分清無效輸入、證據不足與模型錯誤。",
+      "verdict": "meaning retained in same paragraph; concrete activity replaces editorial instruction"
+    },
+    {
+      "before": "做到這裡，應該能在乾淨環境重現正常與拒絕路徑，也能指出程式尚未驗證什麼。",
+      "after": "在乾淨環境執行正常與拒絕案例，確認結果可以重現，並列出程式尚未驗證的部分。",
+      "verdict": "meaning retained in same paragraph; concrete activity replaces editorial instruction"
+    },
+    {
+      "before": "做完一次 eval 後，你應該能說清楚「改了哪裡、為什麼、哪些案例受益、哪些仍然失敗」。",
+      "after": "把修改內容、修改理由、改善的案例與仍然失敗的案例，寫進這次 eval 的比較紀錄。",
+      "verdict": "meaning retained in same paragraph; concrete activity replaces editorial instruction"
+    }
+  ],
+  "claim": "targeted editorial revision, not measured cross-topic behavior improvement"
+}

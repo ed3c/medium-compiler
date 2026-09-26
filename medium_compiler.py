@@ -9,6 +9,7 @@ integrity, deterministic assembly, and validation bound to final bytes.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 import re
@@ -38,7 +39,6 @@ STAGE_NAMES = {
     7: "canonical-assembly",
 }
 
-FENCE = re.compile(r"(?ms)^```[^\n]*\n.*?^```\s*$")
 MACHINE_MARKERS = (
     "<!-- MEDIUM_COMPILER",
     "<!-- RUN_STATE",
@@ -147,11 +147,16 @@ def _run_paths(run_dir: Path) -> dict[str, Path]:
     }
 
 
-def init_run(spec_path: Path, run_dir: Path) -> dict[str, Any]:
+def init_run(
+    spec_path: Path, run_dir: Path, draft_path: Path | None = None
+) -> dict[str, Any]:
     if run_dir.exists() and any(run_dir.iterdir()):
         raise CompilerError(f"run directory is not empty: {run_dir}")
     spec = _read_json(spec_path)
     validate_spec(spec)
+    draft = draft_path.read_bytes() if draft_path is not None else None
+    if draft is not None and not draft.strip():
+        raise CompilerError("existing draft is empty")
 
     run_dir.mkdir(parents=True, exist_ok=True)
     paths = _run_paths(run_dir)
@@ -165,7 +170,13 @@ def init_run(spec_path: Path, run_dir: Path) -> dict[str, Any]:
         "submitted_stages": [],
         "covered_claims": [],
         "defined_terms": [],
+        "mode": "revision" if draft is not None else "staged",
+        "admitted_files": {"spec.json": _sha256_path(paths["spec"])},
     }
+    if draft is not None:
+        paths["semantic"].write_bytes(draft)
+        state["admitted_files"]["semantic-draft.md"] = _sha256_bytes(draft)
+        state["next_stage"] = 6
     _write_json(paths["state"], state)
     return state
 
@@ -175,6 +186,18 @@ def _load_run(run_dir: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, 
     spec = _read_json(paths["spec"])
     validate_spec(spec)
     state = _read_json(paths["state"])
+    admitted = state.get("admitted_files")
+    if not isinstance(admitted, dict) or "spec.json" not in admitted:
+        raise CompilerError("unbound run: start a fresh run with init")
+    allowed = {"spec.json", "semantic-draft.md"}
+    allowed.update(f"parts/stage-{i:02d}{suffix}" for i in range(7)
+                   for suffix in (".md", ".coverage.json"))
+    for name, digest in admitted.items():
+        if name not in allowed:
+            raise CompilerError("invalid admitted artifact path")
+        path = run_dir / name
+        if not path.is_file() or _sha256_path(path) != digest:
+            raise CompilerError(f"admitted artifact changed: {name}")
     return spec, state, paths
 
 
@@ -266,7 +289,59 @@ def _validate_coverage(
 
 
 def _extract_fences(text: str) -> list[str]:
-    return [match.group(0) for match in FENCE.finditer(text)]
+    """Top-level Markdown fences, preserving bytes and rejecting incomplete blocks."""
+    blocks: list[str] = []
+    current: list[str] = []
+    marker = ""
+    for line in text.splitlines(keepends=True):
+        if not marker:
+            match = re.match(r"^ {0,3}(`{3,}|~{3,})[^\r\n]*", line)
+            if match:
+                marker = match.group(1)
+                current = [line]
+        else:
+            current.append(line)
+            if re.fullmatch(r" {0,3}" + re.escape(marker[0]) +
+                            "{" + str(len(marker)) + r",}[ \t]*(?:\r?\n)?", line):
+                blocks.append("".join(current).rstrip("\r\n"))
+                current, marker = [], ""
+    if marker:
+        raise CompilerError("unclosed fenced block")
+    return blocks
+
+
+def _prose_literals(text: str) -> dict[str, Counter]:
+    # A conservative prose-only edit contract, not a complete Markdown renderer.
+    for block in _extract_fences(text):
+        text = text.replace(block, "", 1)
+    return {
+        "inline code": Counter(re.findall(r"(`+)(?!`)(.+?)\1(?!`)", text, re.S)),
+        # Freeze link destinations (including optional titles), not the surrounding prose.
+        # Supports ordinary inline links, one nested parenthesis pair, references/autolinks.
+        "source links": Counter(
+            re.findall(r"\]\(([^()\r\n]*(?:\([^()\r\n]*\)[^()\r\n]*)*)\)", text)
+            + re.findall(r"(?m)^ {0,3}\[[^]\r\n]+\]:[ \t]*(.+)$", text)
+            + re.findall(r"<(https?://[^>]+)>", text)
+        ),
+    }
+
+
+def _validate_copyedit(spec: dict[str, Any], before: str, after: str) -> None:
+    if not after.strip():
+        raise CompilerError("copyedit is empty")
+    if _extract_fences(before) != _extract_fences(after):
+        raise CompilerError("copyedit changed fenced code/text blocks")
+    old, new = _prose_literals(before), _prose_literals(after)
+    for kind in old:
+        if old[kind] != new[kind]:
+            raise CompilerError(f"copyedit changed protected {kind}")
+    _check_forbidden_variants(spec, after)
+    for literal in _protected_literals(spec):
+        if literal not in after:
+            raise CompilerError(f"copyedit dropped protected literal: {literal!r}")
+    for term in spec.get("terms", []):
+        if term["canonical"] not in after:
+            raise CompilerError(f"copyedit dropped canonical technical term: {term['canonical']!r}")
 
 
 def _part_path(parts: Path, stage: int) -> Path:
@@ -321,19 +396,7 @@ def submit_stage(
         if not paths["semantic"].is_file():
             raise CompilerError("semantic draft is missing before copyedit")
         before = paths["semantic"].read_text(encoding="utf-8")
-        if _extract_fences(before) != _extract_fences(text):
-            raise CompilerError("copyedit changed fenced code/text blocks")
-        for literal in _protected_literals(spec):
-            if literal not in text:
-                raise CompilerError(
-                    f"copyedit dropped protected literal: {literal!r}"
-                )
-        for term in spec.get("terms", []):
-            canonical = term["canonical"]
-            if canonical not in text:
-                raise CompilerError(
-                    f"copyedit dropped canonical technical term: {canonical!r}"
-                )
+        _validate_copyedit(spec, before, text)
         due_claims, due_terms = set(), set()
 
     part_dest = _part_path(paths["parts"], stage)
@@ -359,6 +422,10 @@ def submit_stage(
             raise CompilerError("cannot freeze semantics: not all terms are defined")
         _build_semantic_draft(paths)
 
+    state["admitted_files"][str(part_dest.relative_to(run_dir))] = _sha256_path(part_dest)
+    state["admitted_files"][str(coverage_dest.relative_to(run_dir))] = _sha256_path(coverage_dest)
+    if stage == 5:
+        state["admitted_files"]["semantic-draft.md"] = _sha256_path(paths["semantic"])
     _write_json(paths["state"], state)
     return state
 
@@ -367,6 +434,10 @@ def next_action(run_dir: Path) -> dict[str, Any]:
     spec, state, paths = _load_run(run_dir)
     next_stage = state.get("next_stage")
     if state.get("status") == "ASSEMBLED":
+        if paths["receipt"].exists():
+            check_receipt(run_dir)
+            return {"status": "VALIDATED", "next": None,
+                    "semantic_correctness": "NOT_ASSESSED"}
         return {
             "status": "ASSEMBLED",
             "next": "verify",
@@ -399,6 +470,7 @@ def assemble(run_dir: Path) -> dict[str, Any]:
     if not stage6.is_file():
         raise CompilerError("Stage 6 article is missing")
     text = stage6.read_text(encoding="utf-8")
+    _validate_copyedit(spec, paths["semantic"].read_text(encoding="utf-8"), text)
     markers = [marker for marker in MACHINE_MARKERS if marker in text]
     if markers:
         raise CompilerError(f"machine sidecar leaked into article: {markers}")
@@ -417,69 +489,78 @@ def assemble(run_dir: Path) -> dict[str, Any]:
     }
 
 
-def build_receipt(run_dir: Path) -> dict[str, Any]:
+def _receipt_payload(run_dir: Path) -> dict[str, Any]:
+    """Recheck current artifacts. A receipt records these checks; it never grants them."""
     spec, state, paths = _load_run(run_dir)
     if state.get("status") != "ASSEMBLED" or not paths["canonical"].is_file():
         raise CompilerError("verify requires an assembled canonical article")
+    stages = [6] if state.get("mode") == "revision" else list(range(7))
+    if state.get("submitted_stages") != stages:
+        raise CompilerError("invalid submitted stage order")
+    required = {"spec.json", "semantic-draft.md"}
+    required.update(f"parts/stage-{i:02d}{suffix}" for i in stages
+                    for suffix in (".md", ".coverage.json"))
+    if set(state["admitted_files"]) != required:
+        raise CompilerError("incomplete admission bindings")
+    for stage in stages:
+        text = _part_path(paths["parts"], stage).read_text(encoding="utf-8")
+        coverage = _read_json(_coverage_path(paths["parts"], stage))
+        if stage < 6:
+            _validate_coverage(spec, stage, coverage, text)
+            _check_forbidden_variants(spec, text)
+        elif coverage != {"elements": ["copyedit"], "claims": [], "terms": []}:
+            raise CompilerError("invalid copyedit coverage")
+    before = paths["semantic"].read_text(encoding="utf-8")
+    if state.get("mode") == "staged":
+        expected = "\n\n".join(_part_path(paths["parts"], i).read_text(
+            encoding="utf-8").strip() for i in range(1, 6)).rstrip() + "\n"
+        if before != expected:
+            raise CompilerError("semantic draft differs from admitted parts")
     stage6 = _part_path(paths["parts"], 6)
-    if paths["canonical"].read_bytes() != stage6.read_bytes():
-        raise CompilerError("canonical article no longer matches admitted Stage 6 bytes")
-
-    receipt = {
-        "schema_version": "medium-compiler-validation@1",
+    final = paths["canonical"].read_bytes()
+    if final != stage6.read_bytes() or _sha256_bytes(final) != state.get("canonical_sha256"):
+        raise CompilerError("canonical article bytes changed")
+    _validate_copyedit(spec, before, final.decode("utf-8"))
+    if any(marker in final.decode("utf-8") for marker in MACHINE_MARKERS):
+        raise CompilerError("machine sidecar leaked into article")
+    return {
+        "schema_version": "medium-compiler-validation@2",
         "topic": spec["topic"],
-        "article_sha256": _sha256_path(paths["canonical"]),
-        "spec_sha256": _sha256_path(paths["spec"]),
-        "stage_sha256": {
-            str(stage): _sha256_path(_part_path(paths["parts"], stage))
-            for stage in range(0, 7)
-        },
+        "mode": state["mode"],
+        "article_sha256": _sha256_bytes(final),
+        "compiler_sha256": _sha256_path(Path(__file__)),
+        "state_sha256": _sha256_path(paths["state"]),
+        "artifact_sha256": state["admitted_files"],
         "checks": {
+            "current_artifacts_rechecked": True,
             "stage_order": True,
-            "declared_claim_coverage": True,
-            "technical_term_identity": True,
+            "declared_claim_coverage": "NOT_ASSESSED" if state["mode"] == "revision" else True,
             "protected_literals": True,
+            "technical_term_identity": True,
             "copyedit_fenced_blocks": True,
+            "inline_code_and_links": True,
             "deterministic_assembly": True,
         },
         "semantic_correctness": "NOT_ASSESSED",
         "human_preference": "NOT_ASSESSED",
     }
-    _write_json(paths["receipt"], receipt)
+
+
+def build_receipt(run_dir: Path) -> dict[str, Any]:
+    receipt = _receipt_payload(run_dir)
+    _write_json(_run_paths(run_dir)["receipt"], receipt)
     return receipt
 
 
 def check_receipt(run_dir: Path, receipt_path: Path | None = None) -> dict[str, Any]:
-    spec, state, paths = _load_run(run_dir)
-    receipt_file = receipt_path or paths["receipt"]
-    receipt = _read_json(receipt_file)
-    failures: list[str] = []
-
-    if not paths["canonical"].is_file():
-        failures.append("canonical article missing")
-    elif receipt.get("article_sha256") != _sha256_path(paths["canonical"]):
-        failures.append("canonical article bytes changed")
-
-    if receipt.get("spec_sha256") != _sha256_path(paths["spec"]):
-        failures.append("spec bytes changed")
-
-    stage_digests = receipt.get("stage_sha256")
-    if not isinstance(stage_digests, dict):
-        failures.append("stage_sha256 missing")
-    else:
-        for stage in range(0, 7):
-            path = _part_path(paths["parts"], stage)
-            expected = stage_digests.get(str(stage))
-            if not path.is_file() or expected != _sha256_path(path):
-                failures.append(f"stage {stage} bytes changed")
-
-    if failures:
-        raise CompilerError("stale/invalid validation receipt: " + "; ".join(failures))
-    return {
-        "status": "VALID",
-        "article_sha256": receipt["article_sha256"],
-        "semantic_correctness": receipt.get("semantic_correctness", "NOT_ASSESSED"),
-    }
+    paths = _run_paths(run_dir)
+    receipt = _read_json(receipt_path or paths["receipt"])
+    if not paths["canonical"].is_file() or receipt.get("article_sha256") != _sha256_path(paths["canonical"]):
+        raise CompilerError("stale/invalid validation receipt: canonical article bytes changed")
+    if receipt != _receipt_payload(run_dir):
+        raise CompilerError("stale/invalid validation receipt: evidence changed; re-verify")
+    return {"status": "VALID", "article_sha256": receipt["article_sha256"],
+            "semantic_correctness": "NOT_ASSESSED"}
 
 
 def style_lint(input_path: Path) -> dict[str, Any]:
@@ -513,14 +594,14 @@ def prove_article_update(
 ) -> dict[str, Any]:
     """Bind one issue atom to a real article update.
 
-    Synthetic fixtures can exercise gates, but they cannot satisfy this proof.
-    The after article must be the canonical article admitted by this run.
+    This proves byte bindings, not real-world provenance or writing improvement.
+    The article/revision identity and semantic review are separate evidence.
     """
     if issue <= 0:
         raise CompilerError("issue must be a positive integer")
     before = before_path.read_bytes()
     after = after_path.read_bytes()
-    if before == after:
+    if before.strip() == after.strip():
         raise CompilerError("issue proof requires a real article byte change")
 
     spec, state, paths = _load_run(run_dir)
@@ -531,6 +612,12 @@ def prove_article_update(
     if after != paths["canonical"].read_bytes():
         raise CompilerError("after article is not the canonical final article")
 
+    if state.get("mode") == "revision" and before != paths["semantic"].read_bytes():
+        raise CompilerError("before article differs from the imported baseline")
+    protected_paths = {before_path.resolve(), after_path.resolve()}
+    protected_paths.update(p.resolve() for p in run_dir.rglob("*") if p.is_file())
+    if output_path.resolve() in protected_paths:
+        raise CompilerError("proof output would overwrite an input or run artifact")
     validation = check_receipt(run_dir)
     proof = {
         "schema_version": "medium-issue-article-proof@1",
@@ -565,6 +652,7 @@ def main() -> int:
 
     p = sub.add_parser("init")
     p.add_argument("--spec", type=Path, required=True)
+    p.add_argument("--draft", type=Path, help="Import an existing article for Stage 6; do not replay authoring")
     p.add_argument("--run-dir", type=Path, required=True)
 
     p = sub.add_parser("next")
@@ -599,7 +687,7 @@ def main() -> int:
     args = parser.parse_args()
     try:
         if args.command == "init":
-            _print(init_run(args.spec, args.run_dir))
+            _print(init_run(args.spec, args.run_dir, args.draft))
         elif args.command == "next":
             _print(next_action(args.run_dir))
         elif args.command == "submit":
@@ -619,7 +707,7 @@ def main() -> int:
                 )
             )
         return 0
-    except CompilerError as exc:
+    except (CompilerError, OSError, UnicodeError) as exc:
         print(f"medium-compiler refused: {exc}", file=sys.stderr)
         return 2
 
