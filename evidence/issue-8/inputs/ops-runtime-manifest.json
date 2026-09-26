@@ -1,0 +1,49 @@
+{
+  "checkout_sha": "24a56d18661630b0dba97dcb0b057dce07b0ab32",
+  "run_id": null,
+  "run_attempt": null,
+  "python": "3.12.4 (main, Jun  6 2024, 18:26:44) [Clang 15.0.0 (clang-1500.1.0.2.5)]",
+  "checks": [
+    {
+      "name": "mapping_required",
+      "passed": true
+    },
+    {
+      "name": "exact_findings_and_sources",
+      "passed": true
+    },
+    {
+      "name": "repeat_reconciliation",
+      "passed": true
+    },
+    {
+      "name": "restart_persistence",
+      "passed": true
+    },
+    {
+      "name": "mapping_frozen",
+      "passed": true
+    },
+    {
+      "name": "export_matches_independent_oracle",
+      "passed": true
+    },
+    {
+      "name": "negative_control_rejects_wrong_amount",
+      "passed": true
+    },
+    {
+      "name": "duplicate_key_not_guessed",
+      "passed": true
+    },
+    {
+      "name": "invalid_amount_rejected",
+      "passed": true
+    },
+    {
+      "name": "cross_currency_not_subtracted",
+      "passed": true
+    }
+  ],
+  "live_llm": false
+}

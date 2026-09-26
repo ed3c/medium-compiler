@@ -71,6 +71,17 @@ def plain_article(data: bytes) -> str:
 
 def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None:
     string(plan.get("topic"), "topic")
+    case = plan.get("case")
+    if case is not None:
+        if not isinstance(case, dict) or set(case) != {"id", "repo", "revision"}:
+            raise Refusal("case needs stable id, repo and revision")
+        string(case["id"], "case.id")
+        string(case["repo"], "case.repo")
+        if not re.fullmatch(r"[0-9a-f]{40}", string(case["revision"], "case.revision")):
+            raise Refusal("case revision must be a full commit SHA")
+        for entry in plan["sources"]:
+            if f'{case["repo"]}@{case["revision"]}:' not in entry["provenance"]:
+                raise Refusal("source provenance must name the case revision")
     units = plan.get("units")
     if not isinstance(units, list) or not units:
         raise Refusal("boot requires explicit pending knowledge units")
@@ -93,6 +104,19 @@ def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None
         terms = unit.get("terms", [])
         if not isinstance(terms, list) or any(not isinstance(t, str) or not t for t in terms):
             raise Refusal("unit terms must be nonempty strings")
+        if case is not None:
+            string(unit.get("learning_step"), "unit.learning_step")
+            string(unit.get("decision_prompt"), "unit.decision_prompt")
+            refs = unit.get("evidence_refs")
+            if not isinstance(refs, list) or not refs:
+                raise Refusal("unit needs code/test/eval evidence references")
+            for ref in refs:
+                if not isinstance(ref, dict) or set(ref) != {"source_id", "anchor", "role"}:
+                    raise Refusal("evidence reference needs source_id, anchor and role")
+                if ref["role"] not in {"code", "test", "test_result", "eval", "historical_eval"}:
+                    raise Refusal("unknown evidence role")
+                if ref["source_id"] not in sources or string(ref["anchor"], "evidence anchor") not in sources[ref["source_id"]].decode("utf-8"):
+                    raise Refusal("evidence anchor missing from pinned source")
     if len(ids) != len(set(ids)):
         raise Refusal("duplicate knowledge unit")
 
@@ -210,14 +234,72 @@ def inspect(run: Path) -> dict:
         if read_file(final / "compiled/medium-canonical.md") != article:
             raise Refusal("canonical article does not match batch replay")
         return {"status": "DONE", "next": None, **expected,
+                "case": plan.get("case"), "human_checkpoint": checkpoint_status(run, plan, article, len(applied)),
                 "completion_scope": "declared source-bound work queue and recorded review",
                 "semantic_review": "INDEPENDENT_DECLARED" if review["independent"] else "AUTHOR_REVIEW_ONLY",
                 "human_learning_outcome": "NOT_MEASURED"}
     return {"status": "CONTINUE", "next": "drill-down" if remaining else "review-and-finish",
             "source_cursor": remaining[0]["id"] if remaining else None,
             "question": remaining[0]["question"] if remaining else None,
+            "case": plan.get("case"),
+            "learning_step": remaining[0].get("learning_step") if remaining else None,
+            "decision_prompt": remaining[0].get("decision_prompt") if remaining else None,
+            "evidence_refs": remaining[0].get("evidence_refs") if remaining else None,
+            "human_checkpoint": checkpoint_status(run, plan, article, len(applied)),
             "remaining_work": [u["id"] for u in remaining], "applied": applied,
             "article_sha256": digest(article), "semantic_correctness": "NOT_ASSESSED"}
+
+
+def checkpoint_status(run: Path, plan: dict, article: bytes, applied_count: int) -> dict | None:
+    if "case" not in plan:
+        return None
+    files = list(run.glob("human-checkpoint-*.json"))
+    if applied_count < len(plan["units"]):
+        if files:
+            raise Refusal("human checkpoint exists before all patches")
+        return {"status": "DEFERRED"}
+    prompts = [{"unit_id": u["id"], "prompt": u["decision_prompt"]} for u in plan["units"]]
+    if not files:
+        return {"status": "PENDING", "prompts": prompts}
+    if len(files) != 1:
+        raise Refusal("conflicting human checkpoints")
+    path = files[0]
+    if path.name != f"human-checkpoint-{digest(read_file(path))[7:]}.json":
+        raise Refusal("human checkpoint receipt is stale")
+    response = read_json(path)
+    if set(response) != {"case", "article_sha256", "answers"}:
+        raise Refusal("human checkpoint needs case, article_sha256 and answers")
+    if response.get("case") != plan["case"] or response.get("article_sha256") != digest(article):
+        raise Refusal("human checkpoint is stale for case revision or article")
+    answers = response.get("answers")
+    if not isinstance(answers, list) or len(answers) != len(prompts):
+        raise Refusal("human checkpoint must answer each stable unit in order")
+    for unit, answer in zip(plan["units"], answers):
+        if not isinstance(answer, dict) or set(answer) != {"unit_id", "answer"} or answer["unit_id"] != unit["id"]:
+            raise Refusal("human checkpoint must answer each stable unit in order")
+        string(answer.get("answer"), "checkpoint answer")
+    return {"status": "RECORDED_UNGRADED", "receipt_sha256": digest(read_file(path)), "prompts": prompts}
+
+
+def record_checkpoint(run: Path, response_path: Path) -> dict:
+    plan, article, applied = replay(run)
+    if "case" not in plan or len(applied) != len(plan["units"]):
+        raise Refusal("checkpoint requires a completed case work queue")
+    response = read_json(response_path)
+    existing = list(run.glob("human-checkpoint-*.json"))
+    if existing:
+        if len(existing) != 1 or read_json(existing[0]) != response:
+            raise Refusal("conflicting human checkpoint")
+        return {"operation": "NOOP", **inspect(run)}
+    dest = run / f"human-checkpoint-{digest(encoded(response))[7:]}.json"
+    with tempfile.TemporaryDirectory(prefix="medium-checkpoint-") as tmp:
+        trial = Path(tmp) / "run"
+        shutil.copytree(run, trial)
+        (trial / dest.name).write_bytes(encoded(response))
+        checkpoint_status(trial, plan, article, len(applied))
+    with dest.open("xb") as stream:
+        stream.write(encoded(response))
+    return {"operation": "RECORDED", **inspect(run)}
 
 
 def apply_patch(run: Path, patch_path: Path) -> dict:
@@ -311,17 +393,19 @@ def main() -> int:
     p.add_argument("--article", type=Path, required=True)
     p.add_argument("--plan", type=Path, required=True)
     p.add_argument("--run-dir", type=Path, required=True)
-    for cmd in ("next", "drill-down", "finish", "render"):
+    for cmd in ("next", "drill-down", "finish", "render", "checkpoint"):
         p = sub.add_parser(cmd)
         p.add_argument("--run-dir", type=Path, required=True)
         if cmd == "drill-down": p.add_argument("--patch", type=Path, required=True)
         if cmd == "finish": p.add_argument("--review", type=Path, required=True)
         if cmd == "render": p.add_argument("--output", type=Path, required=True)
+        if cmd == "checkpoint": p.add_argument("--response", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.cmd == "boot": result = boot(args.article, args.plan, args.run_dir)
         elif args.cmd == "drill-down": result = apply_patch(args.run_dir, args.patch)
         elif args.cmd == "finish": result = finish(args.run_dir, args.review)
+        elif args.cmd == "checkpoint": result = record_checkpoint(args.run_dir, args.response)
         elif args.cmd == "render":
             _, data, _ = replay(args.run_dir)
             if args.output.exists() or args.output.resolve().is_relative_to(args.run_dir.resolve()):

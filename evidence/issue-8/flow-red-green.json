@@ -1,0 +1,18 @@
+{
+  "control": "planted omission of case identity and deferred human checkpoint",
+  "red": {
+    "baseline_script_git_ref": "HEAD:scripts/lossless_batch.py",
+    "observed_status": "CONTINUE",
+    "assertion": "case.id and deferred human checkpoint must be available at Boot",
+    "result": "FAIL",
+    "failure": "case absent from continuation response"
+  },
+  "green": {
+    "candidate_script": "scripts/lossless_batch.py",
+    "observed_status": "CONTINUE",
+    "case_id": "ops-reconciliation-copilot",
+    "checkpoint": "DEFERRED",
+    "result": "PASS"
+  },
+  "meaning": "mechanical sensitivity only; no natural Agent or human result"
+}

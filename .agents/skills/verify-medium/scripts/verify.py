@@ -100,16 +100,20 @@ class Driver:
             p=Path(tmp);run=p/'run'
             r=self.batch('boot','--article',ev/'before.md','--plan',ev/'plan.json','--run-dir',run)
             assert r['status']=='CONTINUE' and len(r['remaining_work'])==2
+            assert r['case']['id']=='ops-reconciliation-copilot' and r['human_checkpoint']['status']=='DEFERRED'
+            assert r['learning_step'].startswith('A03') and {x['role'] for x in r['evidence_refs']}=={'code','test','test_result'}
             self.batch('finish','--run-dir',run,'--review',ev/'review.json',expected=2)
             self.batch('drill-down','--run-dir',run,'--patch',ev/'patch-02.json',expected=2)
             self.batch('drill-down','--run-dir',run,'--patch',ev/'patch-01.json')
             assert self.batch('next','--run-dir',run)['source_cursor']=='finding-precedence'
             assert self.batch('drill-down','--run-dir',run,'--patch',ev/'patch-01.json')['operation']=='NOOP'
             self.batch('drill-down','--run-dir',run,'--patch',ev/'patch-02.json')
-            assert self.batch('next','--run-dir',run)['next']=='review-and-finish'
+            ready=self.batch('next','--run-dir',run)
+            assert ready['next']=='review-and-finish' and ready['human_checkpoint']['status']=='PENDING'
             self.batch('render','--run-dir',run,'--output',p/'expanded.md')
             r=self.batch('finish','--run-dir',run,'--review',ev/'review.json')
             assert r['status']=='DONE' and r['semantic_review']=='AUTHOR_REVIEW_ONLY'
+            assert r['human_checkpoint']['status']=='PENDING' and r['human_learning_outcome']=='NOT_MEASURED'
             data=(run/'final/compiled/medium-canonical.md').read_bytes()
             assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
             assert data==(ev/'expected-after.md').read_bytes()
