@@ -1,0 +1,43 @@
+{
+  "topic": "Group Anagrams as a canonical-representation lesson",
+  "claims": [
+    {
+      "id": "C1",
+      "stage": 1,
+      "description": "The chosen representation follows from the equivalence relation defined by character counts.",
+      "protected_literals": ["26"]
+    },
+    {
+      "id": "C2",
+      "stage": 2,
+      "description": "One concrete string is traced from mutable counting state to an immutable dictionary key.",
+      "protected_literals": ["eat"]
+    },
+    {
+      "id": "C3",
+      "stage": 3,
+      "description": "Sorting is compared under the same grouping contract and cost variables.",
+      "protected_literals": ["O(K log K)"]
+    },
+    {
+      "id": "C4",
+      "stage": 4,
+      "description": "Implementation, correctness and edge cases correspond to the earlier runtime trace.",
+      "protected_literals": ["tuple(count)"]
+    },
+    {
+      "id": "C5",
+      "stage": 5,
+      "description": "Interview compression and the Master Map introduce no new technical claim.",
+      "protected_literals": ["Problem -> Decision"]
+    }
+  ],
+  "terms": [
+    {
+      "id": "T1",
+      "canonical": "canonical key",
+      "first_stage": 1,
+      "forbidden_variants": ["標準鍵值", "唯一鍵"]
+    }
+  ]
+}

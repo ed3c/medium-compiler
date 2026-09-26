@@ -1,0 +1,18 @@
+{
+  "admitted_files": {
+    "parts/stage-06.coverage.json": "sha256:60c183bcbfb5f5c11f064e9d6ee4ab0a11c3f63f82ae7782c9c476b2211ccb12",
+    "parts/stage-06.md": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+    "semantic-draft.md": "sha256:6f8df3e9c7cbd106b893ad7894d8e0c5e967836e6e43495b127c6d7446b44541",
+    "spec.json": "sha256:34aaff0b1ad05b1b887cc2dc9fa9f1daaeaec1d1df33a4ba30c8206be623b67d"
+  },
+  "canonical_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+  "covered_claims": [],
+  "defined_terms": [],
+  "mode": "revision",
+  "next_stage": null,
+  "schema_version": "medium-compiler-state@1",
+  "status": "ASSEMBLED",
+  "submitted_stages": [
+    6
+  ]
+}

@@ -1,0 +1,37 @@
+test_coverage_change_invalidates_receipt (test_article_revision.RevisionTests.test_coverage_change_invalidates_receipt) ... ok
+test_import_does_not_fabricate_stages (test_article_revision.RevisionTests.test_import_does_not_fabricate_stages) ... ok
+test_inline_code_change_is_refused (test_article_revision.RevisionTests.test_inline_code_change_is_refused) ... ok
+test_link_change_is_refused (test_article_revision.RevisionTests.test_link_change_is_refused) ... ok
+test_next_stops_after_valid_receipt (test_article_revision.RevisionTests.test_next_stops_after_valid_receipt) ... ok
+test_proof_cannot_overwrite_article (test_article_revision.RevisionTests.test_proof_cannot_overwrite_article) ... ok
+test_prose_adjacent_to_link_can_change (test_article_revision.RevisionTests.test_prose_adjacent_to_link_can_change) ... ok
+test_receipt_cannot_promote_its_own_semantic_status (test_article_revision.RevisionTests.test_receipt_cannot_promote_its_own_semantic_status) ... ok
+test_receipt_check_is_read_only (test_article_revision.RevisionTests.test_receipt_check_is_read_only) ... ok
+test_renewing_receipt_does_not_launder_mutated_code (test_article_revision.RevisionTests.test_renewing_receipt_does_not_launder_mutated_code) ... ok
+test_revision_proof_is_bound_to_imported_before (test_article_revision.RevisionTests.test_revision_proof_is_bound_to_imported_before) ... ok
+test_semantic_snapshot_is_not_mutable_after_import (test_article_revision.RevisionTests.test_semantic_snapshot_is_not_mutable_after_import) ... ok
+test_spec_change_is_refused_without_advancing_state (test_article_revision.RevisionTests.test_spec_change_is_refused_without_advancing_state) ... ok
+test_tilde_fence_code_mutation_is_detected (test_article_revision.RevisionTests.test_tilde_fence_code_mutation_is_detected) ... ok
+test_unclosed_fence_is_refused (test_article_revision.RevisionTests.test_unclosed_fence_is_refused) ... ok
+test_assembly_is_exact_stage6_bytes (test_medium_compiler.MediumCompilerTests.test_assembly_is_exact_stage6_bytes) ... ok
+test_copyedit_must_preserve_canonical_terms (test_medium_compiler.MediumCompilerTests.test_copyedit_must_preserve_canonical_terms) ... ok
+test_copyedit_must_preserve_exact_literals (test_medium_compiler.MediumCompilerTests.test_copyedit_must_preserve_exact_literals) ... ok
+test_copyedit_must_preserve_fenced_blocks (test_medium_compiler.MediumCompilerTests.test_copyedit_must_preserve_fenced_blocks) ... ok
+test_dropped_claim_coverage_is_refused (test_medium_compiler.MediumCompilerTests.test_dropped_claim_coverage_is_refused) ... ok
+test_init_exposes_stage_zero (test_medium_compiler.MediumCompilerTests.test_init_exposes_stage_zero) ... ok
+test_issue_proof_binds_article_update_and_valid_receipt (test_medium_compiler.MediumCompilerTests.test_issue_proof_binds_article_update_and_valid_receipt) ... ok
+test_issue_proof_requires_after_to_match_canonical (test_medium_compiler.MediumCompilerTests.test_issue_proof_requires_after_to_match_canonical) ... ok
+test_issue_proof_requires_real_article_change (test_medium_compiler.MediumCompilerTests.test_issue_proof_requires_real_article_change) ... ok
+test_machine_sidecar_is_refused_at_assembly (test_medium_compiler.MediumCompilerTests.test_machine_sidecar_is_refused_at_assembly) ... ok
+test_missing_canonical_term_is_refused (test_medium_compiler.MediumCompilerTests.test_missing_canonical_term_is_refused) ... ok
+test_receipt_is_valid_for_untouched_artifacts (test_medium_compiler.MediumCompilerTests.test_receipt_is_valid_for_untouched_artifacts) ... ok
+test_semantic_draft_excludes_stage_zero (test_medium_compiler.MediumCompilerTests.test_semantic_draft_excludes_stage_zero) ... ok
+test_stage_skip_is_refused (test_medium_compiler.MediumCompilerTests.test_stage_skip_is_refused) ... ok
+test_stale_receipt_is_refused_after_article_change (test_medium_compiler.MediumCompilerTests.test_stale_receipt_is_refused_after_article_change) ... ok
+test_style_lint_is_advisory (test_medium_compiler.MediumCompilerTests.test_style_lint_is_advisory) ... ok
+test_term_drift_is_refused (test_medium_compiler.MediumCompilerTests.test_term_drift_is_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.084s
+
+OK
