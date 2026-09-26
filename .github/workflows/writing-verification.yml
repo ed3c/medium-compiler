@@ -1,0 +1,54 @@
+name: Writing verification
+on:
+  push:
+    branches: [agent/issue-8-lossless-skills]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Tests and pinned source snapshot
+        shell: bash
+        run: |
+          mkdir -p /tmp/writing-evidence
+          set +e
+          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
+          echo "$?" > /tmp/writing-evidence/test-exit.txt
+          set -e
+          git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
+          git archive HEAD > /tmp/writing-evidence/checkout.tar
+          python3 - <<'PY'
+          import hashlib, json, pathlib, urllib.request
+          root = pathlib.Path('/tmp/writing-evidence')
+          sources = {
+              'evals-skills': ('ai-evals-course/evals-skills', '80d5f7b0127c7572ed9e9339937adbfd7240ffeb'),
+              'pstack': ('ed3c/plugins', '68836ddaf5697224520f1847d90cdb90ca8babaa'),
+              'ops': ('ed3c/ops-reconciliation-copilot', '24a56d18661630b0dba97dcb0b057dce07b0ab32'),
+          }
+          records = []
+          for name, (repo, rev) in sources.items():
+              url = f'https://codeload.github.com/{repo}/tar.gz/{rev}'
+              try:
+                  with urllib.request.urlopen(url, timeout=45) as r:
+                      data = r.read(25000000)
+                  path = root / f'{name}.tar.gz'
+                  path.write_bytes(data)
+                  records.append({'name': name, 'repo': repo, 'revision': rev, 'url': url,
+                                  'sha256': hashlib.sha256(data).hexdigest(), 'status': 'FETCHED'})
+              except Exception as exc:
+                  records.append({'name': name, 'revision': rev, 'status': 'FETCH_FAILED', 'error': str(exc)})
+          (root / 'sources.json').write_text(json.dumps(records, indent=2) + '\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: writing-evidence
+          path: /tmp/writing-evidence/
+          retention-days: 7
+      - name: Enforce test exit
+        run: test "$(cat /tmp/writing-evidence/test-exit.txt)" = 0
