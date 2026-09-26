@@ -1,0 +1,10 @@
+{
+  "elements": ["copyedit"],
+  "claims": [],
+  "terms": [],
+  "revision_kind": "source_correction",
+  "source_link": {
+    "from": "https://www.gotop.com.tw/book/BookDetails.aspx?bn=A806",
+    "to": "https://github.com/chiphuyen/aie-book"
+  }
+}

@@ -326,15 +326,59 @@ def _prose_literals(text: str) -> dict[str, Counter]:
     }
 
 
-def _validate_copyedit(spec: dict[str, Any], before: str, after: str) -> None:
+def _stage6_source_link(coverage: dict[str, Any], mode: str) -> dict[str, str] | None:
+    base = {"elements": ["copyedit"], "claims": [], "terms": []}
+    if coverage == base:
+        return None
+    if mode != "revision":
+        raise CompilerError("source correction is only valid for imported article revisions")
+    if set(coverage) != {*base, "revision_kind", "source_link"}:
+        raise CompilerError("invalid copyedit coverage")
+    if any(coverage.get(key) != value for key, value in base.items()):
+        raise CompilerError("invalid copyedit coverage")
+    if coverage.get("revision_kind") != "source_correction":
+        raise CompilerError("unsupported revision kind")
+    link = coverage.get("source_link")
+    if not isinstance(link, dict) or set(link) != {"from", "to"}:
+        raise CompilerError("source correction requires exactly one from/to link")
+    source_from = _require_string(link.get("from"), "source_link.from")
+    source_to = _require_string(link.get("to"), "source_link.to")
+    if source_from == source_to:
+        raise CompilerError("source correction must change the link destination")
+    return {"from": source_from, "to": source_to}
+
+
+def _validate_copyedit(
+    spec: dict[str, Any],
+    before: str,
+    after: str,
+    source_link: dict[str, str] | None = None,
+) -> None:
     if not after.strip():
         raise CompilerError("copyedit is empty")
     if _extract_fences(before) != _extract_fences(after):
         raise CompilerError("copyedit changed fenced code/text blocks")
     old, new = _prose_literals(before), _prose_literals(after)
-    for kind in old:
-        if old[kind] != new[kind]:
-            raise CompilerError(f"copyedit changed protected {kind}")
+    if old["inline code"] != new["inline code"]:
+        raise CompilerError("copyedit changed protected inline code")
+    if source_link is None:
+        if old["source links"] != new["source links"]:
+            raise CompilerError("copyedit changed protected source links")
+    else:
+        source_from, source_to = source_link["from"], source_link["to"]
+        old_links = old["source links"]
+        new_links = new["source links"]
+        if old_links[source_from] != 1:
+            raise CompilerError("declared source link must exist exactly once in imported article")
+        if new_links[source_to] != 1:
+            raise CompilerError("replacement source link must exist exactly once in submitted article")
+        expected = old_links.copy()
+        expected[source_from] -= 1
+        if expected[source_from] == 0:
+            del expected[source_from]
+        expected[source_to] += 1
+        if new_links != expected:
+            raise CompilerError("source correction changed more than the declared link")
     _check_forbidden_variants(spec, after)
     for literal in _protected_literals(spec):
         if literal not in after:
@@ -392,11 +436,12 @@ def submit_stage(
             )
         if coverage.get("claims", []) or coverage.get("terms", []):
             raise CompilerError("stage 6 must not re-declare claim or term coverage")
+        source_link = _stage6_source_link(coverage, state.get("mode", "staged"))
 
         if not paths["semantic"].is_file():
             raise CompilerError("semantic draft is missing before copyedit")
         before = paths["semantic"].read_text(encoding="utf-8")
-        _validate_copyedit(spec, before, text)
+        _validate_copyedit(spec, before, text, source_link)
         due_claims, due_terms = set(), set()
 
     part_dest = _part_path(paths["parts"], stage)
@@ -470,7 +515,11 @@ def assemble(run_dir: Path) -> dict[str, Any]:
     if not stage6.is_file():
         raise CompilerError("Stage 6 article is missing")
     text = stage6.read_text(encoding="utf-8")
-    _validate_copyedit(spec, paths["semantic"].read_text(encoding="utf-8"), text)
+    coverage = _read_json(_coverage_path(paths["parts"], 6))
+    source_link = _stage6_source_link(coverage, state.get("mode", "staged"))
+    _validate_copyedit(
+        spec, paths["semantic"].read_text(encoding="utf-8"), text, source_link
+    )
     markers = [marker for marker in MACHINE_MARKERS if marker in text]
     if markers:
         raise CompilerError(f"machine sidecar leaked into article: {markers}")
@@ -508,8 +557,8 @@ def _receipt_payload(run_dir: Path) -> dict[str, Any]:
         if stage < 6:
             _validate_coverage(spec, stage, coverage, text)
             _check_forbidden_variants(spec, text)
-        elif coverage != {"elements": ["copyedit"], "claims": [], "terms": []}:
-            raise CompilerError("invalid copyedit coverage")
+        else:
+            _stage6_source_link(coverage, state.get("mode", "staged"))
     before = paths["semantic"].read_text(encoding="utf-8")
     if state.get("mode") == "staged":
         expected = "\n\n".join(_part_path(paths["parts"], i).read_text(
@@ -520,7 +569,9 @@ def _receipt_payload(run_dir: Path) -> dict[str, Any]:
     final = paths["canonical"].read_bytes()
     if final != stage6.read_bytes() or _sha256_bytes(final) != state.get("canonical_sha256"):
         raise CompilerError("canonical article bytes changed")
-    _validate_copyedit(spec, before, final.decode("utf-8"))
+    stage6_coverage = _read_json(_coverage_path(paths["parts"], 6))
+    source_link = _stage6_source_link(stage6_coverage, state.get("mode", "staged"))
+    _validate_copyedit(spec, before, final.decode("utf-8"), source_link)
     if any(marker in final.decode("utf-8") for marker in MACHINE_MARKERS):
         raise CompilerError("machine sidecar leaked into article")
     return {

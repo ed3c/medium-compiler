@@ -1,0 +1,12 @@
+{
+  "after_matches_canonical": true,
+  "after_sha256": "sha256:bba6eaa197b762d8ae2dd3cee047caeaf6241a5220ca3ee11a64161a8b5373c6",
+  "article_changed": true,
+  "before_sha256": "sha256:a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+  "canonical_sha256": "sha256:bba6eaa197b762d8ae2dd3cee047caeaf6241a5220ca3ee11a64161a8b5373c6",
+  "closure_authority": "ARTICLE_UPDATE_EVIDENCE_ONLY",
+  "issue": 3,
+  "schema_version": "medium-issue-article-proof@1",
+  "semantic_correctness": "NOT_ASSESSED",
+  "validation_status": "VALID"
+}

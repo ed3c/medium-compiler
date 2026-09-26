@@ -40,11 +40,30 @@ python3 medium_compiler.py next --run-dir /tmp/revision
 # VALIDATED, next = null; this does not mean semantic correctness was assessed.
 ```
 
-`copyedit.json` contains:
+`copyedit.json` normally contains:
 
 ```json
 {"elements":["copyedit"],"claims":[],"terms":[]}
 ```
+
+For an imported article with one verified source-link defect, Stage 6 may instead
+declare exactly one bounded replacement:
+
+```json
+{
+  "elements": ["copyedit"],
+  "claims": [],
+  "terms": [],
+  "revision_kind": "source_correction",
+  "source_link": {
+    "from": "https://old.example/resource",
+    "to": "https://official.example/resource"
+  }
+}
+```
+
+All other source-link destinations remain protected. This is deliberately not a
+generic technical-edit manifest.
 
 `spec.json` contains a topic and optional claim/term declarations. See
 [examples/spec.json](examples/spec.json). For authoring stages, each coverage sidecar

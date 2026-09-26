@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import shutil
 
 import medium_compiler as mc
 
@@ -60,6 +61,39 @@ class RevisionTests(unittest.TestCase):
         self.after.write_text(self.after.read_text().replace('example.org/v2', 'example.org/v1'))
         with self.assertRaisesRegex(mc.CompilerError, 'source links'):
             self.submit()
+
+    def source_correction_coverage(self, source_from='https://example.org/v2', source_to='https://example.org/v3'):
+        path = self.root / 'source-correction.json'
+        path.write_text(json.dumps({
+            'elements': ['copyedit'],
+            'claims': [],
+            'terms': [],
+            'revision_kind': 'source_correction',
+            'source_link': {'from': source_from, 'to': source_to},
+        }))
+        return path
+
+    def test_declared_single_source_link_change_passes(self):
+        self.after.write_text(self.after.read_text().replace('example.org/v2', 'example.org/v3'))
+        mc.submit_stage(self.run, 6, self.after, self.source_correction_coverage())
+        mc.assemble(self.run)
+        mc.build_receipt(self.run)
+        self.assertEqual(mc.check_receipt(self.run)['status'], 'VALID')
+
+    def test_declared_source_change_cannot_hide_second_link_change(self):
+        self.before.write_text(self.before.read_text() + '\n[其他](https://example.org/other)\n')
+        self.after.write_text(self.before.read_text().replace('example.org/v2', 'example.org/v3')
+                              .replace('example.org/other', 'example.org/changed'))
+        shutil.rmtree(self.run)
+        mc.init_run(self.spec, self.run, self.before)
+        with self.assertRaisesRegex(mc.CompilerError, 'more than the declared link'):
+            mc.submit_stage(self.run, 6, self.after, self.source_correction_coverage())
+
+    def test_declared_source_change_still_refuses_code_mutation(self):
+        self.after.write_text(self.after.read_text().replace('example.org/v2', 'example.org/v3')
+                              .replace('print("v2")', 'print("v3")'))
+        with self.assertRaisesRegex(mc.CompilerError, 'changed fenced'):
+            mc.submit_stage(self.run, 6, self.after, self.source_correction_coverage())
 
     def test_prose_adjacent_to_link_can_change(self):
         self.after.write_text(self.after.read_text().replace('說明版本。', '列出了版本。'))

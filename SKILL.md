@@ -191,8 +191,14 @@ Use the CLI to preserve fenced blocks, inline code, source-link destinations and
 specified literals. Submit once, assemble, verify, then prove-update against the
 imported baseline. A changed admitted file requires a new run; do not repair the
 state JSON or refresh a receipt to hide the change. `next` returns no next action
-after a valid receipt. Code or source corrections require a separately declared
-technical edit, not a weakened prose-only guard.
+after a valid receipt.
+
+If an existing article has one verified source-link defect, treat it as a bounded
+`source_correction`, not ordinary copyedit and not a reason to invent Stages 1-5.
+Declare exactly one old -> new source destination in the Stage 6 sidecar. Do not
+weaken the link guard, edit `state.json`, or expand the same correction into unrelated
+source changes. The CLI may admit only that declared link replacement; semantic
+correctness remains a writing/source-review responsibility.
 
 A nonempty diff is only change evidence. Keep author review, independent reader
 results, natural writer A/B and publication status separate; report only what was

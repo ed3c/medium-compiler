@@ -1,0 +1,28 @@
+{
+  "red_exit": 2,
+  "red_stderr": "medium-compiler refused: copyedit changed protected source links",
+  "before_git_blob": "4e57eef57fa5d84f8dbc58790947bcef067eb463",
+  "after_git_blob": "e3c1ad1f3e76179d94e797436aaf9048e85216c8",
+  "before_sha256": "a9ab5e959c51860e3e5a06dc67fabaf135924c559e8b857c3106ea62b88b312f",
+  "after_sha256": "bba6eaa197b762d8ae2dd3cee047caeaf6241a5220ca3ee11a64161a8b5373c6",
+  "canonical_sha256": "bba6eaa197b762d8ae2dd3cee047caeaf6241a5220ca3ee11a64161a8b5373c6",
+  "after_equals_canonical": true,
+  "check_receipt": {
+    "article_sha256": "sha256:bba6eaa197b762d8ae2dd3cee047caeaf6241a5220ca3ee11a64161a8b5373c6",
+    "semantic_correctness": "NOT_ASSESSED",
+    "status": "VALID"
+  },
+  "next_after": {
+    "next": null,
+    "semantic_correctness": "NOT_ASSESSED",
+    "status": "VALIDATED"
+  },
+  "article_update": {
+    "after_matches_canonical": true,
+    "article_changed": true,
+    "issue": 3,
+    "validation_status": "VALID",
+    "semantic_correctness": "NOT_ASSESSED"
+  },
+  "tests": "35 PASS"
+}
