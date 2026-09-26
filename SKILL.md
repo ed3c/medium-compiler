@@ -6,7 +6,7 @@ description: >-
   implementation. Use the repository CLI for stage order and completion; keep semantic
   choices in the writing layer. No generated images are required.
 metadata:
-  version: "1.0.1"
+  version: "1.2.0"
 ---
 
 # Zero-Context Medium Writing
@@ -40,7 +40,7 @@ at runtime.
 Do not decide stage order, completion, claim accounting, term identity, or final-byte
 freshness from prose. The CLI owns those deterministic questions.
 
-The writing layer owns five semantic choices:
+The writing layer uses five organizing questions (not an exhaustive count of semantic judgments):
 
 1. **Central question** — the smallest reader question that unlocks the topic.
 2. **Governing property** — the invariant, constraint or system property that explains the
@@ -50,7 +50,7 @@ The writing layer owns five semantic choices:
 4. **Runtime witness** — one concrete example that crosses the material state boundaries.
 5. **Alternative** — one competing approach that teaches a real decision boundary.
 
-Everything else should follow from those choices and the source.
+Correctness, source interpretation, scope and cost derivations still require semantic judgment. The five questions organize the work; they do not count the reader decisions in a particular article.
 
 ## Stage 0 — TOC and maps
 
@@ -191,15 +191,136 @@ Use the CLI to preserve fenced blocks, inline code, source-link destinations and
 specified literals. Submit once, assemble, verify, then prove-update against the
 imported baseline. A changed admitted file requires a new run; do not repair the
 state JSON or refresh a receipt to hide the change. `next` returns no next action
-after a valid receipt.
-
-If an existing article has one verified source-link defect, treat it as a bounded
-`source_correction`, not ordinary copyedit and not a reason to invent Stages 1-5.
-Declare exactly one old -> new source destination in the Stage 6 sidecar. Do not
-weaken the link guard, edit `state.json`, or expand the same correction into unrelated
-source changes. The CLI may admit only that declared link replacement; semantic
-correctness remains a writing/source-review responsibility.
+after a valid receipt. Code or source corrections require a separately declared
+technical edit, not a weakened prose-only guard.
 
 A nonempty diff is only change evidence. Keep author review, independent reader
 results, natural writer A/B and publication status separate; report only what was
 actually executed. Identical protected bytes do not prove semantic fidelity.
+
+## Reader decisions and source-preserving staged output
+
+Use [the task prompts](prompts/medium-article.md) for task, continuation and assembly input.
+This SKILL is the writing contract; the prompt file is a task adapter, not a second system
+prompt. For supplied v7.1 cards, use only the optional
+[card-context reference](references/card-context-v7.1.md).
+
+### Three different counts
+
+Keep separate: numbered article sections; principal reader decisions within the topic;
+and the five organizing questions above. Derive the decision count after mapping the
+actual source. Neither 5, 12 nor the example's 14 is a quota for another subject.
+A principal reader decision has a reader question, competing action, a condition that
+changes the choice, a consequence and an exact source/section anchor. Merge adjacent
+steps that serve the same choice; do not equate every if statement with a teaching decision.
+
+### Stage 0 presentation
+
+Show the article table of contents first. Then explain the scope and necessary terms,
+list the derived decisions with their condition and destination section, and show:
+
+- a text mind map of decision/dependency relationships;
+- a directory or symbol tree of the actual subject, labeled observed/proposed/embedded;
+- one input-to-output data-flow map with relevant refusal and missing-evidence branches.
+
+Distinguish the subject's runtime from medium-compiler's writing runtime. A directory
+shows containment, not execution order. Every map label must be explained in nearby
+prose or assigned to a named section; a map cannot silently add facts. A design sketch
+is not execution evidence. Existing code identifiers and conditions stay exact.
+
+### Carry context without printing the audit
+
+Keep one compact companion with source/revision, decision anchors, canonical terms,
+necessary claims/qualifiers, unresolved gaps and the next delivery part. Reuse imported
+stable card IDs and typed relationships, never make up a completed card batch. Mark
+rendered / deferred-to-section / explicitly excluded-with-reason / unknown; never silently
+drop material. Required claims cannot be excluded merely to satisfy a gate.
+
+The companion is a review aid, not semantic authority. Literal preservation checks
+cannot prove that every relevant source claim was captured in a writer-created ledger.
+Source review must also look outside the ledger. Preserve contradictions and unknowns.
+
+### Authoring stages are not delivery parts
+
+For new articles, keep the CLI's Stage 0–7 authoring flow. By default stop the current
+chat response after the requested stage; resume only the next stage when asked. An
+explicit uninterrupted request executes the phases internally. Do not ask whether to
+continue when the user has already requested uninterrupted execution.
+
+For an existing article, read the complete baseline and keep its organization unless
+structural revision was requested. Do not rewrite it into a different subject or invent
+prior authoring events. A requested reading overview can be added as a declared,
+source-grounded insertion, preserving the original body. That is an editorial addition,
+not an independent semantic PASS from the CLI.
+
+Delivery parts are contiguous slices of an approved article edition. They may group
+sections differently from authoring stages. Name their order, byte digests and final
+article digest in one assembly manifest. Keep the title only in the first part and
+source/limitation notes in the final part. Do not split a fenced block. No generic
+recap, repeated heading or continuation note belongs inside a copyable part.
+
+Stage 6 may revise earlier drafts. After it does, use a complete set of parts from that
+same approved edition; never mix earlier chat drafts with final parts. Stage 7 remains
+a copy of accepted bytes, not an opportunity to add or compress information. The Stage-0
+planning companion is not automatically pasted into the article; any reader-facing TOC
+or map needed in the final piece must already be in its admitted prose.
+
+When a change touches protected code, link or diagram bytes, do not weaken the prose
+check or edit state.json. Record the intended technical change and follow only a
+currently implemented route. Issue #3 owns the separate reopen path; its issue text is
+not evidence that the command exists.
+
+Report artifact assembly, mechanical preservation, author review, independent reader
+and fresh-writer transfer separately. No skill or digest can guarantee lossless meaning
+or identical writing quality for every future topic.
+
+
+## Medium-native final body
+
+The final reader-facing Medium article uses headings/subheadings, paragraphs, emphasis,
+links, quotes, lists, inline code and fenced code/text blocks. Do not use Markdown or HTML
+tables in the final body. Internal audit files may use tables. Render matrices as labeled
+blocks, short lists, Option A / Option B, or fixed-width text only when alignment matters.
+
+Medium web builds table-of-contents navigation from headings/subheadings. Stage 0 may show
+an outline for planning; do not duplicate a manual TOC into final prose unless requested.
+
+## Reader-link access gate
+
+Every reader-facing link must be readable without purchasing a book or crossing an
+owner-only login gate. Prefer pinned public source files/commits, open-source books/repos,
+public official docs, or complete public articles. Do not link stores, paid previews,
+private repos, owner-only workspaces, or login-gated evidence. Public provider docs are
+allowed even when actual API execution later needs credentials; state that distinction.
+
+For the worked AI Engineer article, every external URL must appear in
+`references/open-access-resources.json`.
+
+## Real public running examples
+
+When the user names a real public repository as the running example, use that product's
+actual problem, state, code and retained evidence rather than preserving a synthetic case
+for convenience. Do not force RAG, Agent, fine-tuning or another layer into the narrative
+when the repository does not need or implement it.
+
+The current worked article uses
+`ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32`.
+
+
+## Substantive learning-resource gate
+
+Open access is necessary but not sufficient for a core learning recommendation.
+
+A reader-facing **core learning resource** must lead directly to at least one of:
+
+- a complete book chapter or full open manuscript;
+- a complete lesson with explanation plus runnable code/tests;
+- a full open-source book whose chapter body is directly readable;
+- a complete technical tutorial/article with enough detail to perform the stated task.
+
+Do not use a companion/index repository, bookstore page, preview page, summary-only page or
+link collection as the primary resource for a concept. An index may remain a secondary
+navigation aid only when the article also links the exact substantive chapter/lesson.
+
+For the worked AI Engineer article, core teaching links are marked
+`learning_depth: substantive` in `references/open-access-resources.json`.

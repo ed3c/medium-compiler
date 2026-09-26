@@ -1,451 +1,679 @@
-# 從軟體工程師到 AI Engineer：用一個文件助理串起 LLM、RAG、Evals、Agent 與 AI Infra
+# 從軟體工程師到 AI Engineer：用 Ops Reconciliation Copilot 串起 LLM、Evals、Agent 邊界與 AI Infra
 
-中文優先的學習路徑：從教材章節走到可執行的程式、可定位的失敗，以及能解釋的設計取捨。
+中文優先、實作優先的學習路徑：不是把 LLM、RAG、Agent、Fine-tuning 和 AI Infra 當成一串必修名詞，而是沿著一個可以公開檢查的產品，理解每個技術決策在什麼問題出現時才值得加入。
 
-假設你正在做一個工程文件助理。使用者問：「billing 服務的 v2，在回復上一版之前要檢查什麼？」系統找到一份 v1 文件，模型讀完後產生了一段流暢、格式正確、附有引用的回答。
+這篇文章的主例是公開的 [Ops Reconciliation Copilot](https://github.com/ed3c/ops-reconciliation-copilot)。它處理一個很適合 AI Engineer 學習的問題：兩份交易 CSV 使用不同欄位名稱，模型可以提議欄位對應，但真正的交易配對與金額差異由 Python 執行。
 
-這個回答能直接交付嗎？
-
-只看 JSON 是否合法，會漏掉文件版本錯誤；只確認引用存在，會漏掉引用是否支持回答；只換一個更大的模型，則沒有修正資料選擇的條件。這個教學案例把一個 AI 應用拆成幾個可以分別檢查的問題：輸入是什麼、證據從哪裡來、模型能決定什麼，以及錯誤在哪一層被發現。
-
-起點是已具備程式設計、Git、HTTP API 與基本測試經驗的軟體工程師。以現成大型語言模型（Large Language Model，LLM）建構應用，學習評估回答與維運服務；遇到瓶頸時，再深入模型實作與基礎設施。從零訓練大型基礎模型，不是完成第一個應用的先決條件。
-
-這條路徑與文件助理是教學用方案，並非各教材共同指定的課綱。資源入口與公開目錄核對於 **2026 年 9 月 26 日**。文中的 Python 範例已執行；它使用可控制的模型替身，不代表已測試真實 LLM 的回答品質。
-
-## 1. 先把「成為 AI Engineer」寫成可驗收的工作
-
-[AI Engineering from Scratch 的 Learning Paths](https://aiengineeringfromscratch.com/learning-paths.html)把 LLM Product Engineering、Agent Systems Engineering、AI Evaluation and Reliability 等方向分開，依工作責任安排教材。這條路線先選應用工程主線：交付一個有資料依據、能診斷失敗、具有工具邊界的功能。
-
-對文件助理而言，第一版只接收服務名稱、版本與問題，回傳附來源的候選回答。找不到指定版本的文件，就明確回報證據不足；模型呼叫失敗，就回報系統錯誤。它不操作真實部署、不執行 rollback，也不把文件中的文字當成額外授權。rollback 在此指將服務回復到先前版本。
-
-這個範圍決定了學習順序。先把輸入、輸出與失敗行為做穩，才能比較檢索方式；先知道答案錯在哪裡，才有理由改 prompt、換模型或微調。之後加入工具與效能量測，仍使用同一批任務觀察變化。
-
-最後應留下的能力是：另一位工程師能重現專案，而你能根據一筆失敗紀錄，指出應修改資料、模型介面、檢索、工具控制或部署中的哪一層。
-
-## 2. 這五套資源各自補哪個缺口？
-
-學習主線使用 [AI Engineering from Scratch](https://aiengineeringfromscratch.com/) 的 **Building and Deploying AI Applications** 路線。把它當成練習入口；需要哪種能力，就前往對應單元，不以首頁課程數量衡量進度。
-
-應用設計的主教材選 Chip Huyen 的《AI Engineering》。作者的 [official companion repository](https://github.com/chiphuyen/aie-book) 公開提供 Table of contents、chapter summaries、study notes、AI engineering resources、prompt examples 與 case studies，可先用這些資料定位相關章節；需要完整內容再閱讀書籍。第 1、5 章幫助建立任務與模型介面；第 3–4 章處理評估；第 6 章進入 RAG 與代理；第 9–10 章連到推論與系統交付。第 7–8 章的微調與數據集工程，留到有適配需求時再讀。
-
-理解模型內部時，使用 Sebastian Raschka 的 [Build a Large Language Model (From Scratch)](https://sebastianraschka.com/llms-from-scratch/)。需要中文補充，就查 [Happy-LLM](https://github.com/datawhalechina/happy-llm) 的 Transformer 與模型實作章節。兩者服務同一個理解缺口，不必每章重複通讀。
-
-工具、上下文與 Agent 評估，使用[《深入理解 AI Agent》](https://github.com/bojieli/ai-agent-book)；資源需求與推論效能，使用[《深入理解 AI Infra》繁中版](https://bojieli.github.io/ai-infra-book/zh-tw/)。這兩套開源書都有持續修訂與社群翻譯，閱讀時應同時記錄章名與版本，不能只記章號。
-
-主線與平行學習的依賴如下。箭頭表示前一步提供下一步需要的產物，不表示所有內容都必須按頁數讀完。
+這個案例有一條清楚的工程邊界：
 
 ```text
-可重現的 Python 程式與測試
-  |
-  v
-模型輸入／輸出契約 + 最小評估
-  |
-  v
-版本正確的證據檢索
-  |
-  v
-有權限與停止條件的工具使用
-  |
-  v
-量測、部署與失敗回復
-
-平行深化：
-文字資料 → attention → 小型模型實作
-
-條件式分支：
-行為適配需求 → Fine-tuning
-容量／延遲瓶頸 → 更深入的 AI Infra
+LLM proposes
+    ↓
+application validates
+    ↓
+human confirms mapping
+    ↓
+deterministic Python reconciles
+    ↓
+findings + evidence are persisted
 ```
 
-## 3. 請求裡哪些資訊不能藏在 prompt？
+這比「做一個 chatbot」更適合拿來練 AI Engineering。模型不是整個產品；你必須同時處理 input contract、structured output、deterministic logic、evals、persistence、runtime、failure handling 和 deployment。
 
-在這個範例中，請求包含三個欄位：`service` 指定服務，`version` 指定文件適用版本，`question` 保存自然語言問題。文件片段則有自己的 `chunk_id`、服務、版本與本文。
+本文引用的學習資源全部可以直接在公開網頁或公開 GitHub repository 閱讀。沒有 O'Reilly 預覽頁、書店頁或需要購買才能繼續閱讀的連結。部分 API 或部署服務在你實際執行時仍可能需要帳號或 API key，但閱讀本文連結不需要付費訂閱。
 
-```json
-{
-  "service": "billing",
-  "version": "v2",
-  "question": "回復上一版之前要檢查什麼？"
-}
-```
+## 1. 先把「成為 AI Engineer」換成一個可以交付的問題
 
-這個表示方式讓版本篩選有明確依據。如果把服務與版本藏在一長段對話中，每個元件都得重新猜測它們的意思；拆成欄位後，程式可以先排除不符合條件的文件。
-
-這個資料契約有一個可直接檢查的性質：**候選回答使用的每個引用 ID，都必須屬於這次提供給模型的文件集合。**這只能證明引用綁定，不能證明引用內容足以支持回答。
-
-`chunk_id` 也不是授權證明。在這個離線範例裡，文件都是合成資料；真正加入內部文件前，還需要使用者身分、資料存取控制，以及能重現內容的來源版本或快照。服務名稱相同，不代表使用者有權閱讀該服務的所有文件。
-
-學習這一段，可先讀《AI工程》第 1、5 章，再做課程的 [Structured Outputs](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/03-structured-outputs&learningPath=building-and-deploying-ai-applications)。把請求與回應契約、錯誤處理及測試存進專案。除了正常回答，測試結果也要分清無效輸入、證據不足與模型錯誤。
-
-## 4. v2 問題進來後，資料怎麼走？
-
-先準備兩筆測試資料：`billing-v1-01` 屬於 v1，`billing-v2-01` 屬於 v2。v2 文件的內容是：「v2 的測試文件要求先檢查 migration 相容性。」migration 在這個例子裡指資料庫結構或資料的遷移；這句話只是測試素材，不是實際部署操作指引。
-
-下面的資料流對應下一節程式。模型位置先放入 test double，也就是可控制回應的替代實作；它直接複製收到的第一筆文件，不理解問題。
+如果目標只是「學 LLM」，學習路徑很容易變成：
 
 ```text
-Request(service="billing", version="v2")
-  |
-  | 檢查必要欄位
-  v
-掃描 corpus，精確比對 service 與 version
-  |
-  | 排除 billing-v1-01
-  v
-evidence = (billing-v2-01,)
-  |
-  | 呼叫 fixture_model(question, evidence)
-  v
-JSON 文字：text + citations
-  |
-  | 解析結構、檢查欄位與引用集合
-  v
-status = "candidate"
+Transformer
+→ Prompt
+→ RAG
+→ Agent
+→ Fine-tuning
+→ Infra
 ```
 
-`candidate` 表示結構與引用檢查通過，還不能被命名成「語意已驗證」。這個名稱讓後續評估保留明確位置。
+這個順序的問題是：它沒有說明為什麼現在需要下一項技術。
 
-把版本改成 v3，流程會在取得文件後分岔：集合為空，直接回傳 `insufficient_evidence`，不呼叫模型。這是一個由目前資料就能決定的步驟，不需要再讓模型判斷是否「應該試著回答」。
+Ops Reconciliation Copilot 把目標改成一個更具體的問題：
 
-目前只做 metadata filtering，也就是依欄位篩選；它還沒有根據問題找出最相關的段落。先保留這個限制，下一個里程碑才有可以觀察的缺口。
+> 兩份欄位名稱不同的交易 CSV，怎麼讓模型幫忙辨識 schema，又不把交易計算交給模型？
 
-## 5. 先用 test double 把模型變因拿掉
+[公開 README](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/README.md) 已把產品邊界寫得很清楚：只把左右 CSV 的 headers 傳給模型；模型產生 `mapping_proposal`；實際 `mapping` 要另外提交；金額差異由 `Decimal` 計算。
 
-以下程式只需要 Python 3.10 以上的標準庫，不使用 API key，也不連網。存成 `doc_assistant.py`，執行 `python3 doc_assistant.py` 即可看到 v2 與 v3 的不同結果。
+因此第一個 AI Engineer 能力不是「會呼叫模型」，而是能回答：
 
-先使用替身，是為了讓相同輸入得到可控制的回應，單獨測試模型以外的程式。這一步不衡量 LLM 的能力；之後替換成真實 adapter 時，仍可保留同一組介面測試。
+**模型應該負責什麼？**
 
-```python
-"""Offline teaching example. No network calls and no real LLM inference."""
-from __future__ import annotations
+**什麼結果必須由程式或人決定？**
 
-import json
-from dataclasses import dataclass
-from typing import Callable
+**模型錯了時，系統怎麼停在安全狀態？**
 
+如果想先走一條完整的 application engineering 路線，可以用 [AI Engineering from Scratch](https://aiengineeringfromscratch.com/)；它公開 20 個 phases、523 lessons，每課都把問題接到數學、程式與測試。需要補 LLM 本體時，不再連到只有摘要的 companion repo：中文直接讀 Happy-LLM 的[第五章〈動手搭建大模型〉](https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter5/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B.md)，英文理論直接讀 Jurafsky 與 Martin 免費公開的 [Chapter 7: Transformers and Pretraining](https://web.stanford.edu/~jurafsky/slp3/7.pdf)。
 
-@dataclass(frozen=True)
-class Request:
-    service: str
-    version: str
-    question: str
+## 2. 第一個核心決策：LLM 可以提議，但不能直接執行對帳
 
+Ops Reconciliation Copilot 最值得學的不是 prompt，而是它把模型輸出放在哪個 authority level。
 
-@dataclass(frozen=True)
-class Chunk:
-    chunk_id: str
-    service: str
-    version: str
-    text: str
-
-
-Model = Callable[[str, tuple[Chunk, ...]], str]
-
-
-def run(req: Request, corpus: tuple[Chunk, ...], model: Model) -> dict:
-    def error(reason: str) -> dict:
-        return {"status": "error", "reason": reason}
-
-    if any(not isinstance(v, str) or not v.strip()
-           for v in (req.service, req.version, req.question)):
-        return error("invalid_request")
-
-    # Metadata filtering only; relevance retrieval is a later milestone.
-    evidence = tuple(c for c in corpus
-                     if c.service == req.service and c.version == req.version)
-    if not evidence:
-        return {"status": "insufficient_evidence", "citations": []}
-    if any(not isinstance(c.chunk_id, str) or not c.chunk_id.strip()
-           or not isinstance(c.text, str) or not c.text.strip()
-           for c in evidence):
-        return error("invalid_evidence")
-    allowed = {c.chunk_id for c in evidence}
-    if len(allowed) != len(evidence):
-        return error("duplicate_chunk_id")
-
-    try:
-        raw = model(req.question, evidence)
-    except TimeoutError:
-        return error("model_timeout")
-    except Exception:
-        return error("model_call_failed")
-
-    if not isinstance(raw, str):
-        return error("invalid_response_type")
-    try:
-        obj = json.loads(raw)
-    except json.JSONDecodeError:
-        return error("invalid_json")
-    if not isinstance(obj, dict) or set(obj) != {"text", "citations"}:
-        return error("invalid_schema")
-    text, ids = obj["text"], obj["citations"]
-    if not isinstance(text, str) or not text.strip():
-        return error("invalid_text")
-    if (not isinstance(ids, list) or not ids
-            or any(not isinstance(x, str) or not x.strip() for x in ids)):
-        return error("invalid_citations")
-    if len(set(ids)) != len(ids) or not set(ids) <= allowed:
-        return error("unbound_citation")
-    # This establishes structure and citation membership, NOT semantic truth.
-    return {"status": "candidate", "text": text, "citations": ids}
-
-
-def fixture_model(question: str, evidence: tuple[Chunk, ...]) -> str:
-    """A test double: copy one fixture, without interpreting the question."""
-    return json.dumps({"text": evidence[0].text,
-                       "citations": [evidence[0].chunk_id]}, ensure_ascii=False)
-
-
-CORPUS = (
-    Chunk("billing-v1-01", "billing", "v1", "v1 的測試文件。"),
-    Chunk("billing-v2-01", "billing", "v2",
-          "v2 的測試文件要求先檢查 migration 相容性。"),
-)
-
-
-if __name__ == "__main__":
-    for version in ("v2", "v3"):
-        req = Request("billing", version, "回復上一版之前要檢查什麼？")
-        print(json.dumps(run(req, CORPUS, fixture_model), ensure_ascii=False))
-```
-
-這段程式實際執行時，兩筆輸出依序如下：
+[模型介面 `app/llm.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/llm.py) 接收欄位名稱，要求模型回傳結構化結果。回應可以是：
 
 ```text
-{"status": "candidate", "text": "v2 的測試文件要求先檢查 migration 相容性。", "citations": ["billing-v2-01"]}
-{"status": "insufficient_evidence", "citations": []}
+proposed
+    → 模型認為欄位對應足夠明確
+
+clarify
+    → 模型認為資料不足，需要人補充
 ```
 
-範例附帶的 16 個契約測試涵蓋版本篩選、空證據、重複文件 ID、無效 JSON、錯誤引用、模型例外與 CLI 輸出。其中一個測試刻意讓模型說「完全不必檢查 migration 相容性」，卻引用 `billing-v2-01`。程式仍回傳 `candidate`。所以這個檢查器的邊界很清楚：**引用存在，不足以證明回答忠於引用。**
+但 `proposed` 仍然只是 proposal。
 
-引用綁定的理由可以直接從程式重建：`evidence` 只收錄服務與版本都相符的片段，`allowed` 只取自這些片段，而回傳前又檢查所有引用都屬於 `allowed`。因此，在輸入 corpus 已是合法 `Chunk` 資料的前提下，通過這些檢查的引用不會指向本次證據集合之外。這個推導沒有包含回答文字的意義，語意評估仍是另一個問題。
-
-這裡沒有實作真正的 deadline。`except TimeoutError` 只處理 adapter 已經回報的逾時；真實 adapter 仍須設定逾時、回應大小限制與有界重試，也要保留供診斷使用的錯誤紀錄。範例同樣沒有實作語意拒答：找到文件但內容無關時，後續模型契約需要能明確表達證據不足。
-
-在乾淨環境執行正常與拒絕案例，確認結果可以重現，並列出程式尚未驗證的部分。若 Python 環境、JSON 或測試隔離仍不熟，先回到課程的 [Software Engineering Fundamentals](https://aiengineeringfromscratch.com/learning-paths.html)；不必同時補完整個深度學習課程。
-
-## 6. 這段程式真正花在哪裡？
-
-這個小程式也能練習複雜度分析。令 `M` 是 corpus 中的片段數，`K` 是篩選後的片段數，`R` 是模型回傳 JSON 的字元數，`C` 是引用數。先假設服務、版本與引用 ID 的長度有固定上限，並採用 hash set 查找的平均成本模型。
-
-篩選掃描 `M` 筆資料；驗證 evidence 並建立允許集合處理 `K` 筆；JSON 解析讀取 `R` 個字元；引用驗證處理 `C` 個 ID。還有一項容易漏掉：[Python 的 `strip()`](https://docs.python.org/3/library/stdtypes.html#str.strip) 用來檢查請求與文件本文是否只有空白，最壞情況會掃描文字。令 `V` 是這些待驗證輸入字串的總字元數，本機工作量的上界可寫成 `O(M + K + V + R + C)`。模型生成與傳輸需要另外量測，不能因為它在程式裡只有一行，就當作 `O(1)`。
-
-新增的 evidence tuple 保存 `K` 個文件參照，沒有持久複製所有文件本文；但 `strip()` 可能建立暫存字串。令 `V_max` 是待驗證輸入字串的最大長度，連同允許集合、回應解析與引用集合，本機額外空間的上界是 `O(K + R + C + V_max)`。回傳文字與引用有一部分會成為輸出保留資料，文件驗證的暫存則可釋放。這裡不包含原有 corpus，也不包含外部模型的記憶體。
-
-若 ID 長度不再受限，字串比較與 hashing 的字元成本也要計入。這些條件說明估算何時成立，以及改了資料表示後要重新檢查哪裡。
-
-## 7. 換成真實 LLM 後，多了哪些失敗？
-
-把 `fixture_model` 換成真實 provider adapter 時，保留 `question + evidence → JSON text` 的介面。adapter 負責將資料組裝成模型請求，依供應商介面處理回應、拒絕、截斷、逾時與用量資訊。不要把 API key 寫進程式或測試資料。
-
-先讓每筆請求留下可查證紀錄：使用哪個模型、哪個 prompt 版本、哪些文件、得到什麼原始回應，以及最後通過或失敗的原因。提供給模型的資料與執行時設定應能重現；敏感內容則須按資料政策遮罩與控制保存範圍。
-
-閱讀《AI工程》第 3–4 章，搭配 [Evaluation & Testing LLM Applications](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/10-evaluation&learningPath=building-and-deploying-ai-applications)。練習不只包含正常問題，也應包含無關文件、文件矛盾與模型拒絕。這些是本專案選定的診斷案例，不代表真實使用分布已完整覆蓋。
-
-你應該能辨認失敗位置。JSON 壞掉就先看輸出契約；文件版本錯誤就看資料選擇；引用正確但說反了，就檢查回答與證據的語意。每次先固定一個問題，再修改相應部分。
-
-## 8. 文件找到了，為什麼答案還是可能錯？
-
-Retrieval-Augmented Generation（RAG，檢索增強生成）把外部檢索結果接入生成流程。原始 [RAG 論文](https://arxiv.org/abs/2005.11401)將模型參數中的知識與可檢索的非參數記憶結合；這裡只借用檢索後生成的應用設計，不要求重現原論文的聯合訓練方法。
-
-範例目前會把同服務、同版本的所有片段交給模型。當其中只有部分段落與問題有關時，就需要相關性檢索：先確定可用文件的範圍，再選出與問題相關的內容，保留 ID 與版本資訊，最後組裝進上下文。
+真正的 runtime 邊界在 [主流程 `app/main.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/main.py)：
 
 ```text
-獲授權的文件快照
-  |
-  v
-切分片段 + 保存來源與版本
-  |
-  v
-建立可搜尋的資料表示
-  |
-  v
-權限／版本條件 + 問題
-  |
-  v
-檢索相關片段
-  |
-  v
-帶證據的模型請求
-  |
-  v
-回答 + 引用 + 分層評估
+mapping_proposal
+    ≠
+mapping
 ```
 
-第一個替代方案其實是先不做檢索。若文件集合很小，可以直接提供全部適用文件，建立比較基線；當內容增加、用量不可接受，或無關內容影響回答時，再用相同案例比較檢索方案。不要把「一定要向量資料庫」放在需求之前。
+模型成功回應，不會直接觸發 reconcile。
 
-檢索也有選擇。先用簡單文字搜尋建立可解釋的基線；若觀察到同義詞或不同表達造成漏找，再評估 embedding，也就是把文字表示成可比較的向量。若候選集合有正確段落卻排序不好，再評估 reranking，即對候選重新排序。這些都是本專案的實驗順序，不保證某種方法一定勝出。
+這是一個可以帶到其他 AI 產品的規則：
 
-閱讀《AI工程》第 6 章，接上課程的 [RAG 單元](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/06-rag&learningPath=building-and-deploying-ai-applications)；中文補充使用 [Happy-LLM 第 7 章「大模型應用」](https://github.com/datawhalechina/happy-llm)。
+> Probabilistic output should not silently become deterministic authority.
 
-請保存文件處理流程、檢索結果與失敗標註。出錯時先分開回答：正確文件有沒有進入候選？送進模型的證據是否充分？回答是否忠於證據？若只保存最後答案，三種失敗很容易被混在一起。
+如果你之後做的是採購、財務、客服退款、資料庫操作或 deployment Agent，同一個問題都會再次出現：模型可以提出 action，但哪個 owner 有權讓 action 生效？
 
-## 9. 一次 eval 到底要回答什麼？
+這就是 AI Engineer 與「把 API 接起來」之間的差異。
 
-Evals 在這裡指保存案例、判斷結果、比較變更並診斷失敗的工作。[Hamel 與 Shreya 的 AI Evals FAQ](https://hamel.dev/blog/posts/evals-faq/)建議從真實輸出與錯誤分析形成評估，而不是一開始就套用通用 rubric。rubric 是判分準則；主觀判斷需要對照可信的人工標註檢查，不能因為有另一個模型打分，就視為正確。
+## 3. Representation：為什麼要把 `sources`、`mapping_proposal`、`mapping` 和 `findings` 分開？
 
-前面的控制案例，只證明引用檢查無法辨認語意顛倒。它不是「某個真實 LLM 經常犯錯」的證據。要改善真實系統，仍需收集它的輸出，確認問題確實存在，再定義下一輪要觀察的行為。
+如果所有資訊都塞在一個 conversation history 裡，系統很難回答：
 
-假設 trace（逐步執行紀錄）顯示：文件與版本都已明確提供，Agent 卻反覆查詢相同資料。可以先固定任務、資料、工具與評估方式，再只改一個變數，例如工具說明或程式的重複查詢處理。這裡把這種小幅修改、比較、保留有效變更的過程稱為 behavior hill climb。
+- 哪兩份資料是原始輸入？
+- 模型建議過什麼？
+- 人最後確認了什麼？
+- 實際計算使用哪份 mapping？
+- 結果之後能不能重新計算？
 
-比較時保留逐筆結果與所有重試。檢查任務品質是否維持，再看不必要查詢、錯誤工具路由或人工介入是否減少。必要補查不算浪費；正確拒絕也不能被當成效率缺陷。
+Ops Reconciliation Copilot 把這些概念拆開。可以把 runtime 心智模型寫成：
 
 ```text
-真實任務與 trace
-  |
-  v
-確認一個失敗及其判斷方式
-  |
-  v
-固定 baseline、案例與評估條件
-  |
-  v
-修改一個變數
-  |
-  v
-比較新舊版本的逐筆結果
-  |
-  +-- 有改善且相關檢查未退步 → 保留
-  |
-  +-- 無改善或證據不足 → 不宣稱成功
+Run
+├─ sources
+│  ├─ left CSV rows + headers
+│  └─ right CSV rows + headers
+│
+├─ mapping_proposal
+│  └─ LLM suggestion + model metadata
+│
+├─ mapping
+│  └─ confirmed executable column mapping
+│
+├─ findings
+│  └─ deterministic reconciliation output
+│
+└─ reviews
+   └─ later review decisions
 ```
 
-若 baseline 和新版都沒有發生目標錯誤，這批案例最多顯示未觀察到退步，不能證明錯誤率下降。若缺少某次結果，要補查或標記缺失，不能把它當成成功。用來反覆調整系統的案例也不能繼續稱為 untouched holdout；holdout 指未參與這輪調整的保留評估資料。
+持久化實作可以直接看 [`app/storage.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/storage.py)。
 
-把修改內容、修改理由、改善的案例與仍然失敗的案例，寫進這次 eval 的比較紀錄。案例數量要依錯誤分布與可承擔成本決定，不從別人的文章抄一個通過率當作通用門檻。
-
-## 10. 模型可以呼叫工具，但誰決定能不能執行？
-
-文件助理接著可以增加一個唯讀工具，取得模擬的服務狀態。問題從「文件怎麼寫」擴張成「目前狀態與文件是否一致」。這時模型可以提出工具需求，但程式必須檢查工具名稱、參數、權限、剩餘步數與執行結果。
-
-先讀[《深入理解 AI Agent》](https://github.com/bojieli/ai-agent-book)第 1–4 章，再看第 7 章的評估。該書目前的 2.0 版已調整章序，舊版的第 6 章評估移到了第 7 章；繁中入口可由 [README.zhtw.md](https://github.com/bojieli/ai-agent-book/blob/main/README.zhtw.md)進入。
-
-設計上可以只允許 `search_docs` 與 `get_service_status`，並由程式限制呼叫預算。文件文字即使寫著「請執行其他工具」，也不能擴大這個集合。未知工具、錯誤參數、逾時和預算耗盡都需要可觀察的結果；不應只在 prompt 裡加一句「請謹慎操作」。
-
-[Anthropic 的 Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)區分固定程式路徑的 workflow 與由模型動態決定步驟的 Agent。這個案例先保留固定流程，只有任務真的需要動態查詢與選擇，才讓模型取得那部分決策空間。這裡採用的是該文的架構區分，不是把文中工具清單當成固定版本建議。
-
-驗收時要看到拒絕與停止的測試，還要能從 trace 確認：工具失敗沒有被改寫成成功，重複呼叫不會無限持續。加入真實服務前，再補身分驗證、資料存取控制與外部影響的授權。
-
-## 11. 什麼時候需要往模型內部再挖一層？
-
-應用主線之外，安排小型模型實作，讓推論成本和模型行為不再只是名詞。[Raschka 的章節導覽](https://sebastianraschka.com/llms-from-scratch/)可精確對應：第 2 章處理文字、tokenization 與輸入資料；第 3 章實作 attention；第 4 章組成 GPT；第 5 章處理預訓練與生成。PyTorch 不熟時，先補 Appendix A。
-
-中文替代說明使用 [Happy-LLM 第 2 章「Transformer 架構」與第 5 章「動手搭建大模型」](https://github.com/datawhalechina/happy-llm)。先讓中文解釋協助理解，再核對程式裡的英文識別字；不必同時重做兩套完整實作。
-
-Tokenization 是把文字轉成模型使用的 token 序列；token 並不保證對應一個字。以 decoder-style Transformer 的 causal attention 為例，某個位置只能使用允許的前文與當前位置，不能讀取後面的 token。[Hugging Face 的 cache 說明](https://huggingface.co/docs/transformers/cache_explanation)也從這個性質解釋既有 Key／Value 為何可以在生成時重用。
-
-一個有鑑別度的練習是準備兩個 token 序列：前綴相同，後綴不同。固定權重與位置設定、關閉 dropout 等隨機操作，在數值容差內比較前綴輸出。若未來 token 的改變影響了前綴，就檢查 causal mask（因果遮罩）、索引與維度。這是這條路線設計的後續練習，沒有包含在前面的 16 個已執行測試中。
-
-完成這段時，應能追蹤張量如何經過 embedding、attention 和輸出層，並定位一個 mask 或維度錯誤。小資料上的 loss 下降只能說明那個訓練設定下的目標值下降，還需要另外評估模型是否能完成新的任務。
-
-## 12. 同一個模型，為什麼有時快、有時慢？
-
-文件助理變慢時，先拆開資料取得、模型請求、生成與後處理的時間。[《深入理解 AI Infra》](https://github.com/bojieli/ai-infra-book)建議先讀第 1–3 章理解模型與負載；應用與推論服務讀者再看第 8–9、11–12 章。算子、硬體或通信問題出現時，再回到第 4–7 章。
-
-模型端可以先分辨 prefill 與 decode：前者處理輸入上下文，後者逐步生成輸出。KV cache 保存已計算的 Key 與 Value，讓後續生成重用它們；代價是需要額外的記憶體。[Hugging Face 的說明](https://huggingface.co/docs/transformers/cache_explanation)列出了逐層快取及其張量形狀。
-
-為了把概念變成可估算的量，考慮每層都保存完整歷史、沒有壓縮的標準 KV cache。若各序列長度相同，可以由張量元素數推導：
+這個 representation 的價值不是「JSON 比較漂亮」。它讓每個 state 有不同責任：
 
 ```text
-KV bytes = 2 × L × B × S × H_kv × D_h × b
+proposal
+    → 可以錯，但不能直接改結果
 
-2     : Key 與 Value 各一份
-L     : 快取層數
-B     : batch 中的序列數
-S     : 每條序列保存的 token 數
-H_kv  : 每層的 KV head 數
-D_h   : 每個 head 的維度
-b     : 每個元素占用的 bytes
+mapping
+    → 已經通過應用層檢查，可以進 deterministic calculation
+
+findings
+    → 應該可以由 sources + mapping 重算
 ```
 
-假設 `L=32`、`B=1`、`S=16384`、`H_kv=8`、`D_h=128`、`b=2`，則需要 `2,147,483,648 bytes`，也就是 **2 GiB**。這是本文假設參數的計算結果，不對應某個已量測模型，也不包含權重、運算工作區、allocator 或其他服務開銷。滑動視窗、量化、壓縮與跨層共享快取等設計，不能不加調整就套用這個公式。
+當你開始設計 Agent memory、tool results、RAG citations 或 durable workflow state，先問相同問題：**不同類型的資訊是否被放在同一個權限層？**
 
-接著做固定工作負載的量測。TTFT（Time to First Token）是從定義好的請求起點到第一個輸出 token 的時間；TPOT（Time per Output Token）則描述後續 token 的平均時間。要說明量測在客戶端還是伺服器端，以及是否包含排隊。不同工具的操作定義也可能不同，例如 [NVIDIA 的指標說明](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/perf_analyzer/genai-perf/README.html#metrics)以收到第一個 response 定義 TTFT；使用時須核對 response 與 token 的對應。若只能取得串流區塊的時間戳，就報告 chunk timing，不把它冒稱逐 token 時間。
+## 4. 跟著一筆 T100，看完整 runtime 怎麼走
 
-同時記錄整體完成時間、失敗請求、重試、輸入與輸出用量。還可以另外計算「全部可歸因成本 ÷ 成功任務數」，並列清楚計價日期、成本範圍與成功定義；零成功時比值沒有定義，不能顯示成零成本。
+公開 fixture 裡有一筆很適合當 runtime witness 的資料。
 
-閱讀《AI工程》第 9–10 章，搭配 [Building a Production LLM Application](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/13-production-app&learningPath=building-and-deploying-ai-applications)。[AI Infra 的計算工具](https://github.com/bojieli/ai-infra-book)也能協助估算資源，靜態計算不要求 GPU；工具算出的量不是硬體實測速度。
-
-請保存原始量測、固定設定、部署說明及降級／回復方式。做到這裡，應能重現一項比較，並解釋品質、成本與延遲的取捨；只在本機跑通，不等於已承擔 production 流量與 on-call 責任。
-
-## 13. 什麼問題才值得 Fine-tuning？
-
-若問題是 v2 文件未被檢索到，先修資料與檢索；若是工具可以越權，先修程式邊界。只有當任務行為仍不符合需求、現有 prompt 與資料處理的限制已被具體觀察，而且手上有可合法使用的訓練資料，才比較 Fine-tuning（微調）是否值得投入。
-
-這時讀《AI工程》第 7–8 章，接 [Raschka 第 6–7 章與 Appendix E](https://sebastianraschka.com/llms-from-scratch/)。第 6 章是分類微調，第 7 章是指令微調，Appendix E 是 LoRA；中文實作補 [Happy-LLM 第 6 章](https://github.com/datawhalechina/happy-llm)。
-
-先固定比較任務，分開訓練資料、用於調整的資料與保留評估資料，再檢查新舊模型的逐筆結果。成功完成訓練，不能直接改寫成「產品品質已提升」。模型適配、資料更新與 runtime 權限是不同的問題，學習分支應跟著實際缺口走。
-
-## 14. 每一階段要留下什麼證據？
-
-第一個里程碑是可重現的介面：另一個乾淨環境能執行程式，錯誤輸入不會被當成成功。接著是帶證據的回答：你能分開定位資料選擇、生成與引用失敗。第三個里程碑是有界工具使用：允許、拒絕、逾時與停止都能回讀。最後是可交付的服務：測試、評估、量測和回復方式都有明確入口。
-
-模型內部與 Fine-tuning 的練習各自保存，不必塞進應用 production runtime。作品集可以按照下面的概念目錄組織；這是後續擴充建議，不代表前面範例已經完成所有檔案。
+左側交易：
 
 ```text
-learning-project/
-├── README.md          # 任務、範圍、重現方式
-├── app/               # 模型介面、檢索、工具邊界
-├── tests/             # 可確定的程式行為
-├── evals/             # 案例、判斷方式、逐筆結果
-├── experiments/       # 模型內部、效能與適配練習
-└── reports/           # 比較、失敗分析與未解限制
+transaction: T100
+amount:      100.00
+currency:    USD
 ```
 
-每週可先以 12 小時安排：3 小時閱讀、6 小時實作、2 小時測試與失敗分析、1 小時解釋設計。這是起步的時間假設，不是最佳比例或取得工作的期限。有基礎缺口時就調整，不必為了維持表定進度跳過失敗。
-
-一週的目標可以是「指定版本不存在時，不再呼叫模型」，下一週是「引用存在但內容顛倒時，評估能指出錯誤」。這些目標有輸入、行為和觀察方法，比「學完 RAG」更容易知道自己是否完成。
-
-## 15. 用英文說清楚實際做過的取捨
-
-面試解釋可以從本文程式真正具備的行為出發，不用把尚未做過的 production 經驗放進答案。
-
-**Why use a model test double first?**
-
-> It makes the model boundary repeatable, so I can test filtering, parsing, and citation checks separately from model quality.
-
-**What does a valid citation prove in this prototype?**
-
-> It proves that the cited ID belongs to the supplied evidence. It does not prove that the evidence supports the answer.
-
-**Why is the result called a candidate?**
-
-> The program has checked its structure and citation membership. Semantic correctness still needs a separate evaluation.
-
-最短的記憶版本是：*Filter the evidence. Validate the response. Evaluate the meaning.* 每一句都對應一段程式或一項尚須補上的評估，而不是一串與專案無關的名詞。
-
-## 16. Master Map：卡在哪一層，就回哪一層
-
-完整路徑可以回到最初的文件助理。下面的箭頭表示工程依賴；支線說明遇到某種問題時，應回去哪個能力。
+右側交易：
 
 ```text
-指定服務、版本與問題
-  |
-  v
-明確的資料契約
-  |  欄位／格式錯誤 → 模型介面與程式測試
-  v
-有來源、版本與權限的證據
-  |  文件找不到 → 資料處理與 RAG
-  v
-模型產生候選回答
-  |  內容不忠於證據 → 語意評估與任務設計
-  v
-需要時使用有界工具
-  |  越權／無法停止 → runtime 控制
-  v
-逐筆結果與執行紀錄
-  |  品質變化說不清 → Evals
-  |  延遲／容量不可接受 → AI Infra
-  v
-可重現、可診斷、可交付的應用
-
-平行理解：token → attention → 模型實作
-條件式深化：有資料與比較方法後，再做 Fine-tuning
+transaction: T100
+amount:      98.00
+currency:    USD
 ```
 
-下次不知道該讀哪一章時，先看目前的失敗落在哪一層。資料沒找到，就回到資料與 RAG；工具越權，就回到 runtime 控制；品質變動說不清楚，就回到 Evals；只有量測真的指出 latency、memory 或 throughput 問題時，再往 AI Infra 深挖。讀到哪一頁是閱讀紀錄；能否讓另一位工程師重現、檢查並理解你的系統，才是作品集要回答的問題。
+流程不是「LLM 看完兩筆交易，回答差 2 美元」。
 
----
+實際設計更接近：
 
-**資源與實作說明**：文中的課程連結、出版社目錄、作者導覽與開源書入口已核對；動態課程頁面並非逐課程式驗證。GitHub `main` 與網站內容會更新，重現時請記錄 commit、依賴、模型與資料版本。文內 Python 程式及 16 個離線契約測試已執行；真實 LLM、語意 judge、模型訓練、效能負載與完整 production 部署不在本次執行範圍。這是一條學習與作品集路線，不是就業保證。
+```text
+兩份 CSV 上傳
+    ↓
+只取 headers 給模型
+    ↓
+模型提議：
+左 txn_ref       ↔ 右 reference_id
+左 amount        ↔ 右 paid
+左 currency      ↔ 右 ccy
+    ↓
+應用驗證 proposal
+    ↓
+mapping 被另外確認與提交
+    ↓
+normalize()
+建立 transaction_id → rows
+    ↓
+reconcile()
+以相同 transaction ID 比較
+    ↓
+Decimal("100.00") - Decimal("98.00")
+    ↓
+amount_mismatch
+delta = 2.00
+```
+
+完整可重現流程與測試入口在公開的 [`docs/demo.md`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/demo.md) 與 [`scripts/verify_runtime.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/scripts/verify_runtime.py)。
+
+金額使用 `Decimal` 不是 AI 技巧，而是一般軟體工程 correctness。Python 官方的 [`decimal` 文件](https://docs.python.org/3/library/decimal.html) 可以直接閱讀。
+
+這是一個很重要的學習訊號：
+
+> AI Engineer 仍然必須是 Software Engineer。
+
+模型只處理它擅長的歧義；可精確計算的部分留在確定性程式。
+
+## 5. Structured output：JSON 合法，不代表 mapping 語意正確
+
+LLM 回傳 JSON 後，至少有兩種完全不同的問題。
+
+第一種是**結構錯誤**：
+
+```text
+invalid JSON
+unknown field
+duplicate field choice
+missing required mapping
+invalid clarify response
+```
+
+這些可以由程式拒絕。
+
+第二種是**語意錯誤**：
+
+```text
+JSON 完全合法
+但 amount 被對到 tax
+```
+
+這不是 JSON parser 能證明的事情。
+
+所以 `app/llm.py` 的 validation 只是其中一層。真正系統需要的是：
+
+```text
+provider response
+    ↓
+syntax / schema validation
+    ↓
+domain constraint validation
+    ↓
+human or independent task validation
+    ↓
+only then executable state
+```
+
+OpenRouter 的 [公開文件](https://openrouter.ai/docs) 可以直接查看 API、structured outputs、routing 與 logging 等能力。讀文件不需要訂閱；真正送出 provider request 時則需要相應的 API access。
+
+這一節要留下的不是某個 framework API，而是一個 mental model：
+
+> Structured output reduces one failure class; it does not remove semantic uncertainty.
+
+## 6. Evals：先問「系統會在哪裡錯」，不要先追一個總分
+
+Ops Reconciliation Copilot 保存了一組固定模型案例與歷史 eval。
+
+案例定義在 [`evals/cases.jsonl`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/cases.jsonl)，runner 在 [`evals/run.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/run.py)。
+
+目前公開保存的歷史報告包含四種 case：
+
+**canonical** — 標準欄名可以直接提出 mapping。
+
+**aliases** — `txn_ref` / `reference_id`、`amount` / `paid` 這類別名需要正確配對。
+
+**opaque** — 欄名太模糊，預期回傳 `clarify`。
+
+**missing_currency** — 缺少 currency 欄，預期要求補充資訊。
+
+保存的 [歷史 JSON 報告](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/evidence/2026-09-15-luna-medium.json) 記錄當次四個固定案例通過。
+
+但 4/4 只能回答：
+
+> 這四個固定案例在那次 checkout 上符合預期。
+
+它不能回答：
+
+> 企業資料準確率是 100%。
+
+也不能推出 p95 latency、使用者節省多少時間，或模型換版後仍然相同。
+
+這正是 eval 的用途：讓「通過了什麼」和「還不知道什麼」同時變清楚。
+
+如果要建立更完整的 eval 方法，可以讀公開的 [Hamel 與 Shreya AI Evals FAQ](https://hamel.dev/blog/posts/evals-faq/)。實作練習則可以配合 [AI Engineering from Scratch 的 Learning Paths](https://aiengineeringfromscratch.com/learning-paths.html)，把 eval 當成產品迭代的一部分，而不是文章最後才補的 benchmark。
+
+## 7. 為什麼這個專案現在不需要做成 full Agent？
+
+很多 AI 學習路徑會把 Agent 當成 RAG 後面的下一章。
+
+實務上不應該這樣決定。
+
+Ops Reconciliation Copilot 已知的工作流是：
+
+```text
+upload
+→ proposal
+→ confirm
+→ reconcile
+→ review
+→ export
+```
+
+這條路徑本身很清楚。
+
+模型目前只需要回答：
+
+```text
+這幾個欄名可能對應什麼？
+```
+
+所以沒有理由為了「比較像 Agent」加入：
+
+```text
+while True:
+    model decides next tool
+```
+
+固定 workflow 的好處是：
+
+- 可測試的 state transition 較少；
+- 可精確定義什麼時候允許 reconcile；
+- provider failure 不會自動變成另一個 side effect；
+- deterministic calculation 不需要經過模型重新解釋。
+
+Anthropic 的公開文章 [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) 就把 workflow 與 agentic control 分開討論。
+
+如果你要系統化理解 `LLM + Context + Tools`、ReAct、evaluation 與 Agent engineering，可以直接閱讀開源繁中版[《深入理解 AI Agent》](https://github.com/bojieli/ai-agent-book/blob/main/docs/zh-TW/README.md)。
+
+學完後應該得到的不是「每個產品都要 Agent」，而是：
+
+> 知道什麼決策值得交給模型，什麼決策應該從模型手上拿走。
+
+## 8. RAG 不是這個產品目前的必修功能
+
+這個案例還能修正另一個常見學習誤區：AI application 不等於一定需要 RAG。
+
+目前的核心問題是：
+
+```text
+CSV schema ambiguity
+```
+
+不是：
+
+```text
+模型缺少外部知識文件
+```
+
+因此把向量資料庫塞進現有流程，不會自然改善 `txn_ref` 到 `reference_id` 的 mapping。
+
+RAG 會在問題改變時變得合理，例如：
+
+- mapping 必須遵循公司資料字典；
+- 欄位語意來自多份 schema 文件；
+- reviewer 需要引用 reconciliation policy；
+- model suggestion 必須附可追溯的 policy evidence。
+
+到了那個時候，再加入 retrieval，並用 eval 比較：
+
+```text
+沒有 retrieval
+vs
+有 retrieval
+```
+
+而不是因為「AI Engineer 路線圖下一章是 RAG」。
+
+如果需求真的走到 retrieval，先讀完整內容而不是 resource index：Jurafsky 與 Martin 的 [Chapter 11: Information Retrieval and RAG](https://web.stanford.edu/~jurafsky/slp3/11.pdf) 從 IR 到 RAG 建立完整脈絡；中文實作可直接進 Happy-LLM 的[第七章〈大模型應用〉](https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter7/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8.md)，其中包含 evaluation、RAG 與 Agent。
+
+## 9. Persistence 與 concurrency：AI request 也會遇到一般 backend 問題
+
+只要模型請求可能花幾秒，runtime state 就可能在等待期間改變。
+
+Ops Reconciliation Copilot 的一個重要設計是：模型呼叫不包在資料庫 transaction 裡。回應回來後，系統重新讀取 run state；如果 run 已經完成 reconcile，就不能再把過期 proposal 寫回去。
+
+持久化實作在 [`app/storage.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/storage.py)。PostgreSQL 路徑使用 `FOR UPDATE` 處理同一 run 的 read-modify-write 邊界。
+
+這裡值得學的不是 PostgreSQL 語法本身，而是一個時序問題：
+
+```text
+read state
+    ↓
+call slow external model
+    ↓
+state may change
+    ↓
+response returns
+    ↓
+must re-check current truth
+```
+
+這也是 Agent 系統、background job、tool execution、approval flow 常見的 race condition。
+
+API service 使用 FastAPI；[FastAPI 官方文件](https://fastapi.tiangolo.com/)可以直接閱讀。專案自己的部署與 database 設定則在公開 repo 的 [`docs/supabase.md`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/supabase.md) 與 [`docs/vercel.md`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/vercel.md)。
+
+## 10. AI Infra：先量測一次 request，再學 serving
+
+歷史模型報告還留下兩個很實用的數字：
+
+```text
+4 次呼叫合計：
+prompt tokens     = 830
+completion tokens = 208
+total             = 1,038
+```
+
+client-observed latency 落在：
+
+```text
+1,184–2,131 ms
+```
+
+這些數字可以拿來問：
+
+- latency 花在哪裡？
+- prompt 長度成長會怎樣？
+- provider routing 會怎樣影響 tail latency？
+- request timeout 應設在哪裡？
+- 什麼指標是 client-observed，什麼是 server-side？
+- 模型 inference cost 和整個產品 cost 是否是同一件事？
+
+但四次呼叫不能產生 p95。這是最重要的限定。
+
+要往下理解 inference、KV cache、batching、memory bandwidth 與 distributed serving，可以直接讀開源的[《深入理解 AI Infra》](https://github.com/bojieli/ai-infra-book)。
+
+先有實際 request 與 measurement，再讀 infra，術語會開始對應到真實工程問題。
+
+## 11. 模型內部：平行學，不需要先學完才能做產品
+
+應用主線進行時，可以另外建立一條 model-internals 路線。
+
+英文理論先讀 Jurafsky 與 Martin 的 [Chapter 7: Transformers and Pretraining](https://web.stanford.edu/~jurafsky/slp3/7.pdf)，它直接推導 attention、Transformer、decoding 與 pretraining。要把概念落成模型，再使用 Sebastian Raschka 的公開 [LLMs from Scratch](https://github.com/rasbt/LLMs-from-scratch)。中文則直接讀 Happy-LLM 的[第五章〈動手搭建大模型〉](https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter5/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B.md)，不要只停在 README。
+
+這條路線適合回答：
+
+- tokenization 實際產生什麼？
+- attention 怎麼改變表示？
+- causal mask 限制什麼？
+- pretraining 與 instruction tuning 改的是哪一層？
+- LoRA 到底更新哪些參數？
+
+但 Ops Reconciliation Copilot 的第一個產品問題，不需要你先從零訓練 GPT。
+
+所以兩條線應該並行：
+
+```text
+Application Engineering
+structured output
+→ evals
+→ runtime boundary
+→ persistence
+→ deployment
+
+Model Internals
+tokenization
+→ attention
+→ GPT implementation
+→ training / fine-tuning
+```
+
+它們會在 inference、adaptation、cost 與 debugging 再次交會。
+
+## 12. Fine-tuning：只有觀察到穩定行為缺口，才值得進場
+
+目前四個 smoke cases 不是 fine-tuning dataset。
+
+如果 aliases case 偶爾失敗，第一步也不是立刻做 LoRA。
+
+先問：
+
+- prompt 是否把 output contract 說清楚？
+- ambiguous input 是否應該回 `clarify`？
+- 失敗是不是來自某一類 header？
+- 換 model 是否改善？
+- deterministic rule 能不能直接解掉？
+- 有沒有足夠且合法的 examples？
+
+只有當 failure taxonomy 穩定，而且 prompt、model selection、deterministic rule 都不能合理解決時，fine-tuning 才開始變成候選方案。
+
+如果真的走到這一步，先讀免費完整的 [Chapter 8: Post-training](https://web.stanford.edu/~jurafsky/slp3/8.pdf) 理解 fine-tuning 與 alignment，再做 Happy-LLM [第六章〈大模型訓練流程實踐〉](https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter6/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B%E5%AE%9E%E8%B7%B5.md) 的 SFT / LoRA / QLoRA；要看現代 library 流程，再進 Hugging Face LLM Course 的 [Supervised Fine-Tuning](https://huggingface.co/learn/llm-course/chapter11/1) 與 [Evaluation](https://huggingface.co/learn/llm-course/chapter11/5)。
+
+Fine-tuning 是 adaptation branch，不是 AI Engineer 身分認證。
+
+## 13. 把學習路徑壓成五個可交付里程碑
+
+### Milestone 1 — Model boundary
+
+**要做的事**
+
+讓模型只接收必要資料，定義可解析的 response contract，並保留 manual fallback。
+
+**直接讀**
+
+[Ops `app/llm.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/llm.py)
+
+[OpenRouter docs](https://openrouter.ai/docs)
+
+[AI Engineering from Scratch](https://aiengineeringfromscratch.com/)
+
+**通過條件**
+
+你能說清楚 schema validation 能證明什麼、不能證明什麼。
+
+### Milestone 2 — Deterministic execution
+
+**要做的事**
+
+把真正需要 correctness 的計算留在可測試的程式裡。
+
+**直接讀**
+
+[Ops `app/main.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/main.py)
+
+[Python Decimal](https://docs.python.org/3/library/decimal.html)
+
+**通過條件**
+
+給定 sources + mapping，你能重算 findings，而且不需要模型。
+
+### Milestone 3 — Evals
+
+**要做的事**
+
+保存固定 cases、預期行為、逐筆結果與版本身分。
+
+**直接讀**
+
+[Ops eval cases](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/cases.jsonl)
+
+[Ops eval runner](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/run.py)
+
+[AI Evals FAQ](https://hamel.dev/blog/posts/evals-faq/)
+
+**通過條件**
+
+你能把「這個 case 通過」和「產品整體準確」分開。
+
+### Milestone 4 — Runtime and state
+
+**要做的事**
+
+處理 slow provider、persistent state、concurrency、error recovery 與 access boundary。
+
+**直接讀**
+
+[Ops `app/storage.py`](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/storage.py)
+
+[FastAPI docs](https://fastapi.tiangolo.com/)
+
+[Ops runtime verifier](https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/scripts/verify_runtime.py)
+
+**通過條件**
+
+你能解釋為什麼 provider request 不應長時間持有 DB transaction，以及 response 回來後為什麼要重新讀 state。
+
+### Milestone 5 — Agent and Infra decisions
+
+**要做的事**
+
+知道何時保留 workflow、何時增加 agentic choice，以及何時深入 inference system。
+
+**直接讀**
+
+[Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+[深入理解 AI Agent（繁中）](https://github.com/bojieli/ai-agent-book/blob/main/docs/zh-TW/README.md)
+
+[深入理解 AI Infra](https://github.com/bojieli/ai-infra-book)
+
+**通過條件**
+
+你可以指出一個「不應該交給模型的 decision」，以及一個只有量測後才值得做的 infra optimization。
+
+## 14. 作品集不是 README 截圖，而是一條 evidence chain
+
+AI Engineer portfolio 最有價值的不是技術名詞數量，而是讀者能不能從 repository 重建你的工程判斷。
+
+Ops Reconciliation Copilot 已經示範了一個很好的 evidence layout：
+
+```text
+repository
+├─ app/
+│  ├─ llm.py
+│  ├─ main.py
+│  └─ storage.py
+│
+├─ evals/
+│  ├─ cases.jsonl
+│  └─ run.py
+│
+├─ scripts/
+│  └─ verify_runtime.py
+│
+├─ tests/
+│  └─ contract / runtime tests
+│
+└─ docs/evidence/
+   └─ retained evaluation artifacts
+```
+
+你要能回答：
+
+**Code** — 哪個 function 實作這個 decision？
+
+**Test** — 哪個 failure 被拒絕？
+
+**Eval** — 哪種 model behavior 被量測？
+
+**Receipt** — 這個結果綁在哪個 checkout、dataset、prompt 或 model？
+
+**Unknown** — 哪些事情仍沒有證據？
+
+這種作品集比「我會 LangChain / RAG / Agent」更容易讓面試者判斷你的工程深度。
+
+## 15. 面試時怎麼用英文壓縮這個系統？
+
+**Why doesn't the LLM reconcile transactions directly?**
+
+> The model only proposes column mappings. The application validates the proposal, a separate mapping is confirmed, and deterministic Python code owns transaction matching and Decimal arithmetic.
+
+**What does structured output solve?**
+
+> It makes malformed responses rejectable. It does not prove that a valid mapping is semantically correct.
+
+**Why keep `mapping_proposal` separate from `mapping`?**
+
+> They have different authority. A proposal is probabilistic advice; the mapping is the validated input to deterministic execution.
+
+**Why isn't this a full agent?**
+
+> The workflow is already known. Giving the model control over the next step would add state and failure modes without solving the current ambiguity problem.
+
+**What does the 4/4 evaluation prove?**
+
+> It proves that four fixed cases matched expectations on one recorded checkout and model configuration. It does not establish representative accuracy or latency percentiles.
+
+## 16. Master Map：從真實 failure 決定下一段學習
+
+```text
+兩份交易 CSV 欄位不同
+        ↓
+模型只看 headers
+        ↓
+mapping proposal
+        │
+        ├─ malformed / unknown field
+        │      → structured-output / contract problem
+        │
+        ├─ ambiguous
+        │      → clarify / task-design problem
+        │
+        └─ valid proposal
+               ↓
+        separate confirmed mapping
+               ↓
+        deterministic normalize + reconcile
+               │
+               ├─ arithmetic / matching error
+               │      → software correctness problem
+               │
+               └─ findings
+                      ↓
+               eval + persistence + review
+                      │
+                      ├─ model behavior unstable
+                      │      → eval / model / adaptation
+                      │
+                      ├─ workflow needs dynamic choices
+                      │      → evaluate Agent design
+                      │
+                      ├─ needs external policy evidence
+                      │      → evaluate RAG
+                      │
+                      └─ latency / capacity bottleneck
+                             → AI Infra
+```
+
+這就是整條學習路徑的核心：
+
+> 不要照技術名詞的順序學下一章；看你現在的 failure 屬於哪一層。
+
+資料問題不要用 Fine-tuning 修。
+
+deterministic calculation 不要重新交給 LLM。
+
+固定 workflow 沒有必要為了履歷改造成 Agent。
+
+四個 eval case 也不要包裝成企業準確率。
+
+當你可以從一個真實產品，把 problem、decision、representation、runtime、eval、failure boundary 和 evidence 串起來時，你已經不是只在「學 LLM」；你正在做 AI Engineering。

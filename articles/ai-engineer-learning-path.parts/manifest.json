@@ -1,0 +1,35 @@
+{
+  "schema_version": "medium-delivery-parts@2",
+  "article": "articles/ai-engineer-learning-path.md",
+  "article_git_blob": "19c0ef18be878324fde4670e5d3ad03fcf42e00d",
+  "part_order": [
+    "part-01.md",
+    "part-02.md",
+    "part-03.md",
+    "part-04.md",
+    "part-05.md"
+  ],
+  "parts": [
+    {
+      "path": "part-01.md",
+      "git_blob": "34d19de0a207ea0320c214fbcdacab22ed3c33b1"
+    },
+    {
+      "path": "part-02.md",
+      "git_blob": "dc044d66005fb2314824827358af3be2375a3def"
+    },
+    {
+      "path": "part-03.md",
+      "git_blob": "4f21f11120e25d59e111831808ac9eef1841ca70"
+    },
+    {
+      "path": "part-04.md",
+      "git_blob": "cf55df7066ac54dfa66e7e647924830e48040c1a"
+    },
+    {
+      "path": "part-05.md",
+      "git_blob": "d5b571086049ffe1cbaa67f0c5b2aaaeedf45693"
+    }
+  ],
+  "assembly": "concatenate part_order with no separator; result bytes must equal article"
+}
