@@ -1,0 +1,25 @@
+{
+  "schema_version": "medium-issue-article-evidence-candidate@1",
+  "issue": 1,
+  "article_path": "articles/ai-engineer-learning-path.md",
+  "article_title": "從軟體工程師到 AI Engineer：用一個文件助理串起 LLM、RAG、Evals、Agent 與 AI Infra",
+  "before": {
+    "commit": "3fc33b1281996b7a2972349ea19efa2d548931a2",
+    "git_blob": "3a3d1e72a03e356d950d67d2bfd0f306b6cb5578"
+  },
+  "after": {
+    "commit": "cf4f39eefcf358fd73d8e15390e34413cc11c551",
+    "git_blob": "aed314c86ef9bf6af33af95a9f193b86be9b9f79"
+  },
+  "observed_diff": {
+    "additions": 35,
+    "deletions": 35,
+    "changed_files": 1
+  },
+  "real_article_changed": true,
+  "synthetic_fixture": false,
+  "prove_update_status": "NOT_RUN",
+  "tests_status": "NOT_RUN",
+  "semantic_review_status": "NOT_RUN",
+  "closure_authorized": false
+}
