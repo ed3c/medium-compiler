@@ -27,14 +27,13 @@ jobs:
           cp /tmp/writing-evidence/tests.txt evidence/issue-8/tests.txt
           cp /tmp/writing-evidence/mechanical/feature-results.json evidence/issue-8/mechanical-results.json
           cp /tmp/writing-evidence/behavior/feature-results.json evidence/issue-8/behavior-readiness.json
-          cp .github/writing-verification-readonly.yml .github/workflows/writing-verification.yml
-          rm .github/writing-verification-readonly.yml
           git add -- articles/ai-engineer-learning-path.md articles/ai-engineer-learning-path.context.json articles/ai-engineer-learning-path.parts evidence/issue-8
-          git add -A -- .github/workflows/writing-verification.yml .github/writing-verification-readonly.yml
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'docs: retain verified two-patch article and read-only verification workflow'
-          git push origin HEAD:refs/heads/agent/issue-8-lossless-skills
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'docs: retain verified two-patch article and mechanical evidence'
+            git push origin HEAD:refs/heads/agent/issue-8-lossless-skills
+          fi
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
           git archive HEAD > /tmp/writing-evidence/checkout.tar
       - uses: actions/upload-artifact@v4
