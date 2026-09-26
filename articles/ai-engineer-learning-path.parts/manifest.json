@@ -1,7 +1,7 @@
 {
   "schema_version": "medium-delivery-parts@2",
   "article": "articles/ai-engineer-learning-path.md",
-  "article_git_blob": "19c0ef18be878324fde4670e5d3ad03fcf42e00d",
+  "article_git_blob": "e90cd334d52d66016a919d08e1dab35175b52786",
   "part_order": [
     "part-01.md",
     "part-02.md",
@@ -12,7 +12,7 @@
   "parts": [
     {
       "path": "part-01.md",
-      "git_blob": "34d19de0a207ea0320c214fbcdacab22ed3c33b1"
+      "git_blob": "172ebd092ce24e09122fabe03fc47ed378b72668"
     },
     {
       "path": "part-02.md",

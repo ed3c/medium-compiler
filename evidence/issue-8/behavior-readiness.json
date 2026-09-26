@@ -1,0 +1,43 @@
+{
+  "features": {
+    "doctor": {
+      "status": "PASS",
+      "python": "3.12.3",
+      "registered_skills": [
+        "build-review-interface",
+        "error-discovery",
+        "eval-audit",
+        "evals-start",
+        "evaluate-rag",
+        "generate-synthetic-data",
+        "maintain-medium-verification",
+        "medium-behavior-evals",
+        "medium-writing",
+        "validate-evaluator",
+        "verify-medium",
+        "write-code-eval",
+        "write-judge-prompt"
+      ],
+      "codex_executable": null,
+      "registration": "FILES_VERIFIED; live Codex selection not measured",
+      "compiler_sha256": "sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6"
+    },
+    "behavior-evals": {
+      "status": "BLOCKED",
+      "attempted": "doctor searched PATH; this deterministic driver has no authorized fresh-session execution interface",
+      "codex_executable": null,
+      "fresh_writer_ab": "NOT_RUN",
+      "independent_reader": "NOT_RUN",
+      "missing": [
+        "approved isolated writer/reader carrier",
+        "fixed model/task/observer and raw per-session traces",
+        "trusted semantic labels"
+      ],
+      "reason": "The local driver is deterministic; it cannot manufacture natural Agent or human-reader evidence."
+    }
+  },
+  "outcome": "blocked",
+  "source_review": "coordinator source review is separate; no subagent wave fabricated",
+  "strict_pstack_maintenance": "NOT_CLAIMED",
+  "evidence_retained": true
+}

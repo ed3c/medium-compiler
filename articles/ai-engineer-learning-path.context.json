@@ -90,5 +90,16 @@
   },
   "independent_reader": "NOT_RUN",
   "fresh_writer_ab": "NOT_RUN",
-  "medium_publication": "NOT_RUN"
+  "medium_publication": "NOT_RUN",
+  "incremental_expansion": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/plan.json",
+    "applied_units": [
+      "transaction-index",
+      "finding-precedence"
+    ],
+    "retention": "Two insertions only; prior article bytes retained.",
+    "semantic_review": "AUTHOR_REVIEW_ONLY",
+    "independent_reader": "NOT_RUN"
+  }
 }
