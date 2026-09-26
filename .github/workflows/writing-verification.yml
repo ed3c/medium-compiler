@@ -1,22 +1,23 @@
-name: Materialize reviewed article increments
+name: Writing verification
 on:
   push:
     branches: [agent/issue-8-lossless-skills]
+  pull_request:
 permissions:
-  contents: write
+  contents: read
 jobs:
-  install-reviewed-article:
-    if: github.ref == 'refs/heads/agent/issue-8-lossless-skills'
+  mechanical-writing:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Replay reviewed increments and test before committing
+        with:
+          persist-credentials: false
+      - name: Tests and real article drives
         shell: bash
         run: |
           mkdir -p /tmp/writing-evidence
-          git rev-parse HEAD > /tmp/writing-evidence/input-checkout.txt
-          python3 evidence/issue-8/replay.py --out /tmp/writing-evidence/article-replay --update-article
+          git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
           python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
           set +e
@@ -24,17 +25,7 @@ jobs:
           status=$?
           set -e
           test "$status" = 3
-          cp /tmp/writing-evidence/tests.txt evidence/issue-8/tests.txt
-          cp /tmp/writing-evidence/mechanical/feature-results.json evidence/issue-8/mechanical-results.json
-          cp /tmp/writing-evidence/behavior/feature-results.json evidence/issue-8/behavior-readiness.json
-          git add -- articles/ai-engineer-learning-path.md articles/ai-engineer-learning-path.context.json articles/ai-engineer-learning-path.parts evidence/issue-8
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'docs: retain verified two-patch article and mechanical evidence'
-            git push origin HEAD:refs/heads/agent/issue-8-lossless-skills
-          fi
-          git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
+          printf 'BLOCKED: no fresh writer/reader experiment performed by this job\n' > /tmp/writing-evidence/behavior-status.txt
           git archive HEAD > /tmp/writing-evidence/checkout.tar
       - uses: actions/upload-artifact@v4
         if: always()
