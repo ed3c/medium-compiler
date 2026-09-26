@@ -503,6 +503,58 @@ def style_lint(input_path: Path) -> dict[str, Any]:
     }
 
 
+
+def prove_article_update(
+    run_dir: Path,
+    issue: int,
+    before_path: Path,
+    after_path: Path,
+    output_path: Path,
+) -> dict[str, Any]:
+    """Bind one issue atom to a real article update.
+
+    Synthetic fixtures can exercise gates, but they cannot satisfy this proof.
+    The after article must be the canonical article admitted by this run.
+    """
+    if issue <= 0:
+        raise CompilerError("issue must be a positive integer")
+    before = before_path.read_bytes()
+    after = after_path.read_bytes()
+    if before == after:
+        raise CompilerError("issue proof requires a real article byte change")
+
+    spec, state, paths = _load_run(run_dir)
+    if state.get("status") != "ASSEMBLED":
+        raise CompilerError("issue proof requires an assembled canonical article")
+    if not paths["canonical"].is_file():
+        raise CompilerError("canonical article is missing")
+    if after != paths["canonical"].read_bytes():
+        raise CompilerError("after article is not the canonical final article")
+
+    validation = check_receipt(run_dir)
+    proof = {
+        "schema_version": "medium-issue-article-proof@1",
+        "issue": issue,
+        "topic": spec["topic"],
+        "before_sha256": _sha256_bytes(before),
+        "after_sha256": _sha256_bytes(after),
+        "canonical_sha256": _sha256_path(paths["canonical"]),
+        "validation_receipt_sha256": _sha256_path(paths["receipt"]),
+        "article_changed": True,
+        "after_matches_canonical": True,
+        "validation_status": validation["status"],
+        "semantic_correctness": validation.get(
+            "semantic_correctness", "NOT_ASSESSED"
+        ),
+        "style_before": style_lint(before_path),
+        "style_after": style_lint(after_path),
+        "closure_authority": "ARTICLE_UPDATE_EVIDENCE_ONLY",
+    }
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(output_path, proof)
+    return proof
+
+
 def _print(value: dict[str, Any]) -> None:
     print(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True))
 
@@ -537,6 +589,13 @@ def main() -> int:
     p = sub.add_parser("style-lint")
     p.add_argument("--input", type=Path, required=True)
 
+    p = sub.add_parser("prove-update")
+    p.add_argument("--run-dir", type=Path, required=True)
+    p.add_argument("--issue", type=int, required=True)
+    p.add_argument("--before", type=Path, required=True)
+    p.add_argument("--after", type=Path, required=True)
+    p.add_argument("--output", type=Path, required=True)
+
     args = parser.parse_args()
     try:
         if args.command == "init":
@@ -553,6 +612,12 @@ def main() -> int:
             _print(check_receipt(args.run_dir, args.receipt))
         elif args.command == "style-lint":
             _print(style_lint(args.input))
+        elif args.command == "prove-update":
+            _print(
+                prove_article_update(
+                    args.run_dir, args.issue, args.before, args.after, args.output
+                )
+            )
         return 0
     except CompilerError as exc:
         print(f"medium-compiler refused: {exc}", file=sys.stderr)
