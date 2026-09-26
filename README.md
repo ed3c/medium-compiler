@@ -155,6 +155,54 @@ It cannot prove:
 
 Those remain source review / semantic-eval responsibilities.
 
+
+## Issue-atom closure law
+
+Synthetic fixtures and planted failures are allowed only to prove that a guard can
+discriminate good and bad states. They can never close a writing issue.
+
+Every writing issue atom must change a real Medium article and bind its closure evidence to
+that update:
+
+```text
+real article before
+  -> one scoped writing/compiler change
+  -> real article after
+  -> canonical Medium assembly
+  -> final-byte validation receipt
+  -> issue proof
+```
+
+Required closure evidence:
+
+1. one real article path under `articles/`;
+2. a readable before revision and after revision of that same article;
+3. a non-empty article diff caused by the atom;
+4. the after bytes equal `medium-canonical.md`;
+5. `check-receipt` returns `VALID` for those final bytes;
+6. `prove-update` writes an issue proof with different before/after digests;
+7. semantic/human review status is reported separately and is never inferred from the
+   structural proof.
+
+Generate the closure proof only after the article has actually changed:
+
+```sh
+git show <before-commit>:articles/<slug>.md > /tmp/article-before.md
+cp articles/<slug>.md /tmp/article-after.md
+
+python3 medium_compiler.py prove-update \
+  --run-dir /tmp/article-run \
+  --issue 123 \
+  --before /tmp/article-before.md \
+  --after /tmp/article-after.md \
+  --output evidence/issue-123/article-update.json
+```
+
+A test file may use synthetic prose to exercise this command. That test proves the gate; the
+`evidence/issue-<n>/article-update.json` used for closure must refer to a real article
+revision.
+
+
 ## Tests
 
 ```sh
