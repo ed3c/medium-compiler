@@ -1,0 +1,10 @@
+--- before-main
++++ after-issue-3
+@@ -26,7 +26,7 @@
+ 
+ 學習主線使用 [AI Engineering from Scratch](https://aiengineeringfromscratch.com/) 的 **Building and Deploying AI Applications** 路線。把它當成練習入口；需要哪種能力，就前往對應單元，不以首頁課程數量衡量進度。
+ 
+-應用設計的主教材選 Chip Huyen 的繁中版[《AI工程｜從基礎模型建構應用》](https://www.gotop.com.tw/book/BookDetails.aspx?bn=A806)。第 1、5 章幫助建立任務與模型介面；第 3–4 章處理評估；第 6 章進入 RAG 與代理；第 9–10 章連到推論與系統交付。第 7–8 章的微調與數據集工程，留到有適配需求時再讀。
++應用設計的主教材選 Chip Huyen 的《AI Engineering》。作者的 [official companion repository](https://github.com/chiphuyen/aie-book) 公開提供 Table of contents、chapter summaries、study notes、AI engineering resources、prompt examples 與 case studies，可先用這些資料定位相關章節；需要完整內容再閱讀書籍。第 1、5 章幫助建立任務與模型介面；第 3–4 章處理評估；第 6 章進入 RAG 與代理；第 9–10 章連到推論與系統交付。第 7–8 章的微調與數據集工程，留到有適配需求時再讀。
+ 
+ 理解模型內部時，使用 Sebastian Raschka 的 [Build a Large Language Model (From Scratch)](https://sebastianraschka.com/llms-from-scratch/)。需要中文補充，就查 [Happy-LLM](https://github.com/datawhalechina/happy-llm) 的 Transformer 與模型實作章節。兩者服務同一個理解缺口，不必每章重複通讀。
