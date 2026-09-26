@@ -63,12 +63,12 @@ class MediumCompilerTests(unittest.TestCase):
 
     def _text(self, stage: int) -> str:
         if stage == 0:
-            return "# TOC\n\nDecision map\n\n\`\`\`text\ninput -> output\n\`\`\`\n"
+            return "# TOC\n\nDecision map\n\n```text\ninput -> output\n```\n"
         text = f"## Stage {stage}\n\nexact-{stage}\n"
         if stage == 3:
             text += "\ncanonical key\n"
         if stage == 4:
-            text += "\n\`\`\`python\nprint('protected')\n\`\`\`\n"
+            text += "\n```python\nprint('protected')\n```\n"
         return text
 
     def _submit(self, stage: int, text: str | None = None, coverage: Path | None = None):
