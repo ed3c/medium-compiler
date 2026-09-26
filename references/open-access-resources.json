@@ -1,0 +1,217 @@
+{
+  "schema_version": "open-access-resources@2",
+  "policy": "Reader-facing links must be open. Core learning recommendations must point to substantive chapters, full open books, complete lessons or complete tutorials—not companion/index-only resources.",
+  "checked_at": "2026-09-26",
+  "resources": [
+    {
+      "url": "https://aiengineeringfromscratch.com/",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://aiengineeringfromscratch.com/learning-paths.html",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://docs.python.org/3/library/decimal.html",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://fastapi.tiangolo.com/",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/bojieli/ai-agent-book/blob/main/docs/zh-TW/README.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/bojieli/ai-infra-book",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter5/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter6/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B%E5%AE%9E%E8%B7%B5.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter7/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/README.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/llm.py",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/main.py",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/app/storage.py",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/demo.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/evidence/2026-09-15-luna-medium.json",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/supabase.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/docs/vercel.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/cases.jsonl",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/evals/run.py",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/ed3c/ops-reconciliation-copilot/blob/24a56d18661630b0dba97dcb0b057dce07b0ab32/scripts/verify_runtime.py",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://github.com/rasbt/LLMs-from-scratch",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://hamel.dev/blog/posts/evals-faq/",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://huggingface.co/learn/llm-course/chapter11/1",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://huggingface.co/learn/llm-course/chapter11/5",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://openrouter.ai/docs",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "product source or operational reference"
+    },
+    {
+      "url": "https://web.stanford.edu/~jurafsky/slp3/11.pdf",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://web.stanford.edu/~jurafsky/slp3/7.pdf",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://web.stanford.edu/~jurafsky/slp3/8.pdf",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "public-docs",
+      "reader_access": "open",
+      "learning_depth": "substantive",
+      "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    }
+  ]
+}

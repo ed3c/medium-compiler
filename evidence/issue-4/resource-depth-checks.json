@@ -1,0 +1,54 @@
+{
+  "schema_version": "medium-resource-depth-proof@1",
+  "issue": 4,
+  "checked_at": "2026-09-26",
+  "main_base": "cb511d0af88fc31198bd5a47e415bb9e738b8506",
+  "source_branch_head": "7dd26dd0307b61121f2a03b69632d021fa2f8013",
+  "resource_before": {
+    "commit": "84090e8af9e8f66ce06ff42b4d9bcdbc2a41a8cc",
+    "article_git_blob": "11250c64c4131440edc7bb54f41c89347472e8f3"
+  },
+  "resource_after": {
+    "article_git_blob": "19c0ef18be878324fde4670e5d3ad03fcf42e00d"
+  },
+  "article_delta": {
+    "additions": 4,
+    "deletions": 10,
+    "scope": "four learning-resource passages"
+  },
+  "observed_barrier": "open-access companion/index links can be readable but still provide insufficient learning depth",
+  "correction": [
+    "remove chiphuyen/aie-book from the article",
+    "link SLP Chapter 7 Transformers and Pretraining directly",
+    "link SLP Chapter 8 Post-training directly",
+    "link SLP Chapter 11 Information Retrieval and RAG directly",
+    "link Happy-LLM Chapters 5, 6 and 7 directly",
+    "link Hugging Face LLM Course SFT and Evaluation lessons directly",
+    "encode substantive-learning-resource gate in SKILL and task prompt"
+  ],
+  "static_checks": {
+    "article_changed": true,
+    "companion_removed": true,
+    "direct_slp_chapters_present": true,
+    "direct_happy_llm_chapters_present": true,
+    "hf_sft_eval_present": true,
+    "all_reader_urls_allowlisted": true,
+    "required_resources_marked_substantive": true,
+    "no_paid_preview_links": true,
+    "five_parts_equal_article": true,
+    "manifest_blobs_match": true,
+    "skill_has_substantive_gate": true,
+    "prompt_has_substantive_policy": true
+  },
+  "web_verification": {
+    "ai_engineering_from_scratch": "public full curriculum; 20 phases / 523 lessons; no paywall/signup",
+    "slp_2026": "public August 19 2026 manuscript; direct chapters 7, 8 and 11",
+    "happy_llm": "public full chapters 5-7 with implementation/training/evaluation-RAG-Agent content",
+    "huggingface_llm_course": "public Chapter 11 SFT and Evaluation lessons"
+  },
+  "compiler_runtime_change": "NONE; rebased candidate inherits current main medium_compiler.py",
+  "independent_reader": "NOT_RUN",
+  "fresh_writer_transfer": "NOT_RUN",
+  "medium_publication": "NOT_RUN",
+  "conclusion": "SCOPED_REAL_ARTICLE_RESOURCE_QUALITY_CORRECTION"
+}

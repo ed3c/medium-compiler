@@ -1,0 +1,94 @@
+{
+  "schema_version": "article-reading-context@2",
+  "article": "articles/ai-engineer-learning-path.md",
+  "source_case": {
+    "repo": "ed3c/ops-reconciliation-copilot",
+    "source_commit": "24a56d18661630b0dba97dcb0b057dce07b0ab32",
+    "role": "primary running example",
+    "public": true
+  },
+  "format": {
+    "platform": "Medium",
+    "native_table_policy": "no Markdown/HTML tables in final article",
+    "toc": "headings/subheadings; Medium web generates TOC automatically",
+    "manual_toc_in_final": false
+  },
+  "decision_count": 10,
+  "decision_counting_rule": "Principal reader choice: alternative action + condition changing the choice + downstream consequence. Not a code-branch count or universal quota.",
+  "decisions": [
+    {
+      "id": "A01",
+      "question": "先做 application，還是先從零訓練模型？",
+      "destination": "§1、§11"
+    },
+    {
+      "id": "A02",
+      "question": "模型 output 可以直接觸發 reconciliation 嗎？",
+      "destination": "§2"
+    },
+    {
+      "id": "A03",
+      "question": "為什麼 sources、mapping_proposal、mapping、findings 要分開？",
+      "destination": "§3"
+    },
+    {
+      "id": "A04",
+      "question": "JSON schema 通過是否等於欄位語意正確？",
+      "destination": "§5"
+    },
+    {
+      "id": "A05",
+      "question": "固定 workflow 還是 full Agent？",
+      "destination": "§7"
+    },
+    {
+      "id": "A06",
+      "question": "現在需要 RAG 嗎？",
+      "destination": "§8"
+    },
+    {
+      "id": "A07",
+      "question": "4/4 eval case 能證明什麼？",
+      "destination": "§6"
+    },
+    {
+      "id": "A08",
+      "question": "慢 model request 回來時，還能直接寫 state 嗎？",
+      "destination": "§9"
+    },
+    {
+      "id": "A09",
+      "question": "什麼時候該深入 AI Infra？",
+      "destination": "§10"
+    },
+    {
+      "id": "A10",
+      "question": "什麼時候才值得 Fine-tuning？",
+      "destination": "§12"
+    }
+  ],
+  "link_policy": {
+    "reader_facing": "open-access-only",
+    "manifest": "references/open-access-resources.json",
+    "forbidden": [
+      "paid book preview",
+      "bookstore",
+      "owner-only workspace",
+      "private/login-gated content"
+    ]
+  },
+  "card_context": {
+    "protocol_reference_blob": "7f3019f4b41a90728cd48a523d742c7c59721bf6",
+    "adapter": "evidence-first internally; task-value-first reader prose",
+    "supplied_cards": false
+  },
+  "delivery": {
+    "parts_manifest": "articles/ai-engineer-learning-path.parts/manifest.json",
+    "part_count": 5,
+    "assembly": "byte concatenation",
+    "stage0": "articles/ai-engineer-learning-path.stage-00.md"
+  },
+  "independent_reader": "NOT_RUN",
+  "fresh_writer_ab": "NOT_RUN",
+  "medium_publication": "NOT_RUN"
+}

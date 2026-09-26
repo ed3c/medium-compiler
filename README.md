@@ -4,6 +4,31 @@ A writing-only CLI and [P-class skill](SKILL.md) for technical Medium articles.
 No model adapter, publishing service, image generator, card compiler or scheduler.
 The Agent writes prose; the CLI controls accepted files and assembles the result.
 
+## Writing prompts and the current article
+
+Start with [SKILL.md](SKILL.md), then the reusable
+[task / continue / assembly prompts](prompts/medium-article.md).
+The [v7.1 context reference](references/card-context-v7.1.md) is optional input guidance,
+not a card compiler dependency. The five organizing questions in the skill do not fix how
+many decisions the reader must understand.
+
+For the actual AI Engineer article:
+
+- [Stage 0: contents, 14 principal decisions and runtime maps](articles/ai-engineer-learning-path.stage-00.md)
+- [Continuous Medium article](articles/ai-engineer-learning-path.md)
+- [Context and source anchors](articles/ai-engineer-learning-path.context.json)
+- [Ordered delivery manifest](articles/ai-engineer-learning-path.parts/manifest.json)
+
+The five delivery parts are contiguous slices of that existing article, not recreated
+Stage 1–5 generation history. Stage 0 is a separate reading plan; do not prepend it to
+all five parts. The article itself already contains the reader TOC/decision overview and
+its existing runtime diagrams. Concatenate the manifest's parts without adding separators
+to obtain exactly the same canonical article bytes.
+
+This edition adds only a source-grounded navigation section. All earlier prose, code,
+links and section ordering remain unchanged. [Issue #4 evidence](evidence/issue-4/README.md)
+separates literal preservation from author review and unrun independent-reader tests.
+
 ## Two entry paths
 
 A new article uses the existing stages:
@@ -40,30 +65,11 @@ python3 medium_compiler.py next --run-dir /tmp/revision
 # VALIDATED, next = null; this does not mean semantic correctness was assessed.
 ```
 
-`copyedit.json` normally contains:
+`copyedit.json` contains:
 
 ```json
 {"elements":["copyedit"],"claims":[],"terms":[]}
 ```
-
-For an imported article with one verified source-link defect, Stage 6 may instead
-declare exactly one bounded replacement:
-
-```json
-{
-  "elements": ["copyedit"],
-  "claims": [],
-  "terms": [],
-  "revision_kind": "source_correction",
-  "source_link": {
-    "from": "https://old.example/resource",
-    "to": "https://official.example/resource"
-  }
-}
-```
-
-All other source-link destinations remain protected. This is deliberately not a
-generic technical-edit manifest.
 
 `spec.json` contains a topic and optional claim/term declarations. See
 [examples/spec.json](examples/spec.json). For authoring stages, each coverage sidecar
@@ -144,3 +150,11 @@ python3 evidence/issue-1/replay.py --out /tmp/medium-replay-paired --baseline-cl
 
 The replay writes only to its new output directory. It does not call a model or
 regenerate the article. It records a deterministic correction, not a fresh-writer A/B.
+
+
+## Medium output policy
+
+The final Medium article does not use Markdown/HTML tables. Use headings, labeled blocks,
+lists and text diagrams instead. The current AI Engineer worked article uses the public
+Ops Reconciliation Copilot as its running product example. Reader-facing links are
+open-access only and enumerated in `references/open-access-resources.json`.
