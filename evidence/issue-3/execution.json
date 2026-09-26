@@ -1,0 +1,123 @@
+{
+  "article_modified": false,
+  "baseline_cli_sha256": "sha256:82b37776db28b2c00325abfa5a2ae95e6b963aabfb9f0ee051d37bbab0ef2730",
+  "baseline_commit": "6b9b24f35c8f3271ff04673efad337db2e60371f",
+  "baseline_test_log_sha256": "sha256:50d74c899af2cc32e81693935b78dfe9b827e9d1de697b4110ee0400f398adfb",
+  "baseline_unit_tests": {
+    "count": 32,
+    "status": "PASS"
+  },
+  "candidate_cli_sha256": "sha256:f869aae754f074cf40933de19b986bd879fce9798f8d6cc3a5fcd85e30cb86b9",
+  "candidate_source_sha256": {
+    "README.md": "sha256:47ead04a7c3fcd787c2ff53590e0d99505d1ff93a9c52db510d837df86c1196d",
+    "SKILL.md": "sha256:122397d46e498086439af4f1970c4754794f4b048503906d05a30f9d0921990e",
+    "evidence/issue-3/replay.py": "sha256:256e13ac1488d1f1e6c740c8e783a8186e471b74debd909b3987f695e064cb7b",
+    "medium_compiler.py": "sha256:f869aae754f074cf40933de19b986bd879fce9798f8d6cc3a5fcd85e30cb86b9",
+    "tests/test_reopen.py": "sha256:c92fcdb42076937fe090036fbfdda56323132f8f6af409c87fecac13af99dd6f"
+  },
+  "candidate_unit_tests": {
+    "count": 52,
+    "new_reopen_tests": 20,
+    "status": "PASS"
+  },
+  "cases": [
+    {
+      "arm": "baseline",
+      "command_count": 9,
+      "fixture": "synthetic",
+      "reopen_exit_code": 2,
+      "result": "MISSING_OPERATION",
+      "run_unchanged": true,
+      "target_stage": 1
+    },
+    {
+      "arm": "baseline",
+      "command_count": 9,
+      "fixture": "synthetic",
+      "reopen_exit_code": 2,
+      "result": "MISSING_OPERATION",
+      "run_unchanged": true,
+      "target_stage": 4
+    },
+    {
+      "arm": "baseline",
+      "canonical_equals_admitted_stage6": true,
+      "command_count": 13,
+      "fixture": "synthetic",
+      "reopen_exit_code": null,
+      "result": "VALIDATED",
+      "semantic_correctness": "NOT_ASSESSED",
+      "target_stage": null,
+      "terminal_next": null
+    },
+    {
+      "arm": "candidate",
+      "canonical_equals_admitted_stage6": true,
+      "command_count": 20,
+      "fixture": "synthetic",
+      "prefix_unchanged": true,
+      "reopen_exit_code": 0,
+      "result": "VALIDATED",
+      "semantic_correctness": "NOT_ASSESSED",
+      "target_stage": 1,
+      "terminal_next": null
+    },
+    {
+      "arm": "candidate",
+      "canonical_equals_admitted_stage6": true,
+      "command_count": 17,
+      "fixture": "synthetic",
+      "prefix_unchanged": true,
+      "reopen_exit_code": 0,
+      "result": "VALIDATED",
+      "semantic_correctness": "NOT_ASSESSED",
+      "target_stage": 4,
+      "terminal_next": null
+    },
+    {
+      "arm": "candidate",
+      "canonical_equals_admitted_stage6": true,
+      "command_count": 13,
+      "fixture": "synthetic",
+      "reopen_exit_code": null,
+      "result": "VALIDATED",
+      "semantic_correctness": "NOT_ASSESSED",
+      "target_stage": null,
+      "terminal_next": null
+    }
+  ],
+  "execution_environment": {
+    "python": "3.13.5",
+    "source": "GitHub-retrieved files; original Git blob identities verified before editing",
+    "system": "Linux"
+  },
+  "experiment_type": "DETERMINISTIC_CLI_CONTROL",
+  "independent_semantic_review": "NOT_RUN",
+  "issue_closure": "NOT_ELIGIBLE",
+  "medium_publication": "NOT_PERFORMED",
+  "natural_agent_behavior": "NOT_RUN",
+  "natural_agent_wrong_routes": null,
+  "notes": [
+    "Scripted baseline missing-operation checks are not natural Agent behavior baselines.",
+    "Tests use isolated temporary run directories, not fresh model sessions.",
+    "The existing article has no admitted Stages 1-5. It was not split into fictional stages.",
+    "No GitHub Actions run or user-Mac execution is claimed."
+  ],
+  "observed_article_run": {
+    "mode": "revision",
+    "path": "evidence/issue-1/run",
+    "state_git_blob": "2a63f13064daa3b3f2e5b9fce5162763455e4c10",
+    "status": "ASSEMBLED",
+    "submitted_stages": [
+      6
+    ]
+  },
+  "p_class_improvement": "NOT_ESTABLISHED",
+  "raw_cli_result_sha256": "sha256:b5da0c3da3a2e4cbab28524e7c0dc6772154b5b694503b100c26737588fb90a1",
+  "raw_cli_result_storage": "Task archive medium-compiler-issue-3-evidence.zip: replay/result.json; regenerate using replay.py",
+  "real_article_prerequisite": "NO_ELIGIBLE_STAGED_RUN_OBSERVED",
+  "real_article_update": "NOT_PERFORMED",
+  "schema_version": "medium-issue-3-execution@1",
+  "status": "PASS",
+  "test_log_sha256": "sha256:1ed8a199b2c250a7e353aa160619bd5fcc4c3e11bac5c2cca1411c272a986886"
+}

@@ -6,7 +6,7 @@ description: >-
   implementation. Use the repository CLI for stage order and completion; keep semantic
   choices in the writing layer. No generated images are required.
 metadata:
-  version: "1.0.1"
+  version: "1.1.0"
 ---
 
 # Zero-Context Medium Writing
@@ -147,16 +147,37 @@ Preserve when technically meaningful:
 Do not optimize for an AI-detector score. Do not invent anecdotes or personal experience.
 Do not rotate technical synonyms simply to reduce repetition.
 
-Fenced code blocks are protected bytes. If code needs a technical correction, return to the
-earlier stage instead of hiding it inside copyedit.
+Fenced code blocks are protected bytes. Do not hide a technical correction inside copyedit.
+
+### A semantic correction before assembly
+
+Run `next` to observe the current state. If the correction belongs to an earlier
+semantic stage, choose the earliest affected stage from the article's meaning;
+do not always choose Stage 4. If that target is listed in `reopen_stages`, invoke:
+
+```sh
+python3 medium_compiler.py reopen --run-dir <run> --stage <target>
+python3 medium_compiler.py next --run-dir <run>
+```
+
+The CLI owns invalidation and accounting. Follow its `next` and `next_stage`,
+re-submit only the required suffix, then repeat the constrained prose pass.
+Edit external stage inputs, never `state.json`, admitted parts, or their digests.
+Pure wording cleanup before Stage 6 submission stays in Stage 6; do not reopen.
+
+An imported draft has no admitted Stages 1-5. An assembled run, changed admitted
+bytes, or a correction requiring a changed spec is not this operation's scope.
+Stop and report the missing technical-edit prerequisite in those cases. Do not
+invent stage history, weaken a guard, guess a replacement route, or restart the
+whole article merely to obtain a green receipt.
 
 ## Stage 7 — Assembly
 
 Do not author new prose.
 
 The CLI takes the admitted Stage 6 article and creates the canonical Medium artifact. If a
-new fact is needed, return to the affected semantic stage, update coverage, and repeat the
-prose pass.
+new fact is needed before assembly, use the semantic-correction path above.
+Do not decide invalidation or completion from prose.
 
 ## Zero-context check
 

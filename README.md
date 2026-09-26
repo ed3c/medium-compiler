@@ -52,6 +52,37 @@ names the exact elements and claim/term IDs due in that stage. These are structu
 accounting declarations, not evidence that the prose entails each claim. Imported
 articles explicitly report declared claim coverage as `NOT_ASSESSED`.
 
+## Semantic correction before assembly
+
+For a `staged` run frozen at Stage 6 or waiting for Stage 7, the writer selects the
+earliest affected semantic stage. `next` exposes `mode`, `next` and `reopen_stages`;
+it does not infer whether the prose needs a semantic correction.
+
+```sh
+python3 medium_compiler.py next --run-dir /tmp/new-article
+# Example: the writer identified a Stage 4 implementation correction.
+python3 medium_compiler.py reopen --run-dir /tmp/new-article --stage 4
+python3 medium_compiler.py next --run-dir /tmp/new-article
+# next = submit, next_stage = 4
+```
+
+`reopen` rechecks admission bindings and coverage, keeps the prefix byte-identical,
+removes the target-and-later admitted parts/coverage and frozen draft, and rebuilds
+accounting from the valid prefix. Its JSON records before/after state digests,
+invalidated/preserved artifact digests and the current `next` result. Re-submit the
+required suffix using external input files; after Stage 5 the new draft is frozen
+again, and Stage 6 retains the same code/link/literal guard.
+
+Targets 0/6, unfrozen runs, imported drafts, assembled runs, drifted admissions,
+symlinked artifacts and unexpected final artifacts are refused without mutation.
+Ordinary rename/state-commit failures roll back. Single-writer use only: this is
+not a concurrent transaction engine or a power-loss recovery system. An incomplete
+rollback preserves its backup location and reports STOP rather than claiming success.
+The spec is not editable through `reopen`; a spec change needs separate scope.
+
+[Issue #3 implementation evidence](evidence/issue-3/README.md) separates executable
+controls from the still-required real-article update and fresh Agent A/B.
+
 ## What is enforced
 
 - Bind the imported draft, spec and accepted parts/coverage to their exact bytes.
@@ -107,7 +138,7 @@ Python 3.10+ standard library only:
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 medium_compiler.py check-receipt --run-dir evidence/issue-1/run
+# Historical receipts bind their compiler bytes. Use the replay below after a compiler update.
 ```
 
 To reproduce the real article and candidate controls in a fresh output directory:

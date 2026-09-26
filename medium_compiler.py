@@ -15,6 +15,7 @@ import json
 import re
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -430,6 +431,106 @@ def submit_stage(
     return state
 
 
+def reopen_stage(run_dir: Path, stage: int) -> dict[str, Any]:
+    """Invalidate a staged run's semantic suffix before assembly, never infer its owner.
+
+    Single-writer operation. Preflight is read-only; rename failures roll back before
+    returning. Abrupt process termination/power loss is not a recovery protocol.
+    """
+    if type(stage) is not int or stage not in range(1, 6):
+        raise CompilerError("reopen target must be an integer in 1..5")
+    spec, state, paths = _load_run(run_dir)
+    if state.get("mode") != "staged":
+        raise CompilerError("imported drafts have no admitted semantic stages to reopen")
+    previous = state.get("next_stage")
+    if state.get("status") != "CONTINUE" or type(previous) is not int or previous not in (6, 7):
+        raise CompilerError("reopen is legal only before assembly after semantic freeze")
+    stages = list(range(previous))
+    submitted = state.get("submitted_stages")
+    if submitted != stages or not all(type(i) is int for i in submitted):
+        raise CompilerError("invalid submitted stage order")
+    required = {"spec.json", "semantic-draft.md"}
+    required.update(f"parts/stage-{i:02d}{suffix}" for i in stages
+                    for suffix in (".md", ".coverage.json"))
+    admitted = state["admitted_files"]
+    if set(admitted) != required:
+        raise CompilerError("incomplete admission bindings")
+    touched = [run_dir, paths["parts"], paths["state"]]
+    touched.extend(run_dir / name for name in required)
+    if any(path.is_symlink() for path in touched):
+        raise CompilerError("reopen refuses symlinked run artifacts")
+    for key in ("canonical", "receipt"):
+        if paths[key].exists() or paths[key].is_symlink():
+            raise CompilerError(f"unexpected final artifact before assembly: {paths[key].name}")
+    for i in range(7):
+        for path in (_part_path(paths["parts"], i), _coverage_path(paths["parts"], i)):
+            if str(path.relative_to(run_dir)) not in required and (path.exists() or path.is_symlink()):
+                raise CompilerError(f"unexpected unadmitted stage artifact: {path.name}")
+
+    claims: set[str] = set()
+    terms: set[str] = set()
+    for i in range(6):
+        text = _part_path(paths["parts"], i).read_text(encoding="utf-8")
+        coverage = _read_json(_coverage_path(paths["parts"], i))
+        due_claims, due_terms = _validate_coverage(spec, i, coverage, text)
+        _check_forbidden_variants(spec, text)
+        if i < stage:
+            claims.update(due_claims)
+            terms.update(due_terms)
+    expected = "\n\n".join(_part_path(paths["parts"], i).read_text(
+        encoding="utf-8").strip() for i in range(1, 6)).rstrip() + "\n"
+    if paths["semantic"].read_text(encoding="utf-8") != expected:
+        raise CompilerError("semantic draft differs from admitted parts")
+    if previous == 7:
+        coverage = _read_json(_coverage_path(paths["parts"], 6))
+        if coverage != {"elements": ["copyedit"], "claims": [], "terms": []}:
+            raise CompilerError("invalid copyedit coverage")
+        _validate_copyedit(spec, expected, _part_path(paths["parts"], 6).read_text(encoding="utf-8"))
+
+    removed = {"semantic-draft.md"}
+    removed.update(f"parts/stage-{i:02d}{suffix}" for i in range(stage, previous)
+                   for suffix in (".md", ".coverage.json"))
+    invalidated = {name: admitted[name] for name in sorted(removed)}
+    prefix = {name: digest for name, digest in admitted.items() if name not in removed}
+    updated = dict(state, status="CONTINUE", next_stage=stage,
+                   submitted_stages=list(range(stage)), covered_claims=sorted(claims),
+                   defined_terms=sorted(terms), admitted_files=prefix)
+    updated.pop("canonical_sha256", None)
+    before_digest = _sha256_path(paths["state"])
+
+    # Stage removals with reversible same-filesystem renames. Commit state last.
+    # A recovery failure retains the backup directory; never delete the only copies.
+    backup = Path(tempfile.mkdtemp(prefix=".reopen-", dir=run_dir))
+    moved: list[str] = []
+    try:
+        (backup / "parts").mkdir()
+        _write_json(backup / "state.next.json", updated)
+        for name in invalidated:
+            (run_dir / name).replace(backup / name)
+            moved.append(name)
+        (backup / "state.next.json").replace(paths["state"])
+    except OSError:
+        try:
+            for name in reversed(moved):
+                (backup / name).replace(run_dir / name)
+        except OSError as exc:
+            raise CompilerError(f"reopen rollback incomplete; stop; backups retained at {backup}") from exc
+        shutil.rmtree(backup, ignore_errors=True)
+        raise
+    shutil.rmtree(backup, ignore_errors=True)
+    return {
+        "status": "REOPENED",
+        "target_stage": stage,
+        "previous_next_stage": previous,
+        "invalidated_artifacts": invalidated,
+        "preserved_artifacts": prefix,
+        "state_before_sha256": before_digest,
+        "state_after_sha256": _sha256_path(paths["state"]),
+        "next": next_action(run_dir),
+        "semantic_correctness": "NOT_ASSESSED",
+    }
+
+
 def next_action(run_dir: Path) -> dict[str, Any]:
     spec, state, paths = _load_run(run_dir)
     next_stage = state.get("next_stage")
@@ -449,12 +550,18 @@ def next_action(run_dir: Path) -> dict[str, Any]:
         return {
             "status": "CONTINUE",
             "next_stage": 7,
+            "next": "assemble",
+            "mode": state["mode"],
+            "reopen_stages": list(range(1, 6)) if state["mode"] == "staged" else [],
             "name": STAGE_NAMES[7],
             "required": ["assemble admitted Stage 6 bytes; author no new prose"],
         }
     return {
         "status": "CONTINUE",
         "next_stage": next_stage,
+        "next": "submit",
+        "mode": state["mode"],
+        "reopen_stages": list(range(1, 6)) if state["mode"] == "staged" and next_stage == 6 else [],
         "name": STAGE_NAMES[next_stage],
         "required_elements": list(STAGE_ELEMENTS[next_stage]),
         "claim_ids": sorted(_due_claims(spec, next_stage)),
@@ -664,6 +771,10 @@ def main() -> int:
     p.add_argument("--input", type=Path, required=True)
     p.add_argument("--coverage", type=Path, required=True)
 
+    p = sub.add_parser("reopen", help="Reopen admitted semantic stage 1..5 before assembly")
+    p.add_argument("--run-dir", type=Path, required=True)
+    p.add_argument("--stage", type=int, required=True)
+
     p = sub.add_parser("assemble")
     p.add_argument("--run-dir", type=Path, required=True)
 
@@ -692,6 +803,8 @@ def main() -> int:
             _print(next_action(args.run_dir))
         elif args.command == "submit":
             _print(submit_stage(args.run_dir, args.stage, args.input, args.coverage))
+        elif args.command == "reopen":
+            _print(reopen_stage(args.run_dir, args.stage))
         elif args.command == "assemble":
             _print(assemble(args.run_dir))
         elif args.command == "verify":
