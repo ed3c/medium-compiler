@@ -38,7 +38,7 @@ STAGE_NAMES = {
     7: "canonical-assembly",
 }
 
-FENCE = re.compile(r"(?ms)^\`\`\`[^\n]*\n.*?^\`\`\`\s*$")
+FENCE = re.compile(r"(?ms)^```[^\n]*\n.*?^```\s*$")
 MACHINE_MARKERS = (
     "<!-- MEDIUM_COMPILER",
     "<!-- RUN_STATE",
