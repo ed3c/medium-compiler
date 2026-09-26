@@ -1,0 +1,11 @@
+{
+  "article_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+  "unit_ids": ["transaction-index", "finding-precedence"],
+  "reviewer": "authoring assistant",
+  "independent": false,
+  "verdict": "PASS",
+  "unresolved_gaps": [],
+  "source_fidelity": "Compared both additions against pinned app/main.py: exact distinct mapping columns, ID strip without case folding, currency uppercase, enumerate(rows, 2), list append, sorted ID union and ordered if/elif findings. No claim of a live model trace.",
+  "causal_continuity": "The duplicate T100 diagnostic connects list representation to duplicate detection, then to why subtraction is postponed. Existing T100 success example and all original paragraphs remain unchanged.",
+  "limits": "Author review only. No independent reader, semantic judge, production financial validation or cross-topic transfer. Completion covers these two explicit knowledge units; the original article has not been exhaustively re-audited."
+}

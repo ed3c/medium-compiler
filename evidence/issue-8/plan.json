@@ -1,0 +1,30 @@
+{
+  "topic": "Ops Reconciliation Copilot：展開交易索引與差異分類的 runtime",
+  "scope": "Add two source-grounded explanations to the existing article. Existing text is not a newly generated Boot Batch. Completion covers this work queue, not all possible AI Engineer knowledge.",
+  "sources": [
+    {
+      "id": "ops-main",
+      "path": "inputs/ops-main.py",
+      "sha256": "sha256:1aeb1385358d45ee98e8d2aca2dd22490ea1bd04469385f4dcb1d9c9c975774f",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:app/main.py"
+    }
+  ],
+  "units": [
+    {
+      "id": "transaction-index",
+      "question": "為什麼 transaction_id 對到 list，而不是單筆資料？",
+      "insert_before": "## 5. Structured output：JSON 合法，不代表 mapping 語意正確",
+      "source_id": "ops-main",
+      "source_anchor": "result[key].append({\"row\": line, \"amount\": format(amount, \".2f\"), \"currency\": currency})",
+      "terms": ["normalize", "transaction_id", "row", "list"]
+    },
+    {
+      "id": "finding-precedence",
+      "question": "重複、缺列、幣別與金額衝突時，哪一種 finding 優先？",
+      "insert_before": "## 5. Structured output：JSON 合法，不代表 mapping 語意正確",
+      "source_id": "ops-main",
+      "source_anchor": "if len(a) > 1 or len(b) > 1:",
+      "terms": ["duplicate_key", "currency_mismatch", "amount_mismatch", "delta"]
+    }
+  ]
+}

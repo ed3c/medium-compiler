@@ -1,0 +1,340 @@
+#!/usr/bin/env python3
+"""Append-only knowledge expansion before the existing Medium assembly CLI.
+
+The immutable boot and source snapshots plus ordered patch files are the state.
+No model calls, publication, or semantic-truth oracle. Single cooperative writer.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+import medium_compiler as mc
+
+
+class Refusal(ValueError):
+    pass
+
+
+def digest(data: bytes) -> str:
+    return "sha256:" + hashlib.sha256(data).hexdigest()
+
+
+def encoded(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode()
+
+
+def read_json(path: Path) -> dict:
+    value = json.loads(read_file(path))
+    if not isinstance(value, dict):
+        raise Refusal(f"expected an object: {path.name}")
+    return value
+
+
+def read_file(path: Path) -> bytes:
+    if path.is_symlink() or not path.is_file():
+        raise Refusal(f"missing or symlinked input: {path}")
+    return path.read_bytes()
+
+
+def string(value: Any, name: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise Refusal(f"{name} must be a nonempty string")
+    return value
+
+
+def plain_article(data: bytes) -> str:
+    text = data.decode("utf-8")
+    if not text.strip() or text != text.rstrip() + "\n":
+        raise Refusal("article must be nonempty UTF-8 with one terminal newline")
+    blocks = mc._extract_fences(text)
+    prose = text
+    for block in blocks:
+        prose = prose.replace(block, "", 1)
+    if re.search(r"(?mi)^\s*\|.*\|\s*$|<table\b", prose):
+        raise Refusal("Medium prose must not contain a table")
+    if any(marker in text for marker in mc.MACHINE_MARKERS):
+        raise Refusal("machine sidecar in reader prose")
+    return text
+
+
+def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None:
+    string(plan.get("topic"), "topic")
+    units = plan.get("units")
+    if not isinstance(units, list) or not units:
+        raise Refusal("boot requires explicit pending knowledge units")
+    ids = []
+    for unit in units:
+        if not isinstance(unit, dict):
+            raise Refusal("unit must be an object")
+        uid = string(unit.get("id"), "unit.id")
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,79}", uid):
+            raise Refusal("unit IDs must be stable slugs")
+        ids.append(uid)
+        string(unit.get("question"), "unit.question")
+        anchor = string(unit.get("insert_before"), "unit.insert_before")
+        if not anchor.startswith("## ") or "\n" in anchor or boot_text.count(anchor) != 1:
+            raise Refusal("destination must be one exact existing H2 heading")
+        sid = unit.get("source_id")
+        quote = string(unit.get("source_anchor"), "unit.source_anchor")
+        if sid not in sources or quote not in sources[sid].decode("utf-8"):
+            raise Refusal("source anchor missing from the pinned source")
+        terms = unit.get("terms", [])
+        if not isinstance(terms, list) or any(not isinstance(t, str) or not t for t in terms):
+            raise Refusal("unit terms must be nonempty strings")
+    if len(ids) != len(set(ids)):
+        raise Refusal("duplicate knowledge unit")
+
+
+def boot(article: Path, plan_path: Path, run: Path) -> dict:
+    if run.exists() or run.is_symlink():
+        raise Refusal("boot output must be a new directory")
+    before = read_file(article)
+    text = plain_article(before)
+    plan = read_json(plan_path)
+    source_entries = plan.get("sources")
+    if not isinstance(source_entries, list) or not source_entries:
+        raise Refusal("plan requires pinned sources")
+    sources = {}
+    for entry in source_entries:
+        sid = string(entry.get("id"), "source.id")
+        if not re.fullmatch(r"[a-z0-9-]+", sid) or sid in sources:
+            raise Refusal("invalid or duplicate source ID")
+        rel = Path(string(entry.get("path"), "source.path"))
+        if rel.is_absolute() or ".." in rel.parts:
+            raise Refusal("source path must stay beside the plan")
+        path = plan_path.parent / rel
+        if any(p.is_symlink() for p in [path, *path.parents]):
+            raise Refusal("symlinked source path")
+        data = read_file(path)
+        if digest(data) != entry.get("sha256"):
+            raise Refusal("source digest mismatch")
+        string(entry.get("provenance"), "source.provenance")
+        sources[sid] = data
+    validate_plan(plan, text, sources)
+    if any(run.resolve().is_relative_to(p.resolve()) for p in (article, plan_path)):
+        raise Refusal("output overlaps inputs")
+    run.mkdir(parents=True)
+    try:
+        (run / "sources").mkdir()
+        (run / "patches").mkdir()
+        (run / "boot.md").write_bytes(before)
+        (run / "plan.json").write_bytes(encoded(plan))
+        for sid, data in sources.items():
+            (run / "sources" / f"{sid}.txt").write_bytes(data)
+        (run / "bindings.json").write_bytes(encoded({
+            "boot_sha256": digest(before), "plan_sha256": digest(encoded(plan)),
+            "sources": {sid: digest(data) for sid, data in sources.items()},
+        }))
+    except Exception:
+        shutil.rmtree(run)
+        raise
+    return inspect(run)
+
+
+def replay(run: Path) -> tuple[dict, bytes, list[dict]]:
+    if run.is_symlink() or any((run / p).is_symlink() for p in ("patches", "sources")):
+        raise Refusal("symlinked batch directory")
+    binding = read_json(run / "bindings.json")
+    before = read_file(run / "boot.md")
+    raw_plan = read_file(run / "plan.json")
+    if digest(before) != binding.get("boot_sha256") or digest(raw_plan) != binding.get("plan_sha256"):
+        raise Refusal("boot or plan drift")
+    plan = json.loads(raw_plan)
+    sources = {}
+    for sid, sha in binding.get("sources", {}).items():
+        if not re.fullmatch(r"[a-z0-9-]+", sid):
+            raise Refusal("invalid source ID")
+        data = read_file(run / "sources" / f"{sid}.txt")
+        if digest(data) != sha:
+            raise Refusal("source snapshot drift")
+        sources[sid] = data
+    validate_plan(plan, plain_article(before), sources)
+    text = before.decode("utf-8")
+    applied = []
+    found = sorted((run / "patches").glob("*.json"))
+    for index, path in enumerate(found):
+        if index >= len(plan["units"]) or path.name != f"{index:04d}-{digest(read_file(path))[7:]}.json":
+            raise Refusal("missing or out-of-order patch")
+        patch = read_json(path)
+        unit = plan["units"][index]
+        if set(patch) != {"unit_id", "base_sha256", "text"}:
+            raise Refusal("patch accepts only unit_id, base_sha256 and text")
+        if patch["unit_id"] != unit["id"] or patch["base_sha256"] != digest(text.encode()):
+            raise Refusal("wrong unit or stale patch base")
+        delta = string(patch["text"], "patch.text")
+        if delta != delta.rstrip() + "\n\n":
+            raise Refusal("delta must end with two newlines")
+        if any(term not in delta for term in unit.get("terms", [])):
+            raise Refusal("delta lacks a declared canonical term")
+        mc._extract_fences(delta)  # A batch must not borrow a closing fence from later prose.
+        anchor = unit["insert_before"]
+        if anchor in delta or text.count(anchor) != 1:
+            raise Refusal("ambiguous patch destination")
+        # The only allowed edit is insertion. Existing bytes cannot be replaced.
+        text = text.replace(anchor, delta + anchor, 1)
+        plain_article(text.encode())
+        applied.append({"unit_id": unit["id"], "patch_sha256": digest(read_file(path))})
+    return plan, text.encode(), applied
+
+
+def inspect(run: Path) -> dict:
+    plan, article, applied = replay(run)
+    remaining = plan["units"][len(applied):]
+    final = run / "final"
+    if final.exists():
+        if remaining:
+            raise Refusal("final output exists while work remains")
+        proof = read_json(final / "batch-proof.json")
+        review = read_json(final / "review.json")
+        validate_review(review, plan, article)
+        expected = {"boot_sha256": digest(read_file(run / "boot.md")),
+                    "article_sha256": digest(article), "patches": applied,
+                    "review_sha256": digest(read_file(final / "review.json")),
+                    "bindings_sha256": digest(read_file(run / "bindings.json")),
+                    "batch_helper_sha256": digest(Path(__file__).read_bytes())}
+        if any(proof.get(k) != v for k, v in expected.items()):
+            raise Refusal("final proof is stale")
+        mc.check_receipt(final / "compiled")
+        if read_file(final / "compiled/medium-canonical.md") != article:
+            raise Refusal("canonical article does not match batch replay")
+        return {"status": "DONE", "next": None, **expected,
+                "completion_scope": "declared source-bound work queue and recorded review",
+                "semantic_review": "INDEPENDENT_DECLARED" if review["independent"] else "AUTHOR_REVIEW_ONLY",
+                "human_learning_outcome": "NOT_MEASURED"}
+    return {"status": "CONTINUE", "next": "drill-down" if remaining else "review-and-finish",
+            "source_cursor": remaining[0]["id"] if remaining else None,
+            "question": remaining[0]["question"] if remaining else None,
+            "remaining_work": [u["id"] for u in remaining], "applied": applied,
+            "article_sha256": digest(article), "semantic_correctness": "NOT_ASSESSED"}
+
+
+def apply_patch(run: Path, patch_path: Path) -> dict:
+    plan, article, applied = replay(run)
+    patch = read_json(patch_path)
+    # Identical retries are explicit no-ops, even when the original base is older.
+    for index, item in enumerate(applied):
+        if item["unit_id"] == patch.get("unit_id"):
+            if read_json(sorted((run / "patches").glob("*.json"))[index]) != patch:
+                raise Refusal("conflicting replay for an existing unit")
+            return {"operation": "NOOP", **inspect(run)}
+    if (run / "final").exists() or len(applied) == len(plan["units"]):
+        raise Refusal("no pending unit; inspect current continuation")
+    index = len(applied)
+    filename = f"{index:04d}-{digest(encoded(patch))[7:]}.json"
+    # Validate in a scratch clone; refusals cannot advance the live journal.
+    with tempfile.TemporaryDirectory(prefix="medium-patch-") as tmp:
+        trial = Path(tmp) / "run"
+        shutil.copytree(run, trial)
+        (trial / "patches" / filename).write_bytes(encoded(patch))
+        replay(trial)
+    dest = run / "patches" / filename
+    # Exclusive creation is the commit; callers must not concurrently write one run.
+    with dest.open("xb") as stream:
+        stream.write(encoded(patch))
+    return {"operation": "APPLIED", "delta": str(dest), **inspect(run)}
+
+
+def validate_review(review: dict, plan: dict, article: bytes) -> None:
+    if review.get("article_sha256") != digest(article):
+        raise Refusal("review does not name current article bytes")
+    if review.get("unit_ids") != [u["id"] for u in plan["units"]]:
+        raise Refusal("review must cover every declared unit")
+    if review.get("verdict") != "PASS" or review.get("unresolved_gaps") != []:
+        raise Refusal("review has failures or unresolved gaps")
+    if type(review.get("independent")) is not bool:
+        raise Refusal("review must identify whether it is independent")
+    string(review.get("reviewer"), "reviewer")
+    for key in ("source_fidelity", "causal_continuity", "limits"):
+        string(review.get(key), key)
+
+
+def finish(run: Path, review_path: Path) -> dict:
+    plan, article, applied = replay(run)
+    if len(applied) != len(plan["units"]):
+        raise Refusal("pending work: finish is not legal")
+    if (run / "final").exists():
+        return inspect(run)
+    review = read_json(review_path)
+    validate_review(review, plan, article)
+    temp = Path(tempfile.mkdtemp(prefix=".finish-", dir=run))
+    logs = []
+    try:
+        (temp / "draft.md").write_bytes(article)
+        (temp / "spec.json").write_bytes(encoded({"topic": plan["topic"], "claims": [], "terms": []}))
+        (temp / "coverage.json").write_bytes(encoded({"elements": ["copyedit"], "claims": [], "terms": []}))
+        cmds = [
+            ["init", "--spec", str(temp / "spec.json"), "--draft", str(temp / "draft.md"), "--run-dir", str(temp / "compiled")],
+            ["submit", "--run-dir", str(temp / "compiled"), "--stage", "6", "--input", str(temp / "draft.md"), "--coverage", str(temp / "coverage.json")],
+            ["assemble", "--run-dir", str(temp / "compiled")],
+            ["verify", "--run-dir", str(temp / "compiled")],
+            ["check-receipt", "--run-dir", str(temp / "compiled")],
+        ]
+        for args in cmds:
+            argv = [sys.executable, str(ROOT / "medium_compiler.py"), *args]
+            result = subprocess.run(argv, capture_output=True, text=True, timeout=30)
+            logs.append({"argv": argv, "exit": result.returncode, "stdout": result.stdout, "stderr": result.stderr})
+            if result.returncode:
+                raise Refusal("existing compiler rejected finalization")
+        if read_file(temp / "compiled/medium-canonical.md") != article:
+            raise Refusal("assembly changed batch article bytes")
+        (temp / "review.json").write_bytes(encoded(review))
+        (temp / "batch-proof.json").write_bytes(encoded({
+            "boot_sha256": digest(read_file(run / "boot.md")), "article_sha256": digest(article),
+            "patches": applied, "review_sha256": digest(encoded(review)),
+            "bindings_sha256": digest(read_file(run / "bindings.json")),
+            "batch_helper_sha256": digest(Path(__file__).read_bytes()),
+            "semantics": "recorded review, not proven by hashes", "publication": "NOT_PERFORMED"}))
+        (temp / "commands.json").write_bytes(encoded({"commands": logs}))
+        temp.rename(run / "final")
+    except Exception:
+        (temp / "commands.json").write_bytes(encoded({"commands": logs}))
+        raise Refusal(f"finalization failed; diagnostic evidence retained at {temp}")
+    return inspect(run)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("boot")
+    p.add_argument("--article", type=Path, required=True)
+    p.add_argument("--plan", type=Path, required=True)
+    p.add_argument("--run-dir", type=Path, required=True)
+    for cmd in ("next", "drill-down", "finish", "render"):
+        p = sub.add_parser(cmd)
+        p.add_argument("--run-dir", type=Path, required=True)
+        if cmd == "drill-down": p.add_argument("--patch", type=Path, required=True)
+        if cmd == "finish": p.add_argument("--review", type=Path, required=True)
+        if cmd == "render": p.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    try:
+        if args.cmd == "boot": result = boot(args.article, args.plan, args.run_dir)
+        elif args.cmd == "drill-down": result = apply_patch(args.run_dir, args.patch)
+        elif args.cmd == "finish": result = finish(args.run_dir, args.review)
+        elif args.cmd == "render":
+            _, data, _ = replay(args.run_dir)
+            if args.output.exists() or args.output.resolve().is_relative_to(args.run_dir.resolve()):
+                raise Refusal("render output must be new and outside the run")
+            args.output.write_bytes(data)
+            result = {"status": "RENDERED", "article_sha256": digest(data)}
+        else: result = inspect(args.run_dir)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    except (Refusal, mc.CompilerError, OSError, ValueError, KeyError, TypeError) as exc:
+        print(json.dumps({"status": "BLOCKED", "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,60 +1,45 @@
-name: Writing verification
+name: Materialize reviewed article increments
 on:
   push:
     branches: [agent/issue-8-lossless-skills]
 permissions:
   contents: write
 jobs:
-  verify:
+  install-reviewed-article:
+    if: github.ref == 'refs/heads/agent/issue-8-lossless-skills'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Tests and pinned source snapshot
+      - name: Replay reviewed increments and test before committing
         shell: bash
         run: |
           mkdir -p /tmp/writing-evidence
-          set +e
+          git rev-parse HEAD > /tmp/writing-evidence/input-checkout.txt
+          python3 evidence/issue-8/replay.py --out /tmp/writing-evidence/article-replay --update-article
           python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
-          echo "$?" > /tmp/writing-evidence/test-exit.txt
+          python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
+          set +e
+          python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/writing-evidence/behavior
+          status=$?
           set -e
+          test "$status" = 3
+          cp /tmp/writing-evidence/tests.txt evidence/issue-8/tests.txt
+          cp /tmp/writing-evidence/mechanical/feature-results.json evidence/issue-8/mechanical-results.json
+          cp /tmp/writing-evidence/behavior/feature-results.json evidence/issue-8/behavior-readiness.json
+          cp .github/writing-verification-readonly.yml .github/workflows/writing-verification.yml
+          rm .github/writing-verification-readonly.yml
+          git add -- articles/ai-engineer-learning-path.md articles/ai-engineer-learning-path.context.json articles/ai-engineer-learning-path.parts evidence/issue-8
+          git add -A -- .github/workflows/writing-verification.yml .github/writing-verification-readonly.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs: retain verified two-patch article and read-only verification workflow'
+          git push origin HEAD:refs/heads/agent/issue-8-lossless-skills
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
-          python3 - <<'PY'
-          import hashlib, json, pathlib, urllib.request
-          root = pathlib.Path('/tmp/writing-evidence')
-          sources = {
-              'evals-skills': ('ai-evals-course/evals-skills', '80d5f7b0127c7572ed9e9339937adbfd7240ffeb'),
-              'pstack': ('ed3c/plugins', '68836ddaf5697224520f1847d90cdb90ca8babaa'),
-              'ops': ('ed3c/ops-reconciliation-copilot', '24a56d18661630b0dba97dcb0b057dce07b0ab32'),
-          }
-          records = []
-          for name, (repo, rev) in sources.items():
-              url = f'https://codeload.github.com/{repo}/tar.gz/{rev}'
-              with urllib.request.urlopen(url, timeout=45) as r:
-                  data = r.read(25000000)
-              (root / f'{name}.tar.gz').write_bytes(data)
-              records.append({'name': name, 'repo': repo, 'revision': rev, 'url': url,
-                              'sha256': hashlib.sha256(data).hexdigest(), 'status': 'FETCHED'})
-          (root / 'sources.json').write_text(json.dumps(records, indent=2) + '\n')
-          PY
-      - name: Install reviewed snapshots on this work branch only
-        if: github.ref == 'refs/heads/agent/issue-8-lossless-skills'
-        run: |
-          python3 scripts/sync_verification_inputs.py --inputs /tmp/writing-evidence
-          git add .agents/skills references/upstream evidence/issue-8/inputs/ops-main.py
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'deps: register pinned evals skills and verification references'
-            git push origin HEAD:refs/heads/agent/issue-8-lossless-skills
-          fi
           git archive HEAD > /tmp/writing-evidence/checkout.tar
-          git rev-parse HEAD > /tmp/writing-evidence/installed-checkout.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: writing-evidence
+          name: mechanical-writing-evidence
           path: /tmp/writing-evidence/
           retention-days: 7
-      - name: Enforce test exit
-        run: test "$(cat /tmp/writing-evidence/test-exit.txt)" = 0
