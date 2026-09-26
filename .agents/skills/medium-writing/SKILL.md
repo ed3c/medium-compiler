@@ -2,7 +2,7 @@
 name: medium-writing
 description: Draft and incrementally expand zero-context technical Medium articles in Traditional Chinese. Use for article planning, staged prose, source-grounded runtime explanations and Boot Batch to Drill-down Patch continuation. Not a publisher or semantic-truth oracle.
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
 ---
 
 # Medium writing
@@ -63,6 +63,28 @@ New articles use existing Stage 0-7 admission. Existing prose-only revisions use
 `medium_compiler.py init --draft`; they have no fictional Stages 0-5. A technical replacement
 is not copyedit. Use an explicitly supported correction route or report the missing route.
 
+## Learning owner before article continuation
+
+Choose the task purpose from the user's request, not from the article outline. For a learning
+session, the curriculum owner chooses placement/lesson and owns LEARNING.md; Ops owns product
+evidence. The writer consumes their admitted episode and never creates their acceptance.
+A NO_CHANGE product decision still requires learner evidence. Ordinary source-explanation
+or prose correction is a separate authorized task, not a fallback for a blocked learning task.
+
+Before boot, run `python3 scripts/lossless_batch.py preflight --article <before> --plan <plan>`.
+A plan for learned-result publication sets `purpose: learning-episode` and carries the pinned
+learning handoff described in README. Follow the returned next.owner and missing_input.
+BLOCKED / exit 3 means stop before writing; do not infer a lesson, invent a human answer,
+change the purpose to evade the gate, or rewrite progress. boot repeats this check before
+creating a run. Invalid identity/bytes/ref data is refusal / exit 2, not empty evidence.
+
+READY permits only the existing boot -> next -> drill-down -> review -> finish path. Keep
+using next after interruption; do not create a second episode or replay prior patches.
+Snapshot/anchor checks do not authenticate the human or grade an answer. The caller supplies
+reviewed owner records; authenticity and course admission remain with that upstream owner.
+No medium-compiler command writes LEARNING.md. Adding a progress writer, a scheduler or a
+second evidence engine is outside this path.
+
 ## Boot Batch and Lossless Batching
 
 A Boot Batch supplies a readable problem/decision entry while recording all known pending
@@ -101,7 +123,7 @@ plan carrying prior evidence; do not delete pending work or change admitted file
 The minimal helper is add-only and assumes one cooperative writer, not hostile rewriting,
 concurrent writes or power-loss recovery. Technical replacement is a different operation.
 
-## Human × AI flow-learning on the Ops case
+## Reader checkpoint on the Ops case
 
 Keep one `case.id` across the learning path and bind its public repository commit in
 `case.revision`. Each unit names its learning step, decision prompt, and exact code/test/eval
@@ -110,7 +132,9 @@ those anchors actually support the explanation and whether the proposed decision
 Historical model reports remain historical even when their file is present in the pinned
 checkout. A 4/4 smoke eval does not test reconciliation finding priority.
 
-During a patch, show only the next question and necessary evidence. Defer the human checkpoint
+The checkpoint below tests article comprehension; it is not the learning-owner admission
+above. Learning predictions and experiment judgments happen upstream, before article work.
+During a patch, show only the next question and necessary evidence. Defer the reader checkpoint
 until the declared patch queue is complete, so it does not interrupt the runtime explanation.
 At that boundary, ask for a prediction, its condition, and the evidence that could change it.
 Use `checkpoint --run-dir <run> --response <answers.json>` only for actual user answers;

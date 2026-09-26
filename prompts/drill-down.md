@@ -9,9 +9,14 @@ ARTICLE: <actual article or initial Boot Batch path>
 SOURCES: <complete source files with stable version and provenance>
 PLAN: <explicit source-bound pending knowledge units>
 RUN: <existing lossless_batch.py run, or a new directory for boot>
+PURPOSE: source-explanation | learning-episode (set by the actual user task)
+LEARNING_HANDOFF: <upstream pinned episode/lesson evidence, required for learning-episode>
 EXECUTION_MODE: staged
 
-First read lossless_batch.py next. Expand only its source_cursor unit as a Drill-down Patch.
+For a new run, set the plan purpose and run lossless_batch.py preflight before boot.
+For learning-episode, follow its owner/missing_input; do not generate learner answers, choose
+placement, update LEARNING.md or relabel the task to bypass BLOCKED. For an existing run,
+read lossless_batch.py next. Expand only its source_cursor unit as a Drill-down Patch.
 Explain the complete mechanism, its conditions, a concrete input and its state transitions.
 Use a text directory/symbol tree or data-flow map where it answers a reader question.
 Do not replace unprocessed sources with a summary or repeat already accepted batches.
@@ -26,7 +31,7 @@ Print only the new reader prose, with CONTINUE/DONE and cursor outside the copya
 An empty queue is still CONTINUE until source/causal review and exact final assembly finish.
 Review is author or independent as actually performed. No prompt or digest proves universal
 semantic preservation or reduced human effort. New gaps remain explicit pending work.
-Only after the patch queue is complete, offer the deferred decision prompts as one human
+The upstream learning checkpoint is separate. Only after the patch queue is complete, offer the deferred decision prompts as one reader
 checkpoint. Do not synthesize the person's answers. `checkpoint` records their answers as
 version-bound, ungraded evidence; `DONE` may coexist with a pending checkpoint.
 ```

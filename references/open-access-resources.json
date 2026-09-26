@@ -212,6 +212,13 @@
       "reader_access": "open",
       "learning_depth": "substantive",
       "substantive_basis": "direct chapter/full book/full lesson/tutorial"
+    },
+    {
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch/blob/8bc378c2e07777899322ae77cd0dde94cb12fab3/.claude/skills/learn/SKILL.md",
+      "kind": "public-github",
+      "reader_access": "open",
+      "learning_depth": "reference",
+      "substantive_basis": "pinned tutor implementation; source evidence for progress ownership, not a primary textbook recommendation"
     }
   ]
 }

@@ -5,6 +5,8 @@
 - Boot snapshots the existing article, explicit knowledge units and source bytes.
 - Drill-down accepts only the next unit; retry is NOOP, skipped/stale units refuse.
 - Empty queue still requires a current review before final exact assembly.
+- Learning-episode preflight checks owner records before Boot. Missing records name an owner
+  and leave no run; NO_CHANGE and a reader answer never advance LEARNING.md.
 - One stable Ops case and source commit carry the two learning steps; code/test/eval
   anchors are byte-bound. Human prompts appear together at the patch boundary.
 
@@ -29,11 +31,17 @@ next on the relocated retained run; expect DONE scoped to these declared units.
 Confirm the checkpoint is DEFERRED during patches, then PENDING after the queue and after
 DONE. Verify the 4/4 historical model result is labeled separately from runtime finding
 tests, and DONE reports human_learning_outcome=NOT_MEASURED.
-Keep commands.json, lossless-run/ and article.md under --out.
+Then run the same feature's handoff/replay.py: explicit learning-episode on the current
+source plan with no upstream record must return learning-owner and create no run. It separately
+executes one authorized source-explanation addition, stale-base refusal, retry NOOP and
+post-cleanup readback. This is not a ready learning episode and does not consume Ops PR24.
+Keep commands.json, lossless-run/, handoff-proof/ and article.md under --out.
 
 ## Gotchas
 
-Removing the two inserted delta byte strings reconstructs the original article. That is
+The original two-patch replay is retained as a scoped predecessor. Removing the later
+handoff explanation reconstructs that predecessor; removing its two deltas reconstructs
+the original article. That is
 literal preservation, not universal semantic correctness. A source-anchor match cannot
 judge explanation quality. The queue is frozen; new scope needs a new explicit plan,
 not deleting pending work. Technical replacements are outside this add-only path.

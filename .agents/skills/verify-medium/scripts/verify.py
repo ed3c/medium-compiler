@@ -115,13 +115,19 @@ class Driver:
             assert r['status']=='DONE' and r['semantic_review']=='AUTHOR_REVIEW_ONLY'
             assert r['human_checkpoint']['status']=='PENDING' and r['human_learning_outcome']=='NOT_MEASURED'
             data=(run/'final/compiled/medium-canonical.md').read_bytes()
-            assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
             assert data==(ev/'expected-after.md').read_bytes()
             shutil.copytree(run,self.out/'lossless-run')
             shutil.copy2(p/'expanded.md',self.out/'article.md')
         # Re-read after relocation AND cleanup, rather than assuming proof survived.
         assert self.batch('next','--run-dir',self.out/'lossless-run')['status']=='DONE'
-        return {'status':'PASS','article_sha256':sha(data),'real_article':True,'author_review':'performed, not independent'}
+        handoff=self.call([sys.executable,str(ROOT/'evidence/issue-8/handoff/replay.py'),
+                           '--out',str(self.out/'handoff-proof')])
+        data=(self.out/'handoff-proof/article.md').read_bytes()
+        assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
+        (self.out/'article.md').write_bytes(data)
+        return {'status':'PASS','article_sha256':sha(data),'real_article':True,
+                'author_review':'performed, not independent','learning_handoff':handoff['missing_handoff'],
+                'human_progress':'NOT_UPDATED','fresh_writer_ab':'NOT_RUN'}
     def delivery(self):
         self.feature='delivery';parts=ROOT/'articles/ai-engineer-learning-path.parts'
         m=json.loads((parts/'manifest.json').read_text())

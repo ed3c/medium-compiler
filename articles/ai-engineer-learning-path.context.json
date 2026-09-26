@@ -101,5 +101,13 @@
     "retention": "Two insertions only; prior article bytes retained.",
     "semantic_review": "AUTHOR_REVIEW_ONLY",
     "independent_reader": "NOT_RUN"
+  },
+  "handoff_addendum": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/handoff/article-plan.json",
+    "unit_id": "learning-before-writing",
+    "purpose": "source-explanation",
+    "learning_episode": "NOT_PERFORMED",
+    "retention": "One additional insertion; previous edition reconstructs exactly."
   }
 }

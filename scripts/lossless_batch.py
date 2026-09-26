@@ -27,6 +27,12 @@ class Refusal(ValueError):
     pass
 
 
+class LearningPending(Refusal):
+    def __init__(self, projection: dict):
+        self.projection = projection
+        super().__init__("learning handoff prerequisites are incomplete")
+
+
 def digest(data: bytes) -> str:
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
@@ -69,6 +75,87 @@ def plain_article(data: bytes) -> str:
     return text
 
 
+def learning_gate(plan: dict, sources: dict[str, bytes]) -> dict | None:
+    """Read an externally supplied learning handoff; never grade or write progress.
+
+    Digests/anchors bind a caller-selected snapshot, not the identity or honesty of its
+    author. The learning owner must supply ACCEPTED; the writer must not manufacture it.
+    """
+    purpose = plan.get("purpose", "source-explanation")
+    if purpose not in {"source-explanation", "learning-episode"}:
+        raise Refusal("unknown writing purpose")
+    if purpose == "source-explanation":
+        if "learning" in plan:
+            raise Refusal("learning metadata requires purpose=learning-episode")
+        return None
+    target = plan.get("learning")
+    if target is None:
+        return {"status": "BLOCKED", "next": {"owner": "learning-owner",
+                "operation": "supply-learning-prerequisite", "missing_input": "learning_handoff"},
+                "missing": [{"input": "learning_handoff", "owner": "learning-owner"}],
+                "article_mutation_allowed": False, "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+                "human_learning_outcome": "NOT_MEASURED"}
+    if not isinstance(target, dict) or set(target) != {"episode_id", "lesson_ref", "handoff_source"}:
+        raise Refusal("learning needs episode_id, lesson_ref and handoff_source")
+    for key, value in target.items():
+        string(value, f"learning.{key}")
+    if target["handoff_source"] not in sources:
+        raise Refusal("missing learning handoff source")
+    record = json.loads(sources[target["handoff_source"]])
+    required = {"schema_version", "episode_id", "lesson_ref", "case", "status",
+                "product_decision", "evidence_refs", "human_checkpoint", "learning_record"}
+    if not isinstance(record, dict) or set(record) != required:
+        raise Refusal("invalid learning handoff fields")
+    if record["schema_version"] != "medium-learning-handoff@1":
+        raise Refusal("unsupported learning handoff version")
+    if any(record[k] != target[k] for k in ("episode_id", "lesson_ref")):
+        raise Refusal("learning episode or lesson mismatch")
+    if plan.get("case") is None or record["case"] != plan["case"]:
+        raise Refusal("learning handoff case revision mismatch")
+    if record["status"] not in {"PENDING", "ACCEPTED"}:
+        raise Refusal("learning handoff status must be PENDING or ACCEPTED")
+    if record["product_decision"] not in {"PENDING", "IMPLEMENT", "NO_CHANGE"}:
+        raise Refusal("unknown product decision")
+    evidence = record["evidence_refs"]
+    if not isinstance(evidence, list):
+        raise Refusal("learning evidence_refs must be a list")
+    def check_ref(ref: dict) -> None:
+        if not isinstance(ref, dict) or set(ref) != {"source_id", "anchor"}:
+            raise Refusal("handoff reference needs source_id and anchor")
+        sid = string(ref["source_id"], "handoff source_id")
+        if sid == target["handoff_source"] or sid not in sources:
+            raise Refusal("handoff reference must name a separate pinned source")
+        if string(ref["anchor"], "handoff anchor") not in sources[sid].decode("utf-8"):
+            raise Refusal("handoff evidence anchor absent")
+    for ref in evidence:
+        check_ref(ref)
+    for key in ("human_checkpoint", "learning_record"):
+        if record[key] is not None:
+            check_ref(record[key])
+    missing = []
+    if record["product_decision"] == "PENDING":
+        missing.append({"input": "product_decision", "owner": "product-owner"})
+    if not evidence:
+        missing.append({"input": "evidence_refs", "owner": "evidence-owner"})
+    if record["human_checkpoint"] is None:
+        missing.append({"input": "human_checkpoint", "owner": "learner"})
+    if record["status"] != "ACCEPTED" or record["learning_record"] is None:
+        missing.append({"input": "accepted_learning_record", "owner": "learning-owner"})
+    return {
+        "status": "BLOCKED" if missing else "READY",
+        "next": {"owner": missing[0]["owner"], "operation": "supply-learning-prerequisite",
+                 "missing_input": missing[0]["input"]} if missing else
+                {"owner": "medium-compiler", "operation": "boot"},
+        "episode_id": target["episode_id"], "lesson_ref": target["lesson_ref"],
+        "handoff_sha256": digest(sources[target["handoff_source"]]),
+        "product_decision": record["product_decision"], "missing": missing,
+        "article_mutation_allowed": not missing,
+        "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+        "human_learning_outcome": "NOT_MEASURED",
+        "trust_boundary": "caller-selected owner declaration; hashes do not authenticate humans",
+    }
+
+
 def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None:
     string(plan.get("topic"), "topic")
     case = plan.get("case")
@@ -79,9 +166,6 @@ def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None
         string(case["repo"], "case.repo")
         if not re.fullmatch(r"[0-9a-f]{40}", string(case["revision"], "case.revision")):
             raise Refusal("case revision must be a full commit SHA")
-        for entry in plan["sources"]:
-            if f'{case["repo"]}@{case["revision"]}:' not in entry["provenance"]:
-                raise Refusal("source provenance must name the case revision")
     units = plan.get("units")
     if not isinstance(units, list) or not units:
         raise Refusal("boot requires explicit pending knowledge units")
@@ -117,13 +201,16 @@ def validate_plan(plan: dict, boot_text: str, sources: dict[str, bytes]) -> None
                     raise Refusal("unknown evidence role")
                 if ref["source_id"] not in sources or string(ref["anchor"], "evidence anchor") not in sources[ref["source_id"]].decode("utf-8"):
                     raise Refusal("evidence anchor missing from pinned source")
+            case_sources = {unit["source_id"], *(ref["source_id"] for ref in refs)}
+            provenance = {entry["id"]: entry["provenance"] for entry in plan["sources"]}
+            if any(f'{case["repo"]}@{case["revision"]}:' not in provenance[sid]
+                   for sid in case_sources):
+                raise Refusal("product source provenance must name the case revision")
     if len(ids) != len(set(ids)):
         raise Refusal("duplicate knowledge unit")
 
 
-def boot(article: Path, plan_path: Path, run: Path) -> dict:
-    if run.exists() or run.is_symlink():
-        raise Refusal("boot output must be a new directory")
+def prepare_inputs(article: Path, plan_path: Path) -> tuple[bytes, dict, dict[str, bytes]]:
     before = read_file(article)
     text = plain_article(before)
     plan = read_json(plan_path)
@@ -147,6 +234,24 @@ def boot(article: Path, plan_path: Path, run: Path) -> dict:
         string(entry.get("provenance"), "source.provenance")
         sources[sid] = data
     validate_plan(plan, text, sources)
+    return before, plan, sources
+
+
+def preflight(article: Path, plan_path: Path) -> dict:
+    before, plan, sources = prepare_inputs(article, plan_path)
+    gate = learning_gate(plan, sources)
+    return {"article_sha256": digest(before), "plan_sha256": digest(encoded(plan)),
+            **(gate or {"status": "READY", "next": {"owner": "medium-compiler", "operation": "boot"},
+                        "purpose": "source-explanation", "human_learning_outcome": "NOT_MEASURED"})}
+
+
+def boot(article: Path, plan_path: Path, run: Path) -> dict:
+    if run.exists() or run.is_symlink():
+        raise Refusal("boot output must be a new directory; use next for an existing run")
+    before, plan, sources = prepare_inputs(article, plan_path)
+    gate = learning_gate(plan, sources)
+    if gate and gate["status"] == "BLOCKED":
+        raise LearningPending(gate)
     if any(run.resolve().is_relative_to(p.resolve()) for p in (article, plan_path)):
         raise Refusal("output overlaps inputs")
     run.mkdir(parents=True)
@@ -185,6 +290,9 @@ def replay(run: Path) -> tuple[dict, bytes, list[dict]]:
             raise Refusal("source snapshot drift")
         sources[sid] = data
     validate_plan(plan, plain_article(before), sources)
+    gate = learning_gate(plan, sources)
+    if gate and gate["status"] == "BLOCKED":
+        raise LearningPending(gate)
     text = before.decode("utf-8")
     applied = []
     found = sorted((run / "patches").glob("*.json"))
@@ -216,6 +324,11 @@ def replay(run: Path) -> tuple[dict, bytes, list[dict]]:
 def inspect(run: Path) -> dict:
     plan, article, applied = replay(run)
     remaining = plan["units"][len(applied):]
+    sources = {entry["id"]: read_file(run / "sources" / f"{entry['id']}.txt")
+               for entry in plan["sources"]}
+    handoff = learning_gate(plan, sources)
+    if handoff is not None:
+        handoff = {key: value for key, value in handoff.items() if key != "next"}
     final = run / "final"
     if final.exists():
         if remaining:
@@ -234,14 +347,14 @@ def inspect(run: Path) -> dict:
         if read_file(final / "compiled/medium-canonical.md") != article:
             raise Refusal("canonical article does not match batch replay")
         return {"status": "DONE", "next": None, **expected,
-                "case": plan.get("case"), "human_checkpoint": checkpoint_status(run, plan, article, len(applied)),
+                "learning_handoff": handoff, "case": plan.get("case"), "human_checkpoint": checkpoint_status(run, plan, article, len(applied)),
                 "completion_scope": "declared source-bound work queue and recorded review",
                 "semantic_review": "INDEPENDENT_DECLARED" if review["independent"] else "AUTHOR_REVIEW_ONLY",
                 "human_learning_outcome": "NOT_MEASURED"}
     return {"status": "CONTINUE", "next": "drill-down" if remaining else "review-and-finish",
             "source_cursor": remaining[0]["id"] if remaining else None,
             "question": remaining[0]["question"] if remaining else None,
-            "case": plan.get("case"),
+            "learning_handoff": handoff, "case": plan.get("case"),
             "learning_step": remaining[0].get("learning_step") if remaining else None,
             "decision_prompt": remaining[0].get("decision_prompt") if remaining else None,
             "evidence_refs": remaining[0].get("evidence_refs") if remaining else None,
@@ -389,6 +502,9 @@ def finish(run: Path, review_path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("preflight", help="Read-only source/learning prerequisites; no progress writes")
+    p.add_argument("--article", type=Path, required=True)
+    p.add_argument("--plan", type=Path, required=True)
     p = sub.add_parser("boot")
     p.add_argument("--article", type=Path, required=True)
     p.add_argument("--plan", type=Path, required=True)
@@ -402,7 +518,8 @@ def main() -> int:
         if cmd == "checkpoint": p.add_argument("--response", type=Path, required=True)
     args = parser.parse_args()
     try:
-        if args.cmd == "boot": result = boot(args.article, args.plan, args.run_dir)
+        if args.cmd == "preflight": result = preflight(args.article, args.plan)
+        elif args.cmd == "boot": result = boot(args.article, args.plan, args.run_dir)
         elif args.cmd == "drill-down": result = apply_patch(args.run_dir, args.patch)
         elif args.cmd == "finish": result = finish(args.run_dir, args.review)
         elif args.cmd == "checkpoint": result = record_checkpoint(args.run_dir, args.response)
@@ -414,7 +531,10 @@ def main() -> int:
             result = {"status": "RENDERED", "article_sha256": digest(data)}
         else: result = inspect(args.run_dir)
         print(json.dumps(result, ensure_ascii=False, indent=2))
-        return 0
+        return 3 if result.get("status") == "BLOCKED" else 0
+    except LearningPending as exc:
+        print(json.dumps(exc.projection, ensure_ascii=False, indent=2))
+        return 3
     except (Refusal, mc.CompilerError, OSError, ValueError, KeyError, TypeError) as exc:
         print(json.dumps({"status": "BLOCKED", "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 2

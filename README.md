@@ -29,7 +29,7 @@ must still be verified in the user's Codex session. See [OpenAI's repository-ski
 [five delivery parts](articles/ai-engineer-learning-path.parts/manifest.json).
 The ten reader decisions are this article's grouping, not a quota. The latest expansion
 explains why transaction IDs map to lists and why finding classification precedes subtraction.
-Removing its two inserted prose blocks reconstructs the original article exactly.
+Its two runtime insertions and later learning-owner explanation are separately recorded; removing the three declared additions reconstructs the original article exactly.
 
 ## Writing routes
 
@@ -47,6 +47,41 @@ For prose-only revisions, use `init --draft before.md`; no fictional authoring s
 Then submit 6, assemble, verify, check-receipt and prove-update as required. The existing
 single-link source_correction route is not arbitrary technical rewriting. Read actual
 CLI help rather than assuming an old proposed reopen command exists.
+
+## Learning handoff before article Boot
+
+The user/task selects `purpose: source-explanation` (the legacy default) or
+`purpose: learning-episode`. Source explanations may be written independently; an unfinished
+learning task must not be relabeled to bypass its prerequisites.
+
+```sh
+python3 scripts/lossless_batch.py preflight --article before.md --plan plan.json
+# READY / exit 0: boot is permitted. BLOCKED / exit 3: return next.owner + missing_input.
+# boot enforces the same gate before making its output directory.
+```
+
+A learning plan adds `learning: {episode_id, lesson_ref, handoff_source}`. The last field names
+one existing pinned source containing JSON with `schema_version: medium-learning-handoff@1`,
+matching `episode_id`, `lesson_ref` and `case`; `status: PENDING | ACCEPTED`;
+`product_decision: PENDING | IMPLEMENT | NO_CHANGE`; `evidence_refs` (list);
+`human_checkpoint` and `learning_record` (reference or null). Every reference is
+`{source_id, anchor}` into a separate source snapshot in the existing plan. The upstream
+learning owner supplies acceptance and the progress-record reference; the writer does not.
+Product code/test/eval sources stay bound to the case revision. Learning and human records
+retain their own provenance rather than pretending to be Ops source files.
+
+Missing product decision -> product-owner; missing evidence -> evidence-owner; missing
+human checkpoint -> learner; missing acceptance/progress record -> learning-owner.
+No handoff at all -> learning-owner. NO_CHANGE is not completed learning. Malformed identities,
+references or stale bytes refuse; genuine missing prerequisites are BLOCKED. The admitted
+source snapshots survive restarts and are covered by the existing batch/final byte checks.
+This is a single-writer snapshot protocol, not an authenticity, revocation or grading service.
+
+The post-article `checkpoint` records reader comprehension only, not curriculum advancement.
+No command writes LEARNING.md, selects a phase or fabricates a response. A successful ready-path
+fixture is not evidence of an actual accepted learner. See
+[evidence and replay](evidence/issue-8/handoff/README.md) for the actual missing-handoff
+refusal and the separate, explicit source-explanation update to the same article.
 
 ## Boot Batch and incremental continuation
 
