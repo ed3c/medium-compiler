@@ -101,6 +101,23 @@ plan carrying prior evidence; do not delete pending work or change admitted file
 The minimal helper is add-only and assumes one cooperative writer, not hostile rewriting,
 concurrent writes or power-loss recovery. Technical replacement is a different operation.
 
+## Human × AI flow-learning on the Ops case
+
+Keep one `case.id` across the learning path and bind its public repository commit in
+`case.revision`. Each unit names its learning step, decision prompt, and exact code/test/eval
+anchors from that revision. The CLI checks source bytes and anchors; P-class checks whether
+those anchors actually support the explanation and whether the proposed decision is useful.
+Historical model reports remain historical even when their file is present in the pinned
+checkout. A 4/4 smoke eval does not test reconciliation finding priority.
+
+During a patch, show only the next question and necessary evidence. Defer the human checkpoint
+until the declared patch queue is complete, so it does not interrupt the runtime explanation.
+At that boundary, ask for a prediction, its condition, and the evidence that could change it.
+Use `checkpoint --run-dir <run> --response <answers.json>` only for actual user answers;
+never fill answers on the user's behalf. The response binds the same case revision, current
+article hash and ordered unit IDs. Its receipt says `RECORDED_UNGRADED`, not correct or mastered.
+The compilation may be `DONE` while the human checkpoint is `PENDING`; report both states.
+
 ## Prose and delivery
 
 Preserve the causal narrative through increments. Remove vague meta narration only when

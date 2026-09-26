@@ -72,3 +72,29 @@ feature evidence. This task's coordinator-only source review does not satisfy th
 Fresh Codex selection, writer baseline/treatment, independent reader, calibrated semantic
 judge and measured human decision-barrier reduction are NOT_RUN. Medium publication is
 NOT_PERFORMED. The issue remains open for that behavioral closure, regardless of test counts.
+
+## Flow-learning continuation on the same atom
+
+The two accepted additions remain the same article edition. The updated plan binds both
+units to one stable Ops case at `24a56d18661630b0dba97dcb0b057dce07b0ab32` and
+labels their AI Engineer learning steps. Pinned snapshots now include actual Ops
+`app/main.py`, `scripts/verify_runtime.py`, `evals/run.py` and the historical live-model
+report. The latter records 4/4 fixed mapping cases at checkout
+`78ea5882fa996cf9ef4c900bcc53cd79911b7a7a`; it does not test finding priority.
+On the pinned Ops checkout, Python 3.12.4 ran 17 unit tests and the actual HTTP/restart
+runtime verifier: 10/10 checks passed, including duplicate-key and cross-currency cases
+and a planted wrong-amount control. The retained manifest and JUnit XML are in `inputs/`.
+That runtime run used no live LLM; it is separate from the historical model report.
+
+`next` exposes the current source-bound question, code/test/eval anchors and decision
+prompt. The human checkpoint is DEFERRED until both patches are admitted, then PENDING.
+No human answer is checked in. A future answer can be recorded once against the case
+revision, final article digest and ordered unit IDs, with a content-addressed receipt;
+its status is RECORDED_UNGRADED. DONE remains article compilation completion and reports
+human learning NOT_MEASURED.
+
+`flow-red-green.json` retains a planted baseline failure: the prior helper returned
+CONTINUE without case identity or a deferred checkpoint; the candidate returns both.
+The five new focused controls cover source/case anchors, stale answers, stable unit order,
+receipt mutation and DONE versus learning status. This is mechanical sensitivity, not a
+fresh Agent comparison or evidence of improved human judgment.

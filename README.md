@@ -73,6 +73,20 @@ DONE covers the declared queue and current recorded review, not universal source
 or measured human understanding. New gaps or changed scope require a new explicit plan;
 never edit admitted state to erase pending work.
 
+The Ops plan also binds a stable case ID and public source commit. `next` gives the current
+AI Engineer learning step, one decision prompt and exact code/test/eval anchors. The human
+checkpoint stays deferred until all patches are delivered. Afterward, `next` exposes both
+prompts together; an actual reader can submit a JSON response with `case`, the current
+`article_sha256`, and ordered `answers` (`unit_id`, `answer`):
+
+```sh
+python3 scripts/lossless_batch.py checkpoint --run-dir /tmp/medium-expand --response /tmp/reader-answers.json
+```
+
+The checkpoint receipt is `RECORDED_UNGRADED`. No answer has been submitted for the checked-in
+evidence. The historical Ops model eval is source evidence for a narrow smoke result; it does
+not validate reconciliation priority or prove that a reader has learned it.
+
 `python3 evidence/issue-8/replay.py --out /tmp/medium-replay-NEW` replays the exact real article
 without changing the checkout. Its optional --update-article is an explicit developer action
 limited to the known before/after edition and dependent article/evidence/parts files.

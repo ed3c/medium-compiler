@@ -15,6 +15,8 @@ First read lossless_batch.py next. Expand only its source_cursor unit as a Drill
 Explain the complete mechanism, its conditions, a concrete input and its state transitions.
 Use a text directory/symbol tree or data-flow map where it answers a reader question.
 Do not replace unprocessed sources with a summary or repeat already accepted batches.
+Keep the same case.id and source revision across units. Follow learning_step and inspect the
+code/test/eval evidence_refs; their existence alone does not prove the semantic claim.
 
 Keep exact terms, IDs, code semantics, numbers, negations, uncertainty and source attribution.
 Reuse supplied card IDs and typed context links; do not invent a card batch or an execution.
@@ -24,6 +26,9 @@ Print only the new reader prose, with CONTINUE/DONE and cursor outside the copya
 An empty queue is still CONTINUE until source/causal review and exact final assembly finish.
 Review is author or independent as actually performed. No prompt or digest proves universal
 semantic preservation or reduced human effort. New gaps remain explicit pending work.
+Only after the patch queue is complete, offer the deferred decision prompts as one human
+checkpoint. Do not synthesize the person's answers. `checkpoint` records their answers as
+version-bound, ungraded evidence; `DONE` may coexist with a pending checkpoint.
 ```
 
 For feature changes use verify-medium. For full-map upkeep use maintain-medium-verification.
