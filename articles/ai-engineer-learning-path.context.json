@@ -109,5 +109,15 @@
     "purpose": "source-explanation",
     "learning_episode": "NOT_PERFORMED",
     "retention": "One additional insertion; previous edition reconstructs exactly."
+  },
+  "authority_addendum": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/authority/plan.json",
+    "unit_id": "experiment-before-promotion",
+    "purpose": "source-explanation",
+    "human_checkpoint": "Q5/Q6 supplied by author in current ChatGPT session; not independent",
+    "retention": "One additional insertion; previous edition reconstructs exactly.",
+    "learning_progress": "NOT_UPDATED",
+    "product_promotion": "NOT_AUTHORIZED"
   }
 }

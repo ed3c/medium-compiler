@@ -132,6 +132,15 @@ those anchors actually support the explanation and whether the proposed decision
 Historical model reports remain historical even when their file is present in the pinned
 checkout. A 4/4 smoke eval does not test reconciliation finding priority.
 
+Keep learning permission, experiment permission and product promotion separate. A lesson may
+justify a bounded experiment even when the canonical product has no current failure. The
+learning/experiment owner chooses `EXPERIMENT` or `NO_CHANGE`; neither choice grants a product
+write. After an experiment, promotion is a separate product-owner decision. A handoff that
+claims `PROMOTE` must also declare a real product need and experiment evidence; the CLI can
+check that those declarations are internally consistent, but it always reports
+`authorizes_product_write=false`. Do not convert a syllabus item directly into a canonical
+feature, and do not treat `NO_CHANGE` as mastery.
+
 The checkpoint below tests article comprehension; it is not the learning-owner admission
 above. Learning predictions and experiment judgments happen upstream, before article work.
 During a patch, show only the next question and necessary evidence. Defer the reader checkpoint

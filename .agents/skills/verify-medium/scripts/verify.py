@@ -122,11 +122,16 @@ class Driver:
         assert self.batch('next','--run-dir',self.out/'lossless-run')['status']=='DONE'
         handoff=self.call([sys.executable,str(ROOT/'evidence/issue-8/handoff/replay.py'),
                            '--out',str(self.out/'handoff-proof')])
-        data=(self.out/'handoff-proof/article.md').read_bytes()
+        predecessor=(self.out/'handoff-proof/article.md').read_bytes()
+        assert predecessor==(ROOT/'evidence/issue-8/authority/before.md').read_bytes()
+        authority=self.call([sys.executable,str(ROOT/'evidence/issue-8/authority/replay.py'),
+                             '--out',str(self.out/'authority-proof')])
+        data=(self.out/'authority-proof/article.md').read_bytes()
         assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
         (self.out/'article.md').write_bytes(data)
         return {'status':'PASS','article_sha256':sha(data),'real_article':True,
                 'author_review':'performed, not independent','learning_handoff':handoff['missing_handoff'],
+                'authority_boundary':authority['authority_controls'],
                 'human_progress':'NOT_UPDATED','fresh_writer_ab':'NOT_RUN'}
     def delivery(self):
         self.feature='delivery';parts=ROOT/'articles/ai-engineer-learning-path.parts'

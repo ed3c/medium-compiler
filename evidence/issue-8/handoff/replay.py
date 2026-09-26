@@ -80,7 +80,7 @@ def main():
         call('finish','--run-dir',run,'--review',EV/'review.json')
         before=BEFORE.read_bytes(); after=(out/'article.md').read_bytes(); delta=(EV/'drill-down.md').read_bytes()
         assert after.count(delta)==1 and after.replace(delta,b'',1)==before
-        assert after==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
+        assert after==(ROOT/'evidence/issue-8/authority/before.md').read_bytes()
         assert after==(run/'final/compiled/medium-canonical.md').read_bytes()
         shutil.copytree(run,out/'retained-run')
         result['article']={'before_sha256':digest(before),'after_sha256':digest(after),

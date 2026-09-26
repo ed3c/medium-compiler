@@ -103,10 +103,11 @@ def learning_gate(plan: dict, sources: dict[str, bytes]) -> dict | None:
         raise Refusal("missing learning handoff source")
     record = json.loads(sources[target["handoff_source"]])
     required = {"schema_version", "episode_id", "lesson_ref", "case", "status",
-                "product_decision", "evidence_refs", "human_checkpoint", "learning_record"}
+                "experiment_decision", "promotion_decision", "product_need",
+                "evidence_refs", "human_checkpoint", "learning_record"}
     if not isinstance(record, dict) or set(record) != required:
         raise Refusal("invalid learning handoff fields")
-    if record["schema_version"] != "medium-learning-handoff@1":
+    if record["schema_version"] != "medium-learning-handoff@2":
         raise Refusal("unsupported learning handoff version")
     if any(record[k] != target[k] for k in ("episode_id", "lesson_ref")):
         raise Refusal("learning episode or lesson mismatch")
@@ -114,8 +115,18 @@ def learning_gate(plan: dict, sources: dict[str, bytes]) -> dict | None:
         raise Refusal("learning handoff case revision mismatch")
     if record["status"] not in {"PENDING", "ACCEPTED"}:
         raise Refusal("learning handoff status must be PENDING or ACCEPTED")
-    if record["product_decision"] not in {"PENDING", "IMPLEMENT", "NO_CHANGE"}:
-        raise Refusal("unknown product decision")
+    if record["experiment_decision"] not in {"PENDING", "EXPERIMENT", "NO_CHANGE"}:
+        raise Refusal("unknown experiment decision")
+    if record["promotion_decision"] not in {"NOT_EVALUATED", "PENDING", "PROMOTE", "DO_NOT_PROMOTE"}:
+        raise Refusal("unknown promotion decision")
+    if record["product_need"] not in {"UNKNOWN", "PRESENT", "ABSENT"}:
+        raise Refusal("unknown product need")
+    if record["experiment_decision"] == "NO_CHANGE" and record["promotion_decision"] != "NOT_EVALUATED":
+        raise Refusal("NO_CHANGE cannot carry a product-promotion decision")
+    if record["promotion_decision"] in {"PENDING", "PROMOTE", "DO_NOT_PROMOTE"} and record["experiment_decision"] != "EXPERIMENT":
+        raise Refusal("product promotion is evaluated only after an experiment")
+    if record["promotion_decision"] == "PROMOTE" and record["product_need"] != "PRESENT":
+        raise Refusal("PROMOTE requires a declared real product need")
     evidence = record["evidence_refs"]
     if not isinstance(evidence, list):
         raise Refusal("learning evidence_refs must be a list")
@@ -133,8 +144,8 @@ def learning_gate(plan: dict, sources: dict[str, bytes]) -> dict | None:
         if record[key] is not None:
             check_ref(record[key])
     missing = []
-    if record["product_decision"] == "PENDING":
-        missing.append({"input": "product_decision", "owner": "product-owner"})
+    if record["experiment_decision"] == "PENDING":
+        missing.append({"input": "experiment_decision", "owner": "experiment-owner"})
     if not evidence:
         missing.append({"input": "evidence_refs", "owner": "evidence-owner"})
     if record["human_checkpoint"] is None:
@@ -148,11 +159,21 @@ def learning_gate(plan: dict, sources: dict[str, bytes]) -> dict | None:
                 {"owner": "medium-compiler", "operation": "boot"},
         "episode_id": target["episode_id"], "lesson_ref": target["lesson_ref"],
         "handoff_sha256": digest(sources[target["handoff_source"]]),
-        "product_decision": record["product_decision"], "missing": missing,
+        "experiment_decision": record["experiment_decision"],
+        "promotion_decision": record["promotion_decision"],
+        "product_need": record["product_need"],
+        "promotion_prerequisites_declared": bool(
+            record["promotion_decision"] == "PROMOTE"
+            and record["experiment_decision"] == "EXPERIMENT"
+            and record["product_need"] == "PRESENT"
+            and evidence
+        ),
+        "authorizes_product_write": False,
+        "missing": missing,
         "article_mutation_allowed": not missing,
         "progress_write": "NEVER_BY_MEDIUM_COMPILER",
         "human_learning_outcome": "NOT_MEASURED",
-        "trust_boundary": "caller-selected owner declaration; hashes do not authenticate humans",
+        "trust_boundary": "caller-selected owner declaration; hashes do not authenticate humans or authorize product writes",
     }
 
 

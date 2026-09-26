@@ -1,0 +1,4 @@
+Human checkpoint supplied in ChatGPT on 2026-09-27 Asia/Taipei.
+Q5: A — Ops 本來就是實驗環境：要能擴展產品能力並快速迭代
+Q6: B — bounded Fine-tuning experiment; canonical production runtime remains unchanged; promotion requires experiment evidence plus real product need.
+Evidence role: author/learner design input. Not an independent reader result, not a learning-owner acceptance, not product authorization.

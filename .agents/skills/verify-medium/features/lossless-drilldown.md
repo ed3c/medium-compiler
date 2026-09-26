@@ -7,6 +7,9 @@
 - Empty queue still requires a current review before final exact assembly.
 - Learning-episode preflight checks owner records before Boot. Missing records name an owner
   and leave no run; NO_CHANGE and a reader answer never advance LEARNING.md.
+- Experiment admission and product promotion are separate. `EXPERIMENT` may be ready while
+  promotion is NOT_EVALUATED; `PROMOTE` is rejected without both experiment evidence and a
+  declared real product need, and no projection authorizes a product write.
 - One stable Ops case and source commit carry the two learning steps; code/test/eval
   anchors are byte-bound. Human prompts appear together at the patch boundary.
 

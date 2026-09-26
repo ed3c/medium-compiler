@@ -27,9 +27,10 @@ class LearningHandoffTests(unittest.TestCase):
         self.plan['purpose'] = 'learning-episode'
         self.plan['learning'] = {'episode_id': 'synthetic-episode',
             'lesson_ref': 'synthetic-course@fixed:one-lesson', 'handoff_source': 'owner-handoff'}
-        self.record = {'schema_version': 'medium-learning-handoff@1',
+        self.record = {'schema_version': 'medium-learning-handoff@2',
             'episode_id': 'synthetic-episode', 'lesson_ref': 'synthetic-course@fixed:one-lesson',
-            'case': self.plan['case'], 'status': 'ACCEPTED', 'product_decision': 'NO_CHANGE',
+            'case': self.plan['case'], 'status': 'ACCEPTED',
+            'experiment_decision': 'NO_CHANGE', 'promotion_decision': 'NOT_EVALUATED', 'product_need': 'UNKNOWN',
             'evidence_refs': [{'source_id': 'ops-runtime-result', 'anchor': 'cross_currency_not_subtracted'}],
             'human_checkpoint': {'source_id': 'human-answer', 'anchor': 'SYNTHETIC HUMAN ANSWER'},
             'learning_record': {'source_id': 'learning-record', 'anchor': 'SYNTHETIC OWNER ACCEPTANCE'}}
@@ -78,16 +79,46 @@ class LearningHandoffTests(unittest.TestCase):
         self.record.update(status='PENDING', human_checkpoint=None, learning_record=None); self.sync()
         r = batch.preflight(self.article, self.path)
         self.assertFalse(r['article_mutation_allowed'])
-        self.assertEqual(r['product_decision'], 'NO_CHANGE')
+        self.assertEqual(r['experiment_decision'], 'NO_CHANGE')
         self.assertEqual([m['input'] for m in r['missing']], ['human_checkpoint', 'accepted_learning_record'])
 
     def test_product_and_evidence_owner_routes(self):
-        for changes, owner in [({'product_decision': 'PENDING'}, 'product-owner'),
+        for changes, owner in [({'experiment_decision': 'PENDING'}, 'experiment-owner'),
                                ({'evidence_refs': []}, 'evidence-owner')]:
             old = copy.deepcopy(self.record)
             self.record.update(changes); self.sync()
             with self.subTest(owner=owner): self.assertEqual(batch.preflight(self.article, self.path)['next']['owner'], owner)
             self.record = old
+
+    def test_experiment_can_be_accepted_without_product_promotion(self):
+        self.record.update(experiment_decision='EXPERIMENT', promotion_decision='NOT_EVALUATED',
+                           product_need='UNKNOWN'); self.sync()
+        r = batch.preflight(self.article, self.path)
+        self.assertEqual(r['status'], 'READY')
+        self.assertEqual(r['experiment_decision'], 'EXPERIMENT')
+        self.assertFalse(r['promotion_prerequisites_declared'])
+        self.assertFalse(r['authorizes_product_write'])
+
+    def test_promotion_requires_experiment_and_real_product_need(self):
+        self.record.update(experiment_decision='EXPERIMENT', promotion_decision='PROMOTE',
+                           product_need='ABSENT'); self.sync()
+        with self.assertRaisesRegex(batch.Refusal, 'real product need'):
+            batch.preflight(self.article, self.path)
+        self.record.update(product_need='PRESENT'); self.sync()
+        r = batch.preflight(self.article, self.path)
+        self.assertTrue(r['promotion_prerequisites_declared'])
+        self.assertFalse(r['authorizes_product_write'])
+
+    def test_no_change_cannot_be_promoted(self):
+        self.record.update(experiment_decision='NO_CHANGE', promotion_decision='PROMOTE',
+                           product_need='PRESENT'); self.sync()
+        with self.assertRaisesRegex(batch.Refusal, 'NO_CHANGE'):
+            batch.preflight(self.article, self.path)
+
+    def test_promotion_state_cannot_precede_experiment(self):
+        self.record.update(experiment_decision='PENDING', promotion_decision='PENDING'); self.sync()
+        with self.assertRaisesRegex(batch.Refusal, 'only after an experiment'):
+            batch.preflight(self.article, self.path)
 
     def test_recorded_answer_cannot_admit_own_lesson(self):
         self.record.update(status='PENDING', learning_record=None); self.sync()

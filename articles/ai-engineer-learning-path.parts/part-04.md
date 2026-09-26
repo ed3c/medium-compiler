@@ -80,6 +80,24 @@ medium-compiler 讀取已接納的證據
 
 這裡也有兩種不同的 checkpoint。學習 checkpoint 保存讀者在實驗中的預測、解釋與修正判斷；文章的 reader checkpoint 則檢查成稿能否支持讀者回答。後者即使已收到答案，也不能替前者補寫完成紀錄。缺少學習 owner 接納時，文章工具應指出缺少哪份交接資料，停在原稿，不代答、不推進 LEARNING.md。一般的來源解釋或文章修訂仍可獨立進行，但不能改名成「純寫作」來繞過一個尚未完成的學習任務。
 
+更精確地說，這裡要分開三層 authority。課程可以觸發 **EXPERIMENT**：即使 canonical product 目前沒有缺陷，Ops 作為實驗環境仍可以用隔離路徑研究 Agent、Fine-tuning 或新的 eval 方法；如果連實驗價值都不足，才記錄 **NO_CHANGE**。這兩種結果都只回答「現在要不要研究這項能力」，不直接改 production runtime。
+
+```text
+lesson
+  ↓
+EXPERIMENT ──→ tests / evals / runtime evidence
+  │                         │
+  │                         └─ 沒有真實產品需求 → 保留實驗，不升格
+  │
+  └─ evidence + real product need
+                  ↓
+              PROMOTE candidate
+                  ↓
+          product owner decides
+```
+
+因此 **PROMOTE** 是第二個獨立決策，不是 `EXPERIMENT` 的自動下一步。即使實驗數據很好，只要沒有真實 product need，也可以保留成實驗能力而不改 canonical path；反過來，課程教到某個主題也不能單獨構成升格理由。這讓 Ops 可以快速擴展實驗面，同時避免 syllabus 直接變成 production backlog。
+
 ## 13. 把學習路徑壓成五個可交付里程碑
 
 ### Milestone 1 — Model boundary

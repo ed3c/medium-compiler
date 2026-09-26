@@ -1,0 +1,11 @@
+{
+  "article_sha256": "sha256:17dc5749c4b68cb7a2d2397ea49a50c79759fe9a95ac3d86a75bba2dece13cc7",
+  "unit_ids": ["experiment-before-promotion"],
+  "reviewer": "author in current implementation session",
+  "independent": false,
+  "verdict": "PASS",
+  "unresolved_gaps": [],
+  "source_fidelity": "Preserves Q5/Q6 author intent: Ops may host bounded experiments without automatically changing the canonical product path.",
+  "causal_continuity": "Adds the experiment/promotion boundary immediately after the earlier learning-owner handoff explanation.",
+  "limits": "Author review only; no learning-owner progress acceptance, product authorization, fresh writer A/B, or independent reader result."
+}

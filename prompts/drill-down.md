@@ -15,8 +15,11 @@ EXECUTION_MODE: staged
 
 For a new run, set the plan purpose and run lossless_batch.py preflight before boot.
 For learning-episode, follow its owner/missing_input; do not generate learner answers, choose
-placement, update LEARNING.md or relabel the task to bypass BLOCKED. For an existing run,
-read lossless_batch.py next. Expand only its source_cursor unit as a Drill-down Patch.
+placement, update LEARNING.md or relabel the task to bypass BLOCKED. Keep three decisions
+separate: lesson -> `EXPERIMENT | NO_CHANGE`; experiment evidence + real product need may later
+produce a `PROMOTE` candidate; only the product owner can authorize the actual product write.
+A CLI projection with promotion prerequisites satisfied is non-authorizing. For an existing
+run, read lossless_batch.py next. Expand only its source_cursor unit as a Drill-down Patch.
 Explain the complete mechanism, its conditions, a concrete input and its state transitions.
 Use a text directory/symbol tree or data-flow map where it answers a reader question.
 Do not replace unprocessed sources with a summary or repeat already accepted batches.
