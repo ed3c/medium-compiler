@@ -52,12 +52,12 @@
     "local_colab_equivalence": "PASS only for specified inputs/results; planted wrong matrix rejected"
   },
   "assembly": {
-    "compiler_ref": "586b62fcfb0483812d1868b8321db1b30c002811",
-    "mode": "staged",
-    "stages": "0-7",
+    "compiler_ref": "5ac1b82a9b504a183052b4767ecbb7c66121c88e",
+    "mode": "revision",
+    "stages": "6-7 (existing draft import)",
     "receipt_status": "VALID",
-    "article_sha256": "13a460349f93b5f704e590d4c15d103f19383073f76b70bad52447e6f4e924be",
-    "note": "Fresh staged 0-7 assembly covers original chapters, explicit alternative methods, actual local and Colab execution; semantic receipt remains NOT_ASSESSED."
+    "article_sha256": "8f62ba37cd820cf3e68755bfc214bcd9f4b307bcb5dd050de28ffd0f818287a5",
+    "note": "Actual before/after revision; code blocks, inline code and source links preserved. Author checked original Ship It, Exercises, beginner probe implementation and local/Colab receipts; mechanical receipt does not establish semantic truth."
   },
   "unresolved": [
     "UI and runtime versions may change; revalidate new requirements.",
@@ -207,5 +207,15 @@
       "cleanup": "Both Colab CPU sessions stopped; no active sessions on final readback."
     }
   },
-  "lesson_audit_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093"
+  "lesson_audit_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+  "editorial_revision": {
+    "base": "5ac1b82a9b504a183052b4767ecbb7c66121c88e",
+    "reason": "Explain operational intent and answers directly instead of assigning extra theory questions.",
+    "original_exercises": 3,
+    "extra_quiz_removed": true,
+    "colab_comparison": "Optional migration check; not required to start this lesson on the verified Mac.",
+    "preflight_source": "ROUTES.beginner.required=(python,git); PROBES has no pnpm entry.",
+    "ship_it": "Reusable environment verification script, as stated in original lesson.",
+    "learner_progress": "Unchanged; explanations do not depend on learner responses."
+  }
 }
