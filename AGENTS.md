@@ -34,6 +34,10 @@ Proceed without asking again when the selected route's actual requirements are m
 
 ## Writing and verification
 
+Product delivery scope is defined in README.md's Delivery scope section. Issue #12 owns
+unverified writer/reader and learning-effect claims separately from #8/#9 and #10/#11.
+This separation does not relax runtime learning prerequisites or change verifier outcomes.
+
 Read README.md and .agents/skills/medium-writing/SKILL.md before writing; use prompts/medium-article.md for task inputs. Root SKILL.md is a compatibility link only.
 
 - Codex repository skills live in .agents/skills. Do not modify user-global directories.

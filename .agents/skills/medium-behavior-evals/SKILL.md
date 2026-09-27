@@ -46,6 +46,11 @@ Human reader benefit requires actual human measurement; an LLM reader is only a 
 
 ## Acceptance
 
+These criteria govern behavior claims tracked in [Issue #12](https://github.com/ed3c/medium-compiler/issues/12).
+They are not landing prerequisites for the scoped CLI/article/site delivery in #8/#9 and
+#10/#11. This separation does not turn missing evidence into PASS or waive a learning
+handoff for an actual learning-episode task.
+
 Evidence validity first, then per-run correctness and quality nonregression, then barrier
 comparison. Nonzero baseline plus fewer barriers with no scoped quality regression supports
 OBSERVED_IMPROVEMENT. Zero-to-zero supports SCOPED_NONREGRESSION only. Missing/contaminated
@@ -73,7 +78,7 @@ The repository verifier reports missing reviewed evidence; it cannot probe nativ
 exposure from Python. Its BLOCKED row is not a Host capability verdict or launch gate.
 Do not turn native child text into imitation Codex JSONL. Keep actual native input/event
 identity, independent capture and local evidence distinct. Soodles #159's narrower closure
-does not waive this Issue's matched-writer, reader or source-review requirements.
+does not waive Issue #12's matched-writer, reader or source-review requirements.
 
 ## Implemented local pending-handoff runner
 
@@ -95,6 +100,6 @@ Attempts and final-file effects are separate: a guard refusal does not erase a w
 
 Current implementation only covers the real pending handoff. Accepted-episode writing and
 independent-reader quality checks remain separate prerequisites, not synthetic PASS cases.
-An improved pending route is scoped evidence, not automatic Issue #8 acceptance. Never
+An improved pending route is scoped evidence, not automatic Issue #12 acceptance. Never
 relabel the test fixture as a model run. Neither host nor reviewer declarations authenticate
 themselves; retain their actual owner-provided evidence references.

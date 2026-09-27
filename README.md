@@ -5,6 +5,21 @@ articles. The running article uses Ops Reconciliation Copilot, source-backed exp
 text runtime maps and exact final delivery. No model adapter, publisher, card database,
 scheduler or image-generation pipeline is added.
 
+## Delivery scope
+
+Issue #8 / PR #9 deliver the registered writing skills, mechanically verified lossless
+continuation and the source-bound article. Issue #10 / PR #11 deliver the static learning
+site. Acceptance requires the exact-head test suite and four mechanical drives, preserved
+article/source identities, and (for the site) build plus deployed route/provenance readback.
+
+The owner separated writer A/B, independent reader/semantic assessment, the real accepted
+learning-episode positive path and measured human benefit into [Issue #12](https://github.com/ed3c/medium-compiler/issues/12).
+These are research follow-ups, not prerequisites for this scoped product delivery. No
+behavior improvement, full-map behavior PASS or completed learning is claimed. Existing
+runtime prerequisite checks and all tests stay enabled; explicit learning-episode tasks
+still require a genuine accepted upstream handoff. The behavior verifier continues to
+report BLOCKED / NOT_RUN and all mode remains partial until that separate evidence exists.
+
 ## Choose the execution host before the writing task
 
 ChatGPT cloud repository work uses GitHub and the existing writing-verification Actions.
