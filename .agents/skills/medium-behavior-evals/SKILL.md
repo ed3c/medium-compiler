@@ -57,9 +57,24 @@ No model invocation is performed by this skill's registration. The verification 
 reports unmet carrier/trace prerequisites and never creates imitation A/B records.
 
 
-## Implemented pending-handoff runner
+## Select the existing host route
 
-For the Ops pending-handoff task, use `scripts/run_writer_pair.py` and the fixed packet
+In ChatGPT cloud, follow [the native recipe](../../../evals/writing/ops-evidence-handoff/cloud-native.md)
+using the current platform tool schema. GitHub/Actions own repository reads, writes and
+mechanical receipts; native children own their assigned writer/reader tasks. Do not launch
+Codex CLI, install a sandbox, request an API key or select a replacement model runner for
+this route. Missing native launch/capture is scoped to the affected Session/claim; continue
+other authorized work and refresh exposure only on a new Session or a material change.
+
+The repository verifier reports missing reviewed evidence; it cannot probe native tool
+exposure from Python. Its BLOCKED row is not a Host capability verdict or launch gate.
+Do not turn native child text into imitation Codex JSONL. Keep actual native input/event
+identity, independent capture and local evidence distinct. Soodles #159's narrower closure
+does not waive this Issue's matched-writer, reader or source-review requirements.
+
+## Implemented local pending-handoff runner
+
+Only for an explicitly selected Local Codex task, use `scripts/run_writer_pair.py` and the fixed packet
 in `evals/writing/ops-evidence-handoff/`. Read that README before launch. `prepare` copies
 only pinned common inputs and three versioned P/CLI files per arm; it excludes existing
 answers, evaluator reports and repository history. `doctor` probes executable/help only.

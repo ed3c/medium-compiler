@@ -25,8 +25,9 @@ create a second driver on the same run directory. Outputs must be new and outsid
 
 Use the doctor command above first and after surprising behavior. It is read-only to the
 checkout. It checks source presence, the actual CLI help, unique registered skill names,
-vendored file hashes and the current article. A missing Codex executable is recorded,
-not concealed: model/reader sessions need an additional carrier, not just Python.
+vendored file hashes and the current article. It does not probe Codex, credentials or
+ChatGPT tool exposure. Cloud native capabilities belong to the current Host Session;
+an explicitly selected local run has its own separate runner doctor.
 
 ## Drive
 

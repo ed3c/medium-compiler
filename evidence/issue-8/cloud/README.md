@@ -1,7 +1,13 @@
+> Historical hosted-Codex diagnostic; superseded by the user-selected ChatGPT native route.
+> The probe workflow/executable have been retired. Missing keys and sandbox failures below
+> apply only to those recorded Codex attempts, not to native cloud launch. Raw evidence is
+> retained unchanged. The former implementation remains available at `bea94040` in Git history.
+> Continue with [the native recipe](../../../evals/writing/ops-evidence-handoff/cloud-native.md).
+
 # Issue #8: actual cloud prerequisite probe
 
 The user asked whether the remaining fresh-writer/reader work can run in the cloud.
-This continuation executes the existing doctor in a GitHub-hosted Ubuntu 24.04 job.
+The earlier, now superseded continuation executed a Codex doctor in a GitHub-hosted Ubuntu 24.04 job.
 It does not change writer/observer code, A/B pins, comparison criteria, Ops or LEARNING.md.
 
 ## Measured result
@@ -27,15 +33,16 @@ means its diagnostic completed, not that the host qualified. `qualification.json
 run IDs, heads and downloaded artifact hashes; `sandbox-commands.json` retains exact argv
 and outcomes from both attempts. Full raw archives are also attached to the conversation.
 
-## Reuse and stop
+## Historical instructions, not the current native route
 
-Workflow: `.github/workflows/cloud-writer-doctor.yml` (scoped branch push or manual dispatch).
-Helper: `scripts/cloud_writer_doctor.py`. It always leaves external host qualification and
-pilot review outstanding, even if the bounded canaries pass. It never emits host approval.
+Retired workflow: `.github/workflows/cloud-writer-doctor.yml`. Retired helper:
+`scripts/cloud_writer_doctor.py`. Their original source remains at `bea94040`.
+They did not emit host approval; neither is an entry for native ChatGPT work.
 
-The next owner is the execution-host owner: provide validated model authentication AND
-an enforced, supported read/write-isolated environment with an external recorder. A key
-alone does not solve the observed sandbox failure. Do not copy personal auth.json into CI.
+The original `qualification.json.next` described a Codex-host authentication/isolation
+gap. It is retained as historical evidence, not an instruction to provision a native-cloud
+API key. The current next operation is native launch/capture qualification in a Session
+that exposes that tool. Do not copy personal auth.json into CI or switch carriers.
 
 The existing qualified pilot -> six fixed sessions -> external review path is unchanged.
 Fresh writer A/B, isolated reader, accepted-episode positive path and strict pstack review

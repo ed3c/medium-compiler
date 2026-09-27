@@ -50,7 +50,7 @@ class Driver:
             if hashlib.sha256((ROOT/entry['path']).read_bytes()).hexdigest()!=entry['sha256']:
                 raise ValueError('vendored bytes drift: '+entry['path'])
         return {'status':'PASS','python':sys.version.split()[0],'registered_skills':names,
-                'codex_executable':shutil.which('codex'),'registration':'FILES_VERIFIED; live Codex selection not measured',
+                'registration':'FILES_VERIFIED; live host instruction activation not measured',
                 'compiler_sha256':sha((ROOT/'medium_compiler.py').read_bytes())}
     def staged(self):
         self.feature='staged-authoring'
@@ -160,16 +160,19 @@ class Driver:
         return {'status':'PASS','parts':len(order),'refusal_controls':controls,'article_sha256':sha(data),'medium_browser_rendering':'NOT_RUN'}
     def behavior(self):
         self.feature='behavior-evals'
-        probe=subprocess.run([sys.executable,str(ROOT/'scripts/run_writer_pair.py'),'doctor'],capture_output=True,text=True,timeout=30)
-        self.logs.append({'feature':self.feature,'argv':[sys.executable,str(ROOT/'scripts/run_writer_pair.py'),'doctor'],
-                          'exit':probe.returncode,'stdout':probe.stdout,'stderr':probe.stderr})
-        if probe.returncode not in (0,3):raise ValueError('writer runner doctor failed')
-        probe=json.loads(probe.stdout)
-        return {'status':'BLOCKED','attempted':'runner doctor only; no model launch or comparison is performed by verification',
-                'runner_probe':probe,'runner':'scripts/run_writer_pair.py','observer':'scripts/evaluate_writer_run.py',
-                'codex_executable':shutil.which('codex'),'fresh_writer_ab':'NOT_RUN','independent_reader':'NOT_RUN',
-                'missing':['approved isolated writer/reader carrier','fixed model/task/observer and raw per-session traces','trusted semantic labels'],
-                'reason':'The local driver is deterministic; it cannot manufacture natural Agent or human-reader evidence.'}
+        # This existing verifier observes repository evidence, not Host tool exposure.
+        # Do not select Local Codex merely because Python/Actions is running in the cloud.
+        return {'status':'BLOCKED',
+                'attempted':'evidence-readiness report only; no agent launch or executable probe',
+                'entry':'.agents/skills/medium-behavior-evals/SKILL.md',
+                'cloud_recipe':'evals/writing/ops-evidence-handoff/cloud-native.md',
+                'capability_observation':'HOST_SESSION_OWNED; not probed by this verifier',
+                'fresh_writer_ab':'NOT_RUN','independent_reader':'NOT_RUN',
+                'model_calls':0,'behavior':None,
+                'missing':['selected carrier and frozen comparison inputs',
+                           'independent raw session/input evidence',
+                           'trusted semantic review and isolated reader evidence'],
+                'reason':'Repository checks cannot manufacture native sessions or reviewed learning evidence.'}
 
 
 def main():

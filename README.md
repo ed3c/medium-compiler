@@ -5,6 +5,20 @@ articles. The running article uses Ops Reconciliation Copilot, source-backed exp
 text runtime maps and exact final delivery. No model adapter, publisher, card database,
 scheduler or image-generation pipeline is added.
 
+## Choose the execution host before the writing task
+
+ChatGPT cloud repository work uses GitHub and the existing writing-verification Actions.
+Independent cloud writers/readers use the exposed native subagent tool: see the
+[cloud-native recipe](evals/writing/ops-evidence-handoff/cloud-native.md). No Codex install,
+API key, browser login or Local Codex host approval is required for that native route.
+The repository cannot create a native tool or install ChatGPT Project instructions.
+
+The [Codex runner](evals/writing/ops-evidence-handoff/README.md) is retained for explicitly
+selected local work only. Its frozen inputs and evidence are not native-cloud runs.
+The earlier GitHub-hosted Codex probe is historical, superseded routing evidence under
+[evidence/issue-8/cloud](evidence/issue-8/cloud/README.md), not a native prerequisite.
+The erroneous cloud CLI workflow/probe were removed; the original writing CI is unchanged.
+
 ## Entry points
 
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)

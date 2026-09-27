@@ -8,23 +8,33 @@
 
 ## How to get to it (user POV)
 
-Invoke medium-behavior-evals with an approved isolated writer/reader carrier and actual
-traces. The verification wrapper probes runner readiness only; it never launches models from ordinary
-verification or CI. The explicit runner below can launch after its separate host/pilot gates.
+Invoke medium-behavior-evals on the already selected host route. ChatGPT cloud uses the
+platform's exposed native subagent tool; Local Codex uses the retained local runner.
+Neither ordinary verification nor writing CI launches a model. A missing local executable,
+API key or local sandbox is not a prerequisite for the native-cloud route.
 
 ## Driving it with verify-medium
 
-Source: ../../medium-behavior-evals/SKILL.md, scripts/run_writer_pair.py, scripts/evaluate_writer_run.py
-and evals/writing/ops-evidence-handoff/. Imported methods retain their own prerequisites.
+Source: ../../medium-behavior-evals/SKILL.md and
+evals/writing/ops-evidence-handoff/cloud-native.md. Only the explicitly selected local
+route uses scripts/run_writer_pair.py and scripts/evaluate_writer_run.py.
 
 Run `python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/medium-behavior-NEW`.
-The doctor executes only Codex version/help when available and records missing prerequisites.
-The wrapper remains BLOCKED, exit 3, until actual comparison/reader evidence is reviewed;
-an installed binary or a unit-test PASS cannot clear this feature.
-Do not replace this missing drive with a scripted path or report an unexecuted source wave.
-For actual runs, follow the behavior skill: fixed identities, every raw trace, per-run
-quality/nonregression and a source-bound final article diff. Reader answers must cite the
-article, not an answer key supplied to the reader.
+It checks repository/CLI integrity and reports missing reviewed experiment evidence without
+probing Codex or native capabilities. BLOCKED / exit 3 is evidence readiness, not a Host
+launch gate. It does not certify a carrier, launch children, import reviews or grant closure.
+
+For cloud repository validation, use the existing writing-verification Actions at the exact
+candidate head and read back its jobs/artifacts through GitHub. For native writer/reader
+work, use the actual current schema, no inherited conversation, pinned inputs and actual
+request/result capture. Follow the native recipe's pilot and comparison limits.
+
+For deliberately selected local work, the existing experiment README retains offline packet
+preparation, local doctor, real host qualification, unscored pilot and the fixed six runs.
+Those records stay local; never relabel them or native child messages to fit another format.
+
+Keep fixed identities, every attempt, per-run quality/nonregression and a source-bound
+article diff. Reader answers must cite the article, not an answer key given to the reader.
 
 ## Gotchas
 
@@ -32,30 +42,16 @@ A nonzero natural baseline is needed for improvement. 0->0 is scoped nonregressi
 runs are not zeros, and planted controls measure sensitivity only. No uncalibrated judge,
 word-count reduction or writer self-review proves improved human understanding.
 
+Soodles #159 proves scoped Host routing and an uncounted task-local native launch, not a
+matched writer study or a complete independent child transcript. Its scope amendment is
+not this Issue's acceptance. Missing capture blocks the affected comparison; missing native
+launch applies to this Session, not every cloud Session or unrelated authorized work.
 
-### Drive the new mechanism without inventing a study
+`test_verification_host_route.py` drives the real verification entry with and without a
+Codex trap on PATH. It checks absence of an unintended executable probe, not model behavior.
+`test_writer_observer.py` retains synthetic local transport/observer controls. Neither is
+fresh writer/reader evidence. The source-review wave remains independent and required.
 
-Run `python3 -m unittest discover -s tests -p 'test_writer_observer.py' -v` for labelled
-synthetic transport/observer controls. Then prepare the real packet using exact baseline
-71fce847 and treatment df138896 checkouts (see experiment README). Inspect that both capsules
-contain the same common source bytes and no expected answer, review or other arm output.
-Run `python3 scripts/run_writer_pair.py doctor`: missing Codex must return BLOCKED with
-model_calls=0. Save these as mechanism/readiness evidence, never fresh-writer results.
-
-On an actually qualified host, drive unscored pilot -> external capture review -> fixed
-comparison -> external event review -> observer comparison. Preserve failed/incomplete runs.
-No token/credential is copied by this workflow. The writer sandbox must also isolate reads
-from controller data and other sessions; workspace-only writes alone are not sufficient.
-
-The same-article writer-pair/replay.py inserts one source-grounded explanation separating
-wrong attempted actions from blocked effects. It is an author-reviewed product delta, not
-an accepted Ops PR24 learning episode or a replacement for the pending no-write behavior.
-
-### Cloud prerequisite probe, not a scored pilot
-
-The scoped cloud-writer-doctor workflow installs hash-pinned Codex and executes the existing
-doctor plus generated filesystem canaries. It receives only a boolean for the named Actions
-credential, never a key. Preserve report/commands and classify sandbox launch failure as
-unobserved isolation, not successful denial. Workflow success means the probe completed;
-no host approval, model call, learning progress or comparison PASS is created. See
-evidence/issue-8/cloud/README.md for the actual cloud runs and the remaining host-owner gap.
+The same-article writer-pair/replay.py remains author-reviewed product evidence, not an
+accepted Ops PR24 episode. The old cloud CLI probe and its failures remain historical under
+evidence/issue-8/cloud; its executable/workflow are retired, not native-cloud prerequisites.
