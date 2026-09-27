@@ -185,7 +185,7 @@ python3 phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route be
 
 這個版本的 beginner 檢查要求 Python 與 Git，其他工具預設留待後續。網頁網址的 `learningPath=software-engineering-fundamentals` 是網頁導覽參數，不是這支程式接受的 `--route` 值；不要直接照抄成 CLI 參數。以上命令供你在已取得課程 repository 後操作，本文沒有替你宣告該命令已在你的 Colab 執行。
 
-## 實際操作紀錄：Colab CLI 已安裝，雲端執行仍待授權
+## 實際操作紀錄：從安裝失敗到完成第一次雲端執行
 
 以下紀錄截至 2026-09-27。它記錄本次環境操作，不代表讀者已完成課程，也不代表已完成任何 LLM 訓練或推論。
 
@@ -194,7 +194,10 @@ python3 phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route be
 3. **第一次安裝失敗。** 執行官方建議的 `uv tool install google-colab-cli`，但 uv 這次選用 Python 3.11.11，低於當前套件要求的 Python 3.12。這是 CLI 本身的執行環境問題，與 GPU 或 LLM 容量無關。原課的 Python 3.11+ 與新工具的 Python 3.12+ 是兩個不同條件。
 4. **指定已存在的 Python 後安裝成功。** 使用下方指令，得到 `google-colab-cli 0.7.4`。這個 Python 路徑來自本機檢查；其他電腦應改成自己實際安裝的 Python 3.12+，不要盲抄路徑。
 5. **驗證命令可啟動。** `colab version` 回傳 `Version: 0.7.4`，`colab --help` 列出 session、執行、檔案下載等命令。這只能確認本地 CLI 已可用。
-6. **嘗試讀取雲端 sessions。** `colab sessions` 進入首次 Google OAuth 授權流程，尚未完成授權；本次在輸入授權碼前取消。沒有建立雲端 runtime，也沒有在 Colab 上執行本文 Notebook。
+6. **首次查詢停在授權。** `colab sessions` 最初進入 Google OAuth 流程，在輸入授權碼前取消。這個時間點只完成 CLI 安裝，還沒有建立 runtime。
+7. **由使用者完成 Google 授權。** 使用者在自己的終端機登入後，得到 `No active sessions found on server`；再次讀回得到相同結果與成功結束狀態。這表示可查詢伺服器，只是當時沒有執行中的 session。
+8. **建立 CPU session 並執行四格 Notebook。** 新 session 回傳 `Session READY`；硬體讀回為 CPU、Standard。遠端 Python 為 3.13.15，執行檔為 `/usr/bin/python3`。四格依序執行，輸出 14 與 `3 tests passed`，並寫出 `/content/environment-check.json`。
+9. **下載結果並結束運算。** CLI 確認 JSON 已下載；讀取本機檔案，核對結果為 14、測試數為 3。停止 session 後回傳 `Session terminated`，再次查詢為 `No active sessions found on server`。這次的雲端資源已釋放。
 
 ```sh
 uv tool install --python /opt/homebrew/bin/python3 google-colab-cli
@@ -210,18 +213,35 @@ colab sessions
 
 依 CLI 顯示的網址進入 Google，核對帳號與要求的權限，完成授權後，把授權碼直接貼回自己的終端機。不要把授權碼、token 或憑證檔放進文章、版本庫或聊天。CLI 的登入狀態與瀏覽器已登入 Google 是不同的狀態；能打開 Colab 網頁，不代表 CLI 已取得授權。
 
-以下是**待執行的雲端驗證步驟**，不是本次成功紀錄。在本文 repository 根目錄、有 Notebook 檔案且授權完成後，才依序執行：
+完成授權後，可在本文 repository 根目錄重現這個流程。以下下載目的地使用目前資料夾，讀者可依自己的目錄調整；每一步成功後再往下執行，下載完成後才停止 session：
 
 ```sh
 colab new -s application-engineering-first-lesson
 colab exec -s application-engineering-first-lesson -f notebooks/application-engineering-colab.ipynb
-colab download -s application-engineering-first-lesson environment-check.json ./environment-check-colab.json
+colab download -s application-engineering-first-lesson /content/environment-check.json ./environment-check-colab.json
 colab stop -s application-engineering-first-lesson
 ```
 
 第一行未指定 GPU 或 TPU，依 0.7.4 的命令說明會要求 CPU runtime。先用它驗證連線、執行、下載與釋放資源；等課程需要 GPU 時，再根據模型需求、配額與可用機型選擇。若中間任一步失敗，記錄該錯誤並確認 session 狀態，已建立的 runtime 在不再使用時仍應停止。
 
-本文四格程式已在本機乾淨的 Python 程序執行，檢查版本、平方和、三個 assert 與 JSON 輸出；這份結果驗證範例程式，不等同遠端 Colab 驗證。下一個尚缺的證據是：實際 Colab runtime 的輸出、下載回來的 JSON，以及停止 session 的結果。
+本文四格程式先在本機乾淨的 Python 程序驗證，再於真實 Colab CPU runtime 執行。下載回來的 [環境測試紀錄](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/colab-dev-environment.json) 內容如下：
+
+```json
+{
+  "exercise": "colab-dev-environment",
+  "python": "3.13.15",
+  "input": [
+    1,
+    2,
+    3
+  ],
+  "result": 14,
+  "tests": 3,
+  "scope": "environment-and-example-only"
+}
+```
+
+這份紀錄確認 Python 環境、函式結果與檔案下載流程；它沒有測試 LLM、GPU 推論或訓練，也不代表學員已掌握課程。原始 Notebook 保留未執行的乾淨版本，方便下一次從頭重跑。
 
 ## 留下能解釋的成果，再進下一課
 

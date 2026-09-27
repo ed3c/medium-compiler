@@ -41,7 +41,7 @@
     "author_review": "Source/route/scope/code reviewed; complete original lesson read",
     "independent_semantic_review": "NOT_RUN",
     "learner_understanding": "NOT_MEASURED",
-    "personal_colab_runtime": "NOT_EXECUTED",
+    "personal_colab_runtime": "EXECUTED: CPU Standard, Python 3.13.15; four cells, 3 assertions, downloaded result; session stopped",
     "public_tutorial_not_completion_claim": true
   },
   "assembly": {
@@ -49,8 +49,8 @@
     "mode": "staged",
     "stages": "0-7",
     "receipt_status": "VALID",
-    "article_sha256": "dc0a805ca1622d931aa9ce4df0b53023549d82cc305c590d5e9ae033b6bc440d",
-    "note": "Fresh staged 0-7 authoring incorporates the requested hardware/installation/authentication history; compiler semantic correctness remains NOT_ASSESSED."
+    "article_sha256": "228a713484c36555d2d9d1f8a0ff87b33c23b36f376a51aed06d950429e5926a",
+    "note": "Fresh staged 0-7 assembly includes actual cloud execution and cleanup; semantic correctness remains NOT_ASSESSED."
   },
   "unresolved": [
     "UI labels and hosted runtime version may change; tutorial uses bilingual labels and observes actual Python version.",
@@ -71,10 +71,21 @@
       "installer_python": "3.14.6",
       "version_check": "Version: 0.7.4",
       "help_check": "PASS",
-      "sessions_read": "OAUTH_REQUIRED; cancelled before code entry",
-      "cloud_runtime_created": false,
-      "remote_notebook_execution": "NOT_RUN"
+      "sessions_read": "USER_AUTHORIZED: repeated server read succeeded",
+      "cloud_runtime_created": true,
+      "remote_notebook_execution": "PASS",
+      "runtime": {
+        "hardware": "CPU",
+        "shape": "Standard",
+        "python": "3.13.15",
+        "cells_executed": 4,
+        "assertions_passed": 3
+      },
+      "downloaded_result": "articles/evidence/colab-dev-environment.json",
+      "result_sha256": "f49d3d3bd2c5d8554281a6b0375e49ca22f0afdcc8e4cfaa8189666651b4cc80",
+      "cleanup": "Session terminated; subsequent server read: No active sessions found on server.",
+      "earlier_auth_attempt": "Cancelled at authorization-code prompt before user subsequently completed OAuth in own terminal"
     },
-    "example_test_scope": "Fresh local Python subprocess; not a remote Colab result"
+    "example_test_scope": "Fresh local Python subprocess and actual remote Colab CPU runtime; environment/example only, no LLM or learner mastery claim"
   }
 }
