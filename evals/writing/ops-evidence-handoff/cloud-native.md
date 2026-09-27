@@ -14,6 +14,23 @@ later answer-bearing article additions, observer code or the other arm's output.
 The retained experiment.json selects `host_codex_exec`; it is NOT a native launch contract.
 Do not feed its local host approval or Codex event format into native execution.
 
+
+## Frozen native launch packet
+
+Do not reconstruct the six launch requests from prose. The byte-bound contract is
+`native-cloud.json`; validate/project it with:
+
+```sh
+python3 scripts/native_writer_packet.py
+```
+
+The projection contains the pinned common ref, baseline/treatment refs, B/T/T/B/B/T order,
+`collaboration.spawn_agent`, `fork_turns: none`, no model override, the forbidden-input
+boundary and the external observer owner. It deliberately returns
+`authorizes_native_launch=false`: repository code can bind a request but cannot discover or
+grant this Session's native capability. The cloud supervisor consumes the projected request
+only when the platform actually exposes that action.
+
 ## Native launch and observation
 
 Observe this Session's actual native capability. Unknown exposure permits scoped discovery;

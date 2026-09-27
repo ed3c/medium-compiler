@@ -1,0 +1,34 @@
+{
+  "schema_version": "native-writer-cloud@1",
+  "experiment_id": "ops-pr24-pending-handoff-v1",
+  "carrier": "native collaboration.spawn_agent",
+  "fork_turns": "none",
+  "model_override": null,
+  "common_ref": "d9e5f18810ad3500a26df3f841026ad26ee09d36",
+  "baseline_ref": "71fce847f6b521d812ba8179dcf4f53e06a69ef6",
+  "treatment_ref": "df138896a7e6190650b22478801953628e261481",
+  "order": ["baseline", "treatment", "treatment", "baseline", "baseline", "treatment"],
+  "effects": ["read-pinned-github-inputs", "write-assigned-evidence-only"],
+  "observer_owner": "external supervisor",
+  "consumer_forbidden_inputs": [
+    "expected answers",
+    "observer criteria",
+    "other arm output",
+    "experiment reports",
+    "later article explanations",
+    "repository history"
+  ],
+  "requirements": [
+    "current Session actually exposes the native subagent action",
+    "fresh child context with fork_turns none",
+    "same exposed platform/model/tool configuration across arms",
+    "actual spawn request, child identity/status and returned result retained",
+    "missing native transcript/model provenance remains unknown rather than fabricated",
+    "pilot is unscored and reviewed before comparison"
+  ],
+  "notes": [
+    "No Codex CLI, browser login or local launcher is a prerequisite for this cloud carrier.",
+    "GitHub Actions may verify repository/process fixtures but is not the model carrier.",
+    "Shared filesystem is not security isolation; use pinned read-only GitHub inputs and distinct evidence destinations."
+  ]
+}

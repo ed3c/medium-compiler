@@ -60,11 +60,14 @@ reports unmet carrier/trace prerequisites and never creates imitation A/B record
 ## Select the existing host route
 
 In ChatGPT cloud, follow [the native recipe](../../../evals/writing/ops-evidence-handoff/cloud-native.md)
-using the current platform tool schema. GitHub/Actions own repository reads, writes and
-mechanical receipts; native children own their assigned writer/reader tasks. Do not launch
-Codex CLI, install a sandbox, request an API key or select a replacement model runner for
-this route. Missing native launch/capture is scoped to the affected Session/claim; continue
-other authorized work and refresh exposure only on a new Session or a material change.
+and its byte-bound `native-cloud.json`. Run `python3 scripts/native_writer_packet.py` only
+to validate/project the already selected requests; repository code never launches the child.
+The current Session supervisor uses the platform's exposed native schema. GitHub/Actions own
+repository reads, writes and mechanical receipts; native children own their assigned
+writer/reader tasks. Do not launch Codex CLI, install a sandbox, request an API key or select
+a replacement model runner for this route. Missing native launch/capture is scoped to the
+affected Session/claim; continue other authorized work and refresh exposure only on a new
+Session or a material change.
 
 The repository verifier reports missing reviewed evidence; it cannot probe native tool
 exposure from Python. Its BLOCKED row is not a Host capability verdict or launch gate.

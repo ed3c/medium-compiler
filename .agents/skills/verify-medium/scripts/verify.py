@@ -160,16 +160,28 @@ class Driver:
         return {'status':'PASS','parts':len(order),'refusal_controls':controls,'article_sha256':sha(data),'medium_browser_rendering':'NOT_RUN'}
     def behavior(self):
         self.feature='behavior-evals'
-        # This existing verifier observes repository evidence, not Host tool exposure.
-        # Do not select Local Codex merely because Python/Actions is running in the cloud.
+        # Repository verification binds the selected cloud packet; Host exposure remains Session-owned.
+        native=json.loads((ROOT/'evals/writing/ops-evidence-handoff/native-cloud.json').read_text())
+        experiment=json.loads((ROOT/'evals/writing/ops-evidence-handoff/experiment.json').read_text())
+        if native.get('schema_version')!='native-writer-cloud@1':
+            raise ValueError('native cloud contract schema drift')
+        if native.get('carrier')!='native collaboration.spawn_agent' or native.get('fork_turns')!='none':
+            raise ValueError('native cloud carrier drift')
+        if native.get('order')!=experiment.get('order'):
+            raise ValueError('native cloud order drift')
+        if native.get('baseline_ref')!=experiment['arms']['baseline']['revision'] or native.get('treatment_ref')!=experiment['arms']['treatment']['revision']:
+            raise ValueError('native cloud arm identity drift')
         return {'status':'BLOCKED',
-                'attempted':'evidence-readiness report only; no agent launch or executable probe',
+                'attempted':'native packet identity/readiness check only; no agent launch or executable probe',
                 'entry':'.agents/skills/medium-behavior-evals/SKILL.md',
                 'cloud_recipe':'evals/writing/ops-evidence-handoff/cloud-native.md',
+                'native_packet':'evals/writing/ops-evidence-handoff/native-cloud.json',
+                'native_packet_sha256':sha((ROOT/'evals/writing/ops-evidence-handoff/native-cloud.json').read_bytes()),
+                'carrier':native['carrier'],'fork_turns':native['fork_turns'],
                 'capability_observation':'HOST_SESSION_OWNED; not probed by this verifier',
                 'fresh_writer_ab':'NOT_RUN','independent_reader':'NOT_RUN',
                 'model_calls':0,'behavior':None,
-                'missing':['selected carrier and frozen comparison inputs',
+                'missing':['actual native spawn/capture receipts for the selected runs',
                            'independent raw session/input evidence',
                            'trusted semantic review and isolated reader evidence'],
                 'reason':'Repository checks cannot manufacture native sessions or reviewed learning evidence.'}
