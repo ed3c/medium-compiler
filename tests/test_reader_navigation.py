@@ -13,7 +13,7 @@ PARTS = ROOT / "articles/ai-engineer-learning-path.parts"
 RESOURCES = ROOT / "references/open-access-resources.json"
 
 LINK_RE = re.compile(r"\]\((https?://[^)]+)\)")
-FENCE_RE = re.compile(r"(?ms)^\`\`\`.*?^\`\`\`\s*$")
+FENCE_RE = re.compile(r"(?ms)^```.*?^```\s*$")
 TABLE_LINE_RE = re.compile(r"(?m)^\s*\|.*\|\s*$")
 
 
@@ -97,11 +97,13 @@ class ReaderNavigationTests(unittest.TestCase):
 
     def test_prompt_and_skill_encode_medium_policy(self):
         prompt = (ROOT / "prompts/medium-article.md").read_text(encoding="utf-8")
-        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        entry = (ROOT / ".agents/skills/medium-writing/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("writing-contract.md", entry)
+        contract = (ROOT / "writing-contract.md").read_text(encoding="utf-8")
         self.assertIn("native-no-tables", prompt)
         self.assertIn("open-access-only", prompt)
-        self.assertIn("Medium-native final body", skill)
-        self.assertIn("Reader-link access gate", skill)
+        self.assertIn("Medium-native final body", contract)
+        self.assertIn("Reader-link access gate", contract)
 
     def test_card_adapter_does_not_copy_v71_prompt(self):
         s = (ROOT / "references/card-context-v7.1.md").read_text(encoding="utf-8")

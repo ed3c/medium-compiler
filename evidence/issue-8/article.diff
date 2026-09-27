@@ -1,0 +1,78 @@
+--- before.md
++++ articles/ai-engineer-learning-path.md
+@@ -194,6 +194,75 @@
+ > AI Engineer 仍然必須是 Software Engineer。
+ 
+ 模型只處理它擅長的歧義；可精確計算的部分留在確定性程式。
++
++### 同一個交易 ID，為什麼保存成一個 list？
++
++前面的箭頭把 normalize 縮成了一個步驟。實際上，它先檢查 mapping 是否包含 transaction_id、amount、currency，而且三個欄位必須存在、不能重複使用。接著逐列建立索引。transaction_id 是 CSV 裡的交易識別值；一次上傳工作的 run ID 則識別整個工作，兩者不是同一個 key。
++
++normalize 對交易 ID 做 strip，移除首尾空白；幣別另做 strip 和 upper。它沒有把交易 ID 轉成同一種大小寫，因此 T100 與 t100 仍是不同交易 ID。每一筆正規化結果還保留 row：enumerate 從 2 開始，因為第一列是欄名，這個數字讓檢查者能回到 CSV 的原始資料列。
++
++索引的 value 是 list，不是單筆資料。下面刻意讓左側 T100 出現兩次，作為程式的診斷輸入；它不是歷史模型報告裡的一次真實業務操作。
++
++```text
++left CSV
++  row 2: T100, 100.00, USD
++  row 3: T100, 100.00, USD
++             |
++             | normalize：相同 key 持續 append
++             v
++left index
++  T100 -> [row 2, row 3]
++
++right CSV
++  row 2: T100, 98.00, USD
++             |
++             v
++right index
++  T100 -> [row 2]
++```
++
++若把索引改成 transaction_id 對到單筆 row，後一筆可能覆蓋前一筆，對帳時就看不見重複。保留 list，才有足夠資料區分「同一筆交易金額不同」和「交易 ID 本身就不唯一」。這段表示方式的選擇，直接決定下一步能檢查哪種錯誤。
++
++### 有重複資料時，為什麼不能先算 2.00？
++
++reconcile 不是看到同一個 key，就立刻把左右第一筆金額相減。它走訪左右 ID 的聯集，排序後依固定優先序分類。下面的符號目錄對應 app/main.py 的實際函式；目錄表示責任歸屬，箭頭才表示資料怎麼流動。
++
++```text
++app/main.py
++├─ normalize(source, mapping)
++│  ├─ 檢查欄位與資料
++│  └─ transaction_id -> list of normalized rows
++└─ reconcile(left, right)
++   ├─ 走訪 sorted(set(left) | set(right))
++   ├─ 依序分類
++   └─ findings：保留左右 row 與差額
++```
++
++```text
++同一個 ID 的左右 lists
++  |
++  +-- 任一側超過一筆？
++  |     yes -> duplicate_key，delta = null
++  |     no
++  v
++任一側沒有資料？
++  |     yes -> missing_left 或 missing_right，delta = null
++  |     no
++  v
++幣別不同？
++  |     yes -> currency_mismatch，delta = null
++  |     no
++  v
++金額不同？
++  |     yes -> amount_mismatch，delta = left - right
++  |     no
++  v
++不產生 finding
++```
++
++所以剛才的重複 T100 會得到 duplicate_key，左右的 row 仍保留在 finding 中，但 delta 是 null。即使兩側各取第一筆可以算出 100.00 − 98.00 = 2.00，程式也不會把它當成可信的金額差異。只有兩側都恰好一筆、幣別相同且金額不同，才產生 amount_mismatch 並計算 delta。
++
++同樣地，若一側重複、另一側缺列，最先成立的仍是 duplicate_key；幣別不同時，也不會把兩個不同貨幣的數字直接相減。這些保證只涵蓋程式採用的分類規則，不證明來源 CSV 或已提交 mapping 的業務含義正確。完整條件可以回到前面連結的 app/main.py，對照 normalize 與 reconcile 逐行檢查。
+ 
+ ## 5. Structured output：JSON 合法，不代表 mapping 語意正確
+ 

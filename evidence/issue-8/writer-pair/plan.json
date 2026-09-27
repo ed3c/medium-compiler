@@ -1,0 +1,27 @@
+{
+  "topic": "把 writer 錯誤嘗試、CLI 拒絕與實際效果分開記錄",
+  "purpose": "source-explanation",
+  "sources": [
+    {
+      "id": "behavior-contract",
+      "path": "behavior-source.md",
+      "sha256": "sha256:29ce0fb135c2f54923129a24f852c4c3397a6af0a5f11d8b6ce03dc10501ba5b",
+      "provenance": "ed3c/medium-compiler@df138896a7e6190650b22478801953628e261481:.agents/skills/medium-behavior-evals/SKILL.md; retained contract, not an executed fresh-writer result"
+    }
+  ],
+  "units": [
+    {
+      "id": "observe-writer-not-guard",
+      "question": "為什麼護欄通過，不等於 writer 的決策改善？",
+      "insert_before": "## 7. 為什麼這個專案現在不需要做成 full Agent？",
+      "source_id": "behavior-contract",
+      "source_anchor": "A local replay is not a fresh Agent.",
+      "terms": [
+        "writer",
+        "CLI",
+        "DONE",
+        "observer"
+      ]
+    }
+  ]
+}

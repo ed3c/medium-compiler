@@ -90,5 +90,42 @@
   },
   "independent_reader": "NOT_RUN",
   "fresh_writer_ab": "NOT_RUN",
-  "medium_publication": "NOT_RUN"
+  "medium_publication": "NOT_RUN",
+  "incremental_expansion": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/plan.json",
+    "applied_units": [
+      "transaction-index",
+      "finding-precedence"
+    ],
+    "retention": "Two insertions only; prior article bytes retained.",
+    "semantic_review": "AUTHOR_REVIEW_ONLY",
+    "independent_reader": "NOT_RUN"
+  },
+  "handoff_addendum": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/handoff/article-plan.json",
+    "unit_id": "learning-before-writing",
+    "purpose": "source-explanation",
+    "learning_episode": "NOT_PERFORMED",
+    "retention": "One additional insertion; previous edition reconstructs exactly."
+  },
+  "authority_addendum": {
+    "issue": 8,
+    "work_plan": "evidence/issue-8/authority/plan.json",
+    "unit_id": "experiment-before-promotion",
+    "purpose": "source-explanation",
+    "human_checkpoint": "Q5/Q6 supplied by author in current ChatGPT session; not independent",
+    "retention": "One additional insertion; previous edition reconstructs exactly.",
+    "learning_progress": "NOT_UPDATED",
+    "product_promotion": "NOT_AUTHORIZED"
+  },
+  "writer_observation_addendum": {
+    "issue": 8,
+    "unit_id": "observe-writer-not-guard",
+    "purpose": "source-explanation",
+    "plan": "evidence/issue-8/writer-pair/plan.json",
+    "fresh_writer_ab": "NOT_RUN",
+    "retention": "One insertion; removal reconstructs df138896 article bytes."
+  }
 }

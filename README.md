@@ -1,160 +1,185 @@
 # medium-compiler
 
-A writing-only CLI and [P-class skill](SKILL.md) for technical Medium articles.
-No model adapter, publishing service, image generator, card compiler or scheduler.
-The Agent writes prose; the CLI controls accepted files and assembles the result.
+A writing-only CLI and repository-local Codex skills for zero-context technical Medium
+articles. The running article uses Ops Reconciliation Copilot, source-backed explanations,
+text runtime maps and exact final delivery. No model adapter, publisher, card database,
+scheduler or image-generation pipeline is added.
 
-## Writing prompts and the current article
+## Delivery scope
 
-Start with [SKILL.md](SKILL.md), then the reusable
-[task / continue / assembly prompts](prompts/medium-article.md).
-The [v7.1 context reference](references/card-context-v7.1.md) is optional input guidance,
-not a card compiler dependency. The five organizing questions in the skill do not fix how
-many decisions the reader must understand.
+Issue #8 / PR #9 deliver the registered writing skills, mechanically verified lossless
+continuation and the source-bound article. Issue #10 / PR #11 deliver the static learning
+site. Acceptance requires the exact-head test suite and four mechanical drives, preserved
+article/source identities, and (for the site) build plus deployed route/provenance readback.
 
-For the actual AI Engineer article:
+The owner separated writer A/B, independent reader/semantic assessment, the real accepted
+learning-episode positive path and measured human benefit into [Issue #12](https://github.com/ed3c/medium-compiler/issues/12).
+These are research follow-ups, not prerequisites for this scoped product delivery. No
+behavior improvement, full-map behavior PASS or completed learning is claimed. Existing
+runtime prerequisite checks and all tests stay enabled; explicit learning-episode tasks
+still require a genuine accepted upstream handoff. The behavior verifier continues to
+report BLOCKED / NOT_RUN and all mode remains partial until that separate evidence exists.
 
-- [Stage 0: contents, 14 principal decisions and runtime maps](articles/ai-engineer-learning-path.stage-00.md)
-- [Continuous Medium article](articles/ai-engineer-learning-path.md)
-- [Context and source anchors](articles/ai-engineer-learning-path.context.json)
-- [Ordered delivery manifest](articles/ai-engineer-learning-path.parts/manifest.json)
+## Choose the execution host before the writing task
 
-The five delivery parts are contiguous slices of that existing article, not recreated
-Stage 1–5 generation history. Stage 0 is a separate reading plan; do not prepend it to
-all five parts. The article itself already contains the reader TOC/decision overview and
-its existing runtime diagrams. Concatenate the manifest's parts without adding separators
-to obtain exactly the same canonical article bytes.
+ChatGPT cloud repository work uses GitHub and the existing writing-verification Actions.
+Independent cloud writers/readers use the exposed native subagent tool: see the
+[cloud-native recipe](evals/writing/ops-evidence-handoff/cloud-native.md). No Codex install,
+API key, browser login or Local Codex host approval is required for that native route.
+The repository cannot create a native tool or install ChatGPT Project instructions.
 
-This edition adds only a source-grounded navigation section. All earlier prose, code,
-links and section ordering remain unchanged. [Issue #4 evidence](evidence/issue-4/README.md)
-separates literal preservation from author review and unrun independent-reader tests.
+The [Codex runner](evals/writing/ops-evidence-handoff/README.md) is retained for explicitly
+selected local work only. Its frozen inputs and evidence are not native-cloud runs.
+The earlier GitHub-hosted Codex probe is historical, superseded routing evidence under
+[evidence/issue-8/cloud](evidence/issue-8/cloud/README.md), not a native prerequisite.
+The erroneous cloud CLI workflow/probe were removed; the original writing CI is unchanged.
 
-## Two entry paths
+## Entry points
 
-A new article uses the existing stages:
+- [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
+- [Retained complete writing contract](writing-contract.md)
+- [Planning/continuation prompts](prompts/medium-article.md)
+- [Boot-to-drill-down task prompt](prompts/drill-down.md)
+- [Verification and feature map](.agents/skills/verify-medium/SKILL.md)
+- [Full-map maintenance](.agents/skills/maintain-medium-verification/SKILL.md)
+- [Behavior and reader evals](.agents/skills/medium-behavior-evals/SKILL.md)
 
-```text
-0 TOC + decision/data-flow maps
-1 Problem -> property -> representation
-2 Runtime witness -> internals
-3 Alternative -> decision boundary -> cost
-4 Implementation -> correctness -> edge cases
-5 Interview -> master map
-6 Prose-only edit
-7 Exact-byte assembly
-```
+Codex repository skills live under .agents/skills/<name>/SKILL.md. Root SKILL.md is a
+compatibility pointer, not a second registered writer. The prior root writing contract is
+preserved verbatim in writing-contract.md and explicitly loaded by the registered entrypoint.
+No user-global directory is modified. File registration is checked; actual Codex selection
+must still be verified in the user's Codex session. See [OpenAI's repository-skills example](https://developers.openai.com/zh-Hant/blog/skills-agents-sdk).
+
+## Current article
+
+[Continuous Medium article](articles/ai-engineer-learning-path.md),
+[reading plan](articles/ai-engineer-learning-path.stage-00.md),
+[context](articles/ai-engineer-learning-path.context.json), and
+[five delivery parts](articles/ai-engineer-learning-path.parts/manifest.json).
+The ten reader decisions are this article's grouping, not a quota. The latest expansion
+explains why transaction IDs map to lists and why finding classification precedes subtraction.
+Its two runtime insertions and later learning-owner explanation are separately recorded; removing the three declared additions reconstructs the original article exactly.
+
+## Writing routes
+
+New articles use the existing CLI: Stage 0 contents/maps; Stage 1 problem/property/representation;
+Stage 2 witness/internals; Stage 3 alternative/cost; Stage 4 implementation/correctness;
+Stage 5 interview/master map; Stage 6 prose pass; Stage 7 exact assembly.
 
 ```sh
 python3 medium_compiler.py init --spec examples/spec.json --run-dir /tmp/new-article
 python3 medium_compiler.py next --run-dir /tmp/new-article
 ```
 
-For an existing article, do not fabricate earlier stages or regenerate the whole piece:
+`submit --stage N --input part.md --coverage coverage.json` admits the current stage.
+For prose-only revisions, use `init --draft before.md`; no fictional authoring stages.
+Then submit 6, assemble, verify, check-receipt and prove-update as required. The existing
+single-link source_correction route is not arbitrary technical rewriting. Read actual
+CLI help rather than assuming an old proposed reopen command exists.
+
+## Learning handoff before article Boot
+
+The user/task selects `purpose: source-explanation` (the legacy default) or
+`purpose: learning-episode`. Source explanations may be written independently; an unfinished
+learning task must not be relabeled to bypass its prerequisites.
 
 ```sh
-python3 medium_compiler.py init --spec spec.json --draft before.md --run-dir /tmp/revision
-python3 medium_compiler.py next --run-dir /tmp/revision
-# next_stage = 6
-python3 medium_compiler.py submit --run-dir /tmp/revision --stage 6 \
-  --input after.md --coverage copyedit.json
-python3 medium_compiler.py assemble --run-dir /tmp/revision
-python3 medium_compiler.py verify --run-dir /tmp/revision
-python3 medium_compiler.py prove-update --run-dir /tmp/revision --issue 1 \
-  --before before.md --after after.md --output /tmp/article-update.json
-python3 medium_compiler.py next --run-dir /tmp/revision
-# VALIDATED, next = null; this does not mean semantic correctness was assessed.
+python3 scripts/lossless_batch.py preflight --article before.md --plan plan.json
+# READY / exit 0: boot is permitted. BLOCKED / exit 3: return next.owner + missing_input.
+# boot enforces the same gate before making its output directory.
 ```
 
-`copyedit.json` contains:
+A learning plan adds `learning: {episode_id, lesson_ref, handoff_source}`. The last field names
+one existing pinned source containing JSON with `schema_version: medium-learning-handoff@1`,
+matching `episode_id`, `lesson_ref` and `case`; `status: PENDING | ACCEPTED`;
+`product_decision: PENDING | IMPLEMENT | NO_CHANGE`; `evidence_refs` (list);
+`human_checkpoint` and `learning_record` (reference or null). Every reference is
+`{source_id, anchor}` into a separate source snapshot in the existing plan. The upstream
+learning owner supplies acceptance and the progress-record reference; the writer does not.
+Product code/test/eval sources stay bound to the case revision. Learning and human records
+retain their own provenance rather than pretending to be Ops source files.
 
-```json
-{"elements":["copyedit"],"claims":[],"terms":[]}
-```
+Missing product decision -> product-owner; missing evidence -> evidence-owner; missing
+human checkpoint -> learner; missing acceptance/progress record -> learning-owner.
+No handoff at all -> learning-owner. NO_CHANGE is not completed learning. Malformed identities,
+references or stale bytes refuse; genuine missing prerequisites are BLOCKED. The admitted
+source snapshots survive restarts and are covered by the existing batch/final byte checks.
+This is a single-writer snapshot protocol, not an authenticity, revocation or grading service.
 
-`spec.json` contains a topic and optional claim/term declarations. See
-[examples/spec.json](examples/spec.json). For authoring stages, each coverage sidecar
-names the exact elements and claim/term IDs due in that stage. These are structural
-accounting declarations, not evidence that the prose entails each claim. Imported
-articles explicitly report declared claim coverage as `NOT_ASSESSED`.
+The post-article `checkpoint` records reader comprehension only, not curriculum advancement.
+No command writes LEARNING.md, selects a phase or fabricates a response. A successful ready-path
+fixture is not evidence of an actual accepted learner. See
+[evidence and replay](evidence/issue-8/handoff/README.md) for the actual missing-handoff
+refusal and the separate, explicit source-explanation update to the same article.
 
-## What is enforced
+## Boot Batch and incremental continuation
 
-- Bind the imported draft, spec and accepted parts/coverage to their exact bytes.
-- Refuse out-of-order submissions on the authoring path.
-- Preserve fenced code/text blocks, inline code, Markdown link destinations and
-  the exact literals/terms named in the spec during prose-only editing.
-- Assemble by copying admitted Stage 6 bytes, without another prose generation.
-- Recheck current artifacts when producing or checking a receipt. Merely replacing
-  the recorded digest cannot turn mutated code into a new valid receipt.
-- End the local flow after successful validation. `check-receipt` is read-only.
-- Bind `prove-update` to the imported baseline and current canonical article;
-  refuse unchanged/edge-whitespace-only articles and output paths that overwrite inputs.
-
-The prose guard supports top-level Markdown fences and ordinary inline links,
-reference definitions and autolinks. It is conservative, not a full Markdown parser.
-An intentional code, link, markup or technical-claim change needs an explicitly
-scoped technical revision; do not weaken this prose-only check to make it pass.
-
-## Issue evidence
-
-Every writing atom uses a real article before/after, not only synthetic fixtures.
-The after article must match the canonical file and its current validation receipt.
-The article identity/revision, changed passages and semantic review belong in the
-issue evidence, outside the copyable Medium text. Byte inequality alone is not
-proof of useful improvement; a keyword count is not a style score.
-
-[Issue #1 evidence and replay](evidence/issue-1/README.md) contains one real four-span
-article revision plus a planted control demonstrating the old verifier's false PASS.
-The old candidate JSON is historical; the executed evidence is now authoritative for
-this scoped local experiment.
-
-## Limits
-
-`VALIDATED` means the stated mechanical contract passed. The CLI does not prove
-factual truth, no semantic loss, human preference, or cross-topic writing quality.
-Author review, independent-reader testing, fresh writer A/B and publication retain
-separate statuses. No command publishes to Medium or closes a GitHub issue.
-
-Local admission state assumes a single cooperative writer. It is not a security
-boundary against an actor rewriting the source, state, verifier and receipt together.
-A changed admitted artifact requires a fresh run. Legacy unbound runs are refused;
-there is no silent migration or invented authoring history.
-
-The style lint is advisory:
+An overview is not completion while source-bound knowledge units remain. The add-only helper
+owns source snapshots, a fixed work queue and an ordered patch journal. P-class chooses what
+the reader needs explained and writes the content. A source-anchor or term match does not
+prove semantic fidelity.
 
 ```sh
-python3 medium_compiler.py style-lint --input articles/ai-engineer-learning-path.md
+python3 scripts/lossless_batch.py boot --article evidence/issue-8/before.md --plan evidence/issue-8/plan.json --run-dir /tmp/medium-expand
+python3 scripts/lossless_batch.py next --run-dir /tmp/medium-expand
+python3 scripts/lossless_batch.py drill-down --run-dir /tmp/medium-expand --patch evidence/issue-8/patch-01.json
+python3 scripts/lossless_batch.py next --run-dir /tmp/medium-expand
+python3 scripts/lossless_batch.py drill-down --run-dir /tmp/medium-expand --patch evidence/issue-8/patch-02.json
+python3 scripts/lossless_batch.py render --run-dir /tmp/medium-expand --output /tmp/medium-expanded.md
+python3 scripts/lossless_batch.py finish --run-dir /tmp/medium-expand --review evidence/issue-8/review.json
 ```
 
-## Tests
+Every patch names the next unit and current article hash and inserts only at its declared
+heading. Identical retry is NOOP; stale/out-of-order/conflicting edits refuse. Each patch
+closes its own fences. Empty queue still returns CONTINUE for review. Finish uses the
+existing compiler to finalize the expanded draft and records a separate boot-to-final proof.
+DONE covers the declared queue and current recorded review, not universal source completeness
+or measured human understanding. New gaps or changed scope require a new explicit plan;
+never edit admitted state to erase pending work.
 
-Python 3.10+ standard library only:
+The Ops plan also binds a stable case ID and public source commit. `next` gives the current
+AI Engineer learning step, one decision prompt and exact code/test/eval anchors. The human
+checkpoint stays deferred until all patches are delivered. Afterward, `next` exposes both
+prompts together; an actual reader can submit a JSON response with `case`, the current
+`article_sha256`, and ordered `answers` (`unit_id`, `answer`):
+
+```sh
+python3 scripts/lossless_batch.py checkpoint --run-dir /tmp/medium-expand --response /tmp/reader-answers.json
+```
+
+The checkpoint receipt is `RECORDED_UNGRADED`. No answer has been submitted for the checked-in
+evidence. The historical Ops model eval is source evidence for a narrow smoke result; it does
+not validate reconciliation priority or prove that a reader has learned it.
+
+`python3 evidence/issue-8/replay.py --out /tmp/medium-replay-NEW` replays the exact real article
+without changing the checkout. Its optional --update-article is an explicit developer action
+limited to the known before/after edition and dependent article/evidence/parts files.
+
+## Verification
+
+Python 3.10+ and the standard library are sufficient. Use new directories outside the checkout.
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 medium_compiler.py check-receipt --run-dir evidence/issue-1/run
+python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/medium-mechanical-NEW
+python3 .agents/skills/verify-medium/scripts/verify.py --feature all --out /tmp/medium-all-NEW
 ```
 
-To reproduce the real article and candidate controls in a fresh output directory:
+Four mechanical features are actually driven. All mode additionally checks behavior readiness;
+missing an approved isolated writer/reader experiment returns BLOCKED and exit 3. Full pstack
+maintenance also requires an independent source-review wave per feature. Coordinator review
+plus scripted drives must not be called that full pass. Evidence survives owned-scratch cleanup.
 
-```sh
-python3 evidence/issue-1/replay.py --out /tmp/medium-replay-new
-```
+## Pinned methods and limits
 
-To also reproduce the historical false acceptance, extract the pinned old CLI first:
+Nine original evals-skills workflows are registered with their license and
+[content lock](references/upstream/skills-lock.json). The real entrypoint is evals-start.
+Load only the needed audit/discovery/code-eval/judge/validation method. Other upstream routes
+are retained so their references resolve; installing them does not execute providers or create
+human labels. The [v7.1 adapter](references/card-context-v7.1.md) preserves evidence-first
+processing, task-value-first prose, uncertainty and incremental identity. No cards are invented.
 
-```sh
-git show 3876cbbf1cff627647e2c3c6c13ffda80fa8c1c0:medium_compiler.py > /tmp/medium-old.py
-python3 evidence/issue-1/replay.py --out /tmp/medium-replay-paired --baseline-cli /tmp/medium-old.py
-```
-
-The replay writes only to its new output directory. It does not call a model or
-regenerate the article. It records a deterministic correction, not a fresh-writer A/B.
-
-
-## Medium output policy
-
-The final Medium article does not use Markdown/HTML tables. Use headings, labeled blocks,
-lists and text diagrams instead. The current AI Engineer worked article uses the public
-Ops Reconciliation Copilot as its running product example. Reader-facing links are
-open-access only and enumerated in `references/open-access-resources.json`.
+[Issue #8 evidence](evidence/issue-8/README.md) separates mechanical proof, author review,
+fresh writer A/B, independent readers and publication. The helper assumes one cooperative
+writer, not hostile state mutation, simultaneous writers or power-loss recovery. No command
+merges a PR, closes an issue, publishes Medium content or changes Ops production.

@@ -1,0 +1,64 @@
+{
+  "schema_version": "medium-cloud-qualification-summary@1",
+  "issue": 8,
+  "status": "BLOCKED",
+  "scope": "Cloud executable and sandbox prerequisite probe, not a model pilot",
+  "baseline_head": "d9e5f18810ad3500a26df3f841026ad26ee09d36",
+  "attempts": [
+    {
+      "head": "f35d6d08f52d4452234c1e1d8329d5380d7f5396",
+      "run_id": 36300280307,
+      "artifact_id": 10925321559,
+      "artifact_sha256": "sha256:9a7e930cb53d37b21ac33bbd1cec3895ff4fa3eea98cebff57f8f1eee49e46d0",
+      "package": "standalone Codex binary",
+      "sandbox_exit": 101,
+      "reason": "bubblewrap unavailable; no system or bundled bwrap"
+    },
+    {
+      "head": "382a712d2101b809eb4a859152edf753b5744afc",
+      "run_id": 36300415153,
+      "artifact_id": 10925425507,
+      "artifact_sha256": "sha256:2a4e81fd8e93ce8b1d8087deda9951da45cc59639d82125f583d75c3bffead48",
+      "package": "complete official Codex distribution",
+      "sandbox_exit": 1,
+      "reason": "bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted"
+    }
+  ],
+  "codex_version": "codex-cli 0.157.1",
+  "codex_sha256": "sha256:3e2584f3f3829a43a0495011a1cecb2facbe64a2403e2b682351fd9c2983f970",
+  "required_cli_flags": "PRESENT_IN_ACTUAL_HELP",
+  "native_sandbox_canaries": "NOT_EXECUTED_INSIDE_SANDBOX_LAUNCH_FAILED",
+  "secret_presence": {
+    "name": "OPENAI_API_KEY",
+    "present_to_this_job": false,
+    "secret_value_received": false,
+    "auth_call_made": false,
+    "scope": "Named repository/organization Actions secret available to this job; other environments/accounts not inventoried"
+  },
+  "local_tests": {
+    "count": 137,
+    "status": "PASS",
+    "scope": "131 pre-existing plus 6 classification controls; not model runs"
+  },
+  "model_calls": 0,
+  "fresh_writer_ab": "NOT_RUN",
+  "independent_reader": "NOT_RUN",
+  "host_approval_created": false,
+  "article_changed": false,
+  "learning_progress": "NOT_UPDATED",
+  "ops_runtime": "UNCHANGED",
+  "existing_runner_and_observer": "UNCHANGED",
+  "comparison_pins_and_criteria": "UNCHANGED",
+  "missing": [
+    "configured_and_validated_model_authentication",
+    "compatible_enforced_host_read_write_isolation",
+    "external_pilot_capture_review"
+  ],
+  "next": {
+    "owner": "execution-host-owner",
+    "operation": "provision-qualified-cloud-model-carrier",
+    "note": "Do not disable sandbox, migrate personal login, or invent qualification. Configuring a key alone does not fix the sandbox failure."
+  },
+  "authorizes_landing": false,
+  "behavior": null
+}

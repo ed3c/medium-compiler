@@ -1,0 +1,77 @@
+{
+  "schema_version": "writer-runner-mechanism-evidence@1",
+  "issue": 8,
+  "baseline_head": "df138896a7e6190650b22478801953628e261481",
+  "comparison_inputs": {
+    "baseline": "71fce847f6b521d812ba8179dcf4f53e06a69ef6",
+    "treatment": "df138896a7e6190650b22478801953628e261481",
+    "scenario": "pending-handoff",
+    "jobs": 6,
+    "natural_runs": 0
+  },
+  "local_tests": {
+    "baseline": 102,
+    "candidate": 131,
+    "focused": 29,
+    "status": "PASS",
+    "python": "3.13.5",
+    "log_sha256": "sha256:32db6eee36c9a91230397da7a7216e0b9cb9a4425fc5c6bdfa344ad67527f6fc"
+  },
+  "mechanical_features": {
+    "doctor": "PASS",
+    "staged-authoring": "PASS",
+    "bounded-revision": "PASS",
+    "lossless-drilldown": "PASS",
+    "delivery": "PASS"
+  },
+  "doctor": {
+    "status": "BLOCKED",
+    "codex": null,
+    "model_calls": 0,
+    "missing": [
+      "codex_executable"
+    ],
+    "scope": "executable/help only; no login status or secret inspection",
+    "controller_sha256": {
+      "run_writer_pair.py": "sha256:7d3b91af76475a1da732dcec192c0e3226be41927eba233f23102ec3b57dada4",
+      "evaluate_writer_run.py": "sha256:9be18feb790d2317758e0921cb12c638b244c352464cc9c1d809076bf662f26e"
+    }
+  },
+  "preparation": {
+    "status": "PREPARED",
+    "packet_sha256": "sha256:65ba723f723d78fcc836445d5473c093868561388d1912732982e0a4996090bb",
+    "writer_runs": 0,
+    "comparison": "NOT_RUN",
+    "next": "doctor; then externally authorize one pilot"
+  },
+  "article": {
+    "status": "REAL_ARTICLE_ADDITION_REPLAYED",
+    "before_sha256": "sha256:17dc5749c4b68cb7a2d2397ea49a50c79759fe9a95ac3d86a75bba2dece13cc7",
+    "after_sha256": "sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+    "inserted_bytes": 1705,
+    "unchanged_outside_insertion": true,
+    "review": "AUTHOR_REVIEW_ONLY",
+    "fresh_writer_ab": "NOT_RUN",
+    "accepted_episode": "NOT_SUPPLIED",
+    "human_learning_progress": "NOT_UPDATED",
+    "evidence_survived_cleanup": true
+  },
+  "failed_attempts_retained": [
+    "initial empty-final capture accepted: fixed and covered by negative control",
+    "initial too-short timeout control: fixed",
+    "debug unittest import path mismatch: fixed in test invocation",
+    "feature recipe fifth H2 violated heading contract: changed to H3",
+    "partial full-suite timeouts retained; final 131-test invocation passed"
+  ],
+  "status": "IMPLEMENTED_MECHANICALLY_VERIFIED_NOT_BEHAVIORALLY_MEASURED",
+  "pilot": "NOT_RUN",
+  "fresh_writer_ab": "NOT_RUN",
+  "independent_reader": "NOT_RUN",
+  "accepted_episode": "NOT_SUPPLIED",
+  "full_pstack_maintenance": "NOT_CLAIMED",
+  "model_calls": 0,
+  "human_learning_progress": "NOT_UPDATED",
+  "authorizes_landing": false,
+  "product_promotion": "NOT_AUTHORIZED",
+  "trust_boundary": "External host must qualify read isolation and recording; external reviewer must supply real judgments. Digests do not authenticate host or reviewer."
+}

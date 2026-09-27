@@ -1,0 +1,136 @@
+{
+  "baseline_commit": "71fce847f6b521d812ba8179dcf4f53e06a69ef6",
+  "fresh_writer_ab": "NOT_RUN",
+  "independent_reader": "NOT_RUN",
+  "human_learning_progress": "NOT_UPDATED",
+  "synthetic_learning_acceptance": "UNIT_TESTS_ONLY",
+  "candidate_helper_sha256": "sha256:c0895b2bb208b186154ce8ff2e15346c03e76fd430e06483b606729fb9cc9abd",
+  "same_pending_plan_sha256": "sha256:0000858ad998f992cafeb6ca0d3552d1a91527ab4b92322622a56debb5356cb6",
+  "missing_handoff": {
+    "preflight": {
+      "article_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+      "plan_sha256": "sha256:b3ea60fc17b85df4aa8e28467d8e3b60fb3cd1167aec3f112b1079b69286b37f",
+      "status": "BLOCKED",
+      "next": {
+        "owner": "learning-owner",
+        "operation": "supply-learning-prerequisite",
+        "missing_input": "learning_handoff"
+      },
+      "missing": [
+        {
+          "input": "learning_handoff",
+          "owner": "learning-owner"
+        }
+      ],
+      "article_mutation_allowed": false,
+      "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+      "human_learning_outcome": "NOT_MEASURED"
+    },
+    "boot": {
+      "status": "BLOCKED",
+      "next": {
+        "owner": "learning-owner",
+        "operation": "supply-learning-prerequisite",
+        "missing_input": "learning_handoff"
+      },
+      "missing": [
+        {
+          "input": "learning_handoff",
+          "owner": "learning-owner"
+        }
+      ],
+      "article_mutation_allowed": false,
+      "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+      "human_learning_outcome": "NOT_MEASURED"
+    },
+    "created_run": false
+  },
+  "baseline_helper_sha256": "sha256:faed7c795f44cff73f9a1318204263dea6477ba5b80546a9b384340c0c8e80f0",
+  "baseline_missing_handoff": {
+    "output": {
+      "status": "CONTINUE",
+      "next": "drill-down",
+      "source_cursor": "transaction-index",
+      "question": "為什麼 transaction_id 對到 list，而不是單筆資料？",
+      "case": {
+        "id": "ops-reconciliation-copilot",
+        "repo": "ed3c/ops-reconciliation-copilot",
+        "revision": "24a56d18661630b0dba97dcb0b057dce07b0ab32"
+      },
+      "learning_step": "A03 · representation → runtime：保留 duplicate rows 才能正確分類",
+      "decision_prompt": "左側 T100 有兩列、右側 T100 一列，即使金額相同，你會先算差額還是標記重複？指出讓你改變決定的程式或測試條件。",
+      "evidence_refs": [
+        {
+          "anchor": "result[key].append({\"row\": line",
+          "role": "code",
+          "source_id": "ops-main"
+        },
+        {
+          "anchor": "check(\"duplicate_key_not_guessed\", duplicate)",
+          "role": "test",
+          "source_id": "ops-runtime-test"
+        },
+        {
+          "anchor": "\"name\": \"duplicate_key_not_guessed\"",
+          "role": "test_result",
+          "source_id": "ops-runtime-result"
+        }
+      ],
+      "human_checkpoint": {
+        "status": "DEFERRED"
+      },
+      "remaining_work": [
+        "transaction-index",
+        "finding-precedence"
+      ],
+      "applied": [],
+      "article_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+      "semantic_correctness": "NOT_ASSESSED"
+    },
+    "created_run": true,
+    "classification": "deterministic old-code reproduction, not a natural writer run"
+  },
+  "article": {
+    "before_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+    "after_sha256": "sha256:b84044cbdb9d4f78735a7a86ad300af8da7c3b3596954625c8dff6844fced38a",
+    "inserted_bytes": 2043,
+    "unchanged_outside_insertion": true,
+    "canonical_matches": true,
+    "review": "AUTHOR_REVIEW_ONLY",
+    "purpose": "source-explanation, NOT a completed learning episode"
+  },
+  "evidence_survived_cleanup": true,
+  "status": "SCOPED_DETERMINISTIC_CORRECTION",
+  "unit_tests": {
+    "baseline": 81,
+    "candidate": 98,
+    "status": "PASS",
+    "log_sha256": "sha256:74597bc28028729ffaf165a4489109c2553e6424c5286c36f7bf9f54c6ef69d7"
+  },
+  "feature_drives": {
+    "staged": "mechanical_pass",
+    "behavior": "blocked",
+    "lossless": "mechanical_pass",
+    "delivery": "mechanical_pass",
+    "revision": "mechanical_pass"
+  },
+  "treatment": "COMBINED_P_AND_CLI; natural behavioral comparison NOT_RUN",
+  "ops_candidate": {
+    "repo": "ed3c/ops-reconciliation-copilot",
+    "pr": 24,
+    "head": "cc77985de8de6501f3bd6ab6ec02ba5773c63563",
+    "status": "DRAFT_HUMAN_GATES_PENDING",
+    "consumed_for_article": false
+  },
+  "candidate_files": {
+    "scripts/lossless_batch.py": "sha256:c0895b2bb208b186154ce8ff2e15346c03e76fd430e06483b606729fb9cc9abd",
+    ".agents/skills/medium-writing/SKILL.md": "sha256:06cdead1af184f0e4eeea0f2f33ee947853072bf3cf2dd4123d25cb2b5e60c65",
+    "prompts/drill-down.md": "sha256:2df28ee1358fc3968b7061db6c96fce1f313a0f5225f159f7ce31c2662d7d295",
+    "tests/test_learning_handoff.py": "sha256:7222f7b8da22923f8656cdc7efa8b489e2b4b21b9ef1b4318567b68f2e6ff6de",
+    "evidence/issue-8/handoff/replay.py": "sha256:bcf62533a896294216ca59268604e18fd0616cd9d855a4904706b5754d2345fd"
+  },
+  "failed_local_runs": {
+    "paired-proof": "Harness initially read refusal JSON only from stdout; fixed to read stderr as well. Raw commands retained in delivered archive.",
+    "mechanical/mechanical-2/mechanical-4": "Combined shell invocations hit the tool execution time limit. No PASS attributed; all features subsequently driven separately on final source. Raw partial outputs retained."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "medium_checkout_tests": {
+    "status": "PASS",
+    "count": 81,
+    "command": "python3 -m unittest discover -s tests -q"
+  },
+  "verify_medium": {
+    "status": "blocked",
+    "mechanical_features": {
+      "staged-authoring": "PASS",
+      "bounded-revision": "PASS",
+      "lossless-drilldown": "PASS",
+      "delivery": "PASS"
+    },
+    "behavior_evals": "BLOCKED",
+    "fresh_writer_ab": "NOT_RUN",
+    "independent_reader": "NOT_RUN"
+  },
+  "ops_current_checkout": {
+    "revision": "24a56d18661630b0dba97dcb0b057dce07b0ab32",
+    "python": "3.12.4",
+    "unit_tests": {
+      "status": "PASS",
+      "count": 17
+    },
+    "runtime_checks": {
+      "status": "PASS",
+      "count": 10,
+      "manifest": "inputs/ops-runtime-manifest.json",
+      "junit": "inputs/ops-runtime-junit.xml",
+      "live_llm": false
+    }
+  },
+  "ops_historical_live_eval": {
+    "report_checkout": "78ea5882fa996cf9ef4c900bcc53cd79911b7a7a",
+    "model": "openai/gpt-5.6-luna",
+    "passed": 4,
+    "total": 4,
+    "scope": "fixed mapping smoke cases; not reconciliation finding priority"
+  },
+  "planted_control": "flow-red-green.json",
+  "human_checkpoint": "PENDING; no actual answer submitted",
+  "semantic_losslessness": "NOT_PROVEN"
+}

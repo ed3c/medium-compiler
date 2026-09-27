@@ -1,0 +1,13 @@
+{
+  "article_sha256": "sha256:b84044cbdb9d4f78735a7a86ad300af8da7c3b3596954625c8dff6844fced38a",
+  "unit_ids": [
+    "learning-before-writing"
+  ],
+  "reviewer": "author/source review in this task",
+  "independent": false,
+  "verdict": "PASS",
+  "unresolved_gaps": [],
+  "source_fidelity": "The upstream learn source owns its Progress log. The added workflow is explicitly a proposed teaching arrangement; it claims no actual placement, human answers or completed course lesson.",
+  "causal_continuity": "Separates product NO_CHANGE, learner evidence, reader comprehension and article assembly. It does not consume Ops PR24 candidate results.",
+  "limits": "Author review only; no independent reader, natural writer A/B, human mastery or end-to-end learning progression was measured. Existing unrelated article claims were not revalidated."
+}

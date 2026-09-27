@@ -1,0 +1,210 @@
+{
+  "pins": {
+    "evals-skills": [
+      "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "55cf2aa0856ba162ba06377b0db88f7bae87435ecec0497620ccf6c7c9b0717c"
+    ],
+    "pstack": [
+      "68836ddaf5697224520f1847d90cdb90ca8babaa",
+      "fd95a601d883d271ebc00bcb54cb69278c65ab67d97e16594704c1ca2c6b986d"
+    ],
+    "ops": [
+      "24a56d18661630b0dba97dcb0b057dce07b0ab32",
+      "a30177f91ef113b94c9b928ee97f79481cf7807fe2c9bb1a4cc1513b5212c12a"
+    ]
+  },
+  "files": [
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "LICENSE",
+      "path": "references/upstream/evals-skills.LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/build-review-interface/SKILL.md",
+      "path": ".agents/skills/build-review-interface/SKILL.md",
+      "sha256": "8cd4f794f590619a220162e366faf6bd35cb620050db324b69a7af0d36f52c4b",
+      "git_blob": "2fbda06bdd0e0cf0abb044c4e8258bd2744fbc29"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/build-review-interface/agents/openai.yaml",
+      "path": ".agents/skills/build-review-interface/agents/openai.yaml",
+      "sha256": "cbe23b0397135bc1eac90f99e80b558afbcb4fe32fc09e5fb16ff6083bd52ba9",
+      "git_blob": "daa958852545d518ced1413e7caa20640fca2c76"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/error-discovery/SKILL.md",
+      "path": ".agents/skills/error-discovery/SKILL.md",
+      "sha256": "e125c9b764b7aa658ea8c9104fb2856b67b40c0604e73d5bfe142e0dd5d10149",
+      "git_blob": "fb7cb2b41b8c1b4a6cecefc69c105e8b0998b84b"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/error-discovery/agents/openai.yaml",
+      "path": ".agents/skills/error-discovery/agents/openai.yaml",
+      "sha256": "c81cd1d86a317fcefbf0cba9efa20a7bf993c66fbd6ca1f70e3d48ac5777fd56",
+      "git_blob": "32bb07af15f9591e1426880b77289a4009cdbeaa"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/error-discovery/review-loop.md",
+      "path": ".agents/skills/error-discovery/review-loop.md",
+      "sha256": "4c500d0fc6fbeba9bbd8d4858e7e14c848b8ea8cd2a6bdef5c854b668943286a",
+      "git_blob": "0a1c31fb1acc8f896a8a0817a7e4d03bbcb9ff1f"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/eval-audit/SKILL.md",
+      "path": ".agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63",
+      "git_blob": "4c932d9d6b8630797c38d50591933329b7f8bb27"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/eval-audit/agents/openai.yaml",
+      "path": ".agents/skills/eval-audit/agents/openai.yaml",
+      "sha256": "cfcb2a19fa1f5e655fe650c2e8f600d9dbff0d82ab7b8fcc3660f4a7c042406b",
+      "git_blob": "05d657940556bc38d096119a02b934cb3841e51d"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/evals-start/SKILL.md",
+      "path": ".agents/skills/evals-start/SKILL.md",
+      "sha256": "d035307708a8feded6eb52a03048146a34b506049a242f6fcc7eb3e2a4511097",
+      "git_blob": "16e897a1d19a95163885621c08e422f9e3dbffa2"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/evals-start/agents/openai.yaml",
+      "path": ".agents/skills/evals-start/agents/openai.yaml",
+      "sha256": "e4007d2872b5b9c7b905a462e303f19528cc561b41a9662cd0a5349e68afad7c",
+      "git_blob": "e0e2faa89fc40a4e66c3a09535ae948a646d45d4"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/evaluate-rag/SKILL.md",
+      "path": ".agents/skills/evaluate-rag/SKILL.md",
+      "sha256": "e22a7bff31a73a9a82722c771326acf13121622a8caca6221fcbea111c9bf88d",
+      "git_blob": "853a2c9c7a4c33ee6078f0e3ef243f7019c8ebb3"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/evaluate-rag/agents/openai.yaml",
+      "path": ".agents/skills/evaluate-rag/agents/openai.yaml",
+      "sha256": "ba53b0727a83dc2d0a5657e20ef4904d7cfbc18b4f072888020e2687d41b4376",
+      "git_blob": "03885e22ebe3df905501bc61e63ca01ba8dae422"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/generate-synthetic-data/SKILL.md",
+      "path": ".agents/skills/generate-synthetic-data/SKILL.md",
+      "sha256": "37b8e12ceb020f0fdf7c9c8bf7f3d3fce3dd506f1dfecdc64c25f80c10130da2",
+      "git_blob": "0954334c590cbd3329f31d8555f1ffa8d7fdaf45"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/generate-synthetic-data/agents/openai.yaml",
+      "path": ".agents/skills/generate-synthetic-data/agents/openai.yaml",
+      "sha256": "17f1a09186ff5c3adfc8233eedbd36a7ac3745cd4c13250efe0efce51a46be68",
+      "git_blob": "e409b40837f98a9ec4f58d605cdd0acda5de39a6"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/validate-evaluator/SKILL.md",
+      "path": ".agents/skills/validate-evaluator/SKILL.md",
+      "sha256": "dd601ca58d2165f51798e12934170a435af9a7938832b67bb00986b881752355",
+      "git_blob": "8b677b3f02ce26bb784de8404914545dd4faaf20"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/validate-evaluator/agents/openai.yaml",
+      "path": ".agents/skills/validate-evaluator/agents/openai.yaml",
+      "sha256": "5e3e1b5b7c466f6982d25bea5814fd2fbda0eb1a01ee0a4bc9f41f380a617bbf",
+      "git_blob": "249bc60149b514c6b4facd135d293616dac99358"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/write-code-eval/SKILL.md",
+      "path": ".agents/skills/write-code-eval/SKILL.md",
+      "sha256": "6acf7d26f1b64d2dd7792675e3afefa0fc7accd6e0efd73184c6dd356c64338b",
+      "git_blob": "361282672c1564f468dabacdcf2f4501f5b32798"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/write-code-eval/agents/openai.yaml",
+      "path": ".agents/skills/write-code-eval/agents/openai.yaml",
+      "sha256": "5e0a5fa940ad295c7693d712221e65c030b06a3e2044a52a772ec175ad61eb7e",
+      "git_blob": "30e0883472dd77573313920c0a1b0c9aea026ee9"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/write-judge-prompt/SKILL.md",
+      "path": ".agents/skills/write-judge-prompt/SKILL.md",
+      "sha256": "b50dc2d668a9984df1b5e64c94ffecf0baaf186566759fdf5c0c60747961f860",
+      "git_blob": "606fcb86c629b05202c5e4570910a865e47ee78f"
+    },
+    {
+      "source": "evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "source_path": "skills/write-judge-prompt/agents/openai.yaml",
+      "path": ".agents/skills/write-judge-prompt/agents/openai.yaml",
+      "sha256": "211afc8bcf8034c8c54b73099fad4331eaec1096dbaffd8898bd621924fcf4a2",
+      "git_blob": "cb6223d8e5fe364a202ee5dd9f37442aebec81b7"
+    },
+    {
+      "source": "pstack",
+      "revision": "68836ddaf5697224520f1847d90cdb90ca8babaa",
+      "source_path": "pstack/skills/create-verification-skill/SKILL.md",
+      "path": ".agents/skills/verify-medium/references/create-verification.md",
+      "sha256": "644f2551403c1bca01a2855b34611b6e7be0ce0dc5b204514c376c0f6a6e6ac4",
+      "git_blob": "f869e26122991252373d5b8f6357e5b9ff195a00"
+    },
+    {
+      "source": "pstack",
+      "revision": "68836ddaf5697224520f1847d90cdb90ca8babaa",
+      "source_path": "pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+      "path": ".agents/skills/verify-medium/references/feature-map-example.md",
+      "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba",
+      "git_blob": "fb64570cfab3bbe672fe80925651933ebd57aa33"
+    },
+    {
+      "source": "pstack",
+      "revision": "68836ddaf5697224520f1847d90cdb90ca8babaa",
+      "source_path": "pstack/skills/maintain-verification-skill/SKILL.md",
+      "path": ".agents/skills/verify-medium/references/maintain-verification.md",
+      "sha256": "515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8",
+      "git_blob": "a2680b91fead45a0b4963d8c367a854956bea59d"
+    },
+    {
+      "source": "ops",
+      "revision": "24a56d18661630b0dba97dcb0b057dce07b0ab32",
+      "source_path": "app/main.py",
+      "path": "evidence/issue-8/inputs/ops-main.py",
+      "sha256": "1aeb1385358d45ee98e8d2aca2dd22490ea1bd04469385f4dcb1d9c9c975774f",
+      "git_blob": "4de2109441c839b3a3716aa0bfceeee2dcd838e4"
+    }
+  ]
+}

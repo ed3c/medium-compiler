@@ -1,0 +1,13 @@
+{
+  "article_sha256": "sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+  "unit_ids": [
+    "observe-writer-not-guard"
+  ],
+  "reviewer": "implementation coordinator, source review of declared insertion",
+  "independent": false,
+  "verdict": "PASS",
+  "unresolved_gaps": [],
+  "source_fidelity": "Explains the retained behavior contract: raw operations, effects, external review and missing-is-not-zero. The opening scenario is explicitly hypothetical.",
+  "causal_continuity": "Inserted after Evals and before workflow discussion, preserving all existing bytes; the distinction determines what a comparison measures.",
+  "limits": "Author review only. No actual writer A/B, model execution, accepted lesson, human mastery or independent reader result is claimed."
+}

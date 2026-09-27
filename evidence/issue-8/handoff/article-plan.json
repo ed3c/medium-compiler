@@ -1,0 +1,26 @@
+{
+  "topic": "學習 owner 先接納 evidence，文章再做增量；本次為來源解釋，不是完成學習的證明",
+  "purpose": "source-explanation",
+  "sources": [
+    {
+      "id": "course-learn",
+      "path": "course-learn-excerpt.md",
+      "sha256": "sha256:8d855a1aa8235aa1a4015129cc05377731276f3ee449ea64605f37bac17db334",
+      "provenance": "rohitg00/ai-engineering-from-scratch@8bc378c2e07777899322ae77cd0dde94cb12fab3:.claude/skills/learn/SKILL.md; TEXT_MATCH: ## Step 4 — Record (exact excerpt; full source blob f9dc1050be4cdca7f2ecee612fb8cb8cbfaf4701)"
+    }
+  ],
+  "units": [
+    {
+      "id": "learning-before-writing",
+      "question": "為什麼文章進度、產品變更與人類學習不能用同一個 DONE？",
+      "insert_before": "## 13. 把學習路徑壓成五個可交付里程碑",
+      "source_id": "course-learn",
+      "source_anchor": "Update `LEARNING.md`:",
+      "terms": [
+        "LEARNING.md",
+        "NO_CHANGE",
+        "checkpoint"
+      ]
+    }
+  ]
+}

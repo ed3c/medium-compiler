@@ -1,0 +1,153 @@
+{
+  "schema_version": "writer-pair-experiment@1",
+  "experiment_id": "ops-pr24-pending-handoff-v1",
+  "scenario": "pending",
+  "execution_kind": "host_codex_exec",
+  "timeout_seconds": 300,
+  "task": {
+    "path": "evals/writing/ops-evidence-handoff/task.md",
+    "sha256": "sha256:c180d9939556a79272df939af54cb15eea97dd4e673b5d7133640a4d3d0e10dd"
+  },
+  "order": [
+    "baseline",
+    "treatment",
+    "treatment",
+    "baseline",
+    "baseline",
+    "treatment"
+  ],
+  "common_files": [
+    {
+      "root": "common",
+      "path": "evals/writing/ops-evidence-handoff/capsule-agents.md",
+      "target": "AGENTS.md",
+      "sha256": "sha256:edd6080efbc5070c8a345e0ed3d53bc704a16e99142a0bdb7d91adcc57e41143"
+    },
+    {
+      "root": "common",
+      "path": "evals/writing/ops-evidence-handoff/owner-state.md",
+      "target": "inputs/owner-state.md",
+      "sha256": "sha256:5b5726704d913b5d5a16a00a01a7e6f98d4c9121180d8b4d3b98d56bd6dc0d56"
+    },
+    {
+      "root": "common",
+      "path": "evals/writing/ops-evidence-handoff/pending-plan.json",
+      "target": "inputs/plan.json",
+      "sha256": "sha256:f4c5362140aa964eccc85a74c14220518ef8ac9a15c9933c557d5c7814ef671f"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/expected-after.md",
+      "target": "inputs/article.md",
+      "sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f"
+    },
+    {
+      "root": "common",
+      "path": "writing-contract.md",
+      "target": "writing-contract.md",
+      "sha256": "sha256:61da6a521d63e089f5056496cc25a9740b225f5261b25b04b17cefa632a6da15"
+    },
+    {
+      "root": "common",
+      "path": "medium_compiler.py",
+      "target": "medium_compiler.py",
+      "sha256": "sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/inputs/ops-main.py",
+      "target": "inputs/sources/ops-main.py",
+      "sha256": "sha256:1aeb1385358d45ee98e8d2aca2dd22490ea1bd04469385f4dcb1d9c9c975774f"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/inputs/ops-verify-runtime.py",
+      "target": "inputs/sources/ops-verify-runtime.py",
+      "sha256": "sha256:1bb5dbbd468ac341c3e4e3a4c5635698274f91973eb134010e94186339befcb2"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/inputs/ops-eval-run.py",
+      "target": "inputs/sources/ops-eval-run.py",
+      "sha256": "sha256:64a10f1550686e4c577233ca9de27a7e0023c91129ae3ccb2bbec9fa97babbb8"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/inputs/ops-live-eval.json",
+      "target": "inputs/sources/ops-live-eval.json",
+      "sha256": "sha256:d170786422cf9dfdeea1c31f25fb8ed989b097356b27c2519a96e77cb9fa12e9"
+    },
+    {
+      "root": "common",
+      "path": "evidence/issue-8/inputs/ops-runtime-manifest.json",
+      "target": "inputs/sources/ops-runtime-manifest.json",
+      "sha256": "sha256:acd852bd05319b8f6587844764b3ce81f948b086586f40c15b495ea8ea5ee919"
+    }
+  ],
+  "arms": {
+    "baseline": {
+      "revision": "71fce847f6b521d812ba8179dcf4f53e06a69ef6",
+      "files": [
+        {
+          "root": "baseline",
+          "path": ".agents/skills/medium-writing/SKILL.md",
+          "target": ".agents/skills/medium-writing/SKILL.md",
+          "sha256": "sha256:28f90b17fc42171ababb0dc64a21be7020f779bd6defc52cca7bd9084b2970ee"
+        },
+        {
+          "root": "baseline",
+          "path": "scripts/lossless_batch.py",
+          "target": "scripts/lossless_batch.py",
+          "sha256": "sha256:faed7c795f44cff73f9a1318204263dea6477ba5b80546a9b384340c0c8e80f0"
+        },
+        {
+          "root": "baseline",
+          "path": "prompts/drill-down.md",
+          "target": "prompts/drill-down.md",
+          "sha256": "sha256:5cea5d367ddaf5ecf83988e80a9ec10f0242557e9a4ef81ee558eeec9de94214"
+        }
+      ]
+    },
+    "treatment": {
+      "revision": "df138896a7e6190650b22478801953628e261481",
+      "files": [
+        {
+          "root": "treatment",
+          "path": ".agents/skills/medium-writing/SKILL.md",
+          "target": ".agents/skills/medium-writing/SKILL.md",
+          "sha256": "sha256:5802caa5e6fbcc79b47f428ae5d0e41d5158e6fdadac10a04e5da034ebc7679d"
+        },
+        {
+          "root": "treatment",
+          "path": "scripts/lossless_batch.py",
+          "target": "scripts/lossless_batch.py",
+          "sha256": "sha256:bde12f1b06d42a048af28a1aa401ed3d92a51f1146975f62b2031975a833e439"
+        },
+        {
+          "root": "treatment",
+          "path": "prompts/drill-down.md",
+          "target": "prompts/drill-down.md",
+          "sha256": "sha256:d14e1f638db57af90378916b3713e3b88241a24200aeeb50f4fb9de438d4b759"
+        }
+      ]
+    }
+  },
+  "external_criterion": {
+    "scope": "pending owner handoff only",
+    "expected_next_owner": "learning-owner",
+    "protected": [
+      "inputs/article.md",
+      "LEARNING.md"
+    ],
+    "no_product_authority": true,
+    "classification": "frozen current-state request, not a fabricated ACCEPTED packet"
+  },
+  "comparison_kind": "combined P+CLI",
+  "schema_parity": "same plan purpose=learning-episode, no handoff; v2 record not supplied to baseline",
+  "limitations": [
+    "No natural nonzero baseline observed yet.",
+    "No independent reader measurement.",
+    "No accepted learning episode.",
+    "Read isolation requires an external qualified host."
+  ]
+}

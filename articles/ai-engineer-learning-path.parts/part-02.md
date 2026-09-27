@@ -75,6 +75,28 @@ Ops Reconciliation Copilot 保存了一組固定模型案例與歷史 eval。
 
 如果要建立更完整的 eval 方法，可以讀公開的 [Hamel 與 Shreya AI Evals FAQ](https://hamel.dev/blog/posts/evals-faq/)。實作練習則可以配合 [AI Engineering from Scratch 的 Learning Paths](https://aiengineeringfromscratch.com/learning-paths.html)，把 eval 當成產品迭代的一部分，而不是文章最後才補的 benchmark。
 
+### 把「擋住錯誤」與「選對下一步」分開評估
+
+假設 writer 嘗試在學習結果尚未被接納時開始文章增量，而 CLI 拒絕了操作。這裡有兩個不同的結果：護欄成功擋住寫入；writer 仍然選錯了一次。只看最後的文章沒有改變，會漏掉這次錯誤嘗試。
+
+```text
+writer 選擇操作
+    │
+    ├─ 操作不符合目前狀態 → 記錄一次錯誤嘗試
+    │                         ↓
+    │                      CLI 拒絕
+    │                         ↓
+    │                      沒有文章修改
+    │
+    └─ 操作符合目前狀態 → 檢查執行結果與交付內容
+```
+
+要比較兩版寫作指引與 CLI，兩個新 session 必須拿到相同的任務、原稿與 evidence snapshot。舊版不能讀到新版的文章或評分報告；模型、工具權限與觀察方式也要固定。記錄由 writer 以外的程序保存，至少包括工具請求、結果、exit code，以及工作目錄的修改前後差異。
+
+這份紀錄還需要判讀。相同檔案讀了兩次，不一定是不必要的重讀；回報文章組裝 `DONE`，也不一定是在宣稱 learning episode 已完成。必須查看當時的問題、狀態與實際用語。事件被截斷、缺少工具結果或尚未 review 時，應保留「無法判定」，不能填成零次錯誤。
+
+測試程式可以刻意製造缺少接納、過期收據或錯誤寫入，確認 observer 能否辨識。這些是控制案例，不是模型自然犯錯的紀錄。只有真正的新 session 比較，才可能支持「這次修改讓 writer 少走錯路」；文章是否讓人更容易理解，仍要另外從成稿做讀者檢查。
+
 ## 7. 為什麼這個專案現在不需要做成 full Agent？
 
 很多 AI 學習路徑會把 Agent 當成 RAG 後面的下一章。

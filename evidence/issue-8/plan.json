@@ -1,0 +1,117 @@
+{
+  "topic": "Ops Reconciliation Copilot：展開交易索引與差異分類的 runtime",
+  "scope": "Retain the existing two article additions as one Ops case along the AI Engineer learning path. Bind code, runtime test, eval runner and historical model report to the public case revision; defer human decision prompts until after patches. DONE covers compilation, not learning.",
+  "sources": [
+    {
+      "id": "ops-main",
+      "path": "inputs/ops-main.py",
+      "sha256": "sha256:1aeb1385358d45ee98e8d2aca2dd22490ea1bd04469385f4dcb1d9c9c975774f",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:app/main.py"
+    },
+    {
+      "id": "ops-runtime-test",
+      "path": "inputs/ops-verify-runtime.py",
+      "sha256": "sha256:1bb5dbbd468ac341c3e4e3a4c5635698274f91973eb134010e94186339befcb2",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:scripts/verify_runtime.py"
+    },
+    {
+      "id": "ops-eval-runner",
+      "path": "inputs/ops-eval-run.py",
+      "sha256": "sha256:64a10f1550686e4c577233ca9de27a7e0023c91129ae3ccb2bbec9fa97babbb8",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:evals/run.py"
+    },
+    {
+      "id": "ops-historical-eval",
+      "path": "inputs/ops-live-eval.json",
+      "sha256": "sha256:d170786422cf9dfdeea1c31f25fb8ed989b097356b27c2519a96e77cb9fa12e9",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:docs/evidence/2026-09-15-luna-medium.json (report checkout 78ea5882fa996cf9ef4c900bcc53cd79911b7a7a)"
+    },
+    {
+      "id": "ops-runtime-result",
+      "path": "inputs/ops-runtime-manifest.json",
+      "sha256": "sha256:acd852bd05319b8f6587844764b3ce81f948b086586f40c15b495ea8ea5ee919",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:local 2026-09-26 scripts/verify_runtime.py manifest (10/10, live_llm false)"
+    }
+  ],
+  "units": [
+    {
+      "id": "transaction-index",
+      "question": "為什麼 transaction_id 對到 list，而不是單筆資料？",
+      "insert_before": "## 5. Structured output：JSON 合法，不代表 mapping 語意正確",
+      "source_id": "ops-main",
+      "source_anchor": "result[key].append({\"row\": line, \"amount\": format(amount, \".2f\"), \"currency\": currency})",
+      "terms": [
+        "normalize",
+        "transaction_id",
+        "row",
+        "list"
+      ],
+      "decision_prompt": "左側 T100 有兩列、右側 T100 一列，即使金額相同，你會先算差額還是標記重複？指出讓你改變決定的程式或測試條件。",
+      "evidence_refs": [
+        {
+          "source_id": "ops-main",
+          "anchor": "result[key].append({\"row\": line",
+          "role": "code"
+        },
+        {
+          "source_id": "ops-runtime-test",
+          "anchor": "check(\"duplicate_key_not_guessed\", duplicate)",
+          "role": "test"
+        },
+        {
+          "source_id": "ops-runtime-result",
+          "anchor": "\"name\": \"duplicate_key_not_guessed\"",
+          "role": "test_result"
+        }
+      ],
+      "learning_step": "A03 · representation → runtime：保留 duplicate rows 才能正確分類"
+    },
+    {
+      "id": "finding-precedence",
+      "question": "重複、缺列、幣別與金額衝突時，哪一種 finding 優先？",
+      "insert_before": "## 5. Structured output：JSON 合法，不代表 mapping 語意正確",
+      "source_id": "ops-main",
+      "source_anchor": "if len(a) > 1 or len(b) > 1:",
+      "terms": [
+        "duplicate_key",
+        "currency_mismatch",
+        "amount_mismatch",
+        "delta"
+      ],
+      "decision_prompt": "T100 左側 USD 12、右側 EUR 10，應先報哪種 finding？delta 何時才有定義？說出可推翻你判斷的條件。",
+      "evidence_refs": [
+        {
+          "source_id": "ops-main",
+          "anchor": "elif a[0][\"currency\"] != b[0][\"currency\"]:",
+          "role": "code"
+        },
+        {
+          "source_id": "ops-runtime-test",
+          "anchor": "check(\"cross_currency_not_subtracted\", currency)",
+          "role": "test"
+        },
+        {
+          "source_id": "ops-eval-runner",
+          "anchor": "expected[\"status\"] == \"clarify\" or actual[\"mapping\"] == expected[\"mapping\"]",
+          "role": "eval"
+        },
+        {
+          "source_id": "ops-historical-eval",
+          "anchor": "\"passed\": 4",
+          "role": "historical_eval"
+        },
+        {
+          "source_id": "ops-runtime-result",
+          "anchor": "\"name\": \"cross_currency_not_subtracted\"",
+          "role": "test_result"
+        }
+      ],
+      "learning_step": "A03/A07 · runtime → test/eval boundary：分類與差額的證據範圍"
+    }
+  ],
+  "case": {
+    "id": "ops-reconciliation-copilot",
+    "repo": "ed3c/ops-reconciliation-copilot",
+    "revision": "24a56d18661630b0dba97dcb0b057dce07b0ab32"
+  }
+}

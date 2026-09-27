@@ -1,0 +1,22 @@
+{
+  "topic": "Ops 實驗授權與產品升格的 authority boundary",
+  "purpose": "source-explanation",
+  "sources": [
+    {
+      "id": "human-authority-checkpoint",
+      "path": "human-checkpoint.txt",
+      "sha256": "sha256:38c5f5d6e9cd8161e5ca099d90004d4b43b5fbbfc9ac2a2fa43fe2cde26a2fe7",
+      "provenance": "user human checkpoint supplied in ChatGPT 2026-09-27; author design input, not independent validation"
+    }
+  ],
+  "units": [
+    {
+      "id": "experiment-before-promotion",
+      "question": "為什麼學到新能力可以先做實驗，但不能自動升格 production？",
+      "insert_before": "## 13. 把學習路徑壓成五個可交付里程碑",
+      "source_id": "human-authority-checkpoint",
+      "source_anchor": "Q6: B",
+      "terms": ["EXPERIMENT", "PROMOTE", "NO_CHANGE"]
+    }
+  ]
+}

@@ -195,6 +195,75 @@ delta = 2.00
 
 模型只處理它擅長的歧義；可精確計算的部分留在確定性程式。
 
+### 同一個交易 ID，為什麼保存成一個 list？
+
+前面的箭頭把 normalize 縮成了一個步驟。實際上，它先檢查 mapping 是否包含 transaction_id、amount、currency，而且三個欄位必須存在、不能重複使用。接著逐列建立索引。transaction_id 是 CSV 裡的交易識別值；一次上傳工作的 run ID 則識別整個工作，兩者不是同一個 key。
+
+normalize 對交易 ID 做 strip，移除首尾空白；幣別另做 strip 和 upper。它沒有把交易 ID 轉成同一種大小寫，因此 T100 與 t100 仍是不同交易 ID。每一筆正規化結果還保留 row：enumerate 從 2 開始，因為第一列是欄名，這個數字讓檢查者能回到 CSV 的原始資料列。
+
+索引的 value 是 list，不是單筆資料。下面刻意讓左側 T100 出現兩次，作為程式的診斷輸入；它不是歷史模型報告裡的一次真實業務操作。
+
+```text
+left CSV
+  row 2: T100, 100.00, USD
+  row 3: T100, 100.00, USD
+             |
+             | normalize：相同 key 持續 append
+             v
+left index
+  T100 -> [row 2, row 3]
+
+right CSV
+  row 2: T100, 98.00, USD
+             |
+             v
+right index
+  T100 -> [row 2]
+```
+
+若把索引改成 transaction_id 對到單筆 row，後一筆可能覆蓋前一筆，對帳時就看不見重複。保留 list，才有足夠資料區分「同一筆交易金額不同」和「交易 ID 本身就不唯一」。這段表示方式的選擇，直接決定下一步能檢查哪種錯誤。
+
+### 有重複資料時，為什麼不能先算 2.00？
+
+reconcile 不是看到同一個 key，就立刻把左右第一筆金額相減。它走訪左右 ID 的聯集，排序後依固定優先序分類。下面的符號目錄對應 app/main.py 的實際函式；目錄表示責任歸屬，箭頭才表示資料怎麼流動。
+
+```text
+app/main.py
+├─ normalize(source, mapping)
+│  ├─ 檢查欄位與資料
+│  └─ transaction_id -> list of normalized rows
+└─ reconcile(left, right)
+   ├─ 走訪 sorted(set(left) | set(right))
+   ├─ 依序分類
+   └─ findings：保留左右 row 與差額
+```
+
+```text
+同一個 ID 的左右 lists
+  |
+  +-- 任一側超過一筆？
+  |     yes -> duplicate_key，delta = null
+  |     no
+  v
+任一側沒有資料？
+  |     yes -> missing_left 或 missing_right，delta = null
+  |     no
+  v
+幣別不同？
+  |     yes -> currency_mismatch，delta = null
+  |     no
+  v
+金額不同？
+  |     yes -> amount_mismatch，delta = left - right
+  |     no
+  v
+不產生 finding
+```
+
+所以剛才的重複 T100 會得到 duplicate_key，左右的 row 仍保留在 finding 中，但 delta 是 null。即使兩側各取第一筆可以算出 100.00 − 98.00 = 2.00，程式也不會把它當成可信的金額差異。只有兩側都恰好一筆、幣別相同且金額不同，才產生 amount_mismatch 並計算 delta。
+
+同樣地，若一側重複、另一側缺列，最先成立的仍是 duplicate_key；幣別不同時，也不會把兩個不同貨幣的數字直接相減。這些保證只涵蓋程式採用的分類規則，不證明來源 CSV 或已提交 mapping 的業務含義正確。完整條件可以回到前面連結的 app/main.py，對照 normalize 與 reconcile 逐行檢查。
+
 ## 5. Structured output：JSON 合法，不代表 mapping 語意正確
 
 LLM 回傳 JSON 後，至少有兩種完全不同的問題。
@@ -271,6 +340,28 @@ Ops Reconciliation Copilot 保存了一組固定模型案例與歷史 eval。
 這正是 eval 的用途：讓「通過了什麼」和「還不知道什麼」同時變清楚。
 
 如果要建立更完整的 eval 方法，可以讀公開的 [Hamel 與 Shreya AI Evals FAQ](https://hamel.dev/blog/posts/evals-faq/)。實作練習則可以配合 [AI Engineering from Scratch 的 Learning Paths](https://aiengineeringfromscratch.com/learning-paths.html)，把 eval 當成產品迭代的一部分，而不是文章最後才補的 benchmark。
+
+### 把「擋住錯誤」與「選對下一步」分開評估
+
+假設 writer 嘗試在學習結果尚未被接納時開始文章增量，而 CLI 拒絕了操作。這裡有兩個不同的結果：護欄成功擋住寫入；writer 仍然選錯了一次。只看最後的文章沒有改變，會漏掉這次錯誤嘗試。
+
+```text
+writer 選擇操作
+    │
+    ├─ 操作不符合目前狀態 → 記錄一次錯誤嘗試
+    │                         ↓
+    │                      CLI 拒絕
+    │                         ↓
+    │                      沒有文章修改
+    │
+    └─ 操作符合目前狀態 → 檢查執行結果與交付內容
+```
+
+要比較兩版寫作指引與 CLI，兩個新 session 必須拿到相同的任務、原稿與 evidence snapshot。舊版不能讀到新版的文章或評分報告；模型、工具權限與觀察方式也要固定。記錄由 writer 以外的程序保存，至少包括工具請求、結果、exit code，以及工作目錄的修改前後差異。
+
+這份紀錄還需要判讀。相同檔案讀了兩次，不一定是不必要的重讀；回報文章組裝 `DONE`，也不一定是在宣稱 learning episode 已完成。必須查看當時的問題、狀態與實際用語。事件被截斷、缺少工具結果或尚未 review 時，應保留「無法判定」，不能填成零次錯誤。
+
+測試程式可以刻意製造缺少接納、過期收據或錯誤寫入，確認 observer 能否辨識。這些是控制案例，不是模型自然犯錯的紀錄。只有真正的新 session 比較，才可能支持「這次修改讓 writer 少走錯路」；文章是否讓人更容易理解，仍要另外從成稿做讀者檢查。
 
 ## 7. 為什麼這個專案現在不需要做成 full Agent？
 
@@ -469,6 +560,50 @@ tokenization
 如果真的走到這一步，先讀免費完整的 [Chapter 8: Post-training](https://web.stanford.edu/~jurafsky/slp3/8.pdf) 理解 fine-tuning 與 alignment，再做 Happy-LLM [第六章〈大模型訓練流程實踐〉](https://github.com/datawhalechina/happy-llm/blob/main/docs/chapter6/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B%E5%AE%9E%E8%B7%B5.md) 的 SFT / LoRA / QLoRA；要看現代 library 流程，再進 Hugging Face LLM Course 的 [Supervised Fine-Tuning](https://huggingface.co/learn/llm-course/chapter11/1) 與 [Evaluation](https://huggingface.co/learn/llm-course/chapter11/5)。
 
 Fine-tuning 是 adaptation branch，不是 AI Engineer 身分認證。
+
+### 先留下學習證據，再決定文章要增加什麼
+
+閱讀地圖與學習進度是兩份不同的紀錄。[課程的 learn 工作流程](https://github.com/rohitg00/ai-engineering-from-scratch/blob/8bc378c2e07777899322ae77cd0dde94cb12fab3/.claude/skills/learn/SKILL.md) 從 LEARNING.md 取得下一課，教學與測驗後再保存 Progress log；沒有這份檔案時也允許先上課。文章章節的順序因此不應被拿來填寫課程進度，更不能因為本文已經寫到 RAG，就推定讀者已學會檢索。
+
+這條學習路線採用下面的交接順序。這是教學安排，不是聲稱本專案已經完成 placement 或讀者測驗。
+
+```text
+課程／學習 owner 選定本輪能力
+        ↓
+觀察 Ops 的目前實作與需求
+        ├─ 有相交的產品缺口 → 小範圍修改＋測試
+        └─ 不需要改產品     → NO_CHANGE＋理由
+        ↓
+實驗結果＋實際的人類回答
+        ↓
+學習 owner 記錄本次結果與待複習項目
+        ↓
+medium-compiler 讀取已接納的證據
+        ↓
+文章增量；下一課仍由學習 owner 決定
+```
+
+以 RAG 為例，目前只靠 headers 就能描述的欄位對應問題，不會因課程開始教 retrieval 而突然需要向量資料庫。NO_CHANGE 記錄的是「這次不改 Ops」；是否理解 RAG，仍要看讀者能否完成相關練習、解釋檢索失敗，或處理一個不同的例子。必要時在隔離的練習中驗證概念，不把課綱直接變成產品 backlog。
+
+這裡也有兩種不同的 checkpoint。學習 checkpoint 保存讀者在實驗中的預測、解釋與修正判斷；文章的 reader checkpoint 則檢查成稿能否支持讀者回答。後者即使已收到答案，也不能替前者補寫完成紀錄。缺少學習 owner 接納時，文章工具應指出缺少哪份交接資料，停在原稿，不代答、不推進 LEARNING.md。一般的來源解釋或文章修訂仍可獨立進行，但不能改名成「純寫作」來繞過一個尚未完成的學習任務。
+
+更精確地說，這裡要分開三層 authority。課程可以觸發 **EXPERIMENT**：即使 canonical product 目前沒有缺陷，Ops 作為實驗環境仍可以用隔離路徑研究 Agent、Fine-tuning 或新的 eval 方法；如果連實驗價值都不足，才記錄 **NO_CHANGE**。這兩種結果都只回答「現在要不要研究這項能力」，不直接改 production runtime。
+
+```text
+lesson
+  ↓
+EXPERIMENT ──→ tests / evals / runtime evidence
+  │                         │
+  │                         └─ 沒有真實產品需求 → 保留實驗，不升格
+  │
+  └─ evidence + real product need
+                  ↓
+              PROMOTE candidate
+                  ↓
+          product owner decides
+```
+
+因此 **PROMOTE** 是第二個獨立決策，不是 `EXPERIMENT` 的自動下一步。即使實驗數據很好，只要沒有真實 product need，也可以保留成實驗能力而不改 canonical path；反過來，課程教到某個主題也不能單獨構成升格理由。這讓 Ops 可以快速擴展實驗面，同時避免 syllabus 直接變成 production backlog。
 
 ## 13. 把學習路徑壓成五個可交付里程碑
 

@@ -1,0 +1,19 @@
+{
+  "article_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+  "batch_helper_sha256": "sha256:faed7c795f44cff73f9a1318204263dea6477ba5b80546a9b384340c0c8e80f0",
+  "bindings_sha256": "sha256:8a6628ae5432d444d5b5cac55036809dc62d3c6abb14cff10c95d121421b8c7c",
+  "boot_sha256": "sha256:c5e7b5ca7a02f5b8bc9b5b19d4ad58fe2e386be55b5051815d017c6c21d3fb82",
+  "patches": [
+    {
+      "patch_sha256": "sha256:fd6e2f88320ceceb5dafcc505fab2026843ad4ad46abca055709e496aaffcdb9",
+      "unit_id": "transaction-index"
+    },
+    {
+      "patch_sha256": "sha256:08e9831e6a893b997be72d0df671a4af6a17b8eab9f9453fbad6da059dddf307",
+      "unit_id": "finding-precedence"
+    }
+  ],
+  "publication": "NOT_PERFORMED",
+  "review_sha256": "sha256:7bd9e11f2d583594ea700f0d0475f2068830f8258df184ccb220586673782ec2",
+  "semantics": "recorded review, not proven by hashes"
+}
