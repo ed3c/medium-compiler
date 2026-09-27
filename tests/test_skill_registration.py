@@ -22,7 +22,7 @@ class SkillRegistrationTests(unittest.TestCase):
             self.assertEqual(name,p.parent.name)
             self.assertIn('description:',text.split('---',2)[1])
             names.append(name)
-        self.assertEqual(len(names),13)
+        self.assertEqual(len(names),18)
         self.assertEqual(len(names),len(set(names)))
 
     def test_root_is_a_pointer_not_a_second_registered_skill(self):

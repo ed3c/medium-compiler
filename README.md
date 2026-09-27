@@ -168,3 +168,28 @@ processing, task-value-first prose, uncertainty and incremental identity. No car
 fresh writer A/B, independent readers and publication. The helper assumes one cooperative
 writer, not hostile state mutation, simultaneous writers or power-loss recovery. No command
 merges a PR, closes an issue, publishes Medium content or changes Ops production.
+
+
+## AI Engineer learning site (Issue #10)
+
+A separate stacked slice builds a public learning website from source-owned state:
+
+```text
+AI Engineering from Scratch skills
+        ↓
+LEARNING.md (when placement exists)
+        ↓
+Ops experiment catalog / evidence
+        ↓
+medium-compiler article
+        ↓
+static site
+```
+
+Core upstream tutor skills are vendored project-locally at exact upstream Git blobs and pinned
+in `references/upstream/ai-engineering-skills-lock.json`. No placement is fabricated: until
+`start-learning` creates `LEARNING.md`, the site shows `NOT_INITIALIZED`.
+
+Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consumes only a
+pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
+generate `dist/`. `vercel.json` is preview-ready.
