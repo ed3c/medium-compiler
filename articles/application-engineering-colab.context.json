@@ -1,0 +1,91 @@
+{
+  "schema_version": "article-source-context@1",
+  "purpose": "source-explanation",
+  "topic": "Dev environment: local/cloud decision and Colab CLI operation history",
+  "checked_on": "2026-09-27",
+  "source_revision": "c257687012e3b0ae7cf55f7f467e4b703652b3cc",
+  "sources": [
+    {
+      "url": "https://aiengineeringfromscratch.com/",
+      "supports": "Homepage displays 20 phases / 523 lessons on checked date; not per-lesson completion verification"
+    },
+    {
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/phases/00-setup-and-tooling/01-dev-environment/docs/en.md",
+      "blob": "fea7bd8f7366c4d8db843b64b84a023f8dcd919f",
+      "supports": "Original environment requirements and deferred tools"
+    },
+    {
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/learning-paths/software-engineering-fundamentals.json",
+      "blob": "a1b09d143c1590896e69b5ba77a1918710f35874",
+      "supports": "Named route and 13 ordered required lessons"
+    },
+    {
+      "url": "https://research.google.com/colaboratory/faq.html",
+      "supports": "Notebook persistence versus VM lifecycle; resource limits; CPU runtime option"
+    },
+    {
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/phases/00-setup-and-tooling/01-dev-environment/code/verify.py",
+      "blob": "74fdaa7b2e91297adf8255ded3914d8a9f3b3ae4",
+      "supports": "beginner requires python+git; website learningPath is not a valid CLI route"
+    },
+    {
+      "url": "https://github.com/googlecolab/google-colab-cli",
+      "supports": "Official CLI installation and session commands; checked against installed 0.7.4 help"
+    },
+    {
+      "url": "https://github.com/ml-explore/mlx-lm",
+      "supports": "Apple Silicon inference and quantization support; no machine-specific benchmark claim"
+    }
+  ],
+  "review": {
+    "author_review": "Source/route/scope/code reviewed; complete original lesson read",
+    "independent_semantic_review": "NOT_RUN",
+    "learner_understanding": "NOT_MEASURED",
+    "personal_colab_runtime": "EXECUTED: CPU Standard, Python 3.13.15; four cells, 3 assertions, downloaded result; session stopped",
+    "public_tutorial_not_completion_claim": true
+  },
+  "assembly": {
+    "compiler_ref": "586b62fcfb0483812d1868b8321db1b30c002811",
+    "mode": "staged",
+    "stages": "0-7",
+    "receipt_status": "VALID",
+    "article_sha256": "228a713484c36555d2d9d1f8a0ff87b33c23b36f376a51aed06d950429e5926a",
+    "note": "Fresh staged 0-7 assembly includes actual cloud execution and cleanup; semantic correctness remains NOT_ASSESSED."
+  },
+  "unresolved": [
+    "UI labels and hosted runtime version may change; tutorial uses bilingual labels and observes actual Python version.",
+    "Full local multi-language setup and actual learner progress are outside this Colab introduction."
+  ],
+  "observed_operations": {
+    "date": "2026-09-27",
+    "hardware": {
+      "chip": "Apple M1 Pro",
+      "unified_memory_gb": 16,
+      "llm_benchmark": "NOT_RUN"
+    },
+    "cli": {
+      "package": "google-colab-cli",
+      "version": "0.7.4",
+      "first_install": "FAILED: uv selected Python 3.11.11; package requires >=3.12",
+      "successful_install": "uv tool install --python /opt/homebrew/bin/python3 google-colab-cli",
+      "installer_python": "3.14.6",
+      "version_check": "Version: 0.7.4",
+      "help_check": "PASS",
+      "sessions_read": "USER_AUTHORIZED: repeated server read succeeded",
+      "cloud_runtime_created": true,
+      "remote_notebook_execution": "PASS",
+      "runtime": {
+        "hardware": "CPU",
+        "shape": "Standard",
+        "python": "3.13.15",
+        "cells_executed": 4,
+        "assertions_passed": 3
+      },
+      "downloaded_result": "articles/evidence/colab-dev-environment.json",
+      "result_sha256": "f49d3d3bd2c5d8554281a6b0375e49ca22f0afdcc8e4cfaa8189666651b4cc80",
+      "cleanup": "Session terminated; subsequent server read: No active sessions found on server.",
+      "earlier_auth_attempt": "Cancelled at authorization-code prompt before user subsequently completed OAuth in own terminal"
+    },
+    "example_test_scope": "Fresh local Python subprocess and actual remote Colab CPU runtime; environment/example only, no LLM or learner mastery claim"
+  }
+}
