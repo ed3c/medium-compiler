@@ -119,5 +119,13 @@
     "retention": "One additional insertion; previous edition reconstructs exactly.",
     "learning_progress": "NOT_UPDATED",
     "product_promotion": "NOT_AUTHORIZED"
+  },
+  "writer_observation_addendum": {
+    "issue": 8,
+    "unit_id": "observe-writer-not-guard",
+    "purpose": "source-explanation",
+    "plan": "evidence/issue-8/writer-pair/plan.json",
+    "fresh_writer_ab": "NOT_RUN",
+    "retention": "One insertion; removal reconstructs df138896 article bytes."
   }
 }

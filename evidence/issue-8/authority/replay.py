@@ -32,7 +32,7 @@ def main():
         done=call('finish','--run-dir',run,'--review',EV/'review.json')
         before=(EV/'before.md').read_bytes(); after=(out/'article.md').read_bytes(); d=(EV/'drill-down.md').read_bytes()
         assert after.count(d)==1 and after.replace(d,b'',1)==before
-        assert after==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes() and done['status']=='DONE'
+        assert after==(ROOT/'evidence/issue-8/writer-pair/before.md').read_bytes() and done['status']=='DONE'
         shutil.copytree(ROOT/'evidence/issue-8/inputs',temp/'inputs')
         plan=json.loads((ROOT/'evidence/issue-8/plan.json').read_text()); plan['purpose']='learning-episode'
         plan['learning']={'episode_id':'synthetic-authority','lesson_ref':'synthetic-course@fixed:authority','handoff_source':'owner-handoff'}

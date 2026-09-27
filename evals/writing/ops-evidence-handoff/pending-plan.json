@@ -1,0 +1,63 @@
+{
+  "topic": "Ops mapping smoke evidence scope learning episode",
+  "purpose": "learning-episode",
+  "case": {
+    "id": "ops-reconciliation-copilot",
+    "repo": "ed3c/ops-reconciliation-copilot",
+    "revision": "24a56d18661630b0dba97dcb0b057dce07b0ab32"
+  },
+  "sources": [
+    {
+      "id": "ops-main",
+      "path": "sources/ops-main.py",
+      "sha256": "sha256:1aeb1385358d45ee98e8d2aca2dd22490ea1bd04469385f4dcb1d9c9c975774f",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:app/main.py"
+    },
+    {
+      "id": "ops-runtime-test",
+      "path": "sources/ops-verify-runtime.py",
+      "sha256": "sha256:1bb5dbbd468ac341c3e4e3a4c5635698274f91973eb134010e94186339befcb2",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:scripts/verify_runtime.py"
+    },
+    {
+      "id": "ops-eval-runner",
+      "path": "sources/ops-eval-run.py",
+      "sha256": "sha256:64a10f1550686e4c577233ca9de27a7e0023c91129ae3ccb2bbec9fa97babbb8",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:evals/run.py"
+    },
+    {
+      "id": "ops-historical-eval",
+      "path": "sources/ops-live-eval.json",
+      "sha256": "sha256:d170786422cf9dfdeea1c31f25fb8ed989b097356b27c2519a96e77cb9fa12e9",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:docs/evidence/2026-09-15-luna-medium.json (report checkout 78ea5882fa996cf9ef4c900bcc53cd79911b7a7a)"
+    },
+    {
+      "id": "ops-runtime-result",
+      "path": "sources/ops-runtime-manifest.json",
+      "sha256": "sha256:acd852bd05319b8f6587844764b3ce81f948b086586f40c15b495ea8ea5ee919",
+      "provenance": "ed3c/ops-reconciliation-copilot@24a56d18661630b0dba97dcb0b057dce07b0ab32:local 2026-09-26 scripts/verify_runtime.py manifest (10/10, live_llm false)"
+    }
+  ],
+  "units": [
+    {
+      "id": "mapping-smoke-scope",
+      "question": "這次 learning episode 的 evidence 支持什麼範圍，哪些仍未建立？",
+      "insert_before": "## 7. 為什麼這個專案現在不需要做成 full Agent？",
+      "source_id": "ops-eval-runner",
+      "source_anchor": "expected[\"status\"] == \"clarify\" or actual[\"mapping\"] == expected[\"mapping\"]",
+      "terms": [
+        "mapping",
+        "clarify"
+      ],
+      "learning_step": "Phase 11 / Evaluation & Testing; episode not yet accepted",
+      "decision_prompt": "這份結果支持什麼判斷？",
+      "evidence_refs": [
+        {
+          "source_id": "ops-eval-runner",
+          "anchor": "expected[\"status\"] == \"clarify\"",
+          "role": "eval"
+        }
+      ]
+    }
+  ]
+}

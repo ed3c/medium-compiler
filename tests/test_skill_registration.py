@@ -52,9 +52,9 @@ class SkillRegistrationTests(unittest.TestCase):
             headings=re.findall(r'^## (.+)$',(directory/name).read_text(),re.M)
             self.assertEqual(headings,expected)
 
-    def test_real_body_is_only_four_declared_insertions(self):
+    def test_real_body_is_only_five_declared_insertions(self):
         current=(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
-        for rel in ['authority/drill-down.md','handoff/drill-down.md']:
+        for rel in ['writer-pair/drill-down.md','authority/drill-down.md','handoff/drill-down.md']:
             extra=(ROOT/'evidence/issue-8'/rel).read_bytes()
             self.assertEqual(current.count(extra),1)
             current=current.replace(extra,b'',1)

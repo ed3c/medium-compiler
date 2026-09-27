@@ -126,7 +126,11 @@ class Driver:
         assert predecessor==(ROOT/'evidence/issue-8/authority/before.md').read_bytes()
         authority=self.call([sys.executable,str(ROOT/'evidence/issue-8/authority/replay.py'),
                              '--out',str(self.out/'authority-proof')])
-        data=(self.out/'authority-proof/article.md').read_bytes()
+        prior=(self.out/'authority-proof/article.md').read_bytes()
+        assert prior==(ROOT/'evidence/issue-8/writer-pair/before.md').read_bytes()
+        self.call([sys.executable,str(ROOT/'evidence/issue-8/writer-pair/replay.py'),
+                   '--out',str(self.out/'writer-article-proof')])
+        data=(self.out/'writer-article-proof/article.md').read_bytes()
         assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
         (self.out/'article.md').write_bytes(data)
         return {'status':'PASS','article_sha256':sha(data),'real_article':True,
@@ -156,7 +160,13 @@ class Driver:
         return {'status':'PASS','parts':len(order),'refusal_controls':controls,'article_sha256':sha(data),'medium_browser_rendering':'NOT_RUN'}
     def behavior(self):
         self.feature='behavior-evals'
-        return {'status':'BLOCKED','attempted':'doctor searched PATH; this deterministic driver has no authorized fresh-session execution interface',
+        probe=subprocess.run([sys.executable,str(ROOT/'scripts/run_writer_pair.py'),'doctor'],capture_output=True,text=True,timeout=30)
+        self.logs.append({'feature':self.feature,'argv':[sys.executable,str(ROOT/'scripts/run_writer_pair.py'),'doctor'],
+                          'exit':probe.returncode,'stdout':probe.stdout,'stderr':probe.stderr})
+        if probe.returncode not in (0,3):raise ValueError('writer runner doctor failed')
+        probe=json.loads(probe.stdout)
+        return {'status':'BLOCKED','attempted':'runner doctor only; no model launch or comparison is performed by verification',
+                'runner_probe':probe,'runner':'scripts/run_writer_pair.py','observer':'scripts/evaluate_writer_run.py',
                 'codex_executable':shutil.which('codex'),'fresh_writer_ab':'NOT_RUN','independent_reader':'NOT_RUN',
                 'missing':['approved isolated writer/reader carrier','fixed model/task/observer and raw per-session traces','trusted semantic labels'],
                 'reason':'The local driver is deterministic; it cannot manufacture natural Agent or human-reader evidence.'}

@@ -55,28 +55,3 @@ source-link allowlist and writer self-review cannot certify non-degraded meaning
 
 No model invocation is performed by this skill's registration. The verification helper
 reports unmet carrier/trace prerequisites and never creates imitation A/B records.
-
-
-## Implemented pending-handoff runner
-
-For the Ops pending-handoff task, use `scripts/run_writer_pair.py` and the fixed packet
-in `evals/writing/ops-evidence-handoff/`. Read that README before launch. `prepare` copies
-only pinned common inputs and three versioned P/CLI files per arm; it excludes existing
-answers, evaluator reports and repository history. `doctor` probes executable/help only.
-A distinct host owner must qualify read isolation, effective configuration, credentials
-already provisioned on the host, and one unscored pilot before `run --phase comparison`.
-Directories, `--ephemeral` and JSONL alone do not prove context isolation or full capture.
-
-The runner preserves all six planned interleaved runs, raw events, exits, final output,
-file snapshots and interruptions. It never resamples a failed run or scores its writer.
-`evaluate_writer_run.py run` leaves behavior null until an external reviewer labels every
-observable event against exact trace quotations; the reviewer must establish instruction
-reads and review task/source fidelity. `compare` requires the fixed complete selection,
-unique session identities, a qualified pilot and matching packet/model/carrier identities.
-Attempts and final-file effects are separate: a guard refusal does not erase a wrong route.
-
-Current implementation only covers the real pending handoff. Accepted-episode writing and
-independent-reader quality checks remain separate prerequisites, not synthetic PASS cases.
-An improved pending route is scoped evidence, not automatic Issue #8 acceptance. Never
-relabel the test fixture as a model run. Neither host nor reviewer declarations authenticate
-themselves; retain their actual owner-provided evidence references.
