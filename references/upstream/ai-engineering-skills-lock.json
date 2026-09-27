@@ -1,0 +1,39 @@
+{
+  "schema_version": "ai-engineering-skills-lock@1",
+  "repository": "rohitg00/ai-engineering-from-scratch",
+  "revision": "c257687012e3b0ae7cf55f7f467e4b703652b3cc",
+  "installed_scope": "project-local .agents/skills",
+  "note": "Exact upstream files. Invocation remains host-specific; medium-compiler does not rewrite the tutor contracts.",
+  "files": [
+    {
+      "source_path": "skills/start-learning/SKILL.md",
+      "target_path": ".agents/skills/start-learning/SKILL.md",
+      "git_blob": "5039333bfa588e2c80914f6ce7df893e7c85b730"
+    },
+    {
+      "source_path": "skills/learn/SKILL.md",
+      "target_path": ".agents/skills/learn/SKILL.md",
+      "git_blob": "f9dc1050be4cdca7f2ecee612fb8cb8cbfaf4701"
+    },
+    {
+      "source_path": "skills/course-guide/SKILL.md",
+      "target_path": ".agents/skills/course-guide/SKILL.md",
+      "git_blob": "b1aa85c440681697b2b548876fcb759676c07fa8"
+    },
+    {
+      "source_path": "skills/find-your-level/SKILL.md",
+      "target_path": ".agents/skills/find-your-level/SKILL.md",
+      "git_blob": "3d3f1a8396c6444b54e19c1146eeac04ab81bfee"
+    },
+    {
+      "source_path": "skills/find-your-level/references/answer-key.md",
+      "target_path": ".agents/skills/find-your-level/references/answer-key.md",
+      "git_blob": "e41bb6564f87237f0259adfa958e2de89b1adf03"
+    },
+    {
+      "source_path": "skills/check-understanding/SKILL.md",
+      "target_path": ".agents/skills/check-understanding/SKILL.md",
+      "git_blob": "aa6d45512e27561ee6012af04f2d98beaf708f23"
+    }
+  ]
+}
