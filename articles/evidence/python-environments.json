@@ -1,0 +1,721 @@
+{
+  "schema_version": "python-environments-practice@1",
+  "executed_on": "2026-09-27",
+  "source_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+  "source_files": {
+    "quiz.json": {
+      "sha256": "c419c40ef1c146c896ba268c1ff61a6510fe6694c777f73cea5ad3ddd7dee89d",
+      "git_blob": "49560076a90d0e3b3179f194871523db25c3fce0",
+      "bytes": 3138
+    },
+    "lesson.md": {
+      "sha256": "eafe05c7f0cc6d66440c773d6e4e38b39c5fb099be6e031512c144a59e0c2ed9",
+      "git_blob": "16aec2037d5cf9359d0c028836ee32e4a418742b",
+      "bytes": 8461
+    },
+    "env_setup.sh": {
+      "sha256": "b1bdb2bd5cd3d3225e2f75d1076ad0f398c7c00e82908ac7ad226284f70b9a01",
+      "git_blob": "2b99294de848d1c04bd5bd34a58afcd59215cc0c",
+      "bytes": 4312
+    }
+  },
+  "scope": "agent-executed source explanation; no human answers or learning progress written",
+  "environment": "macOS arm64 / uv 0.5.7 / project Python 3.12.4; standalone Python 3.12.8",
+  "first_failure_note": "First runner set UV_PYTHON to Homebrew Python 3.12.4. This caused uv pip to target the managed base despite shell activation. Removed that runner override; original env_setup.sh bytes unchanged. env_overrides originally recorded only per-call extras, not common runner defaults.",
+  "exercise_results": {
+    "1": "PASS original script after runner correction; optional PyTorch absent warning retained",
+    "2": "PASS 2.5.3 vs 1.26.4, separate paths and original unchanged",
+    "3": "PASS PyTorch+Anthropic extras, same 26 installed versions after fresh rebuild, CPU matrix equality, stale lock refusal and repair",
+    "4": "PARTIAL_LITERAL / VERIFIED_ALTERNATIVE: global attempt refused; explicit external target install/import/uninstall with non-venv interpreter verified; no successful global site-packages write"
+  },
+  "not_run": [
+    "conda installation",
+    "NVIDIA CUDA runtime",
+    "Anthropic API request",
+    "Colab",
+    "LLM workload",
+    "learner assessment"
+  ],
+  "records": {
+    "practice": {
+      "commands": [
+        {
+          "argv": [
+            "bash",
+            "RUN_ROOT/practice/course/phases/00-setup-and-tooling/06-python-environments/code/env_setup.sh"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 2,
+          "stdout": "\n=== AI Engineering from Scratch: Python Environment Setup ===\n\nRepo root: RUN_ROOT/practice/course\n\n  [PASS] uv found: uv 0.5.7 (Homebrew 2024-12-06)\n  [PASS] Python: Python 3.14.6\n\n--- Creating virtual environment ---\n\n  [PASS] Created .venv\n  [PASS] Activated virtual environment\n  [PASS] Python path: RUN_ROOT/practice/course/.venv/bin/python\n\n--- Installing core packages ---\n\n",
+          "stderr": "Using CPython 3.12.4 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12\nCreating virtual environment at: .venv\nActivate with: source .venv/bin/activate\nUsing Python 3.12.4 environment at: /opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\nerror: The interpreter at /opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12 is externally managed, and indicates the following:\n\n  To install Python packages system-wide, try brew install\n  xyz, where xyz is the package you are trying to\n  install.\n\n  If you wish to install a Python library that isn't in Homebrew,\n  use a virtual environment:\n\n  python3 -m venv path/to/venv\n  source path/to/venv/bin/activate\n  python3 -m pip install xyz\n\n  If you wish to install a Python application that isn't in Homebrew,\n  it may be easiest to use 'pipx install xyz', which will manage a\n  virtual environment for you. You can install pipx with\n\n  brew install pipx\n\n  You may restore the old behavior of pip by passing\n  the '--break-system-packages' flag to pip, or by adding\n  'break-system-packages = true' to your pip.conf file. The latter\n  will permanently disable this error.\n\n  If you disable this error, we STRONGLY recommend that you additionally\n  pass the '--user' flag to pip, or set 'user = true' in your pip.conf\n  file. Failure to do this can result in a broken Homebrew installation.\n\n  Read more about this behavior here: <https://peps.python.org/pep-0668/>\n\nConsider creating a virtual environment with `uv venv`.\n",
+          "elapsed_seconds": 0.22
+        },
+        {
+          "argv": [
+            "bash",
+            "RUN_ROOT/practice/course/phases/00-setup-and-tooling/06-python-environments/code/env_setup.sh"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "\n=== AI Engineering from Scratch: Python Environment Setup ===\n\nRepo root: RUN_ROOT/practice/course\n\n  [PASS] uv found: uv 0.5.7 (Homebrew 2024-12-06)\n  [PASS] Python: Python 3.14.6\n\n--- Creating virtual environment ---\n\n  [WARN] Existing .venv found. Reusing it.\n  [PASS] Activated virtual environment\n  [PASS] Python path: RUN_ROOT/practice/course/.venv/bin/python\n\n--- Installing core packages ---\n\n  [PASS] Installed: numpy matplotlib jupyter scikit-learn pandas\n\n--- Verifying installation ---\n\n  numpy: 2.5.3\n  matplotlib: 3.11.2\n  scikit-learn: 1.9.1\n  pandas: 3.0.6\n  jupyter: 5.9.1\n\n  Matrix multiply check: ((3, 3)) @ ((3, 3)) = ((3, 3))\n  [PASS] NumPy operations working\n\n  [WARN] PyTorch not installed (install later when needed):\n    uv pip install torch torchvision torchaudio\n\n=== Summary ===\n\n  Repo root:    RUN_ROOT/practice/course\n  Venv:         RUN_ROOT/practice/course/.venv\n  Python:       Python 3.12.4\n  Packages:     numpy matplotlib jupyter scikit-learn pandas\n\n  [PASS] All checks passed\n\nActivate this environment in future sessions:\n\n  source RUN_ROOT/practice/course/.venv/bin/activate\n\n",
+          "stderr": "WARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by inserting missing dot (before: `>=2.7,!=3.0*,!=3.1*,!=3.2*`; after: `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*`)\nWARN Fixing invalid version specifier by removing trailing comma (before: `>=3.5,`; after: `>=3.5`)\nWARN Fixing invalid version specifier by removing trailing comma (before: `>=3.5,`; after: `>=3.5`)\nWARN Fixing invalid version specifier by removing trailing comma (before: `>=3.5,`; after: `>=3.5`)\nWARN Fixing invalid version specifier by removing trailing comma (before: `>=3.5,`; after: `>=3.5`)\nResolved 112 packages in 16.52s\nPrepared 112 packages in 8m 48s\nInstalled 112 packages in 685ms\n + anyio==4.15.1\n + appnope==1.0.0\n + argon2-cffi==25.1.0\n + argon2-cffi-bindings==26.1.0\n + arrow==1.4.0\n + asttokens==3.0.2\n + async-lru==2.3.0\n + attrs==26.1.0\n + babel==2.18.0\n + beautifulsoup4==4.15.0\n + bleach==6.4.0\n + certifi==2026.7.22\n + cffi==2.1.1\n + charset-normalizer==3.5.1\n + cloudpickle==3.1.2\n + comm==0.2.3\n + contourpy==1.4.0\n + cycler==0.12.1\n + debugpy==1.8.22\n + defusedxml==0.7.1\n + executing==2.2.1\n + fastjsonschema==2.22.2\n + fonttools==4.66.0\n + fqdn==1.5.1\n + h11==0.16.0\n + httpcore==1.0.9\n + httpx==0.28.1\n + idna==3.20\n + ipykernel==7.3.0\n + ipython==9.17.1\n + ipython-pygments-lexers==1.1.1\n + ipywidgets==8.1.9\n + isoduration==20.11.0\n + jedi==0.20.0\n + jinja2==3.1.6\n + joblib==1.6.0\n + json5==0.15.0\n + jsonpointer==3.1.1\n + jsonschema==4.26.0\n + jsonschema-specifications==2025.9.1\n + jupyter==1.1.1\n + jupyter-builder==1.2.3\n + jupyter-client==8.10.0\n + jupyter-console==6.6.3\n + jupyter-core==5.9.1\n + jupyter-events==0.12.1\n + jupyter-lsp==2.3.1\n + jupyter-server==2.21.1\n + jupyter-server-terminals==0.5.4\n + jupyterlab==4.6.4\n + jupyterlab-pygments==0.3.0\n + jupyterlab-server==2.28.1\n + jupyterlab-widgets==3.0.17\n + kiwisolver==1.5.1\n + lark==1.3.1\n + markupsafe==3.0.3\n + matplotlib==3.11.2\n + matplotlib-inline==0.2.2\n + mistune==3.3.4\n + narwhals==2.26.0\n + nbclient==0.11.0\n + nbconvert==7.17.1\n + nbformat==5.11.1\n + nest-asyncio2==1.7.3\n + notebook==7.6.3\n + notebook-shim==0.2.4\n + numpy==2.5.3\n + packaging==26.3\n + pandas==3.0.6\n + pandocfilters==1.5.1\n + parso==0.8.7\n + pexpect==4.9.0\n + pillow==12.3.0\n + platformdirs==4.12.0\n + prometheus-client==0.26.0\n + prompt-toolkit==3.0.53\n + psutil==7.2.2\n + ptyprocess==0.7.0\n + pure-eval==0.2.4\n + pycparser==3.0\n + pygments==2.21.0\n + pyparsing==3.3.3\n + python-dateutil==2.9.0.post0\n + python-json-logger==4.2.0\n + pyyaml==6.0.3\n + pyzmq==27.2.0\n + referencing==0.37.0\n + requests==2.34.2\n + rfc3339-validator==0.1.4\n + rfc3986-validator==0.1.1\n + rfc3987-syntax==1.1.0\n + rpds-py==2026.6.3\n + scikit-learn==1.9.1\n + scipy==1.18.1\n + send2trash==2.1.0\n + six==1.17.0\n + soupsieve==2.10\n + stack-data==0.6.3\n + terminado==0.18.1\n + threadpoolctl==3.7.0\n + tinycss2==1.5.1\n + tornado==6.5.10\n + traitlets==5.16.1\n + typing-extensions==4.16.0\n + tzdata==2026.4\n + uri-template==1.3.0\n + urllib3==2.8.0\n + wcwidth==0.9.1\n + webcolors==25.10.0\n + webencodings==0.6.1\n + websocket-client==1.9.2\n + widgetsnbextension==4.0.16\n",
+          "elapsed_seconds": 601.02,
+          "omitted_legacy_distribution_warnings": {
+            "count": 2130,
+            "sanitized_original_stderr_sha256": "84371e6c3de910d538011a927f53a7969b8edcdde43be3ff4144b22797a5d825",
+            "reason": "Only obsolete distribution-candidate skip warnings omitted; full raw logs retained externally"
+          }
+        },
+        {
+          "argv": [
+            "uv",
+            "python",
+            "install",
+            "3.12.8"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {
+            "UV_PYTHON_INSTALL_DIR": "RUN_ROOT/practice/standalone"
+          },
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Installed Python 3.12.8 in 1m 45s\n + cpython-3.12.8-macos-aarch64-none\n",
+          "elapsed_seconds": 105.32
+        }
+      ]
+    },
+    "project": {
+      "commands": [
+        {
+          "argv": [
+            "uv",
+            "lock",
+            "--python",
+            "/opt/homebrew/opt/python@3.12/bin/python3.12"
+          ],
+          "cwd": "RUN_ROOT/practice/project",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using CPython 3.12.4 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12\nResolved 41 packages in 6.44s\n",
+          "elapsed_seconds": 6.46,
+          "omitted_legacy_distribution_warnings": {
+            "count": 196,
+            "sanitized_original_stderr_sha256": "30edb35d3877abf0fbf4402c125cfec1420033ae97ef19099430fcae41868252",
+            "reason": "Only obsolete distribution-candidate skip warnings omitted; full raw logs retained externally"
+          }
+        },
+        {
+          "argv": [
+            "uv",
+            "sync",
+            "--locked",
+            "--all-extras",
+            "--python",
+            "/opt/homebrew/opt/python@3.12/bin/python3.12"
+          ],
+          "cwd": "RUN_ROOT/practice/project",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using CPython 3.12.4 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12\nCreating virtual environment at: .venv\nResolved 41 packages in 1ms\nPrepared 26 packages in 3m 01s\nInstalled 26 packages in 427ms\n + annotated-types==0.8.0\n + anthropic==0.125.0\n + anyio==4.15.1\n + certifi==2026.7.22\n + distro==1.9.0\n + docstring-parser==0.18.0\n + filelock==4.0.4\n + fsspec==2026.9.0\n + h11==0.16.0\n + httpcore==1.0.9\n + httpx==0.28.1\n + idna==3.20\n + jinja2==3.1.6\n + jiter==0.17.0\n + markupsafe==3.0.3\n + mpmath==1.3.0\n + networkx==3.7\n + numpy==2.2.6\n + pydantic==2.13.5\n + pydantic-core==2.46.5\n + setuptools==84.0.0\n + sniffio==1.3.1\n + sympy==1.13.1\n + torch==2.6.0\n + typing-extensions==4.16.0\n + typing-inspection==0.4.4\n",
+          "elapsed_seconds": 181.82
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/project/.venv/bin/python",
+            "RUN_ROOT/practice/project/verify_environment.py"
+          ],
+          "cwd": "RUN_ROOT/practice/project",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\n  \"python\": \"3.12.4\",\n  \"executable\": \"RUN_ROOT/practice/project/.venv/bin/python\",\n  \"prefix\": \"RUN_ROOT/practice/project/.venv\",\n  \"base_prefix\": \"/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\",\n  \"versions\": {\n    \"numpy\": \"2.2.6\",\n    \"torch\": \"2.6.0\",\n    \"anthropic\": \"0.125.0\"\n  },\n  \"package_paths\": {\n    \"numpy\": \"RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/numpy/__init__.py\",\n    \"torch\": \"RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/torch/__init__.py\",\n    \"anthropic\": \"RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/anthropic/__init__.py\"\n  },\n  \"numpy_matrix\": [\n    [\n      7,\n      10\n    ],\n    [\n      15,\n      22\n    ]\n  ],\n  \"torch_cpu_matrix\": [\n    [\n      7,\n      10\n    ],\n    [\n      15,\n      22\n    ]\n  ],\n  \"cuda_available\": false,\n  \"torch_cuda_build\": null,\n  \"mps_available\": true,\n  \"anthropic_api_call\": \"NOT_RUN\",\n  \"installed\": [\n    [\n      \"annotated-types\",\n      \"0.8.0\"\n    ],\n    [\n      \"anthropic\",\n      \"0.125.0\"\n    ],\n    [\n      \"anyio\",\n      \"4.15.1\"\n    ],\n    [\n      \"certifi\",\n      \"2026.7.22\"\n    ],\n    [\n      \"distro\",\n      \"1.9.0\"\n    ],\n    [\n      \"docstring_parser\",\n      \"0.18.0\"\n    ],\n    [\n      \"filelock\",\n      \"4.0.4\"\n    ],\n    [\n      \"fsspec\",\n      \"2026.9.0\"\n    ],\n    [\n      \"h11\",\n      \"0.16.0\"\n    ],\n    [\n      \"httpcore\",\n      \"1.0.9\"\n    ],\n    [\n      \"httpx\",\n      \"0.28.1\"\n    ],\n    [\n      \"idna\",\n      \"3.20\"\n    ],\n    [\n      \"jinja2\",\n      \"3.1.6\"\n    ],\n    [\n      \"jiter\",\n      \"0.17.0\"\n    ],\n    [\n      \"markupsafe\",\n      \"3.0.3\"\n    ],\n    [\n      \"mpmath\",\n      \"1.3.0\"\n    ],\n    [\n      \"networkx\",\n      \"3.7\"\n    ],\n    [\n      \"numpy\",\n      \"2.2.6\"\n    ],\n    [\n      \"pydantic\",\n      \"2.13.5\"\n    ],\n    [\n      \"pydantic_core\",\n      \"2.46.5\"\n    ],\n    [\n      \"setuptools\",\n      \"84.0.0\"\n    ],\n    [\n      \"sniffio\",\n      \"1.3.1\"\n    ],\n    [\n      \"sympy\",\n      \"1.13.1\"\n    ],\n    [\n      \"torch\",\n      \"2.6.0\"\n    ],\n    [\n      \"typing-inspection\",\n      \"0.4.4\"\n    ],\n    [\n      \"typing_extensions\",\n      \"4.16.0\"\n    ]\n  ]\n}\n",
+          "stderr": "",
+          "elapsed_seconds": 13.17
+        },
+        {
+          "argv": [
+            "uv",
+            "sync",
+            "--locked",
+            "--all-extras",
+            "--python",
+            "/opt/homebrew/opt/python@3.12/bin/python3.12"
+          ],
+          "cwd": "RUN_ROOT/practice/rebuilt",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using CPython 3.12.4 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12\nCreating virtual environment at: .venv\nResolved 41 packages in 0.59ms\nInstalled 26 packages in 316ms\n + annotated-types==0.8.0\n + anthropic==0.125.0\n + anyio==4.15.1\n + certifi==2026.7.22\n + distro==1.9.0\n + docstring-parser==0.18.0\n + filelock==4.0.4\n + fsspec==2026.9.0\n + h11==0.16.0\n + httpcore==1.0.9\n + httpx==0.28.1\n + idna==3.20\n + jinja2==3.1.6\n + jiter==0.17.0\n + markupsafe==3.0.3\n + mpmath==1.3.0\n + networkx==3.7\n + numpy==2.2.6\n + pydantic==2.13.5\n + pydantic-core==2.46.5\n + setuptools==84.0.0\n + sniffio==1.3.1\n + sympy==1.13.1\n + torch==2.6.0\n + typing-extensions==4.16.0\n + typing-inspection==0.4.4\n",
+          "elapsed_seconds": 0.34
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/rebuilt/.venv/bin/python",
+            "RUN_ROOT/practice/rebuilt/verify_environment.py"
+          ],
+          "cwd": "RUN_ROOT/practice/rebuilt",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\n  \"python\": \"3.12.4\",\n  \"executable\": \"RUN_ROOT/practice/rebuilt/.venv/bin/python\",\n  \"prefix\": \"RUN_ROOT/practice/rebuilt/.venv\",\n  \"base_prefix\": \"/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\",\n  \"versions\": {\n    \"numpy\": \"2.2.6\",\n    \"torch\": \"2.6.0\",\n    \"anthropic\": \"0.125.0\"\n  },\n  \"package_paths\": {\n    \"numpy\": \"RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/numpy/__init__.py\",\n    \"torch\": \"RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/torch/__init__.py\",\n    \"anthropic\": \"RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/anthropic/__init__.py\"\n  },\n  \"numpy_matrix\": [\n    [\n      7,\n      10\n    ],\n    [\n      15,\n      22\n    ]\n  ],\n  \"torch_cpu_matrix\": [\n    [\n      7,\n      10\n    ],\n    [\n      15,\n      22\n    ]\n  ],\n  \"cuda_available\": false,\n  \"torch_cuda_build\": null,\n  \"mps_available\": true,\n  \"anthropic_api_call\": \"NOT_RUN\",\n  \"installed\": [\n    [\n      \"annotated-types\",\n      \"0.8.0\"\n    ],\n    [\n      \"anthropic\",\n      \"0.125.0\"\n    ],\n    [\n      \"anyio\",\n      \"4.15.1\"\n    ],\n    [\n      \"certifi\",\n      \"2026.7.22\"\n    ],\n    [\n      \"distro\",\n      \"1.9.0\"\n    ],\n    [\n      \"docstring_parser\",\n      \"0.18.0\"\n    ],\n    [\n      \"filelock\",\n      \"4.0.4\"\n    ],\n    [\n      \"fsspec\",\n      \"2026.9.0\"\n    ],\n    [\n      \"h11\",\n      \"0.16.0\"\n    ],\n    [\n      \"httpcore\",\n      \"1.0.9\"\n    ],\n    [\n      \"httpx\",\n      \"0.28.1\"\n    ],\n    [\n      \"idna\",\n      \"3.20\"\n    ],\n    [\n      \"jinja2\",\n      \"3.1.6\"\n    ],\n    [\n      \"jiter\",\n      \"0.17.0\"\n    ],\n    [\n      \"markupsafe\",\n      \"3.0.3\"\n    ],\n    [\n      \"mpmath\",\n      \"1.3.0\"\n    ],\n    [\n      \"networkx\",\n      \"3.7\"\n    ],\n    [\n      \"numpy\",\n      \"2.2.6\"\n    ],\n    [\n      \"pydantic\",\n      \"2.13.5\"\n    ],\n    [\n      \"pydantic_core\",\n      \"2.46.5\"\n    ],\n    [\n      \"setuptools\",\n      \"84.0.0\"\n    ],\n    [\n      \"sniffio\",\n      \"1.3.1\"\n    ],\n    [\n      \"sympy\",\n      \"1.13.1\"\n    ],\n    [\n      \"torch\",\n      \"2.6.0\"\n    ],\n    [\n      \"typing-inspection\",\n      \"0.4.4\"\n    ],\n    [\n      \"typing_extensions\",\n      \"4.16.0\"\n    ]\n  ]\n}\n",
+          "stderr": "",
+          "elapsed_seconds": 13.46
+        },
+        {
+          "argv": [
+            "uv",
+            "sync",
+            "--locked",
+            "--all-extras"
+          ],
+          "cwd": "RUN_ROOT/practice/rebuilt",
+          "env_overrides": {},
+          "exit": 2,
+          "stdout": "",
+          "stderr": "Resolved 41 packages in 215ms\nerror: The lockfile at `uv.lock` needs to be updated, but `--locked` was provided. To update the lockfile, run `uv lock`.\n",
+          "elapsed_seconds": 0.27
+        },
+        {
+          "argv": [
+            "uv",
+            "sync",
+            "--locked",
+            "--all-extras"
+          ],
+          "cwd": "RUN_ROOT/practice/rebuilt",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Resolved 41 packages in 0.69ms\nAudited 26 packages in 0.01ms\n",
+          "elapsed_seconds": 0.01
+        }
+      ],
+      "result": {
+        "identical_installed_versions": true,
+        "packages": 26,
+        "lock_sha256": "c5ab2e95140dde465df9438350c6725e68152161c83e7660979f527dbd08c579",
+        "drift_refused": true,
+        "lock_unchanged_after_refusal": true,
+        "repair_success": true
+      },
+      "original": {
+        "python": "3.12.4",
+        "executable": "RUN_ROOT/practice/project/.venv/bin/python",
+        "prefix": "RUN_ROOT/practice/project/.venv",
+        "base_prefix": "/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12",
+        "versions": {
+          "numpy": "2.2.6",
+          "torch": "2.6.0",
+          "anthropic": "0.125.0"
+        },
+        "package_paths": {
+          "numpy": "RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/numpy/__init__.py",
+          "torch": "RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/torch/__init__.py",
+          "anthropic": "RUN_ROOT/practice/project/.venv/lib/python3.12/site-packages/anthropic/__init__.py"
+        },
+        "numpy_matrix": [
+          [
+            7,
+            10
+          ],
+          [
+            15,
+            22
+          ]
+        ],
+        "torch_cpu_matrix": [
+          [
+            7,
+            10
+          ],
+          [
+            15,
+            22
+          ]
+        ],
+        "cuda_available": false,
+        "torch_cuda_build": null,
+        "mps_available": true,
+        "anthropic_api_call": "NOT_RUN",
+        "installed": [
+          [
+            "annotated-types",
+            "0.8.0"
+          ],
+          [
+            "anthropic",
+            "0.125.0"
+          ],
+          [
+            "anyio",
+            "4.15.1"
+          ],
+          [
+            "certifi",
+            "2026.7.22"
+          ],
+          [
+            "distro",
+            "1.9.0"
+          ],
+          [
+            "docstring_parser",
+            "0.18.0"
+          ],
+          [
+            "filelock",
+            "4.0.4"
+          ],
+          [
+            "fsspec",
+            "2026.9.0"
+          ],
+          [
+            "h11",
+            "0.16.0"
+          ],
+          [
+            "httpcore",
+            "1.0.9"
+          ],
+          [
+            "httpx",
+            "0.28.1"
+          ],
+          [
+            "idna",
+            "3.20"
+          ],
+          [
+            "jinja2",
+            "3.1.6"
+          ],
+          [
+            "jiter",
+            "0.17.0"
+          ],
+          [
+            "markupsafe",
+            "3.0.3"
+          ],
+          [
+            "mpmath",
+            "1.3.0"
+          ],
+          [
+            "networkx",
+            "3.7"
+          ],
+          [
+            "numpy",
+            "2.2.6"
+          ],
+          [
+            "pydantic",
+            "2.13.5"
+          ],
+          [
+            "pydantic_core",
+            "2.46.5"
+          ],
+          [
+            "setuptools",
+            "84.0.0"
+          ],
+          [
+            "sniffio",
+            "1.3.1"
+          ],
+          [
+            "sympy",
+            "1.13.1"
+          ],
+          [
+            "torch",
+            "2.6.0"
+          ],
+          [
+            "typing-inspection",
+            "0.4.4"
+          ],
+          [
+            "typing_extensions",
+            "4.16.0"
+          ]
+        ]
+      },
+      "rebuilt": {
+        "python": "3.12.4",
+        "executable": "RUN_ROOT/practice/rebuilt/.venv/bin/python",
+        "prefix": "RUN_ROOT/practice/rebuilt/.venv",
+        "base_prefix": "/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12",
+        "versions": {
+          "numpy": "2.2.6",
+          "torch": "2.6.0",
+          "anthropic": "0.125.0"
+        },
+        "package_paths": {
+          "numpy": "RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/numpy/__init__.py",
+          "torch": "RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/torch/__init__.py",
+          "anthropic": "RUN_ROOT/practice/rebuilt/.venv/lib/python3.12/site-packages/anthropic/__init__.py"
+        },
+        "numpy_matrix": [
+          [
+            7,
+            10
+          ],
+          [
+            15,
+            22
+          ]
+        ],
+        "torch_cpu_matrix": [
+          [
+            7,
+            10
+          ],
+          [
+            15,
+            22
+          ]
+        ],
+        "cuda_available": false,
+        "torch_cuda_build": null,
+        "mps_available": true,
+        "anthropic_api_call": "NOT_RUN",
+        "installed": [
+          [
+            "annotated-types",
+            "0.8.0"
+          ],
+          [
+            "anthropic",
+            "0.125.0"
+          ],
+          [
+            "anyio",
+            "4.15.1"
+          ],
+          [
+            "certifi",
+            "2026.7.22"
+          ],
+          [
+            "distro",
+            "1.9.0"
+          ],
+          [
+            "docstring_parser",
+            "0.18.0"
+          ],
+          [
+            "filelock",
+            "4.0.4"
+          ],
+          [
+            "fsspec",
+            "2026.9.0"
+          ],
+          [
+            "h11",
+            "0.16.0"
+          ],
+          [
+            "httpcore",
+            "1.0.9"
+          ],
+          [
+            "httpx",
+            "0.28.1"
+          ],
+          [
+            "idna",
+            "3.20"
+          ],
+          [
+            "jinja2",
+            "3.1.6"
+          ],
+          [
+            "jiter",
+            "0.17.0"
+          ],
+          [
+            "markupsafe",
+            "3.0.3"
+          ],
+          [
+            "mpmath",
+            "1.3.0"
+          ],
+          [
+            "networkx",
+            "3.7"
+          ],
+          [
+            "numpy",
+            "2.2.6"
+          ],
+          [
+            "pydantic",
+            "2.13.5"
+          ],
+          [
+            "pydantic_core",
+            "2.46.5"
+          ],
+          [
+            "setuptools",
+            "84.0.0"
+          ],
+          [
+            "sniffio",
+            "1.3.1"
+          ],
+          [
+            "sympy",
+            "1.13.1"
+          ],
+          [
+            "torch",
+            "2.6.0"
+          ],
+          [
+            "typing-inspection",
+            "0.4.4"
+          ],
+          [
+            "typing_extensions",
+            "4.16.0"
+          ]
+        ]
+      }
+    },
+    "isolation": {
+      "commands": [
+        {
+          "argv": [
+            "uv",
+            "venv",
+            "--python",
+            "/opt/homebrew/opt/python@3.12/bin/python3.12",
+            "RUN_ROOT/practice/second"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using CPython 3.12.4 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12\nCreating virtual environment at: practice/second\nActivate with: source practice/second/bin/activate\n",
+          "elapsed_seconds": 0.01
+        },
+        {
+          "argv": [
+            "uv",
+            "pip",
+            "install",
+            "--python",
+            "RUN_ROOT/practice/second/bin/python",
+            "numpy==1.26.4"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using Python 3.12.4 environment at: practice/second\nResolved 1 package in 881ms\nPrepared 1 package in 42.02s\nInstalled 1 package in 13ms\n + numpy==1.26.4\n",
+          "elapsed_seconds": 43.01
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/second/bin/python",
+            "-c",
+            "import numpy,sys,json; print(json.dumps({'numpy':numpy.__version__,'path':numpy.__file__,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'sum':int(numpy.array([1,2,3]).sum())}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\"numpy\": \"1.26.4\", \"path\": \"RUN_ROOT/practice/second/lib/python3.12/site-packages/numpy/__init__.py\", \"prefix\": \"RUN_ROOT/practice/second\", \"base_prefix\": \"/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\", \"sum\": 6}\n",
+          "stderr": "",
+          "elapsed_seconds": 11.6
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/course/.venv/bin/python",
+            "-c",
+            "import numpy,sys,json; print(json.dumps({'numpy':numpy.__version__,'path':numpy.__file__,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'sum':int(numpy.array([1,2,3]).sum())}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\"numpy\": \"2.5.3\", \"path\": \"RUN_ROOT/practice/course/.venv/lib/python3.12/site-packages/numpy/__init__.py\", \"prefix\": \"RUN_ROOT/practice/course/.venv\", \"base_prefix\": \"/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\", \"sum\": 6}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.15
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/second/bin/python",
+            "-c",
+            "import numpy,sys,json; print(json.dumps({'numpy':numpy.__version__,'path':numpy.__file__,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'sum':int(numpy.array([1,2,3]).sum())}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\"numpy\": \"1.26.4\", \"path\": \"RUN_ROOT/practice/second/lib/python3.12/site-packages/numpy/__init__.py\", \"prefix\": \"RUN_ROOT/practice/second\", \"base_prefix\": \"/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12\", \"sum\": 6}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.23
+        }
+      ],
+      "result": {
+        "base": {
+          "numpy": "2.5.3",
+          "path": "RUN_ROOT/practice/course/.venv/lib/python3.12/site-packages/numpy/__init__.py",
+          "prefix": "RUN_ROOT/practice/course/.venv",
+          "base_prefix": "/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12",
+          "sum": 6
+        },
+        "second": {
+          "numpy": "1.26.4",
+          "path": "RUN_ROOT/practice/second/lib/python3.12/site-packages/numpy/__init__.py",
+          "prefix": "RUN_ROOT/practice/second",
+          "base_prefix": "/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12",
+          "sum": 6
+        },
+        "different_versions": true,
+        "distinct_package_paths": true,
+        "same_sum": 6
+      }
+    },
+    "global": {
+      "commands": [
+        {
+          "argv": [
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "-c",
+            "import sys,importlib.util,json; assert sys.prefix==sys.base_prefix; assert importlib.util.find_spec('colorama') is None; print(json.dumps({'prefix':sys.prefix,'base_prefix':sys.base_prefix,'colorama_present':False}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "{\"prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\", \"base_prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\", \"colorama_present\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.09
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "-m",
+            "pip",
+            "--isolated",
+            "install",
+            "--disable-pip-version-check",
+            "colorama==0.4.6"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 1,
+          "stdout": "",
+          "stderr": "error: externally-managed-environment\n\n× This environment is externally managed\n╰─> This Python installation is managed by uv and should not be modified.\n\nnote: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.\nhint: See PEP 668 for the detailed specification.\n",
+          "elapsed_seconds": 0.53
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "-m",
+            "pip",
+            "--isolated",
+            "install",
+            "--disable-pip-version-check",
+            "--target",
+            "RUN_ROOT/practice/external-packages",
+            "colorama==0.4.6"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "Collecting colorama==0.4.6\n  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)\nUsing cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)\nInstalling collected packages: colorama\nSuccessfully installed colorama-0.4.6\n",
+          "stderr": "",
+          "elapsed_seconds": 0.88
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "-c",
+            "import colorama,sys,json; assert sys.prefix==sys.base_prefix; print(json.dumps({'version':colorama.__version__,'path':colorama.__file__,'prefix':sys.prefix,'base_prefix':sys.base_prefix}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {
+            "PYTHONPATH": "RUN_ROOT/practice/external-packages"
+          },
+          "exit": 0,
+          "stdout": "{\"version\": \"0.4.6\", \"path\": \"RUN_ROOT/practice/external-packages/colorama/__init__.py\", \"prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\", \"base_prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\"}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.03
+        },
+        {
+          "argv": [
+            "uv",
+            "pip",
+            "uninstall",
+            "--target",
+            "RUN_ROOT/practice/external-packages",
+            "colorama"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 2,
+          "stdout": "",
+          "stderr": "error: No virtual environment found; run `uv venv` to create an environment, or pass `--system` to install into a non-virtual environment\n",
+          "elapsed_seconds": 1.05
+        },
+        {
+          "argv": [
+            "uv",
+            "pip",
+            "uninstall",
+            "--python",
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "--target",
+            "RUN_ROOT/practice/external-packages",
+            "colorama"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {},
+          "exit": 0,
+          "stdout": "",
+          "stderr": "Using Python 3.12.8 environment at: practice/standalone/cpython-3.12.8-macos-aarch64-none\nUninstalled 1 package in 114ms\n - colorama==0.4.6\n",
+          "elapsed_seconds": 0.17
+        },
+        {
+          "argv": [
+            "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none/bin/python3",
+            "-c",
+            "import sys,importlib.util,json; assert sys.prefix==sys.base_prefix; assert importlib.util.find_spec('colorama') is None; print(json.dumps({'prefix':sys.prefix,'base_prefix':sys.base_prefix,'colorama_present':False}))"
+          ],
+          "cwd": "RUN_ROOT",
+          "env_overrides": {
+            "PYTHONPATH": "RUN_ROOT/practice/external-packages"
+          },
+          "exit": 0,
+          "stdout": "{\"prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\", \"base_prefix\": \"RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none\", \"colorama_present\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.03
+        }
+      ],
+      "result": {
+        "non_venv_interpreter": true,
+        "default_global_install": "REFUSED_EXTERNALLY_MANAGED",
+        "alternative": "explicit target outside any venv",
+        "observed": {
+          "version": "0.4.6",
+          "path": "RUN_ROOT/practice/external-packages/colorama/__init__.py",
+          "prefix": "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none",
+          "base_prefix": "RUN_ROOT/practice/standalone/cpython-3.12.8-macos-aarch64-none"
+        },
+        "uninstalled": true,
+        "system_protection_preserved": true,
+        "equivalence_scope": "Install target identity, import location, removal and absence verified; no successful install into OS-managed global site-packages"
+      }
+    }
+  }
+}

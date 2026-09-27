@@ -31,6 +31,15 @@ ARTICLES=[
         "lesson": "phases/00-setup-and-tooling/02-git-and-collaboration",
         "lesson_title": "Git & Collaboration",
         "next_lesson_title": "Python Environments"
+    },
+    {
+        "slug": "python-environments",
+        "title": "Python 環境：讓套件彼此隔離，也讓專案能重新建立",
+        "description": "實跑原課四個練習，追蹤套件位置、驗證 NumPy 隔離與 lockfile 重建，直接回答環境管理問題。",
+        "source": "articles/python-environments.md",
+        "lesson": "phases/00-setup-and-tooling/06-python-environments",
+        "lesson_title": "Python Environments",
+        "next_lesson_title": "Docker for AI"
     }
 ]
 
@@ -180,4 +189,3 @@ def main():
     print(json.dumps(build(a.out),ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()
-
