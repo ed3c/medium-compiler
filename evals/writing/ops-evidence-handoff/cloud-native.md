@@ -24,7 +24,8 @@ Do not reconstruct the six launch requests from prose. The byte-bound contract i
 python3 scripts/native_writer_packet.py
 ```
 
-The projection contains the pinned common ref, baseline/treatment refs, B/T/T/B/B/T order,
+The projection contains the exact pilot probe ref/path, pinned task path/hash, common and
+arm source-to-target paths/hashes, baseline/treatment refs, B/T/T/B/B/T order,
 `collaboration.spawn_agent`, `fork_turns: none`, no model override, the forbidden-input
 boundary and the external observer owner. It deliberately returns
 `authorizes_native_launch=false`: repository code can bind a request but cannot discover or

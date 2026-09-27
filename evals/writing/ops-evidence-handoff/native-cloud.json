@@ -5,6 +5,11 @@
   "fork_turns": "none",
   "model_override": null,
   "common_ref": "d9e5f18810ad3500a26df3f841026ad26ee09d36",
+  "pilot_probe": {
+    "ref": "bea94040e9a4d2c7e99356a4fe31a6a7723c4124",
+    "path": "evals/writing/ops-evidence-handoff/task.md",
+    "sha256": "sha256:c180d9939556a79272df939af54cb15eea97dd4e673b5d7133640a4d3d0e10dd"
+  },
   "baseline_ref": "71fce847f6b521d812ba8179dcf4f53e06a69ef6",
   "treatment_ref": "df138896a7e6190650b22478801953628e261481",
   "order": ["baseline", "treatment", "treatment", "baseline", "baseline", "treatment"],

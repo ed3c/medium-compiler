@@ -34,11 +34,15 @@ next on the relocated retained run; expect DONE scoped to these declared units.
 Confirm the checkpoint is DEFERRED during patches, then PENDING after the queue and after
 DONE. Verify the 4/4 historical model result is labeled separately from runtime finding
 tests, and DONE reports human_learning_outcome=NOT_MEASURED.
-Then run the same feature's handoff/replay.py: explicit learning-episode on the current
-source plan with no upstream record must return learning-owner and create no run. It separately
+The verifier already runs handoff/replay.py into `--out/handoff-proof`; inspect that retained
+result rather than replaying into the occupied path. An independent rerun needs a new output
+path. The handoff replay checks that an explicit learning-episode on the current
+source plan with no upstream record returns learning-owner and creates no run. It separately
 executes one authorized source-explanation addition, stale-base refusal, retry NOOP and
 post-cleanup readback. This is not a ready learning episode and does not consume Ops PR24.
-Keep commands.json, lossless-run/, handoff-proof/ and article.md under --out.
+Keep commands.json, lossless-run/, handoff-proof/ and article.md under --out. The top-level
+article.md is the current canonical article; the two-patch expanded article is retained at
+lossless-run/final/compiled/medium-canonical.md.
 
 ## Gotchas
 

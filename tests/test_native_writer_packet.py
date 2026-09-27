@@ -23,6 +23,22 @@ class NativeWriterPacketTests(unittest.TestCase):
             self.assertEqual(x["tool"],"collaboration.spawn_agent")
             self.assertEqual(x["fork_turns"],"none")
             self.assertIsNone(x["model_override"])
+    def test_pilot_and_each_writer_receive_the_exact_task_and_inputs(self):
+        s=json.loads(SPEC.read_text());r=mod.project(SPEC,NATIVE)
+        probe=r["pilot"]["probe"]
+        self.assertEqual(probe["ref"],"bea94040e9a4d2c7e99356a4fe31a6a7723c4124")
+        self.assertEqual(probe["path"],s["task"]["path"])
+        self.assertIn(probe["path"],r["pilot"]["message"])
+        for x in r["launches"]:
+            self.assertEqual(x["task"]["path"],s["task"]["path"])
+            self.assertEqual(x["task"]["sha256"],s["task"]["sha256"])
+            self.assertIn(x["task"]["path"],x["message"])
+            self.assertIn("Execute the pinned writer task",x["message"])
+            self.assertEqual([f["target"] for f in x["common_inputs"]],
+                             [f["target"] for f in s["common_files"]])
+            self.assertEqual([f["target"] for f in x["arm_inputs"]],
+                             [f["target"] for f in s["arms"][x["arm"]]["files"]])
+            self.assertIn("Verify every SHA-256",x["message"])
     def test_arms_match_frozen_refs_and_order(self):
         s=json.loads(SPEC.read_text());r=mod.project(SPEC,NATIVE)
         self.assertEqual([x["arm"] for x in r["launches"]],s["order"])
@@ -60,5 +76,12 @@ class NativeWriterPacketTests(unittest.TestCase):
     def test_packet_never_claims_shared_storage_is_isolation(self):
         r=mod.project(SPEC,NATIVE)
         self.assertFalse(r["shared_storage_is_security_isolation"])
+    def test_pilot_without_exact_path_is_rejected(self):
+        raw=json.loads(NATIVE.read_text());raw["pilot_probe"].pop("path")
+        p=ROOT/"tests/fixtures/native-cloud-invalid.json";p.write_text(json.dumps(raw))
+        try:
+            with self.assertRaisesRegex(mod.Invalid,"pilot probe"):
+                mod.validate(SPEC,p)
+        finally:p.unlink(missing_ok=True)
 
 if __name__=="__main__": unittest.main()
