@@ -21,19 +21,25 @@
     "Actual staging snapshot witness",
     "Separate checkout isolation",
     "Existing SSH vs GitHub CLI authentication",
-    "Observed fork-flow correction from history"
+    "Observed fork-flow correction from history",
+    "Fresh remote clone recovery of new explanatory note",
+    "Separate local tracked/untracked ignore control",
+    "Reference answers for all five original quiz questions"
   ],
   "evidence": "articles/evidence/git-collaboration.json",
-  "fork_head": "960f0b5cc6094163135c2e5fc75cce2079070233",
+  "fork_head": "3d9a80386b195fb7156b2aedc126a4e48a39390d",
   "assembly": {
-    "mode": "staged",
-    "stages": "0-7",
-    "compiler_ref": "bb00d18bdddb885e4880cd6af3f5725d09023f5e",
+    "mode": "lossless-source-additions",
+    "compiler_ref": "4df935144701647764dde94e04a061ab07a2df89",
+    "stages": "source-bound boot/next/drill-down/review/finish, then existing Stage 6-7 finalization",
     "receipt_status": "VALID",
-    "article_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b"
+    "article_sha256": "5f1aab268bab24573e76b7d2d7898bc268a141cc80f02b22c94fa519aa23b54a",
+    "before_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b",
+    "declared_insertions": 3,
+    "proof": "Three insertions removed reconstruct previous article exactly; retained external batch proof"
   },
   "review": {
-    "author": "Source and executable evidence reviewed",
+    "author": "Full original lesson and quiz compared with chapter coverage, new practice result, raw commands and all three article additions.",
     "independent_semantic_review": "NOT_RUN",
     "learner_understanding": "NOT_MEASURED"
   },
@@ -41,6 +47,32 @@
   "source_links": [
     "https://git-scm.com/docs/git-add",
     "https://git-scm.com/docs/gitignore",
-    "https://git-scm.com/docs/git-merge"
-  ]
+    "https://git-scm.com/docs/git-merge",
+    "https://git-scm.com/docs/git-rm",
+    "https://git-scm.com/docs/git-fetch"
+  ],
+  "previous_assembly": {
+    "mode": "staged",
+    "stages": "0-7",
+    "compiler_ref": "bb00d18bdddb885e4880cd6af3f5725d09023f5e",
+    "receipt_status": "VALID",
+    "article_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b"
+  },
+  "prior_fork_head": "960f0b5cc6094163135c2e5fc75cce2079070233",
+  "recheck_evidence": "articles/evidence/git-collaboration-recheck.json",
+  "reference_quiz": {
+    "questions": 5,
+    "source_blob": "517c438da107e05452a745dda38967c6aa26109f",
+    "mode": "direct reference answers with reasoning",
+    "learner_score": "NOT_ASSESSED"
+  },
+  "recheck_scope": {
+    "reused_existing_fork_and_my_progress": true,
+    "new_note_commit_push_recovered": true,
+    "ignored_add_refused": true,
+    "local_fast_forward": true,
+    "remote_main_unchanged": true,
+    "conflict_resolution": "NOT_RUN",
+    "learner_progress": "UNCHANGED"
+  }
 }

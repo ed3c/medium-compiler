@@ -1,0 +1,801 @@
+{
+  "result": {
+    "schema_version": "git-collaboration-recheck@1",
+    "executed_on": "2026-09-27",
+    "upstream_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+    "fork": "ed3c/ai-engineering-from-scratch",
+    "branch": "my-progress",
+    "reused_existing_fork_and_branch": true,
+    "previous_head": "960f0b5cc6094163135c2e5fc75cce2079070233",
+    "head": "3d9a80386b195fb7156b2aedc126a4e48a39390d",
+    "remote_head": "3d9a80386b195fb7156b2aedc126a4e48a39390d",
+    "fresh_clone_head": "3d9a80386b195fb7156b2aedc126a4e48a39390d",
+    "note_path": "learning-artifacts/git-collaboration/review.md",
+    "note_sha256": "cbab0079ef84c3d3e89bcd043ed235e8f9962c1e512316bfd6cfaeeace682bd2",
+    "fresh_clone_bytes_equal": true,
+    "local_identity": {
+      "name": "ed3c",
+      "email": "30064024+ed3c@users.noreply.github.com"
+    },
+    "ignored_extensions": [
+      ".pt",
+      ".pth",
+      ".safetensors"
+    ],
+    "ignored_add_refused": true,
+    "ignored_files_untracked": true,
+    "historical_snapshots_recovered": [
+      "snapshot=1",
+      "snapshot=2"
+    ],
+    "local_main_fast_forward": true,
+    "remote_main_unchanged": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+    "history_read": "62cdefbe feat(site): full curriculum figure coverage (503 lessons) + lang-picker CSS cachebust (#380)\ndda194f8 fix(quiz): correct answer is always in the same position (slot B) (#381)\nd1cb9d19 feat: book edition pipeline, fundamentals-first headlines, animated figures, verified bug fixes (#348)\n963b4d8e feat: add learning objectives + quizzes to all 96 lessons\ncb33330c Replace ASCII diagrams with Mermaid in Phase 0\n2b62eda3 Add lesson: git and collaboration (Phase 0)",
+    "tracked_ignore_control": {
+      "tracked_file_survives_ignore": true,
+      "untracked_file_ignored": true,
+      "cached_removal_preserves_working_file": true,
+      "scope": "separate local-only fixture, no remote push"
+    },
+    "scope": "agent-executed lesson practical work and reference reasoning; no learner grading or course-progress write"
+  },
+  "commands": [
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout": "git version 2.50.1 (Apple Git-155)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "ls-remote",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git",
+        "refs/heads/my-progress"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\trefs/heads/my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.563
+    },
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "ls-remote",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git",
+        "refs/heads/main"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\trefs/heads/main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.613
+    },
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "clone",
+        "--single-branch",
+        "--branch",
+        "my-progress",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git",
+        "RUN_ROOT/practice"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Cloning into 'RUN_ROOT/practice'...\n",
+      "expected_exit": 0,
+      "seconds": 7.81
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.019
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.name",
+        "ed3c"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.email",
+        "30064024+ed3c@users.noreply.github.com"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "--get",
+        "user.name"
+      ],
+      "exit": 0,
+      "stdout": "ed3c\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.014
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "--get",
+        "user.email"
+      ],
+      "exit": 0,
+      "stdout": "30064024+ed3c@users.noreply.github.com\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.014
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "check-ignore",
+        "-v",
+        "learning-artifacts/git-collaboration/recheck.pt",
+        "learning-artifacts/git-collaboration/recheck.pth",
+        "learning-artifacts/git-collaboration/recheck.safetensors"
+      ],
+      "exit": 0,
+      "stdout": "learning-artifacts/git-collaboration/.gitignore:1:*.pt\tlearning-artifacts/git-collaboration/recheck.pt\nlearning-artifacts/git-collaboration/.gitignore:2:*.pth\tlearning-artifacts/git-collaboration/recheck.pth\nlearning-artifacts/git-collaboration/.gitignore:3:*.safetensors\tlearning-artifacts/git-collaboration/recheck.safetensors\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "add",
+        "learning-artifacts/git-collaboration/recheck.pt"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "The following paths are ignored by one of your .gitignore files:\nlearning-artifacts/git-collaboration/recheck.pt\nhint: Use -f if you really want to add them.\nhint: Disable this message with \"git config set advice.addIgnoredFile false\"\n",
+      "expected_exit": 1,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "ls-files",
+        "learning-artifacts/git-collaboration/recheck.pt"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "ls-files",
+        "learning-artifacts/git-collaboration/recheck.pth"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "ls-files",
+        "learning-artifacts/git-collaboration/recheck.safetensors"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "exit": 0,
+      "stdout": "?? learning-artifacts/git-collaboration/review.md\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.236
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "add",
+        "learning-artifacts/git-collaboration/review.md"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.145
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "exit": 0,
+      "stdout": "learning-artifacts/git-collaboration/review.md\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.017
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "diff",
+        "--cached"
+      ],
+      "exit": 0,
+      "stdout": "diff --git a/learning-artifacts/git-collaboration/review.md b/learning-artifacts/git-collaboration/review.md\nnew file mode 100644\nindex 00000000..2516ae28\n--- /dev/null\n+++ b/learning-artifacts/git-collaboration/review.md\n@@ -0,0 +1,12 @@\n+# Git practice: recovering the result\n+\n+This agent-executed exercise records the reasoning behind the original Git lesson; it is not a learner quiz score.\n+\n+- Version control keeps inspectable history; it does not fix program bugs automatically.\n+- A repository records committed files and history. Untracked and ignored files are not in the committed snapshot.\n+- Add selects content, commit records it locally, and push transfers reachable commits and updates the remote branch.\n+- A branch is a movable reference. The prior main commit remains unchanged until an explicit merge or ref update.\n+- Model checkpoint patterns apply to untracked files. Adding an ignore pattern does not untrack an existing file.\n+\n+Verification: push this note to my-progress, clone that remote branch into a fresh directory, and compare both the commit SHA and this file.\n+A separate main-only clone is used for a local fast-forward merge; remote main is not pushed.\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.017
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "feat(phase-00/02): explain and recover Git practice",
+        "-m",
+        "Retain the reasoning for staging, branches and ignored files, then verify the committed note can be recovered from the remote fork."
+      ],
+      "exit": 0,
+      "stdout": "[my-progress 3d9a8038] feat(phase-00/02): explain and recover Git practice\n 1 file changed, 12 insertions(+)\n create mode 100644 learning-artifacts/git-collaboration/review.md\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.034
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "3d9a80386b195fb7156b2aedc126a4e48a39390d\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.102
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/my-progress"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\trefs/heads/my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.556
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "push",
+        "origin",
+        "my-progress"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "To github.com:ed3c/ai-engineering-from-scratch.git\n   960f0b5c..3d9a8038  my-progress -> my-progress\n",
+      "expected_exit": 0,
+      "seconds": 3.211
+    },
+    {
+      "cwd": "RUN_ROOT/practice",
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/my-progress"
+      ],
+      "exit": 0,
+      "stdout": "3d9a80386b195fb7156b2aedc126a4e48a39390d\trefs/heads/my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.642
+    },
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "clone",
+        "--single-branch",
+        "--branch",
+        "my-progress",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git",
+        "RUN_ROOT/recovery"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Cloning into 'RUN_ROOT/recovery'...\n",
+      "expected_exit": 0,
+      "seconds": 8.37
+    },
+    {
+      "cwd": "RUN_ROOT/recovery",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "3d9a80386b195fb7156b2aedc126a4e48a39390d\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/recovery",
+      "argv": [
+        "git",
+        "show",
+        "4e5a5abc0abe9ba857e5be58958c34b20135b345:learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "snapshot=1\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/recovery",
+      "argv": [
+        "git",
+        "show",
+        "960f0b5cc6094163135c2e5fc75cce2079070233:learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "snapshot=2\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT",
+      "argv": [
+        "git",
+        "clone",
+        "--single-branch",
+        "--branch",
+        "main",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git",
+        "RUN_ROOT/main-check"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Cloning into 'RUN_ROOT/main-check'...\n",
+      "expected_exit": 0,
+      "seconds": 8.062
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "fetch",
+        "RUN_ROOT/recovery",
+        "my-progress"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "From RUN_ROOT/recovery\n * branch              my-progress -> FETCH_HEAD\n",
+      "expected_exit": 0,
+      "seconds": 0.066
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "merge",
+        "--ff-only",
+        "FETCH_HEAD"
+      ],
+      "exit": 0,
+      "stdout": "Updating 968da079..3d9a8038\nFast-forward\n learning-artifacts/git-collaboration/.gitignore   |  3 +++\n learning-artifacts/git-collaboration/practice.txt |  1 +\n learning-artifacts/git-collaboration/review.md    | 12 ++++++++++++\n 3 files changed, 16 insertions(+)\n create mode 100644 learning-artifacts/git-collaboration/.gitignore\n create mode 100644 learning-artifacts/git-collaboration/practice.txt\n create mode 100644 learning-artifacts/git-collaboration/review.md\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.077
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "3d9a80386b195fb7156b2aedc126a4e48a39390d\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/main-check",
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\trefs/heads/main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.551
+    },
+    {
+      "cwd": "RUN_ROOT/recovery",
+      "argv": [
+        "git",
+        "log",
+        "--oneline",
+        "--",
+        "phases/00-setup-and-tooling/02-git-and-collaboration"
+      ],
+      "exit": 0,
+      "stdout": "62cdefbe feat(site): full curriculum figure coverage (503 lessons) + lang-picker CSS cachebust (#380)\ndda194f8 fix(quiz): correct answer is always in the same position (slot B) (#381)\nd1cb9d19 feat: book edition pipeline, fundamentals-first headlines, animated figures, verified bug fixes (#348)\n963b4d8e feat: add learning objectives + quizzes to all 96 lessons\ncb33330c Replace ASCII diagrams with Mermaid in Phase 0\n2b62eda3 Add lesson: git and collaboration (Phase 0)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.029
+    },
+    {
+      "cwd": "RUN_ROOT/recovery",
+      "argv": [
+        "git",
+        "show",
+        "d1cb9d1933f121140694fd55873110ff7602e463",
+        "--",
+        "phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md"
+      ],
+      "exit": 0,
+      "stdout": "commit d1cb9d1933f121140694fd55873110ff7602e463\nAuthor: Rohit Ghumare <48523873+rohitg00@users.noreply.github.com>\nDate:   Sat Jul 25 20:24:56 2026 +0100\n\n    feat: book edition pipeline, fundamentals-first headlines, animated figures, verified bug fixes (#348)\n    \n    Book pipeline: six-volume EPUB/PDF compilation built by CI from lesson\n    sources (book/, scripts/build_book.py, themed title pages with edition\n    stamps, site-matching print theme), attached to every GitHub release.\n    Homepage Books section and README section link the latest release.\n    \n    Fundamentals-first headline policy across the course: 16 lesson titles\n    and 30+ taglines/section headings now lead with the concept (agent\n    state machines, actor model, role-based teams, memory paging, serving\n    engine internals, permission modes); framework and product names are\n    demoted to attributed in-body examples. README, ROADMAP, quizzes, and\n    prerequisite references synced. New agent-memory taxonomy section maps\n    memory types to representative implementations.\n    \n    Vendor-neutral model policy: runnable defaults read the LLM_MODEL env\n    var with undated aliases; dated snapshot ids removed; multi-provider\n    phrasing in the setup lesson.\n    \n    Lessons deepened with original material: prediction-game origins of\n    perplexity (05/16), scripted-era chatbot lineage 1950-2001 (05/17),\n    causal-triangle derivation from prefix averaging plus GPT-5 date fix\n    (07/07). Three new animated site figures back them (figures-history.js).\n    \n    llms.txt now carries per-lesson raw markdown links so agents can fetch\n    full lesson text directly.\n    \n    Bug fixes verified with executed repros: capstone solved flag keyed to\n    test results, 405B cost estimator overflow, f-string crash on\n    Python <3.12, no-torch demo path, negative stable BCE, all-zero\n    stationary distribution, inverted Cohens d, per-lesson quiz panel,\n    lesson-fetch retry with honest errors, decision-trees doc completed,\n    editor shortcuts, rustc run command, Docker python3.12 build with doc\n    sync, git lesson fork flow, FIPA receiver field, fnm under Rosetta,\n    15 curl-verified link fixes, remaining imdb dataset id spot.\n\ndiff --git a/phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md b/phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md\nindex 31201d84..92abdff0 100644\n--- a/phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md\n+++ b/phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md\n@@ -71,8 +71,10 @@ git merge experiment/new-optimizer\n \n ### Step 4: Working with this course repo\n \n+You can't push to the course repo itself — only maintainers have write access. Fork it on GitHub first (the Fork button, top right) so `origin` points at your own copy:\n+\n ```bash\n-git clone https://github.com/rohitg00/ai-engineering-from-scratch.git\n+git clone https://github.com/YOUR-USERNAME/ai-engineering-from-scratch.git\n cd ai-engineering-from-scratch\n \n git checkout -b my-progress\n@@ -96,7 +98,7 @@ That's it. You don't need rebase, cherry-pick, or submodules for this course.\n \n ## Exercises\n \n-1. Clone this repo, create a branch called `my-progress`, make a file, commit it, push it\n+1. Fork this repo, clone your fork, create a branch called `my-progress`, make a file, commit it, push it\n 2. Create a `.gitignore` that excludes model checkpoint files (`.pt`, `.pth`, `.safetensors`)\n 3. Look at the commit history of this repo with `git log --oneline` and read how lessons were added\n \n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "init",
+        "--initial-branch",
+        "main"
+      ],
+      "exit": 0,
+      "stdout": "Initialized empty Git repository in RUN_ROOT/tracked-control/.git/\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.023
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.name",
+        "ed3c"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.email",
+        "30064024+ed3c@users.noreply.github.com"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "add",
+        "already-tracked.pt"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "test: retain a tiny tracked-file control"
+      ],
+      "exit": 0,
+      "stdout": "[main (root-commit) e8aa0c4] test: retain a tiny tracked-file control\n 1 file changed, 1 insertion(+)\n create mode 100644 already-tracked.pt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.024
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "ls-files",
+        "already-tracked.pt"
+      ],
+      "exit": 0,
+      "stdout": "already-tracked.pt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "check-ignore",
+        "-v",
+        "already-tracked.pt"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 1,
+      "seconds": 0.014
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "check-ignore",
+        "-v",
+        "untracked.pt"
+      ],
+      "exit": 0,
+      "stdout": ".gitignore:1:*.pt\tuntracked.pt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.014
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "rm",
+        "--cached",
+        "already-tracked.pt"
+      ],
+      "exit": 0,
+      "stdout": "rm 'already-tracked.pt'\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "ls-files",
+        "already-tracked.pt"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.014
+    },
+    {
+      "cwd": "RUN_ROOT/tracked-control",
+      "argv": [
+        "git",
+        "check-ignore",
+        "-v",
+        "already-tracked.pt"
+      ],
+      "exit": 0,
+      "stdout": ".gitignore:1:*.pt\talready-tracked.pt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.014
+    }
+  ],
+  "chapter_audit": [
+    {
+      "original": "Learning Objectives",
+      "coverage": "Identity, add/commit/push, independent main fast-forward, ignore rules, log/show verified",
+      "article": "學習目標 / Build It / Exercises / 補充實作"
+    },
+    {
+      "original": "The Problem",
+      "coverage": "working save vs commit vs remote backup explained and fresh-clone tested",
+      "article": "問題：存檔、提交與備份是三個動作"
+    },
+    {
+      "original": "The Concept",
+      "coverage": "working directory, index, commit, remote explained; historical two snapshots recovered",
+      "article": "概念：一份內容經過四個位置"
+    },
+    {
+      "original": "Build It steps 1-4",
+      "coverage": "local identity; new note add/commit/push; independent checkout fast-forward; existing own fork/branch reused",
+      "article": "建立它 / 補充實作"
+    },
+    {
+      "original": "Use It",
+      "coverage": "clone/add/commit/push/log actually run; shared checkout branch switching deliberately replaced with clone-selected branches",
+      "article": "用它"
+    },
+    {
+      "original": "Exercises 1-3",
+      "coverage": "original fork/branch creation retained as earlier evidence; new clone/commit/push/recovery, 3 ignore patterns and lesson history freshly run",
+      "article": "練習 / 複驗"
+    },
+    {
+      "original": "Key Terms",
+      "coverage": "commit, branch, merge and remote explained using actual state changes",
+      "article": "關鍵術語"
+    },
+    {
+      "original": "quiz.json (5 actual questions)",
+      "coverage": "reference answers and reasoning supplied; no learner responses or grading",
+      "article": "原課概念題"
+    }
+  ],
+  "reference_answer_review": {
+    "question_count": 5,
+    "source_quiz_blob": "517c438da107e05452a745dda38967c6aa26109f",
+    "source_answers_zero_based": [
+      2,
+      1,
+      2,
+      0,
+      0
+    ],
+    "grade": "NOT_A_LEARNER_ASSESSMENT",
+    "caveats": [
+      "Tracked vs untracked distinction retained",
+      "Checkpoint option paraphrased as often large, not Git binary incapability"
+    ]
+  }
+}
