@@ -1,7 +1,7 @@
 {
   "schema_version": "medium-ops-experiment-snapshot@1",
   "provider": "ed3c/ops-reconciliation-copilot",
-  "provider_revision": "d02f141d7f85864725b8698f3ddf6d295e6e081e",
+  "provider_revision": "b31e3c52360946a018f44e326e1218324177043a",
   "catalog_git_blob": "73e919baab4141a859aff70e9b1a3a88700e91ed",
   "captured_for": "ed3c/medium-compiler#10",
   "principle": "Curriculum selects what capability to study; Ops physical truth decides EXPERIMENT or NO_CHANGE; product promotion is a separate decision.",
