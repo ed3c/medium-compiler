@@ -4,6 +4,14 @@
 
 這次已實際建立 fork、clone、建立分支、提交、推送、驗證忽略規則與讀取歷史。文章直接說明每個動作的原因與結果；不另加等待讀者作答的題目，也不把代理操作紀錄登記成學員測驗成績。
 
+## 2026 年 9 月 27 日複驗：原課要求已逐項核對
+
+本次重新讀完原課的學習目標、問題、概念、Build It 四步、Use It、三道 Exercises 與實際五題題庫。課文版本仍是原先的 `968da079`。沿用已建立的 fork 與 my-progress，重新 clone、加入一份解釋操作原因的筆記、提交並推送，再從 GitHub 建立全新副本取回檔案。原課沒有要求 Colab，也沒有獨立的 Ship It 章節；這一課可以直接在本機完成。
+
+下文保留的 `4e5a5abc`、`960f0b5c` 是第一次實作的兩個提交；本次在它們之上新增 [Git 操作筆記](https://github.com/ed3c/ai-engineering-from-scratch/blob/3d9a80386b195fb7156b2aedc126a4e48a39390d/learning-artifacts/git-collaboration/review.md)，提交為 `3d9a80386b195fb7156b2aedc126a4e48a39390d`。舊紀錄描述第一次操作，本節及新增的複驗章節描述這次操作。
+
+三道實作要求都有可核對的成果：自己的 fork／my-progress 已保存並取回新筆記；三種 checkpoint 副檔名仍受忽略，明確 add 被拒絕；再次讀取 log 與課文 diff，確認先 fork 再 clone 的修正原因。這表示原課指定的操作已執行，不表示讀者已通過個人測驗。原課五題的答案與推理也直接列在後面，方便對照觀念。
+
 ## 本課行動：保存一次可核對的變更
 
 原課沒有要求開發模型或部署服務。這次用一個只有一行文字的檔案，追蹤它從磁碟、暫存區、commit 到 GitHub 的變化。選擇這麼小的例子，是為了看清楚 Git 保存的究竟是哪一份內容，避免套件或模型錯誤掩蓋版本控制本身。
@@ -122,6 +130,25 @@ git push -u origin my-progress
 
 本次文件與 Git 操作直接在本機完成，不需要 Colab。GitHub 是保存遠端 repository 的位置；Colab 是執行程式的環境，兩者處理不同問題。把 Git 練習搬到臨時 runtime，反而還得處理檔案持久性與另一份登入。
 
+## 補充實作：推送後，能否從 GitHub 取回同一份成果？
+
+原課練習要求推送到自己的 fork。要把「遠端有這個分支」和「這份成果真的能取回」連起來，可以多做一次全新 clone。本次在 my-progress 新增 `learning-artifacts/git-collaboration/review.md`，只把這個檔案放進暫存區；檢查差異後提交，再推送。
+
+推送前，遠端分支仍是 `960f0b5c`；推送後，本機 HEAD 與 GitHub 分支都變成 `3d9a80386b195fb7156b2aedc126a4e48a39390d`。接著建立新的 recovery 目錄，不借用原工作目錄裡尚未提交的內容：
+
+```bash
+git clone --single-branch --branch my-progress \
+  git@github.com:ed3c/ai-engineering-from-scratch.git recovery
+git -C recovery rev-parse HEAD
+git -C recovery show HEAD:learning-artifacts/git-collaboration/review.md
+```
+
+這組命令需要新的 recovery 目錄與可用的 GitHub SSH 連線；其他讀者應換成自己的 fork。本次全新副本的 HEAD 相同，筆記內容也逐位元組相同。舊的 `snapshot=1` 與 `snapshot=2` 仍可從各自 commit 讀出。這說明 push 後可取回已提交內容與歷史，卻不表示原目錄裡未追蹤的檔案、忽略的模型、套件環境也跟著備份。
+
+合併也另外重做：新建一個從遠端 main 開始的獨立副本，先確認它仍在 `968da079`，再 fetch 練習副本的 my-progress，執行 `git merge --ff-only FETCH_HEAD`。本機 main 前進到新筆記的 commit；再次讀取 GitHub main，仍是原課版本。fetch 取得物件與引用資訊，merge 才整合到目前分支；兩者都不會替你把 main 推到 GitHub。[Git fetch 官方說明](https://git-scm.com/docs/git-fetch)
+
+這次只驗證原課所需的基本分支與 fast-forward 路徑。沒有兩人同改一行的情境，因此不能把無衝突合併的結果當作衝突處理已驗收。
+
 ## 練習（Exercises）：原課三題的操作與答案
 
 ### 練習 1：fork、clone、建立 my-progress、提交並推送
@@ -158,6 +185,39 @@ git show d1cb9d19 -- phases/00-setup-and-tooling/02-git-and-collaboration/docs/e
 歷史顯示 `2b62eda3` 最初加入 Git 課，`963b4d8e` 後來補上學習目標與測驗。更有用的是[這次課文修正](https://github.com/rohitg00/ai-engineering-from-scratch/commit/d1cb9d1933f121140694fd55873110ff7602e463)：原範例直接 clone 作者的 repository，後來改成先 fork，再 clone 自己的副本，第一道練習也同步補上 fork。
 
 原因可以從實際 diff 讀出：一般學員沒有上游寫入權限，所以「可以 clone」不能推導成「可以 push」。讀 log 找到變更，再用 show 看修改內容，才把歷史轉成現在可用的判斷。
+
+## 補充實作：為什麼加了忽略規則，檔案仍被 Git 追蹤？
+
+規則寫對，不代表它能回頭取消既有追蹤。本次另建一個只在本機存在的小型 repository：先提交文字占位檔 `already-tracked.pt`，再寫入 `*.pt`，同時建立尚未追蹤的 `untracked.pt`。兩個檔案都很小，不是模型。
+
+結果是：`git ls-files already-tracked.pt` 仍列出已追蹤檔；`git check-ignore -v untracked.pt` 則指出新檔命中了忽略規則。因此看到被追蹤的權重檔時，先查它是否早已進入 index，不要只反覆修改副檔名規則。
+
+如果確定某檔案今後應留在磁碟、退出版本追蹤，可以針對該檔案執行：
+
+```bash
+git rm --cached already-tracked.pt
+git diff --cached
+```
+
+本次實測後，工作檔仍在，index 不再列出它，忽略規則開始生效。`--cached` 的作用是從 index 移除；若要把這個停止追蹤的決定保存成專案歷史，還需要檢查 staged diff 並提交。這次只是本機控制，沒有推送占位檔或修改原課。[Git rm 官方說明](https://git-scm.com/docs/git-rm)
+
+這個操作不會抹去過去 commit 裡的檔案，也不會立即縮小既有歷史。對模型檔，最好在第一次 add 前設定規則，另外保存權重的取得方式與版本；別把忽略規則當成歷史清除工具。
+
+## 原課概念題：直接回答並解釋理由
+
+以下對照這一課實際的[五題題庫](https://github.com/rohitg00/ai-engineering-from-scratch/blob/968da0791b83917c9d8a5ba197ff190fa0b24093/phases/00-setup-and-tooling/02-git-and-collaboration/quiz.json)，提供參考答案，不要求讀者先作答才繼續文章。
+
+**版本控制解決什麼？** 保存可檢查的變更歷史，讓人能比較版本、回到已保存的狀態並協作。它不會自動修好程式，也不會讓程式算得更快。本次能分別取回1與2，就是保存不同版本的具體結果。
+
+**Repository 包含什麼？** 它管理提交的檔案快照、歷史及相關物件；搭配工作目錄供人編輯。不要把課文的概括描述理解成磁碟上所有檔案都已備份：剛建立但未 add 的筆記、被忽略的模型，都不在已提交的快照中。
+
+**保存與備份的順序為何？** 先 add 選定內容，再 commit 保存本機版本，最後 push 到遠端。若 add 之後又改檔案，就要重新核對暫存區；若只 commit 沒 push，另一台機器不能從 GitHub 取到新版本。
+
+**建立並切換實驗分支做了什麼？** 原課的 `git checkout -b experiment/new-optimizer` 在目前 commit 建立新分支並切換到它；main 不會因此自行前進。這次為保留共享工作目錄的分支，從 clone 起就指定工作分支，功能目標相同，但不是實際執行過那條切換命令。
+
+**為何排除 checkpoint 副檔名？** 這些格式常承載大型模型權重，反覆放入一般 Git 歷史會增加保存與傳輸負擔。原課題庫要辨認的是這個儲存選擇，不是「Git 不支援二進位」，也不是每個該副檔名都必然巨大。需要另外保存取得位置與版本，才不會只保住程式，卻無法重現所用模型。
+
+三道原課實作及以上概念說明，都可以回到[本次複驗紀錄](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/git-collaboration-recheck.json)核對。它記錄代理執行的命令、回傳與限定範圍，沒有替任何人登記測驗分數或學習進度。
 
 ## 關鍵術語：用本次操作理解它們
 
