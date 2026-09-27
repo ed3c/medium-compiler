@@ -157,9 +157,11 @@ python phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beg
 
 這三份程式沒有完全相同的門檻：Rust／TypeScript 版仍標示 Python 3.10，而課文與 Python 版要求 3.11+。本次使用 3.12.4，同時滿足較嚴格條件；文章保留這個來源差異，不以較寬鬆的 PASS 取代課文目標。
 
-## 替代實作與等效驗證：哪些結果可以相同
+## 替代實作：何時使用 Colab、如何檢查搬移結果
 
-本章是原課之外的實作補充。替代方法必須先說明替代哪個目標，再拿相同輸入與判準比較，不能只因為兩邊都有成功訊息就稱為等效。
+本章補充原課以外的操作選擇。這台 Mac 已能完成第一課，現在可以直接使用本機課程環境；Colab 不是開始本課的必要條件。若後續練習需要本機無法提供的運算資源，再考慮搬到 Colab。若只是呼叫雲端模型 API，應用程式仍可在本機執行，不必多加一層 Colab。
+
+搬移時真正要確認的是：同一個練習換了執行位置，是否仍符合原本的預期結果。以下先用已知答案的小程式檢查這件事，讓後續遇到差異時有一個可定位的起點。本次兩邊使用不同套件版本與裝置，因此只比較明列的計算；這項檢查不會替你選定未來的模型，也不會讓 Colab CPU 變成 GPU。
 
 本機 Python 沿用 Homebrew 提供的 3.12.4，Node 沿用 nvm 的 22.17.1，Juliaup 由 Homebrew 安裝。它們與原課示例的安裝方法不同；版本條件、環境隔離、程式執行和輸出仍接受相同檢查。這次沒有因硬體限制而無法安裝或執行 Python。
 
@@ -279,13 +281,15 @@ colab sessions
 
 ## 交付它（Ship It）：留下可重用的成果
 
-原課交付的是環境診斷能力，不是部署一個 LLM 服務。官方 `outputs/prompt-env-check.md` 也先要求辨識失敗所在的層，再給具體修正方法。這次 pnpm 問題就是實例：指令存在，但啟動它的 Node 太舊；修正 PATH 後還要執行 TypeScript 才收尾。
+原課在 Ship It 明確列出的成果，是一支其他人也能執行、用來檢查自身環境的驗證腳本。前面已示範原課 Python preflight 的執行方式；重用時，對方應看到自己當下的檢查結果與修正指引。官方 `outputs/prompt-env-check.md` 也先要求辨識失敗所在的層，再給具體修正方法。這次 pnpm 問題就是實例：指令存在，但啟動它的 Node 太舊；修正 PATH 後還要執行 TypeScript 才收尾。
 
 本次成果保存在 `~/ai-engineering-learning/`：啟用腳本、獨立 Python 環境、四語言 Hello World、MPS 測試、共同計算程式、版本鎖定紀錄，以及含 stdout／stderr／結束碼的驗收紀錄。來源快照的版本與檔案雜湊也一併保留。
 
 公開文章另附[實作檔案](https://github.com/ed3c/medium-compiler/tree/main/examples/dev-environment)與[本機／Colab 驗收摘要](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/dev-environment-local.json)。程式與測試結果可以交付，登入憑證與 runtime token 不屬於學習成果。
 
 ## 練習（Exercises）
+
+本節保留原課的三道實作要求，直接列出本次操作與結果。Colab 搬移比對屬於前一章的補充實驗，不增加原課的通過門檻。
 
 ### 練習 1：執行驗證程式並修正失敗
 
@@ -299,22 +303,15 @@ colab sessions
 
 Python、TypeScript、Rust、Julia 的檔案都已建立並執行。Rust 經過編譯才執行，TypeScript 透過課程內的 tsx 執行；結果都留下來。Julia 原先是可選安裝項目，但這一道題目要四種語言，因此這次也完成它。
 
-### 理論練習與參考推理
+## 接下來如何使用這套環境
 
-1. 為什麼 `command -v pnpm` 有結果，執行 pnpm 還是可能失敗？請說明 PATH、Node.js 與套件管理器的關係。
-2. 為什麼 Mac 上 CUDA 是 False、MPS 是 True 可以是正確狀態？什麼證據才能說本次運算確實使用 MPS？
-3. 本機和 Colab 都算出 14，能否據此說兩套環境完全等效？請指出還沒驗證的範圍，以及應另外保存的檔案。
-4. `--route beginner` 顯示 2/2，為什麼還不能宣稱四語言練習都完成？
+這台 Mac 的本課環境與三道實作已經完成驗證，現在可以啟用課程環境，繼續所選路線。新增終端機時仍要先啟用；否則可能又選到不相容的 Node。檢查工具時，`command -v pnpm` 只表示檔案存在，還要實際執行它及 TypeScript 練習，才能確認目前這個 shell 的版本搭配可用。
 
-參考推理一：PATH 先決定啟動哪一個 Node，pnpm 再檢查該版本是否符合自己的需求；存在 pnpm 檔案不代表這組搭配可執行。
+遇到 preflight 結果時，先看它檢查了什麼，再決定是否需要處理。原課 Python 程式的 `--route beginner` 只要求 Python 3.11+ 與 Git，甚至沒有檢查 pnpm；2/2 因此不會發現本次 Node／pnpm 的版本衝突。必要項目失敗就先修正，可選或後續課程才需要的項目則可延後。本課三道 Exercises 已另外實跑，不需要為可選的 Deno 多做安裝，也不必把所有後續工具裝完才開始下一課。
 
-參考推理二：CUDA 與 MPS 是不同的 GPU 後端。Mac 應檢查 MPS，再把張量移到裝置、執行並等待完成，最後比對結果；單純 import torch 或顯示裝置可用都不足以證明這次運算用了 GPU。
+Colab 比對是為日後搬移練習準備的補充實驗。本次指定計算在兩邊都符合已知答案，因此搬移這份練習時有一組可以重跑的檢查。它不增加本課門檻；現在沒有需要因此離開已可用的本機環境。等實際工作負載需要不同資源，再選雲端並驗證那份工作負載。若只有雲端模型 API 呼叫，本機仍可負責應用程式。
 
-參考推理三：14 只是一個範例的結果。還應比較其他輸入、矩陣結果、錯誤情況與程式版本；效能、可用記憶體、完整工具鏈和 runtime 檔案持久性不在這次相等的主張中。Notebook 與輸出 JSON 都要保存。
-
-參考推理四：beginner 的兩項是 Python 與 Git，沒有執行四種語言的 Hello World。必須另跑那些程式，再以輸出與結束碼驗收。
-
-以上是文章提供的參考答案，不是學員本人作答。本文提供了工程檢查的實作結果與解釋，但尚未收到學員自己的回答，也未代做原網站測驗。所以「本課環境與練習由代理實作驗證」和「學員已掌握並完成本課」仍是兩個不同狀態。
+文章已直接提供操作原因、結果與下一步，沒有等待學員先回答的附加題。原網站的測驗與學習進度仍未代填；自動執行紀錄也不作為學員理解程度的測量。
 
 準備好後，沿所選 Software Engineering Fundamentals 的 13 課順序前進，[下一課是 Git & Collaboration](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/02-git-and-collaboration&learningPath=software-engineering-fundamentals)。Python preflight 輸出的 Beginner 數學課入口屬於另一條路線，不能因工具提示而悄悄替換你選的課程順序。
 
