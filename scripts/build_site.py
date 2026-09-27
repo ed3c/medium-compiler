@@ -14,8 +14,8 @@ ARTICLES=[
     },
     {
         "slug": "application-engineering-colab",
-        "title": "開發環境設定：本機、Colab CLI 與 Python 練習",
-        "description": "記錄硬體判讀、CLI 安裝授權與雲端實跑，保存第一份可重跑的 Python 練習。",
+        "title": "開發環境設定：逐章理解、本機實作與 Colab 操作紀錄",
+        "description": "依原課逐章回答理論與實務，驗證四語言、MPS 與本機／Colab 的指定計算結果。",
         "source": "articles/application-engineering-colab.md",
         "notebook": "notebooks/application-engineering-colab.ipynb"
     }
@@ -115,7 +115,7 @@ def build(out:Path)->dict:
     (out/'experiments').mkdir();(out/'experiments/index.html').write_text(page('Experiments · AI Engineer Lab',f'''<section class="page-head"><div class="eyebrow">Ops Reconciliation Copilot</div><h1>Experiment Templates</h1><p>這些卡片來自 Ops provider snapshot <code>{snapshot['provider_revision'][:12]}</code>。範本只定義實驗邊界，不代表實驗已執行，也不授權 production promotion。</p></section>{cards(snapshot)}''','experiments'),encoding='utf-8')
     learn_body=f'''<section class="page-head"><div class="eyebrow">AI Engineering from Scratch</div><h1>Learning Progress</h1><p>目前狀態：<strong>{state['status']}</strong></p></section><section class="panel"><h2>Source of truth</h2><p><code>LEARNING.md</code> 由 upstream <code>start-learning</code> / <code>learn</code> skills 管理。medium-compiler 不自行猜 placement，也不把文章進度當課程進度。</p><pre><code>Use start-learning to begin the course.
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
-    learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>先判斷本機與雲端的用途，再跟著操作紀錄完成 Python 練習；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟 Colab 開發環境指南 →</a></section>'
+    learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')

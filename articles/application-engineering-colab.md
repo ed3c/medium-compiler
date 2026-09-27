@@ -1,106 +1,218 @@
-# 開發環境設定：從本機判讀到 Colab CLI 與第一份 Python 練習
+# 開發環境設定：逐章理解、本機實作與 Colab 操作紀錄
 
-想走完整的 Application Engineering 路線，可以把 [AI Engineering from Scratch](https://aiengineeringfromscratch.com/) 當作課程骨架。首頁在 2026-09-27 標示 **20 個 phases、523 lessons**，描述的學習循環是從問題走向數學、程式、測試與可保留的成果。這是整份課程的規模，不是入門者必須先上完的課數，也不是本文逐課驗證過的完成保證。
+這篇文章依 [Dev Environment 原課](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/01-dev-environment&learningPath=software-engineering-fundamentals) 的章節，回答每一步為什麼存在、如何操作，以及這次實際驗證了什麼。原網站的 Ship It 應理解為「交付成果」，Exercises 是「練習」，不是運送或運動。
 
-你指定的 [Dev Environment 第一課](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/01-dev-environment&learningPath=software-engineering-fundamentals) 位於 **Software Engineering Fundamentals** 路線。它先處理開發環境，後面才接 Git、除錯、介面、驗證與發佈。若目標是能做出 AI 應用，這些基礎可以與網站另列的 [Building and Deploying AI Applications](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/01-prompt-engineering&learningPath=building-and-deploying-ai-applications) 路線接起來；兩個名稱代表不同的課程選擇。
+核對日期為 2026-09-27。[AI Engineering from Scratch](https://aiengineeringfromscratch.com/) 首頁標示 20 個 phases、523 lessons；目前選的是 Software Engineering Fundamentals 路線。課程規模不等於本次已安裝所有後續依賴。本篇處理第一課，並保留從 Colab 起步、再回頭完成本機環境的操作歷程。
 
-第一個成果很小：打開 Colab，執行一段 Python，讓測試確認結果，然後把程式與結果帶走。暫時不需要模型 API、資料庫或 GPU。
+## Act on this lesson：把閱讀變成證據
 
-## 先分清 Notebook 和 runtime
+**理論。** 原頁提供閱讀、構建、運行、驗證、繼續五個自行勾選的檢查點，並把測驗結果分開顯示。這個設計提醒我們：看懂指令、建立檔案、成功執行、保存證據，是不同的動作。
 
-Notebook 是保存說明、程式格與輸出的文件；runtime 是執行程式的環境。按下執行後，Python 定義的變數留在該次程序記憶體中。光是把程式碼寫在格子裡，還沒有定義變數。
+**實務。** 這次以三份成果回應：可使用的本機課程環境、真正執行過的程式，以及保存下來的檢查結果。原頁行動區還提供 Rust 驗證程式的編譯與執行指令，因此除了 Python preflight，也要實際編譯它。學員自評與測驗仍由學員完成；本文不替你勾選「已完成」。
 
-這個區別決定了操作方式：一份可重跑的練習，應讓後面的格子只依賴前面明確執行過的格子。不要依賴昨天留在記憶體裡、今天已刪掉的設定。
+## 學習目標
 
-[Google Colab 官方 FAQ](https://research.google.com/colaboratory/faq.html) 說明，Notebook 可以保存在 Drive 或從 GitHub 開啟；執行用的虛擬機有生命週期限制。保存 Notebook 不等於保存 runtime 的全部檔案。本篇因此保留兩個東西：可重跑的 `.ipynb` 與執行後另外下載的 `environment-check.json`。
+第一個目標是能使用 Python、Node.js 與 Rust，而非只看到安裝器成功。對應證據應包含執行檔位置、版本，以及能編譯或執行的小程式。
 
-## 一筆輸入怎麼變成可檢查的成果
+第二個目標是隔離依賴。Python 虛擬環境讓這門課的 PyTorch 與 Jupyter 不必與其他專案共用；依賴版本紀錄則讓別人知道這次成功使用了哪些組合。
 
-練習使用平方和：把 `[1, 2, 3]` 的每個值平方，再加總。手算是 1 × 1 + 2 × 2 + 3 × 3 = 14。選這個小例子，是為了把「程式是否正確」和「環境是否可用」先分開；不用網路模型回應當判準。
+第三個目標是確認運算裝置。GPU 被偵測到只是開始，還要把張量放到裝置上執行，再與 CPU 的預期值比對。這次針對 M1 Pro 使用 MPS；CUDA 不適用於這台 Mac。
 
-```text
-Notebook 中的程式格
-    ↓ 按執行，交給目前 Python runtime
-values = [1, 2, 3]
-    ↓ sum_of_squares(values)
-產生 1、4、9，逐項累加
-    ↓
-result = 14
-    ↓ 三個 assert 都成立
-environment-check.json
-    ↓ 另外下載保存
-可讀取的本次測試紀錄
-```
+第四個目標是能沿著系統、套件管理器、語言執行環境、AI 函式庫四層排錯。本文會用真正發生的 Python 選錯版本與 Node／pnpm 衝突說明，而非假設電腦壞了就全部重裝。
 
-`print(14)` 只會顯示一個值，無法證明函式曾計算。`assert sum_of_squares([1, 2, 3]) == 14` 才會實際呼叫函式並檢查條件；不成立時，Python 會以 `AssertionError` 中止該格。再加上空輸入與含負數的測試，可以檢查目前定義的邊界。
+## 問題
 
-執行順序也是輸入條件。若先跑測試格而沒有跑函式定義，會得到 `NameError`。這時應回到前面的格子，從上往下重跑；不必先重裝套件。
+最容易混淆的是「安裝過」和「現在這個程序能用」。同一台電腦可以有多個 Python、Node.js 與套件目錄；終端機按 PATH 順序找到的版本，不一定是你以為的那一個。
 
-本文附的 Notebook 結構如下。最後的 JSON 由第四格執行後產生，不是事先放好的成功報告。
+第一次安裝 Colab CLI 時，雖然系統有 Python 3.14.6，uv 卻選到 3.11.11，而當前 CLI 需要 Python 3.12+。後來檢查 pnpm，指令確實存在，卻由 Node.js 22.11.0 啟動；pnpm 11.7.0 要求至少 22.13，因而拒絕執行。這兩個問題都與 LLM 大小或 GPU 容量無關。
+
+修正方式是讓「工具、執行它的 runtime、安裝依賴的位置」一致，並用原本失敗的命令重新確認。單看另一個終端機曾顯示成功，不能代替目前環境的驗證。
+
+## 概念
+
+**系統層**提供作業系統、shell、Git、編輯器與編譯工具。**套件管理層**負責取得、選擇和記錄依賴，例如 uv、pnpm、cargo、juliaup。**runtime 層**是真正執行程式的 Python、Node.js、Rust 產物與 Julia。**函式庫層**才是 NumPy、PyTorch 等被程式匯入的功能。
+
+這是排錯模型，不是四個永不重疊的盒子。例如 uv 同時能管理 Python 版本與 Python 套件；cargo 也負責建置。實務上要問的是「哪個程序用了哪個路徑，以及失敗發生在哪一步」。
 
 ```text
-application-engineering-colab.ipynb
-├─ 1. Python 版本與執行位置
-├─ 2. sum_of_squares 與範例輸入
-├─ 3. 正常、空集合、負數測試
-└─ 4. 寫出 environment-check.json
+輸入：原始碼 + 明確的 runtime + 該環境的依賴
+  → shell 根據 PATH 找到工具
+  → runtime 匯入套件或編譯程式
+  → CPU / MPS / 遠端 Colab 執行
+  → assert 比對預期結果
+  → 保存 stdout、結束碼與結果檔
 ```
 
-## 本機、雲端 API 與 Colab，要分成三個問題
+本機、雲端 API 與 Colab 也要分開。應用程式可以在本機開發，模型由遠端 API 供應商執行；這條路不需要 Colab。若想自己載入模型權重，再評估模型大小、量化、上下文長度、可用記憶體與速度，必要時改用雲端 GPU。Colab CLI 是操作遠端 runtime 的工具，不會增加本機的顯示記憶體。
 
-這次學習從一台 M1 Pro、16 GB 統一記憶體的 MacBook Pro 出發。本機讀回確認了晶片與記憶體規格；尚未選定模型，也沒有執行 LLM 效能測試。因此「本機無法跑任何 LLM」不是這次已驗證的結論。
+這台是 M1 Pro、16 GB 統一記憶體。它能執行本課的工程練習；尚未選模型就不能斷言所有本地 LLM 都跑不了。Apple Silicon 有 [MLX LM](https://github.com/ml-explore/mlx-lm) 等本地推論路徑，但本次沒有做模型 benchmark。以 30 億參數、4-bit 粗估，原始權重約 1.5 GB；還要另計 KV cache、量化附加資料、框架和系統用量，不能把 16 GB 全部當成模型額度。
 
-第一個問題是應用程式在哪裡開發。Python、Git、測試與呼叫模型 API 的程式，可以在本機完成；第一課的環境設定不以載入大型模型為前提。Node.js、Rust、Docker 等工具仍依後續課程需求準備，Colab 不會自動取代整套開發環境。
+## 建立它（Build It）
 
-第二個問題是模型由誰執行。呼叫雲端 LLM API 時，模型由供應商執行，本機負責送出請求、處理結果與測試應用。這條路需要該服務的存取權與網路，並不需要 Colab CLI。
+### 步驟 1：系統基礎
 
-第三個問題是要不要自己載入模型權重。這才需要評估模型大小、量化、上下文長度、可用記憶體與速度。Apple Silicon 有 [MLX LM](https://github.com/ml-explore/mlx-lm) 這類本地推論工具；這說明存在本機路徑，不代表本篇已測出某個模型能在這台機器順暢執行。若指定模型或實驗超出本機資源，再選雲端 GPU，Colab 是其中一種實驗環境。
+**理論。** shell 要能找到工具，編譯器要能產生這台機器可執行的程式。Apple Silicon 應先確認目前程序的架構，避免把 Rosetta 的 x86 環境和 arm64 套件混在一起。
 
-粗估權重記憶體可以先用「參數量 × 每個參數的位元數 ÷ 8」。例如 30 億參數以 4-bit 表示，原始權重約 1.5 GB；這只是下限估算，還沒算量化附加資料、KV cache、框架、作業系統與其他應用。16 GB 統一記憶體也不是可以全部交給模型的獨立顯示記憶體。實際決策仍要指定模型與工作負載，再測量。
+**實務與結果。** 本機讀回為 arm64，已有 Xcode developer directory、Apple clang 21.0.0、Git 2.50.1、curl 與 unzip；補上 wget 1.25.0。Git 不因課文使用 Homebrew 安裝示例就需要再裝一份。Rust 程式後續能編譯並執行，也是系統編譯鏈可用的證據。
 
-因此這次採用的方向是：**本機保留工程工具與程式，雲端按需要提供模型服務或 GPU 運算**。Colab CLI 的作用是從終端機建立、執行和結束 Colab runtime；它不會讓本機 GPU 變大，也不保證雲端一定分配到想要的 GPU。
+```sh
+arch
+xcode-select -p
+xcrun clang --version
+git --version
+command -v curl wget unzip
+```
 
-## 用最小 CPU 練習，先確認可重跑性
+編輯器沿用現有 Codex。Docker CLI 雖然存在，但 Docker 屬於這條路線後面的獨立課程；本篇不以 CLI 存在宣稱容器服務或 Docker 課程已驗收。
 
-這四格只用 Python 標準函式庫。CPU 足以完成三個數字的計算；把硬體切成 GPU 不會讓一般 Python 的 `sum` 自動使用 GPU。等課程確實需要張量運算與加速框架時，再檢查框架是否把資料和運算放在對應裝置。
+### 步驟 2：使用 uv 管理 Python
 
-若輸入有 n 個數字，這個函式逐項做一次乘法與累加，需走過 n 項；對本例的小整數，把單次算術視為固定成本，時間為 O(n)。產生式沒有建立完整平方陣列，除輸入外只保留累加過程所需的少量狀態。這裡值得優先改善的是可重跑性，GPU 傳輸或排程反而不符合這個練習的需要。
+**理論。** 安裝 Python 只解決 runtime；虛擬環境決定套件裝到哪裡。啟用環境後要再次確認執行檔與匯入結果，才能避免把另一個專案的套件誤認為本課已準備好。
 
-Colab 適合這種短程 Python 練習。需要長期執行的服務、完整 Node.js／Rust 工具鏈、Docker 或正式應用部署時，回到原課的本機環境路線。不要把 Notebook 連線當作網站的正式主機。
+**實務。** 建立 `~/ai-engineering-learning/.venv`，明確使用本機已有的 Python 3.12.4。原課示範用 uv 下載 Python；這裡沿用已安裝、符合版本條件的 runtime，再由 uv 建立獨立環境，達成同一個隔離目標。
 
-[原課完整內容](https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/phases/00-setup-and-tooling/01-dev-environment/docs/en.md) 包含 Python 3.11+、Node.js 20+、Rust、套件管理，以及依硬體檢查 CUDA／MPS；它也說明可先準備所選路線需要的工具。這篇 Colab 指南只承接 Python 入門部分，並不等於已完成所有本機、多語言或 GPU 練習。
+```sh
+uv venv --python /opt/homebrew/opt/python@3.12/bin/python3.12 ~/ai-engineering-learning/.venv
+uv pip install --python ~/ai-engineering-learning/.venv/bin/python numpy matplotlib jupyter torch torchvision torchaudio
+```
 
-## 把第一課放回完整路線
+以上路徑是這台 Mac 的實際位置，別台機器要先確認自己的 Python 路徑。此次結果：Python 3.12.4、NumPy 2.5.3、Matplotlib 3.11.2、Jupyter 1.1.1。除匯入套件外，已執行 NumPy 內積、產生 Matplotlib PNG，並透過 Jupyter kernel 執行含斷言的 Notebook；kernel 中的 Python 環境也有檢查，避免暗中用了系統 Python。
 
-接續時以[官方 Software Engineering Fundamentals 路徑](https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/learning-paths/software-engineering-fundamentals.json) 為準。該版本列出 13 個必修節點，順序是：
+```python
+import numpy as np
+vector = np.array([1, 2, 3])
+assert int(vector @ vector) == 14
+```
 
-1. 開發環境。
-2. Git 與協作。
-3. Python environments。
-4. Docker for AI。
-5. 資料管理。
-6. Terminal 與 Shell。
-7. Debugging 與 Profiling。
-8. Tool interface。
-9. Tool schema design。
-10. Verification gates。
-11. Shadow／Canary／Progressive release。
-12. Security／Secrets／Audit。
-13. SRE for AI。
+### 步驟 3：Node.js 與 pnpm
 
-這條線先建立「能執行、能改動、能驗證、能交付」的工程能力。之後再沿 AI 應用路線練習 Prompt、結構化輸出、檢索、評估與服務化。這是把兩條官方路線連起來的閱讀建議，不是官方另發的一條名為 Application Engineering 的認證路徑。
+**理論。** Node.js 是 runtime，pnpm 是套件管理工具；pnpm 自己也需要相容的 Node.js 啟動。工具有安裝而且路徑存在，仍可能因版本不合而不能使用。
 
-## 在 Colab 建立第一份筆記本
+**這次失敗與修正。** 預設 PATH 先找到 Node.js 22.11.0，pnpm 11.7.0 則要求至少 22.13。本機另有 nvm 管理的 Node.js 22.17.1；把它放到課程 shell 的 PATH 前面後，pnpm 可以正常執行。沿用 nvm，不再增加 fnm；這是版本管理方法的替代，而非刪掉 Node 的驗收。
 
-開啟 [Google Colab 繁體中文入口](https://colab.research.google.com/?hl=zh-tw)，使用你自己的 Google 帳號登入。選擇新增筆記本（New notebook），把檔名改成 `application-engineering-colab.ipynb`。如果介面語言不同，可對照括號內的英文名稱。
+課程內安裝 tsx 4.23.15。pnpm 首次擋下 esbuild 0.28.2 的安裝腳本，後續只允許這個已選定依賴的建置，再實際執行 TypeScript。結果為 `Hello, TypeScript!`，不只是 `pnpm --version`。
 
-在「執行階段 → 變更執行階段類型」（Runtime → Change runtime type）選 Python 3，硬體加速器選 CPU 或 None，再連線。這裡的 Python 3 是系列名稱；實際小版本要以第一格輸出為準。免費資源的可用性與使用限額可能變動，第一次練習不需要購買 GPU。
+```sh
+source ~/ai-engineering-learning/activate.sh
+node --version
+pnpm --version
+pnpm exec tsx exercises/hello.ts
+```
 
-你也可以直接開啟[本文的 Colab 練習筆記本](https://colab.research.google.com/github/ed3c/medium-compiler/blob/main/notebooks/application-engineering-colab.ipynb)，再選「在雲端硬碟中儲存副本」（Save a copy in Drive）保留自己的版本。需要執行的部分仍要登入 Colab；文章與 [Notebook 原始內容](https://github.com/ed3c/medium-compiler/blob/main/notebooks/application-engineering-colab.ipynb) 可公開閱讀。
+這個修正限定在啟用後的課程 shell，不會宣稱所有終端機的預設 Node 都已改變。
 
-### 第一格：觀察你真正使用的 Python
+### 步驟 4：Rust
 
-貼上以下程式，按格子左邊的執行按鈕，或用 Shift+Enter：
+**理論。** rustc 把原始碼編譯成原生程式；cargo 管理 Rust 專案、依賴與建置。顯示版本只能確認入口存在，必須編譯後執行，才知道完整路徑可用。
+
+**實務與結果。** 沿用 rustc 1.93.0、cargo 1.93.0，建立四語言練習中的 Rust Hello World，以 2021 edition 編譯，執行結果為 `Hello, Rust!`。另外也編譯、執行原課行動區指定的 `main.rs`，保存完整輸出。
+
+```sh
+rustc --edition 2021 exercises/hello.rs -o evidence/hello-rust
+./evidence/hello-rust
+```
+
+### 步驟 5：Julia（可選）
+
+**理論。** Julia 在原課安裝步驟中是可選，但課末練習要求四語言 Hello World。若要完成那一道練習，就不能以「可選」把 Julia 的執行結果略過。
+
+**實務與結果。** 本機原先沒有 Julia，這次透過 Homebrew 安裝 juliaup 1.22.7，再由 juliaup 安裝 release channel。讀回版本為 Julia 1.13.1，實際執行 `hello.jl` 得到 `Hello, Julia!`。使用 Homebrew 取得版本管理器，是官方來源的一種安裝選擇；成果仍以 Julia 真正執行為準。
+
+```sh
+juliaup status
+julia --version
+julia exercises/hello.jl
+```
+
+### 步驟 6：GPU 設定
+
+**理論。** CUDA 是 NVIDIA 生態系；Apple Silicon 使用 MPS。Mac 上 `CUDA available: False` 不是本課失敗，不能照抄 NVIDIA wheel 的下載來源。
+
+**實務與結果。** 安裝一般 macOS PyTorch 套件後，本機 PyTorch 2.14.0 讀回 MPS 可用。程式把二乘二張量送到 `mps` 上做矩陣乘法，等待裝置完成，再送回 CPU 與預期值比較。結果為 `[[7, 10], [15, 22]]`，裝置為 `mps:0`，比對通過。
+
+```python
+import torch
+assert torch.backends.mps.is_available()
+x = torch.tensor([[1., 2.], [3., 4.]], device="mps")
+y = x @ x
+torch.mps.synchronize()
+torch.testing.assert_close(y.cpu(), torch.tensor([[7., 10.], [15., 22.]]))
+```
+
+這證明小型張量可以走 MPS，不證明某個大型 LLM 的容量、速度或訓練可行性。裝置選擇和模型大小仍要在後續實驗另外量測。
+
+### 步驟 7：驗證準備開始的路線
+
+**理論。** preflight 的通過只涵蓋它實際檢查的條件。Python 版的 `--route beginner` 只要求 Python 與 Git；`--show-later` 才展開後續工具。網站的 `learningPath=software-engineering-fundamentals` 不是可直接搬到 `--route` 的參數。
+
+**實務。** 本次保留上游第一課的有界來源快照，位於 `~/ai-engineering-learning/source`，以檔案 Git blob 雜湊核對原始位元組。它含 README 與本課來源，不是假裝已下載全部課程。以下命令從這份來源的根目錄執行：
+
+```sh
+source ~/ai-engineering-learning/activate.sh
+cd source
+python phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner --show-later
+```
+
+**結果。** Python preflight 的 2/2 必要檢查通過，列出的 9 個後續項目也全部通過。原課 Rust 版為 5/5 必要、3/3 可選通過；TypeScript 版為 3/3 必要通過。Deno 只在 TypeScript 版被列為可選；本次未額外安裝，不把它當成原課必需工具。
+
+這三份程式沒有完全相同的門檻：Rust／TypeScript 版仍標示 Python 3.10，而課文與 Python 版要求 3.11+。本次使用 3.12.4，同時滿足較嚴格條件；文章保留這個來源差異，不以較寬鬆的 PASS 取代課文目標。
+
+## 替代實作與等效驗證：哪些結果可以相同
+
+本章是原課之外的實作補充。替代方法必須先說明替代哪個目標，再拿相同輸入與判準比較，不能只因為兩邊都有成功訊息就稱為等效。
+
+本機 Python 沿用 Homebrew 提供的 3.12.4，Node 沿用 nvm 的 22.17.1，Juliaup 由 Homebrew 安裝。它們與原課示例的安裝方法不同；版本條件、環境隔離、程式執行和輸出仍接受相同檢查。這次沒有因硬體限制而無法安裝或執行 Python。
+
+### Colab CLI 替代的是遠端計算位置
+
+第一次操作已安裝 Google 官方 `google-colab-cli 0.7.4`。最初 uv 選到 Python 3.11.11 而安裝失敗，指定已存在的 Homebrew Python 3.14.6 後成功。這是 CLI 自己的 runtime，與課程 `.venv` 的 Python、Colab 遠端 Python 是三個不同環境。
+
+```sh
+uv tool install --python /opt/homebrew/bin/python3 google-colab-cli
+colab version
+colab sessions
+```
+
+首次 sessions 查詢停在 OAuth 授權，當時先取消；使用者後來在自己的終端機完成 Google 授權，再查詢得到沒有 active sessions。之後才建立 CPU runtime，執行文章的四格練習，下載 JSON 並停止 session。這段歷程證明雲端操作實際發生，不再只是安裝說明。
+
+首次登入時，請開啟 CLI 顯示的 Google 網址，核對帳號與權限，再把授權碼直接貼回同一個終端機，不要貼到文章、版本庫或聊天。Colab 網頁已登入，不等於 CLI 已完成授權。
+
+### 同一份程式，兩個 runtime
+
+為驗證替代結果，這次新增 `verify_compute.py`，原封不動在本機與 Colab CPU 執行。它不用模型 API、不靠隨機回應，而以手算結果當作共同判準：
+
+- NumPy 對 `[1, 2, 3]` 計算內積，預期為 14。
+- PyTorch 對 `[[1, 2], [3, 4]]` 做矩陣自乘，預期為 `[[7, 10], [15, 22]]`。
+- 平方和測試正常輸入、空輸入、負數輸入，預期依序為 `[14, 0, 13]`。
+
+矩陣第一格是 1×1＋2×3＝7；第二格是 1×2＋2×4＝10。這個預期值不依賴其中一個 runtime 的輸出，所以不是拿兩份可能同錯的結果互相背書。程式還檢查斷言狀態；負向對照把結果故意改錯時，比對必須拒絕。
+
+**實測環境。** 本機為 Python 3.12.4／NumPy 2.5.3／PyTorch 2.14.0，使用 MPS；Colab 為 Python 3.13.15／NumPy 2.1.3／PyTorch 2.11.0+cpu，使用 CPU。版本與裝置不同，指定輸入、向量結果、矩陣結果、邊界測試與斷言狀態逐欄比對相同。
+
+**成立的替代範圍。** 這證明本課所選 Python、NumPy 和小型 PyTorch 計算可以在兩邊得到相同結果。它不證明所有函式、所有數值精度或大型模型都等效，也不證明 Colab CPU 完成了本機 MPS 設定。
+
+**仍然不同的部分。** 本機 `.venv` 留在磁碟上，Colab runtime 有生命週期；本機 Node、Rust 編譯器與四語言練習需各自驗證。若後續改用 Colab GPU，還要另外驗證實際 GPU 型號、記憶體與目標模型，不能沿用這次 CPU 的收據。
+
+## 用它（Use It）
+
+### 回到同一個本機課程環境
+
+下次開新終端機，先進入課程環境，再重跑檢查：
+
+```sh
+source ~/ai-engineering-learning/activate.sh
+python verify-all.py
+```
+
+啟用腳本選擇課程 Node.js 和 Python `.venv`；檢查程式逐項執行，遇到失敗就留下輸出並停止，不靜默跳過。後續課程要加依賴時，在這個環境中明確安裝並更新版本紀錄。
+
+### 從瀏覽器使用 Colab Notebook
+
+開啟 [Google Colab 繁體中文入口](https://colab.research.google.com/?hl=zh-tw)，新增筆記本；或開啟[本文的可重跑 Notebook](https://colab.research.google.com/github/ed3c/medium-compiler/blob/main/notebooks/application-engineering-colab.ipynb)。選 Python 3、CPU／None，按需要保存自己的 Drive 副本，再從上到下執行。
+
+Notebook 是程式、說明與輸出的文件；runtime 是執行它的程序和虛擬機。Notebook 保存了，不代表 runtime 中的每個檔案都保存了。[Colab 官方 FAQ](https://research.google.com/colaboratory/faq.html) 說明這個生命週期差異，因此結果 JSON 要另外下載。
+
+以下保留實際執行的四個程式格。第一格確認 Python，第二格定義函式，第三格測試，第四格輸出 JSON。若先跑第三格而沒有執行第二格，會得到 `NameError`；修正方法是按依賴順序執行，而非重新安裝 Python。
 
 ```python
 import json
@@ -113,10 +225,6 @@ assert sys.version_info >= (3, 11), "需要 Python 3.11+；先檢查執行階段
 print("環境檢查通過")
 ```
 
-看到版本、執行檔位置和「環境檢查通過」，表示這次 runtime 的 Python 符合本練習要求。這不是套件安裝清單，更不是課程完成證明。若版本太舊，先檢查所選執行階段，不要把版本條件刪掉來取得通過。
-
-### 第二格：先讓輸入走過函式
-
 ```python
 def sum_of_squares(values):
     return sum(value * value for value in values)
@@ -126,20 +234,12 @@ result = sum_of_squares(values)
 print(result)
 ```
 
-預期顯示 `14`。函式收到列表，產生式逐項平方，`sum` 加總後回傳結果。改成其他整數列表之前，可以先手算，再比較程式輸出。
-
-### 第三格：用測試區分「有輸出」與「符合條件」
-
 ```python
 assert sum_of_squares([1, 2, 3]) == 14
 assert sum_of_squares([]) == 0
 assert sum_of_squares([-2, 3]) == 13
 print("3 tests passed")
 ```
-
-三項都成立才會印出 `3 tests passed`。空列表的平方和定義為 0；負數平方仍為正數。本例的輸入契約是整數序列，不在這一課延伸為字串轉型、浮點誤差或大型資料系統。
-
-### 第四格：保存這一次實際產生的結果
 
 ```python
 from pathlib import Path
@@ -161,110 +261,61 @@ print(receipt_path.resolve())
 print(receipt_path.read_text(encoding="utf-8"))
 ```
 
-這格會寫入 runtime 的工作目錄。從左側「檔案」（Files）找到 `environment-check.json`，使用檔案選單下載；它不會因為 Notebook 存在 Drive 就自動保存到 Drive。Notebook 自己也要儲存，或用「檔案 → 下載 → .ipynb」（File → Download → .ipynb）保留副本。
+第一次雲端執行結果為 Python 3.13.15、14、`3 tests passed`；[下載的原始結果](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/colab-dev-environment.json) 已保存。執行結束後，重啟 kernel 並從頭跑，才能檢查有沒有依賴隱藏的記憶體狀態。三個整數的平方和只需 CPU；時間是 O(n)，切換 GPU 不會讓 Python 的 `sum` 自動加速。
 
-JSON 記錄了 Python 版本、輸入與結果，方便回看；它不是不可偽造的證書。是否可重現仍要重新執行四格，而不是只閱讀最後一行文字。
+### 從終端機操作 Colab
 
-## 從乾淨狀態重跑，才知道漏了什麼
-
-先保存並下載需要的檔案，再重新啟動工作階段，從第一格順序執行到第四格。這次若仍得到 `14` 和三個測試通過，代表練習沒有依賴重啟前遺留的 Python 變數。重啟 Python 工作階段不一定等於刪除整台虛擬機或全部檔案，兩種操作不要混為一談。
-
-常見錯誤可按發生位置處理：
-
-- `NameError`：前面定義函式、匯入套件或建立變數的格子還沒跑，先從第一格重跑。
-- `AssertionError`：先檢查是否改過函式或預期值，用手算的 14、0、13 找出第一個不符案例。
-- 斷線或連不上：確認登入與 runtime 連線狀態，再看服務當下是否有資源可用。
-- 後續課程遇到 `ModuleNotFoundError`：確認錯誤是哪個套件，再在目前 Notebook 使用 `%pip install 套件名稱`；本篇四格不需要安裝第三方套件。
-- 找不到 JSON：先確認第四格是否成功，再看目前工作目錄；若原 runtime 已被刪除，應重新跑程式或使用先前下載的副本。
-
-原課的[環境驗證程式](https://github.com/rohitg00/ai-engineering-from-scratch/blob/c257687012e3b0ae7cf55f7f467e4b703652b3cc/phases/00-setup-and-tooling/01-dev-environment/code/verify.py) 也能作為之後的檢查入口。將課程 repository 下載到所選環境後，在含有 README.md 與 phases/ 的根目錄執行：
-
-```bash
-python3 phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner
-```
-
-這個版本的 beginner 檢查要求 Python 與 Git，其他工具預設留待後續。網頁網址的 `learningPath=software-engineering-fundamentals` 是網頁導覽參數，不是這支程式接受的 `--route` 值；不要直接照抄成 CLI 參數。以上命令供你在已取得課程 repository 後操作，本文沒有替你宣告該命令已在你的 Colab 執行。
-
-## 實際操作紀錄：從安裝失敗到完成第一次雲端執行
-
-以下紀錄截至 2026-09-27。它記錄本次環境操作，不代表讀者已完成課程，也不代表已完成任何 LLM 訓練或推論。
-
-1. **讀回本機硬體。** 確認 M1 Pro、16 GB 記憶體；未執行模型 benchmark。不能從硬體名稱直接推導所有模型都能跑或都不能跑。
-2. **檢查現有工具。** 本機已有 uv，Homebrew Python 為 3.14.6，原先沒有 `colab` 指令。
-3. **第一次安裝失敗。** 執行官方建議的 `uv tool install google-colab-cli`，但 uv 這次選用 Python 3.11.11，低於當前套件要求的 Python 3.12。這是 CLI 本身的執行環境問題，與 GPU 或 LLM 容量無關。原課的 Python 3.11+ 與新工具的 Python 3.12+ 是兩個不同條件。
-4. **指定已存在的 Python 後安裝成功。** 使用下方指令，得到 `google-colab-cli 0.7.4`。這個 Python 路徑來自本機檢查；其他電腦應改成自己實際安裝的 Python 3.12+，不要盲抄路徑。
-5. **驗證命令可啟動。** `colab version` 回傳 `Version: 0.7.4`，`colab --help` 列出 session、執行、檔案下載等命令。這只能確認本地 CLI 已可用。
-6. **首次查詢停在授權。** `colab sessions` 最初進入 Google OAuth 流程，在輸入授權碼前取消。這個時間點只完成 CLI 安裝，還沒有建立 runtime。
-7. **由使用者完成 Google 授權。** 使用者在自己的終端機登入後，得到 `No active sessions found on server`；再次讀回得到相同結果與成功結束狀態。這表示可查詢伺服器，只是當時沒有執行中的 session。
-8. **建立 CPU session 並執行四格 Notebook。** 新 session 回傳 `Session READY`；硬體讀回為 CPU、Standard。遠端 Python 為 3.13.15，執行檔為 `/usr/bin/python3`。四格依序執行，輸出 14 與 `3 tests passed`，並寫出 `/content/environment-check.json`。
-9. **下載結果並結束運算。** CLI 確認 JSON 已下載；讀取本機檔案，核對結果為 14、測試數為 3。停止 session 後回傳 `Session terminated`，再次查詢為 `No active sessions found on server`。這次的雲端資源已釋放。
-
-```sh
-uv tool install --python /opt/homebrew/bin/python3 google-colab-cli
-colab version
-colab --help
-```
-
-[Google 官方 CLI 專案](https://github.com/googlecolab/google-colab-cli) 提供操作命令；本文核對了已安裝 0.7.4 的實際說明。首次登入可在自己的終端機執行：
-
-```sh
-colab sessions
-```
-
-依 CLI 顯示的網址進入 Google，核對帳號與要求的權限，完成授權後，把授權碼直接貼回自己的終端機。不要把授權碼、token 或憑證檔放進文章、版本庫或聊天。CLI 的登入狀態與瀏覽器已登入 Google 是不同的狀態；能打開 Colab 網頁，不代表 CLI 已取得授權。
-
-完成授權後，可在本文 repository 根目錄重現這個流程。以下下載目的地使用目前資料夾，讀者可依自己的目錄調整；每一步成功後再往下執行，下載完成後才停止 session：
+在含有本文 Notebook 的 medium-compiler repository 根目錄，可以依序執行：
 
 ```sh
 colab new -s application-engineering-first-lesson
 colab exec -s application-engineering-first-lesson -f notebooks/application-engineering-colab.ipynb
 colab download -s application-engineering-first-lesson /content/environment-check.json ./environment-check-colab.json
 colab stop -s application-engineering-first-lesson
+colab sessions
 ```
 
-第一行未指定 GPU 或 TPU，依 0.7.4 的命令說明會要求 CPU runtime。先用它驗證連線、執行、下載與釋放資源；等課程需要 GPU 時，再根據模型需求、配額與可用機型選擇。若中間任一步失敗，記錄該錯誤並確認 session 狀態，已建立的 runtime 在不再使用時仍應停止。
+每一步完成後再執行下一步，確認下載成功才停止 session。這次第一次練習與後續等效對照各自建立、使用並停止 CPU session；最後讀回均無 active sessions。若錯誤中止，先確認哪一步成功、哪個 session 還存在，再清理，不能把下載尚未完成的檔案當成果。
 
-本文四格程式先在本機乾淨的 Python 程序驗證，再於真實 Colab CPU runtime 執行。下載回來的 [環境測試紀錄](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/colab-dev-environment.json) 內容如下：
+## 交付它（Ship It）：留下可重用的成果
 
-```json
-{
-  "exercise": "colab-dev-environment",
-  "python": "3.13.15",
-  "input": [
-    1,
-    2,
-    3
-  ],
-  "result": 14,
-  "tests": 3,
-  "scope": "environment-and-example-only"
-}
-```
+原課交付的是環境診斷能力，不是部署一個 LLM 服務。官方 `outputs/prompt-env-check.md` 也先要求辨識失敗所在的層，再給具體修正方法。這次 pnpm 問題就是實例：指令存在，但啟動它的 Node 太舊；修正 PATH 後還要執行 TypeScript 才收尾。
 
-這份紀錄確認 Python 環境、函式結果與檔案下載流程；它沒有測試 LLM、GPU 推論或訓練，也不代表學員已掌握課程。原始 Notebook 保留未執行的乾淨版本，方便下一次從頭重跑。
+本次成果保存在 `~/ai-engineering-learning/`：啟用腳本、獨立 Python 環境、四語言 Hello World、MPS 測試、共同計算程式、版本鎖定紀錄，以及含 stdout／stderr／結束碼的驗收紀錄。來源快照的版本與檔案雜湊也一併保留。
 
-## 留下能解釋的成果，再進下一課
+公開文章另附[實作檔案](https://github.com/ed3c/medium-compiler/tree/main/examples/dev-environment)與[本機／Colab 驗收摘要](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/dev-environment-local.json)。程式與測試結果可以交付，登入憑證與 runtime token 不屬於學習成果。
 
-完成四格後，可以用自己的話回答三個問題：只存 Notebook 為何可能找不回 JSON？先跑測試格為何會出現 NameError？本例為何不需要 GPU？若只能記得按鈕位置，回到資料流圖，把每一步的輸入、記憶體狀態與保存位置對上。
+## 練習（Exercises）
 
-用英文向同事說明，也只需要兩句有邊界的描述：
+### 練習 1：執行驗證程式並修正失敗
 
-**What did you verify?** I checked the Python version and three cases of a small function.
+實作答案是保存「失敗、原因、修正、重驗」的完整鏈。本次包含 Colab CLI 的 Python 選擇、pnpm 與 Node.js 的相容性，以及 tsx 依賴的建置腳本確認。原課 Python、Rust 與 TypeScript 驗證程式均已實跑；比較判準時仍以課文較嚴格的 Python 3.11+ 為準。
 
-**What can be reproduced?** The notebook defines its inputs and tests in execution order; rerunning those cells recreates the result file.
+### 練習 2：建立 Python 虛擬環境並安裝 PyTorch
 
-```text
-學習目標：能建立可重跑的第一個練習
-  ↓ 選擇 Software Engineering Fundamentals 的環境課
-Colab Notebook 保存說明與程式
-  ↓ CPU runtime 執行四格
-版本檢查 → 平方和 → 三個測試 → JSON 檔
-  ↓ 保存 Notebook，另存結果，再順序重跑
-確認環境與本例；學習理解由你解釋
-  ↓
-Git 與協作 → Python environments → 後續工程課
-```
+課程 `.venv` 已與其他專案分開；除了匯入 PyTorch，還把張量實際送到 MPS，計算、同步、搬回 CPU 並比對。這回答「GPU 是否真的參與本次運算」，比只顯示可用裝置更完整。
 
-[下一課：Git & Collaboration](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/02-git-and-collaboration&learningPath=software-engineering-fundamentals) 會讓這份可執行成果開始有版本、差異與協作歷史。先把第一份 Notebook 保留下來，它就是接續練習的素材。
+### 練習 3：四語言 Hello World
 
-課程路徑與原課內容在此以 2026-09-27 核對的公開版本為準；Colab 的介面和 runtime 版本可能更新。這篇文章提供操作指南與可測試範例，不代填學員回答、不更新課程進度，也不把環境測試結果稱為已掌握 Application Engineering。
+Python、TypeScript、Rust、Julia 的檔案都已建立並執行。Rust 經過編譯才執行，TypeScript 透過課程內的 tsx 執行；結果都留下來。Julia 原先是可選安裝項目，但這一道題目要四種語言，因此這次也完成它。
+
+### 理論練習與參考推理
+
+1. 為什麼 `command -v pnpm` 有結果，執行 pnpm 還是可能失敗？請說明 PATH、Node.js 與套件管理器的關係。
+2. 為什麼 Mac 上 CUDA 是 False、MPS 是 True 可以是正確狀態？什麼證據才能說本次運算確實使用 MPS？
+3. 本機和 Colab 都算出 14，能否據此說兩套環境完全等效？請指出還沒驗證的範圍，以及應另外保存的檔案。
+4. `--route beginner` 顯示 2/2，為什麼還不能宣稱四語言練習都完成？
+
+參考推理一：PATH 先決定啟動哪一個 Node，pnpm 再檢查該版本是否符合自己的需求；存在 pnpm 檔案不代表這組搭配可執行。
+
+參考推理二：CUDA 與 MPS 是不同的 GPU 後端。Mac 應檢查 MPS，再把張量移到裝置、執行並等待完成，最後比對結果；單純 import torch 或顯示裝置可用都不足以證明這次運算用了 GPU。
+
+參考推理三：14 只是一個範例的結果。還應比較其他輸入、矩陣結果、錯誤情況與程式版本；效能、可用記憶體、完整工具鏈和 runtime 檔案持久性不在這次相等的主張中。Notebook 與輸出 JSON 都要保存。
+
+參考推理四：beginner 的兩項是 Python 與 Git，沒有執行四種語言的 Hello World。必須另跑那些程式，再以輸出與結束碼驗收。
+
+以上是文章提供的參考答案，不是學員本人作答。本文提供了工程檢查的實作結果與解釋，但尚未收到學員自己的回答，也未代做原網站測驗。所以「本課環境與練習由代理實作驗證」和「學員已掌握並完成本課」仍是兩個不同狀態。
+
+準備好後，沿所選 Software Engineering Fundamentals 的 13 課順序前進，[下一課是 Git & Collaboration](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/02-git-and-collaboration&learningPath=software-engineering-fundamentals)。Python preflight 輸出的 Beginner 數學課入口屬於另一條路線，不能因工具提示而悄悄替換你選的課程順序。
+
+本次逐章核對的[原課版本](https://github.com/rohitg00/ai-engineering-from-scratch/blob/968da0791b83917c9d8a5ba197ff190fa0b24093/phases/00-setup-and-tooling/01-dev-environment/docs/en.md)為 `968da0791b83917c9d8a5ba197ff190fa0b24093`。課文與 Python 驗證程式的檔案雜湊仍與前次參考版本相同。後續課程更新時，應依新版本重新檢查，不能沿用舊結果宣稱新要求也通過。
