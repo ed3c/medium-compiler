@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse, hashlib, html, json, re, shutil
 from pathlib import Path
+from urllib.parse import urlencode
 
 ROOT=Path(__file__).resolve().parents[1]
 ARTICLES=[
@@ -17,9 +18,49 @@ ARTICLES=[
         "title": "開發環境設定：逐章理解、本機實作與 Colab 操作紀錄",
         "description": "依原課逐章回答理論與實務，驗證四語言、MPS 與本機／Colab 的指定計算結果。",
         "source": "articles/application-engineering-colab.md",
-        "notebook": "notebooks/application-engineering-colab.ipynb"
+        "notebook": "notebooks/application-engineering-colab.ipynb",
+        "lesson": "phases/00-setup-and-tooling/01-dev-environment",
+        "lesson_title": "開發環境設定",
+        "next_lesson_title": "Git & Collaboration"
+    },
+    {
+        "slug": "git-collaboration",
+        "title": "Git 與協作：讓每次練習都能追蹤、隔離與備份",
+        "description": "從暫存區到 GitHub 實際追蹤內容，完成 fork、分支推送、忽略規則與歷史閱讀。",
+        "source": "articles/git-collaboration.md",
+        "lesson": "phases/00-setup-and-tooling/02-git-and-collaboration",
+        "lesson_title": "Git & Collaboration",
+        "next_lesson_title": "Python Environments"
     }
 ]
+
+def lesson_navigation(item:dict, route:dict)->str:
+    if not item.get('lesson'):
+        return ''
+    paths=[lesson['path'] for lesson in route['lessons']]
+    if item['lesson'] not in paths:
+        raise ValueError(f"Article lesson is missing from the selected route: {item['lesson']}")
+    index=paths.index(item['lesson'])
+    published={article['lesson']:article for article in ARTICLES if article.get('lesson')}
+    links=[]
+    if index and paths[index-1] in published:
+        previous=published[paths[index-1]]
+        links.append(f'<p><a rel="prev" href="/articles/{previous["slug"]}/">上一課：{html.escape(previous["lesson_title"])}</a></p>')
+    if index+1 < len(paths):
+        next_path=paths[index+1]
+        following=published.get(next_path)
+        if following:
+            url=f'/articles/{following["slug"]}/'
+            title=following['lesson_title']
+            note=''
+        else:
+            url='https://aiengineeringfromscratch.com/lesson?'+urlencode({'path':next_path,'learningPath':route['id']})
+            title=item['next_lesson_title']
+            note='<p>本站下一篇實作文章尚未發布，先閱讀原課教材。</p>'
+        links.append(f'<p><a rel="next" href="{html.escape(url,quote=True)}">下一課：{html.escape(title)}</a></p>'+note)
+    else:
+        links.append('<p>已到這條學習路線的最後一課。</p>')
+    return '<section class="panel" aria-label="課程導航"><h2>接續課程</h2><p>'+html.escape(route['title'])+f' · 第 {index+1} / {len(paths)} 課</p>'+''.join(links)+'</section>'
 
 def inline(text:str)->str:
     text=html.escape(text,quote=False)
@@ -119,10 +160,11 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
+    course_route=json.loads((ROOT/'references/upstream/software-engineering-fundamentals.json').read_text())
     article_provenance=[]
     for item in ARTICLES:
         source_bytes=(ROOT/item['source']).read_bytes()
-        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+markdown(source_bytes.decode('utf-8'))+'</article>'
+        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+markdown(source_bytes.decode('utf-8'))+lesson_navigation(item,course_route)+'</article>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
         article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest()})

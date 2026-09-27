@@ -1,0 +1,512 @@
+{
+  "schema_version": "git-collaboration-practice@1",
+  "fork": "ed3c/ai-engineering-from-scratch",
+  "upstream": "rohitg00/ai-engineering-from-scratch",
+  "source_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+  "branch": "my-progress",
+  "first_commit": "4e5a5abc0abe9ba857e5be58958c34b20135b345",
+  "final_commit": "960f0b5cc6094163135c2e5fc75cce2079070233",
+  "remote_commit": "960f0b5cc6094163135c2e5fc75cce2079070233",
+  "remote_main_unchanged": true,
+  "local_main_fast_forward": true,
+  "primary_branch_preserved": "main",
+  "staging_witness": {
+    "staged": "snapshot=1",
+    "working": "snapshot=2",
+    "first_commit": "snapshot=1",
+    "second_commit": "snapshot=2"
+  },
+  "ignored_extensions": [
+    ".pt",
+    ".pth",
+    ".safetensors"
+  ],
+  "explicit_add_ignored_refused": true,
+  "history": "62cdefbe feat(site): full curriculum figure coverage (503 lessons) + lang-picker CSS cachebust (#380)\ndda194f8 fix(quiz): correct answer is always in the same position (slot B) (#381)\nd1cb9d19 feat: book edition pipeline, fundamentals-first headlines, animated figures, verified bug fixes (#348)\n963b4d8e feat: add learning objectives + quizzes to all 96 lessons\ncb33330c Replace ASCII diagrams with Mermaid in Phase 0\n2b62eda3 Add lesson: git and collaboration (Phase 0)",
+  "final_log": "960f0b5c feat(phase-00/02): retain the revised practice snapshot\n4e5a5abc feat(phase-00/02): record staged course practice\n968da079 chore(site): rebuild data.js",
+  "scope": "agent-executed Git practice; no learner quiz score or upstream contribution claimed",
+  "commands": [
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.021
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "branch",
+        "my-progress"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.02
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration",
+      "argv": [
+        "git",
+        "clone",
+        "--branch",
+        "my-progress",
+        "$HOME/ai-engineering-learning/git-collaboration/course-main",
+        "$HOME/ai-engineering-learning/git-collaboration/my-progress"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Cloning into '$HOME/ai-engineering-learning/git-collaboration/my-progress'...\ndone.\n",
+      "expected_exit": 0,
+      "seconds": 0.61
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "remote",
+        "set-url",
+        "origin",
+        "git@github.com:ed3c/ai-engineering-from-scratch.git"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.017
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.name",
+        "ed3c"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "config",
+        "--local",
+        "user.email",
+        "30064024+ed3c@users.noreply.github.com"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "check-ignore",
+        "-v",
+        "learning-artifacts/git-collaboration/sample.pt",
+        "learning-artifacts/git-collaboration/sample.pth",
+        "learning-artifacts/git-collaboration/sample.safetensors"
+      ],
+      "exit": 0,
+      "stdout": "learning-artifacts/git-collaboration/.gitignore:1:*.pt\tlearning-artifacts/git-collaboration/sample.pt\nlearning-artifacts/git-collaboration/.gitignore:2:*.pth\tlearning-artifacts/git-collaboration/sample.pth\nlearning-artifacts/git-collaboration/.gitignore:3:*.safetensors\tlearning-artifacts/git-collaboration/sample.safetensors\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "add",
+        "learning-artifacts/git-collaboration/sample.pt"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "The following paths are ignored by one of your .gitignore files:\nlearning-artifacts/git-collaboration/sample.pt\nhint: Use -f if you really want to add them.\nhint: Disable this message with \"git config set advice.addIgnoredFile false\"\n",
+      "expected_exit": 1,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "add",
+        "learning-artifacts/git-collaboration/.gitignore",
+        "learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.171
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "show",
+        ":learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "snapshot=1\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.021
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "diff",
+        "--cached"
+      ],
+      "exit": 0,
+      "stdout": "diff --git a/learning-artifacts/git-collaboration/.gitignore b/learning-artifacts/git-collaboration/.gitignore\nnew file mode 100644\nindex 00000000..507505de\n--- /dev/null\n+++ b/learning-artifacts/git-collaboration/.gitignore\n@@ -0,0 +1,3 @@\n+*.pt\n+*.pth\n+*.safetensors\ndiff --git a/learning-artifacts/git-collaboration/practice.txt b/learning-artifacts/git-collaboration/practice.txt\nnew file mode 100644\nindex 00000000..0d84376b\n--- /dev/null\n+++ b/learning-artifacts/git-collaboration/practice.txt\n@@ -0,0 +1 @@\n+snapshot=1\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.021
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "diff"
+      ],
+      "exit": 0,
+      "stdout": "diff --git a/learning-artifacts/git-collaboration/practice.txt b/learning-artifacts/git-collaboration/practice.txt\nindex 0d84376b..104e5049 100644\n--- a/learning-artifacts/git-collaboration/practice.txt\n+++ b/learning-artifacts/git-collaboration/practice.txt\n@@ -1 +1 @@\n-snapshot=1\n+snapshot=2\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.029
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "feat(phase-00/02): record staged course practice",
+        "-m",
+        "Demonstrate that a commit saves staged content while a later working-file edit remains outside the snapshot; keep model artifacts out of source control."
+      ],
+      "exit": 0,
+      "stdout": "[my-progress 4e5a5abc] feat(phase-00/02): record staged course practice\n 2 files changed, 4 insertions(+)\n create mode 100644 learning-artifacts/git-collaboration/.gitignore\n create mode 100644 learning-artifacts/git-collaboration/practice.txt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.042
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "4e5a5abc0abe9ba857e5be58958c34b20135b345\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "show",
+        "HEAD:learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "snapshot=1\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "add",
+        "learning-artifacts/git-collaboration/practice.txt"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.029
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.018
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "feat(phase-00/02): retain the revised practice snapshot",
+        "-m",
+        "Stage the second version explicitly so the final commit contains the current working file and the previous version remains inspectable."
+      ],
+      "exit": 0,
+      "stdout": "[my-progress 960f0b5c] feat(phase-00/02): retain the revised practice snapshot\n 1 file changed, 1 insertion(+), 1 deletion(-)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.034
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.104
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "push",
+        "-u",
+        "origin",
+        "my-progress"
+      ],
+      "exit": 0,
+      "stdout": "branch 'my-progress' set up to track 'origin/my-progress'.\n",
+      "stderr": "remote: \nremote: Create a pull request for 'my-progress' on GitHub by visiting:        \nremote:      https://github.com/ed3c/ai-engineering-from-scratch/pull/new/my-progress        \nremote: \nTo github.com:ed3c/ai-engineering-from-scratch.git\n * [new branch]        my-progress -> my-progress\n",
+      "expected_exit": 0,
+      "seconds": 3.208
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/my-progress"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\trefs/heads/my-progress\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.57
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "exit": 0,
+      "stdout": "968da0791b83917c9d8a5ba197ff190fa0b24093\trefs/heads/main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 2.558
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "fetch",
+        "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+        "my-progress"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "From $HOME/ai-engineering-learning/git-collaboration/my-progress\n * branch              my-progress -> FETCH_HEAD\n",
+      "expected_exit": 0,
+      "seconds": 0.096
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "merge",
+        "--ff-only",
+        "FETCH_HEAD"
+      ],
+      "exit": 0,
+      "stdout": "Updating 968da079..960f0b5c\nFast-forward\n learning-artifacts/git-collaboration/.gitignore   | 3 +++\n learning-artifacts/git-collaboration/practice.txt | 1 +\n 2 files changed, 4 insertions(+)\n create mode 100644 learning-artifacts/git-collaboration/.gitignore\n create mode 100644 learning-artifacts/git-collaboration/practice.txt\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.036
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5cc6094163135c2e5fc75cce2079070233\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/course-main",
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "main\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.015
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "log",
+        "--oneline",
+        "-8",
+        "--",
+        "phases/00-setup-and-tooling/02-git-and-collaboration"
+      ],
+      "exit": 0,
+      "stdout": "62cdefbe feat(site): full curriculum figure coverage (503 lessons) + lang-picker CSS cachebust (#380)\ndda194f8 fix(quiz): correct answer is always in the same position (slot B) (#381)\nd1cb9d19 feat: book edition pipeline, fundamentals-first headlines, animated figures, verified bug fixes (#348)\n963b4d8e feat: add learning objectives + quizzes to all 96 lessons\ncb33330c Replace ASCII diagrams with Mermaid in Phase 0\n2b62eda3 Add lesson: git and collaboration (Phase 0)\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.025
+    },
+    {
+      "cwd": "$HOME/ai-engineering-learning/git-collaboration/my-progress",
+      "argv": [
+        "git",
+        "log",
+        "--oneline",
+        "-3"
+      ],
+      "exit": 0,
+      "stdout": "960f0b5c feat(phase-00/02): retain the revised practice snapshot\n4e5a5abc feat(phase-00/02): record staged course practice\n968da079 chore(site): rebuild data.js\n",
+      "stderr": "",
+      "expected_exit": 0,
+      "seconds": 0.016
+    }
+  ],
+  "method_notes": {
+    "identity": "Repository-local noreply identity; global settings unchanged",
+    "isolation": "Separate course clones selected at creation; no existing primary checkout branch switched",
+    "history_review": [
+      "2b62eda331ba3b64a96ef1cb07cb2fdc87d01844 introduced Git lesson",
+      "d1cb9d1933f121140694fd55873110ff7602e463 corrected clone-upstream flow to fork-first flow"
+    ],
+    "authentication": "gh user read returned HTTP 401; actual Git SSH read and push succeeded",
+    "learner_understanding": "NOT_MEASURED"
+  }
+}
