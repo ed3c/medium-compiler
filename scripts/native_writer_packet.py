@@ -44,6 +44,11 @@ def validate(spec_path: Path, native_path: Path) -> dict:
         raise Invalid("treatment ref drift")
     if not hex40(cloud.get("common_ref")):
         raise Invalid("common ref must be a pinned 40-hex Git revision")
+    probe=cloud.get("pilot_probe")
+    if (not isinstance(probe,dict) or not hex40(probe.get("ref"))
+            or probe.get("path")!=spec["task"]["path"]
+            or probe.get("sha256")!=spec["task"]["sha256"]):
+        raise Invalid("pilot probe must bind the exact task path and bytes")
     forbidden=cloud.get("consumer_forbidden_inputs")
     required={"expected answers","observer criteria","other arm output","experiment reports"}
     if not isinstance(forbidden,list) or not required.issubset(set(forbidden)):
@@ -61,19 +66,27 @@ def project(spec_path: Path, native_path: Path) -> dict:
       "baseline": spec["arms"]["baseline"]["revision"],
       "treatment": spec["arms"]["treatment"]["revision"],
     }
-    common_paths=[x["path"] for x in spec["common_files"]]
-    arm_paths={a:[x["path"] for x in spec["arms"][a]["files"]] for a in selected}
+    task={"ref":common_ref,"path":spec["task"]["path"],
+          "sha256":spec["task"]["sha256"]}
+    common=[{"ref":common_ref,**x} for x in spec["common_files"]]
+    arms={a:[{"ref":selected[a],**x} for x in spec["arms"][a]["files"]]
+          for a in selected}
+    def source_lines(items):
+        return "; ".join(f"{x['path']} -> {x['target']} ({x['sha256']})" for x in items)
     launches=[]
     for i,arm in enumerate(cloud["order"],1):
         ref=selected[arm]
         message=(
-          "Execute one bounded read-only writer continuation assessment. "
+          "Execute the pinned writer task once in an isolated scratch work directory. "
           f"Experiment {spec['experiment_id']}; run run-{i:02d}; arm {arm}. "
-          "Start from no inherited conversation. Read the neutral task and common inputs only "
-          f"from ed3c/medium-compiler@{common_ref}: "
-          + ", ".join(common_paths) + ". "
-          f"Read this arm's assigned writer files only from ed3c/medium-compiler@{ref}: "
-          + ", ".join(arm_paths[arm]) + ". "
+          "Start from no inherited conversation. Read the task at "
+          f"ed3c/medium-compiler@{common_ref}:{task['path']} ({task['sha256']}); "
+          "treat its exact bytes as the writer instruction. Copy only these common GitHub "
+          f"inputs from that ref into their target paths: {source_lines(common)}. "
+          f"Copy only this arm's GitHub inputs from ed3c/medium-compiler@{ref}: "
+          f"{source_lines(arms[arm])}. Verify every SHA-256 before executing the task. "
+          "Use the supplied Python CLI in the isolated work directory and retain actual "
+          "tool attempts, exits, final response and work/ file effects. "
           "Do not read expected answers, observer criteria, experiment reports, prior/other-arm "
           "results, later article explanations, or repository history. Do not modify source, Ops, "
           "LEARNING.md, provider state, or publish anything. Decide the currently permitted next "
@@ -85,17 +98,20 @@ def project(spec_path: Path, native_path: Path) -> dict:
         launches.append({
           "run_id":f"run-{i:02d}","arm":arm,"task_name":f"medium_writer_{i:02d}_{arm}",
           "tool":"collaboration.spawn_agent","fork_turns":"none","model_override":None,
-          "message":message,"source_ref":ref,"common_ref":common_ref
+          "message":message,"source_ref":ref,"common_ref":common_ref,
+          "task":task,"common_inputs":common,"arm_inputs":arms[arm]
         })
     pilot={
       "task_name":"medium_writer_native_pilot","tool":"collaboration.spawn_agent",
       "fork_turns":"none","model_override":None,
       "counts_as_comparison":False,
       "message":(
-        "Unscored native carrier pilot. Read only the supplied public GitHub probe file at "
-        f"ed3c/medium-compiler@{common_ref} and report its blob identity and whether content was "
+        "Unscored native carrier pilot. Read only "
+        f"ed3c/medium-compiler@{cloud['pilot_probe']['ref']}:"
+        f"{cloud['pilot_probe']['path']} ({cloud['pilot_probe']['sha256']}) "
+        "and report its blob identity and whether content was "
         "retrievable. Do not infer expected writer behavior, modify files, or delegate."
-      )
+      ),"probe":cloud["pilot_probe"]
     }
     return {
       "schema_version":"native-writer-launch-plan@1",
