@@ -7,6 +7,7 @@
 - 導航：依已選路線排序；已發表下一篇連本站，未發表則明示並連原課，最後一課明示終點。
 - 建置：沿用 repository build、靜態路徑、provenance 與原有測試。
 - 發布：辨識現有 Project、scope、Git / commit / 環境，讀取真實公開頁面與連結。
+- 成果取得：文章的 examples 連結可公開讀取，實際程式／lock 與交付記錄的 ref 一致。
 
 ## How to get to it (user POV)
 
@@ -43,6 +44,12 @@ Preconditions: skill doctor 成功；具備當前文章/context、`scripts/build
   `references/ops-experiment-catalog.json.provider_revision`；curriculum revision 要等於
   `references/upstream/ai-engineering-skills-lock.json.revision`；
   不因更新教材就默默修改 Ops provider。沿用當前快照，不把範本或歷史實驗寫成本次執行。
+- **成果連結**：由實際文章找 examples 入口，確認讀者可取得 README、必要程式、lock
+  與輸入，核對交付收據的完整 Git SHA／hash，並確認文件有從該 ref 取得的步驟。
+  連到 GitHub main 可以導覽，但不能證明重播的是本次成果。單純打開 repo 首頁不算
+  取得成果驗收。本站目前不把 examples 複製成下載路由，不虛構 `/examples/` 網站功能。
+  網站 200、deployment Ready 或 provenance 的文章 hash，只證明各自項目；
+  本機持久能力與 replay 必須另消費 lesson-practice 的實跑結果。
 - **交付**：在既有授權內建立／更新同一 PR，讀回當前 head、diff、CI 與部署結果；head
   改變就檢查變更及其證據。先查現有獨立 medium-compiler Project，避免重複建立或連到 Ops。
   Project provider readback 核對 Root Directory 為 repo 根目錄；`vercel.json` 核對
