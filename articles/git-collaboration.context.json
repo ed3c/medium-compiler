@@ -1,0 +1,46 @@
+{
+  "schema_version": "article-source-context@1",
+  "purpose": "source-explanation",
+  "checked_on": "2026-09-27",
+  "source_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+  "lesson": "phases/00-setup-and-tooling/02-git-and-collaboration",
+  "lesson_git_blob": "5e0c0aa2bed266e51aba0cb823fcfef1fb4b1885",
+  "learning_path": "software-engineering-fundamentals",
+  "learning_path_git_blob": "a1b09d143c1590896e69b5ba77a1918710f35874",
+  "original_exercises": 3,
+  "original_sections": [
+    "Learning Objectives",
+    "The Problem",
+    "The Concept",
+    "Build It (4 steps)",
+    "Use It",
+    "Exercises",
+    "Key Terms"
+  ],
+  "supplements": [
+    "Actual staging snapshot witness",
+    "Separate checkout isolation",
+    "Existing SSH vs GitHub CLI authentication",
+    "Observed fork-flow correction from history"
+  ],
+  "evidence": "articles/evidence/git-collaboration.json",
+  "fork_head": "960f0b5cc6094163135c2e5fc75cce2079070233",
+  "assembly": {
+    "mode": "staged",
+    "stages": "0-7",
+    "compiler_ref": "bb00d18bdddb885e4880cd6af3f5725d09023f5e",
+    "receipt_status": "VALID",
+    "article_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b"
+  },
+  "review": {
+    "author": "Source and executable evidence reviewed",
+    "independent_semantic_review": "NOT_RUN",
+    "learner_understanding": "NOT_MEASURED"
+  },
+  "next_lesson": "phases/00-setup-and-tooling/06-python-environments",
+  "source_links": [
+    "https://git-scm.com/docs/git-add",
+    "https://git-scm.com/docs/gitignore",
+    "https://git-scm.com/docs/git-merge"
+  ]
+}

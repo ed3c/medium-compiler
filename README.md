@@ -208,3 +208,20 @@ in `references/upstream/ai-engineering-skills-lock.json`. No placement is fabric
 Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consumes only a
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
+
+## Course article progression
+
+Course articles follow the pinned Software Engineering Fundamentals route in
+`references/upstream/software-engineering-fundamentals.json`, not numeric folder order.
+Each course entry in `scripts/build_site.py` declares its exact `lesson`, `lesson_title`
+and `next_lesson_title`. The builder renders previous/next navigation inside the article;
+a published next article takes precedence, otherwise it links the original next lesson
+and explicitly states that the local article is not yet published.
+
+Before adding an article, read the original lesson and relevant implementation, execute
+its practical exercises, inspect failures and state transitions, then explain valuable
+operational questions with answers and evidence. Keep original requirements distinct
+from supplemental experiments. Do not make publication wait on invented learner questions
+or record agent execution as learner mastery. Preserve actual commands and results,
+source refs, and any incomplete requirement. Add the article to navigation and verify
+its build, links, provenance and deployed page.
