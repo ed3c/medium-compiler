@@ -1,5 +1,19 @@
 # Issue #8 — skills and lossless article continuation
 
+## Current delivery scope (2026-09-27)
+
+The owner split unverified behavior and learning-effect acceptance into [Issue #12](https://github.com/ed3c/medium-compiler/issues/12).
+Issue #8 / PR #9 now deliver registered skills, the tested lossless CLI and the reviewed
+source-bound article. Their required checks remain the exact-head suite, four mechanical
+drives, byte/source preservation and refusal controls. No test or verifier outcome changes.
+Behavior remains NOT_RUN / BLOCKED; human learning remains NOT_MEASURED. The real accepted
+learning-episode positive path remains pending and is not substituted by a fixture.
+
+The historical records below retain their original scope and measurements. Their statement
+that #8 must remain open for behavioral closure is superseded only by this owner-approved
+scope split; it is not evidence that behavioral closure occurred. See #12 and the PR's current
+exact-head CI receipt for current status, rather than treating older test counts as current.
+
 ## Scope and sources
 
 Baseline main: ad1b76fd9c0c0ed8f48aecae54aa987964049ce1.

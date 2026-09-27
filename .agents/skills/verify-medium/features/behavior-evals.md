@@ -1,5 +1,9 @@
 # Measure actual writer behavior and zero-context reading
 
+Behavior acceptance is tracked in [Issue #12](https://github.com/ed3c/medium-compiler/issues/12),
+separately from CLI/article/site delivery. Existing readiness outcomes and evidence standards
+remain unchanged; BLOCKED does not mean the scoped product delivery failed.
+
 ## Sub-features
 
 - Inspect actual traces and use the relevant evals-skills method.
@@ -44,7 +48,7 @@ word-count reduction or writer self-review proves improved human understanding.
 
 Soodles #159 proves scoped Host routing and an uncounted task-local native launch, not a
 matched writer study or a complete independent child transcript. Its scope amendment is
-not this Issue's acceptance. Missing capture blocks the affected comparison; missing native
+not Issue #12's behavior acceptance. Missing capture blocks the affected comparison; missing native
 launch applies to this Session, not every cloud Session or unrelated authorized work.
 
 `test_verification_host_route.py` drives the real verification entry with and without a
