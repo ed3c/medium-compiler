@@ -50,3 +50,12 @@ from controller data and other sessions; workspace-only writes alone are not suf
 The same-article writer-pair/replay.py inserts one source-grounded explanation separating
 wrong attempted actions from blocked effects. It is an author-reviewed product delta, not
 an accepted Ops PR24 learning episode or a replacement for the pending no-write behavior.
+
+### Cloud prerequisite probe, not a scored pilot
+
+The scoped cloud-writer-doctor workflow installs hash-pinned Codex and executes the existing
+doctor plus generated filesystem canaries. It receives only a boolean for the named Actions
+credential, never a key. Preserve report/commands and classify sandbox launch failure as
+unobserved isolation, not successful denial. Workflow success means the probe completed;
+no host approval, model call, learning progress or comparison PASS is created. See
+evidence/issue-8/cloud/README.md for the actual cloud runs and the remaining host-owner gap.
