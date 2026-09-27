@@ -1,0 +1,336 @@
+{
+  "schema_version": "dev-environment-local-audit@1",
+  "checked_on": "2026-09-27",
+  "source": {
+    "repository": "rohitg00/ai-engineering-from-scratch",
+    "revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+    "scope": "bounded first-lesson source snapshot, not a full repository checkout",
+    "files": {
+      "phases/00-setup-and-tooling/01-dev-environment/docs/en.md": "fea7bd8f7366c4d8db843b64b84a023f8dcd919f",
+      "phases/00-setup-and-tooling/01-dev-environment/code/verify.py": "74fdaa7b2e91297adf8255ded3914d8a9f3b3ae4",
+      "AGENTS.md": "3be7cf810ba6879a068d6da4756a399eab129740",
+      "phases/00-setup-and-tooling/01-dev-environment/code/main.rs": "1dfa663636394bf9fc46cf33139aa8dddcaa211f",
+      "phases/00-setup-and-tooling/01-dev-environment/code/verify.ts": "8166d6fc098c3784d5abd5a6a5b2acbde5c93423",
+      "phases/00-setup-and-tooling/01-dev-environment/outputs/prompt-env-check.md": "72b38ce7465e42e9d5401fbd08568855516dfe5f",
+      "README.md": "fa3bdfe6f7161c0e8176a288443c7e528b0fb9be"
+    }
+  },
+  "local_tensor": {
+    "python": "3.12.4",
+    "numpy": "2.5.3",
+    "torch": "2.14.0",
+    "numpy_dot": 14,
+    "cuda_available": false,
+    "mps_available": true,
+    "actual_device": "mps:0",
+    "tensor_result": [
+      [
+        7.0,
+        10.0
+      ],
+      [
+        15.0,
+        22.0
+      ]
+    ],
+    "cpu_mps_match": true,
+    "scope": "environment-and-small-tensor-only"
+  },
+  "local_libraries": {
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2",
+    "jupyter": "1.1.1",
+    "torch": "2.14.0",
+    "torchvision": "0.29.0",
+    "torchaudio": "2.11.0",
+    "matplotlib_render": "PASS",
+    "jupyter_kernel": "PASS"
+  },
+  "execution_steps": [
+    {
+      "step": "python-hello",
+      "argv": [
+        "$HOME/ai-engineering-learning/.venv/bin/python",
+        "exercises/hello.py"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "Hello, Python!\n",
+      "stderr": "",
+      "elapsed_seconds": 0.02
+    },
+    {
+      "step": "node-version",
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "v22.17.1\n",
+      "stderr": "",
+      "elapsed_seconds": 0.02
+    },
+    {
+      "step": "pnpm-version",
+      "argv": [
+        "pnpm",
+        "--version"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "11.7.0\n",
+      "stderr": "",
+      "elapsed_seconds": 0.3
+    },
+    {
+      "step": "typescript-hello",
+      "argv": [
+        "pnpm",
+        "exec",
+        "tsx",
+        "exercises/hello.ts"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "Hello, TypeScript!\n",
+      "stderr": "",
+      "elapsed_seconds": 0.47
+    },
+    {
+      "step": "rust-compile",
+      "argv": [
+        "rustc",
+        "--edition",
+        "2021",
+        "exercises/hello.rs",
+        "-o",
+        "evidence/hello-rust"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "elapsed_seconds": 0.69
+    },
+    {
+      "step": "rust-hello",
+      "argv": [
+        "$HOME/ai-engineering-learning/evidence/hello-rust"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "Hello, Rust!\n",
+      "stderr": "",
+      "elapsed_seconds": 0.46
+    },
+    {
+      "step": "julia-version",
+      "argv": [
+        "julia",
+        "--version"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "julia version 1.13.1\n",
+      "stderr": "",
+      "elapsed_seconds": 0.74
+    },
+    {
+      "step": "julia-hello",
+      "argv": [
+        "julia",
+        "exercises/hello.jl"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "Hello, Julia!\n",
+      "stderr": "",
+      "elapsed_seconds": 1.99
+    },
+    {
+      "step": "local-tensor",
+      "argv": [
+        "$HOME/ai-engineering-learning/.venv/bin/python",
+        "exercises/verify_tensor.py"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "{\n  \"python\": \"3.12.4\",\n  \"numpy\": \"2.5.3\",\n  \"torch\": \"2.14.0\",\n  \"numpy_dot\": 14,\n  \"cuda_available\": false,\n  \"mps_available\": true,\n  \"actual_device\": \"mps:0\",\n  \"tensor_result\": [\n    [\n      7.0,\n      10.0\n    ],\n    [\n      15.0,\n      22.0\n    ]\n  ],\n  \"cpu_mps_match\": true,\n  \"scope\": \"environment-and-small-tensor-only\"\n}\n",
+      "stderr": "",
+      "elapsed_seconds": 10.95
+    },
+    {
+      "step": "local-libraries",
+      "argv": [
+        "$HOME/ai-engineering-learning/.venv/bin/python",
+        "exercises/verify_libraries.py"
+      ],
+      "cwd": "$HOME/ai-engineering-learning",
+      "exit_code": 0,
+      "stdout": "{\n  \"numpy\": \"2.5.3\",\n  \"matplotlib\": \"3.11.2\",\n  \"jupyter\": \"1.1.1\",\n  \"torch\": \"2.14.0\",\n  \"torchvision\": \"0.29.0\",\n  \"torchaudio\": \"2.11.0\",\n  \"matplotlib_render\": \"PASS\",\n  \"jupyter_kernel\": \"PASS\"\n}\n",
+      "stderr": "[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.\n",
+      "elapsed_seconds": 15.39
+    },
+    {
+      "step": "python-preflight",
+      "argv": [
+        "$HOME/ai-engineering-learning/.venv/bin/python",
+        "phases/00-setup-and-tooling/01-dev-environment/code/verify.py",
+        "--route",
+        "beginner",
+        "--show-later"
+      ],
+      "cwd": "$HOME/ai-engineering-learning/source",
+      "exit_code": 0,
+      "stdout": "\n=== AI Engineering from Scratch: Environment Check ===\n\nRoute: Beginner course (`--route beginner`)\n\n  [PASS] Python 3.11+ (required now)\n         Python 3.12.4 at $HOME/ai-engineering-learning/.venv/bin/python\n  [PASS] Git (required now)\n         git version 2.50.1 (Apple Git-155) at /usr/bin/git\n\nOptional or needed later:\n  [PASS] Node.js 20+ (optional or needed later)\n         v22.17.1 at $HOME/.nvm/versions/node/v22.17.1/bin/node\n  [PASS] npx (optional or needed later)\n         10.9.2 at $HOME/.nvm/versions/node/v22.17.1/bin/npx\n  [PASS] NumPy (optional or needed later)\n         importable by $HOME/ai-engineering-learning/.venv/bin/python\n  [PASS] Matplotlib (optional or needed later)\n         importable by $HOME/ai-engineering-learning/.venv/bin/python\n  [PASS] Jupyter (optional or needed later)\n         importable by $HOME/ai-engineering-learning/.venv/bin/python\n  [PASS] PyTorch (optional or needed later)\n         importable by $HOME/ai-engineering-learning/.venv/bin/python\n  [PASS] Accelerator backend (optional or needed later)\n         Apple MPS is available\n  [PASS] Rust cargo (optional or needed later)\n         cargo 1.93.0 (083ac5135 2025-12-15) at $HOME/.cargo/bin/cargo\n  [PASS] Julia (optional or needed later)\n         julia version 1.13.1 at /opt/homebrew/bin/julia\n\nResult: 2/2 required checks passed\nReady to start Beginner course.\nNext: python3 phases/01-math-foundations/01-linear-algebra-intuition/code/vectors.py\n\n",
+      "stderr": "",
+      "elapsed_seconds": 1.13
+    },
+    {
+      "step": "rust-preflight-build",
+      "argv": [
+        "rustc",
+        "--edition",
+        "2021",
+        "phases/00-setup-and-tooling/01-dev-environment/code/main.rs",
+        "-o",
+        "$HOME/ai-engineering-learning/evidence/upstream-rust-verifier"
+      ],
+      "cwd": "$HOME/ai-engineering-learning/source",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "elapsed_seconds": 0.49
+    },
+    {
+      "step": "rust-preflight",
+      "argv": [
+        "$HOME/ai-engineering-learning/evidence/upstream-rust-verifier"
+      ],
+      "cwd": "$HOME/ai-engineering-learning/source",
+      "exit_code": 0,
+      "stdout": "\n=== AI Engineering from Scratch — Environment Check (Rust) ===\n\nLayer 1 (system) -> Layer 2 (package managers) -> Layer 3 (runtimes) -> Layer 4 (libs)\n\nRequired tools:\n  [PASS] Git            git version 2.50.1 (Apple Git-155)\n  [PASS] Python 3.10+   Python 3.12.4\n  [PASS] Node.js        v22.17.1\n  [PASS] Rust (rustc)   rustc 1.93.0 (254b59607 2026-01-19)\n  [PASS] Cargo          cargo 1.93.0 (083ac5135 2025-12-15)\n\nOptional tools:\n  [PASS] uv (Python)    uv 0.5.7 (Homebrew 2024-12-06)\n  [PASS] pnpm           11.7.0\n  [PASS] Julia          julia version 1.13.1\n\nSummary: 5/5 required, 3/3 optional\n\nEnvironment is ready. Start with Phase 1.\n",
+      "stderr": "",
+      "elapsed_seconds": 0.81
+    },
+    {
+      "step": "typescript-preflight",
+      "argv": [
+        "$HOME/ai-engineering-learning/node_modules/.bin/tsx",
+        "phases/00-setup-and-tooling/01-dev-environment/code/verify.ts"
+      ],
+      "cwd": "$HOME/ai-engineering-learning/source",
+      "exit_code": 0,
+      "stdout": "\n=== AI Engineering from Scratch — Environment Check ===\n\n  [PASS] Node.js 20+ (v22.17.1)\n  [PASS] TypeScript runner (tsx) (tsx v4.23.15)  [optional]\n  [PASS] Git (git version 2.50.1 (Apple Git-155))\n  [PASS] Python 3.10+ (Python 3.12.4)\n  [PASS] Rust (cargo) (cargo 1.93.0 (083ac5135 2025-12-15))  [optional]\n  [FAIL] Deno  [optional]\n\nResult: 3/3 required checks passed\n\nYou're ready. Start with Phase 1.\n\n",
+      "stderr": "",
+      "elapsed_seconds": 0.68
+    }
+  ],
+  "parity": {
+    "schema_version": "dev-environment-parity@1",
+    "compared_fields": [
+      "input",
+      "dot",
+      "matrix_input",
+      "matrix_result",
+      "boundary_results",
+      "assertions",
+      "scope"
+    ],
+    "equal": true,
+    "planted_wrong_matrix_rejected": true,
+    "program_sha256": "afc9fe86d56263fd63b7aecc1682c8446b69f12818a255ff61f4527caf8a811e",
+    "local": {
+      "python": "3.12.4",
+      "numpy": "2.5.3",
+      "torch": "2.14.0",
+      "device": "mps",
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "dot": 14,
+      "matrix_input": [
+        [
+          1.0,
+          2.0
+        ],
+        [
+          3.0,
+          4.0
+        ]
+      ],
+      "matrix_result": [
+        [
+          7.0,
+          10.0
+        ],
+        [
+          15.0,
+          22.0
+        ]
+      ],
+      "boundary_results": [
+        14,
+        0,
+        13
+      ],
+      "assertions": "PASS",
+      "scope": "specified-python-numpy-tensor-computation-only"
+    },
+    "colab": {
+      "python": "3.13.15",
+      "numpy": "2.1.3",
+      "torch": "2.11.0+cpu",
+      "device": "cpu",
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "dot": 14,
+      "matrix_input": [
+        [
+          1.0,
+          2.0
+        ],
+        [
+          3.0,
+          4.0
+        ]
+      ],
+      "matrix_result": [
+        [
+          7.0,
+          10.0
+        ],
+        [
+          15.0,
+          22.0
+        ]
+      ],
+      "boundary_results": [
+        14,
+        0,
+        13
+      ],
+      "assertions": "PASS",
+      "scope": "specified-python-numpy-tensor-computation-only"
+    },
+    "limits": [
+      "Only these specified computations",
+      "No equivalent hardware or performance claim",
+      "No LLM inference or training tested",
+      "No learner quiz or mastery assessment"
+    ]
+  },
+  "learner_understanding": "NOT_MEASURED",
+  "official_quiz": "NOT_RUN",
+  "limits": [
+    "Deno optional in TS checker and not installed",
+    "No Docker daemon or LLM workload acceptance",
+    "This is a first-lesson snapshot, not the full course checkout"
+  ]
+}
