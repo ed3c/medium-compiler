@@ -42,6 +42,7 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 - [Boot-to-drill-down task prompt](prompts/drill-down.md)
 - [Verification and feature map](.agents/skills/verify-medium/SKILL.md)
 - [Full-map maintenance](.agents/skills/maintain-medium-verification/SKILL.md)
+- [AI Engineering course article workflow and verification](.agents/skills/verify-learning-article/SKILL.md)
 - [Behavior and reader evals](.agents/skills/medium-behavior-evals/SKILL.md)
 
 Codex repository skills live under .agents/skills/<name>/SKILL.md. Root SKILL.md is a
@@ -210,6 +211,14 @@ pinned experiment snapshot for cards and explanation. Run `python3 scripts/build
 generate `dist/`. `vercel.json` is preview-ready.
 
 ## Course article progression
+
+Use [verify-learning-article](.agents/skills/verify-learning-article/SKILL.md) for the
+lesson-to-article-to-site workflow demonstrated by the development-environment article.
+Its three feature recipes cover original lesson requirements and real practice, existing
+medium-compiler writing routes, and deployed article/navigation readback. It also adapts
+the retained pstack maintenance procedure to this one skill; full-map maintenance needs
+both independent source review and actual drives. It does not create learner acceptance,
+require Colab for every lesson, or authorize publishing by itself.
 
 Course articles follow the pinned Software Engineering Fundamentals route in
 `references/upstream/software-engineering-fundamentals.json`, not numeric folder order.
