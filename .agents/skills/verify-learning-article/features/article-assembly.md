@@ -7,6 +7,7 @@
 - 寫作：依 `medium-writing` 把研讀與實作轉成自然的繁體中文解釋。
 - 編譯：新作 Stage 0–7；既有稿依合法修訂流程；保存同一版本的原文与結果。
 - 交付：完整文章、context、可重跑範例與去敏證據；receipt 只證明機械條件。
+- 使用：讀者能由文章找到同版 examples，分清直接使用成果、重建環境與 replay 原課。
 
 ## How to get to it (user POV)
 
@@ -32,6 +33,14 @@ Preconditions: skill doctor 成功，lesson-practice 筆記、來源與執行證
 - **上下文**：沿用 `articles/application-engineering-colab.context.json` 的用途、sources、
   review、assembly 與 unresolved 慣例，填本課真實 ref、執行與 article hash，不照抄 PASS。
   保存可公开程式與 evidence；讀者連結指向完整開放教材或具體 code，不只連首頁。
+- **成果段落**：說明取得哪個 examples/<lesson>/、版本取得方式、必要條件、從哪個
+  目錄執行哪些命令、預期結果與失敗時的處理。直接使用成果與重播原課分開說明，
+  兩者引用 lesson-practice 的當次紀錄。若只完成部分重建或受控替代，直接寫明範圍；
+  不讓「文章發布」暗示所有工具、API、硬體與本機環境都已準備好。理論課明示不需 runtime。
+- **可重用 context**：沿用現有 sidecar 加入範例路徑、成果／驗收來源 ref、依賴 lock
+  hash、支援環境、能力與已知答案、重建／既有環境／原課 replay 的分項結果、最近
+  驗收時間、未完成條件與證據引用。真實持久路徑記在私人交付收據，公開 context 用
+  可攜的相對路徑。這是實際內容紀錄，不新增 CLI 欄位或假裝 compiler 會驗證其語意。
 - **維護 live drive**：用保留的第一課全文做一次 **無改動重新編譯控制**。在 `$LESSON_RUN`
   建立 spec（topic 說明此控制、claims/terms 為空）與 coverage
   `{"elements":["copyedit"],"claims":[],"terms":[]}`，用第一課檔案 init --draft，next
@@ -48,3 +57,5 @@ Preconditions: skill doctor 成功，lesson-practice 筆記、來源與執行證
 作者審視及獨立語意審視分開，保留未測的學習效果。對於正式 learning-episode 仍由
 上游 owner 提供 acceptance、人的 checkpoint 與進度；本文工作不寫 LEARNING.md。
 文章裡的下一課連結與網站導航要一致，尤其舊稿可能仍連原課而網站已發表本站下一篇。
+maintenance 的無變動重編譯只驗寫作管線；另核對既有文章是否具備上面的成果段落，
+缺少就報回內容缺口，不在 skill-only PR 偷改文章或宣稱此控制補齊了成果交付。

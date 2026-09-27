@@ -8,7 +8,14 @@ description: 依 AI Engineering from Scratch 的已選學習路徑逐課研讀�
 以 [AI Engineering from Scratch 中文入口](https://aiengineeringfromscratch.com/?lang=zh)
 為教材入口，以 [開發環境設定文章](../../../articles/application-engineering-colab.md)
 及其 context / evidence 為完成方式的實例。沿用「逐章讀懂 → 實跑 → 解釋原因與結果 →
-編譯文章 → 驗證網站」，不複製第一課的工具清單、題數、Colab 實驗或硬體結論到每一課。
+保存可用成果與重跑入口 → 編譯文章 → 驗證網站」，不複製第一課的工具清單、題數、
+Colab 實驗或硬體結論到每一課。
+
+文章發布與歷史綠燈不代表本機永久就緒。每課以 repository 的
+[examples/](../../../examples/) 保存可取得的成果，並完成
+[成果取得與 replay 契約](features/lesson-practice.md#成果取得與-replay-契約)。
+使用者指定的 [examples 基準版本](https://github.com/ed3c/medium-compiler/tree/d71300ac12bd26857baf06799ddb4d5c7bd4427f/examples)
+是既有實作參考，不是所有課都已支援完整 replay 的證明；新成果必須綁定自己的精確 ref。
 
 目前網站實作的是 `software-engineering-fundamentals`；順序由
 [已釘選的路線](../../../references/upstream/software-engineering-fundamentals.json) 決定。
@@ -33,7 +40,9 @@ python3 .agents/skills/verify-medium/scripts/verify.py --feature doctor --out "$
 
 短命 CLI 每次執行完即結束；網站 build 與 server 的啟停由網站 recipe 說明。
 不同執行不能共用寫作 run、build 輸出或 Colab session；已存在的使用者環境可讀取，
-需要實作時使用隔離目錄，不在共享主 tree 切 branch。
+需要實作時使用隔離目錄，不在共享主 tree 切 branch。暫存目錄用於證據與破壞性反例；
+交付可直接使用的本機能力時，另選使用者既有學習根目錄下的持久課程目錄，記錄真實路徑。
+不要把本次暫存 venv 當成交付入口，也不要搬動已建立的 venv；在最終位置依 lock 重建。
 
 ## Doctor
 
@@ -50,7 +59,8 @@ mechanical drive。不改防護或停用測試，也不全域修改使用者環�
 ## Drive
 
 1. [逐章研讀與實作](features/lesson-practice.md)：保存完整原課與所引用程式，從課程
-   真正要求推導成功條件。直接尋找值得解釋的問題並給出答案、推理及實測證據。
+   真正要求推導成功條件。直接尋找值得解釋的問題並給出答案、推理及實測證據；
+   在 examples/<lesson>/ 交付成果使用與 replay 入口，實跑重建及既有環境重新驗收。
 2. [寫作與編譯](features/article-assembly.md)：載入 `medium-writing`，新文章走既有
    Stage 0–7，既有文章用實際支援的修訂路徑，不能倒填虛構的寫作階段。
 3. [導航與網站交付](features/website-delivery.md)：build、點擊前後課、核對文章雜湊，
@@ -69,14 +79,16 @@ GitHub head / CI、deployment 身分與瀏覽器動作及結果。密鑰、token
 只把必要且可公開的範例、去敏證據與 context 放入文章 repository。
 
 分別報告：原課要求覆蓋、指定實作結果、替代方法的有效範圍、編譯機械檢查、作者語意
-審視、獨立審視、網站發布、學員理解。沒有執行就寫未執行；舊證據標示其 ref / 日期，
+審視、獨立審視、網站發布、成果材料可取得、本機當次可用、重建／replay 範圍、學員理解。
+本機能力須附最近驗收時間與版本，不能承諾永久可用。沒有執行就寫未執行；舊證據標示其 ref / 日期，
 不能重新標為本次執行。來源不完整或工具受阻時交付可確認部分及具體缺口，不能宣称全課完成。
 
 ## Cleanup
 
 只停止本次啟動的 server / runtime，Colab 先下載並確認結果才停止，最後讀回 session。
 清理本次 disposable 工作目錄前先保留證據；保留 `$LESSON_RUN`，確認輸出與 receipt
-仍存在。失敗也要清理自身資源；不停止他人的程序、不刪除使用者課程環境。
+仍存在。保留已交付的持久環境、成果與使用入口；只清理自己的反例／暫存副本。
+失敗也要清理自身資源；不停止他人的程序、不刪除使用者課程環境。
 
 ## Helpers
 
