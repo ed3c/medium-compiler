@@ -231,6 +231,6 @@ git diff --cached
 
 可重看的成果包括兩個 GitHub 提交、可重用的忽略規則，以及[本次操作驗證紀錄](https://github.com/ed3c/medium-compiler/blob/main/articles/evidence/git-collaboration.json)。本機目錄在 `~/ai-engineering-learning/git-collaboration/`，保留 main 主副本、my-progress 練習副本與操作結果。這些是代理完成的實作證據，沒有代填原網站的個人測驗。
 
-前面的操作已回答為什麼要分開 add、commit、push，以及何時才算推送成功。接著要處理的是：程式版本保存了，Python 套件版本如何一起重現？依同一條 Software Engineering Fundamentals 路線，[下一課是 Python Environments](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/06-python-environments&learningPath=software-engineering-fundamentals)。它是路線中的第三課，並非依 Phase 0 目錄數字直接前往 GPU 課。
+前面的操作已回答為什麼要分開 add、commit、push，以及何時才算推送成功。接著要處理的是：程式版本保存了，Python 套件版本如何一起重現？依同一條 Software Engineering Fundamentals 路線，[下一課是 Python Environments](https://medium-compiler.vercel.app/articles/python-environments/)。它是路線中的第三課，並非依 Phase 0 目錄數字直接前往 GPU 課。
 
 本篇核對的[課文來源](https://github.com/rohitg00/ai-engineering-from-scratch/blob/968da0791b83917c9d8a5ba197ff190fa0b24093/phases/00-setup-and-tooling/02-git-and-collaboration/docs/en.md)固定在本次 fork 的上游版本。本文保留原課的學習目標、四個建立步驟、Use It、三道 Exercises 與 Key Terms；本次兩份 checkout、SSH 連線與暫存區對照，是為解釋實際操作而補上的內容。

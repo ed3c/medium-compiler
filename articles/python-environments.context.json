@@ -1,0 +1,59 @@
+{
+  "schema_version": "article-source-context@1",
+  "purpose": "source-explanation",
+  "checked_on": "2026-09-27",
+  "source_revision": "968da0791b83917c9d8a5ba197ff190fa0b24093",
+  "lesson": "phases/00-setup-and-tooling/06-python-environments",
+  "lesson_git_blob": "16aec2037d5cf9359d0c028836ee32e4a418742b",
+  "code_git_blob": "2b99294de848d1c04bd5bd34a58afcd59215cc0c",
+  "learning_path": "software-engineering-fundamentals",
+  "learning_path_git_blob": "a1b09d143c1590896e69b5ba77a1918710f35874",
+  "original_sections": [
+    "Learning Objectives",
+    "The Problem",
+    "The Concept",
+    "Build It: uv/venv/conda",
+    "Per-Phase Strategy",
+    "pyproject.toml Basics",
+    "Lockfiles",
+    "Common Mistakes (5)",
+    "Use It",
+    "Exercises (4)",
+    "Key Terms"
+  ],
+  "original_exercises": 4,
+  "reference_quiz": {
+    "questions": 5,
+    "source_blob": "49560076a90d0e3b3179f194871523db25c3fce0",
+    "mode": "direct answers with reasoning; no learner submission"
+  },
+  "coverage": {
+    "1": "PASS original script after runner correction; optional PyTorch absent warning retained",
+    "2": "PASS 2.5.3 vs 1.26.4, separate paths and original unchanged",
+    "3": "PASS PyTorch+Anthropic extras, same 26 installed versions after fresh rebuild, CPU matrix equality, stale lock refusal and repair",
+    "4": "PARTIAL_LITERAL / VERIFIED_ALTERNATIVE: global attempt refused; explicit external target install/import/uninstall with non-venv interpreter verified; no successful global site-packages write"
+  },
+  "deviations": [
+    "Exercise 4: protected global installation refused; documented external target alternative with installation/import/uninstallation. Global mutation not completed.",
+    "Use uv project sync with extras rather than editable package install; example is an environment project without build backend.",
+    "Correct CUDA compatibility, conda mixing and universal lockfile overstatements using primary docs."
+  ],
+  "evidence": "articles/evidence/python-environments.json",
+  "assembly": {
+    "mode": "staged",
+    "stages": "0-7",
+    "compiler_ref": "730ee4eec22c623c537e4b9fda370ff683288d0d",
+    "receipt_status": "VALID",
+    "article_sha256": "519bbee91281f1545182b3d4eb8aefd9e6905115ef05c03f221bcba530b7e9b0",
+    "stage6": "Author reviewed complete semantic draft; no expression changes needed."
+  },
+  "review": {
+    "author": "Complete pinned lesson/code/quiz compared against sections, all four exercise outcomes, raw actual outputs and relevant official documentation. No tables; direct answers; links and limits reviewed.",
+    "independent_semantic_review": "NOT_RUN",
+    "learner_understanding": "NOT_MEASURED"
+  },
+  "unresolved": [
+    "Literal successful global install deliberately not performed because the interpreter is externally managed; alternate learning outcomes are bounded above."
+  ],
+  "next_lesson": "phases/00-setup-and-tooling/07-docker-for-ai"
+}

@@ -29,14 +29,12 @@
   "evidence": "articles/evidence/git-collaboration.json",
   "fork_head": "3d9a80386b195fb7156b2aedc126a4e48a39390d",
   "assembly": {
-    "mode": "lossless-source-additions",
-    "compiler_ref": "4df935144701647764dde94e04a061ab07a2df89",
-    "stages": "source-bound boot/next/drill-down/review/finish, then existing Stage 6-7 finalization",
+    "mode": "single-link-source-correction",
+    "compiler_ref": "730ee4eec22c623c537e4b9fda370ff683288d0d",
+    "stages": "6-7 imported revision",
     "receipt_status": "VALID",
-    "article_sha256": "5f1aab268bab24573e76b7d2d7898bc268a141cc80f02b22c94fa519aa23b54a",
-    "before_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b",
-    "declared_insertions": 3,
-    "proof": "Three insertions removed reconstruct previous article exactly; retained external batch proof"
+    "article_sha256": "14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d",
+    "correction": "Next lesson destination now points to published-site Python Environments article"
   },
   "review": {
     "author": "Full original lesson and quiz compared with chapter coverage, new practice result, raw commands and all three article additions.",
@@ -74,5 +72,15 @@
     "remote_main_unchanged": true,
     "conflict_resolution": "NOT_RUN",
     "learner_progress": "UNCHANGED"
+  },
+  "previous_assembly_before_navigation": {
+    "mode": "lossless-source-additions",
+    "compiler_ref": "4df935144701647764dde94e04a061ab07a2df89",
+    "stages": "source-bound boot/next/drill-down/review/finish, then existing Stage 6-7 finalization",
+    "receipt_status": "VALID",
+    "article_sha256": "5f1aab268bab24573e76b7d2d7898bc268a141cc80f02b22c94fa519aa23b54a",
+    "before_sha256": "beaad1b22589bdef7eb0bed6dfb0db39f3072a24362ac0710d64e1416f6a7e1b",
+    "declared_insertions": 3,
+    "proof": "Three insertions removed reconstruct previous article exactly; retained external batch proof"
   }
 }
