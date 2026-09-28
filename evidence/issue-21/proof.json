@@ -1,0 +1,298 @@
+{
+  "summary": {
+    "baseline_ref": "4ad35ef8fb0caac94fe1f613f766f99ac1c2ba70",
+    "article_sha256": "14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d",
+    "planted_drift_control": "old mechanical PASS; new selected article FAIL",
+    "stale_context_control": "FAIL / exit 2",
+    "selected_article": "PASS",
+    "mechanical": "PASS",
+    "behavior": "BLOCKED / exit 3",
+    "protected_before": {
+      "articles/ai-engineer-learning-path.context.json": "11b1055fb9fe90903f746bc571a1895ff3f57ac6fdf03c82458cb44aac23f656",
+      "articles/ai-engineer-learning-path.md": "04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+      "articles/ai-engineer-learning-path.parts/manifest.json": "1475b5946422a8017dc40f316de475ac9be1b2a86db4aca2edc1aa1c6f1f6ae3",
+      "articles/ai-engineer-learning-path.parts/part-01.md": "c162267fde61170b9b19231247a694c568f71d55755e691175daba0cbc7eef27",
+      "articles/ai-engineer-learning-path.parts/part-02.md": "bd212d580053511908fc74e5efbd782959ffc93e922cbfc7b290c6713e641a7f",
+      "articles/ai-engineer-learning-path.parts/part-03.md": "4929ef4f09b10c2633dfd92a2cdd7122af8f31da5dd14e930be2bd92d1926e20",
+      "articles/ai-engineer-learning-path.parts/part-04.md": "f99a6a970a7c21fd33206095681f43d9f99a0e767e89bc200057c2b1cb9994e1",
+      "articles/ai-engineer-learning-path.parts/part-05.md": "8324d7630d17a8792172cd0d4354f08df2f329c40a60e29b2b9393945e79732b",
+      "articles/ai-engineer-learning-path.stage-00.md": "4703b4756e4687d760dc2fbdad4afedc8437759e3853b1f3c5f10b9a993894f8",
+      "articles/application-engineering-colab.context.json": "b90904a2e96c2d92e1643b953d43971f7b6793ef4048306724e7edc23fb7e92c",
+      "articles/application-engineering-colab.md": "8f62ba37cd820cf3e68755bfc214bcd9f4b307bcb5dd050de28ffd0f818287a5",
+      "articles/evidence/colab-dev-environment.json": "f49d3d3bd2c5d8554281a6b0375e49ca22f0afdcc8e4cfaa8189666651b4cc80",
+      "articles/evidence/dev-environment-local.json": "69f19fa9719cdb5f622ecd24999dc3b93ec190f4085744086ed1d5404c5d1cf6",
+      "articles/evidence/git-collaboration-recheck.json": "ab76d6f35a17e0ff21186e2da1ecab23e4b4ca119c5adb8a787b8356b73ef2b0",
+      "articles/evidence/git-collaboration.json": "d5616c9b855130e768f22d44bfec0d62102b422fa51e0506d0b21e79ec970c2a",
+      "articles/evidence/python-environments.json": "2b254e1519188e004ea032161445b3afeea5e3984fc12d0f75dd41acd79ae7c9",
+      "articles/git-collaboration.context.json": "153a5652da069f0a37a852f5baae427666d5a88f8551d0e6a473f9c4a9b50ff7",
+      "articles/git-collaboration.md": "14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d",
+      "articles/python-environments.context.json": "35c4881cf4936c09e07d1ff8ea1b6b523f7a22e11c817f17d6bfacee2ac6b0f1",
+      "articles/python-environments.md": "519bbee91281f1545182b3d4eb8aefd9e6905115ef05c03f221bcba530b7e9b0",
+      "LEARNING.md": null
+    },
+    "protected_after": {
+      "articles/ai-engineer-learning-path.context.json": "11b1055fb9fe90903f746bc571a1895ff3f57ac6fdf03c82458cb44aac23f656",
+      "articles/ai-engineer-learning-path.md": "04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+      "articles/ai-engineer-learning-path.parts/manifest.json": "1475b5946422a8017dc40f316de475ac9be1b2a86db4aca2edc1aa1c6f1f6ae3",
+      "articles/ai-engineer-learning-path.parts/part-01.md": "c162267fde61170b9b19231247a694c568f71d55755e691175daba0cbc7eef27",
+      "articles/ai-engineer-learning-path.parts/part-02.md": "bd212d580053511908fc74e5efbd782959ffc93e922cbfc7b290c6713e641a7f",
+      "articles/ai-engineer-learning-path.parts/part-03.md": "4929ef4f09b10c2633dfd92a2cdd7122af8f31da5dd14e930be2bd92d1926e20",
+      "articles/ai-engineer-learning-path.parts/part-04.md": "f99a6a970a7c21fd33206095681f43d9f99a0e767e89bc200057c2b1cb9994e1",
+      "articles/ai-engineer-learning-path.parts/part-05.md": "8324d7630d17a8792172cd0d4354f08df2f329c40a60e29b2b9393945e79732b",
+      "articles/ai-engineer-learning-path.stage-00.md": "4703b4756e4687d760dc2fbdad4afedc8437759e3853b1f3c5f10b9a993894f8",
+      "articles/application-engineering-colab.context.json": "b90904a2e96c2d92e1643b953d43971f7b6793ef4048306724e7edc23fb7e92c",
+      "articles/application-engineering-colab.md": "8f62ba37cd820cf3e68755bfc214bcd9f4b307bcb5dd050de28ffd0f818287a5",
+      "articles/evidence/colab-dev-environment.json": "f49d3d3bd2c5d8554281a6b0375e49ca22f0afdcc8e4cfaa8189666651b4cc80",
+      "articles/evidence/dev-environment-local.json": "69f19fa9719cdb5f622ecd24999dc3b93ec190f4085744086ed1d5404c5d1cf6",
+      "articles/evidence/git-collaboration-recheck.json": "ab76d6f35a17e0ff21186e2da1ecab23e4b4ca119c5adb8a787b8356b73ef2b0",
+      "articles/evidence/git-collaboration.json": "d5616c9b855130e768f22d44bfec0d62102b422fa51e0506d0b21e79ec970c2a",
+      "articles/evidence/python-environments.json": "2b254e1519188e004ea032161445b3afeea5e3984fc12d0f75dd41acd79ae7c9",
+      "articles/git-collaboration.context.json": "153a5652da069f0a37a852f5baae427666d5a88f8551d0e6a473f9c4a9b50ff7",
+      "articles/git-collaboration.md": "14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d",
+      "articles/python-environments.context.json": "35c4881cf4936c09e07d1ff8ea1b6b523f7a22e11c817f17d6bfacee2ac6b0f1",
+      "articles/python-environments.md": "519bbee91281f1545182b3d4eb8aefd9e6905115ef05c03f221bcba530b7e9b0",
+      "LEARNING.md": null
+    },
+    "protected_unchanged": true,
+    "human_learning": "NOT_MEASURED",
+    "independent_semantic_review": "NOT_RUN"
+  },
+  "experiment_commands": [
+    {
+      "label": "doctor",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "doctor",
+        "--out",
+        "<run>/doctor"
+      ],
+      "cwd": "<checkout>",
+      "exit": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "old-mechanical-with-drift",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "mechanical",
+        "--out",
+        "<run>/baseline-mechanical"
+      ],
+      "cwd": "<run>/baseline-source",
+      "exit": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"staged-authoring\": {\n      \"status\": \"PASS\",\n      \"fixture_kind\": \"scripted CLI control; not a writer run\"\n    },\n    \"bounded-revision\": {\n      \"status\": \"PASS\",\n      \"fixture_kind\": \"controlled one-phrase article edit, not the shipped expansion\"\n    },\n    \"lossless-drilldown\": {\n      \"status\": \"PASS\",\n      \"article_sha256\": \"sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\",\n      \"real_article\": true,\n      \"author_review\": \"performed, not independent\",\n      \"learning_handoff\": {\n        \"preflight\": {\n          \"article_sha256\": \"sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f\",\n          \"plan_sha256\": \"sha256:b3ea60fc17b85df4aa8e28467d8e3b60fb3cd1167aec3f112b1079b69286b37f\",\n          \"status\": \"BLOCKED\",\n          \"next\": {\n            \"owner\": \"learning-owner\",\n            \"operation\": \"supply-learning-prerequisite\",\n            \"missing_input\": \"learning_handoff\"\n          },\n          \"missing\": [\n            {\n              \"input\": \"learning_handoff\",\n              \"owner\": \"learning-owner\"\n            }\n          ],\n          \"article_mutation_allowed\": false,\n          \"progress_write\": \"NEVER_BY_MEDIUM_COMPILER\",\n          \"human_learning_outcome\": \"NOT_MEASURED\"\n        },\n        \"boot\": {\n          \"status\": \"BLOCKED\",\n          \"next\": {\n            \"owner\": \"learning-owner\",\n            \"operation\": \"supply-learning-prerequisite\",\n            \"missing_input\": \"learning_handoff\"\n          },\n          \"missing\": [\n            {\n              \"input\": \"learning_handoff\",\n              \"owner\": \"learning-owner\"\n            }\n          ],\n          \"article_mutation_allowed\": false,\n          \"progress_write\": \"NEVER_BY_MEDIUM_COMPILER\",\n          \"human_learning_outcome\": \"NOT_MEASURED\"\n        },\n        \"created_run\": false\n      },\n      \"authority_boundary\": {\n        \"experiment_without_promotion\": \"READY_NON_AUTHORIZING\",\n        \"promote_without_product_need\": \"REFUSED\",\n        \"promote_with_declared_prerequisites\": \"READY_NON_AUTHORIZING\",\n        \"pending_experiment_owner\": \"experiment-owner\",\n        \"synthetic_acceptance\": \"UNIT_TEST_CONTROL_ONLY\"\n      },\n      \"human_progress\": \"NOT_UPDATED\",\n      \"fresh_writer_ab\": \"NOT_RUN\"\n    },\n    \"delivery\": {\n      \"status\": \"PASS\",\n      \"parts\": 5,\n      \"refusal_controls\": {\n        \"missing_part\": true,\n        \"reordered_parts\": true,\n        \"changed_part\": true\n      },\n      \"article_sha256\": \"sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\",\n      \"medium_browser_rendering\": \"NOT_RUN\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "new-selected-with-same-drift",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "learning-article",
+        "--article",
+        "<run>/baseline-source/articles/git-collaboration.md",
+        "--out",
+        "<run>/changed-article"
+      ],
+      "cwd": "<checkout>",
+      "exit": 2,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"learning-article\": {\n      \"status\": \"FAIL\",\n      \"error\": \"article/context hash mismatch: expected 14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d, got sha256:6433bfc79645a0a8417e87cc14c69d586a5ff64621d991023de67206b79b3ccf\"\n    }\n  },\n  \"outcome\": \"failed\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "new-selected-with-stale-context",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "learning-article",
+        "--article",
+        "<run>/baseline-source/articles/git-collaboration.md",
+        "--out",
+        "<run>/stale-context"
+      ],
+      "cwd": "<checkout>",
+      "exit": 2,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"learning-article\": {\n      \"status\": \"FAIL\",\n      \"error\": \"article/context hash mismatch: expected 0000000000000000000000000000000000000000000000000000000000000000, got sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\"\n    }\n  },\n  \"outcome\": \"failed\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "current-git-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "learning-article",
+        "--article",
+        "articles/git-collaboration.md",
+        "--out",
+        "<run>/git-article"
+      ],
+      "cwd": "<checkout>",
+      "exit": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"learning-article\": {\n      \"status\": \"PASS\",\n      \"article\": \"<checkout>/articles/git-collaboration.md\",\n      \"context\": \"<checkout>/articles/git-collaboration.context.json\",\n      \"article_sha256\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n      \"context_sha256\": \"sha256:153a5652da069f0a37a852f5baae427666d5a88f8551d0e6a473f9c4a9b50ff7\",\n      \"expected_article_sha256\": \"14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n      \"exact_bytes\": true,\n      \"control\": \"no-change recompile of the selected article\",\n      \"semantic_correctness\": \"NOT_ASSESSED\",\n      \"human_learning_outcome\": \"NOT_MEASURED\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "current-mechanical",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "mechanical",
+        "--out",
+        "<run>/mechanical"
+      ],
+      "cwd": "<checkout>",
+      "exit": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"staged-authoring\": {\n      \"status\": \"PASS\",\n      \"fixture_kind\": \"scripted CLI control; not a writer run\"\n    },\n    \"bounded-revision\": {\n      \"status\": \"PASS\",\n      \"fixture_kind\": \"controlled one-phrase article edit, not the shipped expansion\"\n    },\n    \"lossless-drilldown\": {\n      \"status\": \"PASS\",\n      \"article_sha256\": \"sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\",\n      \"real_article\": true,\n      \"author_review\": \"performed, not independent\",\n      \"learning_handoff\": {\n        \"preflight\": {\n          \"article_sha256\": \"sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f\",\n          \"plan_sha256\": \"sha256:b3ea60fc17b85df4aa8e28467d8e3b60fb3cd1167aec3f112b1079b69286b37f\",\n          \"status\": \"BLOCKED\",\n          \"next\": {\n            \"owner\": \"learning-owner\",\n            \"operation\": \"supply-learning-prerequisite\",\n            \"missing_input\": \"learning_handoff\"\n          },\n          \"missing\": [\n            {\n              \"input\": \"learning_handoff\",\n              \"owner\": \"learning-owner\"\n            }\n          ],\n          \"article_mutation_allowed\": false,\n          \"progress_write\": \"NEVER_BY_MEDIUM_COMPILER\",\n          \"human_learning_outcome\": \"NOT_MEASURED\"\n        },\n        \"boot\": {\n          \"status\": \"BLOCKED\",\n          \"next\": {\n            \"owner\": \"learning-owner\",\n            \"operation\": \"supply-learning-prerequisite\",\n            \"missing_input\": \"learning_handoff\"\n          },\n          \"missing\": [\n            {\n              \"input\": \"learning_handoff\",\n              \"owner\": \"learning-owner\"\n            }\n          ],\n          \"article_mutation_allowed\": false,\n          \"progress_write\": \"NEVER_BY_MEDIUM_COMPILER\",\n          \"human_learning_outcome\": \"NOT_MEASURED\"\n        },\n        \"created_run\": false\n      },\n      \"authority_boundary\": {\n        \"experiment_without_promotion\": \"READY_NON_AUTHORIZING\",\n        \"promote_without_product_need\": \"REFUSED\",\n        \"promote_with_declared_prerequisites\": \"READY_NON_AUTHORIZING\",\n        \"pending_experiment_owner\": \"experiment-owner\",\n        \"synthetic_acceptance\": \"UNIT_TEST_CONTROL_ONLY\"\n      },\n      \"human_progress\": \"NOT_UPDATED\",\n      \"fresh_writer_ab\": \"NOT_RUN\"\n    },\n    \"delivery\": {\n      \"status\": \"PASS\",\n      \"parts\": 5,\n      \"refusal_controls\": {\n        \"missing_part\": true,\n        \"reordered_parts\": true,\n        \"changed_part\": true\n      },\n      \"article_sha256\": \"sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\",\n      \"medium_browser_rendering\": \"NOT_RUN\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "behavior-preserves-blocked",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "behavior-evals",
+        "--out",
+        "<run>/behavior"
+      ],
+      "cwd": "<checkout>",
+      "exit": 3,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"build-review-interface\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\"\n    },\n    \"behavior-evals\": {\n      \"status\": \"BLOCKED\",\n      \"attempted\": \"native packet identity/readiness check only; no agent launch or executable probe\",\n      \"entry\": \".agents/skills/medium-behavior-evals/SKILL.md\",\n      \"cloud_recipe\": \"evals/writing/ops-evidence-handoff/cloud-native.md\",\n      \"native_packet\": \"evals/writing/ops-evidence-handoff/native-cloud.json\",\n      \"native_packet_sha256\": \"sha256:7a833c4aaf5133815db903023885c19b0feaa2e262b75b61fd73b4bfbeb34aaa\",\n      \"carrier\": \"native collaboration.spawn_agent\",\n      \"fork_turns\": \"none\",\n      \"capability_observation\": \"HOST_SESSION_OWNED; not probed by this verifier\",\n      \"fresh_writer_ab\": \"NOT_RUN\",\n      \"independent_reader\": \"NOT_RUN\",\n      \"model_calls\": 0,\n      \"behavior\": null,\n      \"missing\": [\n        \"actual native spawn/capture receipts for the selected runs\",\n        \"independent raw session/input evidence\",\n        \"trusted semantic review and isolated reader evidence\"\n      ],\n      \"reason\": \"Repository checks cannot manufacture native sessions or reviewed learning evidence.\"\n    }\n  },\n  \"outcome\": \"blocked\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": ""
+    }
+  ],
+  "selected_article_commands": [
+    {
+      "feature": "doctor",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "--help"
+      ],
+      "exit": 0,
+      "stdout": "usage: medium_compiler.py [-h]\n                          {init,next,submit,assemble,verify,check-receipt,style-lint,prove-update} ...\n\nDeterministic writing-state owner for staged Medium technical articles. This\ntool intentionally does not judge technical truth. It owns only the\nmechanically checkable writing contract: stage order, declared coverage,\nprotected term/literal/code integrity, deterministic assembly, and validation\nbound to final bytes.\n\npositional arguments:\n  {init,next,submit,assemble,verify,check-receipt,style-lint,prove-update}\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "stderr": ""
+    },
+    {
+      "feature": "doctor",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "--help"
+      ],
+      "exit": 0,
+      "stdout": "usage: medium_compiler.py [-h]\n                          {init,next,submit,assemble,verify,check-receipt,style-lint,prove-update} ...\n\nDeterministic writing-state owner for staged Medium technical articles. This\ntool intentionally does not judge technical truth. It owns only the\nmechanically checkable writing contract: stage order, declared coverage,\nprotected term/literal/code integrity, deterministic assembly, and validation\nbound to final bytes.\n\npositional arguments:\n  {init,next,submit,assemble,verify,check-receipt,style-lint,prove-update}\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "init",
+        "--draft",
+        "<run>/git-article/input.md",
+        "--spec",
+        "<run>/git-article/scratch-nz_g6n5l/spec.json",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"admitted_files\": {\n    \"semantic-draft.md\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n    \"spec.json\": \"sha256:87e0dec14a699ce33821d360fb604e05dd581400d43217298111b4e1a34bd63c\"\n  },\n  \"covered_claims\": [],\n  \"defined_terms\": [],\n  \"mode\": \"revision\",\n  \"next_stage\": 6,\n  \"schema_version\": \"medium-compiler-state@1\",\n  \"status\": \"CONTINUE\",\n  \"submitted_stages\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "next",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"claim_ids\": [],\n  \"name\": \"meaning-preserving-copyedit\",\n  \"next_stage\": 6,\n  \"required_elements\": [\n    \"copyedit\"\n  ],\n  \"status\": \"CONTINUE\",\n  \"term_ids\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "submit",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run",
+        "--stage",
+        "6",
+        "--input",
+        "<run>/git-article/input.md",
+        "--coverage",
+        "<run>/git-article/scratch-nz_g6n5l/coverage.json"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"admitted_files\": {\n    \"parts/stage-06.coverage.json\": \"sha256:60c183bcbfb5f5c11f064e9d6ee4ab0a11c3f63f82ae7782c9c476b2211ccb12\",\n    \"parts/stage-06.md\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n    \"semantic-draft.md\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n    \"spec.json\": \"sha256:87e0dec14a699ce33821d360fb604e05dd581400d43217298111b4e1a34bd63c\"\n  },\n  \"covered_claims\": [],\n  \"defined_terms\": [],\n  \"mode\": \"revision\",\n  \"next_stage\": 7,\n  \"schema_version\": \"medium-compiler-state@1\",\n  \"status\": \"CONTINUE\",\n  \"submitted_stages\": [\n    6\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "assemble",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n  \"path\": \"<run>/git-article/scratch-nz_g6n5l/run/medium-canonical.md\",\n  \"status\": \"ASSEMBLED\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "verify",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n  \"artifact_sha256\": {\n    \"parts/stage-06.coverage.json\": \"sha256:60c183bcbfb5f5c11f064e9d6ee4ab0a11c3f63f82ae7782c9c476b2211ccb12\",\n    \"parts/stage-06.md\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n    \"semantic-draft.md\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n    \"spec.json\": \"sha256:87e0dec14a699ce33821d360fb604e05dd581400d43217298111b4e1a34bd63c\"\n  },\n  \"checks\": {\n    \"copyedit_fenced_blocks\": true,\n    \"current_artifacts_rechecked\": true,\n    \"declared_claim_coverage\": \"NOT_ASSESSED\",\n    \"deterministic_assembly\": true,\n    \"inline_code_and_links\": true,\n    \"protected_literals\": true,\n    \"stage_order\": true,\n    \"technical_term_identity\": true\n  },\n  \"compiler_sha256\": \"sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6\",\n  \"human_preference\": \"NOT_ASSESSED\",\n  \"mode\": \"revision\",\n  \"schema_version\": \"medium-compiler-validation@2\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"state_sha256\": \"sha256:aae1296bae55e2b14894dd8d921af5371e82470b58c7cbc4f30afa0879edf363\",\n  \"topic\": \"Selected learning article byte-preservation control\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "check-receipt",
+        "--run-dir",
+        "<run>/git-article/scratch-nz_g6n5l/run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"status\": \"VALID\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "feature": "learning-article",
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "<checkout>/medium_compiler.py",
+        "check-receipt",
+        "--run-dir",
+        "<run>/git-article/article-run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"article_sha256\": \"sha256:14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\",\n  \"semantic_correctness\": \"NOT_ASSESSED\",\n  \"status\": \"VALID\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}
