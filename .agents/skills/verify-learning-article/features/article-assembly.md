@@ -72,6 +72,12 @@ Preconditions: skill doctor 成功，lesson-practice 筆記、來源與執行證
 - **上下文**：沿用 `articles/application-engineering-colab.context.json` 的用途、sources、
   review、assembly 與 unresolved 慣例，填本課真實 ref、執行與 article hash，不照抄 PASS。
   保存可公开程式與 evidence；讀者連結指向完整開放教材或具體 code，不只連首頁。
+- **本篇機械驗收**：編譯與 context 更新後，必須自動執行既有 driver 的指定文章入口，
+  把下列 `--article` 換成本次文章：
+  `python3 .agents/skills/verify-medium/scripts/verify.py --feature learning-article --article articles/git-collaboration.md --out "$LESSON_RUN/article-check"`。
+  它核對相鄰 context 的 `assembly.article_sha256`，無改動重編譯並驗證保留 receipt。
+  缺少／過期 hash 就停止本篇驗收，回到真實編譯收據核對；不可自動改 hash 只為過關。
+  Ops mechanical PASS 不能替代此檢查；此檢查也不能替代語意審視、上游 handoff 或學員理解。
 - **成果段落**：說明取得哪個 examples/<lesson>/、版本取得方式、必要條件、從哪個
   目錄執行哪些命令、預期結果與失敗時的處理。直接使用成果與重播原課分開說明，
   兩者引用 lesson-practice 的當次紀錄。若只完成部分重建或受控替代，直接寫明範圍；
