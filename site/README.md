@@ -26,6 +26,8 @@ The homepage section and shared navigation lead to `/cefr-alg-c2/`; Voice Lab is
 receive an absolute `<base>` and a return link during build, so assets and module
 workers resolve even when Vercel removes a trailing slash. The source snapshot
 itself remains byte-identical to the pinned repository.
+The Voice Lab skip link explicitly targets its own page, and the header wraps
+the added navigation on narrow screens.
 
 `references/cefr-alg-site-lock.json` records every imported file's SHA-256. Build
 refuses a changed/incomplete snapshot. `/cefr-alg-c2/provenance.json` additionally

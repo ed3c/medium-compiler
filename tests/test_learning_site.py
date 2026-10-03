@@ -28,6 +28,7 @@ class LearningSiteTests(unittest.TestCase):
                 for ref in parser.refs+['./kokoro-worker.js','./audio/manifest.json']:
                     self.assertTrue((out/urlparse(urljoin(base,ref)).path.lstrip('/')).is_file())
             lock=json.loads((alg/'provenance.json').read_text())
+            self.assertIn('href="./compare#lab"',(alg/'compare.html').read_text())
             self.assertEqual(provenance['cefr_alg']['revision'],lock['revision'])
             for name,digest in lock['output_sha256'].items():
                 self.assertEqual(hashlib.sha256((alg/name).read_bytes()).hexdigest(),digest)

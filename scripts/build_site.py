@@ -161,6 +161,9 @@ def import_alg(out:Path)->dict:
         path=target/name
         text=path.read_text(encoding='utf-8')
         text=text.replace('<head>','<head><base href="/cefr-alg-c2/">',1)
+        text=text.replace('</head>','<style>.topbar{height:auto;min-height:90px;gap:12px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}</style></head>',1)
+        if name=='compare.html':
+            text=text.replace('href="#lab"','href="./compare#lab"',1)
         text=text.replace('</header>','<a class="text-link" href="/">AI Engineer Lab ↗</a></header>',1)
         path.write_text(text,encoding='utf-8')
     lock['output_sha256']={p.relative_to(target).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
