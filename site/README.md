@@ -8,7 +8,7 @@ Sources:
 - experiment templates/evidence: pinned Ops Reconciliation Copilot snapshot;
 - article: `articles/ai-engineer-learning-path.md`.
 - CEFR ALG C2+ and Voice Lab: `site/cefr-alg-c2/`, an exact static snapshot of
-  `ed3c/cefr-alg-c2-` at `5a149d25b2613c772c8fcc18eb14eecb9d718c28`.
+  `ed3c/cefr-alg-c2-plus` at `416f554015b44ae27cb342a3cdb331cec78a1490`.
 
 Build:
 
@@ -46,3 +46,10 @@ practice, not strict ALG or a CEFR assessment.
 Deployment reuses the existing `noodles8/medium-compiler` Git integration and
 `vercel.json`: repository root, Python build, `dist` output, clean URLs. No new
 project, environment secret or paid integration is required.
+
+The studio narrator now defaults to Parler TTS published MP3 audio for all 24
+scene variants, with Kokoro browser as the on-device generation choice. Device
+speech synthesis is no longer used. Stop/navigation cancel pending generation
+and playback; speed and continuous scenes remain available. The narration
+manifest binds each encoded file to exact input text and the pinned model.
+`tests/test_learning_site.py` checks complete scene coverage and asset hashes.
