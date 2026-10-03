@@ -1,0 +1,38 @@
+{
+  "schema_version": "cefr-alg-site-import@1",
+  "repository": "https://github.com/ed3c/cefr-alg-c2-",
+  "revision": "5a149d25b2613c772c8fcc18eb14eecb9d718c28",
+  "source_directory": "dist",
+  "route": "/cefr-alg-c2/",
+  "files": {
+    "app.js": "1842308748155904ace20fb081d8f5029d1aff6486e0cf692db59adcae03775d",
+    "audio/kokoro-d833c4c0e287.json": "8e55b05942d6da29e56122190bbbc0bb2cd8d89b2694b7bd627e904d1867e27d",
+    "audio/kokoro-d833c4c0e287.wav": "c0e609e411fdcb6c72c85a65f6f2751e00a0e78741fa9045ad75f01c374d1c93",
+    "audio/kokoro-web-d833c4c0e287.json": "ce23e317be2ed8679c1c293e64da3aa91b7e318001ed5924558bc7155b4acc4c",
+    "audio/kokoro-web-d833c4c0e287.wav": "f24efaf145588c96a4287327e95ed3a735e87fcc5f7984de1be0db7dfded2bd6",
+    "audio/manifest.json": "e16251f621d23bb8c0fda21ae0ee187b6867e4d3d86de3578cfb0df52bcf8e72",
+    "audio/parler-d833c4c0e287.json": "c0e20d4488dab1eea299f986c5cf34fc5a2d6efc6eaa23a9ef7c191926be3b17",
+    "audio/parler-d833c4c0e287.wav": "7faedfba43b0bd1876e4f6e2213516a5c5270fb2ec79b27b714cde044512c831",
+    "audio/pocket-d833c4c0e287.json": "fbb4db69be1ef164960a30924bec82e789efcde029c34e9889c9de4b3ababc03",
+    "audio/pocket-d833c4c0e287.wav": "fc9711847f4aa843abbb90e4e059b7e72ac1d67dbdc8bc06993897179c31e95a",
+    "audio/qwen-d833c4c0e287.json": "e0e1c254db09063d0c63ed979b6ee268fc23e4d51b3eb5cba8f3f1eb4b23d4c4",
+    "audio/qwen-d833c4c0e287.wav": "05561a0c7cf5396741cc057ca0a23618311de71ab2763ef63793bb185b121082",
+    "compare.css": "b7c888dca96929e2442d2e0cda74771b4d439e88f4c81494e2611baf7ebb5fe6",
+    "compare.html": "1e8ba23088080c0194ee897f971529cfbe499e66f49f5720255ac6509201133d",
+    "compare.js": "76bc5986df3082d2c479d02d62090069fdf3e4c567862bae926e291e67af7430",
+    "index.html": "1189e6a1936b7b0f1953472284378ea01962727b9f3023557a9b484aa703deed",
+    "kokoro-worker.js": "6934805d7dff801d417a0beb2268c77a546946079d526e3a4b3775890db871a7",
+    "lessons.js": "e7add4f21cee269510674b927f48da3057aa19a99347e010e41d15d8c0f7d9f5",
+    "style.css": "4ef6d19683c82f1526e79aece2368e40bbfa9d097b48875428bd20961e019b23",
+    "voice-cases.js": "e1f1cb3cf6061e004eb8feca2e39147c65b47b3e6a711741f4c98f03e7553694"
+  },
+  "build_adaptations": [
+    "Add an absolute HTML base for Vercel clean URLs.",
+    "Add a return link to AI Engineer Lab on both pages."
+  ],
+  "limits": [
+    "C2+ is a learning ambition, not a CEFR certification.",
+    "Five published voice samples; native LiteRT-LM has no verified audio.",
+    "Local Python generation requires the source repository; browser Kokoro downloads public model assets."
+  ]
+}
