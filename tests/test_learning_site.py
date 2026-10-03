@@ -25,7 +25,7 @@ class LearningSiteTests(unittest.TestCase):
                 parser=Assets(); parser.feed((alg/filename).read_text())
                 base=urljoin('https://example.test'+route,parser.base)
                 self.assertEqual(base,'https://example.test/cefr-alg-c2/')
-                for ref in parser.refs+['./kokoro-worker.js','./audio/manifest.json']:
+                for ref in parser.refs+['./studio-narrator.js','./kokoro-worker.js','./audio/manifest.json','./narration/manifest.json']:
                     self.assertTrue((out/urlparse(urljoin(base,ref)).path.lstrip('/')).is_file())
             lock=json.loads((alg/'provenance.json').read_text())
             self.assertIn('href="./compare#lab"',(alg/'compare.html').read_text())
@@ -39,6 +39,14 @@ class LearningSiteTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(audio.read_bytes()).hexdigest(),result['audio_sha256'])
                 with wave.open(str(audio)) as wav:
                     self.assertAlmostEqual(wav.getnframes()/wav.getframerate(),result['audio_seconds'],places=3)
+            narration=json.loads((alg/'narration/manifest.json').read_text())
+            expected={f'{lesson}-{scene}-{variant}' for lesson in ['release','handoff','design','everyday'] for scene in range(3) for variant in ['plain','detailed']}
+            self.assertEqual({r['case_id'] for r in narration['results']},expected)
+            self.assertEqual(len(narration['results']),24)
+            for result in narration['results']:
+                self.assertEqual(hashlib.sha256((alg/'narration'/result['audio_file']).read_bytes()).hexdigest(),result['audio_sha256'])
+            self.assertNotIn('speechSynthesis',(alg/'app.js').read_text())
+            self.assertIn('id="narration-model"',(alg/'index.html').read_text())
             self.assertIn('id="cefr-alg"',(out/'index.html').read_text())
             self.assertIn('/cefr-alg-c2/',(out/'learning/index.html').read_text())
 
