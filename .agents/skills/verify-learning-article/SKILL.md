@@ -25,6 +25,17 @@ Colab 實驗或硬體結論到每一課。
 讀 [features/README.md](features/README.md)，只載入本次需要的 recipe。新增一課通常依序
 完成三項；「下一課」預設只前進一課，不自動撰寫整套課程。
 
+## Zero context 的寫作要求
+
+Zero context 的定義是：
+> It must expose why each algorithm or design choice follows from the problem constraints and what actually happens at runtime.
+
+作者須解釋每個演算法或設計選擇如何來自問題限制，並交代執行時實際發生什麼。
+只讓文章不依賴聊天前文，仍不足以符合此要求。
+依 [因果解釋與語意驗收](features/article-assembly.md#因果解釋與語意驗收) 撰寫與審視。
+從原需求和證據推導接受、拒絕及未知條件。清楚的文字不能補足缺少的證據，
+也不能把取捨直接標成主觀問題，再交回使用者決定。
+
 ## Launch
 
 沿用 AGENTS.md 已選的 GitHub / Local route；取得本次精確 ref 的完整來源。
