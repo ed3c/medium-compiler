@@ -1,0 +1,21 @@
+{
+  "outcome": "changed",
+  "reviewer": "coordinator AI",
+  "subject": "ten selected staff-evals guidance files",
+  "findings": [
+    {
+      "before": "Local decision selected before task success",
+      "correction": "Drive establishes end-to-end outcome before diagnosis; workflow recipe and optional case evaluation retain it."
+    },
+    {
+      "before": "English report default contradicts requested Traditional Chinese",
+      "correction": "Entry, recipes and role mapping now preserve requested language; English fluency still requires actual English evidence."
+    },
+    {
+      "before": "Case storage lacks explicit data-use/human-review slots",
+      "correction": "Optional evaluation fields and method reference separate uses without retroactively changing historical data."
+    }
+  ],
+  "readback": "Saved bytes, diff, linked references and two consumer prose/captures reviewed. No unsupported new product claim found.",
+  "maintenance_scope": "Scoped correction, not full pstack maintenance."
+}

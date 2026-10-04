@@ -54,5 +54,19 @@
   },
   "review_mode": null,
   "decision_episodes": [],
-  "disagreements": []
+  "disagreements": [],
+  "evaluation": {
+    "task_outcome": {
+      "status": null,
+      "criterion": null,
+      "evidence_refs": []
+    },
+    "first_observed_divergence": null,
+    "dataset_use": "case_review",
+    "task_family": null,
+    "split": null,
+    "failure_notes": [],
+    "human_review": null,
+    "evaluator_validation": null
+  }
 }

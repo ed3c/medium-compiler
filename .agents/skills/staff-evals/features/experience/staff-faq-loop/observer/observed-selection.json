@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "protocol": {
+    "path": "/tmp/staff-faq-loop/observer/protocol.json",
+    "sha256": "de319cda5c9dfcb99dbdebbd964db5017285c9e1bac8a14fca944baeb358450e"
+  },
+  "observations": [
+    {
+      "case_id": "recorded",
+      "report": {
+        "path": "/tmp/staff-faq-loop/consumer-recorded/consumer-report.json",
+        "sha256": "f95138a4ff1050b589a6a3752255cb52ad2649435f624f4d34d6231c229376cb"
+      },
+      "trace": {
+        "path": "/tmp/staff-faq-loop/consumer-recorded/capture.md",
+        "sha256": "b304cbb2d99ab4674f1ac71b649b42459ef982f4d52efbe9ccf231f92afc91a5"
+      }
+    },
+    {
+      "case_id": "source_only",
+      "report": {
+        "path": "/tmp/staff-faq-loop/consumer-source_only/consumer-report.json",
+        "sha256": "bf174b74b9d2271e75c726072df6faef2d1ea0916e04b7f7248018504e1e603f"
+      },
+      "trace": {
+        "path": "/tmp/staff-faq-loop/consumer-source_only/capture.md",
+        "sha256": "c3c2bf48ce656f5c9434df997491fbff43ab41680dd6a31d219b179df927b0c7"
+      }
+    }
+  ]
+}

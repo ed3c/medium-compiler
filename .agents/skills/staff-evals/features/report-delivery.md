@@ -10,7 +10,7 @@ Homepage → AI Evals → Soodles report. Direct route: `/ai-evals/soodles-claim
 
 ## Driving it with site builder, HTTP and browser
 
-Run the site builder into a new task-owned output. Serve it with a task-owned HTTP server. Read `/ai-evals/`, `/ai-evals/soodles-claim-refusal/`, the report JSON and `/provenance.json`. Click the AI Evals navigation and the report card in a browser. Check visible English assessment, Chinese guide, evidence limits, and source links. For publication, read back the existing Git deployment and public domain with matching report hashes. Stop only the owned server and retain evidence.
+Run the site builder into a new task-owned output. Serve it with a task-owned HTTP server. Read `/ai-evals/`, `/ai-evals/soodles-claim-refusal/`, the report JSON and `/provenance.json`. Click the AI Evals navigation and the report card in a browser. Check the declared report language, assessment, guide, evidence limits, and source links. For publication, read back the existing Git deployment and public domain with matching report hashes. Stop only the owned server and retain evidence.
 
 ## Gotchas
 
@@ -20,10 +20,14 @@ Retain implementation-only historical reports with their original evidence limit
 Publish a new assessment for a new evidence scope; do not rewrite old observations.
 
 Check visible subject revision, reviewer and calibration scope. Expand pinned sources.
-Retrieve the source manifest, English assessment and supplementary attachments as well
+Retrieve the source manifest, assessment and supplementary attachments as well
 as report JSON; compare the delivered bytes with their bound source hashes. Inspect a
 concrete engineering finding in the rendered page: its mechanism, code/trace locator and
 tradeoff must survive rendering. Historical reports retain the scope of their own review;
 a skill update does not retroactively revalidate or enrich them.
+
+New reports use Traditional Chinese with explained English technical terms. Preserve original
+English historical reports and raw consumer outputs. A method update is a separate report
+or supplement; do not silently replace the verdict on an old subject.
 
 Build success is not deployed delivery. Preview is not production. Source hashes do not certify meaning. Never display old model reports as fresh executions or convert unknown dimensions to PASS.

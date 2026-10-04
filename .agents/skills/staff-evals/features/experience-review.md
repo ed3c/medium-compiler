@@ -17,7 +17,8 @@ Read [the record contract](../references/experience-records.md) and the relevant
 
 1. Bind the task, source revision, patch and available trace. Identify the observed actor.
    Reconstruct the code/runtime mechanism using the workflow-review feature.
-2. Save a case using [the template](../assets/experience-case.json). Use a new case ID and
+2. Record `evaluation.task_outcome` and the case’s intended `dataset_use`. Keep human
+   annotations and evaluator validation absent until actually collected. Save a case using [the template](../assets/experience-case.json). Use a new case ID and
    retain exact evidence bytes and hashes. Record missing inputs and who made each judgment.
    For observed Agent work, add decision episodes with before-action evidence, actual action,
    stated reason, observation, reviewer judgment and alternative. Keep source-only findings

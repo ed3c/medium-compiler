@@ -24,3 +24,7 @@ seven review dimensions: engineering judgment, debugging quality, reasoning clar
 architectural thinking, communication, attention to detail and developer trust.
 It is not a disclosed G2i grading rubric. No hiring pass or personal qualification is inferred.
 The job's approximately five-hour handling time is context, not a speed gate for this skill.
+
+The FAQ navigation and local adaptation live in [evaluation-method.md](evaluation-method.md).
+Source: https://hamel.dev/blog/posts/evals-faq/ (read 2026-10-04). Treat its examples and
+sample-size advice as context, not universal gates. The original FAQ is not copied here.

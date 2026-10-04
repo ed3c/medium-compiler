@@ -105,7 +105,7 @@ Do not turn hiring conditions or missing evidence into invented engineering fail
 | Debugging quality and instincts | Trace symptom, competing hypotheses, discriminating checks, new observations and adjustment. | Repeating a check without a new premise is different from necessary waiting. |
 | Reasoning clarity | Inspect the stated premise and evidence-to-conclusion link. | Do not invent hidden reasoning from correct code. |
 | Architectural thinking | Compare ownership, dependency direction, failure isolation, migration and maintenance cost. | Names, diagrams and compliance do not prove a good abstraction. |
-| Written communication | Write an actionable English verdict with evidence, consequence and correction. | A reader must be able to decide what to retain, change or investigate. |
+| Written communication | Write an actionable verdict in the requested language with evidence, consequence and correction. Assess English fluency only from actual English work. | A reader must be able to decide what to retain, change or investigate. |
 | Attention to detail | Check versions, callers, input shape, units, edge cases, mocks and negative assertions. | A detail matters through its effect on correctness or judgment. |
 | Developer trust | Compare completion claims with observed actions and current results; inspect correction of mistakes. | Honest limits support trust but do not fill the missing evaluation. |
 | Nuanced subjective judgment | State a defensible position, its premises, counterevidence and applicable exception. | Uncertainty does not require neutrality between unequally supported choices. |

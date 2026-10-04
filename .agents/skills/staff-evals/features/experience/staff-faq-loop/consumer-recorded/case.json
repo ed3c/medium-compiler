@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "id": "recorded-faq-loop-review",
+  "feature": "experience-review",
+  "target": {
+    "repository": "ed3c/medium-compiler",
+    "revision": "e30508d0f78a98a225e72f8c9e13273ae0582b25",
+    "task": "/tmp/staff-faq-loop/inputs/recorded.json",
+    "patch": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/patch-commit.json"
+  },
+  "actor": {
+    "agent": "AI assistant /root (recorded actor)",
+    "model": null,
+    "harness": "ChatGPT Work with GitHub connector and shell tools",
+    "coverage": "coordinator-transcribed selected episodes e1-e10; not full transcript"
+  },
+  "reviewer": {
+    "identity": "AI assistant /root/faq_recorded",
+    "kind": "agent",
+    "assistance": "staff-evals selected instructions",
+    "prior_outcome_exposure": true
+  },
+  "evidence": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/AGENTS.md",
+      "sha256": "0d8e51af64da07e0b461509aa36b03716128a5b12445181ef77604f53fc4a253",
+      "kind": "source",
+      "actual_sha256": "0d8e51af64da07e0b461509aa36b03716128a5b12445181ef77604f53fc4a253"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/after-test.py",
+      "sha256": "232579c94f14a1567debf3708abf6266267992384e46ba2e400c89897145fb92",
+      "kind": "source",
+      "actual_sha256": "232579c94f14a1567debf3708abf6266267992384e46ba2e400c89897145fb92"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/ai_evals_site.py",
+      "sha256": "a0d11dfd28e0992f67666c14bbb7b42cf58ff03e79dab5c318a0bfb4047dcc95",
+      "kind": "source",
+      "actual_sha256": "a0d11dfd28e0992f67666c14bbb7b42cf58ff03e79dab5c318a0bfb4047dcc95"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/before-test.py",
+      "sha256": "dbeef88aee33c5aa1ada9acf556ac6f516b03b4147b5abfd95671112c9981713",
+      "kind": "source",
+      "actual_sha256": "dbeef88aee33c5aa1ada9acf556ac6f516b03b4147b5abfd95671112c9981713"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/delivered-assessment.md",
+      "sha256": "a2cd34495bc9f83c00ca737c5b39fd1c1a23a0f03ca3332a4b77ea6216e61dd8",
+      "kind": "report",
+      "actual_sha256": "a2cd34495bc9f83c00ca737c5b39fd1c1a23a0f03ca3332a4b77ea6216e61dd8"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/failed-ci-jobs.json",
+      "sha256": "8c828a0f0fe68b4a6657fe5d8d05776f19441667c305e89d926eae52f8cd8253",
+      "kind": "archived_record",
+      "actual_sha256": "8c828a0f0fe68b4a6657fe5d8d05776f19441667c305e89d926eae52f8cd8253"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/job-context.txt",
+      "sha256": "4d2d62ed4de095a66dbea2fce7cce654704a661dff29288a56d214eda1aca7fc",
+      "kind": "archived_record",
+      "actual_sha256": "4d2d62ed4de095a66dbea2fce7cce654704a661dff29288a56d214eda1aca7fc"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/observations.json",
+      "sha256": "452790bf183872a9e51177fed086d68cc45677c9881e4b1f6af68000962e275a",
+      "kind": "archived_capture",
+      "actual_sha256": "452790bf183872a9e51177fed086d68cc45677c9881e4b1f6af68000962e275a"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/passed-ci-jobs.json",
+      "sha256": "80a5afbb3c26e40e8ae1ccadf57d703feaa18378fb6fd4e189644cb3c0cbc407",
+      "kind": "archived_record",
+      "actual_sha256": "80a5afbb3c26e40e8ae1ccadf57d703feaa18378fb6fd4e189644cb3c0cbc407"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/patch-commit.json",
+      "sha256": "d87205fd0258ee278df9654f89a8c949d16bd1d1d79f241b947c0d03b1a2e15e",
+      "kind": "archived_record",
+      "actual_sha256": "d87205fd0258ee278df9654f89a8c949d16bd1d1d79f241b947c0d03b1a2e15e"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/recorded/writing-verification.yml",
+      "sha256": "264ffcd1af37021df667fe48a10c0154327cf914d510119b7f0a072404c16563",
+      "kind": "source",
+      "actual_sha256": "264ffcd1af37021df667fe48a10c0154327cf914d510119b7f0a072404c16563"
+    }
+  ],
+  "decision": {
+    "requirement": "新增多報告交付且維持歷史證據限制",
+    "mechanism": "catalog 路由集合、數量、逐份 report/assessment hash 與索引；以 route 選原報告",
+    "consequence": "移除固定一份與索引排序假設，保留原負向與歷史限制 assertions",
+    "alternative": "假設性 len==2 或複製所有歷史斷言到每份",
+    "tradeoff": "catalog 驗證可擴充且避免錯套報告特有事實；尚非全下載與瀏覽器契約"
+  },
+  "prediction": null,
+  "outcome": {
+    "patch": "historical focused test and bound CI passed",
+    "delivery": "merge and matched_files=10/provenance_matches=true supported by partial transcript only",
+    "original_soodles_feedback": "delivered report claims completion; selected primary evidence absent"
+  },
+  "lesson": {
+    "status": "locally_supported",
+    "applies_when": "新增 catalog 成員導致測試的固定數量假設失效",
+    "counterexample": "若數量一份本身是產品要求，不應直接放寬；每份歷史限制也不能強制相同",
+    "next_check": "擴大下載完整性需求時沿既有測試核對 audit/附件；原 Soodles 回饋結論需 payload/response/owner readback"
+  },
+  "role_feedback": {
+    "engineering_judgment": "assessment.md 決策二",
+    "debugging": "assessment.md 決策一",
+    "reasoning_clarity": "e4 explicit rationale; assessment.md 決策一",
+    "architecture": "assessment.md 決策二：通用交付與歷史契約分離",
+    "communication": "assessment.md 交付文字、評估器與人的經驗",
+    "attention_to_detail": "retained historical assertions and AST-identical negative control",
+    "developer_trust": "patch matches stated reason; full workflow and deployment limits retained"
+  },
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null
+  },
+  "closure": {
+    "product": "scoped patch supported; original end-to-end assessment/feedback independently incomplete",
+    "agent": "observed decisions locally defensible; no full-workflow verdict",
+    "evaluator": "not validated",
+    "owner_feedback": null,
+    "gaps": [
+      "No complete transcript or original deployment readback",
+      "No selected Soodles payload/response/source verification",
+      "No human predictions, labels or grouped held-out results",
+      "No independently retained prospective freeze ordering"
+    ]
+  },
+  "review_mode": "combined",
+  "decision_episodes": [
+    {
+      "id": "recorded-e3-e6",
+      "before_refs": [
+        "observations.json:e1-e3",
+        "before-test.py:28"
+      ],
+      "action": "focused reproduction followed by catalog-driven test patch",
+      "stated_reason": "新增第二份報告使寫死一份的假設失效；保留歷史報告證據檢查（e4）",
+      "result_refs": [
+        "after-test.py:28-53",
+        "observations.json:e6-e7",
+        "passed-ci-jobs.json"
+      ],
+      "judgment": "合理且範圍適當；保留可否證的內容身分與歷史限制",
+      "alternative": "hypothetical len==2 is simpler but brittle",
+      "next_check": "既有歷史 CI 支持本修補；若擴大交付要求再核對附件 bytes"
+    },
+    {
+      "id": "recorded-e9",
+      "before_refs": [
+        "observations.json:e8-e9"
+      ],
+      "action": "poll same deployment-readback session repeatedly",
+      "stated_reason": null,
+      "result_refs": [
+        "observations.json:e9"
+      ],
+      "judgment": "有完成讀回支持；空輪詢不等於重跑產品，成本不足以量化",
+      "alternative": "hypothetical longer wait window on same session",
+      "next_check": "完整輪詢次数與部署 raw readback"
+    }
+  ],
+  "disagreements": [],
+  "evaluation": {
+    "task_outcome": {
+      "status": "partially_observed",
+      "criterion": "Soodles engineering review and Schema Manager feedback plus website delivery; selected site repair meets local scope, full feedback not independently verified",
+      "evidence_refs": [
+        "observations.json:e1-e10",
+        "patch-commit.json",
+        "passed-ci-jobs.json",
+        "delivered-assessment.md:19-23"
+      ]
+    },
+    "first_observed_divergence": {
+      "locator": "observations.json:e1-e3; before-test.py:28",
+      "expected": "multiple catalog reports render without invalid single-report constraint",
+      "actual": "AssertionError: 2 != 1",
+      "attribution": "stale test assumption; not evidence of renderer failure"
+    },
+    "dataset_use": "case_review",
+    "task_family": "catalog-backed report delivery and evidence-preserving regression repair",
+    "split": null,
+    "failure_notes": [
+      "first CI failure preceded localized root cause; no generic model-failure attribution"
+    ],
+    "human_review": null,
+    "evaluator_validation": null
+  }
+}

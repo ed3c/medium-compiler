@@ -23,13 +23,16 @@ A/B judgments, also read the relevant comparison freeze, input manifests, instru
 read receipts and handoffs; those are outside the helper's 25-file set. Do not execute
 historical argv or turn a source example into a live lifecycle command.
 
-Write an English assessment and Chinese guide that connects the requirement, code/trace,
+Write a Traditional Chinese assessment and guide with explained English technical terms that connects the requirement, code/trace,
 decision, consequence, alternative and check. Re-read the prose against those sources.
 Success means a reproducible, scoped engineering judgment with explicit unobserved claims,
 not merely matching hashes or filling seven labels. Retain the audit, added bindings,
 actual commands/results, assessment and substantive review after cleanup.
 
-For an Agent workflow evaluation, build a short evidence-linked decision sequence first.
+Before diagnosing a decision, assess the task’s end-to-end outcome from the available evidence.
+Record partial success and unobserved delivery separately. Use
+[the evaluation method](../references/evaluation-method.md) to distinguish dataset purposes.
+For an Agent workflow evaluation, build a short evidence-linked decision sequence.
 Separate information available before the action from facts learned afterward. For each
 important choice, read the relevant code or diff and explain its runtime consequence.
 Inspect whether a debugging check distinguishes competing causes, whether a test preserves
