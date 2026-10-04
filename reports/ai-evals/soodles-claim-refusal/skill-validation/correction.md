@@ -1,0 +1,1 @@
+Source review found missing owner-draft routing. First consumer included method hashes in the exact instruction map. Schema Manager returned INVALID/report.identity, not behavior FAIL. Saved instructions now explicitly use returned drafts and keep method identities separate. New observations are required for the final bytes.

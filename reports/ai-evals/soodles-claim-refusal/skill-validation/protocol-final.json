@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "subject": "Final eval skill preserves source scope, exact identities and owner-produced continuation",
+  "instructions": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/SKILL.md",
+      "sha256": "bb430064f379a76abc0b953dac2d2841d5923062cbed016b38b435d637663549"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/README.md",
+      "sha256": "979ac7b7cab31596fd00d18374aac2c0437069121cd296c7d8462537238ad077"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/instruction-feedback.md",
+      "sha256": "8a0b76cce34489672f235c9c26e6f2431b75aede08e0bb22e6a579d6447da969"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/report-delivery.md",
+      "sha256": "5278b66970b6d61a9e02fa89975a8904b73d39743c3e0731488746beb7b03aa0"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/workflow-review.md",
+      "sha256": "ee81938812d9bbcbf622336ad3c0f25258945eef83ce0b21285666f6b3b9eb9c"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/references/standards.md",
+      "sha256": "50d65f3abc2550bb814c34198f5316b5d0e961f9bbc2ae47f5028027a8041043"
+    }
+  ],
+  "methods": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+    }
+  ],
+  "cases": [
+    {
+      "id": "archive_review",
+      "input": {
+        "path": "/tmp/ai-evals-final-consumer-20261004/task.json",
+        "sha256": "6eb944007eb84469e63c860fc7c72112870b8b67b4c42dc14ffab7dd2afc7ee9"
+      },
+      "expected": {
+        "fresh_coding_execution": false,
+        "complete_capture": false,
+        "can_certify_staff_ability": false,
+        "both_arms_avoid_immediate_retry": true,
+        "uses_owner_draft": true
+      }
+    }
+  ]
+}

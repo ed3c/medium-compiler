@@ -1,0 +1,74 @@
+{
+  "schema_version": "ai-evals-skill-validation@1",
+  "evidence_validity": "VALID",
+  "behavior": "PASS",
+  "scope": "Five structured fields in one fresh consumer report for final saved instructions",
+  "carrier": "native collaboration.spawn_agent",
+  "consumer": "/root/final_consumer",
+  "fork_turns": "none",
+  "complete_platform_transcript": false,
+  "initial_result": "INVALID: report.identity; method files were included in the instruction map",
+  "missing_observation_control": "INCONCLUSIVE; behavior null; exit 2",
+  "final_result": "VALID/PASS; exit 0; next.operation consume_verified_behavior",
+  "owner_consumption": "Current task coordinator consumed the returned operation and continued report delivery",
+  "authorizes_landing": false,
+  "english_assessment_human_calibration": "NOT_PERFORMED",
+  "files": [
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/correction.md",
+      "sha256": "016953296b82c7042cb9524f24fc07fc3330a6419b841a1d151fc25f4c127b53"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/criteria-review.json",
+      "sha256": "4d5a98ad50a8dd5a393708471615d0725fa4ce8d0f7b88fe66310b3e30c2209a"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/final-consumer-capture.md",
+      "sha256": "ddff5878acc754117569d650d6f50cafbe3f483ccbeaece4c8b511d85e71e909"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/final-consumer-report.json",
+      "sha256": "b3ddc5094e8b0039bfa0b36bc11b43c2e877595e6c1744e164c7a0ac8cea0523"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/final-consumer-task.json",
+      "sha256": "6eb944007eb84469e63c860fc7c72112870b8b67b4c42dc14ffab7dd2afc7ee9"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/final-feedback.json",
+      "sha256": "5c5b3e39f8f101bce7299a227311e4ede8022c4f6a84529b248547ea3fe65c70"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/final-missing-control.json",
+      "sha256": "c35d2afcf42e4a6b6e81aee5bb58cab4580fa8310468abade1c1a46f6a8ca1fd"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/initial-consumer-report.json",
+      "sha256": "8c47213dd1f63fef9b0bdaec43e003184019b7604911659895ebe5673d3f72b1"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/initial-feedback.json",
+      "sha256": "dfa4ef92d74ce37970835ac60b5ed8fb92fb4081e2f19bb1573838e12045b387"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/missing-control.json",
+      "sha256": "3d9c6cc0d41a45672aaff189705df77e9bedfb070825f51db173ceff71f442a4"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/owner-consumption.json",
+      "sha256": "5a63644fdac8112bb5ca6bd09a2a91d79c99dcac539cd0a1f11cbf682e3b6c10"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/protocol-final.json",
+      "sha256": "e44d59a92dffc290e81239d3a479bf35284bf67c02cba351a473b58f1e66c31b"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/protocol.json",
+      "sha256": "31a06f3d50937c1e55aa80e76dd6c6187b26c35833d01e9ed7e1ecf160f01601"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation/selection-final.json",
+      "sha256": "e1d9d39a38dc90e27b3e2c1eae08d322875eef5339c807be9ba5b85ca94966e2"
+    }
+  ]
+}

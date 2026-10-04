@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "protocol": {
+    "path": "/tmp/ai-evals-supervisor-20261004/protocol-final.json",
+    "sha256": "e44d59a92dffc290e81239d3a479bf35284bf67c02cba351a473b58f1e66c31b"
+  },
+  "observations": [
+    {
+      "case_id": "archive_review",
+      "report": {
+        "path": "/tmp/ai-evals-final-consumer-20261004/report.json",
+        "sha256": "b3ddc5094e8b0039bfa0b36bc11b43c2e877595e6c1744e164c7a0ac8cea0523"
+      },
+      "trace": {
+        "path": "/tmp/ai-evals-final-consumer-20261004/capture.md",
+        "sha256": "ddff5878acc754117569d650d6f50cafbe3f483ccbeaece4c8b511d85e71e909"
+      }
+    }
+  ]
+}
