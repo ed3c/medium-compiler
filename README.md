@@ -210,6 +210,16 @@ Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consu
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
 
+The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
+can play a video from your device: choose **Choose local video**, select a video, then use
+the existing player controls. The browser reads the selected file without uploading it.
+It cannot read an arbitrary local path; reload requires selecting the file again.
+**Restore supplied video** restores the supplied video and captions. Local playback disables
+those captions because they describe the supplied narration. Lesson hashes and practice
+receipts still refer to the supplied lesson; the selected file is not checked against it.
+For the entire site to run locally, serve its build through localhost; opening its HTML
+with `file://` does not support the site's existing module and lesson-data loading.
+
 ## Course article progression
 
 Use [verify-learning-article](.agents/skills/verify-learning-article/SKILL.md) for the

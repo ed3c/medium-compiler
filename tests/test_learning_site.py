@@ -75,6 +75,47 @@ class LearningSiteTests(unittest.TestCase):
             self.assertIn('Pinned snapshot imported here',html)
             self.assertIn('/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance',(out/'index.html').read_text())
 
+    def test_local_video_controls_are_consumer_owned_and_provenance_scoped(self):
+        class Controls(HTMLParser):
+            def __init__(self):
+                super().__init__(); self.divs=[]; self.elements={}; self.scripts=[]
+            def handle_starttag(self,tag,attrs):
+                a=dict(attrs)
+                if a.get('id'): self.elements[a['id']]=(tag,a,tuple(self.divs))
+                if tag=='div': self.divs.append(a.get('id'))
+                if tag=='script' and a.get('src'): self.scripts.append(a['src'])
+            def handle_endtag(self,tag):
+                if tag=='div': self.divs.pop()
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/'dist'; site.build(out)
+            target=out/'cefr-alg-c2'
+            parser=Controls(); parser.feed((target/'technical.html').read_text())
+            tag,attrs,parents=parser.elements['local-video-file']
+            self.assertEqual((tag,attrs['type'],attrs['accept']),('input','file','video/*'))
+            self.assertIn('fixed-media',parents)
+            self.assertIn('disabled',parser.elements['reset-lesson-video'][1])
+            self.assertIn('hidden',parser.elements['local-video-warning'][1])
+            self.assertNotIn('fixed-media',parser.elements['local-video-warning'][2])
+            self.assertIn('./local-lesson-video.js',parser.scripts)
+            self.assertEqual((target/'local-lesson-video.js').read_bytes(),
+                             (ROOT/'site/local-lesson-video.js').read_bytes())
+            lock=json.loads((target/'provenance.json').read_text())
+            self.assertNotIn('local-lesson-video.js',lock['files'])
+            self.assertEqual(lock['output_sha256']['local-lesson-video.js'],
+                             hashlib.sha256((target/'local-lesson-video.js').read_bytes()).hexdigest())
+            for name,digest in lock['files'].items():
+                self.assertEqual(hashlib.sha256((ROOT/'site/cefr-alg-c2'/name).read_bytes()).hexdigest(),digest)
+                if name not in ('index.html','compare.html','technical.html'):
+                    self.assertEqual(hashlib.sha256((target/name).read_bytes()).hexdigest(),digest)
+
+    def test_local_video_import_refuses_missing_or_duplicate_player_anchor(self):
+        html=(ROOT/'site/cefr-alg-c2/technical.html').read_text()
+        anchor='<div id="fixed-media" hidden>'
+        for changed in (html.replace(anchor,''),html.replace(anchor,anchor+anchor)):
+            with self.subTest(anchor_count=changed.count(anchor)):
+                with self.assertRaisesRegex(ValueError,'requires one anchor'):
+                    site.add_local_video_controls(changed)
+
     def test_build_uses_article_ops_snapshot_and_honest_learning_state(self):
         with tempfile.TemporaryDirectory() as td:
             out=Path(td)/"dist";p=site.build(out)
