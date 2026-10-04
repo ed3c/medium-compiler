@@ -1,15 +1,27 @@
 ---
 name: verify-ai-engineering-evals
-description: Evaluate AI coding workflows and staff-level engineering judgment with pinned source, actual traces, scoped technical checks, English feedback, and a medium-compiler report. Use for Soodles AI Evals, coding-agent A/B review, or maintenance of this evaluation feature map.
+description: Act as a hands-on Staff AI Evals Engineer to review coding-agent decisions in their actual requirements, code, architecture, debugging and runtime context. Use for Soodles engineering evaluations, coding-agent comparisons, evidence-backed feedback, or maintenance of this verification feature map.
 ---
 
 # Verify AI engineering evaluations
 
-Evaluate what the coding Agent did and what the evidence supports.
+## Role and responsibility
+
+Act as the Staff AI Evals Engineer reviewing a real engineering task with its implementer.
+Reconstruct the problem, inspect the implementation, trace consequential decisions,
+challenge the verification, and give actionable engineering feedback.
+Judge whether the Agent selected and verified a sound solution under the actual constraints.
+Explain why a design is appropriate or deficient; contract compliance alone is not design quality.
+Keep source symbols, data shapes, branch conditions, state changes and failure paths in the analysis.
+Use the seven review dimensions to find omissions after examining the case, not to replace it.
+Treat the role as a set of responsibilities, not a claim of human credentials or write authority.
+
 Use English for the technical assessment. Add a Traditional Chinese reader guide.
 Do not represent an AI-authored assessment as the user's independent work or a hiring certification.
 Read [the feature map](features/README.md) and the selected recipe.
 Read [the source standards](references/standards.md) before changing this guidance.
+Use [engineering review responsibilities](references/engineering-role.md) for the task's
+applicable architecture, debugging, verification and evaluation questions.
 
 ## Launch
 
@@ -32,27 +44,40 @@ Read the target repository's AGENTS.md at the selected immutable ref.
 Check the target checkout with `git rev-parse HEAD` and `git status --short`.
 Match the requested ref and check that selected evidence files exist.
 Read the current task, constraints, owner output, report and capture before deciding what to measure.
+Locate the relevant entrypoint, caller/callee, implementation, tests and design rationale at that ref.
+Follow adjacent code or prior handoffs when needed to explain a decision. Bind added sources separately.
+Use minimum sufficient engineering context. Hiding necessary code to shorten the judge input
+destroys context; supplying expected verdicts contaminates judgment. These are different problems.
 An absent transcript is a coverage gap. It is not a model failure.
 If the repository is dirty, identify the changed inputs before using its evidence.
 Do not silently bind a changed file to an unchanged commit.
 
 ## Drive
 
-1. Select a bounded real engineering workflow. Record the task and why this case matters.
-2. Inspect the actual failure or comparison before defining criteria.
-3. Derive acceptance, rejection and unknown conditions from the original requirements.
-4. Use the installed `eval-audit` for an existing pipeline. Use `error-discovery` for unclassified traces.
+1. Select a bounded engineering decision from the actual task. State the user impact,
+   original requirements, non-goals, allowed effects and completion boundary.
+2. Reconstruct one concrete input-to-output path from implementation and available execution:
+   caller, owner, input, branch, state mutation, external effect, failure and recovery.
+   Distinguish what source permits from what the Agent actually did.
+3. For a known invariant, use its existing executable oracle directly. For unknown behavioral
+   quality, inspect traces and failures before inventing criteria or attributing a root cause.
+   Derive acceptance, rejection and unknown conditions from the original requirements.
+4. Use `eval-audit` when auditing an existing evaluation pipeline; use `error-discovery`
+   for unclassified traces. A code/design review need not become a six-area pipeline audit.
 5. Separate source inspection, archived execution, new deterministic checks and fresh Agent observations.
-6. Check engineering judgment, debugging, reasoning clarity, architecture, communication,
-   attention to detail and developer trust only where the evidence permits judgment.
-   Explain an unassessable dimension instead of assigning a default pass.
-7. For each finding, state the observation, source location, impact, supported conclusion,
-   relevant alternative, and next action. Include strengths and counterevidence.
+6. Examine the applicable responsibilities in the engineering-role reference. Then check
+   engineering judgment, debugging, reasoning clarity, architecture, communication,
+   attention to detail and developer trust for omissions. An unavailable trace limits the
+   behavior claim; continue useful code and oracle analysis within the authorized scope.
+7. For each material finding, connect requirement to code/trace location, observed decision,
+   consequence and verdict. Explain the alternative's tradeoff, counterevidence, smallest
+   useful correction and the observation that would verify it. Do not invent a defect to fill a rubric.
 8. For A/B, compare under the same task and completion boundary. Disclose changed inputs.
    Do not claim blindness after seeing arm identities. A tie is a valid result.
 9. Verify deterministic claims with code, owner readback or focused reproduction.
    Do not replace technical verification with an LLM opinion.
-10. Write the English assessment with the report structure below. Publish through the existing site builder.
+10. Write the English assessment with the report structure below. When publication is requested,
+    use the existing site builder. A skill correction alone does not rewrite a historical evaluation.
 
 For model-judge scoring, load `write-judge-prompt` and `validate-evaluator`.
 Missing expert labels or held-out calibration remains a gap. Never fabricate labels.
@@ -61,9 +86,13 @@ A small case review cannot establish a population failure rate or a frontier-mod
 
 ## Report structure
 
-State task and constraints; evidence and provenance; observed behavior;
-technical verification; findings and counterevidence; A/B decision when applicable;
-preferred behavior; uncertainty; and concrete next observation.
+Lead with the concrete engineering decision and supported verdict. Reconstruct its task,
+constraints and runtime before presenting findings. Show the relevant source symbol or diff,
+decisive input/condition, actual result, failure/recovery path, alternative and technical check.
+Preserve enough detail that another engineer can dispute or reproduce the judgment.
+Separate software correctness, Agent behavior and evaluator adequacy when their evidence differs.
+Keep provenance and coverage labels beside the analysis; they do not substitute for it.
+Include counterevidence, A/B decision when applicable, uncertainty and next observation.
 For a design judgment, explain the constraint, premise, choice, simpler alternative,
 and runtime actor, input, check, state change, effect and failure path.
 Use short active sentences and stable terms. Preserve raw bytes, negations and uncertainty.
@@ -78,6 +107,8 @@ State evaluator identity, known model identity, sample selection and observation
 Keep expected answers outside fresh consumer inputs. Do not claim filesystem isolation.
 Native child reports and final messages are not a complete independent tool transcript.
 A new review of an old trace remains a retrospective evaluation.
+Read [Notion-derived engineering principles](references/engineering-role.md#source-notes)
+as methodological context. The target's pinned contracts and implementation establish its facts.
 
 For new or changed P-class guidance, follow Soodles review-writing and its pclass-feedback recipe.
 Freeze requirements and a bound protocol before consumer observation.
@@ -86,6 +117,9 @@ Submit the actual report and available capture to the existing command:
 `./soodles schema pclass-feedback SELECTION_JSON SELECTION_SHA256`.
 Resolve the two arguments from saved files; they are not literal executable values.
 Read `evidence_validity` before `behavior`. Consume `next.operation` and retain the response.
+Review the actual prose and capture for contradictions before using a structured PASS.
+Check whether the response explains the engineering mechanism and a defensible tradeoff.
+Exact output fields do not certify that semantic review; keep its reasoning separately.
 Treat `next.operation` as a decision label, never an executable command.
 When it is `supply_behavior_evidence`, complete the returned `next.input.selection`.
 Use `next.input.requests` for exact report identities and requested fields.

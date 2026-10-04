@@ -14,4 +14,9 @@ Freeze protocol and criteria before launch. Give a fresh consumer only its task,
 
 ## Gotchas
 
+Before using the structured result, review the prose and capture for contradictions and
+engineering substance: does the consumer trace an actual mechanism, justify a choice,
+and distinguish implementation facts from observed Agent actions? Preserve this semantic
+review separately. Do not convert an exact-field PASS into a calibrated prose verdict.
+
 Consumer reports are not independent all-effects capture. Schema-1 feedback does not certify condition review; record the supervisor's criteria reasoning separately. An admitted writer requires schema 2 and stage-outcome. Missing evidence stays incomplete.
