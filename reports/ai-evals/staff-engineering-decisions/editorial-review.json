@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "kind": "editorial_semantic_adaptation",
+  "source_commit": "22f969bea88f9b2b226e345865dd944eb60d34ae",
+  "language": "zh-Hant",
+  "reviewer": "AI author/coordinator; no independent human review",
+  "source_reference": {
+    "url": "https://hamel.dev/blog/posts/evals-faq/",
+    "authors": [
+      "Hamel Husain",
+      "Shreya Shankar"
+    ],
+    "accessed_on": "2026-10-04",
+    "selected_questions": [
+      "Why is error analysis so important?",
+      "Should I build automated evaluators for every failure mode I find?",
+      "How do I know if I can trust my automated eval?"
+    ],
+    "role": "Brief methodology reference; case-specific findings remain grounded in the preserved project evidence."
+  },
+  "adapted_files": [
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/assessment.md",
+      "sha256": "7979004b0890daad92be5b89b7859078b0a55bf8579313774e2534989474a1f8"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/guide.md",
+      "sha256": "4bfe33f3cb64d936eef41a95175884d498dfb5d87a7f5d6df40a78451adfd176"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/source-only-assessment.md",
+      "sha256": "b71a396e848f6700b261737162afa41a724f4f8b78b4eba1f9c2208c17f7d689"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/job-requirements.zh-Hant.md",
+      "sha256": "ddf61675b35375c9c22e1f6e02e004c0a43f6f845078ee7ab8ed3dff0df8259e"
+    }
+  ],
+  "semantic_readback": [
+    {
+      "section": "發現一",
+      "retained": "Singleton premise, catalog routes plus cardinality, shared-helper limitation, original checks, 12/16/10 AST counts, justified alternatives and archived-only passes."
+    },
+    {
+      "section": "發現二",
+      "retained": "Focused discriminating check, exact patch-head CI, uploaded-artifact alternative unknown, behavior-evals intentional BLOCKED and smallest next evidence."
+    },
+    {
+      "section": "發現三",
+      "retained": "Nine refusal controls, shared fixture risk, observed cost versus necessity, report reasoning versus independently checked Soodles mechanics."
+    },
+    {
+      "section": "發現四",
+      "retained": "Legitimate wait, hypothetical longer polling interval, missing call/time/token data and no measured savings."
+    },
+    {
+      "section": "執行路徑",
+      "retained": "Path/hash/ID/subject checks, temporary local effects, partial output on error, stubs do not verify browser or deployment."
+    },
+    {
+      "section": "評估者更正",
+      "retained": "Local git show failure and task-hash binding separated from later provider commit/tree proof; original overclaim preserved in raw output."
+    },
+    {
+      "section": "證據與成本",
+      "retained": "Partial transcription, six bounded judgments across two prior cases, unknown costs, no human calibration or prospective accuracy."
+    },
+    {
+      "section": "Soodles source review",
+      "retained": "Source-only attribution, replay conflict refusal, repeat necessity unknown, owner continuation/effects boundary, interval union, inclusive/non-additive totals, null costs, observation/flush/lock/caller limits."
+    },
+    {
+      "section": "職缺對照",
+      "retained": "26 reviewer responsibilities, original English communication requirement, employment conditions kept separate from evaluation capability."
+    }
+  ],
+  "verification": {
+    "original_machine_evidence": "Ten selected evidence files byte-identical to prior commit; raw English source-only copy matches prior version.",
+    "literal_checks": "Bounded identities, six original boolean judgments and cited observed numbers retained. These checks do not certify meaning.",
+    "author_semantic_review": "Reviewed paragraph-level conditions, alternatives, uncertainty and evidence scope against full original assessments.",
+    "fresh_behavior_evaluation": "NOT_RUN; prior schema feedback does not certify this editorial edition.",
+    "human_calibration": "NOT_PERFORMED"
+  }
+}

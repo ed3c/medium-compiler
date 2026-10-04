@@ -268,7 +268,10 @@ retrospective assessment, deterministic source checks and fresh reviewer observa
 It makes no frontier-model ranking, full debugging, hiring or personal qualification claim.
 
 Reports live under `reports/ai-evals/`. The catalog binds each report JSON; each report
-binds its English assessment, Chinese guide and source audit with SHA-256. The builder
+binds its assessment, reading guide and source audit with SHA-256. Reports may declare
+`language: zh-Hant` for Traditional Chinese prose with English technical terms; reports
+without a language field retain their original English rendering. Raw evaluator outputs
+remain separate from translated editorial editions. The builder
 rejects changed bound bytes and exposes report provenance in `/provenance.json`.
 To publish an authorized update, change the reviewed files and their catalog hashes
 together, run the existing build and verification, then use the existing Git deployment.

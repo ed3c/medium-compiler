@@ -1,22 +1,22 @@
 {
   "schema_version": "ai-engineering-report@1",
   "id": "staff-engineering-decisions",
-  "title": "Staff Evals: Reviewing Engineering Decisions",
-  "summary_zh": "從真實測試修補檢查工程判斷、除錯、驗證與溝通；另保留 Soodles source-only 對照，將可追查經驗存入 feature map。",
+  "title": "Staff Evals 工程評估：從真實決策看除錯、驗證與取捨",
+  "summary_zh": "以一次測試修補檢查 coding agent 的工程判斷；用繁體中文解釋證據、替代方案、評估者更正與 Soodles 成本責任分工。",
   "repository": "ed3c/medium-compiler",
   "revision": "e30508d0f78a98a225e72f8c9e13273ae0582b25",
   "mode": "RECORDED_DECISIONS_AND_SOURCE_REVIEW",
   "review_mode": "combined",
-  "capture_scope": "Selected coordinator-transcribed historical decisions; two fresh AI reviewers with self-reported captures.",
-  "reviewer": "Fresh AI consumers; coordinator semantic review and provenance correction",
+  "capture_scope": "協調者轉錄的部分歷史決策；兩位 fresh AI reviewers 的自行記錄。此次繁中改寫沒有新增行為實驗。",
+  "reviewer": "Fresh AI reviewers；協調者完成語意審閱、來源更正與繁中改寫",
   "human_calibration": "NOT_PERFORMED",
   "assessment": {
     "path": "reports/ai-evals/staff-engineering-decisions/assessment.md",
-    "sha256": "479b44067e8798095b6f265c78b7c4f7461336a6571fa95579853d55c6b24733"
+    "sha256": "7979004b0890daad92be5b89b7859078b0a55bf8579313774e2534989474a1f8"
   },
   "guide": {
     "path": "reports/ai-evals/staff-engineering-decisions/guide.md",
-    "sha256": "229e7e06a96825c150b1ceab16af4d721dfd14f92221bb4cdeecbd3e082e89c0"
+    "sha256": "4bfe33f3cb64d936eef41a95175884d498dfb5d87a7f5d6df40a78451adfd176"
   },
   "audit": {
     "path": "reports/ai-evals/staff-engineering-decisions/archive-audit.json",
@@ -24,39 +24,39 @@
   },
   "dimensions": [
     {
-      "name": "Engineering judgment",
-      "status": "LOCAL EPISODE",
-      "reason": "Catalog-based repair preserves the historical contract; alternatives and counterexample are explicit."
+      "name": "工程判斷（Engineering judgment）",
+      "status": "局部決策有證據",
+      "reason": "依 catalog 修補測試並保留歷史 assertions；替代方案與反例已說明。"
     },
     {
-      "name": "Debugging quality",
-      "status": "RECORDED EPISODE",
-      "reason": "Focused failure and source inspection distinguish test premise from renderer behavior."
+      "name": "除錯品質（Debugging quality）",
+      "status": "有紀錄的片段",
+      "reason": "局部失敗重現與 source inspection 區分過時測試假設和 renderer 行為。"
     },
     {
-      "name": "Reasoning clarity",
-      "status": "VISIBLE RATIONALE",
-      "reason": "Stated reason is recorded; unobserved reasoning remains unknown."
+      "name": "推理清晰度（Reasoning clarity）",
+      "status": "可見理由",
+      "reason": "依當時寫出的理由判斷；未記錄的隱藏推理保持未知。"
     },
     {
-      "name": "Architectural thinking",
-      "status": "BOUNDED SOURCE REVIEW",
-      "reason": "Catalog ownership and cost/schema boundaries are assessed with concrete tradeoffs."
+      "name": "架構思考（Architectural thinking）",
+      "status": "有限範圍 source review",
+      "reason": "說明 catalog ownership、cost/schema 邊界及取捨。"
     },
     {
-      "name": "Communication quality",
-      "status": "SEMANTIC READBACK",
-      "reason": "Actionable findings; a provenance overclaim is corrected visibly."
+      "name": "溝通品質（Communication quality）",
+      "status": "內容已審閱",
+      "reason": "具體 findings 能支持下一步；provenance 過度推論已顯示更正。"
     },
     {
-      "name": "Attention to detail",
-      "status": "SELECTED CHECKS",
-      "reason": "Negative assertions and exact-head CI retained; complete CI artifacts absent."
+      "name": "細節掌握（Attention to detail）",
+      "status": "選定檢查有證據",
+      "reason": "保留 negative assertions 與 exact-head CI；完整 CI artifacts 未提供。"
     },
     {
-      "name": "Developer trust",
-      "status": "PARTIAL",
-      "reason": "Raw disagreement and missing capture preserved; no expert calibration."
+      "name": "開發者信任（Developer trust）",
+      "status": "部分證據",
+      "reason": "保存原始分歧與 capture 缺口；尚無 Human calibration。"
     }
   ],
   "fresh_coding_model_runs": 0,
@@ -75,47 +75,82 @@
   "supplementary_evidence": [
     {
       "path": "reports/ai-evals/staff-engineering-decisions/raw-recorded-assessment.md",
-      "sha256": "3c89f5050a70ddb86610075d5649d233b7762a081082bbc13a40ff3dcbc5f181"
+      "sha256": "3c89f5050a70ddb86610075d5649d233b7762a081082bbc13a40ff3dcbc5f181",
+      "label": "英文原始評估（未改寫）"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/recorded-case.json",
-      "sha256": "273b71c761ede1fb6a71768fc479995545a8dc85f521321a2d88aa47034c7e45"
+      "sha256": "273b71c761ede1fb6a71768fc479995545a8dc85f521321a2d88aa47034c7e45",
+      "label": "工程決策案例（Case record）"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/recorded-capture.md",
-      "sha256": "53bc9a410586acfadc53c9379fbed3493de7f282ffb6b33774cd77de1b2ba625"
+      "sha256": "53bc9a410586acfadc53c9379fbed3493de7f282ffb6b33774cd77de1b2ba625",
+      "label": "原 reviewer 操作紀錄（Capture）"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/source-only-assessment.md",
-      "sha256": "b29324dab786933ad8dc4e1a3f1b1ba6130f51b8885aa4fedfb43ca721fac590"
+      "sha256": "b71a396e848f6700b261737162afa41a724f4f8b78b4eba1f9c2208c17f7d689",
+      "label": "Soodles 原始碼審查｜繁體中文"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/source-only-case.json",
-      "sha256": "c2a0394d87720b990b1a44b96afc2016f55dcbc41cb67f58545b4562894d972f"
+      "sha256": "c2a0394d87720b990b1a44b96afc2016f55dcbc41cb67f58545b4562894d972f",
+      "label": "Soodles 原始碼案例（Case record）"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/schema-feedback.json",
-      "sha256": "aa91c64a472a6eec069f7e46cf91a10c7f15796ee6c002b73065efdf10ab59ba"
+      "sha256": "aa91c64a472a6eec069f7e46cf91a10c7f15796ee6c002b73065efdf10ab59ba",
+      "label": "Schema Manager 回覆"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/owner-consumption.json",
-      "sha256": "bf31e589b5a43d00c4b036b024b7c7930621898155e65fab3893afecf1fa85bb"
+      "sha256": "bf31e589b5a43d00c4b036b024b7c7930621898155e65fab3893afecf1fa85bb",
+      "label": "Owner 接續處理紀錄"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/semantic-readback.json",
-      "sha256": "ef46b27dc3ca007f1c59601317ec24b4f7f754222c44a869b095c27dfdaf7c4d"
+      "sha256": "ef46b27dc3ca007f1c59601317ec24b4f7f754222c44a869b095c27dfdaf7c4d",
+      "label": "內容審閱與限制"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/candidate-provider-readback.json",
-      "sha256": "bd920a732a96561836bbbe6ba420ff2f61ed9ee794b1042d10acc7638a25fa11"
+      "sha256": "bd920a732a96561836bbbe6ba420ff2f61ed9ee794b1042d10acc7638a25fa11",
+      "label": "GitHub 版本查證"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/disagreements.json",
-      "sha256": "b169ee2ae5733204553d1986feb5bbb2ae32e548a13104a6a40b9570df820030"
+      "sha256": "b169ee2ae5733204553d1986feb5bbb2ae32e548a13104a6a40b9570df820030",
+      "label": "評估分歧與更正"
     },
     {
       "path": "reports/ai-evals/staff-engineering-decisions/job-requirements.md",
-      "sha256": "cac64a2381be66eb159d84faf030706ba5e2bc9c0d42ac21482fac2576affd87"
+      "sha256": "cac64a2381be66eb159d84faf030706ba5e2bc9c0d42ac21482fac2576affd87",
+      "label": "原版角色指引與職缺對照（English）"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/source-only-assessment.en.md",
+      "sha256": "b29324dab786933ad8dc4e1a3f1b1ba6130f51b8885aa4fedfb43ca721fac590",
+      "label": "Soodles 原始碼審查｜英文原稿"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/job-requirements.zh-Hant.md",
+      "sha256": "ddf61675b35375c9c22e1f6e02e004c0a43f6f845078ee7ab8ed3dff0df8259e",
+      "label": "26 項職缺要求：Reviewer 動作與判斷界線｜繁體中文"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/editorial-review.json",
+      "sha256": "02b118beaa2d4a06195afaa273180bc9fda2a083da9d74d6d2dcb7bd74c09276",
+      "label": "繁中改寫來源、語意對照與驗證範圍"
     }
-  ]
+  ],
+  "language": "zh-Hant",
+  "editorial_revision": {
+    "kind": "Traditional Chinese semantic adaptation",
+    "source_report_commit": "22f969bea88f9b2b226e345865dd944eb60d34ae",
+    "methodology_reference": "https://hamel.dev/blog/posts/evals-faq/",
+    "fresh_behavior_run": false,
+    "human_semantic_review": false,
+    "prior_schema_feedback_scope": "The original frozen English consumer outputs and six declared fields; does not certify this translation."
+  }
 }
