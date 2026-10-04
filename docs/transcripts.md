@@ -2,7 +2,26 @@
 
 先保存來源，再寫成自己的文章。原始 HTML、擷取文字與文章各自保存，重新取材使用新目錄，舊快照不會被覆寫。
 
-目前支援 **PodScripts 公開節目頁面**。你需要先找到對應節目的逐字稿 URL；YouTube URL 只記錄你指定的影片對應，不會自動搜尋逐字稿或確認兩者相同。先核對節目名稱與內容。
+目前支援 **PodScripts 公開節目搜尋與逐字稿頁面**。上方輸入主題、來賓或 YouTube 連結，選擇節目，即可自動搜尋並讀取第一個候選的時間戳與固定短摘錄。也可以逐一確認其他候選。
+
+每次使用一個節目的免費公開搜尋，最多顯示第一頁的 5 集，不使用付費跨節目搜尋。內建 The a16z Show、a16z Podcast、Latent Space、Dwarkesh、No Priors、Lenny's Podcast、Lex Fridman。中文 AI 關鍵字採有限詞彙對照，不是通用語意搜尋；未命中時改用較短的英文關鍵字。
+
+一般 YouTube 連結先讀取公開影片標題，再於選定節目搜尋。這次的影片沿用既有來源對應紀錄搜尋 The a16z Show；這份對應原本由取材者指定，並未核對音訊。搜尋結果、標題相似與已讀到時間戳都不代表確認了同一集或原話。
+
+## 先自動尋找來源
+
+```sh
+python3 scripts/transcript.py search \
+  --query 'https://youtu.be/ekK8urKHPMQ'
+python3 scripts/transcript.py search \
+  --query 'Agent 記憶' --podcast latent-space
+python3 scripts/transcript.py inspect \
+  --url 'https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad'
+```
+
+`search` 回傳實際搜尋詞、節目、原站搜尋網址與候選來源；`inspect` 實際讀取來源，回傳段落數、起訖時間戳、SHA-256 與固定短摘錄。網站和 CLI 共用這兩個流程。沒有结果與來源讀取失敗會分開顯示；不會用搜尋摘要冒充逐字稿。
+
+完整第三方逐字稿由「閱讀原站逐字稿全文」開啟。本站不重新發布全文。確認來源後，若要保存本機取材快照，可使用下方原有的 `fetch`；網頁不會自動提交搜尋結果到 Git、生成文章或改動既有來源。
 
 ## 取得來源
 
@@ -15,7 +34,7 @@ python3 scripts/transcript.py fetch \
   --out .transcripts/openrouter-agent-primitives
 ```
 
-網頁只提供操作說明與已完成文章；命令在你的終端執行。本站不會代理下載任意網址，也不要求你提供登入資料。
+`fetch` 在你的終端執行。網站提供公開來源的搜尋與短預覽，不代理下載任意網址，也不要求你提供登入資料。
 
 成功後，目錄包含四個檔案：
 

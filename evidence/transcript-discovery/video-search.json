@@ -1,0 +1,26 @@
+{
+  "status": "OK",
+  "result": {
+    "query": "https://youtu.be/ekK8urKHPMQ",
+    "search_terms": "Beyond the God Model",
+    "attempted_terms": [
+      "Beyond the God Model"
+    ],
+    "podcast": "The a16z Show",
+    "podcast_key": "a16z",
+    "mode": "episode",
+    "video_url": "https://www.youtube.com/watch?v=ekK8urKHPMQ",
+    "video_title": "Beyond the God Model",
+    "video_association": "existing_caller_supplied_association_not_audio_verified",
+    "provider_search_url": "https://podscripts.co/podkeywordsearch/?search_type=episode&keywordsToSearch=Beyond+the+God+Model&exact_match=false&slv=single&podSelectedId=1750",
+    "checked_at": "2026-10-04T13:33:18.408953+00:00",
+    "scope": "one_public_podcast_first_page_max_5",
+    "results": [
+      {
+        "title": "Beyond the God Model | Alex Atallah & Amjad Masad",
+        "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+        "status": "candidate_not_audio_verified"
+      }
+    ]
+  }
+}

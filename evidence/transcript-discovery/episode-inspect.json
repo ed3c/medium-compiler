@@ -1,0 +1,19 @@
+{
+  "status": "OK",
+  "result": {
+    "title": "The a16z Show - Beyond the God Model | Alex Atallah & Amjad Masad Transcript and Discussion",
+    "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+    "provider": "PodScripts",
+    "status": "timestamped_transcript_found",
+    "audio_verified": false,
+    "checked_at": "2026-10-04T13:32:09.218000+00:00",
+    "source_sha256": "41e5f3446b137c56538d8fb5343b49928b77015de8b74a0e9265fb909989faae",
+    "segment_count": 95,
+    "first_timestamp": "00:00:00",
+    "last_timestamp": "00:47:58",
+    "excerpt": "but all of technology, there needs to be",
+    "excerpt_timestamp": "00:14:05",
+    "publication": "metadata_and_fixed_short_excerpt_only",
+    "completeness": "provider_page_only_episode_coverage_unknown"
+  }
+}

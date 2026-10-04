@@ -223,6 +223,12 @@ def receipt(snapshot, out):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
+    a = sub.add_parser("search", help="Find public transcript candidates without an episode URL")
+    a.add_argument("--query", required=True)
+    a.add_argument("--podcast", default="a16z")
+    a.add_argument("--mode", choices=("basic", "episode"), default="basic")
+    a = sub.add_parser("inspect", help="Read timestamp metadata and a fixed short excerpt")
+    a.add_argument("--url", required=True)
     for cmd in ("fetch", "import-html"):
         a = sub.add_parser(cmd)
         a.add_argument("--url", required=True, help="Explicit PodScripts episode URL, not a search query")
@@ -234,8 +240,13 @@ def main():
     a = sub.add_parser("receipt"); a.add_argument("--snapshot", required=True, type=Path)
     a.add_argument("--out", required=True, type=Path)
     args = p.parse_args()
+    from transcript_discovery import search, inspect_episode, ProviderError
     try:
-        if args.command in ("fetch", "import-html"):
+        if args.command == "search":
+            result = search(args.query, args.podcast, args.mode)
+        elif args.command == "inspect":
+            result = inspect_episode(args.url)
+        elif args.command in ("fetch", "import-html"):
             result = acquire(args.url, args.video_url, args.out, getattr(args, "html", None))
         elif args.command == "verify":
             result = verify(args.snapshot)
@@ -243,7 +254,7 @@ def main():
             result = receipt(args.snapshot, args.out)
         print(json.dumps({"status": "OK", "result": result}, ensure_ascii=False, indent=2))
         return 0
-    except (OSError, ValueError, KeyError, TypeError) as error:
+    except (OSError, ValueError, KeyError, TypeError, ProviderError) as error:
         print(json.dumps({"status": "REFUSED", "error": str(error)}, ensure_ascii=False), file=sys.stderr)
         return 2
 
