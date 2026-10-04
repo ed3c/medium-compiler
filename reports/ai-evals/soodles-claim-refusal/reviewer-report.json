@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "case_id": "archive_review",
+  "instructions": {
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/SKILL.md": "3754aaf015300a9361171c10152d38b700a87ac7e280d3a2d20592632a6c96d2",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/README.md": "979ac7b7cab31596fd00d18374aac2c0437069121cd296c7d8462537238ad077",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/instruction-feedback.md": "42be0d7ba12e96734cae082ee97df001949b753850cc73a72a27d1afb703f36f",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/report-delivery.md": "5278b66970b6d61a9e02fa89975a8904b73d39743c3e0731488746beb7b03aa0",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/features/workflow-review.md": "ee81938812d9bbcbf622336ad3c0f25258945eef83ce0b21285666f6b3b9eb9c",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/verify-ai-engineering-evals/references/standards.md": "50d65f3abc2550bb814c34198f5316b5d0e961f9bbc2ae47f5028027a8041043",
+    "/workspace/scratch/7ed56a5a2a33/medium-work/.agents/skills/eval-audit/SKILL.md": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63",
+    "/workspace/scratch/7ed56a5a2a33/soodles-work/docs/experiments/authorization-reentry/methods/eval-audit/SKILL.md": "c11338900d88d114c353a8865d9b7a4780d972bf740b80d5eb4e38357b1bf133"
+  },
+  "input_sha256": "3377cc7059ef153749960fbb88b52f04147b6dfe417ebd2179dfcd8e9ad2882e",
+  "output": {
+    "fresh_coding_execution": false,
+    "complete_capture": false,
+    "can_certify_staff_ability": false,
+    "both_arms_avoid_immediate_retry": true
+  }
+}

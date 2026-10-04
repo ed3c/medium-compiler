@@ -244,3 +244,21 @@ from supplemental experiments. Do not make publication wait on invented learner 
 or record agent execution as learner mastery. Preserve actual commands and results,
 source refs, and any incomplete requirement. Add the article to navigation and verify
 its build, links, provenance and deployed page.
+
+## AI engineering evaluation reports
+
+Use [.agents/skills/verify-ai-engineering-evals/SKILL.md](.agents/skills/verify-ai-engineering-evals/SKILL.md)
+for source-bound Soodles workflow reviews, scoped instruction feedback and report delivery.
+The skill follows pinned Soodles review-writing and pstack create/maintain verification methods.
+It lives in this repository; it does not install or modify a user-global skill.
+
+The site navigation includes **AI Evals** at `/ai-evals/`. The first report evaluates
+six archived Soodles consumer reports across three paired cases. It separates the
+retrospective assessment, deterministic source checks and fresh reviewer observations.
+It makes no frontier-model ranking, full debugging, hiring or personal qualification claim.
+
+Reports live under `reports/ai-evals/`. The catalog binds each report JSON; each report
+binds its English assessment, Chinese guide and source audit with SHA-256. The builder
+rejects changed bound bytes and exposes report provenance in `/provenance.json`.
+To publish an authorized update, change the reviewed files and their catalog hashes
+together, run the existing build and verification, then use the existing Git deployment.

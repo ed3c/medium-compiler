@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Engineering Evals"
+  short_description: "Evaluate coding-agent judgment with source-bound evidence"
+  default_prompt: "Use $verify-ai-engineering-evals to evaluate a Soodles workflow and publish an evidence-bound report."

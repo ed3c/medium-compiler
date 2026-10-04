@@ -1,0 +1,327 @@
+{
+  "schema_version": "ai-engineering-archive-audit@1",
+  "repository": "ed3c/soodles",
+  "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+  "mode": "retrospective_archive_review",
+  "sources": [
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/provenance.json",
+      "sha256": "2c0916485ede5b99e557b68c73f4a71dab7082c7cc00edd4c56cf951531f0566",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/provenance.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/current.json",
+      "sha256": "bdcb2ee73f97613ebece4b6232ff7ff769689d27229b14d2ccfee6252775a2ab",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/identity.json",
+      "sha256": "4a1c65893e9dad9e8ff57cf0b67aa2abfe9ab7505a34159f6d57849773905adb",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/output/report.json",
+      "sha256": "e919516d1a3f1f3fa7dca40247e7d5c1d6b030f558293f4bdb9f2363e7c0ecb0",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c1/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c1-launch.json",
+      "sha256": "6dabd560b1a71586a560a546d410e10e649e60fbe05f85ef90f6fa13a9a29c6b",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c1-launch.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/current.json",
+      "sha256": "864d63df32475e3d722ee1ff11678cbe018fa4fa5d1c61ba2d0e1e7a17ed04c3",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/identity.json",
+      "sha256": "0144154fe3a0c839df83ea10bfb37d541005d1d56ee0c1dcb2d44bd491f5a9c0",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/output/report.json",
+      "sha256": "d78db9f0dce742a31979eee2bc11e4f10d959494d6bd80f1842a063b98237250",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c1/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c1-launch.json",
+      "sha256": "8048458cda7d6bec6d73d22bdbbdfb9e6534a1dcf89c8fcc4ad5c13b7eed6766",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c1-launch.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/current.json",
+      "sha256": "314907d442165362e8b9d9428a43871173abaf6f5e3fda4b750a54493dc51edc",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/identity.json",
+      "sha256": "44658925f632ef29effc18034b2afda2797e2e4e7dff199134276c449f9e5dc5",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/output/report.json",
+      "sha256": "e22bd936fd0b8c734e8c9881fe3ca40430cc99ae7cbe9cc59ffafa649485cc5a",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c2/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c2-launch.json",
+      "sha256": "f2cad7b9454638ef4dc78e8d59b40ff2e47c8c4adb1ff3ff7d527ed02e9be567",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c2-launch.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/current.json",
+      "sha256": "7ad6248cf0e4ce809c474c9b52ee4f6f690f646fe20af3718fc8b32287aa36bf",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/identity.json",
+      "sha256": "66dcf9a0ef2e04ddd3712ab33875d8675fa02bf22fc8cc17cd6a3e2a078c0e92",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/output/report.json",
+      "sha256": "ff73ff4ac73f171a3bb462c72aa5f4f36fde0869e779b1ba250cccaa260260f8",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c2/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c2-launch.json",
+      "sha256": "82bd4c92806ffa8aaf374c31008ddf3a8cb9488bcfa62f0e58dc4b94ed70cc85",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c2-launch.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/current.json",
+      "sha256": "6deba12c877831930e5a04f87b911393ae9d04b6c970a36cab92fcb7eff6d278",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/identity.json",
+      "sha256": "63f47b5f84f9707524759fb0345289fd31d6a2a3eb8b681d5cc81d14b1705681",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/output/report.json",
+      "sha256": "cb7ac8cacf1cadaa36cbce626b2cacb29bad680f7b55857cce58e9f0a309d467",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/n4/c3/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c3-launch.json",
+      "sha256": "81f9b1f238f0300bdb7c53851e038e8884d992d86a12f80c2277fa503f4482ec",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/n4/c3-launch.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/current.json",
+      "sha256": "9078757c239f9a13b17c5cbb0be7894044f5165ec6d0afdaf05c0aea81fdca1d",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/current.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/identity.json",
+      "sha256": "58f68b4b3a9eb6424d64d353aab7d9517c03c3d709684354c894496c5f75bbfa",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/identity.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/output/report.json",
+      "sha256": "36e781a190ab6daff57aee4473bab42b7d4a691b1be684cbe43f50c43d4bac0a",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/packets/z8/c3/output/report.json"
+    },
+    {
+      "path": "docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c3-launch.json",
+      "sha256": "119135ad4e80fa7d87423b3078d23fd9ad3e6fbd99b38cd2ebe2ed545721c77a",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/behavior/native/raw/z8/c3-launch.json"
+    }
+  ],
+  "observations": [
+    {
+      "case": "c1",
+      "arm": "n4",
+      "owner_status": "pending",
+      "action": "wait_for_change",
+      "waiting_on": "Noodle",
+      "required": [
+        "material_owner_or_provider_state_change"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    },
+    {
+      "case": "c1",
+      "arm": "z8",
+      "owner_status": "refused",
+      "action": "stop_for_input",
+      "waiting_on": "Noodle",
+      "required": [
+        "fresh_noodle_claim"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    },
+    {
+      "case": "c2",
+      "arm": "n4",
+      "owner_status": "pending",
+      "action": "wait_for_change",
+      "waiting_on": "Noodle",
+      "required": [
+        "material_owner_or_provider_state_change"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    },
+    {
+      "case": "c2",
+      "arm": "z8",
+      "owner_status": "pending",
+      "action": "wait_for_change",
+      "waiting_on": "Noodle",
+      "required": [
+        "material_owner_or_provider_state_change"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    },
+    {
+      "case": "c3",
+      "arm": "n4",
+      "owner_status": "pending",
+      "action": "wait_for_change",
+      "waiting_on": "GitHub Actions",
+      "required": [
+        "material_owner_or_provider_state_change"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_handoff",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    },
+    {
+      "case": "c3",
+      "arm": "z8",
+      "owner_status": "pending",
+      "action": "wait_for_change",
+      "waiting_on": "GitHub Actions",
+      "required": [
+        "material_owner_or_provider_state_change"
+      ],
+      "resolved": false,
+      "proposed_argv": null,
+      "reported_lifecycle_invocations": 0,
+      "observation_scope": "consumer_report",
+      "identity_fields": [
+        "authorization_path",
+        "authorization_sha256",
+        "current_checkpoint_phase",
+        "material_change_since_handoff",
+        "material_change_since_owner_result"
+      ],
+      "launch_fields": [
+        "full_platform_transcript_available",
+        "model_override",
+        "observed_model",
+        "observed_reasoning",
+        "reasoning_override",
+        "recording_scope",
+        "request",
+        "result",
+        "tool"
+      ]
+    }
+  ],
+  "complete_platform_transcript": false,
+  "fresh_coding_model_runs": 0,
+  "quality_verdict": null,
+  "authorizes_landing": false
+}

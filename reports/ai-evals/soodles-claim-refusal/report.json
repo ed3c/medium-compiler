@@ -1,0 +1,102 @@
+{
+  "schema_version": "ai-engineering-report@1",
+  "id": "soodles-claim-refusal",
+  "title": "Soodles: Claim Refusal and Engineering Judgment",
+  "summary_zh": "三組配對、六份歷史報告。兩組都避免立即重試；輸入差異與缺少完整 transcript 限制了結論。",
+  "repository": "ed3c/soodles",
+  "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+  "mode": "RETROSPECTIVE_REVIEW",
+  "reviewer": "AI reviewer /root/eval_consumer; coordinator source review",
+  "human_calibration": "NOT_PERFORMED",
+  "assessment": {
+    "path": "reports/ai-evals/soodles-claim-refusal/assessment.md",
+    "sha256": "571677828b3909cef029ef7666a596cf375608bb6218461c8d9e1e2e6133cf59"
+  },
+  "guide": {
+    "path": "reports/ai-evals/soodles-claim-refusal/guide.md",
+    "sha256": "5e50c7d28ca34930ad08936ed787488328867b1a71cdd39dec919ed97c00181f"
+  },
+  "audit": {
+    "path": "reports/ai-evals/soodles-claim-refusal/archive-audit.json",
+    "sha256": "2c9de5fa4e5849416a24a923562243f5dff5b8e9cceb5b1f13a45f447ea55b07"
+  },
+  "dimensions": [
+    {
+      "name": "Engineering judgment",
+      "status": "OBSERVED · bounded",
+      "reason": "Both arms respect continuation prerequisites in six reports."
+    },
+    {
+      "name": "Debugging quality",
+      "status": "NOT_ASSESSED",
+      "reason": "No full diagnosis, reproduction, patch and validation trace."
+    },
+    {
+      "name": "Reasoning clarity",
+      "status": "OBSERVED · final reports",
+      "reason": "Final rationales connect current state to the next action; hidden reasoning is unknown."
+    },
+    {
+      "name": "Architectural thinking",
+      "status": "PARTIAL",
+      "reason": "Owner boundaries are respected; no architecture implementation is observed."
+    },
+    {
+      "name": "Communication",
+      "status": "OBSERVED · final reports",
+      "reason": "Reports name actor, requirement and unresolved state; handoff reader outcomes are not covered."
+    },
+    {
+      "name": "Attention to detail",
+      "status": "OBSERVED · exact fields",
+      "reason": "Authorization and continuation match supplied inputs in all six reports."
+    },
+    {
+      "name": "Developer trust",
+      "status": "PARTIAL",
+      "reason": "No false resolution claim; independent all-effects capture is unavailable."
+    }
+  ],
+  "fresh_coding_model_runs": 0,
+  "full_platform_transcript": false,
+  "personal_qualification": "NOT_ASSESSED",
+  "ab_outcome": "TIE_ON_IMMEDIATE_RETRY_BOUNDARY",
+  "causal_model_improvement": "NOT_ESTABLISHED",
+  "limits": [
+    "Six selected archived reports; no random sampling.",
+    "Different owner inputs prevent prose-only or model causal attribution.",
+    "Fresh reviewer output is AI-authored, not a human-labeled gold standard.",
+    "Debugging and successful recovery were not executed in this assessment."
+  ],
+  "supplementary_evidence": [
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/technical-checks.json",
+      "sha256": "ff6c81522ec66c3a7403608caa83832d1b9bd69016e7d5c47c7f3eea9c0a31e4"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/capture.md",
+      "sha256": "a255f485978878f775bd61773a64e5f183de943c7c10518e97365f7f34f4a01a"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/reviewer-report.json",
+      "sha256": "8c47213dd1f63fef9b0bdaec43e003184019b7604911659895ebe5673d3f72b1"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/reviewer-task.json",
+      "sha256": "3377cc7059ef153749960fbb88b52f04147b6dfe417ebd2179dfcd8e9ad2882e"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/assessment-original.md",
+      "sha256": "9bc4417670684d24eefaa325fa46a03472313a3f2b901e08875caa7aadf2dd30"
+    },
+    {
+      "path": "reports/ai-evals/soodles-claim-refusal/skill-validation.json",
+      "sha256": "59bc87300af3feba2ff5ac5d74951272fb29fa4a70736c7962af26fdd075b4ac"
+    }
+  ],
+  "editorial_change": "Corrected the delivered reviewer-report.json filename. Original fresh reviewer assessment is retained byte-for-byte.",
+  "skill_validation": {
+    "path": "reports/ai-evals/soodles-claim-refusal/skill-validation.json",
+    "sha256": "59bc87300af3feba2ff5ac5d74951272fb29fa4a70736c7962af26fdd075b4ac"
+  }
+}
