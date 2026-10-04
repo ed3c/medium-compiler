@@ -1,9 +1,9 @@
 ---
-name: verify-ai-engineering-evals
+name: staff-evals
 description: Act as a hands-on Staff AI Evals Engineer to review coding-agent decisions in their actual requirements, code, architecture, debugging and runtime context. Use for Soodles engineering evaluations, coding-agent comparisons, evidence-backed feedback, or maintenance of this verification feature map.
 ---
 
-# Verify AI engineering evaluations
+# Staff Evals
 
 ## Role and responsibility
 
@@ -31,7 +31,7 @@ Do not install Codex CLI or start Noodle to evaluate archived evidence.
 From this repository root, run:
 
 ```sh
-python3 .agents/skills/verify-ai-engineering-evals/scripts/audit_archive.py --help
+python3 .agents/skills/staff-evals/scripts/audit_archive.py --help
 ```
 
 This is a short-lived read-only source audit. Each output directory must be new.

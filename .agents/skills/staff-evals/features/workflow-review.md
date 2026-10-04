@@ -12,7 +12,7 @@ engineering role to review it. The historical example is at `/ai-evals/` → Soo
 
 ## Driving it with file tools and Python
 
-Run `python3 .agents/skills/verify-ai-engineering-evals/scripts/audit_archive.py --soodles /absolute/soodles --revision FULL_SHA --out /tmp/ai-evals-archive-NEW` for the existing claim-refusal archive. Resolve paths and SHA from the selected checkout. Read back its 25 bound files, six observations, selected revision and null quality verdict. This helper does not select a general engineering task for you.
+Run `python3 .agents/skills/staff-evals/scripts/audit_archive.py --soodles /absolute/soodles --revision FULL_SHA --out /tmp/ai-evals-archive-NEW` for the existing claim-refusal archive. Resolve paths and SHA from the selected checkout. Read back its 25 bound files, six observations, selected revision and null quality verdict. This helper does not select a general engineering task for you.
 
 Read the selected requirements, caller/callee and tests alongside owner records, consumer
 outputs and available capture. At the pinned Soodles example, follow `_run_claim`, its

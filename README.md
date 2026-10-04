@@ -247,7 +247,7 @@ its build, links, provenance and deployed page.
 
 ## AI engineering evaluation reports
 
-Use [.agents/skills/verify-ai-engineering-evals/SKILL.md](.agents/skills/verify-ai-engineering-evals/SKILL.md)
+Use [.agents/skills/staff-evals/SKILL.md](.agents/skills/staff-evals/SKILL.md)
 for source-bound Soodles workflow reviews, scoped instruction feedback and report delivery.
 The skill follows pinned Soodles review-writing and pstack create/maintain verification methods.
 It lives in this repository; it does not install or modify a user-global skill.
