@@ -1,0 +1,93 @@
+{
+  "baseline": "5ed8b5ef165b32a6252c601d0fef790c5ca580bf",
+  "kind": "actual CLI drive on preserved real snapshot, not new article generation",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "scripts/transcript.py",
+        "locate",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--term",
+        "2005",
+        "--term",
+        "table stakes",
+        "--term",
+        "agent loop"
+      ],
+      "exit": 0,
+      "stdout": {
+        "status": "OK",
+        "result": {
+          "schema_version": "medium-transcript-locations@1",
+          "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+          "transcript_sha256": "372db977d7654039d8c358f7cbe2fa5bdefffdd9a916964189bddb5dfc1a1b36",
+          "terms": [
+            "2005",
+            "table stakes",
+            "agent loop"
+          ],
+          "matching_segments": 3,
+          "matches": [
+            {
+              "timestamp": "00:14:58",
+              "start_seconds": 898,
+              "matched_terms": [
+                "2005",
+                "table stakes"
+              ],
+              "score": 2,
+              "text_sha256": "aa455f9f52dc673a487bd7c2f5e7f9b569ac567d40f9700ed6f2fcde51ce1634"
+            },
+            {
+              "timestamp": "00:14:05",
+              "start_seconds": 845,
+              "matched_terms": [
+                "agent loop"
+              ],
+              "score": 1,
+              "text_sha256": "753cbc426dc99b95fbd4104dd123ada6cca57fb4336f9d2b1c5787e3e74ebead"
+            },
+            {
+              "timestamp": "00:15:18",
+              "start_seconds": 918,
+              "matched_terms": [
+                "table stakes"
+              ],
+              "score": 1,
+              "text_sha256": "953da1b44916c367c200a85a2bcfe1fd26dc0c09db206ab6312266d3b75e95b9"
+            }
+          ],
+          "interpretation": "lexical_candidates_only_read_passage_and_context_before_writing"
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/transcript.py",
+        "verify-passage",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--packet",
+        ".transcripts/openrouter-agent-primitives/skill-passage.json"
+      ],
+      "exit": 0,
+      "stdout": {
+        "status": "OK",
+        "result": {
+          "packet_sha256": "449b3b809ea5c50c160250059e4e5f9025b160bede474873244ce67b3f69528f",
+          "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+          "start": "00:14:05",
+          "through": "00:15:18",
+          "audio_verified": false
+        }
+      },
+      "stderr": ""
+    }
+  ],
+  "private_packet_committed": false,
+  "audio_verified": false
+}

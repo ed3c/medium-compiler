@@ -1,0 +1,4 @@
+interface:
+  display_name: "Podcast to Medium"
+  short_description: "Find source passages and publish grounded podcast articles"
+  default_prompt: "Use $podcast-to-medium to find this podcast transcript, locate the relevant passages, write with medium-writing, and deploy to the existing site."

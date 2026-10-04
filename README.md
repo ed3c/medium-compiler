@@ -36,6 +36,12 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 
 ## Entry points
 
+- [Podcast to Medium](.agents/skills/podcast-to-medium/SKILL.md): repository-local orchestration
+  from a podcast/video/topic to CLI search, verified source snapshot, relevant passages,
+  `medium-writing` Stage 0–7 and requested website deployment. `transcript.py locate`,
+  `passage` and `verify-passage` bind the selected text and surrounding context without
+  treating keyword hits as semantic approval. Source-only episodes do not require a video.
+
 - [Third-party transcript acquisition](docs/transcripts.md): `python3 scripts/transcript.py --help`.
   `/transcripts/` now searches a selected public podcast by topic, guest or YouTube URL,
   and reads timestamp metadata plus a fixed short preview. Shared CLI commands: `search`

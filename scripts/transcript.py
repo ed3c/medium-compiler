@@ -131,7 +131,7 @@ def markdown(transcript):
 
 def acquire(url, video, out, local_html=None):
     source_url(url)
-    video = video_url(video)
+    video = video_url(video) if video else None
     if out.exists():
         raise ValueError("Output already exists; verify it or choose a new snapshot directory")
     if local_html:
@@ -156,7 +156,7 @@ def acquire(url, video, out, local_html=None):
              "transcript.md": markdown(transcript)}
     manifest = {"schema_version": "medium-transcript-snapshot@1", "provider": "PodScripts",
                 "parser": VERSION, "source_url": url, "final_url": final_url,
-                "video_url": video, "video_association": "caller_supplied_not_verified",
+                "video_url": video, "video_association": "caller_supplied_not_verified" if video else "not_supplied",
                 "acquisition": mode, "retrieved_at": retrieved_at,
                 "recorded_at": datetime.now(timezone.utc).isoformat(),
                 "title": transcript["title"], "segment_count": len(transcript["segments"]),
@@ -192,7 +192,10 @@ def verify(snapshot):
     if set(manifest.get("files", {})) != {"source.html", "transcript.json", "transcript.md"}:
         raise ValueError("Unexpected snapshot file inventory")
     source_url(manifest["source_url"])
-    video_url(manifest["video_url"])
+    if manifest["video_url"] is not None:
+        video_url(manifest["video_url"])
+    elif manifest.get("video_association") != "not_supplied":
+        raise ValueError("Missing video requires an explicit not_supplied association")
     if manifest["acquisition"] not in ("https_fetch", "imported_html") or manifest["audio_verified"] is not False:
         raise ValueError("Unsupported acquisition or audio verification claim")
     for name, expected in manifest["files"].items():
@@ -220,6 +223,57 @@ def receipt(snapshot, out):
     return result
 
 
+def locate(snapshot, terms, limit=5):
+    """Return lexical anchors, not a semantic verdict or public transcript excerpts."""
+    manifest = verify(snapshot)
+    terms = list(dict.fromkeys(t.strip().casefold() for t in terms if t.strip()))
+    if not terms or len(terms) > 12 or any(len(t) > 120 for t in terms) or not 1 <= limit <= 20:
+        raise ValueError("Provide 1-12 terms (up to 120 characters each), limit 1-20")
+    transcript = json.loads((snapshot / "transcript.json").read_bytes())
+    matches = []
+    for segment in transcript["segments"]:
+        found = [term for term in terms if term in segment["text"].casefold()]
+        if found:
+            matches.append({"timestamp": segment["timestamp"], "start_seconds": segment["start_seconds"],
+                            "matched_terms": found, "score": len(found),
+                            "text_sha256": digest(segment["text"].encode("utf-8"))})
+    matches.sort(key=lambda item: (-item["score"], item["start_seconds"]))
+    return {"schema_version": "medium-transcript-locations@1", "source_url": manifest["source_url"],
+            "transcript_sha256": manifest["files"]["transcript.json"], "terms": terms,
+            "matching_segments": len(matches), "matches": matches[:limit],
+            "interpretation": "lexical_candidates_only_read_passage_and_context_before_writing"}
+
+
+def passage(snapshot, start, through, context=1):
+    """Select complete source timestamp groups with separate surrounding context."""
+    manifest = verify(snapshot)
+    segments = json.loads((snapshot / "transcript.json").read_bytes())["segments"]
+    stamps = [s["timestamp"] for s in segments]
+    if start not in stamps or through not in stamps or not 0 <= context <= 3:
+        raise ValueError("Use exact source timestamps and context 0-3")
+    first, last = stamps.index(start), stamps.index(through)
+    if first > last:
+        raise ValueError("Passage start must not follow its final timestamp group")
+    return {"schema_version": "medium-transcript-passage@1", "source_url": manifest["source_url"],
+            "video_url": manifest["video_url"], "audio_verified": False,
+            "snapshot_manifest_sha256": digest((snapshot / "manifest.json").read_bytes()),
+            "transcript_sha256": manifest["files"]["transcript.json"],
+            "start": start, "through": through, "context": context,
+            "boundary": "inclusive_timestamp_groups_not_exact_utterance_end",
+            "segments": segments[first:last + 1],
+            "context_before": segments[max(0, first - context):first],
+            "context_after": segments[last + 1:last + 1 + context],
+            "usage": "private_research_input_not_public_article_or_permission_to_republish"}
+
+
+def verify_passage(snapshot, packet):
+    data = json.loads(packet.read_bytes())
+    if data != passage(snapshot, data["start"], data["through"], data["context"]):
+        raise ValueError("Passage no longer matches the verified source snapshot")
+    return {"packet_sha256": digest(packet.read_bytes()), "source_url": data["source_url"],
+            "start": data["start"], "through": data["through"], "audio_verified": False}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
@@ -229,10 +283,23 @@ def main():
     a.add_argument("--mode", choices=("basic", "episode"), default="basic")
     a = sub.add_parser("inspect", help="Read timestamp metadata and a fixed short excerpt")
     a.add_argument("--url", required=True)
+    a = sub.add_parser("locate", help="Find candidate timestamp groups in a verified local snapshot")
+    a.add_argument("--snapshot", required=True, type=Path)
+    a.add_argument("--term", action="append", required=True)
+    a.add_argument("--limit", type=int, default=5)
+    a = sub.add_parser("passage", help="Save exact source groups and nearby context for private writing input")
+    a.add_argument("--snapshot", required=True, type=Path)
+    a.add_argument("--start", required=True)
+    a.add_argument("--through", required=True, help="Inclusive final timestamp group, not utterance end")
+    a.add_argument("--context", type=int, default=1)
+    a.add_argument("--out", required=True, type=Path)
+    a = sub.add_parser("verify-passage", help="Recheck a selected passage against its source snapshot")
+    a.add_argument("--snapshot", required=True, type=Path)
+    a.add_argument("--packet", required=True, type=Path)
     for cmd in ("fetch", "import-html"):
         a = sub.add_parser(cmd)
         a.add_argument("--url", required=True, help="Explicit PodScripts episode URL, not a search query")
-        a.add_argument("--video-url", required=True, help="Caller-supplied episode association, not automatically verified")
+        a.add_argument("--video-url", help="Optional caller-supplied association; never invent a missing video")
         a.add_argument("--out", required=True, type=Path)
         if cmd == "import-html":
             a.add_argument("--html", required=True, type=Path)
@@ -242,7 +309,17 @@ def main():
     args = p.parse_args()
     from transcript_discovery import search, inspect_episode, ProviderError
     try:
-        if args.command == "search":
+        if args.command == "locate":
+            result = locate(args.snapshot, args.term, args.limit)
+        elif args.command == "passage":
+            data = passage(args.snapshot, args.start, args.through, args.context)
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            with args.out.open("xb") as handle:
+                handle.write(json_bytes(data))
+            result = {"packet": str(args.out), **verify_passage(args.snapshot, args.out)}
+        elif args.command == "verify-passage":
+            result = verify_passage(args.snapshot, args.packet)
+        elif args.command == "search":
             result = search(args.query, args.podcast, args.mode)
         elif args.command == "inspect":
             result = inspect_episode(args.url)

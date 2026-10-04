@@ -1,0 +1,20 @@
+{
+  "tests": {
+    "count": 184,
+    "status": "PASS"
+  },
+  "skill_validation": "PASS",
+  "mechanical_features": {
+    "doctor": "PASS",
+    "staged-authoring": "PASS",
+    "bounded-revision": "PASS",
+    "lossless-drilldown": "PASS",
+    "delivery": "PASS"
+  },
+  "existing_article_replay_sha256": "08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38",
+  "article_or_prior_source_files_changed": false,
+  "source_drive": "source-drive.json",
+  "new_article_written": false,
+  "audio_verified": false,
+  "independent_writer_reader_comparison": "NOT_RUN"
+}

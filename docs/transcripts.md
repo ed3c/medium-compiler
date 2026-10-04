@@ -71,6 +71,23 @@ python3 scripts/transcript.py import-html \
 
 ## 寫成獨立文章
 
+在此 repository 的 Agent 工作階段使用 **`podcast-to-medium`**：輸入 Podcast、影片網址或想討論的問題，skill 會串接 CLI 搜尋、來源保存、段落定位、`medium-writing` 與已要求的網站部署。這是 Agent 的工作流程；網頁搜尋按鈕本身不會呼叫寫作模型或自動發布文章。
+
+```sh
+python3 scripts/transcript.py locate \
+  --snapshot .transcripts/openrouter-agent-primitives \
+  --term '2005' --term 'table stakes' --term 'agent loop'
+python3 scripts/transcript.py passage \
+  --snapshot .transcripts/openrouter-agent-primitives \
+  --start 00:14:05 --through 00:15:18 --context 1 \
+  --out .transcripts/openrouter-agent-primitives/selected-passage.json
+python3 scripts/transcript.py verify-passage \
+  --snapshot .transcripts/openrouter-agent-primitives \
+  --packet .transcripts/openrouter-agent-primitives/selected-passage.json
+```
+
+`locate` 回傳關鍵詞命中的時間戳；`passage` 保存完整時間戳段落與前後文，不改寫文字。`through` 指最後一組段落的起始時間，不代表原話結束時間。寫作前仍須閱讀前後文，確認哪些內容回答使用者的問題；`verify-passage` 只核對來源與選段的一致性。若沒有已知影片，`fetch` 可省略 `--video-url`。
+
 使用 repository 的 `medium-writing`，先列目錄、讀者決策與來源範圍，再依現有 Stage 0–7 CLI 完成新文章。原始來源與既有文章保持不變，文章另存於 `articles/`。保留原文的條件與不確定性；自己的分析、假設案例與來源觀點必須可區分。公開頁面只使用必要短引文、來源連結與獨立論述。
 
 本次範例聚焦訪談 14:05–15:40 的 Agent 基本元件類比，不宣稱改寫整集。可在本站 Articles 閱讀「每個人都在做 Agent，為什麼產品仍然可以不同？」。文章提供 Markdown 下載與來源紀錄，發布到本網站不等於發布到 Medium.com。
