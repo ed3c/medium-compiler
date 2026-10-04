@@ -22,6 +22,9 @@ Every case retains:
 | `actor` | Coding agent/model/harness when known, or explicit unknown; do not infer from a file author. |
 | `reviewer` | Actual human or Agent identity; assistance and prior exposure to the answer. |
 | `evidence` | Selected artifact locators and SHA-256, plus source/runtime/report/capture distinctions. |
+| `review_mode` | `implementation_review`, `agent_workflow_evaluation`, or `combined`, selected from available evidence. |
+| `decision_episodes` | Observed Agent choices with evidence available before action, action, stated reason or null, later observation, judgment, alternative and correction. |
+| `disagreements` | Actual reviewer disagreements and later corrections; preserve original judgments. |
 | `decision` | Requirement, concrete mechanism, consequence, alternative and tradeoff. |
 | `prediction` | Null for retrospective work; otherwise reference the separately frozen forecast. |
 | `outcome` | Actual observation and scope; null while unobserved. |
@@ -33,6 +36,13 @@ Every case retains:
 Retrieve by subsystem, decision, failure boundary and applicability before using similarity.
 Re-check changed contracts. A case is evidence for its task, not a new universal instruction.
 Link contradictory cases. Keep the old lesson and explain supersession rather than deleting misses.
+
+For each decision episode, use a stable local ID and locators into retained evidence.
+Keep observation and interpretation separate. A minimal episode has `id`, `before_refs`,
+`action`, `stated_reason`, `result_refs`, `judgment`, `alternative`, and `next_check`.
+Add fields only when the case needs them. Source-only cases keep `decision_episodes` empty.
+These optional additions retain schema 1 compatibility with earlier cases. Missing fields
+in historical records do not become evidence of observed Agent behavior.
 
 ## Freeze before resolving
 

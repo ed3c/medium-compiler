@@ -19,4 +19,14 @@ engineering substance: does the consumer trace an actual mechanism, justify a ch
 and distinguish implementation facts from observed Agent actions? Preserve this semantic
 review separately. Do not convert an exact-field PASS into a calibrated prose verdict.
 
+When changing decision-review guidance, use a recorded coding episode and a source-only
+boundary case. Select the smallest cases that expose the demonstrated gap; group related
+instructions. Keep expected judgments outside consumer inputs. Do not teach the tested
+episode through examples in the changed skill. Check factual outputs through the existing
+Schema interface, then review the actual English feedback for reasoning and counterevidence.
+Record a failed semantic readback even if the structured fields pass. Correct and reobserve
+the affected instruction claim; do not replace the consumer's response with the expected one.
+Use genuine expert review for calibration claims. A fresh AI reviewer supplies another
+observation, not human ground truth or proof that wording caused improvement.
+
 Consumer reports are not independent all-effects capture. Schema-1 feedback does not certify condition review; record the supervisor's criteria reasoning separately. An admitted writer requires schema 2 and stage-outcome. Missing evidence stays incomplete.
