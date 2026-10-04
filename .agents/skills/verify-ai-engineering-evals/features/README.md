@@ -1,6 +1,6 @@
 # AI engineering evaluation feature map
 
-- [Evaluate a pinned coding workflow](workflow-review.md): real archived reports, owner inputs, technical evidence and English judgment.
+- [Evaluate a pinned coding workflow](workflow-review.md): hands-on engineering review of requirements, code, runtime decisions, verification and tradeoffs.
 - [Verify instruction behavior](instruction-feedback.md): fresh consumer reports through Soodles Schema Manager.
 - [Read the published report](report-delivery.md): homepage navigation, report, source links and provenance.
 

@@ -15,6 +15,9 @@ This repository uses `.agents/skills`, as required by AGENTS.md.
 Soodles owns its behavior and lifecycle. This skill evaluates a selected evidence scope.
 medium-compiler owns report presentation. The report grants no product, merge or model authority.
 Do not substitute a generated rubric for the original requirements.
+Use [engineering-role.md](engineering-role.md) for the Notion-derived role responsibilities,
+their source locations and applicability limits. Read engineering details before assigning
+coverage labels. Notion design guidance does not establish the target's runtime behavior.
 
 The G2i Staff Software Engineer (AI Evals) description supplied by the user motivates
 seven review dimensions: engineering judgment, debugging quality, reasoning clarity,
