@@ -58,8 +58,11 @@ class ColabArticleTests(unittest.TestCase):
                 links = Links(); links.feed(file.read_text())
                 for href in links.hrefs:
                     if href.startswith("/"):
-                        target = out / href.lstrip("/")
-                        if href.endswith("/"):
+                        from urllib.parse import urlsplit
+                        path = urlsplit(href).path
+                        target = out / path.lstrip("/")
+                        if path.endswith("/"):
                             target = target / "index.html"
+                        elif not target.suffix and not target.is_file():
+                            target = target.with_suffix(".html")
                         self.assertTrue(target.is_file(), (file, href))
-

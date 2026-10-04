@@ -21,7 +21,7 @@ class LearningSiteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             out=Path(td)/'dist'; provenance=site.build(out)
             alg=out/'cefr-alg-c2'
-            for filename,route in [('index.html','/cefr-alg-c2'),('compare.html','/cefr-alg-c2/compare')]:
+            for filename,route in [('index.html','/cefr-alg-c2'),('compare.html','/cefr-alg-c2/compare'),('technical.html','/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance')]:
                 parser=Assets(); parser.feed((alg/filename).read_text())
                 base=urljoin('https://example.test'+route,parser.base)
                 self.assertEqual(base,'https://example.test/cefr-alg-c2/')
@@ -49,6 +49,31 @@ class LearningSiteTests(unittest.TestCase):
             self.assertIn('id="narration-model"',(alg/'index.html').read_text())
             self.assertIn('id="cefr-alg"',(out/'index.html').read_text())
             self.assertIn('/cefr-alg-c2/',(out/'learning/index.html').read_text())
+
+    def test_frozen_technical_lesson_media_and_projection_survive_import(self):
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/'dist'; site.build(out)
+            source=ROOT/'site/cefr-alg-c2'
+            target=out/'cefr-alg-c2'
+            lesson=target/'technical-lessons/software-factory-sole-acceptance'
+            manifest=json.loads((lesson/'manifest.json').read_text())
+            data=json.loads((lesson/'lesson.json').read_text())
+            self.assertEqual(data['lesson_id'],'software-factory-sole-acceptance')
+            self.assertEqual(data['revision'],'1.0.0')
+            for path in lesson.iterdir():
+                self.assertEqual(path.read_bytes(),(source/path.relative_to(target)).read_bytes())
+            self.assertEqual(hashlib.sha256((lesson/'final.mp4').read_bytes()).hexdigest(),
+                             'f171144553782a2af03a0fb33f6375abdd963563a1b2522a35d32842da0bd050')
+            self.assertEqual(hashlib.sha256((lesson/'narration.txt').read_bytes()).hexdigest(),
+                             '9ee68b89c9fce494e50f14d24a847620cb40bedfe6bb0d19cdcb128a1ebb6e31')
+            self.assertEqual(hashlib.sha256((lesson/'lesson.json').read_bytes()).hexdigest(),manifest['projection_sha256'])
+            self.assertTrue((lesson/'captions.vtt').read_text().startswith('WEBVTT\n'))
+            for name in ('technical.js','technical-notes.js'):
+                self.assertEqual((source/name).read_bytes(),(target/name).read_bytes())
+            html=(target/'technical.html').read_text()
+            self.assertNotIn('Downstream import remains pending',html)
+            self.assertIn('Pinned snapshot imported here',html)
+            self.assertIn('/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance',(out/'index.html').read_text())
 
     def test_build_uses_article_ops_snapshot_and_honest_learning_state(self):
         with tempfile.TemporaryDirectory() as td:

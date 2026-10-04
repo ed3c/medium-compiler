@@ -157,13 +157,22 @@ def import_alg(out:Path)->dict:
         raise ValueError('CEFR ALG snapshot differs from its pinned file manifest')
     target=out/'cefr-alg-c2'
     shutil.copytree(source,target)
-    for name in ('index.html','compare.html'):
+    for name in ('index.html','compare.html','technical.html'):
         path=target/name
         text=path.read_text(encoding='utf-8')
         text=text.replace('<head>','<head><base href="/cefr-alg-c2/">',1)
         text=text.replace('</head>','<style>.topbar{height:auto;min-height:90px;gap:12px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}</style></head>',1)
         if name=='compare.html':
             text=text.replace('href="#lab"','href="./compare#lab"',1)
+        if name=='technical.html':
+            text=text.replace('Downstream import remains pending','Pinned snapshot imported here')
+            text=text.replace('Medium owns the subsequent pinned snapshot, lock and build import, which remains pending.',
+                              'Medium verifies and imports this pinned snapshot. Its source revision and built bytes are recorded in provenance.json.')
+            text=text.replace('</body>','''<script>
+for (const link of document.querySelectorAll('a[href^="#"]')) {
+  link.href = location.pathname + location.search + link.hash;
+}
+</script></body>''',1)
         text=text.replace('</header>','<a class="text-link" href="/">AI Engineer Lab ↗</a></header>',1)
         path.write_text(text,encoding='utf-8')
     lock['output_sha256']={p.relative_to(target).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
@@ -186,6 +195,7 @@ def build(out:Path)->dict:
     article_links=''.join(f'<article class="card"><h3>{html.escape(a["title"])}</h3><p>{html.escape(a["description"])}</p><a href="/articles/{a["slug"]}/">閱讀文章 →</a></article>' for a in ARTICLES)
     art='<section><div class="section-title"><span>Learning Articles</span><h2>從環境到應用，逐步留下可驗證成果</h2></div><div class="cards">'+article_links+'</div></section>'
     alg='''<section id="cefr-alg" class="alg-section" aria-labelledby="alg-title"><div class="section-title"><span>English Studio · Listening first</span><h2 id="alg-title">CEFR ALG C2+</h2><p>從理解情境開始，聽懂想法，再選擇用自己的語言表達。以技術決策、工作對話與生活情境練習精準而自然的英文。</p></div><div class="cards"><article class="card"><div class="eyebrow">01 · Understand</div><h3>先聽懂，再開口</h3><p>4 個情境、12 個片段，提供直接與細膩兩種英文版本。預設 Parler TTS，可切換 Kokoro browser；按播放即可接續朗讀；字幕由你決定何時打開。</p><a href="/cefr-alg-c2/">進入 ALG 情境 →</a></article><article class="card"><div class="eyebrow">02 · Express</div><h3>保留意思，說得自然</h3><p>自由選擇口語錄音與寫作練習。從修改前後的例子，觀察如何保留條件、不確定性與證據。</p><a href="/cefr-alg-c2/">開啟 English Studio →</a></article><article class="card"><div class="eyebrow">03 · Compare</div><h3>找到想繼續聽的聲音</h3><p>用相同對話比較五組已生成的語音，隱藏模型名稱並記下感受。可在瀏覽器以 Kokoro 生成其他課程，無需 API key。</p><a href="/cefr-alg-c2/compare.html">試聽 Voice Lab →</a></article></div><p class="alg-note">C2+ 是學習目標與專案名稱；CEFR 最高正式等級為 C2。本站不提供能力認證。五組音檔可直接播放，首次瀏覽器生成需下載模型。<a href="/cefr-alg-c2/provenance.json">查看來源版本</a></p></section>'''
+    alg=alg.replace('</section>','<p><a href="/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance">Software Factory · 英文、圖解與 Four-Pass 練習 →</a></p></section>')
     alg_provenance=import_alg(out)
     (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+alg+flow+exp+art,'home'),encoding='utf-8')
     (out/'experiments').mkdir();(out/'experiments/index.html').write_text(page('Experiments · AI Engineer Lab',f'''<section class="page-head"><div class="eyebrow">Ops Reconciliation Copilot</div><h1>Experiment Templates</h1><p>這些卡片來自 Ops provider snapshot <code>{snapshot['provider_revision'][:12]}</code>。範本只定義實驗邊界，不代表實驗已執行，也不授權 production promotion。</p></section>{cards(snapshot)}''','experiments'),encoding='utf-8')

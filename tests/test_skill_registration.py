@@ -3,13 +3,19 @@ import ast
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
+import shutil
 import unittest
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / '.agents/skills'
+spec = importlib.util.spec_from_file_location('verify_medium', SKILLS/'verify-medium/scripts/verify.py')
+verify_medium = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(verify_medium)
 
 
 class SkillRegistrationTests(unittest.TestCase):
@@ -22,7 +28,7 @@ class SkillRegistrationTests(unittest.TestCase):
             self.assertEqual(name,p.parent.name)
             self.assertIn('description:',text.split('---',2)[1])
             names.append(name)
-        self.assertEqual(len(names),19)
+        self.assertEqual(len(names),22)
         self.assertEqual(len(names),len(set(names)))
 
     def test_root_is_a_pointer_not_a_second_registered_skill(self):
@@ -31,6 +37,64 @@ class SkillRegistrationTests(unittest.TestCase):
         self.assertIn('.agents/skills/medium-writing/SKILL.md',text)
         self.assertIn('Boot Batch',(SKILLS/'medium-writing/SKILL.md').read_text())
         self.assertIn('writing-contract.md',(SKILLS/'medium-writing/SKILL.md').read_text())
+
+    def test_cefr_skills_match_complete_pinned_dependency_closure(self):
+        verify_medium.verify_cefr_skill_lock(ROOT)
+
+    def test_cefr_lock_refuses_changed_missing_and_extra_files(self):
+        verify_medium.verify_cefr_skill_lock(ROOT)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            for name in verify_medium.CEFR_SKILL_FILES | {'references/upstream/cefr-alg-skills-lock.json'}:
+                target = root/name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT/name, target)
+            verify_medium.verify_cefr_skill_lock(root)
+            target = root/'.agents/skills/cefr-alg-four-pass/references/execution-protocol.md'
+            original = target.read_bytes()
+            target.write_bytes(original + b'\nChanged protocol\n')
+            with self.assertRaisesRegex(ValueError, 'vendored bytes drift'):
+                verify_medium.verify_cefr_skill_lock(root)
+            target.unlink()
+            with self.assertRaisesRegex(ValueError, 'complete lock manifest'):
+                verify_medium.verify_cefr_skill_lock(root)
+            target.write_bytes(original)
+            (target.parent/'unlocked.md').write_text('Unpinned dependency\n')
+            with self.assertRaisesRegex(ValueError, 'complete lock manifest'):
+                verify_medium.verify_cefr_skill_lock(root)
+
+    def test_learning_feature_map_and_composition_resolve_local_dependencies(self):
+        directory = SKILLS/'verify-learning-article/features'
+        self.assertEqual(verify_medium.relative_doc_targets(directory/'README.md', ROOT),
+                         {path.resolve() for path in directory.glob('*.md') if path.name != 'README.md'})
+        entry_targets = verify_medium.relative_doc_targets(directory.parent/'SKILL.md', ROOT)
+        self.assertIn((directory/'four-pass-composition.md').resolve(), entry_targets)
+        targets = verify_medium.relative_doc_targets(directory/'four-pass-composition.md', ROOT)
+        for name in ('cefr-alg-four-pass', 'alg-vocab-encounter', 'alg-explainer-video', 'verify-medium'):
+            self.assertIn((SKILLS/name/'SKILL.md').resolve(), targets)
+        for path in directory.glob('*.md'):
+            verify_medium.relative_doc_targets(path, ROOT)
+
+    def test_relative_dependency_resolution_rejects_missing_and_wrong_base(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            source = root/'skill/references/entry.md'
+            source.parent.mkdir(parents=True)
+            sibling = root/'skill/SKILL.md'
+            sibling.write_text('# Fixture\n')
+            source.write_text('[Entry](../SKILL.md#fixture) and `../SKILL.md`\n')
+            self.assertEqual(verify_medium.relative_doc_targets(source, root), {sibling})
+            source.write_text('[Directory](../)\n')
+            self.assertEqual(verify_medium.relative_doc_targets(source, root), {sibling.parent})
+            source.write_text('[Wrong base](SKILL.md)\n')
+            with self.assertRaisesRegex(ValueError, 'Unresolved local dependency'):
+                verify_medium.relative_doc_targets(source, root)
+            source.write_text('[Missing](../missing.md)\n')
+            with self.assertRaisesRegex(ValueError, 'Unresolved local dependency'):
+                verify_medium.relative_doc_targets(source, root)
+            source.write_text('[Outside](../../../outside.md)\n')
+            with self.assertRaisesRegex(ValueError, 'Unresolved local dependency'):
+                verify_medium.relative_doc_targets(source, root)
 
     def test_upstream_bytes_and_license_preserved(self):
         lock=json.loads((ROOT/'references/upstream/skills-lock.json').read_text())

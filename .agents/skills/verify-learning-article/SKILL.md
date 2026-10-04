@@ -1,6 +1,6 @@
 ---
 name: verify-learning-article
-description: 依 AI Engineering from Scratch 的已選學習路徑逐課研讀、實作並直接回答理論與實務問題，結合 medium-compiler 寫作與網站發布驗收。用於新增下一課文章、修訂課程文章或維護這條驗證流程。
+description: 依已選教材研讀與實作，以英文起稿、繁中保留英文專有名詞，組合 Four-Pass lesson 與 verify-medium 寫作及網站驗收。用於課程文章、英中語意核對、acquisition runtime 與 Hypit 教學影片交付。
 ---
 
 # AI Engineering 學習文章：從原課到可驗證的網頁
@@ -22,8 +22,8 @@ Colab 實驗或硬體結論到每一課。
 `?lang=zh` 是顯示語言，不是學習路徑。保留使用者已選路線；若明確改選其他路線，先讀取
 其 manifest 並處理網站現有的單一路線限制，不能默默換課或沿用錯誤導航。
 
-讀 [features/README.md](features/README.md)，只載入本次需要的 recipe。新增一課通常依序
-完成三項；「下一課」預設只前進一課，不自動撰寫整套課程。
+讀 [features/README.md](features/README.md)，只載入本次需要的 recipe。「下一課」預設
+只前進一課，不自動撰寫整套課程。使用者提供其他教材時，以該教材為來源，不強塞進既有課程路線。
 
 ## Zero context 的寫作要求
 
@@ -35,6 +35,15 @@ Zero context 的定義是：
 依 [因果解釋與語意驗收](features/article-assembly.md#因果解釋與語意驗收) 撰寫與審視。
 從原需求和證據推導接受、拒絕及未知條件。清楚的文字不能補足缺少的證據，
 也不能把取捨直接標成主觀問題，再交回使用者決定。
+
+## 英文先行，繁體中文交付
+
+預設先以英文完成本次寫作單元的推理，再翻譯成繁體中文，保留精確英文專有名詞。
+英文採 STE-inspired 清楚寫法；不宣稱符合完整 ASD-STE100，也不用「80%」當驗收分數。
+依 [英中寫作與語意核對](features/article-assembly.md#英中寫作與語意核對) 保存兩種版本，
+對照來源核對條件、因果、runtime 與未知事項，再送入既有編譯流程。
+交付英文底稿及對應繁中稿；本站正文沿用繁中，發布仍依原任務授權。
+這是作者須執行的流程；`verify-medium` 不會自動翻譯或證明兩種語言語意相等。
 
 ## Launch
 
@@ -69,10 +78,15 @@ mechanical drive。不改防護或停用測試，也不全域修改使用者環�
 
 ## Drive
 
+需要產生或修訂學習內容時，自動讀取並執行 [Four-Pass 組合](features/four-pass-composition.md)，
+不用等待使用者再逐一點名依賴 skills。純連結／排版修正或唯讀網站驗收不重新編譯 lesson。
+這是 agent 的執行路由，並非 `verify.py` 新增了 lesson 或影片功能。
+
 1. [逐章研讀與實作](features/lesson-practice.md)：保存完整原課與所引用程式，從課程
    真正要求推導成功條件。直接尋找值得解釋的問題並給出答案、推理及實測證據；
    在 examples/<lesson>/ 交付成果使用與 replay 入口，實跑重建及既有環境重新驗收。
-2. [寫作與編譯](features/article-assembly.md)：載入 `medium-writing`，新文章走既有
+2. [寫作與編譯](features/article-assembly.md)：載入 `medium-writing`，完成英文與繁中核對，
+   再依 Four-Pass recipe freeze 本次 lesson；影片需求交給既有 renderer。新文章走既有
    Stage 0–7，既有文章用實際支援的修訂路徑，不能倒填虛構的寫作階段。
 3. [導航與網站交付](features/website-delivery.md)：build、點擊前後課、核對文章雜湊，
    在現有授權範圍內提交與發布，最後讀回精確 commit 的 deployment 及公開頁面。
