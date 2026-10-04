@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "id": "event_review",
+  "feature": "experience-review",
+  "target": {
+    "repository": null,
+    "revision": null,
+    "task": {
+      "path": "task.json",
+      "sha256": "8522ba95589fbbf445f5b8780f0b3ef3d0252a0cb1bc92cb38b24f9b68bedad4"
+    },
+    "patch": null,
+    "immutable_source_identity": [
+      {
+        "path": "event_retry.py",
+        "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4"
+      },
+      {
+        "path": "task-context.txt",
+        "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0"
+      }
+    ]
+  },
+  "actor": {
+    "agent": null,
+    "model": null,
+    "harness": "Controlled local fixture, not a captured natural coding-agent run",
+    "coverage": "Source and task only; no execution outcome or real-agent trace"
+  },
+  "reviewer": {
+    "identity": "Codex /root/experience_consumer",
+    "kind": "Agent",
+    "assistance": "staff-evals skill; no child agents or human judgments; runtime model identifier unavailable",
+    "prior_outcome_exposure": "Read supplied source and requirements; no execution result for this fixture observed. Separate prior-seen scenario supplied only as a methodological question."
+  },
+  "evidence": [
+    {
+      "path": "event_retry.py",
+      "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4",
+      "kind": "source"
+    },
+    {
+      "path": "task-context.txt",
+      "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0",
+      "kind": "requirement"
+    },
+    {
+      "path": "runtime.stdout",
+      "sha256": "7e8f30970cdf597b30261ebcde87fa69c1e9a9d202ab35178653f5b68e41d571",
+      "kind": "runtime"
+    },
+    {
+      "path": "runtime.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "runtime"
+    },
+    {
+      "path": "freeze-receipt.json",
+      "sha256": "52c2f38d92bb263e31bae613d8b93125e77a926c6d82e0642b8bd52de1ee66b7",
+      "kind": "observer_ordering"
+    },
+    {
+      "path": "artifact-locations.json",
+      "sha256": "0db11e276d58c82583e930a3dc734ec1bfc0c3a62792ed1207bf1b7548093206",
+      "kind": "provenance"
+    }
+  ],
+  "decision": {
+    "requirement": "One logical event delivered at most once despite lost acknowledgement; preserve useful precommit retries.",
+    "mechanism": "publish appends before first-call TimeoutError; deliver catches and retries; second append precedes accepted response.",
+    "consequence": "Predicted two deliveries hidden by accepted response; observation pending.",
+    "alternative": "Owner-managed atomic deduplication keyed by event id, retaining result; reject conflicting payloads. Surface uncertainty without retry where owner idempotence is unavailable.",
+    "tradeoff": "Sink state and atomicity complexity preserve safe recovery. Stopping ambiguous retry is simpler but can lose recovery. Blanket retry lint falsely rejects precommit and idempotent retries."
+  },
+  "prediction": {
+    "path": "prediction.json",
+    "sha256": "2425d996c801ce8a3046160a1b1d143a86dd2266cb7c01f6cf7c34bd623dc527"
+  },
+  "outcome": {
+    "path": "outcome.json",
+    "sha256": "8ddd4cb229ea13d5cd59cd501245e6347d22303f43eac0b09becfcb5d00af4fd",
+    "resolution": "confirmed",
+    "scope": "One controlled synthetic forecast, resolved by coordinator after retaining prediction bytes. Excluded from natural-agent, human and population performance claims; no complete independent child capture."
+  },
+  "lesson": {
+    "status": "locally_supported",
+    "applies_when": "Timeout may occur after a non-idempotent effect and caller retries without owner deduplication.",
+    "counterexample": "A reliably precommit failure or owner-idempotent operation can be retried safely.",
+    "next_check": "Evaluate the proposed owner-idempotency correction and safe precommit retry controls on a separate task before claiming repair or transferable improvement."
+  },
+  "role_feedback": {
+    "engineering_judgment": "assessment.md: distinguish ambiguous failure from no commit and reject global retry ban.",
+    "debugging": "assessment.md: freeze prediction and discriminate postcommit loss versus precommit failure; no debugging trace observed.",
+    "reasoning_clarity": "assessment.md: exact main → deliver → publish branch and mutation order.",
+    "architecture": "assessment.md: sink ownership, atomic deduplication, wrapper limitations and tradeoffs.",
+    "communication": "assessment.md and guide.md give actionable English reasoning and Traditional Chinese guide.",
+    "attention_to_detail": "assessment.md: accepted response can mask duplicate entries; bounded retries do not ensure at-most-once.",
+    "developer_trust": "capture.md and assessment.md distinguish source, forecast, execution, actor and human-skill limits."
+  },
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null
+  },
+  "closure": {
+    "product": "Duplicate event delivery observed in this controlled fixture. No repair or provider/lifecycle delivery performed.",
+    "agent": "Unknown fixture author/model; natural coding-agent decisions unassessed. Consumer review completed.",
+    "evaluator": "Frozen local forecast matched observed stdout/exit/stderr. Wider oracle sensitivity and production behavior not assessed.",
+    "owner_feedback": null,
+    "gaps": [
+      "No natural coding-agent transcript or identified originating model",
+      "No human prediction or expert calibration",
+      "No verified idempotency repair, held-out transfer or cost savings",
+      "No complete independent child tool capture; original input paths mapped by artifact-locations.json"
+    ]
+  },
+  "retention": {
+    "authored_by": "/root coordinator after consumer completion",
+    "original_consumer_case": {
+      "path": "original-case.json",
+      "sha256": "856a3b910e1d4948ff6c38bf5abd5e17708956a110ac9d4f85b507b0c99db9d0"
+    },
+    "frozen_prediction_unchanged": true,
+    "interpretation": "Forecast confirmed while implementation violates its stated at-most-once contract. A correct forecast is not a correct implementation."
+  }
+}

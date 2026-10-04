@@ -1,0 +1,70 @@
+{
+  "purpose": "Resolve original absolute locators in immutable forecast/capture/outcome files to retained bytes. Original forecast bytes are unchanged. Source skill links in task.json refer to the version in this commit; instruction hashes are retained there.",
+  "artifacts": [
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/raw/event_retry.py",
+      "retained_path": "event_retry.py",
+      "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/raw/task-context.txt",
+      "retained_path": "task-context.txt",
+      "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/task.json",
+      "retained_path": "task.json",
+      "sha256": "8522ba95589fbbf445f5b8780f0b3ef3d0252a0cb1bc92cb38b24f9b68bedad4"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/case.json",
+      "retained_path": "original-case.json",
+      "sha256": "856a3b910e1d4948ff6c38bf5abd5e17708956a110ac9d4f85b507b0c99db9d0"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/frozen-prediction.json",
+      "retained_path": "prediction.json",
+      "sha256": "2425d996c801ce8a3046160a1b1d143a86dd2266cb7c01f6cf7c34bd623dc527"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/assessment.md",
+      "retained_path": "assessment.md",
+      "sha256": "78c47bfec60cf2264c01c12fce31061e75df053cd8f38cead8746f6c7972ffb5"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/guide.md",
+      "retained_path": "guide.md",
+      "sha256": "98d8527065b42ba0047990a14d888b159fb2e27282ebc27ccb82e9613f2b7860"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/capture.md",
+      "retained_path": "capture.md",
+      "sha256": "d7dbdc0eef5f58234841c5a0c2c7360f1d24667ce04d4dff51082d0e31bb0d4b"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/freeze-receipt.json",
+      "retained_path": "freeze-receipt.json",
+      "sha256": "52c2f38d92bb263e31bae613d8b93125e77a926c6d82e0642b8bd52de1ee66b7"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/outcome.json",
+      "retained_path": "outcome.json",
+      "sha256": "8ddd4cb229ea13d5cd59cd501245e6347d22303f43eac0b09becfcb5d00af4fd"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/runtime.stdout",
+      "retained_path": "runtime.stdout",
+      "sha256": "7e8f30970cdf597b30261ebcde87fa69c1e9a9d202ab35178653f5b68e41d571"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/runtime.stderr",
+      "retained_path": "runtime.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original_path": "/tmp/staff-evals-experience-20261004/consumer/prediction.json",
+      "retained_path": "prediction.json",
+      "sha256": "2425d996c801ce8a3046160a1b1d143a86dd2266cb7c01f6cf7c34bd623dc527"
+    }
+  ]
+}

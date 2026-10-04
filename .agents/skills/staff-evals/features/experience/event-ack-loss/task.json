@@ -1,0 +1,72 @@
+{
+  "task": "Use staff-evals to review the proposed event delivery implementation and design proposal in the supplied raw task. Write an English engineering assessment and Traditional Chinese guide, retain a case using the supplied skill template, and freeze a concrete forecast for the coordinator command before it executes. Do not execute or edit the fixture. Explain mechanism, tradeoff, how the observation can confirm or overturn your reasoning, and how experience feeds later P-class/constraint decisions.",
+  "inputs": [
+    {
+      "path": "/tmp/staff-evals-experience-20261004/raw/event_retry.py",
+      "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4"
+    },
+    {
+      "path": "/tmp/staff-evals-experience-20261004/raw/task-context.txt",
+      "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0"
+    }
+  ],
+  "coordinator_command": [
+    "python3",
+    "-B",
+    "/tmp/staff-evals-experience-20261004/raw/event_retry.py"
+  ],
+  "instructions": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/SKILL.md",
+      "sha256": "575b3a123817757bf96e350663a05155fe1d371df143a53b8f9d2a0d885ef520"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/README.md",
+      "sha256": "e4c06a39410892c699d416c67ca3bfc133dee8fee2b54d8832e5c1344029a058"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/abstraction-review.md",
+      "sha256": "20992dca2c32316aa6a6fc115becbba60b547a111320bba4f4ff6486d9a5a157"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/experience-review.md",
+      "sha256": "f549d790a85dccb0ef30c1df484569e1713f579cbfa7a1dcdf101c0e06cdf4cd"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/instruction-feedback.md",
+      "sha256": "a8b6c86c6e0ed9c51b3a89ba3a27360154fee7107bf47637df6e69265e022aa7"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/report-delivery.md",
+      "sha256": "707be6015ed59e1f08f8c564dd5f9b2e21d5f5e8a1ef2060892977c50aee2576"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/features/workflow-review.md",
+      "sha256": "79571f94445d049bb82e2f0cc8ec0c4da59ba08f2103b36b5a9f28f5e0c3d2d6"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/references/engineering-role.md",
+      "sha256": "df1fb406872ed140dd48956aa0ca92c759315b4ba32dfb39bd300353518ed707"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/references/experience-records.md",
+      "sha256": "c614181e76eaf3c8e55401ca5f6008b41a830707e74c0492a781a079611cf8e5"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-experience-work/.agents/skills/staff-evals/references/standards.md",
+      "sha256": "638c3b10a9c2457254b1876e8aad1a22b1b6dc0b49f489a865b9d9ee77185029"
+    }
+  ],
+  "allowed_support": "Read the supplied skill markdown, its assets/experience-case.json template, and the supplied raw inputs. For methodology read the adjacent evals-start and write-code-eval skills plus the pinned Soodles review-writing skill and its features if necessary. Do not inspect the seed/experience store, supervisor protocol, prior results or other agents output. Record actual reads and capture limits. You share a filesystem; do not claim read isolation.",
+  "questions": {
+    "predicted_event_count": "How many entries will sink.events contain when the coordinator command exits? Integer.",
+    "reject_all_retry_loops": "Is rejecting every retry loop justified by the stated requirement? Boolean.",
+    "token_savings_established": "Does this supplied evidence establish lower total tokens? Boolean.",
+    "past_seen_outcome_prediction_eligible": "Should the already-seen separate outcome count as a prospective prediction? Boolean.",
+    "human_skill_measured": "Does this Agent-authored case measure the user independent skill? Boolean.",
+    "unknown_trace_method": "Name the installed method for traces with unknown failure types. String.",
+    "feedback_pass_authorizes_product_closure": "Does schema-1 pclass-feedback PASS alone authorize product/lifecycle closure? Boolean."
+  },
+  "output_directory": "/tmp/staff-evals-experience-20261004/consumer",
+  "output_contract": "Write assessment.md, guide.md, case.json, prediction.json and capture.md (actual reads/actions and limits). Follow the skill prediction data contract; use input_refs from this task, reviewer your actual identity, confidence may be null. Leave the case outcome unobserved. Also write report.json with schema=1, case_id=event_review, instructions exactly the supplied path-to-hash map, input_sha256 of this task.json, and output containing your own answers to questions. Do not use expected answers or fabricate capture."
+}

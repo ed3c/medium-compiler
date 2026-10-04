@@ -1,4 +1,4 @@
 interface:
   display_name: "Staff Evals"
-  short_description: "Review agent decisions through code and runtime evidence"
-  default_prompt: "Use $staff-evals as a Staff AI Evals Engineer to review this task through its requirements, code, runtime decisions and verification evidence."
+  short_description: "Review code, test predictions and retain engineering lessons"
+  default_prompt: "Use $staff-evals to review this coding-agent task, retain a case, and test engineering predictions against code and runtime evidence."

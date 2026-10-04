@@ -1,0 +1,68 @@
+{
+  "case_id": "event_review",
+  "reviewer": {
+    "identity": "Codex /root/experience_consumer",
+    "kind": "Agent",
+    "assistance": "staff-evals skill; no child agents or human judgments; runtime model identifier unavailable",
+    "prior_outcome_exposure": "Read supplied source and requirements; no execution result for this fixture observed. Separate prior-seen scenario supplied only as a methodological question."
+  },
+  "input_refs": [
+    {
+      "path": "/tmp/staff-evals-experience-20261004/raw/event_retry.py",
+      "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4"
+    },
+    {
+      "path": "/tmp/staff-evals-experience-20261004/raw/task-context.txt",
+      "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0"
+    }
+  ],
+  "condition": "Coordinator executes the exact supplied python3 -B event_retry.py command against the hash-bound source without edits, in an ordinary Python runtime.",
+  "predicted_observable": {
+    "event_count": 2,
+    "calls": 2,
+    "response": {
+      "accepted": true
+    },
+    "events": [
+      {
+        "id": "evt-42",
+        "payload": "ready"
+      },
+      {
+        "id": "evt-42",
+        "payload": "ready"
+      }
+    ],
+    "exit_code": 0,
+    "stdout_json": {
+      "response": {
+        "accepted": true
+      },
+      "calls": 2,
+      "events": [
+        {
+          "id": "evt-42",
+          "payload": "ready"
+        },
+        {
+          "id": "evt-42",
+          "payload": "ready"
+        }
+      ]
+    },
+    "stderr": ""
+  },
+  "reason": "Sink.publish increments calls and appends a copy before raising TimeoutError on call 1. deliver catches that first timeout and calls publish again with the same event. Call 2 appends a second copy and returns accepted; main prints both copies.",
+  "falsifier": "With matching input hashes and the intended main entrypoint reached, any event count other than 2, calls other than 2, response other than accepted true, or nonzero program exit contradicts the stated observable forecast. A launch/environment failure without reaching the path leaves the code-path prediction unresolved.",
+  "resolving_check": {
+    "argv": [
+      "python3",
+      "-B",
+      "/tmp/staff-evals-experience-20261004/raw/event_retry.py"
+    ],
+    "observer": "Coordinator",
+    "procedure": "Retain the exact prediction bytes and SHA-256 before execution; verify input hashes; retain argv, stdout, stderr and exit; parse stdout and count events. Append a separate outcome referencing prediction hash; do not change this forecast."
+  },
+  "confidence": null,
+  "created_at": "2026-10-04T12:12:01.156220+00:00"
+}

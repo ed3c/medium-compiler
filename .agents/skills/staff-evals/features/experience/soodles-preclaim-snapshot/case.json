@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "id": "soodles-preclaim-snapshot",
+  "feature": "experience-review",
+  "target": {
+    "repository": "ed3c/soodles",
+    "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+    "task": "Review whether the archived claim-refusal evaluator reaches claim handling at this revision.",
+    "patch": null
+  },
+  "actor": {
+    "agent": null,
+    "model": null,
+    "harness": "Archived evaluator/worker with frozen test fixtures",
+    "coverage": "Coordinator deterministic execution and source review; no originating coding-agent trace"
+  },
+  "reviewer": {
+    "identity": "/root",
+    "kind": "agent",
+    "assistance": "Prior fresh Agent review exists; this retained record is coordinator-authored.",
+    "prior_outcome_exposure": true
+  },
+  "evidence": [
+    {
+      "kind": "runtime",
+      "path": "evaluator.stderr.txt",
+      "sha256": "18eebe0273a65dacb068e9a31753c313372525ebafaf5ddf0d3b3a0cdd799002"
+    },
+    {
+      "kind": "runtime",
+      "path": "focused-tests.stderr.txt",
+      "sha256": "1a7e111718f77a4e8ff0919a24bc23e00d14766e0014d34d862482dca08c11d4"
+    },
+    {
+      "kind": "runtime",
+      "path": "refusal.stderr.txt",
+      "sha256": "17a7d05e6c8bc150d676e3bef9bfffcb6e146b625b2c6b7e460ede26ee689eb6"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/issue_atom.py",
+      "sha256": "807b78a38c5cc1a87c9088338ce4217da12caff7066098844e52508576889b50"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/issue_execution.py",
+      "sha256": "6a3edc1afc820ac0ae4b61e53c8ee843faf3b63709f79b5736250882bbed078a"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/evaluator/evaluate.py",
+      "sha256": "84832c2f760383cc338c0a32c2a8e31e0c2249ea375ce50a50c779a78e43e203"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/evaluator/worker.py",
+      "sha256": "1e81d2842a0ac6cf0a4100d2c2d89139b099817588cb8b866cd0266aaf1592fd"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/experiments/claim-refusal-closure/evaluator/frozen/test_issue_atom.py",
+      "sha256": "41fdc1ed59c4f966abe947c7acc368e904f3faef1a836e79eb4e7c1fecd9b23c"
+    },
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/tests/test_issue_atom.py",
+      "sha256": "e69827a18f176e55ac3090543e49b590716b4fbea03d4efa8332fabd65701c81"
+    }
+  ],
+  "decision": {
+    "requirement": "A claim-refusal check must reach the claim branch before attributing a failure to its exit handling. This review does not authorize a live Noodle owner.",
+    "mechanism": "evaluate.py launches worker.py. atom.drive calls _run_owned; preclaim_base at issue_atom.py:6527 calls issue_execution.read_owner at 1852. read_owner at issue_execution.py:432-438 cannot load the fixture state.snapshot.json and raises AdmissionRefusal. _run_claim at issue_atom.py:6537 is not reached. worker.py handles AtomRefusal; this AdmissionRefusal escapes.",
+    "consequence": "The observed run is an evaluator/fixture failure, not evidence that nonzero claim handling violated its contract. The claim outcome in this run is unknown.",
+    "alternative": "For a narrow claim-contract test, isolate the preclaim seam as the current focused tests do. For integrated ordering coverage, supply complete disposable owner evidence that satisfies the preclaim contract.",
+    "tradeoff": "Narrow isolation is easier to diagnose but does not cover real owner-read integration. Complete disposable evidence increases realism and setup cost. Do not modify the archived frozen oracle and silently reuse its identity."
+  },
+  "prediction": null,
+  "outcome": {
+    "kind": "retrospective",
+    "command": [
+      "python3",
+      "-B",
+      "docs/experiments/claim-refusal-closure/evaluator/evaluate.py",
+      "/workspace/scratch/7ed56a5a2a33/soodles-work",
+      "/tmp/ai-evals-role-20261004/local-oracle"
+    ],
+    "exit": 1,
+    "observed": "Missing noodle.snapshot before _run_claim; two focused current tests passed in a separate coordinator check.",
+    "prediction_resolution": null,
+    "predictive_score_eligible": false,
+    "reason": "Outcome was already known when this case was authored; no preregistered forecast."
+  },
+  "lesson": {
+    "status": "locally_supported",
+    "applies_when": "An evaluator fails before its target branch after the implementation adds or changes prerequisites.",
+    "counterexample": "A test that reaches the branch and observes forbidden continuation after a nonzero claim requires investigating the product. It cannot be dismissed as this fixture defect.",
+    "next_check": "On a future unseen task, predict the first failing boundary before running the check. Separately verify target-branch reachability and a planted violation.",
+    "promotion": "Keep as a case and contextual review guidance. Existing owner validation already rejects missing snapshots; no global lint or live-owner requirement is justified."
+  },
+  "role_feedback": {
+    "debugging": "Reconstruct first exception and branch reachability rather than blame the advertised test subject.",
+    "engineering_judgment": "Keep oracle adequacy and product correctness separate.",
+    "architecture": "Compare a narrow seam with integrated owner evidence.",
+    "reasoning_clarity": "State the causal chain in decision.mechanism.",
+    "communication": "Explain what the execution supports and the next discriminating check.",
+    "attention_to_detail": "AdmissionRefusal and AtomRefusal are different exception boundaries.",
+    "developer_trust": "Do not turn an unreached branch into a product verdict."
+  },
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null
+  },
+  "closure": {
+    "product": "Claim behavior unresolved by this evaluator run; separate focused tests provide narrower counterevidence. No product edit or lifecycle closure claimed.",
+    "agent": "Original coding-agent decisions not observed; this is agent-authored engineering analysis.",
+    "evaluator": "Fixture prerequisite failure observed. No evaluator repair performed.",
+    "owner_feedback": null,
+    "gaps": [
+      "No prospective forecast",
+      "No independent human judgment or calibration",
+      "No original coding-agent execution trace",
+      "No provider/lifecycle delivery in scope"
+    ]
+  }
+}

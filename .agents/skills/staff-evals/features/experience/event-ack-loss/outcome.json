@@ -1,0 +1,53 @@
+{
+  "case_id": "event_review",
+  "prediction_sha256": "2425d996c801ce8a3046160a1b1d143a86dd2266cb7c01f6cf7c34bd623dc527",
+  "check": {
+    "argv": [
+      "python3",
+      "-B",
+      "/tmp/staff-evals-experience-20261004/raw/event_retry.py"
+    ],
+    "started_at": "2026-10-04T12:13:04.078783+00:00",
+    "exit": 0,
+    "elapsed_seconds": 0.018050362999929348,
+    "input_refs": [
+      {
+        "path": "/tmp/staff-evals-experience-20261004/raw/event_retry.py",
+        "sha256": "6da12aad0e0327a843039b31845efe2d39513cc24038e608f87937ce6d2db9f4"
+      },
+      {
+        "path": "/tmp/staff-evals-experience-20261004/raw/task-context.txt",
+        "sha256": "a423ec2ae7f6fbceb5db2d121fe196b5f719cd6564a25eed0b674e9a5904f5a0"
+      }
+    ]
+  },
+  "observed_value": {
+    "response": {
+      "accepted": true
+    },
+    "calls": 2,
+    "events": [
+      {
+        "id": "evt-42",
+        "payload": "ready"
+      },
+      {
+        "id": "evt-42",
+        "payload": "ready"
+      }
+    ]
+  },
+  "resolution": "confirmed",
+  "raw_results": [
+    {
+      "path": "/tmp/staff-evals-experience-20261004/runtime.stdout",
+      "sha256": "7e8f30970cdf597b30261ebcde87fa69c1e9a9d202ab35178653f5b68e41d571"
+    },
+    {
+      "path": "/tmp/staff-evals-experience-20261004/runtime.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "resolving_authority": "Coordinator-run local deterministic fixture; not a provider or production observation",
+  "scope": "One controlled synthetic source-review forecast. No natural coding-agent performance or human competence claim."
+}
