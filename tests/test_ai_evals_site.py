@@ -42,7 +42,13 @@ class AIEvalsSiteTests(unittest.TestCase):
                     rendered=(delivered/'index.html').read_text()
                     self.assertIn('Review mode:',rendered)
                     self.assertIn(source['review_mode'],rendered)
-                    self.assertLess(rendered.index('<article class="article"'),rendered.index('<h2>Evidence coverage'))
+                    coverage_heading = '證據涵蓋範圍（Evidence coverage）' if source.get('language') == 'zh-Hant' else 'Evidence coverage'
+                    self.assertLess(rendered.index('<article class="article"'),rendered.index('<h2>'+coverage_heading))
+                if source.get('language') == 'zh-Hant':
+                    rendered=(delivered/'index.html').read_text()
+                    self.assertIn('lang="zh-Hant"',rendered)
+                    self.assertIn('繁體中文評估正文',rendered)
+                    self.assertNotIn('>English assessment</a>',rendered)
             route=out/'ai-evals/soodles-claim-refusal'
             report=json.loads((route/'report.json').read_text())
             audit=json.loads((route/'archive-audit.json').read_text())
