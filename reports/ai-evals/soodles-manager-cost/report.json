@@ -100,5 +100,7 @@
       "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/synthetic-controls.json",
       "sha256": "bde136840212aaabcda001d5dad99f61754a8792330350f7afaa39bafdc458a7"
     }
-  ]
+  ],
+  "review_mode": "implementation_review",
+  "capture_scope": "Pinned source and historical CI; Soodles implementer decisions are not captured."
 }

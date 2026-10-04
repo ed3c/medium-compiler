@@ -1,0 +1,37 @@
+{
+  "carrier": "ChatGPT Work native collaboration tools; GitHub/Actions delivery",
+  "noodle_runtime_launched": false,
+  "route_source": "ed3c/soodles@d58c4e7ba0685c367da5c3060e06e6c5fc38f85f AGENTS.md Session entry and small-loop paragraphs",
+  "candidate_skill_commit": "bc68aa025a26124ccbf6a0afc94c380dad4af0be",
+  "protocol_sha256": "c208b549ca9bc91e03726e18ecc3e675c214a7cd6afe72c3b21e8d47b5b39f44",
+  "ordering": "Protocol and criteria review saved before the two spawn_agent calls. Missing-observation CLI readback obtained while consumers worked.",
+  "requests": [
+    {
+      "tool": "collaboration.spawn_agent",
+      "input": {
+        "task_name": "decision_recorded_consumer",
+        "fork_turns": "none",
+        "message": "Use staff-evals at /workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/SKILL.md to perform the task in /tmp/staff-decision-loop/inputs/recorded/task.json. This task pins the instruction bytes to medium-compiler commit bc68aa025a26124ccbf6a0afc94c380dad4af0be. Read the task's selected instructions and required raw evidence. You may read referenced non-case skill guidance needed to use the skill, but do not read other cases, observer files, sibling outputs, other worktrees or surrounding conversation. Write the requested assessment.md, guide.md, case.json, consumer-report.json and capture.md only under /tmp/staff-decision-loop/consumer-recorded/. Use ordinary file tools; no product edits, software-suite execution, publishing or delegation. Preserve actual judgments and evidence limits. Complete the task and return the output paths."
+      },
+      "result": {
+        "task_name": "/root/decision_recorded_consumer"
+      }
+    },
+    {
+      "tool": "collaboration.spawn_agent",
+      "input": {
+        "task_name": "decision_source_consumer",
+        "fork_turns": "none",
+        "message": "Use staff-evals at /workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/SKILL.md to perform the task in /tmp/staff-decision-loop/inputs/source-only/task.json. This task pins the instruction bytes to medium-compiler commit bc68aa025a26124ccbf6a0afc94c380dad4af0be. Read the task's selected instructions and required raw evidence. You may read referenced non-case skill guidance needed to use the skill, but do not read other cases, observer files, sibling outputs, other worktrees or surrounding conversation. Write the requested assessment.md, guide.md, case.json, consumer-report.json and capture.md only under /tmp/staff-decision-loop/consumer-source/. Use ordinary file tools; no product edits, software-suite execution, publishing or delegation. Preserve actual judgments and evidence limits. Complete the task and return the output paths."
+      },
+      "result": {
+        "task_name": "/root/decision_source_consumer"
+      }
+    }
+  ],
+  "capture_limits": [
+    "Parent retains actual spawn requests/results and final child messages. No complete raw child tool transcript is exposed to parent.",
+    "Children share filesystem; read allowlists and fork_turns=none do not prove filesystem isolation.",
+    "Candidate is committed on GitHub; local working tree remains at the original main parent with changed instruction bytes. Consumers can verify hashes without assuming local HEAD equals the candidate."
+  ]
+}

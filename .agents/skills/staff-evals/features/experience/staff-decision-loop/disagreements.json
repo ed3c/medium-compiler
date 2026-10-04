@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "disagreements": [
+    {
+      "case": "recorded",
+      "judgment": "Correct provenance overreach in consumer prose",
+      "evidence": "Consumer reports local git show failure; coordinator GitHub commit/tree readback verifies all nine paths and matching Git blob IDs.",
+      "correction": "Local inability to resolve a path at a ref does not prove the remote commit lacks it. Preserve raw assessment/case/capture, add visible editorial correction and separate disagreement record; selected byte binding was never broken."
+    }
+  ],
+  "resolution_source": {
+    "path": ".agents/skills/staff-evals/features/experience/staff-decision-loop/observer/candidate-provider-readback.json",
+    "sha256": "bd920a732a96561836bbbe6ba420ff2f61ed9ee794b1042d10acc7638a25fa11"
+  }
+}

@@ -7,7 +7,11 @@
     },
     {
       "path": "reports/ai-evals/soodles-manager-cost/report.json",
-      "sha256": "3f969c982f97523508957215ea350069b0e4b1e7369c5c49840b8b0dd678b2f3"
+      "sha256": "0e95c7946bd767daea78d6460ae9d799248e479d93cf4f2576b93597c8663abf"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/report.json",
+      "sha256": "10bbb4d8d0033512c1d71cf81bec50973b22d96a7971b14ab38e4213f047db99"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "requirements": "User requested the existing Noodle small-loop correction of staff-evals to evaluate coding-agent engineering work according to the supplied JD.",
+  "criteria": [
+    {
+      "case": "recorded",
+      "reason": "Capture explicitly identifies itself as selected coordinator-transcribed observations. Before/after code preserves original historical assertions. Deterministic output agreement cannot establish nuanced engineering quality."
+    },
+    {
+      "case": "source_only",
+      "reason": "Only source artifacts are supplied; no actor behavior can be inferred. review_cost and project_cost issue no effects. Source code still permits a useful implementation assessment."
+    }
+  ],
+  "semantic_readback": [
+    "Prioritized findings identify actual choices and evidence, with consequence, alternative and actionable feedback.",
+    "Retains good decisions and critiques weak choices without inventing hidden reasoning.",
+    "Assesses delivered report adequacy against the task; coverage labels alone do not complete the review.",
+    "Counterevidence and legitimate exceptions bound each material conclusion.",
+    "Source-only case must still trace code and make useful supported judgments."
+  ],
+  "sampling": "One recorded development episode and one source-only boundary case. No A/B causal claim, statistical accuracy or expert calibration."
+}

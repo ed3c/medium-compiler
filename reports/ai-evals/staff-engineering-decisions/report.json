@@ -1,0 +1,121 @@
+{
+  "schema_version": "ai-engineering-report@1",
+  "id": "staff-engineering-decisions",
+  "title": "Staff Evals: Reviewing Engineering Decisions",
+  "summary_zh": "從真實測試修補檢查工程判斷、除錯、驗證與溝通；另保留 Soodles source-only 對照，將可追查經驗存入 feature map。",
+  "repository": "ed3c/medium-compiler",
+  "revision": "e30508d0f78a98a225e72f8c9e13273ae0582b25",
+  "mode": "RECORDED_DECISIONS_AND_SOURCE_REVIEW",
+  "review_mode": "combined",
+  "capture_scope": "Selected coordinator-transcribed historical decisions; two fresh AI reviewers with self-reported captures.",
+  "reviewer": "Fresh AI consumers; coordinator semantic review and provenance correction",
+  "human_calibration": "NOT_PERFORMED",
+  "assessment": {
+    "path": "reports/ai-evals/staff-engineering-decisions/assessment.md",
+    "sha256": "479b44067e8798095b6f265c78b7c4f7461336a6571fa95579853d55c6b24733"
+  },
+  "guide": {
+    "path": "reports/ai-evals/staff-engineering-decisions/guide.md",
+    "sha256": "229e7e06a96825c150b1ceab16af4d721dfd14f92221bb4cdeecbd3e082e89c0"
+  },
+  "audit": {
+    "path": "reports/ai-evals/staff-engineering-decisions/archive-audit.json",
+    "sha256": "fb30cb80766f79029c2dbe9144fbd92c0957d22936338e1a79b4f509f6a16580"
+  },
+  "dimensions": [
+    {
+      "name": "Engineering judgment",
+      "status": "LOCAL EPISODE",
+      "reason": "Catalog-based repair preserves the historical contract; alternatives and counterexample are explicit."
+    },
+    {
+      "name": "Debugging quality",
+      "status": "RECORDED EPISODE",
+      "reason": "Focused failure and source inspection distinguish test premise from renderer behavior."
+    },
+    {
+      "name": "Reasoning clarity",
+      "status": "VISIBLE RATIONALE",
+      "reason": "Stated reason is recorded; unobserved reasoning remains unknown."
+    },
+    {
+      "name": "Architectural thinking",
+      "status": "BOUNDED SOURCE REVIEW",
+      "reason": "Catalog ownership and cost/schema boundaries are assessed with concrete tradeoffs."
+    },
+    {
+      "name": "Communication quality",
+      "status": "SEMANTIC READBACK",
+      "reason": "Actionable findings; a provenance overclaim is corrected visibly."
+    },
+    {
+      "name": "Attention to detail",
+      "status": "SELECTED CHECKS",
+      "reason": "Negative assertions and exact-head CI retained; complete CI artifacts absent."
+    },
+    {
+      "name": "Developer trust",
+      "status": "PARTIAL",
+      "reason": "Raw disagreement and missing capture preserved; no expert calibration."
+    }
+  ],
+  "fresh_coding_model_runs": 0,
+  "fresh_evaluator_sessions": 2,
+  "full_platform_transcript": false,
+  "personal_qualification": "NOT_ASSESSED",
+  "causal_model_improvement": "NOT_ESTABLISHED",
+  "limits": [
+    "Selected parent-visible conversation events were coordinator-transcribed, not exported as a full platform trace.",
+    "Fresh evaluator captures are self-reported; no isolation guarantee.",
+    "Source-only case targets ed3c/soodles@d58c4e7ba0685c367da5c3060e06e6c5fc38f85f.",
+    "Historical provider CI is not a fresh coding-model run.",
+    "Six exact field checks passed; prose quality is separately reviewed, not machine certified.",
+    "Retrospective examples excluded from prospective prediction metrics."
+  ],
+  "supplementary_evidence": [
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/raw-recorded-assessment.md",
+      "sha256": "3c89f5050a70ddb86610075d5649d233b7762a081082bbc13a40ff3dcbc5f181"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/recorded-case.json",
+      "sha256": "273b71c761ede1fb6a71768fc479995545a8dc85f521321a2d88aa47034c7e45"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/recorded-capture.md",
+      "sha256": "53bc9a410586acfadc53c9379fbed3493de7f282ffb6b33774cd77de1b2ba625"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/source-only-assessment.md",
+      "sha256": "b29324dab786933ad8dc4e1a3f1b1ba6130f51b8885aa4fedfb43ca721fac590"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/source-only-case.json",
+      "sha256": "c2a0394d87720b990b1a44b96afc2016f55dcbc41cb67f58545b4562894d972f"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/schema-feedback.json",
+      "sha256": "aa91c64a472a6eec069f7e46cf91a10c7f15796ee6c002b73065efdf10ab59ba"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/owner-consumption.json",
+      "sha256": "bf31e589b5a43d00c4b036b024b7c7930621898155e65fab3893afecf1fa85bb"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/semantic-readback.json",
+      "sha256": "ef46b27dc3ca007f1c59601317ec24b4f7f754222c44a869b095c27dfdaf7c4d"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/candidate-provider-readback.json",
+      "sha256": "bd920a732a96561836bbbe6ba420ff2f61ed9ee794b1042d10acc7638a25fa11"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/disagreements.json",
+      "sha256": "b169ee2ae5733204553d1986feb5bbb2ae32e548a13104a6a40b9570df820030"
+    },
+    {
+      "path": "reports/ai-evals/staff-engineering-decisions/job-requirements.md",
+      "sha256": "cac64a2381be66eb159d84faf030706ba5e2bc9c0d42ac21482fac2576affd87"
+    }
+  ]
+}

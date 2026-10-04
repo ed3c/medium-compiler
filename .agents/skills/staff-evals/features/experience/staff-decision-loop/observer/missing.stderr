@@ -1,0 +1,1 @@
+{"event": "soodles.timing", "operation": "schema.pclass_feedback", "status": "inconclusive", "span_id": "48f644b62dd74954a733cc3043d768f9", "wall_started": 1791121095.913923, "wall_finished": 1791121095.9149115, "platform": "linux", "python": "3.12.14", "seconds": 0.001, "outcome": "unknown"}

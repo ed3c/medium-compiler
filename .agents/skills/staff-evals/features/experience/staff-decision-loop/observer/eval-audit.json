@@ -1,0 +1,35 @@
+{
+  "method": "eval-audit applied to observed staff-evals pipeline failure",
+  "findings": [
+    {
+      "area": "error_analysis",
+      "observation": "User rejected implementation/cost report as insufficient for the supplied coding-agent evaluation role. Existing report contains few attributable implementer decisions.",
+      "correction": "Evaluate recorded decision episodes; preserve source-only limits."
+    },
+    {
+      "area": "evaluator_design",
+      "observation": "Exact-field agreement validates local fields, not staff-quality prose.",
+      "correction": "Retain separate source-based semantic readback of findings and counterevidence."
+    },
+    {
+      "area": "judge_validation",
+      "observation": "No genuine expert calibration labels supplied.",
+      "correction": "Keep calibration and personal qualification unassessed; do not report judge accuracy."
+    },
+    {
+      "area": "human_review",
+      "observation": "Earlier website showed coverage before substantive analysis.",
+      "correction": "Render decision findings first for Agent workflow reports; retain source attachments."
+    },
+    {
+      "area": "labeled_data",
+      "observation": "Two scoped consumer tasks, not a representative sample.",
+      "correction": "No population rate, transfer claim or causal A/B effect."
+    },
+    {
+      "area": "pipeline_hygiene",
+      "observation": "Changed instruction bytes need new behavior evidence.",
+      "correction": "Bind this candidate, tasks and fresh outputs; retain feedback and owner consumption."
+    }
+  ]
+}

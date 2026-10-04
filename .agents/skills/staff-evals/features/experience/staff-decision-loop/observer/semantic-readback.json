@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "reviewer": "AI coordinator /root",
+  "scope": "Actual English prose, Chinese guides, case records and captures from both fresh consumers; no human calibration",
+  "result": "SUPPORTED_WITH_CORRECTION",
+  "findings": [
+    {
+      "case": "recorded",
+      "judgment": "Supported local debugging and repair assessment",
+      "evidence": "before-test.py count=1; after-test.py catalog route/length/hash checks retain historical assertions; observations e3-e7 and provider metadata support the selected episode.",
+      "counterevidence": "Same checked_file helper limits independence; partial transcription cannot establish whole-agent quality."
+    },
+    {
+      "case": "recorded",
+      "judgment": "Supported bounded report and polling feedback",
+      "evidence": "Consumer distinguishes readable Soodles tradeoffs from independently verified Soodles mechanisms; no polling counts or token claims invented.",
+      "counterevidence": "An eventual useful delivery result prevents treating empty intermediate polls alone as measured waste."
+    },
+    {
+      "case": "source_only",
+      "judgment": "Supported source-only ownership and timing review",
+      "evidence": "Source paths distinguish cost observation, review, schema projection and original transition owner; wall union and inclusive worker/phase timing remain distinct.",
+      "counterevidence": "Changed inputs can require repeated verification; no runtime enforcement or implementer reasoning observed."
+    },
+    {
+      "case": "recorded",
+      "judgment": "Correct provenance overreach in consumer prose",
+      "evidence": "Consumer reports local git show failure; coordinator GitHub commit/tree readback verifies all nine paths and matching Git blob IDs.",
+      "correction": "Local inability to resolve a path at a ref does not prove the remote commit lacks it. Preserve raw assessment/case/capture, add visible editorial correction and separate disagreement record; selected byte binding was never broken."
+    }
+  ],
+  "remaining_gaps": [
+    "No expert labels or independent human evaluation",
+    "No full platform capture or isolation guarantee",
+    "No model comparison or prospective accuracy estimate",
+    "Source-only case cannot complete agent workflow evaluation"
+  ]
+}

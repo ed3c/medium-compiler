@@ -1,0 +1,51 @@
+# Soodles cost/projection implementation assessment
+
+The reviewed design correctly keeps cost evidence separate from repair authority at the inspected boundaries. `cost_telemetry.project` validates and summarizes observations, Test Manager identifies review needs, and Schema Manager exposes those needs beside the original owner's continuation. A long duration alone does not select repair or a new test run. Retain this separation. The supplied source supports this implementation judgment; it does not establish operational speed, reduced cost, end-to-end enforcement, or the implementer's engineering behavior.
+
+Review mode: `implementation_review`. Target: `ed3c/soodles`, task-selected revision `d58c4e7ba0685c367da5c3060e06e6c5fc38f85f`. Reviewer: Codex AI review consumer; precise model version unavailable. The coding agent, model and execution harness are unknown. This is AI-authored review, not the user's independent work or a hiring certification.
+
+The task supplies `AGENTS.md` and three Python source files. Their hashes match the task manifest. No patch, original implementation episode, tests, runtime logs or owner receipt is supplied. Repository/revision attribution comes from that manifest; no target Git checkout was inspected. The selected staff-evals bytes match all nine supplied hashes for skill revision `bc68aa025a26124ccbf6a0afc94c380dad4af0be`.
+
+## Requirement and boundary
+
+`AGENTS.md`, “Cost and decision principles,” requires normal execution measurements, explicit unknowns, and separate timing for projection and external work. It forbids inferring waste from duration alone. Repair requires an observed defect or design risk, the existing owner, declared controls, and budget. Unknown writes require owner readback. These are requirements, not proof that the lifecycle satisfies them.
+
+The bounded decision is how to transform existing timing evidence into useful cost feedback without allowing a report to initiate effects. Users benefit from seeing expensive or uncertain work while retaining the owner's responsibility for deciding whether that work was necessary. This review ends with an assessment and case record. Product changes, software-suite execution, new model execution and publication are outside authorization.
+
+## Finding 1: The cost path preserves the distinction between an observation and an actionable defect
+
+The visible producer is `test_manager._run_suite` (lines 448–452). Its module log includes `operation`, module identity, elapsed seconds, exit status and execution completeness. Reading its body is not evidence that this producer ran.
+
+`cost_telemetry.timing_log` (302–334) reads matching stderr lines. A `test.module` entry becomes a verification-family worker observation. It retains the module, source digest, span, status and measured seconds. `status` (67–79) treats an incomplete execution or nonzero exit as failed, and preserves pending or refused results. Legacy logs without timestamps do not gain invented bounds.
+
+`project` (175–277) validates each observation and deduplicates by source digest, span and, for native writer evidence, session. It compares the remaining fields before accepting a replay. Conflicting replay content raises `CostRefusal`; it does not produce a partial numeric summary. Path aliases of identical evidence therefore do not inflate counts. Distinct logs can still contain repeated executions; deduplication does not prove they represent distinct necessary work.
+
+The function creates phase summaries, then calls `test_manager.review_cost` (463–503). For a single passed module observation, even a large `inclusive_seconds` value is only observed cost. There is no slow-duration threshold here. Failed or refused phases request owner readback. More than one observation for a named `test.module` also requests readback and records `repeat_necessity` as unknown. The branch does not assert that repetition was wasteful. A necessary retry after changed inputs is a counterexample to that assertion.
+
+`schema_manager.project_cost` (247–276) checks that a supplied review has the same subject and source list and carries no effects, test demand or landing authority. The projection preserves the supplied owner gate. `cost_telemetry.report` calls `project_owner_feedback` (502–503), which retains the owner's `next`, validates its declared continuation state through `owner_transition`, and explicitly leaves effectiveness unknown (`schema_manager.py`, 279–367). The inspected projection functions create return objects, not provider writes or repair requests.
+
+This is an appropriate ownership boundary. A hypothetical simpler alternative would compare elapsed seconds with a fixed limit and trigger repair. It would be easy to implement, but could penalize required verification or provider waiting without evidence of waste. The implemented design trades immediate automation for owner interpretation and source-linked uncertainty. That cost is justified when necessity depends on task inputs. If a deterministic defect is already established elsewhere, this review is not a reason to delay the owner's authorized correction.
+
+No product correction is supported by this finding. The smallest evidence needed to assess a particular repeated run is its two input identities, the required behavior each run checked, and the original owner's current readback. To establish that the feedback path is consumed in normal operation, add one bound owner response and its continuation observation. The owner/caller implementation is absent, so the effect boundary is established only inside the supplied code.
+
+## Finding 2: The summaries use defensible units and retain important coverage limits
+
+`cost_telemetry.intervals` (163–172) sorts and merges bounded intervals. `project` uses their union for observed wall time and keeps worker time separate. As a source-derived illustration, foreground interval `[100,110]` and wait interval `[105,115]` contribute 15 seconds of observed wall time, not their 20-second sum. This illustration was not executed. Nested phase totals are labeled inclusive and non-additive (254–271). CPU time, price, API calls and human wait remain null when not established. Coverage remains partial for observed spans and unknown when a family has no evidence (190–205).
+
+This distinction avoids a misleading total when workers or waits overlap. A hypothetical simple sum is cheaper to implement, and can describe cumulative resource work, but it cannot represent elapsed wall time in this setting. The current approach needs timestamped evidence and sorting; legacy unbounded records can contribute measured worker durations while wall time remains unknown. `external` also declines to infer a token total from multiple native turns because cumulative versus incremental accounting is unresolved (630–658).
+
+The observation lifecycle reinforces that limit. `begin` saves an incomplete invocation intent through a caller-supplied writer (668–685). `finish` updates the observation and saves it before reporting (688–714). Report overhead is appended afterward and becomes visible on the next projection; its final flush is excluded (715–719). Interruption after the intent can therefore leave an explicit incomplete span. The supplied code does not demonstrate that the caller holds the promised lock or catches telemetry errors. `failure` provides a non-authorizing refusal object (723–725), but its existence does not prove caller recovery.
+
+Retain these distinctions in downstream displays. A report should not add wall, worker and inclusive phase totals into one duration. Nor should `elapsed_ms` in `project_owner_feedback` become a claim about model or task-handling time: that field times the local projection function only. There are no supplied measurements establishing millisecond performance. The smallest evidence for a bounded latency claim is a normal-use receipt from this revision with its exact inputs and projection duration. A claim about reduced total work additionally needs comparable normal-use observations at the same task and completion boundary, with required controls preserved.
+
+## Acceptance, remaining evidence, and closure
+
+The source satisfies the inspected design conditions: validated observations reach Test Manager review; unknown measurements remain visible; repeat/failure signals request readback; and the cost projection does not select effects or test demand. A projection that authorized repair solely from slow timing, silently counted overlapping wall intervals twice, or turned missing measurements into success would violate these conditions. No such behavior is established by the reviewed branches. This is not a verdict on all input shapes or the full lifecycle.
+
+The existing test mapping names `test_cost_telemetry` and `test_schema_manager` (`test_manager.py`, 39–47), but their implementations and results are absent. The narrow next verification material would be their relevant controls and bound results for overlap, conflicting replay, missing duration and unchanged owner continuation. No suite was run, and the review does not certify those oracles.
+
+`agent_behavior_observed` is **false**. Source records what the program permits, not what a coding agent knew, chose, debugged or changed. The smallest behavior evidence is one consequential episode containing the before-action task/evidence, actual action, tool result, stated reason if recorded, and subsequent adjustment or stopping decision. The present absence is a coverage gap, not an agent failure. `decision_episodes` stays empty.
+
+`slow_cost_alone_authorizes_repair` is **false**, supported by both the requirement and the reviewed data-only path. `source_review_possible` is **true**: the supplied caller/callee chain supports useful mechanism and tradeoff analysis despite the missing agent trace.
+
+Architecture and unit/coverage handling are assessable at source level. The implementer's debugging, reasoning clarity, communication, attention to detail and developer trust are not rated from inferred actions. No A/B comparison, prediction score, human calibration, staff-level certification, measured savings, or universal correctness claim is made. Product runtime closure and agent evaluation remain unestablished; the requested source review is complete.

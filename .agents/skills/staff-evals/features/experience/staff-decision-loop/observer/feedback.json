@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "owner": "schema-manager.pclass-feedback",
+  "observation_scope": "consumer_report",
+  "evidence_validity": "VALID",
+  "behavior": {
+    "classification": "PASS",
+    "barriers": []
+  },
+  "authorizes_landing": false,
+  "effects": [],
+  "test_demand": null,
+  "selection_sha256": "a7857a3ff33c4b8af4451a012674dbdd5ef70be9785081cb2a2c264efc6f797f",
+  "sources": [
+    {
+      "path": "/tmp/staff-decision-loop/observer/protocol.json",
+      "sha256": "c208b549ca9bc91e03726e18ecc3e675c214a7cd6afe72c3b21e8d47b5b39f44"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/SKILL.md",
+      "sha256": "80dfb9ca406c3dcfbed4f49ffe24dd23b20967d209f33e2e8ce5bbb1ee7a9c23"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/agents/openai.yaml",
+      "sha256": "9a9e40998bbcb1db04899e58cada8a7bcac4bfd4cc02d757bc70fccc4a34fa6b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/assets/experience-case.json",
+      "sha256": "ca0808d65fd27e8e37169f8b2c2332e960d167887c4277ff4c21d19c673fd65e"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/experience-review.md",
+      "sha256": "a2830cc3cab9bab67cf421fd65c4d2501daa1681f7884b7373e91aba9a1b86f0"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/instruction-feedback.md",
+      "sha256": "8a5391277c74b7e442e1f86fe7b28852eeb5541e215e312c385cd1393ad4292b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/report-delivery.md",
+      "sha256": "1102511a34cacdb0c2c3924550594e10a3761fb78d7ca9b0e47edce96466171d"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/workflow-review.md",
+      "sha256": "149f2eba07df7a692ae4a6eadb6acd3c163446f64e2bdc6ca9b02f2472ed603b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/references/engineering-role.md",
+      "sha256": "cac64a2381be66eb159d84faf030706ba5e2bc9c0d42ac21482fac2576affd87"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/references/experience-records.md",
+      "sha256": "2cd1ee85453a168c514ba6631a638824db2292a405c679b6e9b86fcac0f51953"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/inputs/recorded/task.json",
+      "sha256": "2af1b599b0321950a94b76f2b727f26eab27a318454f48c5dbe3f88ececdc135"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/inputs/source-only/task.json",
+      "sha256": "ca1ca5dc65e877980cfab9066ab835d606213d1f27c4c93a520c6fdaaffa23a2"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/consumer-recorded/consumer-report.json",
+      "sha256": "8e066f5c6d2864a9e8abe6a84b8fed2669ccf61218879e815ee442e788e04db8"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/consumer-recorded/capture.md",
+      "sha256": "53bc9a410586acfadc53c9379fbed3493de7f282ffb6b33774cd77de1b2ba625"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/consumer-source/consumer-report.json",
+      "sha256": "3a02b6759b96fdd291486cb4d9e8704d1e4f8fc45dd39a48ecbc584c405a9568"
+    },
+    {
+      "path": "/tmp/staff-decision-loop/consumer-source/capture.md",
+      "sha256": "39064855932f175974be79a817ebb791900522eb8ad3033d9a6408025e15a3b9"
+    }
+  ],
+  "cases": [
+    {
+      "id": "recorded",
+      "status": "passed",
+      "checks": {
+        "complete_trace_available": true,
+        "original_report_checks_preserved": true,
+        "matched_field_checks_establish_staff_quality": true
+      },
+      "observed": {
+        "complete_trace_available": false,
+        "original_report_checks_preserved": true,
+        "matched_field_checks_establish_staff_quality": false
+      }
+    },
+    {
+      "id": "source_only",
+      "status": "passed",
+      "checks": {
+        "agent_behavior_observed": true,
+        "slow_cost_alone_authorizes_repair": true,
+        "source_review_possible": true
+      },
+      "observed": {
+        "agent_behavior_observed": false,
+        "slow_cost_alone_authorizes_repair": false,
+        "source_review_possible": true
+      }
+    }
+  ],
+  "dag": {
+    "instructions": {
+      "status": "ready",
+      "requires": []
+    },
+    "case:recorded": {
+      "status": "passed",
+      "requires": [
+        "instructions"
+      ]
+    },
+    "case:source_only": {
+      "status": "passed",
+      "requires": [
+        "instructions"
+      ]
+    },
+    "feedback": {
+      "status": "ready",
+      "requires": [
+        "case:recorded",
+        "case:source_only"
+      ]
+    }
+  },
+  "limits": [
+    "File digests bind bytes, not observer independence or complete capture.",
+    "Field equality checks reported behavior, not unobserved effects.",
+    "No formal writing compliance or comparative improvement is established."
+  ],
+  "subject": "staff-evals grounds job-aligned judgments in observed engineering decisions and preserves source-only limits",
+  "protocol": {
+    "path": "/tmp/staff-decision-loop/observer/protocol.json",
+    "sha256": "c208b549ca9bc91e03726e18ecc3e675c214a7cd6afe72c3b21e8d47b5b39f44"
+  },
+  "instructions": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/SKILL.md",
+      "sha256": "80dfb9ca406c3dcfbed4f49ffe24dd23b20967d209f33e2e8ce5bbb1ee7a9c23"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/agents/openai.yaml",
+      "sha256": "9a9e40998bbcb1db04899e58cada8a7bcac4bfd4cc02d757bc70fccc4a34fa6b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/assets/experience-case.json",
+      "sha256": "ca0808d65fd27e8e37169f8b2c2332e960d167887c4277ff4c21d19c673fd65e"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/experience-review.md",
+      "sha256": "a2830cc3cab9bab67cf421fd65c4d2501daa1681f7884b7373e91aba9a1b86f0"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/instruction-feedback.md",
+      "sha256": "8a5391277c74b7e442e1f86fe7b28852eeb5541e215e312c385cd1393ad4292b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/report-delivery.md",
+      "sha256": "1102511a34cacdb0c2c3924550594e10a3761fb78d7ca9b0e47edce96466171d"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/features/workflow-review.md",
+      "sha256": "149f2eba07df7a692ae4a6eadb6acd3c163446f64e2bdc6ca9b02f2472ed603b"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/references/engineering-role.md",
+      "sha256": "cac64a2381be66eb159d84faf030706ba5e2bc9c0d42ac21482fac2576affd87"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-decision-loop/.agents/skills/staff-evals/references/experience-records.md",
+      "sha256": "2cd1ee85453a168c514ba6631a638824db2292a405c679b6e9b86fcac0f51953"
+    }
+  ],
+  "case_fingerprints": {
+    "recorded": "c55ca505b5fafecf25d1ce10087e8268c76e97d028eb664664fb714276ba3b60",
+    "source_only": "1c79b7e3edfe96c89b6d1e54894838baeb08e7c448cb701017c61fa4f95a78d2"
+  },
+  "criteria": {
+    "status": "NOT_REVIEWED",
+    "scope": "legacy field comparison"
+  },
+  "next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "projection_ms": 0.037345002056099474,
+  "status": "passed",
+  "elapsed_ms": 1.2710759983747266
+}

@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "protocol": {
+    "path": "/tmp/staff-decision-loop/observer/protocol.json",
+    "sha256": "c208b549ca9bc91e03726e18ecc3e675c214a7cd6afe72c3b21e8d47b5b39f44"
+  },
+  "observations": []
+}
