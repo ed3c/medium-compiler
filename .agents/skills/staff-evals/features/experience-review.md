@@ -19,6 +19,9 @@ Read [the record contract](../references/experience-records.md) and the relevant
    Reconstruct the code/runtime mechanism using the workflow-review feature.
 2. Save a case using [the template](../assets/experience-case.json). Use a new case ID and
    retain exact evidence bytes and hashes. Record missing inputs and who made each judgment.
+   For observed Agent work, add decision episodes with before-action evidence, actual action,
+   stated reason, observation, reviewer judgment and alternative. Keep source-only findings
+   outside the list of observed Agent choices. Preserve disagreement and later correction.
 3. Before a new outcome, freeze a separate prediction file. State the condition, observable
    result, reason, falsifier and resolving check. Have the observer retain its hash before
    the check. Keep that ordering evidence. A self-entered timestamp is not independent proof.
@@ -46,3 +49,5 @@ Do not count a replay of a known result as new predictive experience. Report eli
 resolved, unresolved and excluded counts before rates; explain selection bias and sample size.
 One case cannot establish generalization, token savings or staff-level readiness.
 The case store supports retrieval and reflection; it does not update model weights.
+Retrospective judgment is useful experience even when no forecast exists. Do not force
+predictions into every review or count output-field matches as independent engineering tasks.

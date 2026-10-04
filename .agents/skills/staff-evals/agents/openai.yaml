@@ -1,4 +1,4 @@
 interface:
   display_name: "Staff Evals"
-  short_description: "Review code, test predictions and retain engineering lessons"
-  default_prompt: "Use $staff-evals to review this coding-agent task, retain a case, and test engineering predictions against code and runtime evidence."
+  short_description: "Evaluate engineering decisions and retain evidence-based feedback"
+  default_prompt: "Use $staff-evals to evaluate this coding agent’s engineering decisions using the task, code and available trace; retain actionable feedback and evidence limits."

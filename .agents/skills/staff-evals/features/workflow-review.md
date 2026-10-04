@@ -29,6 +29,22 @@ Success means a reproducible, scoped engineering judgment with explicit unobserv
 not merely matching hashes or filling seven labels. Retain the audit, added bindings,
 actual commands/results, assessment and substantive review after cleanup.
 
+For an Agent workflow evaluation, build a short evidence-linked decision sequence first.
+Separate information available before the action from facts learned afterward. For each
+important choice, read the relevant code or diff and explain its runtime consequence.
+Inspect whether a debugging check distinguishes competing causes, whether a test preserves
+the required behavior, and whether failure changes the next action. Include the Agent's
+stated reason only when recorded. A successful outcome cannot supply a missing rationale.
+Partial capture supports the observed episodes; it does not prove the whole workflow.
+
+Use the job-requirement mapping in [engineering-role.md](../references/engineering-role.md#job-requirement-implementation)
+to check the relevant work. Do not require every job dimension in every case.
+For a weak output, quote or locate the actual claim, identify the failed premise, and
+describe the decision it could mislead. For subtle quality differences, compare alternatives
+under the same constraints; do not attribute a hypothetical alternative to another Agent.
+Make a defensible judgment before filling coverage labels. Missing behavior evidence
+requires a scoped collection step or an explicit incomplete behavior outcome.
+
 ## Gotchas
 
 A successful audit proves file identity and extracts observations. It does not prove model

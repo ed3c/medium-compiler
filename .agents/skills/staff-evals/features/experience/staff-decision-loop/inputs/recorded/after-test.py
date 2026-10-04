@@ -38,11 +38,6 @@ class AIEvalsSiteTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256((delivered/'report.json').read_bytes()).hexdigest(),entry['sha256'])
                 self.assertEqual(hashlib.sha256((delivered/'assessment.md').read_bytes()).hexdigest(),source['assessment']['sha256'])
                 self.assertIn(item['route'],(out/'ai-evals/index.html').read_text())
-                if source.get('review_mode') in {'agent_workflow_evaluation','combined'}:
-                    rendered=(delivered/'index.html').read_text()
-                    self.assertIn('Review mode:',rendered)
-                    self.assertIn(source['review_mode'],rendered)
-                    self.assertLess(rendered.index('<article class="article"'),rendered.index('<h2>Evidence coverage'))
             route=out/'ai-evals/soodles-claim-refusal'
             report=json.loads((route/'report.json').read_text())
             audit=json.loads((route/'archive-audit.json').read_text())

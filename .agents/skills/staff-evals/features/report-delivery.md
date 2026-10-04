@@ -14,6 +14,11 @@ Run the site builder into a new task-owned output. Serve it with a task-owned HT
 
 ## Gotchas
 
+For an Agent workflow report, present the substantive decision findings before coverage
+labels and provenance. Display the review mode and capture scope near the subject.
+Retain implementation-only historical reports with their original evidence limits.
+Publish a new assessment for a new evidence scope; do not rewrite old observations.
+
 Check visible subject revision, reviewer and calibration scope. Expand pinned sources.
 Retrieve the source manifest, English assessment and supplementary attachments as well
 as report JSON; compare the delivered bytes with their bound source hashes. Inspect a

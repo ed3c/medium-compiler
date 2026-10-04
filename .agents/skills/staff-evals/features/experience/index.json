@@ -40,6 +40,35 @@
       ],
       "mode": "retrospective_review_with_source_informed_projection_check",
       "population_prediction_eligible": false
+    },
+    {
+      "id": "recorded",
+      "path": "staff-decision-loop/consumer-recorded/case.json",
+      "feature": "experience-review",
+      "related_feature": "instruction-feedback",
+      "concerns": [
+        "debugging",
+        "verification",
+        "communication",
+        "engineering_judgment"
+      ],
+      "mode": "retrospective_recorded_agent_review",
+      "population_prediction_eligible": false,
+      "review_notes": "staff-decision-loop/observer/semantic-readback.json"
+    },
+    {
+      "id": "source_only",
+      "path": "staff-decision-loop/consumer-source/case.json",
+      "feature": "experience-review",
+      "related_feature": "instruction-feedback",
+      "concerns": [
+        "architecture",
+        "verification",
+        "cost_necessity"
+      ],
+      "mode": "retrospective_source_review",
+      "population_prediction_eligible": false,
+      "review_notes": "staff-decision-loop/observer/semantic-readback.json"
     }
   ]
 }

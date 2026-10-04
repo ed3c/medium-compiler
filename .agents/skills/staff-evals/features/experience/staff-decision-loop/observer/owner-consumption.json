@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "owner": "authorized medium-compiler task coordinator /root",
+  "feedback": {
+    "path": "/tmp/staff-decision-loop/observer/feedback.json",
+    "sha256": "aa91c64a472a6eec069f7e46cf91a10c7f15796ee6c002b73065efdf10ab59ba"
+  },
+  "consumed_operation": "consume_verified_behavior",
+  "actions": [
+    "Retain the nine selected staff-evals instruction files and six bounded field judgments.",
+    "Publish decision findings ahead of coverage labels, preserving raw consumer outputs and a visible provenance correction.",
+    "Index both cases in the experience feature map; keep retrospective and source-only outcomes excluded from prediction metrics."
+  ],
+  "semantic_review": {
+    "path": "/tmp/staff-decision-loop/observer/semantic-readback.json",
+    "sha256": "ef46b27dc3ca007f1c59601317ec24b4f7f754222c44a869b095c27dfdaf7c4d"
+  },
+  "limits": [
+    "File digests bind bytes, not observer independence or complete capture.",
+    "Field equality checks reported behavior, not unobserved effects.",
+    "No formal writing compliance or comparative improvement is established.",
+    "No Noodle daemon session or stage-outcome invoked; public schema1 cloud consumer-report route.",
+    "This is instruction/report feedback consumption, not Soodles runtime repair authorization."
+  ]
+}

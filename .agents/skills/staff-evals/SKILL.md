@@ -19,6 +19,14 @@ Support any coding agent through its available task, patch, tool trace and runti
 Record the actual agent, model when known, harness and coverage; never require a brand-specific trace.
 Source-only review remains useful, but cannot reveal unobserved agent decisions.
 
+Declare the review mode from the available evidence: `implementation_review`,
+`agent_workflow_evaluation`, or `combined`. For an Agent evaluation, use recorded
+decision episodes: what the Agent knew, did, observed, and changed at a consequential
+choice. Judge the choice using information available then, not only its eventual result.
+Assess visible explanations; do not invent hidden reasoning or an implementer identity.
+If the requested behavior judgment lacks evidence, name the smallest missing observation
+and continue supported work. Do not relabel a source audit as completed Agent evaluation.
+
 Use English for the technical assessment. Add a Traditional Chinese reader guide.
 Do not represent an AI-authored assessment as the user's independent work or a hiring certification.
 Read [the feature map](features/README.md) and the selected recipe.
@@ -66,6 +74,10 @@ Do not silently bind a changed file to an unchanged commit.
 2. Reconstruct one concrete input-to-output path from implementation and available execution:
    caller, owner, input, branch, state mutation, external effect, failure and recovery.
    Distinguish what source permits from what the Agent actually did.
+   For each consequential observed choice, retain the evidence available before it,
+   action, stated reason if present, subsequent observation, and resulting adjustment.
+   Explain whether the choice was reasonable under those constraints. Compare a feasible
+   alternative and label an unexecuted alternative as hypothetical.
 3. For a known invariant, use its existing executable oracle directly. For unknown behavioral
    quality, inspect traces and failures before inventing criteria or attributing a root cause.
    Derive acceptance, rejection and unknown conditions from the original requirements.
@@ -111,6 +123,16 @@ and runtime actor, input, check, state change, effect and failure path.
 Use short active sentences and stable terms. Preserve raw bytes, negations and uncertainty.
 Write an English verdict that a reviewer can understand without this chat.
 Keep tokens, wall time, model time and task-handling time separate. Unknown values stay unknown.
+
+For Agent evaluations, lead with prioritized decision findings and actionable feedback.
+Show the evidence locator, judgment, consequence, counterevidence, correction and resolving
+check for each material finding. Keep provenance and coverage tables after that analysis.
+Do not replace a verdict with seven labels, cost totals, hashes or repeated disclaimers.
+Explain a justified successful choice as carefully as a failure. Do not invent a defect.
+Check report adequacy before delivery: can another engineer locate the choice, dispute
+the premise, compare the alternative, and act on the feedback without this conversation?
+If not, correct the report or retain the specific unmet outcome. A passing deterministic
+check or a fast schema projection does not establish engineering judgment quality.
 
 ## Evidence
 

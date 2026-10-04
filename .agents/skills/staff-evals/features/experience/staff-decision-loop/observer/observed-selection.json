@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "protocol": {
+    "path": "/tmp/staff-decision-loop/observer/protocol.json",
+    "sha256": "c208b549ca9bc91e03726e18ecc3e675c214a7cd6afe72c3b21e8d47b5b39f44"
+  },
+  "observations": [
+    {
+      "case_id": "recorded",
+      "report": {
+        "path": "/tmp/staff-decision-loop/consumer-recorded/consumer-report.json",
+        "sha256": "8e066f5c6d2864a9e8abe6a84b8fed2669ccf61218879e815ee442e788e04db8"
+      },
+      "trace": {
+        "path": "/tmp/staff-decision-loop/consumer-recorded/capture.md",
+        "sha256": "53bc9a410586acfadc53c9379fbed3493de7f282ffb6b33774cd77de1b2ba625"
+      }
+    },
+    {
+      "case_id": "source_only",
+      "report": {
+        "path": "/tmp/staff-decision-loop/consumer-source/consumer-report.json",
+        "sha256": "3a02b6759b96fdd291486cb4d9e8704d1e4f8fc45dd39a48ecbc584c405a9568"
+      },
+      "trace": {
+        "path": "/tmp/staff-decision-loop/consumer-source/capture.md",
+        "sha256": "39064855932f175974be79a817ebb791900522eb8ad3033d9a6408025e15a3b9"
+      }
+    }
+  ]
+}

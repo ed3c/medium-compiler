@@ -74,14 +74,10 @@ def render_reports(root, out, page, markdown):
         rows = ''.join('<tr><th scope="row">'+html.escape(d['name'])+'</th><td>'+html.escape(d['status'])+'</td><td>'+html.escape(d['reason'])+'</td></tr>' for d in report['dimensions'])
         attachments = ''.join('<li><a href="'+route+html.escape(Path(a['path']).name, quote=True)+'">'+html.escape(Path(a['path']).name)+'</a></li>' for a in report.get('supplementary_evidence', []))
         sources = ''.join('<li><a href="'+html.escape(s['url'], quote=True)+'">'+html.escape(s['path'])+'</a><br><code>'+s['sha256']+'</code></li>' for s in audit['sources'])
-        review_scope = ('<p>Review mode: <code>'+html.escape(report['review_mode'])+'</code> · Capture: '+html.escape(report['capture_scope'])+'</p>') if report.get('review_mode') else ''
-        coverage = f'<section class="panel"><h2>Evidence coverage</h2><p>These labels describe what can be assessed. They are not quality scores.</p><div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;text-align:left"><thead><tr><th>Dimension</th><th>Coverage</th><th>Evidence boundary</th></tr></thead><tbody>{rows}</tbody></table></div></section>'
-        decisions_first = report.get('review_mode') in {'agent_workflow_evaluation', 'combined'}
         body = f'''<section class="page-head"><div class="eyebrow">AI Engineering Evals · {html.escape(report['mode'])}</div><h1>{title}</h1><p>{html.escape(report['summary_zh'])}</p><p>Subject: <code>{html.escape(report['repository'])}@{report['revision']}</code></p><p>Reviewer: {html.escape(report['reviewer'])} · Human calibration: {html.escape(report['human_calibration'])}</p></section>
-{review_scope}<section class="panel">{markdown(guide)}</section>
-{'' if decisions_first else coverage}
+<section class="panel">{markdown(guide)}</section>
+<section class="panel"><h2>Evidence coverage</h2><p>These labels describe what can be assessed. They are not quality scores.</p><div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;text-align:left"><thead><tr><th>Dimension</th><th>Coverage</th><th>Evidence boundary</th></tr></thead><tbody>{rows}</tbody></table></div></section>
 <article class="article" lang="en">{report_markdown(assessment, markdown)}</article>
-{coverage if decisions_first else ''}
 <section class="panel"><h2>Evidence files</h2><p><a href="{route}report.json">Report JSON</a> · <a href="{route}archive-audit.json">Source manifest</a> · <a href="{route}assessment.md">English assessment</a></p><ul>{attachments}</ul><details><summary>Open pinned sources and SHA-256 identities</summary><ul>{sources}</ul></details><p><a href="/ai-evals/">返回 AI Evals</a></p></section>'''
         (dest / 'index.html').write_text(page(report['title'], body, 'evals'))
         provenance.append({'route': route, 'report_sha256': entry['sha256'],

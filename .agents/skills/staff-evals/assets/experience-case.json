@@ -51,5 +51,8 @@
     "evaluator": null,
     "owner_feedback": null,
     "gaps": []
-  }
+  },
+  "review_mode": null,
+  "decision_episodes": [],
+  "disagreements": []
 }
