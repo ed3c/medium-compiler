@@ -147,6 +147,23 @@ def cards(snapshot:dict,limit=None)->str:
         chunks.append(f'''<article class="card"><div class="eyebrow">{html.escape(t['category'])}</div><h3>{html.escape(t['title'])}</h3><p>{html.escape(t['question'])}</p><div class="meta"><b>Trigger</b> {html.escape(t['trigger'])}</div><div class="meta"><b>Outcomes</b> {html.escape(outcomes)}</div><div class="gate">{html.escape(t['promotion_gate'])}</div></article>''')
     return '<div class="cards">'+''.join(chunks)+'</div>'
 
+def add_local_video_controls(text:str)->str:
+    replacements=[
+        ('<div id="fixed-media" hidden>', '''<div id="fixed-media" hidden>
+<div class="tech-actions"><label for="local-video-file">Choose local video <input id="local-video-file" type="file" accept="video/*"></label><button id="reset-lesson-video" class="secondary" disabled>Restore supplied video</button></div>
+<p id="local-video-status" class="muted tiny" role="status">Choose a video from this device. It stays in your browser; no upload.</p>'''),
+        ('<p class="muted tiny">Supplied Hypit video', '<p id="supplied-video-note" class="muted tiny">Supplied Hypit video'),
+        ('</p></div>\n<div id="pass-script"', '''</p></div>
+<p id="local-video-warning" class="muted tiny" hidden>Local video is not checked against this lesson. Lesson hashes and the practice receipt refer to the supplied lesson, not this local file. Supplied captions are disabled.</p>
+<div id="pass-script"'''),
+        ('</body>', '<script defer src="./local-lesson-video.js"></script></body>'),
+    ]
+    for anchor,replacement in replacements:
+        if text.count(anchor)!=1:
+            raise ValueError(f'Technical local-video import requires one anchor: {anchor!r}')
+        text=text.replace(anchor,replacement,1)
+    return text
+
 def import_alg(out:Path)->dict:
     """Verify the pinned snapshot, then adapt navigation for our clean URLs."""
     lock=json.loads((ROOT/'references/cefr-alg-site-lock.json').read_text())
@@ -157,6 +174,7 @@ def import_alg(out:Path)->dict:
         raise ValueError('CEFR ALG snapshot differs from its pinned file manifest')
     target=out/'cefr-alg-c2'
     shutil.copytree(source,target)
+    shutil.copyfile(ROOT/'site/local-lesson-video.js',target/'local-lesson-video.js')
     for name in ('index.html','compare.html','technical.html'):
         path=target/name
         text=path.read_text(encoding='utf-8')
@@ -165,6 +183,7 @@ def import_alg(out:Path)->dict:
         if name=='compare.html':
             text=text.replace('href="#lab"','href="./compare#lab"',1)
         if name=='technical.html':
+            text=add_local_video_controls(text)
             text=text.replace('Downstream import remains pending','Pinned snapshot imported here')
             text=text.replace('Medium owns the subsequent pinned snapshot, lock and build import, which remains pending.',
                               'Medium verifies and imports this pinned snapshot. Its source revision and built bytes are recorded in provenance.json.')
