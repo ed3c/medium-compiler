@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "soodles-preclaim-snapshot",
+      "path": "soodles-preclaim-snapshot/case.json",
+      "feature": "experience-review",
+      "concerns": [
+        "debugging",
+        "verification",
+        "architecture"
+      ],
+      "mode": "retrospective",
+      "prediction_eligible": false
+    },
+    {
+      "id": "event_review",
+      "path": "event-ack-loss/case.json",
+      "feature": "experience-review",
+      "related_feature": "abstraction-review",
+      "concerns": [
+        "architecture",
+        "debugging",
+        "verification"
+      ],
+      "mode": "controlled_synthetic_forecast",
+      "local_forecast_resolution": "confirmed",
+      "population_prediction_eligible": false
+    }
+  ]
+}

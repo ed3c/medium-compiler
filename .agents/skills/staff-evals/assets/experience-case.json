@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "",
+  "feature": "experience-review",
+  "target": {
+    "repository": null,
+    "revision": null,
+    "task": null,
+    "patch": null
+  },
+  "actor": {
+    "agent": null,
+    "model": null,
+    "harness": null,
+    "coverage": null
+  },
+  "reviewer": {
+    "identity": null,
+    "kind": null,
+    "assistance": null,
+    "prior_outcome_exposure": null
+  },
+  "evidence": [],
+  "decision": {
+    "requirement": null,
+    "mechanism": null,
+    "consequence": null,
+    "alternative": null,
+    "tradeoff": null
+  },
+  "prediction": null,
+  "outcome": null,
+  "lesson": {
+    "status": "proposed",
+    "applies_when": null,
+    "counterexample": null,
+    "next_check": null
+  },
+  "role_feedback": {},
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null
+  },
+  "closure": {
+    "product": null,
+    "agent": null,
+    "evaluator": null,
+    "owner_feedback": null,
+    "gaps": []
+  }
+}

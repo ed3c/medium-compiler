@@ -1,0 +1,53 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/docs/experiments/claim-refusal-closure/evaluator/evaluate.py", line 42, in <module>
+    if __name__=='__main__': sys.exit(main())
+                                      ^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/docs/experiments/claim-refusal-closure/evaluator/evaluate.py", line 26, in main
+    run('refusal','refusal','refusal-state',3)
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/docs/experiments/claim-refusal-closure/evaluator/evaluate.py", line 24, in run
+    if result.returncode: raise RuntimeError(label+': '+result.stderr)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: refusal: {"event": "soodles.timing", "operation": "issue_atom.observe", "authorization": "/tmp/ai-evals-role-20261004/local-oracle/refusal-state/tmpe2e4ukr1/authorization.json", "status": "refused", "invalid": {"field": "noodle.snapshot", "value": "[Errno 2] No such file or directory: '/tmp/ai-evals-role-20261004/local-oracle/refusal-state/tmpe2e4ukr1/project/.noodle/state.snapshot.json'"}, "span_id": "2b29f4fc76084039a1768717d69f861f", "wall_started": 1791113401.98155, "wall_finished": 1791113402.0180073, "platform": "linux", "python": "3.12.14", "seconds": 0.037, "outcome": "refused"}
+Traceback (most recent call last):
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_execution.py", line 436, in read_owner
+    state = json.loads(path.read_text())
+                       ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/ai-evals-role-20261004/local-oracle/refusal-state/tmpe2e4ukr1/project/.noodle/state.snapshot.json'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/docs/experiments/claim-refusal-closure/evaluator/worker.py", line 57, in <module>
+    try: result=atom.drive(case.path,timeout=a.timeout,interval=1,sleep=sleep,clock=lambda:now[0],environ=case.env,provider=provider)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 6677, in drive
+    result = measured("issue_atom.observe",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/soodles.py", line 243, in measured
+    result = function(*arguments)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 6678, in <lambda>
+    lambda: run(authorization_path, environ=environ, provider=provider),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 5947, in run
+    result = _run(authorization_path, environ=environ, provider=provider)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 6312, in _run
+    return _run_owned(authorization_path, authorization, authorization_digest, paths,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 6527, in _run_owned
+    base_progress = preclaim_base(authorization_path, original_authorization, authorization, paths, state, provider)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_atom.py", line 1852, in preclaim_base
+    owner = issue_execution.read_owner(envelope)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7ed56a5a2a33/soodles-work/issue_execution.py", line 438, in read_owner
+    raise AdmissionRefusal("noodle.snapshot", str(error), "Noodle", "canonical_checkpoint_readback") from error
+issue_admission.AdmissionRefusal: Issue admission: invalid noodle.snapshot="[Errno 2] No such file or directory: '/tmp/ai-evals-role-20261004/local-oracle/refusal-state/tmpe2e4ukr1/project/.noodle/state.snapshot.json'"; owner: Noodle; required: canonical_checkpoint_readback
+

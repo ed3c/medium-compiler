@@ -1,6 +1,6 @@
 ---
 name: staff-evals
-description: Act as a hands-on Staff AI Evals Engineer to review coding-agent decisions in their actual requirements, code, architecture, debugging and runtime context. Use for Soodles engineering evaluations, coding-agent comparisons, evidence-backed feedback, or maintenance of this verification feature map.
+description: Review any coding agent's engineering work as a Staff AI Evals Engineer using requirements, code and runtime evidence. Use to accumulate case data, test engineering predictions, compare agents, evaluate abstractions and lint rules, or maintain the verification feature map with Soodles feedback.
 ---
 
 # Staff Evals
@@ -15,6 +15,9 @@ Explain why a design is appropriate or deficient; contract compliance alone is n
 Keep source symbols, data shapes, branch conditions, state changes and failure paths in the analysis.
 Use the seven review dimensions to find omissions after examining the case, not to replace it.
 Treat the role as a set of responsibilities, not a claim of human credentials or write authority.
+Support any coding agent through its available task, patch, tool trace and runtime evidence.
+Record the actual agent, model when known, harness and coverage; never require a brand-specific trace.
+Source-only review remains useful, but cannot reveal unobserved agent decisions.
 
 Use English for the technical assessment. Add a Traditional Chinese reader guide.
 Do not represent an AI-authored assessment as the user's independent work or a hiring certification.
@@ -22,6 +25,10 @@ Read [the feature map](features/README.md) and the selected recipe.
 Read [the source standards](references/standards.md) before changing this guidance.
 Use [engineering review responsibilities](references/engineering-role.md) for the task's
 applicable architecture, debugging, verification and evaluation questions.
+For accumulated experience and predictions, use [case records](references/experience-records.md)
+and [the experience feature](features/experience-review.md).
+For a proposed abstraction or rule, use [the abstraction feature](features/abstraction-review.md).
+The feature map indexes experience. Load relevant cases, not the whole case history.
 
 ## Launch
 
@@ -78,6 +85,12 @@ Do not silently bind a changed file to an unchanged commit.
    Do not replace technical verification with an LLM opinion.
 10. Write the English assessment with the report structure below. When publication is requested,
     use the existing site builder. A skill correction alone does not rewrite a historical evaluation.
+11. Save the case and its engineering lesson through the experience feature. For a new prediction,
+    freeze the input, predicted outcome and falsifier before observing the outcome. If already seen,
+    record a retrospective judgment. Keep the user's own prediction separate from the Agent's.
+12. After observation, append the result, counterevidence and revised applicability. Use the
+    abstraction feature only when the case supports a reusable contract or exposes a real failure.
+    Case accumulation is not automatic model training or proof of human learning.
 
 For model-judge scoring, load `write-judge-prompt` and `validate-evaluator`.
 Missing expert labels or held-out calibration remains a gap. Never fabricate labels.
