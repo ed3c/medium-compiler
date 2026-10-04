@@ -269,7 +269,10 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
     transcript_dir=out/'transcripts';transcript_dir.mkdir()
-    transcript_body='<article class="article">'+markdown((ROOT/'docs/transcripts.md').read_text(encoding='utf-8'))+'<p><a href="/articles/agent-primitives-product-differentiation/">閱讀本次 Medium 文章 →</a></p></article>'
+    for asset in ('transcripts.js', 'transcripts.css'):
+        shutil.copyfile(ROOT/'site'/asset,out/'assets'/asset)
+    transcript_body='<link rel="stylesheet" href="/assets/transcripts.css">'+(ROOT/'site/transcripts.html').read_text(encoding='utf-8')
+    transcript_body+='<details class="panel"><summary>CLI 取得來源與寫作流程</summary><article class="article">'+markdown((ROOT/'docs/transcripts.md').read_text(encoding='utf-8'))+'</article></details>'
     (transcript_dir/'index.html').write_text(page('逐字稿來源 · AI Engineer Lab',transcript_body,'transcripts'),encoding='utf-8')
     course_route=json.loads((ROOT/'references/upstream/software-engineering-fundamentals.json').read_text())
     article_provenance=[]

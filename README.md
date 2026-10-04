@@ -37,6 +37,9 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 ## Entry points
 
 - [Third-party transcript acquisition](docs/transcripts.md): `python3 scripts/transcript.py --help`.
+  `/transcripts/` now searches a selected public podcast by topic, guest or YouTube URL,
+  and reads timestamp metadata plus a fixed short preview. Shared CLI commands: `search`
+  and `inspect`. Seven podcast choices; first-page candidates are not audio verification.
   PodScripts HTML is retained in a new ignored `.transcripts/` snapshot; the CLI does not
   overwrite it, infer speakers, correct wording or claim audio verification. Public receipts
   carry source metadata and hashes only. The site exposes `/transcripts/` and an independent
