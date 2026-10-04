@@ -1,0 +1,22 @@
+{
+  "owner": "authorized medium-compiler task coordinator /root",
+  "feedback": {
+    "path": "/tmp/staff-faq-loop/observer/feedback.json",
+    "sha256": "d9975042258414d35182263924d52a1d761791885e3e27ef453beb4e37cbaa1a"
+  },
+  "consumed_operation": "consume_verified_behavior",
+  "actions": [
+    "Retain saved instructions and the eight scoped reported fields.",
+    "Retain independent semantic analysis and capture limitations.",
+    "Index new retrospective reviews separately from prior cases and publish a separate report."
+  ],
+  "semantic_review": {
+    "path": "/tmp/staff-faq-loop/observer/semantic-readback.json",
+    "sha256": "b8c9119a007583c59522658e925bf8d3a4656573b6b1153c1c578188f8b25e82"
+  },
+  "limits": [
+    "Schema1 consumer-report scope only; no human calibration or causal improvement.",
+    "No admitted Noodle session or stage-outcome event.",
+    "No Soodles runtime repair, test suite or effect authorization."
+  ]
+}

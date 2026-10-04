@@ -1,0 +1,19 @@
+# Consumer self-report
+
+This is a self-report of this consumer's operations, not a complete independent platform transcript. Native files were shared; no filesystem isolation is claimed. No other consumer/observer reports, historical review verdicts or expected answers were read.
+
+The task was /tmp/staff-faq-loop/inputs/source_only.json. The review used its ten selected instruction files and four selected evidence files, plus the applicable /workspace/scratch/7ed56a5a2a33/medium-faq-loop/AGENTS.md. The complete selected paths and actual hashes are in consumer-report.json (instructions) and case.json (evidence). All fourteen selected file hashes matched the task manifest. Input SHA-256: 41197df55943d14273faf019d21492a58ddfb6c3f00db7ce277ee0003225b38d.
+
+Actual operations, in order:
+
+1. Ran pwd and broad filename discovery with `rg --files -g AGENTS.md -g SKILL.md` under the workspace, piped to head -50. This was broader than necessary: it revealed filenames from sibling checkouts, including names of historical-method directories and both source-only/recorded input AGENTS files. It did not read their contents. No task judgment was based on those names. Subsequent reads were scoped to the supplied paths and applicable root AGENTS.
+2. Read the task JSON, applicable root AGENTS, and staff-evals SKILL.md using cat.
+3. Used Python pathlib stat to list byte sizes for task-listed instruction and evidence files. Read engineering-role.md, experience-records.md, evaluation-method.md.
+4. Read the experience-case template, selected experience/instruction-feedback/report-delivery/workflow-review recipes and standards.md. Read the source-only AGENTS. The combined output was truncated; subsequent scoped sed reads of AGENTS lines 1–240 and 240–520 covered it.
+5. Used rg on the three supplied Python files to locate function declarations and cost references. Read cost_telemetry.py lines 1–290, 337–505 and 668–755 with nl/sed. Read schema_manager.py lines 143–381. That combined result was truncated in the unrelated Manager block; the cited cost and owner-transition functions were visible. Read test_manager.py lines 463–555 and 179–249. No claim is made to have reviewed every line in all Python files.
+6. Used hashlib.sha256 to hash the exact task bytes and all selected instruction/evidence bytes. All selected comparisons returned true. This was an integrity check, not product execution or validation of meaning.
+7. Wrote only assessment.md, guide.md, case.json, consumer-report.json and capture.md in the task output directory. The final document check parses the two JSON outputs, verifies exact instruction-map keys and hashes, required four Boolean fields, unobserved task outcome and retained null human/prediction/validation fields. It reads only this consumer's own deliverables.
+
+All source-reading and hashing shell processes completed with exit 0. All commands used ordinary local shell/file operations through exec_command; no product module was imported or executed. There was no suite, focused product test, runtime benchmark, web lookup, provider action, git status/rev-parse, product write, delegation or external write. The target Git revision is task-declared; source-copy hashes are verified but Git provenance is not independently established. The helper launch and generic publication/index steps were not run because the task explicitly limits execution and writes to this output directory. No Library save or site build was requested within this bounded review.
+
+No independent timing, tokens, human-review duration, expert labels, held-out evaluator outcomes or implementer behavior were available. Hypothetical examples in the assessment are source reasoning, not recorded executions. This capture includes the initial discovery overbreadth rather than claiming stricter isolation than occurred.

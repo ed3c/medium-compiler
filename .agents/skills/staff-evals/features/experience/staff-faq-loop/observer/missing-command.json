@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "./soodles",
+    "schema",
+    "pclass-feedback",
+    "/tmp/staff-faq-loop/observer/missing-selection.json",
+    "61b82d34e971263658b2543c77a6dca39e5429d7053b7c88e1f31d59bc12064d"
+  ],
+  "exit": 2,
+  "elapsed_seconds": 0.08521966999978758
+}

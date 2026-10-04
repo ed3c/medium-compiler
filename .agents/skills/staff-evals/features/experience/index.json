@@ -69,6 +69,36 @@
       "mode": "retrospective_source_review",
       "population_prediction_eligible": false,
       "review_notes": "staff-decision-loop/observer/semantic-readback.json"
+    },
+    {
+      "id": "staff-faq-loop-recorded",
+      "path": "staff-faq-loop/consumer-recorded/case.json",
+      "feature": "experience-review",
+      "related_feature": "instruction-feedback",
+      "concerns": [
+        "task_outcome",
+        "dataset_purpose",
+        "human_review",
+        "engineering_judgment"
+      ],
+      "mode": "fresh_review_of_retained_evidence",
+      "population_prediction_eligible": false,
+      "review_notes": "staff-faq-loop/observer/semantic-readback.json"
+    },
+    {
+      "id": "staff-faq-loop-source_only",
+      "path": "staff-faq-loop/consumer-source_only/case.json",
+      "feature": "experience-review",
+      "related_feature": "instruction-feedback",
+      "concerns": [
+        "task_outcome",
+        "dataset_purpose",
+        "human_review",
+        "engineering_judgment"
+      ],
+      "mode": "fresh_review_of_retained_evidence",
+      "population_prediction_eligible": false,
+      "review_notes": "staff-faq-loop/observer/semantic-readback.json"
     }
   ]
 }

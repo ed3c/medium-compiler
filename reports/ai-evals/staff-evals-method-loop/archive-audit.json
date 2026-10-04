@@ -1,0 +1,59 @@
+{
+  "repository": "ed3c/medium-compiler",
+  "revision": "1ef857be738e4de106457063539ff28d75dc36d9",
+  "sources": [
+    {
+      "path": ".agents/skills/staff-evals/SKILL.md",
+      "sha256": "72eba12c95af86b7b6bda1c3feef485752123becd41a9d107f2f5ac4ff5f4d0e",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/SKILL.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/assets/experience-case.json",
+      "sha256": "529a171bc384d6dea3d8f61fbe65a195643514aaff952d804aaa2ac0a878e37e",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/assets/experience-case.json"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience-review.md",
+      "sha256": "a366de2b2e530db43a31d4d4bea903378a3483dc768ff6cc7ceb0255f275ba41",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/features/experience-review.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/instruction-feedback.md",
+      "sha256": "7fc75578ae787259c0f5aaac86990abe75d21ed4af276fbc9d340f185a32e39c",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/features/instruction-feedback.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/report-delivery.md",
+      "sha256": "da9b71cf1f5475ffa8263208feb160fee0014c589c8c66137e65923f8179ea94",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/features/report-delivery.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/workflow-review.md",
+      "sha256": "18c2c06afaca5885fcce8e929be301878424c2f71b969e2fc341ee1b1fb18892",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/features/workflow-review.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/references/engineering-role.md",
+      "sha256": "2fe393387319eab5635aeb65846323dc61296d85b5ed0d38ad31dc4a278048d1",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/references/engineering-role.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/references/experience-records.md",
+      "sha256": "581491ee7c5306555f91d17966980397e62a4759c26261ac8428990b8e435c8c",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/references/experience-records.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/references/standards.md",
+      "sha256": "92a0895223f2ca1d5fe9164107b85a6011c4eda734ed5c142929831663a22f73",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/references/standards.md"
+    },
+    {
+      "path": ".agents/skills/staff-evals/references/evaluation-method.md",
+      "sha256": "12d4f83ce57e95fd872de22ecb17c76248aedf46b91d320690160fd58117378d",
+      "url": "https://github.com/ed3c/medium-compiler/blob/1ef857be738e4de106457063539ff28d75dc36d9/.agents/skills/staff-evals/references/evaluation-method.md"
+    }
+  ],
+  "kind": "instruction source binding; consumer evidence separately attached",
+  "human_labels": 0,
+  "fresh_coding_model_runs": 0
+}

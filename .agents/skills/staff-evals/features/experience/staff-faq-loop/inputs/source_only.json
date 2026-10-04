@@ -1,0 +1,89 @@
+{
+  "case_id": "source_only",
+  "request": "Use staff-evals to review the supplied engineering work. Explain the task outcome, consequential decisions, implementation mechanism, alternatives, evidence limits and what these records can establish about evaluator reliability or human experience. Retain a case record. Do not run product tests or modify source.",
+  "target": {
+    "repository": "ed3c/soodles",
+    "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f"
+  },
+  "instructions": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/SKILL.md",
+      "sha256": "72eba12c95af86b7b6bda1c3feef485752123becd41a9d107f2f5ac4ff5f4d0e"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/assets/experience-case.json",
+      "sha256": "529a171bc384d6dea3d8f61fbe65a195643514aaff952d804aaa2ac0a878e37e"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience-review.md",
+      "sha256": "a366de2b2e530db43a31d4d4bea903378a3483dc768ff6cc7ceb0255f275ba41"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/instruction-feedback.md",
+      "sha256": "7fc75578ae787259c0f5aaac86990abe75d21ed4af276fbc9d340f185a32e39c"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/report-delivery.md",
+      "sha256": "da9b71cf1f5475ffa8263208feb160fee0014c589c8c66137e65923f8179ea94"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/workflow-review.md",
+      "sha256": "18c2c06afaca5885fcce8e929be301878424c2f71b969e2fc341ee1b1fb18892"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/references/engineering-role.md",
+      "sha256": "2fe393387319eab5635aeb65846323dc61296d85b5ed0d38ad31dc4a278048d1"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/references/experience-records.md",
+      "sha256": "581491ee7c5306555f91d17966980397e62a4759c26261ac8428990b8e435c8c"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/references/standards.md",
+      "sha256": "92a0895223f2ca1d5fe9164107b85a6011c4eda734ed5c142929831663a22f73"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/references/evaluation-method.md",
+      "sha256": "12d4f83ce57e95fd872de22ecb17c76248aedf46b91d320690160fd58117378d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/AGENTS.md",
+      "sha256": "42b977450ed7912008a3c837c119742449c204ad23f86a57455fe14543df66d6"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/cost_telemetry.py",
+      "sha256": "6eae5e249819e9ad3c4e0f405a1f4bfdcd59fe22e130ca86fe31ca62297e1857"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/schema_manager.py",
+      "sha256": "4ac062c469db1cc4df93912665977caaa1ebd8ac601f30cfec67b47648e3b368"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/test_manager.py",
+      "sha256": "a992fab7bd1fb73d7e0722663a0d39e68069e48f16a4cb98637532c1df2e1bca"
+    }
+  ],
+  "response_contract": {
+    "schema": 1,
+    "case_id": "copy case_id",
+    "instructions": "Map every selected instruction absolute path to its actual sha256; include exactly task.instructions, not method files",
+    "input_sha256": "SHA256 of this task.json",
+    "output": {
+      "human_review_performed": "Your Boolean judgment, with evidence and explanation in assessment.md",
+      "evaluator_validated": "Your Boolean judgment, with evidence and explanation in assessment.md",
+      "prospective_prediction_eligible": "Your Boolean judgment, with evidence and explanation in assessment.md",
+      "agent_behavior_observed": "Your Boolean judgment, with evidence and explanation in assessment.md"
+    }
+  },
+  "deliverables": [
+    "assessment.md",
+    "guide.md",
+    "case.json",
+    "consumer-report.json",
+    "capture.md"
+  ],
+  "capture": "List actual sources and operations used. This is consumer self-report, not a complete independent platform transcript.",
+  "output_directory": "/tmp/staff-faq-loop/consumer-source_only"
+}

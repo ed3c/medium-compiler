@@ -1,0 +1,11 @@
+{
+  "reviewer": "coordinator AI",
+  "scope": "schema 1 external reasoning; not schema 2 condition acceptance",
+  "reasons": {
+    "human_review_performed": "No human annotation is supplied; fresh agent review cannot manufacture one.",
+    "evaluator_validated": "These task records contain no held-out expert-labeled evaluator validation.",
+    "prospective_prediction_eligible": "Historical task outcomes already present in input.",
+    "original_report_checks_preserved": "Compare before/after test assertions; original report checks persist.",
+    "agent_behavior_observed": "Source-only input has no coding-agent execution trace."
+  }
+}

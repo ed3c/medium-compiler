@@ -1,0 +1,21 @@
+{
+  "carrier": "ChatGPT Work native subagents",
+  "fork_turns": "none",
+  "instruction_commit": "1ef857be738e4de106457063539ff28d75dc36d9",
+  "protocol_sha256": "de319cda5c9dfcb99dbdebbd964db5017285c9e1bac8a14fca944baeb358450e",
+  "consumers": [
+    {
+      "agent": "/root/faq_recorded",
+      "task": "/tmp/staff-faq-loop/inputs/recorded.json"
+    },
+    {
+      "agent": "/root/faq_source",
+      "task": "/tmp/staff-faq-loop/inputs/source_only.json"
+    }
+  ],
+  "expected_values_passed": false,
+  "shared_filesystem": true,
+  "full_platform_transcript": false,
+  "capture_kind": "child self-report plus parent launch and final messages",
+  "noodle_admitted_session": false
+}

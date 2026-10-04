@@ -1,0 +1,6 @@
+{
+  "observed_failure": "Coordinator wrapper expected behavior string PASS, but owner returns behavior.classification. CLI itself succeeded exit 0.",
+  "correction": "Read existing feedback with documented object shape; did not rerun unchanged submission.",
+  "product_defect": false,
+  "new_consumer_observation_needed": false
+}

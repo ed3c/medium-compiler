@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "id": "source_only",
+  "feature": "experience-review",
+  "target": {
+    "repository": "ed3c/soodles",
+    "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+    "task": "/tmp/staff-faq-loop/inputs/source_only.json",
+    "patch": null
+  },
+  "actor": {
+    "agent": null,
+    "model": null,
+    "harness": null,
+    "coverage": "source-only; no implementer workflow evidence"
+  },
+  "reviewer": {
+    "identity": "Codex AI reviewer",
+    "kind": "agent",
+    "assistance": "staff-evals selected instructions",
+    "prior_outcome_exposure": "source inspected; no runtime outcome supplied; retrospective implementation judgment"
+  },
+  "evidence": [
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/AGENTS.md",
+      "sha256": "42b977450ed7912008a3c837c119742449c204ad23f86a57455fe14543df66d6",
+      "kind": "source",
+      "binding": "matches task digest; Git provenance not independently checked"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/cost_telemetry.py",
+      "sha256": "6eae5e249819e9ad3c4e0f405a1f4bfdcd59fe22e130ca86fe31ca62297e1857",
+      "kind": "source",
+      "binding": "matches task digest; Git provenance not independently checked"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/schema_manager.py",
+      "sha256": "4ac062c469db1cc4df93912665977caaa1ebd8ac601f30cfec67b47648e3b368",
+      "kind": "source",
+      "binding": "matches task digest; Git provenance not independently checked"
+    },
+    {
+      "path": "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/test_manager.py",
+      "sha256": "a992fab7bd1fb73d7e0722663a0d39e68069e48f16a4cb98637532c1df2e1bca",
+      "kind": "source",
+      "binding": "matches task digest; Git provenance not independently checked"
+    }
+  ],
+  "decision": {
+    "requirement": "Preserve source-bound normal cost observations and unknowns while existing owners retain tests, repair and effects.",
+    "mechanism": "cost_telemetry.report/project -> test_manager.review_cost -> schema_manager.project_cost/project_owner_feedback",
+    "consequence": "Overlap is unioned; missing measures remain null; failures/repeats request original-owner readback without effects. Source-derived only.",
+    "alternative": "Hypothetical sum-all-seconds and duration/repetition-triggered repair.",
+    "tradeoff": "Simpler accumulation works for proven disjoint complete spans; current nested/parallel observations and absent necessity evidence justify richer accounting and owner handoff."
+  },
+  "prediction": null,
+  "outcome": {
+    "status": "unobserved",
+    "scope": "Product runtime and delivery absent; source supports scoped implementation mechanism."
+  },
+  "lesson": {
+    "status": "locally_supported",
+    "applies_when": "Observations overlap or are partial, and cost reviewer does not own effects.",
+    "counterexample": "If spans are proven disjoint and complete, simple addition can suffice; repetition after a changed input may be necessary.",
+    "next_check": "Inspect existing normal receipts and caller handling for overlap, missing duration, conflicting replay and legacy terminal continuation."
+  },
+  "role_feedback": {
+    "architecture": "assessment.md: separated observation and effect owners; simpler alternative tradeoff",
+    "attention_to_detail": "assessment.md: wall/monotonic clocks, overlap, replay identity, deferred overhead",
+    "engineering_judgment": "Implementation-level only; actor choice unobserved",
+    "debugging": "No observed symptom/reproduction/repair sequence",
+    "reasoning_clarity": "No implementer explanations supplied",
+    "communication": "No implementer communication supplied",
+    "developer_trust": "No implementer completion claims or trace supplied"
+  },
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null
+  },
+  "closure": {
+    "product": "unobserved",
+    "agent": "not assessed; no workflow trace",
+    "evaluator": "not validated",
+    "owner_feedback": null,
+    "gaps": [
+      "Original Issue/patch and completion boundary absent",
+      "Caller issue_atom and focused tests outside evidence",
+      "Runtime receipts and complete transcript absent",
+      "Human labels and independent judgment absent",
+      "Prediction freeze and observation order absent",
+      "No independent Git-byte binding"
+    ]
+  },
+  "review_mode": "implementation_review",
+  "decision_episodes": [],
+  "disagreements": [],
+  "evaluation": {
+    "task_outcome": {
+      "status": "unobserved",
+      "criterion": "Actual normal-use cost reporting and owner continuation satisfy the supplied AGENTS requirements without extra effects.",
+      "evidence_refs": [
+        "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/AGENTS.md",
+        "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/cost_telemetry.py",
+        "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/schema_manager.py",
+        "/workspace/scratch/7ed56a5a2a33/medium-faq-loop/.agents/skills/staff-evals/features/experience/staff-decision-loop/inputs/source-only/test_manager.py"
+      ]
+    },
+    "first_observed_divergence": null,
+    "dataset_use": "case_review",
+    "task_family": "source-bound cost telemetry and owner continuation",
+    "split": null,
+    "failure_notes": [],
+    "human_review": null,
+    "evaluator_validation": null
+  }
+}

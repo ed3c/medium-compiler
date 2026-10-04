@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "./soodles",
+    "schema",
+    "pclass-feedback",
+    "/tmp/staff-faq-loop/observer/observed-selection.json",
+    "cb8807a9b754a4d0e45b8c925e81c3d440eaa71a8b5a3d21b29799d6159e4a5a"
+  ],
+  "exit": 0,
+  "elapsed_seconds": 0.09682602300017606
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "ai-engineering-report@1",
+  "id": "staff-evals-method-loop",
+  "title": "Staff Evals 方法修正：任務結果、資料用途與人工判斷",
+  "summary_zh": "用兩個真實案例檢查新版指引，保留工程機制、回顧資料與人工校準的界線。",
+  "repository": "ed3c/medium-compiler",
+  "revision": "1ef857be738e4de106457063539ff28d75dc36d9",
+  "mode": "SCOPED_METHOD_AND_CONSUMER_REVIEW",
+  "review_mode": "combined",
+  "capture_scope": "兩個原生 fresh reviewer 的自行記錄；歷史 task inputs，未提供完整平台 transcript。",
+  "reviewer": "AI coordinator 與兩個 fresh AI reviewers",
+  "human_calibration": "NOT_PERFORMED",
+  "assessment": {
+    "path": "reports/ai-evals/staff-evals-method-loop/assessment.md",
+    "sha256": "1830545038e23fe8576796455ca8b773ee57254c0e7d1bc5c086b529f733b729"
+  },
+  "guide": {
+    "path": "reports/ai-evals/staff-evals-method-loop/guide.md",
+    "sha256": "77a8b8815df5ff6b849351c94e9a6e3e4d532819ba0e963ce36a5fbf67422803"
+  },
+  "audit": {
+    "path": "reports/ai-evals/staff-evals-method-loop/archive-audit.json",
+    "sha256": "92f9b973534b8f6b0fddcfc7e1d750201f0a63356634d6a117d8aa8d194ac41c"
+  },
+  "dimensions": [
+    {
+      "name": "工程判斷（Engineering judgment）",
+      "status": "兩個選定案例",
+      "reason": "正文及原始 assessment 保留結果、mechanism、替代方案與反例。"
+    },
+    {
+      "name": "評估器可信度（Evaluator validity）",
+      "status": "人工校準尚未完成",
+      "reason": "Schema checks 僅涵蓋八個報告欄位；正文另外做 AI semantic review。"
+    },
+    {
+      "name": "經驗與預測（Experience and prediction）",
+      "status": "回顧案例",
+      "reason": "無新的人類預測；不可加入事前預測正確率。"
+    }
+  ],
+  "fresh_coding_model_runs": 0,
+  "fresh_evaluator_sessions": 2,
+  "full_platform_transcript": false,
+  "personal_qualification": "NOT_ASSESSED",
+  "causal_model_improvement": "NOT_ESTABLISHED",
+  "language": "zh-Hant",
+  "supplementary_evidence": [
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/recorded-assessment.md",
+      "sha256": "36b978be79430af9c1d6aa292179bb52fe7eb6ef1235bf38c9d82127784b6f3e",
+      "label": "recorded｜assessment.md"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/recorded-case.json",
+      "sha256": "61deaa6a61a0b9fe6d2b5c73897ca4a7823e25c2da3a3deb9421079bf69fa354",
+      "label": "recorded｜case.json"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/recorded-consumer-report.json",
+      "sha256": "f95138a4ff1050b589a6a3752255cb52ad2649435f624f4d34d6231c229376cb",
+      "label": "recorded｜consumer-report.json"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/recorded-capture.md",
+      "sha256": "b304cbb2d99ab4674f1ac71b649b42459ef982f4d52efbe9ccf231f92afc91a5",
+      "label": "recorded｜capture.md"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/source_only-assessment.md",
+      "sha256": "68a323657ebbe13f011bad47456c55f7e1a705c1ac51f86b3b8bbda228536a24",
+      "label": "source_only｜assessment.md"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/source_only-case.json",
+      "sha256": "54342166c9ecf591a660d7f38fd3923c0577a222bda54b31859178546775d865",
+      "label": "source_only｜case.json"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/source_only-consumer-report.json",
+      "sha256": "bf174b74b9d2271e75c726072df6faef2d1ea0916e04b7f7248018504e1e603f",
+      "label": "source_only｜consumer-report.json"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/source_only-capture.md",
+      "sha256": "c3c2bf48ce656f5c9434df997491fbff43ab41680dd6a31d219b179df927b0c7",
+      "label": "source_only｜capture.md"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/protocol.json",
+      "sha256": "de319cda5c9dfcb99dbdebbd964db5017285c9e1bac8a14fca944baeb358450e"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/feedback.json",
+      "sha256": "d9975042258414d35182263924d52a1d761791885e3e27ef453beb4e37cbaa1a"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/owner-consumption.json",
+      "sha256": "dd3fd8dedda78761106864df99fe7198e8032c6c99128c37d5ec6775d42566e2"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/semantic-readback.json",
+      "sha256": "b8c9119a007583c59522658e925bf8d3a4656573b6b1153c1c578188f8b25e82"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/criteria-review.json",
+      "sha256": "ebfca7b7ff7a715674aeac76de44d08cf4e9b67cc6a5e558b1692f6af7d88a44"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/provider-readback.json",
+      "sha256": "92f748ebcd1575a36e7bdaef3af72b2922ab8d1ede8dbb7fdb12142c1ebc5bdf"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/missing.stdout",
+      "sha256": "709910b22dccd63b5b990f60d3dc91319c946af4d8d7759dd3c22516f65cc0c2"
+    },
+    {
+      "path": "reports/ai-evals/staff-evals-method-loop/launch-record.json",
+      "sha256": "c35dc76297f73ad1277651b95459095ee0d8e7b8c3ce9294b5a8e560f2063351"
+    }
+  ]
+}
