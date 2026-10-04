@@ -23,7 +23,7 @@ When changing decision-review guidance, use a recorded coding episode and a sour
 boundary case. Select the smallest cases that expose the demonstrated gap; group related
 instructions. Keep expected judgments outside consumer inputs. Do not teach the tested
 episode through examples in the changed skill. Check factual outputs through the existing
-Schema interface, then review the actual English feedback for reasoning and counterevidence.
+Schema interface, then review the actual assessment for reasoning and counterevidence.
 Record a failed semantic readback even if the structured fields pass. Correct and reobserve
 the affected instruction claim; do not replace the consumer's response with the expected one.
 Use genuine expert review for calibration claims. A fresh AI reviewer supplies another

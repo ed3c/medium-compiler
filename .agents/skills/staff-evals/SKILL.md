@@ -27,7 +27,8 @@ Assess visible explanations; do not invent hidden reasoning or an implementer id
 If the requested behavior judgment lacks evidence, name the smallest missing observation
 and continue supported work. Do not relabel a source audit as completed Agent evaluation.
 
-Use English for the technical assessment. Add a Traditional Chinese reader guide.
+Write the assessment and reader guide in Traditional Chinese. Preserve English technical terms
+and explain their meaning at first use. Preserve raw outputs in their original language.
 Do not represent an AI-authored assessment as the user's independent work or a hiring certification.
 Read [the feature map](features/README.md) and the selected recipe.
 Read [the source standards](references/standards.md) before changing this guidance.
@@ -69,8 +70,10 @@ Do not silently bind a changed file to an unchanged commit.
 
 ## Drive
 
-1. Select a bounded engineering decision from the actual task. State the user impact,
-   original requirements, non-goals, allowed effects and completion boundary.
+1. State the end-to-end user outcome, original requirements, non-goals, allowed effects
+   and completion boundary. Record whether that outcome is met, unmet or unobserved,
+   with evidence. Then select the consequential engineering decision to diagnose.
+   Use [the evaluation method](references/evaluation-method.md) for outcome, data and review boundaries.
 2. Reconstruct one concrete input-to-output path from implementation and available execution:
    caller, owner, input, branch, state mutation, external effect, failure and recovery.
    Distinguish what source permits from what the Agent actually did.
@@ -95,7 +98,7 @@ Do not silently bind a changed file to an unchanged commit.
    Do not claim blindness after seeing arm identities. A tie is a valid result.
 9. Verify deterministic claims with code, owner readback or focused reproduction.
    Do not replace technical verification with an LLM opinion.
-10. Write the English assessment with the report structure below. When publication is requested,
+10. Write the Traditional Chinese assessment with the report structure below. When publication is requested,
     use the existing site builder. A skill correction alone does not rewrite a historical evaluation.
 11. Save the case and its engineering lesson through the experience feature. For a new prediction,
     freeze the input, predicted outcome and falsifier before observing the outcome. If already seen,
@@ -121,7 +124,7 @@ Include counterevidence, A/B decision when applicable, uncertainty and next obse
 For a design judgment, explain the constraint, premise, choice, simpler alternative,
 and runtime actor, input, check, state change, effect and failure path.
 Use short active sentences and stable terms. Preserve raw bytes, negations and uncertainty.
-Write an English verdict that a reviewer can understand without this chat.
+Write a Traditional Chinese verdict with explained English technical terms that a reviewer can understand without this chat.
 Keep tokens, wall time, model time and task-handling time separate. Unknown values stay unknown.
 
 For Agent evaluations, lead with prioritized decision findings and actionable feedback.
@@ -164,7 +167,7 @@ Keep method files in the protocol's methods list, not the report's instruction m
 Save and hash the completed draft before submission. Do not reconstruct it from case names.
 For an admitted Noodle writer, use `./stage-outcome feedback` instead, with its existing identity.
 Do not create admission, claim lifecycle completion, or infer landing authority from feedback.
-A scoped structured PASS does not certify the English analysis or staff-level ability.
+A scoped structured PASS does not certify the assessment or staff-level ability.
 
 ## Cleanup
 

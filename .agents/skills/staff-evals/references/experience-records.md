@@ -71,7 +71,8 @@ Do not convert an accuracy percentage on a convenient sample into job readiness.
 
 Use the supplied G2i role to ask concrete questions: did the reviewer predict the failure
 path, select an informative debugging check, compare architecture tradeoffs, notice missing
-evidence and communicate an actionable English explanation? Verify observable predictions.
+evidence and communicate an actionable explanation? Evaluate English communication only
+from actual English work. Verify observable predictions.
 Review reasoning quality separately; a lucky correct answer can have a defective rationale.
 Human experience requires actual human decisions and feedback. Agent-only records remain
 valuable engineering evidence but cannot establish the user's independent skill.
@@ -97,3 +98,14 @@ evals-skills schema or a G2i interview rubric. It composes the pinned review-wri
 methods in standards.md with the Notion Shape → Guard → Guide principles linked in
 engineering-role.md. The Domain Context Pack was reread on 2026-10-04 and remains staging,
 not proof of runtime enforcement. Token savings and cheap repair are hypotheses to measure.
+
+## Dataset purpose and human review
+
+Use the optional `evaluation` object in new cases. Read
+[evaluation-method.md](evaluation-method.md) before promoting case data to evaluator evidence.
+Record the task outcome independently of the reviewer’s decision verdict. Preserve the
+first observed divergence and its evidence; unknown origin is not a model attribution.
+Keep `human_review` null until a real person supplies a judgment. Add their original text,
+identity, evidence scope and disagreements without overwriting the Agent review.
+`dataset_use` declares intended use, not automatic eligibility. A null split means no
+train/dev/test assignment. Group related attempts before assigning a split.
