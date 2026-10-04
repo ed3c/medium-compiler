@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[4]
 sys.path.insert(0,str(ROOT))
@@ -21,6 +22,63 @@ FEATURES=("staged-authoring","bounded-revision","lossless-drilldown","delivery",
 def blob(data):return hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
 def sha(data):return "sha256:"+hashlib.sha256(data).hexdigest()
 def put(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+"\n")
+
+
+CEFR_SKILL_FILES = {
+    '.agents/skills/' + skill + '/' + name
+    for skill, names in {
+        'cefr-alg-four-pass': ('SKILL.md', 'references/four-pass-contract.md',
+            'references/execution-protocol.md', 'features/README.md',
+            'features/technical-article-four-pass.md'),
+        'alg-vocab-encounter': ('SKILL.md', 'features/README.md', 'features/fast-passive-encounter.md'),
+        'alg-explainer-video': ('SKILL.md', 'references/handoff-contract.md',
+            'features/README.md', 'features/hypit-explainer.md'),
+    }.items() for name in names
+}
+
+
+def relative_doc_targets(path, root):
+    """Resolve Markdown links and explicit relative document references beside their source."""
+    text = path.read_text(encoding='utf-8')
+    references = re.findall(r'\]\(([^\s)]+)\)', text)
+    references += re.findall(r'`((?:\.\.?/)[^`\s]+\.md(?:#[^`\s]*)?)`', text)
+    targets = set()
+    for reference in references:
+        parsed = urlsplit(reference)
+        if parsed.scheme or parsed.netloc or not parsed.path:
+            continue
+        target = (path.parent / unquote(parsed.path)).resolve()
+        exists = target.is_file() or parsed.path.endswith('/') and target.is_dir()
+        if not target.is_relative_to(root.resolve()) or not exists:
+            raise ValueError(f'Unresolved local dependency: {path}: {reference}')
+        targets.add(target)
+    return targets
+
+
+def verify_cefr_skill_lock(root):
+    path = root/'references/upstream/cefr-alg-skills-lock.json'
+    if not path.is_file():
+        raise ValueError('CEFR skill dependency pending: accepted references/upstream/cefr-alg-skills-lock.json missing')
+    lock = json.loads(path.read_text())
+    if (lock.get('repository') != 'ed3c/cefr-alg-c2-plus'
+            or not re.fullmatch(r'[0-9a-f]{40}', lock.get('revision', ''))):
+        raise ValueError('CEFR skill repository/revision invalid')
+    entries = lock['files']
+    if len(entries) != len(CEFR_SKILL_FILES) or {item['target_path'] for item in entries} != CEFR_SKILL_FILES:
+        raise ValueError('CEFR skill lock must cover the complete 12-file dependency set')
+    actual = {p.relative_to(root).as_posix() for skill in
+              ('cefr-alg-four-pass', 'alg-vocab-encounter', 'alg-explainer-video')
+              for p in (root/'.agents/skills'/skill).rglob('*') if p.is_file() or p.is_symlink()}
+    if actual != CEFR_SKILL_FILES:
+        raise ValueError('CEFR skill files differ from the complete lock manifest')
+    for item in entries:
+        if set(item) != {'source_path', 'target_path', 'git_blob'} or item['source_path'] != item['target_path']:
+            raise ValueError('CEFR skill lock must preserve upstream relative paths')
+        source = root/item['target_path']
+        if source.is_symlink() or source.resolve() != source.absolute() or blob(source.read_bytes()) != item['git_blob']:
+            raise ValueError('CEFR vendored bytes drift: '+item['target_path'])
+        relative_doc_targets(source, root)
+    return lock['revision']
 
 
 class Driver:
@@ -49,9 +107,11 @@ class Driver:
         for entry in lock['files']:
             if hashlib.sha256((ROOT/entry['path']).read_bytes()).hexdigest()!=entry['sha256']:
                 raise ValueError('vendored bytes drift: '+entry['path'])
+        cefr_revision=verify_cefr_skill_lock(ROOT)
         return {'status':'PASS','python':sys.version.split()[0],'registered_skills':names,
                 'registration':'FILES_VERIFIED; live host instruction activation not measured',
-                'compiler_sha256':sha((ROOT/'medium_compiler.py').read_bytes())}
+                'compiler_sha256':sha((ROOT/'medium_compiler.py').read_bytes()),
+                'cefr_skill_revision':cefr_revision}
     def staged(self):
         self.feature='staged-authoring'
         with tempfile.TemporaryDirectory(prefix='medium-staged-') as tmp:

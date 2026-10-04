@@ -1,7 +1,7 @@
 {
   "schema_version": "cefr-alg-site-import@1",
   "repository": "https://github.com/ed3c/cefr-alg-c2-plus",
-  "revision": "416f554015b44ae27cb342a3cdb331cec78a1490",
+  "revision": "b4b37fd95e9e654aa11c70ce76333aaeea683cd1",
   "source_directory": "dist",
   "route": "/cefr-alg-c2/",
   "files": {
@@ -20,7 +20,7 @@
     "compare.css": "b7c888dca96929e2442d2e0cda74771b4d439e88f4c81494e2611baf7ebb5fe6",
     "compare.html": "1e8ba23088080c0194ee897f971529cfbe499e66f49f5720255ac6509201133d",
     "compare.js": "76bc5986df3082d2c479d02d62090069fdf3e4c567862bae926e291e67af7430",
-    "index.html": "fdea78ef7d424c5664537514b35af63478a7258a97f8074e10953ce978e52184",
+    "index.html": "6699c3584c90212d6226463a54d11d778dbc4cdd4e64d2afaf4f74d1863cfc46",
     "kokoro-worker.js": "a71f7054150e2d7cb4ebf53a0054caafe34645b9ca055b8a386c8a030806151a",
     "lessons.js": "e7add4f21cee269510674b927f48da3057aa19a99347e010e41d15d8c0f7d9f5",
     "narration/manifest.json": "37d8c823e2f9273d2f896b92b0cb44b967c2f9a561635c9d97d692b3c5108d24",
@@ -50,6 +50,14 @@
     "narration/parler-release-2-plain-c7f8dee91fa4.mp3": "8ed63b0441e5611821cf8288069bd84784367e68da47163feeca61c27c2fdaaf",
     "studio-narrator.js": "03d40091f2fc66d0ae8e4919657fdc8f711d8537822558bbc97557b2f4ce908e",
     "style.css": "c9440151ae4e4a46e16470fd7b1a33705c3e9937ce426cf7e585b0a8d112dc93",
+    "technical-lessons/software-factory-sole-acceptance/captions.vtt": "24cab60fca56e7854af7a9761de7a8fa0c8d7fc4221319065eff24096580251a",
+    "technical-lessons/software-factory-sole-acceptance/final.mp4": "f171144553782a2af03a0fb33f6375abdd963563a1b2522a35d32842da0bd050",
+    "technical-lessons/software-factory-sole-acceptance/lesson.json": "ba829a6fede10a3b7dfb6c3b999f554159bbdec94b2540e630ef951a747b715c",
+    "technical-lessons/software-factory-sole-acceptance/manifest.json": "92c2633e93ab990c0852459875a029d43670388c0aefb57396cfb018419ab825",
+    "technical-lessons/software-factory-sole-acceptance/narration.txt": "9ee68b89c9fce494e50f14d24a847620cb40bedfe6bb0d19cdcb128a1ebb6e31",
+    "technical-notes.js": "d8c4789ebad749a4ecaa99e8dde2b55256cbe4a3935427dfdcbc594d7c3dbfa4",
+    "technical.html": "96fb0a5fefb8de311661994d79397d26b2a6ac5e029e772c727c32ddfa187e24",
+    "technical.js": "67029fab66698fd78943c52537c267212a91978a2f34d6d8264cd23b71077a50",
     "voice-cases.js": "e1f1cb3cf6061e004eb8feca2e39147c65b47b3e6a711741f4c98f03e7553694"
   },
   "build_adaptations": [
