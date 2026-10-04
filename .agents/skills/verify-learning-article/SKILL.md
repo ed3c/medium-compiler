@@ -1,6 +1,6 @@
 ---
 name: verify-learning-article
-description: 依 AI Engineering from Scratch 的已選學習路徑逐課研讀、實作並直接回答理論與實務問題，結合 medium-compiler 寫作與網站發布驗收。用於新增下一課文章、修訂課程文章或維護這條驗證流程。
+description: 依 AI Engineering from Scratch 的已選學習路徑逐課研讀、實作，以英文起稿，再譯成保留英文專有名詞的繁體中文，結合 medium-compiler 寫作與網站驗收。用於新增或修訂課程文章、英中語意核對及維護此流程。
 ---
 
 # AI Engineering 學習文章：從原課到可驗證的網頁
@@ -35,6 +35,15 @@ Zero context 的定義是：
 依 [因果解釋與語意驗收](features/article-assembly.md#因果解釋與語意驗收) 撰寫與審視。
 從原需求和證據推導接受、拒絕及未知條件。清楚的文字不能補足缺少的證據，
 也不能把取捨直接標成主觀問題，再交回使用者決定。
+
+## 英文先行，繁體中文交付
+
+預設先以英文完成本次寫作單元的推理，再翻譯成繁體中文，保留精確英文專有名詞。
+英文採 STE-inspired 清楚寫法；不宣稱符合完整 ASD-STE100，也不用「80%」當驗收分數。
+依 [英中寫作與語意核對](features/article-assembly.md#英中寫作與語意核對) 保存兩種版本，
+對照來源核對條件、因果、runtime 與未知事項，再送入既有編譯流程。
+交付英文底稿及對應繁中稿；本站正文沿用繁中，發布仍依原任務授權。
+這是作者須執行的流程；`verify-medium` 不會自動翻譯或證明兩種語言語意相等。
 
 ## Launch
 
