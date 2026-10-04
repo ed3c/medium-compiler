@@ -1,0 +1,139 @@
+{
+  "baseline": "e88bd741faa69ae13b094383088402a9ad924c36",
+  "existing_article_files_unchanged": 20,
+  "existing_article_changes": [],
+  "tests": {
+    "command": "python3 -m unittest discover -s tests -v",
+    "result": [
+      "----------------------------------------------------------------------",
+      "Ran 171 tests in 5.575s",
+      "",
+      "OK"
+    ]
+  },
+  "mechanical_verification": {
+    "features": {
+      "doctor": {
+        "status": "PASS",
+        "python": "3.12.14",
+        "registered_skills": [
+          "alg-explainer-video",
+          "alg-vocab-encounter",
+          "build-review-interface",
+          "cefr-alg-four-pass",
+          "check-understanding",
+          "course-guide",
+          "error-discovery",
+          "eval-audit",
+          "evals-start",
+          "evaluate-rag",
+          "find-your-level",
+          "generate-synthetic-data",
+          "learn",
+          "maintain-medium-verification",
+          "medium-behavior-evals",
+          "medium-writing",
+          "staff-evals",
+          "start-learning",
+          "validate-evaluator",
+          "verify-learning-article",
+          "verify-medium",
+          "write-code-eval",
+          "write-judge-prompt"
+        ],
+        "registration": "FILES_VERIFIED; live host instruction activation not measured",
+        "compiler_sha256": "sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6",
+        "cefr_skill_revision": "b4b37fd95e9e654aa11c70ce76333aaeea683cd1"
+      },
+      "staged-authoring": {
+        "status": "PASS",
+        "fixture_kind": "scripted CLI control; not a writer run"
+      },
+      "bounded-revision": {
+        "status": "PASS",
+        "fixture_kind": "controlled one-phrase article edit, not the shipped expansion"
+      },
+      "lossless-drilldown": {
+        "status": "PASS",
+        "article_sha256": "sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+        "real_article": true,
+        "author_review": "performed, not independent",
+        "learning_handoff": {
+          "preflight": {
+            "article_sha256": "sha256:2fe1433a2e4f7ed4dfc83936617c22b915532ceeb29397773332c8564a55ad0f",
+            "plan_sha256": "sha256:b3ea60fc17b85df4aa8e28467d8e3b60fb3cd1167aec3f112b1079b69286b37f",
+            "status": "BLOCKED",
+            "next": {
+              "owner": "learning-owner",
+              "operation": "supply-learning-prerequisite",
+              "missing_input": "learning_handoff"
+            },
+            "missing": [
+              {
+                "input": "learning_handoff",
+                "owner": "learning-owner"
+              }
+            ],
+            "article_mutation_allowed": false,
+            "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+            "human_learning_outcome": "NOT_MEASURED"
+          },
+          "boot": {
+            "status": "BLOCKED",
+            "next": {
+              "owner": "learning-owner",
+              "operation": "supply-learning-prerequisite",
+              "missing_input": "learning_handoff"
+            },
+            "missing": [
+              {
+                "input": "learning_handoff",
+                "owner": "learning-owner"
+              }
+            ],
+            "article_mutation_allowed": false,
+            "progress_write": "NEVER_BY_MEDIUM_COMPILER",
+            "human_learning_outcome": "NOT_MEASURED"
+          },
+          "created_run": false
+        },
+        "authority_boundary": {
+          "experiment_without_promotion": "READY_NON_AUTHORIZING",
+          "promote_without_product_need": "REFUSED",
+          "promote_with_declared_prerequisites": "READY_NON_AUTHORIZING",
+          "pending_experiment_owner": "experiment-owner",
+          "synthetic_acceptance": "UNIT_TEST_CONTROL_ONLY"
+        },
+        "human_progress": "NOT_UPDATED",
+        "fresh_writer_ab": "NOT_RUN"
+      },
+      "delivery": {
+        "status": "PASS",
+        "parts": 5,
+        "refusal_controls": {
+          "missing_part": true,
+          "reordered_parts": true,
+          "changed_part": true
+        },
+        "article_sha256": "sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4",
+        "medium_browser_rendering": "NOT_RUN"
+      }
+    },
+    "outcome": "mechanical_pass",
+    "source_review": "coordinator source review is separate; no subagent wave fabricated",
+    "strict_pstack_maintenance": "NOT_CLAIMED",
+    "evidence_retained": true
+  },
+  "article_assembly": "See validation-receipt.json; replay.py reproduces it through real CLI invocations.",
+  "source_fetch": {
+    "mode": "https_fetch",
+    "segment_count": 95,
+    "first_timestamp": "00:00:00",
+    "last_timestamp": "00:47:58",
+    "audio_verified": false
+  },
+  "source_receipt": "references/transcripts/openrouter-agent-primitives.json",
+  "independent_review": "NOT_RUN",
+  "behavior_evals": "NOT_RUN",
+  "publication": "Not claimed by this pre-publication proof; observe GitHub and Vercel for deployed commit."
+}

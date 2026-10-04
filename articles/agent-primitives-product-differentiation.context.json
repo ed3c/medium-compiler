@@ -1,0 +1,35 @@
+{
+  "schema_version": "medium-transcript-article@1",
+  "purpose": "source-explanation",
+  "article_sha256": "08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38",
+  "source_manifest": "references/transcripts/openrouter-agent-primitives.json",
+  "source_manifest_sha256": "97ddec6decd7d672d98a91c0a069cfe225e6dd1576729082451354e7fbc2a5ed",
+  "source_scope": {
+    "timestamps": [
+      "00:14:05",
+      "00:14:46",
+      "00:14:58",
+      "00:15:18"
+    ],
+    "end_note": "Only the analogy in the beginning of 15:18; later enterprise response excluded.",
+    "whole_episode_rewrite": false
+  },
+  "author_review": {
+    "reviewer": "ChatGPT parent writer",
+    "independent": false,
+    "source_fidelity": "Core analogy preserved; acquisition does not validate speaker identity.",
+    "analysis_boundary": "Shopify-style product-page example, acceptance contract and costs are explicitly hypothetical author analysis.",
+    "audio_verified": false,
+    "unresolved": [
+      "No audio verification",
+      "Third-party transcription errors possible",
+      "No measured product benefit or human reading assessment"
+    ]
+  },
+  "writing_route": "Actual Stage 0-7; stage 6 unchanged author prose; replay evidence/transcript-cli/replay.py",
+  "decisions": [
+    "Capabilities versus accepted work",
+    "When evidence becomes stale",
+    "When verification pays for itself"
+  ]
+}

@@ -36,6 +36,13 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 
 ## Entry points
 
+- [Third-party transcript acquisition](docs/transcripts.md): `python3 scripts/transcript.py --help`.
+  PodScripts HTML is retained in a new ignored `.transcripts/` snapshot; the CLI does not
+  overwrite it, infer speakers, correct wording or claim audio verification. Public receipts
+  carry source metadata and hashes only. The site exposes `/transcripts/` and an independent
+  [Agent primitives article](articles/agent-primitives-product-differentiation.md), with the
+  source/analysis boundary and Markdown download. No existing article is replaced.
+
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)
 - [Planning/continuation prompts](prompts/medium-article.md)
