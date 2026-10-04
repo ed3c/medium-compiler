@@ -41,6 +41,7 @@ This separation does not relax runtime learning prerequisites or change verifier
 Read README.md and .agents/skills/medium-writing/SKILL.md before writing; use prompts/medium-article.md for task inputs. Root SKILL.md is a compatibility link only.
 
 - Codex repository skills live in .agents/skills. Do not modify user-global directories.
+- For podcast/video/topic-to-article requests, start with .agents/skills/podcast-to-medium/SKILL.md: CLI source discovery and passage selection, then the existing medium-writing and authorized website delivery.
 - Use verify-medium after a feature change. Full feature-map upkeep uses maintain-medium-verification, including source review AND actual drives; one recipe is not a full pass.
 - For AI Engineering from Scratch course articles, use .agents/skills/verify-learning-article/SKILL.md to connect the selected lesson, actual practice, medium-writing and deployed website verification. Do not equate agent execution or publication with learner mastery.
 - Boot output does not satisfy pending drill-down units. Follow lossless_batch.py next, preserve the source cursor, and keep state/evals outside copyable article prose.

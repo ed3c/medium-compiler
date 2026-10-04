@@ -221,13 +221,31 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
             or meta.get('publication')!='metadata_only_no_transcript_republication'
             or meta.get('audio_verified') is not False):
         raise ValueError('Unsupported transcript provenance')
+    scope=context['source_scope']
+    timestamps=scope.get('timestamps',[])
+    if (not timestamps or any(not re.fullmatch(r'\d{2}:[0-5]\d:[0-5]\d', t) for t in timestamps)
+            or timestamps!=sorted(set(timestamps))):
+        raise ValueError('Transcript source scope requires ordered exact timestamps')
+    if item['slug']=='agent-primitives-product-differentiation' and 'public_note' not in scope:
+        scope_note='14:05–15:40 的基本元件類比。'
+        analysis_note='商品頁案例與工程設計是作者延伸分析。'
+    else:
+        scope_note=scope.get('public_note','').strip()
+        analysis_note=scope.get('analysis_note','').strip()
+        if not scope_note or not analysis_note:
+            raise ValueError('New podcast articles require their own scope and analysis notes')
     # Source metadata is controlled by the repository, but URL attributes are escaped.
-    video=html.escape(meta['video_url']+'&t=845',quote=True)
+    video_link=''
+    if meta.get('video_url'):
+        h,m,s=map(int,timestamps[0].split(':'))
+        video=html.escape(meta['video_url']+'&t='+str(h*3600+m*60+s),quote=True)
+        label=timestamps[0][3:] if timestamps[0].startswith('00:') else timestamps[0]
+        video_link=f'<a href="{video}" target="_blank" rel="noreferrer">回看原影片 · {label}</a> · '
     provider=html.escape(meta['source_url'],quote=True)
     fetched=html.escape(meta.get('retrieved_at') or 'HTML 匯入，未宣稱 HTTP 取得時間')
     panel=f'''<section class="panel" aria-label="文章來源"><h2>閱讀來源</h2>
-<p><a href="{video}" target="_blank" rel="noreferrer">回看原影片 · 14:05</a> · <a href="{provider}" target="_blank" rel="noreferrer">第三方逐字稿 · PodScripts</a></p>
-<p>本篇取材範圍：14:05–15:40 的基本元件類比。商品頁案例與工程設計是作者延伸分析。文字依第三方轉錄核對，尚未逐句核對音訊。</p>
+<p>{video_link}<a href="{provider}" target="_blank" rel="noreferrer">第三方逐字稿 · PodScripts</a></p>
+<p>本篇取材範圍：{html.escape(scope_note)}{html.escape(analysis_note)}文字依第三方轉錄核對，尚未逐句核對音訊。</p>
 <p>來源取得時間：{fetched}。快照包含 {meta['segment_count']} 個區段，最後時間戳 {html.escape(meta['last_timestamp'])}；這不證明整集完整。</p>
 <p><a href="article.md" download>下載 Medium 文章（Markdown）</a> · <a href="source.json">來源紀錄</a> · <a href="/transcripts/">取得逐字稿的方法</a></p></section>'''
     (article_dir/'source.json').write_bytes(manifest_bytes)

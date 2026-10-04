@@ -28,7 +28,8 @@ class SkillRegistrationTests(unittest.TestCase):
             self.assertEqual(name,p.parent.name)
             self.assertIn('description:',text.split('---',2)[1])
             names.append(name)
-        self.assertEqual(len(names),23)
+        self.assertEqual(len(names),24)
+        self.assertIn('podcast-to-medium', names)
         self.assertIn("staff-evals", names)
         self.assertEqual(len(names),len(set(names)))
 

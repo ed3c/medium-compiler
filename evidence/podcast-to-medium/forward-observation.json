@@ -1,0 +1,246 @@
+{
+  "kind": "fresh-thread source-handoff exercise; no new writing or deployment",
+  "child_task": "/root/podcast_skill_forward",
+  "fork_turns": "none",
+  "input": {
+    "video_url": "https://youtu.be/ekK8urKHPMQ",
+    "question": "大家都建 Agent loop、通知、connectors、context、memory、sandbox，為什麼產品仍能差異化？",
+    "purpose": "source-explanation",
+    "scope": "本次僅搜尋和來源段落交接；不寫新文章、不部署、不改 GitHub 或 tracked files"
+  },
+  "source": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+  "selected_windows": [
+    {
+      "start": "00:14:05",
+      "through": "00:15:18",
+      "sha256": "6af03bd8536b196d50c4ccdb098c31ab36c046175cc21b4ddcf1355e34523ddc"
+    },
+    {
+      "start": "00:15:18",
+      "through": "00:16:52",
+      "sha256": "6abea17758e3292878e1990067f999be3c0f60c0eff26488e4444b12a18f441f"
+    }
+  ],
+  "child_authored_command_records": [
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "--help"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "search",
+        "--query",
+        "https://youtu.be/ekK8urKHPMQ",
+        "--podcast",
+        "a16z"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "inspect",
+        "--url",
+        "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "verify",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "locate",
+        "--help"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        ".transcripts/forward-podcast-skill",
+        ".transcripts/openrouter-agent-primitives"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "locate",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--term",
+        "agent loop",
+        "--term",
+        "notifications",
+        "--term",
+        "connectors",
+        "--term",
+        "context",
+        "--term",
+        "memory",
+        "--term",
+        "sandbox",
+        "--term",
+        "table stakes",
+        "--limit",
+        "15"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "passage",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--start",
+        "00:14:05",
+        "--through",
+        "00:15:18",
+        "--context",
+        "2",
+        "--out",
+        ".transcripts/forward-podcast-skill/core-passage.json"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "verify-passage",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--packet",
+        ".transcripts/forward-podcast-skill/core-passage.json"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "receipt",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--out",
+        "/tmp/podcast-skill-forward/source-receipt.json"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "passage",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--start",
+        "00:15:18",
+        "--through",
+        "00:16:52",
+        "--context",
+        "1",
+        "--out",
+        ".transcripts/forward-podcast-skill/enterprise-passage.json"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "verify-passage",
+        "--snapshot",
+        ".transcripts/openrouter-agent-primitives",
+        "--packet",
+        ".transcripts/forward-podcast-skill/enterprise-passage.json"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0
+    }
+  ],
+  "handoff_sha256": "a3179ef7df4453b708498adaddca47e3dac2b2086c99047a3e0c7160a3e5884f",
+  "parent_packet_readback_checks": [
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "verify-passage",
+        "--snapshot",
+        "/workspace/scratch/f3929bd4dad7/medium-compiler/.transcripts/openrouter-agent-primitives",
+        "--packet",
+        "/workspace/scratch/f3929bd4dad7/medium-compiler/.transcripts/forward-podcast-skill/core-passage.json"
+      ],
+      "exit": 0,
+      "result": {
+        "status": "OK",
+        "result": {
+          "packet_sha256": "6af03bd8536b196d50c4ccdb098c31ab36c046175cc21b4ddcf1355e34523ddc",
+          "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+          "start": "00:14:05",
+          "through": "00:15:18",
+          "audio_verified": false
+        }
+      }
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/transcript.py",
+        "verify-passage",
+        "--snapshot",
+        "/workspace/scratch/f3929bd4dad7/medium-compiler/.transcripts/openrouter-agent-primitives",
+        "--packet",
+        "/workspace/scratch/f3929bd4dad7/medium-compiler/.transcripts/forward-podcast-skill/enterprise-passage.json"
+      ],
+      "exit": 0,
+      "result": {
+        "status": "OK",
+        "result": {
+          "packet_sha256": "6abea17758e3292878e1990067f999be3c0f60c0eff26488e4444b12a18f441f",
+          "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+          "start": "00:15:18",
+          "through": "00:16:52",
+          "audio_verified": false
+        }
+      }
+    }
+  ],
+  "scope_note": "Parent rechecked source-bound packets and read the handoff. Child-authored logs are not independent native tool capture. No writer A/B, audio check, isolated reader or behavior improvement claim. Full transcript and private boundaries are not committed."
+}
