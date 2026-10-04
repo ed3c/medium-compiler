@@ -1,0 +1,104 @@
+{
+  "schema_version": "ai-engineering-report@1",
+  "id": "soodles-manager-cost",
+  "title": "Soodles: Test Cost, Schema Projection and Repair Boundaries",
+  "summary_zh": "28 個模組、617 個案例的正常 CI 成本審視；已回饋 Schema Manager，區分毫秒級狀態投影、測試必要性與尚未完成的自動修復閉環。",
+  "repository": "ed3c/soodles",
+  "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+  "mode": "SOURCE_AND_RUNTIME_REVIEW",
+  "reviewer": "AI assistant /root",
+  "human_calibration": "NOT_PERFORMED",
+  "assessment": {
+    "path": "reports/ai-evals/soodles-manager-cost/assessment.md",
+    "sha256": "a2cd34495bc9f83c00ca737c5b39fd1c1a23a0f03ca3332a4b77ea6216e61dd8"
+  },
+  "guide": {
+    "path": "reports/ai-evals/soodles-manager-cost/guide.md",
+    "sha256": "aa8aa595281d1e6c4c515e600a81d4e67cf61982e351a3f9a50fb8a1e86c6f4a"
+  },
+  "audit": {
+    "path": "reports/ai-evals/soodles-manager-cost/archive-audit.json",
+    "sha256": "44a838e070212351cf794741d90b863d27f077caeb0e8b58e5cccdb0aaf7e7d0"
+  },
+  "dimensions": [
+    {
+      "name": "Engineering judgment",
+      "status": "SOURCE-BOUND REVIEW",
+      "reason": "Preserve nine distinct refusal boundaries; do not infer redundancy from duration."
+    },
+    {
+      "name": "Debugging quality",
+      "status": "PARTIAL",
+      "reason": "Fixture and caller trace examined; no implementer debugging transcript."
+    },
+    {
+      "name": "Reasoning clarity",
+      "status": "AI-AUTHORED ASSESSMENT",
+      "reason": "Concrete conditions and falsifiers retained; independent expert agreement unknown."
+    },
+    {
+      "name": "Architectural thinking",
+      "status": "SOURCE AND API CHECK",
+      "reason": "Cost review, typed projection and original repair ownership traced."
+    },
+    {
+      "name": "Communication",
+      "status": "ASSESSMENT DELIVERED",
+      "reason": "English mechanism review and Chinese guide; reader outcomes unknown."
+    },
+    {
+      "name": "Attention to detail",
+      "status": "DETERMINISTIC CHECK",
+      "reason": "Eight local API expectations matched; worker and wall costs remain distinct."
+    },
+    {
+      "name": "Developer trust",
+      "status": "BOUNDED",
+      "reason": "No false repair, test deletion, full lifecycle or human qualification claim."
+    }
+  ],
+  "fresh_coding_model_runs": 0,
+  "full_platform_transcript": false,
+  "personal_qualification": "NOT_ASSESSED",
+  "causal_model_improvement": "NOT_ESTABLISHED",
+  "limits": [
+    "Log files retain decoded GitHub connector text with terminal newline normalized, not original transport bytes.",
+    "Selected manager source is pinned to the merge revision; CI evidence belongs to the explicitly separate PR candidate.",
+    "No complete coding-agent transcript or human judgment.",
+    "Known historical inputs and source-informed prediction are excluded from general prediction metrics.",
+    "Original atom authorization/checkpoint/current typed owner result absent",
+    "Per-case necessity and causal cost reduction unverified",
+    "Decision-barrier, token and whole-lifecycle costs unmeasured",
+    "No future-agent forecast, human judgment or repair-effectiveness observation"
+  ],
+  "supplementary_evidence": [
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/case.json",
+      "sha256": "78ab21b9b1bc950550e5d72d98046bdf8e6524e0d96b0770437791667562f182"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/prediction.json",
+      "sha256": "a9d0af2d93ef2adac9f10e2c628be4398b4d7a7c1db540d6c1de2788663dddfe"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/outcome.json",
+      "sha256": "04ede6777485d1f95d67c575088a13f6f4ef4f620d507e6ed23fb0a11ba35c17"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/schema-cost-feedback.json",
+      "sha256": "a904663af1b3630b6fb43396132c7c8e34534430b8fc9380e4753bdb16493fa5"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-feedback.json",
+      "sha256": "23d25d7cbd2b3420cbb5d11a640a0b6668eb760394fa8b36d097225bd5aed596"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-consumption.json",
+      "sha256": "a451146a4ffdabdf12802b8fcabaf15406e733fb6cdb3fca05db26270663beeb"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/synthetic-controls.json",
+      "sha256": "bde136840212aaabcda001d5dad99f61754a8792330350f7afaa39bafdc458a7"
+    }
+  ]
+}

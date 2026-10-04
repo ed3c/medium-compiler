@@ -1,0 +1,23 @@
+{
+  "prediction_sha256": "a9d0af2d93ef2adac9f10e2c628be4398b4d7a7c1db540d6c1de2788663dddfe",
+  "started_at": "2026-10-04T12:29:02.963325+00:00",
+  "actual": {
+    "normal_review": "reviewed",
+    "normal_test_demand": null,
+    "normal_effects": [],
+    "unmeasured_end_to_end_wall": true,
+    "missing_owner_transition": "unknown",
+    "synthetic_duration_only_review": "reviewed",
+    "synthetic_repeat_review": "needs_owner_readback",
+    "synthetic_repeat_test_demand": null
+  },
+  "resolution": "confirmed",
+  "timing_ms": {
+    "parse_and_normalize": 7.555329997558147,
+    "aggregate_and_test_manager_schema_cost": 2.923460997408256,
+    "owner_feedback_projection": 0.005697998858522624
+  },
+  "effects": [],
+  "tests_executed": 0,
+  "limits": "Single in-process observation. Excludes model, provider, cold Python startup and file retrieval. Known historical input; no calibrated future-agent prediction."
+}

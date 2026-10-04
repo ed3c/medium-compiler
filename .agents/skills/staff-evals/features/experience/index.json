@@ -26,6 +26,20 @@
       "mode": "controlled_synthetic_forecast",
       "local_forecast_resolution": "confirmed",
       "population_prediction_eligible": false
+    },
+    {
+      "id": "soodles-manager-cost-review",
+      "path": "soodles-manager-cost-review/case.json",
+      "feature": "experience-review",
+      "related_feature": "abstraction-review",
+      "concerns": [
+        "verification",
+        "architecture",
+        "debugging",
+        "cost_necessity"
+      ],
+      "mode": "retrospective_review_with_source_informed_projection_check",
+      "population_prediction_eligible": false
     }
   ]
 }

@@ -1,0 +1,1712 @@
+{
+  "scope": "Synthetic boundary data, not measured cost",
+  "duration_only": {
+    "owner": "test-manager",
+    "subject": {
+      "repository": "ed3c/soodles",
+      "head": "75c453fe1e104f530a9800784eddb3f169951480",
+      "run_id": 37185131471,
+      "attempt": 1,
+      "scope": "standalone CI review; no atom authorization or current owner supplied"
+    },
+    "sources": [
+      "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+    ],
+    "status": "reviewed",
+    "findings": [
+      {
+        "phase": "acceptance.source_before",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 20.3,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.runtime_check",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2.3,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.discovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 62.0,
+          "statuses": {
+            "unknown": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_base_readmission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 162.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_candidate_verification",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 46.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_candidate_publication",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 259.7,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_atom_repair",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 675.1999999999999,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_comparison_gate",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 453.8,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cost_telemetry",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 350.09999999999997,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cross_repository_delivery",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 45.800000000000004,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cross_repository_dependency",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 45.9,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_admission_revision",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1724.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_instruction_context",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 282.8,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_generic_repository_binding",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 884.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_issue_admission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 38.0,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_interruption_recovery",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 384.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1356.4,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_bootstrap",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 264.8,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 300.09999999999997,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_issue_atom",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2668.5,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_supervisor",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 537.5,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_local_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 122.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_local_provider_transport",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 71.8,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_next_issue",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 25.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_provider_readback",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 164.39999999999998,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cleanup_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 6219.8,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_correction_preparation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 6320.5,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_supervisor_admission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1304.2,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_supervisor_authorization",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2154.6,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_lifecycle_activation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 8467.400000000001,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_scope_amendment",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 15076.1,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.unit_tests",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 20381.5,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.case",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 617,
+          "measured_spans": 617,
+          "inclusive_seconds": 48814.3921,
+          "statuses": {
+            "unknown": 617
+          }
+        }
+      },
+      {
+        "phase": "acceptance.cleanup_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2136.1,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.cleanup_lock_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2579.1,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.delivery_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 504.7,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.base_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 610.0,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.source_after",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1.3,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      }
+    ],
+    "unknowns": [
+      {
+        "family": "end_to_end",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "processing",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "waits",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "writer_model",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "api",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "verification",
+        "kind": "coverage",
+        "status": "partial",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "observed spans only; whole-lifecycle coverage not asserted"
+      },
+      {
+        "family": "retries",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "startup",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "publication",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "landing",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "cleanup",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "telemetry",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "metric": "observed_wall_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "foreground_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "external_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "observed_envelope_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "provider_job_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "cpu_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "tokens",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "price",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "api_calls",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "human_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "logged_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      }
+    ],
+    "next": null,
+    "effects": [],
+    "test_demand": null,
+    "authorizes_landing": false
+  },
+  "repeat": {
+    "owner": "test-manager",
+    "subject": {
+      "repository": "ed3c/soodles",
+      "head": "75c453fe1e104f530a9800784eddb3f169951480",
+      "run_id": 37185131471,
+      "attempt": 1,
+      "scope": "standalone CI review; no atom authorization or current owner supplied"
+    },
+    "sources": [
+      "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+    ],
+    "status": "needs_owner_readback",
+    "findings": [
+      {
+        "phase": "acceptance.source_before",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.203,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.runtime_check",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.023,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.discovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.62,
+          "statuses": {
+            "unknown": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_base_readmission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 2,
+          "measured_spans": 2,
+          "inclusive_seconds": 1.626,
+          "statuses": {
+            "passed": 2
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_base_readmission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "repeated_module_observations",
+        "observation": {
+          "runs": 2
+        },
+        "reason": "Multiple runs are recorded. Their necessity is not established."
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_candidate_verification",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.466,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_candidate_publication",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2.597,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_atom_repair",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 6.752,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_comparison_gate",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 4.538,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cost_telemetry",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 3.501,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cross_repository_delivery",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.458,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cross_repository_dependency",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.459,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_admission_revision",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 17.246,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_instruction_context",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2.828,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_generic_repository_binding",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 8.846,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_issue_admission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.38,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_interruption_recovery",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 3.846,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 13.564,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_bootstrap",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 2.648,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 3.001,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_issue_atom",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 26.685,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_landing_supervisor",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 5.375,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_local_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1.226,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_local_provider_transport",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.718,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_next_issue",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.256,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_provider_readback",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 1.644,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_cleanup_continuation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 62.198,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_correction_preparation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 63.205,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_supervisor_admission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 13.042,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_supervisor_authorization",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 21.546,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_lifecycle_activation",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 84.674,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.module",
+        "worker": "test_scope_amendment",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "worker",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 150.761,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.unit_tests",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 203.815,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "test.case",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 617,
+          "measured_spans": 617,
+          "inclusive_seconds": 488.143921,
+          "statuses": {
+            "unknown": 617
+          }
+        }
+      },
+      {
+        "phase": "acceptance.cleanup_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 21.361,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.cleanup_lock_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 25.791,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.delivery_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 5.047,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.base_recovery",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 6.1,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      },
+      {
+        "phase": "acceptance.source_after",
+        "worker": null,
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "observed_cost",
+        "observation": {
+          "kind": "detail",
+          "observations": 1,
+          "measured_spans": 1,
+          "inclusive_seconds": 0.013,
+          "statuses": {
+            "passed": 1
+          }
+        }
+      }
+    ],
+    "unknowns": [
+      {
+        "phase": "test.module",
+        "worker": "test_base_readmission",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "kind": "repeat_necessity",
+        "reason": "The original owner must compare each run's inputs and required behavior."
+      },
+      {
+        "family": "end_to_end",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "processing",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "waits",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "writer_model",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "api",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "verification",
+        "kind": "coverage",
+        "status": "partial",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "observed spans only; whole-lifecycle coverage not asserted"
+      },
+      {
+        "family": "retries",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "startup",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "publication",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "landing",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "cleanup",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "family": "telemetry",
+        "kind": "coverage",
+        "status": "unknown",
+        "sources": [],
+        "reason": "no source-bound observation available"
+      },
+      {
+        "metric": "observed_wall_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "foreground_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "external_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "observed_envelope_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "provider_job_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "cpu_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "tokens",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "price",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "api_calls",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "human_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      },
+      {
+        "metric": "logged_wait_seconds",
+        "kind": "unmeasured_summary",
+        "sources": [
+          "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+        ],
+        "reason": "Available observations do not establish this measurement."
+      }
+    ],
+    "next": {
+      "owner": "original-owner",
+      "required": "original_owner_readback",
+      "continuation": "existing_owner_next"
+    },
+    "effects": [],
+    "test_demand": null,
+    "authorizes_landing": false
+  }
+}

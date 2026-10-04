@@ -4,6 +4,10 @@
     {
       "path": "reports/ai-evals/soodles-claim-refusal/report.json",
       "sha256": "2869620bcf61c966e0cf4699f1fc2a1cb2a5ff7b0926054fe3d95c9778ce6f7a"
+    },
+    {
+      "path": "reports/ai-evals/soodles-manager-cost/report.json",
+      "sha256": "3f969c982f97523508957215ea350069b0e4b1e7369c5c49840b8b0dd678b2f3"
     }
   ]
 }

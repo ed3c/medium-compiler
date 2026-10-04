@@ -1,0 +1,155 @@
+{
+  "schema_version": "staff-evals-source-audit@1",
+  "repository": "ed3c/soodles",
+  "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+  "mode": "source_review_and_historical_runtime_with_new_data_only_projection",
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "42b977450ed7912008a3c837c119742449c204ad23f86a57455fe14543df66d6",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/AGENTS.md"
+    },
+    {
+      "path": ".agents/skills/test-manager/SKILL.md",
+      "sha256": "43eddc8b7c1507111fe5ddb89c858a8c09f85fa8667f01ad5be365e350e262ea",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/.agents/skills/test-manager/SKILL.md"
+    },
+    {
+      "path": "test_manager.py",
+      "sha256": "a992fab7bd1fb73d7e0722663a0d39e68069e48f16a4cb98637532c1df2e1bca",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/test_manager.py"
+    },
+    {
+      "path": "schema_manager.py",
+      "sha256": "4ac062c469db1cc4df93912665977caaa1ebd8ac601f30cfec67b47648e3b368",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/schema_manager.py"
+    },
+    {
+      "path": "cost_telemetry.py",
+      "sha256": "6eae5e249819e9ad3c4e0f405a1f4bfdcd59fe22e130ca86fe31ca62297e1857",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/cost_telemetry.py"
+    },
+    {
+      "path": "issue_atom.py",
+      "sha256": "807b78a38c5cc1a87c9088338ce4217da12caff7066098844e52508576889b50",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/issue_atom.py"
+    },
+    {
+      "path": "atom_repair.py",
+      "sha256": "7abb92c98e5cb1a22b4931fca0584d8a7fe1bc34c205cf13ebd34f1e049c4e17",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/atom_repair.py"
+    },
+    {
+      "path": "policy/repair-policy.json",
+      "sha256": "1e9de3ea83b8af0b5498c068f13921be25955ed09cf86a0fd22139a2c1676820",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/policy/repair-policy.json"
+    },
+    {
+      "path": "quality/provider.py",
+      "sha256": "0f577bfc2ae428adbd97431bfd5329d56bf321caa36d2dd6e50b2fb8daf0cb9e",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/quality/provider.py"
+    },
+    {
+      "path": ".github/workflows/runtime.yml",
+      "sha256": "2fdd2451a63c985eeb41b85ebf461bdad914b282b3cc5b0eac1153909f42c113",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/.github/workflows/runtime.yml"
+    },
+    {
+      "path": ".github/workflows/quality-report.yml",
+      "sha256": "e228b25fd6a35456434dd1763f99e4b160f24ee74c50526c8914f27b97249910",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/.github/workflows/quality-report.yml"
+    },
+    {
+      "path": "tests/test_scope_amendment.py",
+      "sha256": "e527bf1f879606255278164a4ae40bfb63d627e1f5518b84e0d5e810e906ae18",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/tests/test_scope_amendment.py"
+    },
+    {
+      "path": "tests/test_generic_repository_binding.py",
+      "sha256": "f55d96e03392a41ac3ab09d1f54273df49236668a389ed7452949cf39e425423",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/tests/test_generic_repository_binding.py"
+    },
+    {
+      "path": "landing.py",
+      "sha256": "d3c4199efdd7bf486fa4c449e620ff083855983e7e8879222e3d36226f13f98d",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/landing.py"
+    },
+    {
+      "path": "repository_binding.py",
+      "sha256": "bd29c9f3b85a6e2409b46e1d8cf246cd0c55abd699263b480ff3ba54b50dfb52",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/repository_binding.py"
+    },
+    {
+      "path": "docs/test-manager-ci-cost-audit.md",
+      "sha256": "316c22b07dd72c3ca68e6b678bb17f03a59c30c4bb3b91c8b2e685dda942ad97",
+      "url": "https://github.com/ed3c/soodles/blob/d58c4e7ba0685c367da5c3060e06e6c5fc38f85f/docs/test-manager-ci-cost-audit.md"
+    }
+  ],
+  "provider": {
+    "pr": 273,
+    "candidate": "75c453fe1e104f530a9800784eddb3f169951480",
+    "base": "71b8ea60614c9729e51b87f8602384f654984300",
+    "runtime_run": 37185131471,
+    "runtime_job": 111385372510,
+    "collector_run": 37185368947,
+    "collector_job": 111386059544,
+    "attempt": 1,
+    "urls": [
+      "https://github.com/ed3c/soodles/pull/273",
+      "https://github.com/ed3c/soodles/actions/runs/37185131471",
+      "https://github.com/ed3c/soodles/actions/runs/37185368947"
+    ]
+  },
+  "retained_inputs": [
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/runtime.log",
+      "sha256": "f57db06327f0b395ca339bdbc8db355a0cac68c11c2a0edad03ce3d7dd9946cb"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/collector.log",
+      "sha256": "3dc9536fed92cdc6857c2855802969e8cca4a56487beba11aca824d06f47a0bd"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/verification-timing.log",
+      "sha256": "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/pr-files.json",
+      "sha256": "288c063ce0fe09447ac81e4b44c457543fdc706c09ac93c6819436da07295db7"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/prediction.json",
+      "sha256": "a9d0af2d93ef2adac9f10e2c628be4398b4d7a7c1db540d6c1de2788663dddfe"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/outcome.json",
+      "sha256": "04ede6777485d1f95d67c575088a13f6f4ef4f620d507e6ed23fb0a11ba35c17"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/schema-cost-feedback.json",
+      "sha256": "a904663af1b3630b6fb43396132c7c8e34534430b8fc9380e4753bdb16493fa5"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-feedback.json",
+      "sha256": "23d25d7cbd2b3420cbb5d11a640a0b6668eb760394fa8b36d097225bd5aed596"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/synthetic-controls.json",
+      "sha256": "bde136840212aaabcda001d5dad99f61754a8792330350f7afaa39bafdc458a7"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-consumption.json",
+      "sha256": "a451146a4ffdabdf12802b8fcabaf15406e733fb6cdb3fca05db26270663beeb"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/project-review.py",
+      "sha256": "5d2c54196abb73e3a1c94806ee0b11391ab2b51fa0d5c1ce3cbe15f8e71d3257"
+    }
+  ],
+  "limits": [
+    "Log files retain decoded GitHub connector text with terminal newline normalized, not original transport bytes.",
+    "Selected manager source is pinned to the merge revision; CI evidence belongs to the explicitly separate PR candidate.",
+    "No complete coding-agent transcript or human judgment.",
+    "Known historical inputs and source-informed prediction are excluded from general prediction metrics."
+  ]
+}

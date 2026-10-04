@@ -1,0 +1,30 @@
+{
+  "case_id": "soodles-manager-cost-review",
+  "reviewer": "/root",
+  "scope": "Prediction of existing pure projection functions on known historical CI evidence, plus clearly synthetic boundary controls; not unseen real Agent behavior",
+  "input_refs": [
+    {
+      "path": "/tmp/staff-evals-manager-review-20261004/runtime.log",
+      "sha256": "f57db06327f0b395ca339bdbc8db355a0cac68c11c2a0edad03ce3d7dd9946cb"
+    },
+    {
+      "path": "/tmp/staff-evals-manager-review-20261004/verification-timing.log",
+      "sha256": "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+    }
+  ],
+  "created_at": "2026-10-04T12:28:17.178724+00:00",
+  "predicted_observable": {
+    "normal_review": "reviewed",
+    "normal_test_demand": null,
+    "normal_effects": [],
+    "unmeasured_end_to_end_wall": true,
+    "missing_owner_transition": "unknown",
+    "synthetic_duration_only_review": "reviewed",
+    "synthetic_repeat_review": "needs_owner_readback",
+    "synthetic_repeat_test_demand": null
+  },
+  "reason": "review_cost only asks readback for failed/refused spans or repeated test.module worker records. Duration magnitude alone is not a trigger. test/acceptance timing lacks an atom foreground envelope. project_owner_feedback requires an actual typed owner continuation.",
+  "falsifier": "Any named status/effect/test demand or inferred wall bound differs on the bound inputs.",
+  "resolving_check": "Run the existing timing_log\u2192project\u2192review_cost\u2192project_cost and owner feedback APIs once. Run two data-only review_cost boundary controls without any test suite or effect.",
+  "confidence": null
+}
