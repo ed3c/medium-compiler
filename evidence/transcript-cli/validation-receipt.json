@@ -1,0 +1,38 @@
+{
+  "article_sha256": "sha256:08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38",
+  "artifact_sha256": {
+    "parts/stage-00.coverage.json": "sha256:e9867e3a84b1d063315c8ce418d0a65af390451061f6928d41912fbcb216417c",
+    "parts/stage-00.md": "sha256:42ac6ef4d044cdcb7bf93a272b68a456f2e505d7a92263df034f4215cd6e5d45",
+    "parts/stage-01.coverage.json": "sha256:a2ed3d08c3b7970930981e3d289b51be4b81560fec314860358b6dc0e3de02f1",
+    "parts/stage-01.md": "sha256:d02509e714dc12448541fce678710e05970e136ea1ed473fc184b9027eec655a",
+    "parts/stage-02.coverage.json": "sha256:35540a71992070947c4384c82cb89b7e0de385db26be8798cdaecda3557119f6",
+    "parts/stage-02.md": "sha256:8d0e90739b84faf6d8e2a7dc3671f9374c157e8c12c07a7a332f8d6092850f2c",
+    "parts/stage-03.coverage.json": "sha256:44432708e3e275c6a1dd7ae38159e3646dd88dff149164355213b72684c4d8c1",
+    "parts/stage-03.md": "sha256:dc33915e484a765668986f193883577d0fe92fd173f8b764b53f5e30beade466",
+    "parts/stage-04.coverage.json": "sha256:10b5c9ef316133e6ccbb2cd3993ec12f3ce5701c1804fb3166d45b5647818c94",
+    "parts/stage-04.md": "sha256:6bb951286d67b68626bd75148c2286f23ebd22058bc0bf4cd8971f810e61d593",
+    "parts/stage-05.coverage.json": "sha256:ca6980694d4167b960971cfcf0ad27e3c347a0e3dcb94dbac8b5a89742f03f64",
+    "parts/stage-05.md": "sha256:863e0f44565cda54498eb462d3729e42999854010914c05c6c78387b1fb7db14",
+    "parts/stage-06.coverage.json": "sha256:60c183bcbfb5f5c11f064e9d6ee4ab0a11c3f63f82ae7782c9c476b2211ccb12",
+    "parts/stage-06.md": "sha256:08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38",
+    "semantic-draft.md": "sha256:08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38",
+    "spec.json": "sha256:e9af914b24dcc1ec79fb63463c3a3e36e7fefc21cbd7c99faaef465c7ea0f50a"
+  },
+  "checks": {
+    "copyedit_fenced_blocks": true,
+    "current_artifacts_rechecked": true,
+    "declared_claim_coverage": true,
+    "deterministic_assembly": true,
+    "inline_code_and_links": true,
+    "protected_literals": true,
+    "stage_order": true,
+    "technical_term_identity": true
+  },
+  "compiler_sha256": "sha256:096872856a90d6150c5d8f25ff798809090711ecc6a9977425bbedcaeb6aaaf6",
+  "human_preference": "NOT_ASSESSED",
+  "mode": "staged",
+  "schema_version": "medium-compiler-validation@2",
+  "semantic_correctness": "NOT_ASSESSED",
+  "state_sha256": "sha256:d246635a91dfe846266fb0def01b9cc0e8b7694393ca7db00106706f2ce8342a",
+  "topic": "Agent primitives and product differentiation"
+}

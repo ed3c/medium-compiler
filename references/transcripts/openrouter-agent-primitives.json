@@ -1,0 +1,27 @@
+{
+  "schema_version": "medium-transcript-source@1",
+  "provider": "PodScripts",
+  "parser": "podscripts-html@1",
+  "source_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+  "final_url": "https://podscripts.co/podcasts/the-a16z-show/beyond-the-god-model-alex-atallah-amjad-masad",
+  "video_url": "https://www.youtube.com/watch?v=ekK8urKHPMQ",
+  "video_association": "caller_supplied_not_verified",
+  "acquisition": "https_fetch",
+  "retrieved_at": "2026-10-04T12:57:20.523521+00:00",
+  "recorded_at": "2026-10-04T12:57:20.543620+00:00",
+  "title": "The a16z Show - Beyond the God Model | Alex Atallah & Amjad Masad Transcript and Discussion",
+  "segment_count": 95,
+  "first_timestamp": "00:00:00",
+  "last_timestamp": "00:47:58",
+  "audio_verified": false,
+  "speaker_attribution": "not_inferred",
+  "completeness": "provider_page_only_episode_coverage_unknown",
+  "normalization": "HTML entities decoded; whitespace collapsed; no corrections or deduplication",
+  "files": {
+    "source.html": "c9c519b1d90849eb0743fca5aff4c7e9ab8268c93bf1775da9b0dc9547efd7d9",
+    "transcript.json": "372db977d7654039d8c358f7cbe2fa5bdefffdd9a916964189bddb5dfc1a1b36",
+    "transcript.md": "33d7dc0045b90871c9ca5a32934012797c58db42ed5bdad41e25507e24d0b05c"
+  },
+  "snapshot_manifest_sha256": "a16fc8a377de7074dd515d376bc7576f56e9790310b04be6e523309f1552f94e",
+  "publication": "metadata_only_no_transcript_republication"
+}

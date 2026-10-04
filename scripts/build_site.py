@@ -8,6 +8,14 @@ from urllib.parse import urlencode
 ROOT=Path(__file__).resolve().parents[1]
 ARTICLES=[
     {
+        "slug": "agent-primitives-product-differentiation",
+        "title": "每個人都在做 Agent，為什麼產品仍然可以不同？",
+        "description": "從 Alex Atallah 的 Web 類比，思考交付條件、證據版本與每件完成工作的成本。",
+        "source": "articles/agent-primitives-product-differentiation.md",
+        "source_manifest": "references/transcripts/openrouter-agent-primitives.json",
+        "context": "articles/agent-primitives-product-differentiation.context.json"
+    },
+    {
         "slug": "ai-engineer-learning-path",
         "title": "從軟體工程師到 AI Engineer",
         "description": "以 Ops Reconciliation Copilot 串起技術決策、實驗與來源證據。",
@@ -118,7 +126,7 @@ def markdown(text:str)->str:
     return '\n'.join(out)
 
 def page(title:str, body:str, active:str='')->str:
-    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles')]
+    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles'),('transcripts','/transcripts/','逐字稿來源')]
     links=''.join(f'<a class="{"active" if key==active else ""}" href="{href}">{label}</a>' for key,href,label in nav)
     return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
 
@@ -199,6 +207,35 @@ for (const link of document.querySelectorAll('a[href^="#"]')) {
     (target/'provenance.json').write_text(json.dumps(lock,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return lock
 
+def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[str,dict]:
+    """Bind the article to its reviewed source metadata, never publish raw transcripts."""
+    manifest_bytes=(ROOT/item['source_manifest']).read_bytes()
+    context=json.loads((ROOT/item['context']).read_bytes())
+    article_hash=hashlib.sha256(source_bytes).hexdigest()
+    manifest_hash=hashlib.sha256(manifest_bytes).hexdigest()
+    if (context['article_sha256']!=article_hash or context['source_manifest']!=item['source_manifest']
+            or context['source_manifest_sha256']!=manifest_hash):
+        raise ValueError('Transcript article or source metadata changed since its author review')
+    meta=json.loads(manifest_bytes)
+    if (meta.get('schema_version')!='medium-transcript-source@1'
+            or meta.get('publication')!='metadata_only_no_transcript_republication'
+            or meta.get('audio_verified') is not False):
+        raise ValueError('Unsupported transcript provenance')
+    # Source metadata is controlled by the repository, but URL attributes are escaped.
+    video=html.escape(meta['video_url']+'&t=845',quote=True)
+    provider=html.escape(meta['source_url'],quote=True)
+    fetched=html.escape(meta.get('retrieved_at') or 'HTML 匯入，未宣稱 HTTP 取得時間')
+    panel=f'''<section class="panel" aria-label="文章來源"><h2>閱讀來源</h2>
+<p><a href="{video}" target="_blank" rel="noreferrer">回看原影片 · 14:05</a> · <a href="{provider}" target="_blank" rel="noreferrer">第三方逐字稿 · PodScripts</a></p>
+<p>本篇取材範圍：14:05–15:40 的基本元件類比。商品頁案例與工程設計是作者延伸分析。文字依第三方轉錄核對，尚未逐句核對音訊。</p>
+<p>來源取得時間：{fetched}。快照包含 {meta['segment_count']} 個區段，最後時間戳 {html.escape(meta['last_timestamp'])}；這不證明整集完整。</p>
+<p><a href="article.md" download>下載 Medium 文章（Markdown）</a> · <a href="source.json">來源紀錄</a> · <a href="/transcripts/">取得逐字稿的方法</a></p></section>'''
+    (article_dir/'source.json').write_bytes(manifest_bytes)
+    (article_dir/'article.md').write_bytes(source_bytes)
+    return panel, {'source_manifest':item['source_manifest'],'source_manifest_sha256':manifest_hash,
+                   'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
+
+
 def build(out:Path)->dict:
     out=out.resolve()
     if out.exists(): shutil.rmtree(out)
@@ -231,14 +268,21 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
+    transcript_dir=out/'transcripts';transcript_dir.mkdir()
+    transcript_body='<article class="article">'+markdown((ROOT/'docs/transcripts.md').read_text(encoding='utf-8'))+'<p><a href="/articles/agent-primitives-product-differentiation/">閱讀本次 Medium 文章 →</a></p></article>'
+    (transcript_dir/'index.html').write_text(page('逐字稿來源 · AI Engineer Lab',transcript_body,'transcripts'),encoding='utf-8')
     course_route=json.loads((ROOT/'references/upstream/software-engineering-fundamentals.json').read_text())
     article_provenance=[]
     for item in ARTICLES:
         source_bytes=(ROOT/item['source']).read_bytes()
         article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+markdown(source_bytes.decode('utf-8'))+lesson_navigation(item,course_route)+'</article>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
+        source_record={}
+        if item.get('source_manifest'):
+            panel,source_record=transcript_source(item,source_bytes,article_dir)
+            article_body+=panel
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
-        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest()})
+        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
         if item.get('notebook'):
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['notebook'],destination)
