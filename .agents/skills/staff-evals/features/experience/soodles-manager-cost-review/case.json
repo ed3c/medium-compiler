@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "id": "soodles-manager-cost-review",
+  "feature": "experience-review",
+  "target": {
+    "repository": "ed3c/soodles",
+    "revision": "d58c4e7ba0685c367da5c3060e06e6c5fc38f85f",
+    "task": "Review Test Manager and Schema Manager cost necessity, focused verification, projection and repair boundaries",
+    "patch": "https://github.com/ed3c/soodles/pull/273"
+  },
+  "actor": {
+    "agent": null,
+    "model": null,
+    "harness": "GitHub Actions runtime; implementer harness unknown",
+    "coverage": "Source and completed CI; no implementer transcript"
+  },
+  "reviewer": {
+    "identity": "/root",
+    "kind": "AI assistant",
+    "assistance": "existing deterministic Soodles APIs",
+    "prior_outcome_exposure": "Read historical CI and source before forecast; forecast saved before new projection; no independent observer capture"
+  },
+  "evidence": [
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/runtime.log",
+      "sha256": "f57db06327f0b395ca339bdbc8db355a0cac68c11c2a0edad03ce3d7dd9946cb"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/collector.log",
+      "sha256": "3dc9536fed92cdc6857c2855802969e8cca4a56487beba11aca824d06f47a0bd"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/verification-timing.log",
+      "sha256": "766c4940a84ea6855dada8ac001d5ed4b9ac9940e24585f610d1b0d43f00a018"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/pr-files.json",
+      "sha256": "288c063ce0fe09447ac81e4b44c457543fdc706c09ac93c6819436da07295db7"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/prediction.json",
+      "sha256": "a9d0af2d93ef2adac9f10e2c628be4398b4d7a7c1db540d6c1de2788663dddfe"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/outcome.json",
+      "sha256": "04ede6777485d1f95d67c575088a13f6f4ef4f620d507e6ed23fb0a11ba35c17"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/schema-cost-feedback.json",
+      "sha256": "a904663af1b3630b6fb43396132c7c8e34534430b8fc9380e4753bdb16493fa5"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-feedback.json",
+      "sha256": "23d25d7cbd2b3420cbb5d11a640a0b6668eb760394fa8b36d097225bd5aed596"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/synthetic-controls.json",
+      "sha256": "bde136840212aaabcda001d5dad99f61754a8792330350f7afaa39bafdc458a7"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-consumption.json",
+      "sha256": "a451146a4ffdabdf12802b8fcabaf15406e733fb6cdb3fca05db26270663beeb"
+    },
+    {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/project-review.py",
+      "sha256": "5d2c54196abb73e3a1c94806ee0b11391ab2b51fa0d5c1ce3cbe15f8e71d3257"
+    },
+    {
+      "path": "reports/ai-evals/soodles-manager-cost/archive-audit.json",
+      "sha256": "44a838e070212351cf794741d90b863d27f077caeb0e8b58e5cccdb0aaf7e7d0"
+    },
+    {
+      "path": "reports/ai-evals/soodles-manager-cost/assessment.md",
+      "sha256": "a2cd34495bc9f83c00ca737c5b39fd1c1a23a0f03ca3332a4b77ea6216e61dd8"
+    },
+    {
+      "path": "reports/ai-evals/soodles-manager-cost/guide.md",
+      "sha256": "aa8aa595281d1e6c4c515e600a81d4e67cf61982e351a3f9a50fb8a1e86c6f4a"
+    }
+  ],
+  "decision": {
+    "requirement": "Measure normal costs, preserve necessary discriminators, project known transitions cheaply, and repair only observed risks within original ownership.",
+    "mechanism": "select follows BOUNDARIES and transitive fixture imports; project calls TestManager.review_cost then SchemaManager.project_cost; owner feedback preserves current next.",
+    "consequence": "Costs and unknowns reach Schema Manager, but cost necessity and live cost-directed repair are not established.",
+    "alternative": "Compare source-bound repeat inputs and required behavior before scope reduction; measure fixture phases only during needed normal execution.",
+    "tradeoff": "Conservative module selection preserves shared-fixture consumers but spends more than a proven per-case selector might; no evidence yet permits that narrower claim."
+  },
+  "prediction": {
+    "ref": {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/prediction.json",
+      "sha256": "a9d0af2d93ef2adac9f10e2c628be4398b4d7a7c1db540d6c1de2788663dddfe"
+    },
+    "mode": "source_informed_deterministic_check_with_synthetic_boundaries",
+    "population_prediction_eligible": false,
+    "exclusion": "Prior source and historical outcome exposure; no independently captured ordering or unseen coding-agent trajectory."
+  },
+  "outcome": {
+    "ref": {
+      "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/outcome.json",
+      "sha256": "04ede6777485d1f95d67c575088a13f6f4ef4f620d507e6ed23fb0a11ba35c17"
+    },
+    "resolution": "confirmed",
+    "expectations_matched": 8,
+    "expectations_total": 8,
+    "unresolved": 0,
+    "population_eligible_cases": 0,
+    "population_excluded_cases": 1,
+    "general_accuracy": null
+  },
+  "lesson": {
+    "status": "locally_supported",
+    "applies_when": "Normal cost logs feed existing typed decision owners; test reuse requires unchanged relevant inputs and discriminators.",
+    "counterexample": "A slow nine-defect refusal test retains distinct safety coverage; duration alone cannot justify removal.",
+    "next_check": "For one real avoidable repetition, freeze input/discriminator and expected effect before a comparable normal run; verify cost and behavior together."
+  },
+  "role_feedback": {
+    "engineering_judgment": "assessment: Findings 1 and 2, necessary coverage versus avoidable work",
+    "debugging": "Source trace of nine-defect fixture; no implementer debugging trajectory",
+    "architecture": "assessment: Findings 3 and 4, projection versus current owner effects",
+    "reasoning_and_communication": "English assessment explains branch conditions and alternative tradeoffs; independent human calibration absent",
+    "attention_and_trust": "Separate wall, worker, inclusive phases, unknown costs and observed provider status"
+  },
+  "cost": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "tool_calls": null,
+    "elapsed_seconds": null,
+    "human_review_seconds": null,
+    "repair_seconds": null,
+    "measured_components": {
+      "historical_unit_phase_seconds": 203.815,
+      "historical_worker_seconds": 504.086,
+      "historical_physical_controls_seconds": 58.299,
+      "historical_provider_job_seconds": 272.0,
+      "new_projection_ms": 2.923460997408256,
+      "soodles_tests_rerun": 0,
+      "note": "Overlapping and nested components are not additive; reviewer whole task costs remain unknown."
+    }
+  },
+  "closure": {
+    "product": "Review delivered; no Soodles code changed and no repair claimed",
+    "agent": "Implementer behavior unassessed; review assistant decisions retained",
+    "evaluator": "Known API boundaries checked once, no human calibration",
+    "owner_feedback": {
+      "schema_api": {
+        "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/schema-cost-feedback.json",
+        "sha256": "a904663af1b3630b6fb43396132c7c8e34534430b8fc9380e4753bdb16493fa5"
+      },
+      "projection": {
+        "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-feedback.json",
+        "sha256": "23d25d7cbd2b3420cbb5d11a640a0b6668eb760394fa8b36d097225bd5aed596"
+      },
+      "consumption": {
+        "path": ".agents/skills/staff-evals/features/experience/soodles-manager-cost-review/owner-consumption.json",
+        "sha256": "a451146a4ffdabdf12802b8fcabaf15406e733fb6cdb3fca05db26270663beeb"
+      },
+      "live_owner_feedback_complete": false
+    },
+    "gaps": [
+      "Original atom authorization/checkpoint/current typed owner result absent",
+      "Per-case necessity and causal cost reduction unverified",
+      "Decision-barrier, token and whole-lifecycle costs unmeasured",
+      "No future-agent forecast, human judgment or repair-effectiveness observation"
+    ]
+  },
+  "related_feature": "abstraction-review"
+}

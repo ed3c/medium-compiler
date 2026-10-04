@@ -1,0 +1,8 @@
+{
+  "consumer": "/root review coordinator",
+  "feedback_file_sha256": "a904663af1b3630b6fb43396132c7c8e34534430b8fc9380e4753bdb16493fa5",
+  "observed_review_status": "reviewed",
+  "action": "Retain measured costs, unknowns and investigation targets. Do not invoke repair or repeat CI from duration alone. Actual atom owner must supply current readback for lifecycle continuation.",
+  "live_owner_feedback_complete": false,
+  "missing": "Original atom authorization/checkpoint/current typed owner result not supplied. No substitute authority created."
+}
