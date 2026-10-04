@@ -20,6 +20,7 @@ jobs:
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
           python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
+          python3 .agents/skills/verify-medium/scripts/verify.py --feature learning-article --article articles/git-collaboration.md --out /tmp/writing-evidence/git-article
           set +e
           python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/writing-evidence/behavior
           status=$?

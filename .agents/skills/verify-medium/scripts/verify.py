@@ -13,6 +13,7 @@ import tempfile
 
 ROOT=Path(__file__).resolve().parents[4]
 sys.path.insert(0,str(ROOT))
+sys.dont_write_bytecode=True  # Verification must not leave import caches in the checkout.
 import medium_compiler as mc
 
 FEATURES=("staged-authoring","bounded-revision","lossless-drilldown","delivery","behavior-evals")
@@ -186,10 +187,57 @@ class Driver:
                            'trusted semantic review and isolated reader evidence'],
                 'reason':'Repository checks cannot manufacture native sessions or reviewed learning evidence.'}
 
+    def learning_article(self, article):
+        self.feature='learning-article'
+        article=(ROOT/article).resolve()
+        if article.suffix!='.md':raise ValueError('--article must select a Markdown .md file')
+        context=article.with_suffix('.context.json')
+        data=article.read_bytes()
+        (self.out/'input.md').write_bytes(data)
+        context_data=context.read_bytes()
+        (self.out/'input.context.json').write_bytes(context_data)
+        record=json.loads(context_data)
+        assembly=record.get('assembly') if isinstance(record,dict) else None
+        expected=assembly.get('article_sha256') if isinstance(assembly,dict) else None
+        identity={'article':str(article),'context':str(context),
+                  'article_sha256':sha(data),'context_sha256':sha(context_data),
+                  'expected_article_sha256':expected}
+        put(self.out/'input-identity.json',identity)
+        if not isinstance(expected,str) or not re.fullmatch(r'[0-9a-f]{64}',expected):
+            raise ValueError('context requires assembly.article_sha256 (64 lowercase hex digits)')
+        if sha(data)!='sha256:'+expected:
+            raise ValueError(f'article/context hash mismatch: expected {expected}, got {sha(data)}')
+        # A no-change control of this input, not new authorship or semantic approval.
+        with tempfile.TemporaryDirectory(prefix='scratch-',dir=self.out) as tmp:
+            p=Path(tmp);run=p/'run'
+            put(p/'spec.json',{'topic':'Selected learning article byte-preservation control',
+                               'claims':[],'terms':[]})
+            put(p/'coverage.json',{'elements':['copyedit'],'claims':[],'terms':[]})
+            source=self.out/'input.md'
+            self.cli('init','--draft',source,'--spec',p/'spec.json','--run-dir',run)
+            if self.cli('next','--run-dir',run)['next_stage']!=6:
+                raise ValueError('selected article must enter the existing Stage 6 revision route')
+            self.cli('submit','--run-dir',run,'--stage',6,'--input',source,'--coverage',p/'coverage.json')
+            self.cli('assemble','--run-dir',run)
+            self.cli('verify','--run-dir',run)
+            self.cli('check-receipt','--run-dir',run)
+            if (run/'medium-canonical.md').read_bytes()!=data:
+                raise ValueError('selected article bytes changed during no-change compilation')
+            shutil.copytree(run,self.out/'article-run')
+        self.cli('check-receipt','--run-dir',self.out/'article-run')
+        if article.read_bytes()!=data or context.read_bytes()!=context_data:
+            raise ValueError('selected article or context changed during verification; rerun')
+        return {'status':'PASS',**identity,'exact_bytes':True,
+                'control':'no-change recompile of the selected article',
+                'semantic_correctness':'NOT_ASSESSED','human_learning_outcome':'NOT_MEASURED'}
+
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--feature',choices=['doctor','all','mechanical',*FEATURES],required=True)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--feature',choices=['doctor','all','mechanical',*FEATURES,'learning-article'],required=True)
+    p.add_argument('--article',type=Path,help='Selected .md and adjacent .context.json; only for learning-article')
     p.add_argument('--out',type=Path,required=True);args=p.parse_args()
+    if (args.feature=='learning-article') != (args.article is not None):
+        p.error('--article is required for learning-article and forbidden for other features')
     out=args.out.resolve()
     if out.exists() or out.is_relative_to(ROOT):p.error('--out must be new and outside the checkout')
     out.mkdir(parents=True);driver=Driver(out);results={};failed=False
@@ -197,6 +245,7 @@ def main():
         results['doctor']=driver.doctor()
         choices=FEATURES if args.feature=='all' else FEATURES[:-1] if args.feature=='mechanical' else [] if args.feature=='doctor' else [args.feature]
         functions=dict(zip(FEATURES,[driver.staged,driver.revision,driver.lossless,driver.delivery,driver.behavior]))
+        functions['learning-article']=lambda:driver.learning_article(args.article)
         for feature in choices:
             driver.doctor() # each feature starts from a freshly checked CLI context
             try:results[feature]=functions[feature]()

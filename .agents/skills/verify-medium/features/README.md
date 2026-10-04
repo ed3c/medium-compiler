@@ -12,3 +12,4 @@ are needed for the mechanical paths. Do not drive another actor's run or discard
 - [Continue from the real boot article with two source-bound additions](lossless-drilldown.md) — lossless-drilldown; source: scripts/lossless_batch.py; evidence/issue-8/plan.json.
 - [Read and concatenate one approved Medium article edition](delivery.md) — delivery; source: articles/ai-engineer-learning-path.parts/manifest.json; tests/test_reader_navigation.py.
 - [Measure actual writer behavior and zero-context reading](behavior-evals.md) — behavior-evals; source: ../../medium-behavior-evals/SKILL.md; imported eval-audit and validation methods.
+- [Verify one selected learning article](learning-article.md) — learning-article; opt-in with --article, outside the default all/mechanical set; source: scripts/verify.py: Driver.learning_article.

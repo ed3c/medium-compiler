@@ -73,7 +73,9 @@ mechanical drive。不改防護或停用測試，也不全域修改使用者環�
    真正要求推導成功條件。直接尋找值得解釋的問題並給出答案、推理及實測證據；
    在 examples/<lesson>/ 交付成果使用與 replay 入口，實跑重建及既有環境重新驗收。
 2. [寫作與編譯](features/article-assembly.md)：載入 `medium-writing`，新文章走既有
-   Stage 0–7，既有文章用實際支援的修訂路徑，不能倒填虛構的寫作階段。
+   Stage 0–7，既有文章用實際支援的修訂路徑，不能倒填虛構的寫作階段。完成後自動
+   執行 recipe 的 `verify.py --feature learning-article --article <本篇>` 實際入口，
+   核對本篇與 context 並保留無改動重編譯收據；既有 Ops drives 不能替代本篇驗收。
 3. [導航與網站交付](features/website-delivery.md)：build、點擊前後課、核對文章雜湊，
    在現有授權範圍內提交與發布，最後讀回精確 commit 的 deployment 及公開頁面。
 
