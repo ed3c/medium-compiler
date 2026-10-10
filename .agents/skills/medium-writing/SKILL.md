@@ -1,6 +1,6 @@
 ---
 name: medium-writing
-description: Draft and incrementally expand zero-context technical Medium articles in Traditional Chinese. Use for article planning, staged prose, source-grounded runtime explanations and Boot Batch to Drill-down Patch continuation. Not a publisher or semantic-truth oracle.
+description: Draft zero-context technical Medium articles in English, apply upstream sloptrim to completed English prose, then translate to Traditional Chinese with English technical terms. Supports staged and incremental source-grounded writing; not a publisher or semantic-truth oracle.
 metadata:
   version: "1.4.0"
 ---
@@ -25,6 +25,34 @@ reader decisions from question, alternatives, condition and consequence; five or
 questions or an older topic's decision count is not a universal quota. P-class interprets
 sources, selects the main question/property/representation/witness/alternative and explains
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
+
+## Language and style owner
+
+This is a reader-facing article workflow, not the engineering-instruction
+`review-writing` workflow. Use the Soodles review-writing criteria when
+checking technical causality and acceptance boundaries. Do not replace these
+semantic checks with a style score.
+
+Complete the English prose for the selected article before translating it.
+For an authorized incremental patch, finish that English unit before
+translation; preserve the existing queue and immutable prior units. Run the
+upstream [sloptrim](https://github.com/seyedehsanhadi/sloptrim) skill on the
+English prose, inspect each proposed change and verify source fidelity. Keep
+numbers, commands, API names, code, citations, uncertainty, ownership,
+negation, and runtime order unchanged. Sloptrim is an external, separately
+installed tool; its presence in these instructions does not mean it ran.
+Record a real check and the reviewed English version in private task
+evidence, or mark `sloptrim=NOT_RUN` with the missing capability. Do not
+report its style score as correctness, authorship, or formal compliance.
+
+After approving that English version, translate it to natural Traditional
+Chinese. Retain canonical English technical terms and recheck both versions
+against the pinned source, including conditions, exceptions, attribution and
+failure branches. New articles still submit the translated material through
+the existing Stage 0–7 CLI in its legal order. Stage 6 may copyedit the
+translated text without changing the accepted semantics; Stage 7 only
+assembles admitted bytes. Do not translate after Stage 7 or rewrite fixed
+canonical articles merely to obtain a lower detector score.
 
 ## First output
 
