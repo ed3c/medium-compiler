@@ -32,6 +32,31 @@ action is Session-local, not product-wide. Retain the native route and name the 
 operation; refresh capability observations on a new Session, not every unchanged turn.
 Proceed without asking again when the selected route's actual requirements are met.
 
+## Writing routes
+
+Engineering-facing requirements, skills, specifications, evidence reports and
+runtime explanations use the Soodles
+[review-writing](https://github.com/ed3c/soodles/blob/main/.agents/skills/review-writing/SKILL.md)
+criteria for meaning, causal reasoning and state/authority boundaries. Do not
+run prose humanization over executable instructions or fixed evidence. This
+reference is not a claim that the external skill is installed locally.
+
+Reader-facing articles use the existing `medium-writing` owner. Compose the
+complete English text for the selected article or accepted incremental unit
+from pinned sources. Apply upstream
+[sloptrim](https://github.com/seyedehsanhadi/sloptrim) to that English prose
+before translation. Read its result against source claims and correct any
+changed condition, negation, attribution, quantity or technical relationship.
+Only then translate the approved English text to Traditional Chinese,
+retaining exact English technical terms. Check the two texts against sources
+before submitting the Traditional Chinese stages and assembling the final
+artifact. Do not run sloptrim on the translated text or canonical Stage 7
+bytes. Record actual English/Traditional Chinese draft identities, sloptrim
+execution or NOT_RUN, and author semantic review outside public prose.
+Sloptrim detects stylistic patterns; its score is not a semantic or authorship
+verdict. A missing external installation does not justify invented PASS
+evidence or a new compiler stage.
+
 ## Writing and verification
 
 Product delivery scope is defined in README.md's Delivery scope section. Issue #12 owns
