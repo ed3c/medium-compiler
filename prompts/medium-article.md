@@ -21,7 +21,8 @@ MODE: draft | revise | review
 EXECUTION_MODE: staged
 CURRENT_STAGE: 0
 AUDIENCE: 具備程式基礎、沒有前文上下文的軟體工程師
-LANGUAGE: zh-TW，必要的 exact English technical terms
+AUTHORING_LANGUAGE: English，完整寫完本次文章／已授權增量單元後先執行 upstream sloptrim 並查核來源語意
+DELIVERY_LANGUAGE: zh-TW，英文定稿後翻譯，保留 exact English technical terms
 
 先列文章目錄，再列由本題推導的主要讀者決策：
 每項包含問題、替代做法、決定條件、結果及原文依據。
