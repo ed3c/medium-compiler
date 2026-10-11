@@ -1,11 +1,15 @@
 // One SQLite-backed Durable Object per authenticated Access user.
 // Queue dispatch and provider effects are separate from this SQLite transaction.
+import {scopeQuery,readRows} from "./readback.mjs";
 export class CheckoutState{
   constructor(ctx,env){
     this.ctx=ctx;this.env=env;this.sql=ctx.storage.sql;
     this.sql.exec("CREATE TABLE IF NOT EXISTS orders(key TEXT PRIMARY KEY,amount INTEGER NOT NULL,status TEXT NOT NULL CHECK(status IN ('PENDING','PAID')),fault TEXT NOT NULL,account TEXT NOT NULL)");
     this.sql.exec("CREATE TABLE IF NOT EXISTS outbox(key TEXT PRIMARY KEY,delivered INTEGER NOT NULL DEFAULT 0,sends INTEGER NOT NULL DEFAULT 0)");
     this.sql.exec("CREATE TABLE IF NOT EXISTS faults(key TEXT PRIMARY KEY,injected INTEGER NOT NULL DEFAULT 0)");
+    if(!this.rows("PRAGMA table_info(orders)").some(row=>row.name==="run_id"))
+      this.sql.exec("ALTER TABLE orders ADD COLUMN run_id TEXT");
+    this.sql.exec("CREATE INDEX IF NOT EXISTS orders_run_id ON orders(run_id)");
     if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="replays"))
       this.sql.exec("ALTER TABLE outbox ADD COLUMN replays INTEGER NOT NULL DEFAULT 0");
     if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="published"))
@@ -14,22 +18,31 @@ export class CheckoutState{
       this.sql.exec("ALTER TABLE outbox ADD COLUMN next_attempt_at INTEGER NOT NULL DEFAULT 0");
   }
   rows(query,...params){return this.sql.exec(query,...params).toArray();}
-  create({key,amount,fault,account}){
+  create({key,amount,fault,account,runId=null}){
     const previous=this.rows("SELECT * FROM orders WHERE key=?",key)[0];
     if(previous){
       if(previous.amount!==amount)throw new Error("409: identical key, different amount");
+      if(runId!==null&&previous.run_id!==runId)throw new Error("409: identical key, different Run ID");
       return {replay:true,...previous};
     }
     return this.ctx.storage.transactionSync(()=>{
-      this.sql.exec("INSERT INTO orders(key,amount,status,fault,account) VALUES(?,?,'PENDING',?,?)",key,amount,fault,account);
+      this.sql.exec("INSERT INTO orders(key,amount,status,fault,account,run_id) VALUES(?,?,'PENDING',?,?,?)",key,amount,fault,account,runId);
       this.sql.exec("INSERT INTO outbox(key,delivered,sends) VALUES(?,0,0)",key);
       this.sql.exec("INSERT INTO faults(key,injected) VALUES(?,0)",key);
-      return {key,amount,status:"PENDING",fault,replay:false};
+      return {key,amount,status:"PENDING",fault,run_id:runId,replay:false};
     });
   }
   snapshot(){
     return {orders:this.rows("SELECT key,amount,status,fault FROM orders ORDER BY key"),
       outbox:this.rows("SELECT key,delivered,sends,replays,published,next_attempt_at FROM outbox ORDER BY key")};
+  }
+  readState(scope){
+    const {where,bindings}=scopeQuery(scope);
+    const orders=readRows(this.sql,"SELECT key,amount,status,fault,run_id FROM orders"+where+" ORDER BY key",bindings);
+    const outboxScope=scopeQuery(scope,true);
+    const outbox=readRows(this.sql,"SELECT key,delivered,sends,replays,published,next_attempt_at FROM outbox"+outboxScope.where+" ORDER BY key",outboxScope.bindings);
+    return {orders:orders.rows,outbox:outbox.rows,
+      rowsRead:orders.rowsRead===null||outbox.rowsRead===null?null:orders.rowsRead+outbox.rowsRead};
   }
   paid({key,amount}){
     return this.ctx.storage.transactionSync(()=>{
@@ -62,7 +75,7 @@ export class CheckoutState{
   async enqueue(keys=null){
     if(keys&&!keys.length)return {dispatched:0,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
     const scope=keys?" AND o.key IN ("+keys.map(()=>"?").join(",")+")":"";
-    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY o.key LIMIT 15",Date.now(),...(keys||[]));
+    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,o.run_id,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY o.key LIMIT 15",Date.now(),...(keys||[]));
     let dispatched=0;
     for(const row of pending){
       // Durable claim excludes concurrent relays while send awaits. Replays is
@@ -76,7 +89,7 @@ export class CheckoutState{
         // An earlier publish may have committed despite its missing reply.
         if(row.sends>0&&await this.readback(row))continue;
         if(!this.rows("SELECT key FROM outbox WHERE key=? AND delivered=0 AND published=0 AND sends=? AND replays=? AND next_attempt_at>?",row.key,claim.sends,claim.replays,Date.now()).length)continue;
-        await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault});
+        await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault,runId:row.run_id});
         this.sql.exec("UPDATE outbox SET published=1,next_attempt_at=0 WHERE key=? AND sends=? AND replays=?",row.key,claim.sends,claim.replays);
         dispatched++;
       }
@@ -95,7 +108,7 @@ export class CheckoutState{
           // commit and the API's relay still leaves an alarm to resume it.
           if(!this.rows("SELECT key FROM orders WHERE key=?",q.key).length)await this.ctx.storage.setAlarm(Date.now()+15000);
           value=this.create(q);break;
-        case "state": value=this.snapshot();break;
+        case "state": value=q.scope?this.readState(q.scope):this.snapshot();break;
         case "bookmark": value=await this.ctx.storage.getCurrentBookmark().catch(()=>null);break;
         case "paid": value=this.paid(q);break;
         case "claimFault": value=this.claimFault(q);break;

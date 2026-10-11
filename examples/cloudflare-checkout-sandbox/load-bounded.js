@@ -26,20 +26,24 @@ export const options={
   summaryTrendStats:["min","med","p(95)","p(99)","max"],
   thresholds:{admission_success:["rate==1"],settlement_success:["rate==1"],dropped_iterations:["count==0"]}
 };
-function state(){
-  const r=http.post(url+"/api/state","{}",{headers,tags:{phase:"readback"},timeout:"5s"});
+const readRequests=new Counter("readback_requests"),readRows=new Counter("readback_rows_read"),readBytes=new Counter("readback_response_bytes");
+function state(selection){
+  const r=http.post(url+"/api/state",JSON.stringify(selection),{headers,tags:{phase:"readback"},timeout:"5s"});
   if(r.status!==200)throw Error("Owner readback failed: HTTP "+r.status);
-  return r.json();
+  const value=r.json();
+  if(value.schema!=="checkout-remote-evidence@3"||typeof value.readbackUsage?.totalRowsRead!=="number")throw Error("Native scoped readback measurement unavailable");
+  readRequests.add(1);readRows.add(value.readbackUsage.totalRowsRead);readBytes.add(r.body.length);
+  return value;
 }
 export function setup(){
-  const before=state();
-  if(before.orders.some(o=>o.key.startsWith(runId+"-")))throw Error("RUN_ID already exists; do not mix runs");
-  if(before.schema!=="checkout-remote-evidence@2")throw Error("Read back the deployed quota policy before this bounded run");
+  const before=state({runId});
+  if(before.orders.length||before.charges.length||before.outbox.length)throw Error("RUN_ID already exists; do not mix runs");
+  if(before.schema!=="checkout-remote-evidence@3")throw Error("Read back the deployed quota policy before this bounded run");
   return {start:Date.now()};
 }
 export default function(run){
   const key=runId+"-"+__VU+"-"+__ITER,start=Date.now();
-  const r=http.post(url+"/api/create",JSON.stringify({key,amount:1250,fault:"none"}),
+  const r=http.post(url+"/api/create",JSON.stringify({key,runId,amount:1250,fault:"none"}),
     {headers,tags:{phase:"admission"},timeout:"5s"});
   admissionLatency.add(Date.now()-start);admission.add(r.status===202);
   if(r.status===202)accepted.add(1);
@@ -47,11 +51,12 @@ export default function(run){
   let settled=false,lastError=null;
   while(Date.now()-start<30000){
     try{
-      const s=state(),order=s.orders.find(o=>o.key===key),charges=s.charges.filter(c=>c.key===key);
+      const s=state({key}),order=s.orders.find(o=>o.key===key),charges=s.charges.filter(c=>c.key===key);
       const outbox=s.outbox.find(o=>o.key===key);
       if(order?.status==="PAID"){
         settled=charges.length===1&&charges[0].amount===1250&&charges[0].currency==="USD"&&outbox?.delivered===1;
-        break;
+        if(settled)break;
+        lastError="PAID evidence incomplete or conflicting; repeat same-key readback";
       }
       if(order?.status==="PENDING")pendingAge.add(Date.now()-start);
     }catch(error){lastError=String(error);}
@@ -64,10 +69,10 @@ export default function(run){
   console.log(JSON.stringify({key,admitted:r.status===202,admissionStatus:r.status,settled,observedSettlementMs:duration,lastError}));
 }
 export function teardown(){
-  const final=state();
+  const final=state({runId});
   console.log(JSON.stringify({runId,finalOrders:final.orders.filter(o=>o.key.startsWith(runId+"-")),
     finalCharges:final.charges.filter(c=>c.key.startsWith(runId+"-")),finalOutbox:final.outbox.filter(o=>o.key.startsWith(runId+"-")),
-    integrity:final.integrity}));
+    integrity:final.integrity,readbackUsage:final.readbackUsage}));
 }
 export function handleSummary(data){
   const count=name=>data.metrics[name]?.values.count||0;
@@ -75,6 +80,7 @@ export function handleSummary(data){
   const result={runId,scope:"bounded smoke; settlement observations include polling delay",arrivalsPerSecond:rate,
     arrivalWindowSeconds:seconds,maxIntentBudget:maxIntents,accepted:count("accepted_intents"),paid:count("paid_orders"),
     acceptedPerArrivalSecond:count("accepted_intents")/seconds,
-    paidPerObservedSecond:elapsedSeconds?count("paid_orders")/elapsedSeconds:null,metrics:data.metrics};
+    paidPerObservedSecond:elapsedSeconds?count("paid_orders")/elapsedSeconds:null,
+    readback:{requests:count("readback_requests"),sqlRowsRead:count("readback_rows_read"),responseBytes:count("readback_response_bytes"),scope:"Readback SQL cursors only; not whole account usage"},metrics:data.metrics};
   return {[__ENV.EVIDENCE_FILE||"stdout"]:JSON.stringify(result,null,2)+"\n"};
 }

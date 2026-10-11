@@ -3,34 +3,36 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import worker from "../examples/cloudflare-checkout-sandbox/src/index.mjs";
 import {DatabaseSync} from "node:sqlite";
+import {readScope} from "../examples/cloudflare-checkout-sandbox/src/readback.mjs";
 import {CheckoutState} from "../examples/cloudflare-checkout-sandbox/src/checkout.mjs";
 import drill,{DrillCheckout,DrillProvider} from "../examples/cloudflare-checkout-sandbox/dr/worker.mjs";
 import proxy from "../examples/cloudflare-checkout-sandbox/dr/proxy.mjs";
 
+function matches(row,scope){return scope?.type==="key"?row.key===scope.key:scope?.type==="run"?row.run_id===scope.runId:true;}
 function fakeEnvironment(){
- const pending=[];
+ const pending=[],actions=[];
  class Checkout{
    constructor(){this.orders=new Map();this.outbox=new Map();this.faults=new Set();}
    async fetch(_url,options){
-     const x=JSON.parse(options.body);let value;
+     const x=JSON.parse(options.body);actions.push(x.action);let value;
      try{
        switch(x.action){
          case "create":{
            const previous=this.orders.get(x.key);
-           if(previous&&previous.amount!==x.amount)throw Error("409: identical key, different amount");
+           if(previous&&(previous.amount!==x.amount||(x.runId!=null&&previous.run_id!==x.runId)))throw Error("409: identical key, different amount");
            if(!previous){
-             this.orders.set(x.key,{key:x.key,amount:x.amount,status:"PENDING",fault:x.fault,account:x.account});
+             this.orders.set(x.key,{key:x.key,amount:x.amount,status:"PENDING",fault:x.fault,account:x.account,run_id:x.runId??null});
              this.outbox.set(x.key,{key:x.key,delivered:0,sends:0,published:0});
            }
            value={...this.orders.get(x.key),replay:!!previous};break;
          }
-         case "state":value={orders:[...this.orders.values()],outbox:[...this.outbox.values()]};break;
+         case "state":{const orders=[...this.orders.values()].filter(o=>matches(o,x.scope));const keys=new Set(orders.map(o=>o.key));value={orders,outbox:[...this.outbox.values()].filter(o=>keys.has(o.key)),rowsRead:null};break;}
          case "bookmark":value="FAKE_BOOKMARK";break;
          case "enqueue":{
            let count=0;
            for(const o of this.orders.values()){
              const e=this.outbox.get(o.key);
-             if((!x.keys||x.keys.includes(o.key))&&!e.delivered&&!e.published&&e.sends<3){e.sends++;e.published=1;pending.push({account:o.account,key:o.key,amount:o.amount,fault:o.fault});count++;}
+             if((!x.keys||x.keys.includes(o.key))&&!e.delivered&&!e.published&&e.sends<3){e.sends++;e.published=1;pending.push({account:o.account,key:o.key,amount:o.amount,fault:o.fault,runId:o.run_id});count++;}
            }
            value={dispatched:count,pending:[...this.outbox.values()].filter(e=>!e.delivered).length};break;
          }
@@ -54,12 +56,12 @@ function fakeEnvironment(){
  class Provider{
    constructor(){this.charges=new Map();}
    async fetch(_url,options){
-     const x=JSON.parse(options.body);let value;
+     const x=JSON.parse(options.body);actions.push(x.action);let value;
      if(x.action==="lookup")value=this.charges.get(x.key)||null;
      else if(x.action==="charge"){
        value=this.charges.get(x.key);
-       if(!value){value={key:x.key,amount:x.amount,currency:"USD",charge_id:"mock"};this.charges.set(x.key,value);}
-     }else if(x.action==="state")value=[...this.charges.values()];
+       if(!value){value={key:x.key,amount:x.amount,currency:"USD",charge_id:"mock",run_id:x.runId??null};this.charges.set(x.key,value);}
+     }else if(x.action==="state")value={charges:[...this.charges.values()].filter(o=>matches(o,x.scope)),rowsRead:null};
      else if(x.action==="bookmark")value="FAKE_BOOKMARK";
      else throw Error("Unknown action");
      return Response.json({ok:true,value});
@@ -71,7 +73,7 @@ function fakeEnvironment(){
    get(name){if(!this.objects.has(name))this.objects.set(name,new this.Class());return this.objects.get(name);}
  }
  const CHECKOUT=new Namespace(Checkout),PROVIDER=new Namespace(Provider);
- return {CHECKOUT,PROVIDER,PAYMENTS_QUEUE:{async send(x){pending.push(x);}},pending};
+ return {CHECKOUT,PROVIDER,PAYMENTS_QUEUE:{async send(x){pending.push(x);}},pending,actions};
 }
 const ctx={access:{async getIdentity(){return {email:"owner@example.test"};}}};
 // Real source SQL against SQLite; only platform transport and alarm are adapters.
@@ -271,15 +273,49 @@ test("mixed replay readback failure does not reset an earlier published intent",
   }finally{fixture.close();}
 });
 function post(path,body={}){return new Request("https://sandbox.example/"+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}
+test("scoped API refuses missing/ambiguous scopes, isolates Run IDs and skips bookmarks",async()=>{
+  const env=fakeEnvironment();
+  for(const input of [{},{key:"x",runId:"run"},{runId:"%"},{key:"bad'"},{full:true,key:"x"}])
+    assert.equal((await worker.fetch(post("api/state",input),env,ctx)).status,400);
+  assert.equal(env.actions.length,0);
+  for(const [key,runId] of [["run-a-1-0","run-a"],["run-a-b-1-0","run-a-b"]]){
+    assert.equal((await worker.fetch(post("api/create",{key,runId,amount:1250}),env,ctx)).status,202);
+    await worker.queue({messages:[{body:env.pending.at(-1),ack(){},retry(){}}]},env);
+  }
+  const read=async body=>(await worker.fetch(post("api/state",body),env,ctx)).json();
+  const run=await read({runId:"run-a"});
+  assert.deepEqual(run.orders.map(o=>o.key),["run-a-1-0"]);
+  assert.deepEqual(run.charges.map(o=>o.key),["run-a-1-0"]);
+  assert.deepEqual(run.outbox.map(o=>o.key),["run-a-1-0"]);
+  assert.equal(run.integrity.scope.type,"run");assert.equal(run.readbackUsage.totalRowsRead,null);
+  assert.equal("bookmarks" in run,false);assert.equal(env.actions.includes("bookmark"),false);
+  const empty=await read({key:"missing"});assert.deepEqual(empty.orders,[]);assert.deepEqual(empty.charges,[]);
+  const other={access:{async getIdentity(){return {email:"other@example.test"};}}};
+  assert.deepEqual((await (await worker.fetch(post("api/state",{runId:"run-a"}),env,other)).json()).orders,[]);
+  assert.equal((await worker.fetch(post("api/create",{key:"run-a-1-0",runId:"run-a-b",amount:1250}),env,ctx)).status,409);
+  assert.ok((await read({full:true,includeBookmarks:true})).bookmarks);
+});
+test("real source SQL uses indexed exact Run ID and keeps legacy Key readback",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    for(const [key,runId] of [["r-1","r"],["r-child-1","r-child"],["legacy",null]])object.create({key,runId,amount:1250,account:"user",fault:"none"});
+    assert.deepEqual(object.readState(readScope({runId:"r"})).orders.map(o=>o.key),["r-1"]);
+    assert.deepEqual(object.readState(readScope({key:"legacy"})).outbox.map(o=>o.key),["legacy"]);
+    assert.throws(()=>object.create({key:"r-1",runId:"changed",amount:1250}),/different Run ID/);
+    assert.throws(()=>object.readState({type:"unknown"}),/Select exactly one/);
+    assert.match(JSON.stringify(object.rows("EXPLAIN QUERY PLAN SELECT key FROM orders WHERE run_id=?","r")),/orders_run_id/);
+  }finally{fixture.close();}
+});
 test("Access-gated: no authenticated ctx rejects every route",async()=>{
   const env=fakeEnvironment();
-  assert.equal((await worker.fetch(post("api/state"),env,{})).status,403);
+  assert.equal((await worker.fetch(post("api/state",{full:true}),env,{})).status,403);
   assert.equal((await worker.fetch(new Request("https://sandbox.example/"),env,{})).status,403);
 });
 test("API reports platform quota uncertainty without inventing remaining order capacity",async()=>{
   const env=fakeEnvironment();
-  const read=await (await worker.fetch(post("api/state"),env,ctx)).json();
-  assert.equal(read.schema,"checkout-remote-evidence@2");
+  const read=await (await worker.fetch(post("api/state",{full:true}),env,ctx)).json();
+  assert.equal(read.schema,"checkout-remote-evidence@3");
   assert.equal(read.quotaPolicy.remaining,"UNKNOWN");
   assert.equal(read.quotaPolicy.planVerification,"OPERATOR_REQUIRED");
   assert.equal("usage" in read,false);
@@ -293,10 +329,10 @@ test("one lost reply retries under same key and reconciles once",async()=>{
   const message={body:env.pending[0],retry(){retries++},ack(){acks++}};
   await worker.queue({messages:[message]},env);
   assert.equal(retries,1);assert.equal(acks,0);
-  let read=await (await worker.fetch(post("api/state"),env,ctx)).json();
+  let read=await (await worker.fetch(post("api/state",{full:true}),env,ctx)).json();
   assert.equal(read.orders[0].status,"PENDING");assert.equal(read.charges.length,1);
   await worker.queue({messages:[message]},env);
-  read=await (await worker.fetch(post("api/state"),env,ctx)).json();
+  read=await (await worker.fetch(post("api/state",{full:true}),env,ctx)).json();
   assert.equal(read.orders[0].status,"PAID");assert.equal(read.charges.length,1);assert.equal(acks,1);
   assert.equal(read.integrity.pass,true);
   assert.equal((await worker.fetch(post("api/create",{...input,amount:1300}),env,ctx)).status,409);
@@ -305,7 +341,7 @@ test("replay preserves same identity and anonymous cross-site writes refuse",asy
   const env=fakeEnvironment();
   await worker.fetch(post("api/create",{key:"same",amount:100,fault:"none"}),env,ctx);
   await worker.fetch(post("api/create",{key:"same",amount:100,fault:"none"}),env,ctx);
-  const data=await (await worker.fetch(post("api/state"),env,ctx)).json();
+  const data=await (await worker.fetch(post("api/state",{full:true}),env,ctx)).json();
   assert.equal(data.orders.length,1);
   const req=new Request("https://sandbox.example/api/state",{method:"POST",headers:{Origin:"https://evil.invalid"},body:"{}"});
   assert.equal((await worker.fetch(req,env,ctx)).status,403);
