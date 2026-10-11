@@ -1,8 +1,8 @@
 ---
 name: zero-context-medium-writing
 description: >-
-  Draft technical Medium articles in Traditional Chinese from a zero-context reader
-  perspective. Preserve a causal chain from problem constraints to runtime, cost and
+  Draft zero-context Medium articles in English, review English prose with
+  sloptrim, then translate to Traditional Chinese with English technical terms. Preserve a causal chain from problem constraints to runtime, cost and
   implementation. Use the repository CLI for stage order and completion; keep semantic
   choices in the writing layer. No generated images are required.
 metadata:
@@ -116,6 +116,30 @@ Give concise English answers only for claims already established in the article.
 
 End with one text Master Map containing only previously explained relationships. It is a
 compression of the article, not a place to introduce new facts.
+
+## English-first article and bilingual fidelity
+
+The semantic writing owner first completes the English prose for the entire
+requested article, or the currently admitted incremental unit. Before making
+a Traditional Chinese translation, apply the upstream
+[sloptrim](https://github.com/seyedehsanhadi/sloptrim) skill to this English
+prose, then check each changed passage against source facts, causal reasoning,
+technical terms, attribution, negation, qualifications and failure cases.
+The tool is a local style detector and rewrite method, not an authorship
+classifier or semantic oracle. Record the actual run or `NOT_RUN`; do not
+fabricate style or semantic PASS. Do not scrub code, logs, exact quotations,
+receipts or protected identifiers. Do not use sloptrim to alter an approved
+Traditional Chinese canonical article.
+
+Translate the approved English prose into natural Traditional Chinese with
+exact English technical terms. Preserve all source-grounded claims, limits,
+examples, diagrams and runtime transitions. Check the English and Chinese
+versions line-by-line where decisions or qualifiers matter. Preserve both
+draft identities in external/context evidence. A missing independent reader
+remains `NOT_RUN`; author comparison is not independent review. For new
+articles submit the Chinese units through the existing Stage 0–7 order; for
+incremental writing, translate and review each completed English unit before
+its legal patch/submit. Neither process creates a new compiler stage.
 
 ## Stage 6 — Natural prose after semantic freeze
 

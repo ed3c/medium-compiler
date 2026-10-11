@@ -1,6 +1,6 @@
 ---
 name: podcast-to-medium
-description: Find a user's podcast transcript through the repository CLI, locate and review the relevant timestamped passages, then use medium-writing to produce a source-grounded Traditional Chinese Medium article and deliver it through the existing website when requested. Use for podcast/video/topic-to-article requests, not verbatim full-transcript republication or browser-only searching.
+description: Find a podcast transcript through the CLI, review relevant passages, then use medium-writing to complete an English article, review it with sloptrim and translate to Traditional Chinese before authorized website delivery. Use for podcast/video/topic-to-article requests, not verbatim full-transcript republication or browser-only searching.
 ---
 
 # Podcast to Medium
