@@ -78,10 +78,44 @@ quota. Its JSON evidence reports this uncertainty. Read current usage from
 Cloudflare; internal order counts are not invoice measurements. Old budget
 records remain stored as history but no longer govern admission or dispatch.
 
+## Scoped readback
+
+`POST /api/state` requires exactly one explicit selection:
+`{"key":"payment-key"}`, `{"runId":"unique-run"}`, or `{"full":true}`.
+Missing, invalid or ambiguous selections refuse with HTTP 400; there is no
+fallback to a full ledger. The response uses `checkout-remote-evidence@3` and
+records `selection`; its invariant applies only to the selected rows.
+
+For a new run, include `runId` in each `/api/create` payload. The immutable
+payment key remains the provider idempotency identity. A different supplied
+Run ID for an existing key refuses with 409; retry without a Run ID preserves
+its saved association. Run IDs are indexed, exact metadata in Orders and
+Charges, not key prefixes. Old rows remain unassigned and readable by key or
+explicit full selection. Outbox run reads use the matching Orders keys.
+Two new indexes add write/storage work; they avoid scanning unrelated runs.
+The first constructor after deployment adds nullable columns and indexes to
+existing objects. Old rows are not assigned a guessed Run ID. A rollback to the
+old Provider implementation must first adapt its positional INSERT to explicit
+columns; restoring Worker code does not remove the new SQLite column.
+
+Payment polling reads only its key. Runner setup and teardown read only their
+run. The UI defaults to Payment Readback; full ledger and independent PITR
+bookmarks require a manual button. Add `includeBookmarks:true` for an explicit
+bookmark request; bookmarks still do not establish a joint atomic snapshot.
+Parallel Checkout/Provider reads also are not a cross-DO atomic snapshot. The
+runner repeats same-key readback if PAID evidence is temporarily incomplete.
+
+`readbackUsage` reports fully consumed native SQLite cursor `rowsRead` for
+only the three readback SELECTs. Missing adapter measurements are null, never
+estimated from response length. These counters exclude initialization,
+Create/Queue/alarm SQL, writes, other Workers and account usage. Compare
+Cloudflare usage separately and retain the exact observation window.
+
 ## Tests
 
 Run from the repository root:
   node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs
+  node --test tests/scoped_readback_runtime.test.mjs
   python3 -m unittest discover -s tests -p test_reliability_site.py -v
 
 The Node owner/transport adapters are contract tests. Recovery controls execute
@@ -121,11 +155,13 @@ and network delay. Admission/settlement/error/drop metrics are separate. Before 
 `CONFIRM_FREE_PLAN="Workers Free"` only after verification. This operator
 confirmation is not an API check or a Cloudflare quota reservation. Platform
 usage must be checked separately; do not increase load to exhaust Free quotas.
-Export JSON using `EVIDENCE_FILE`. Visitors never receive the operator token.
+Export JSON using `EVIDENCE_FILE`. The runner reports readback request counts,
+native SQL cursor rows read and response bytes alongside PAID latency.
+Visitors never receive the operator token.
 
 ## P3 restore
 
-Read-only state includes Checkout and Provider PITR bookmarks independently.
+Explicit `includeBookmarks:true` state requests include Checkout and Provider PITR bookmarks independently.
 They are NOT a joint atomic snapshot. No destructive restore endpoint is
 exposed to visitors. A separate owner-authorized isolated Cloudflare
 PITR drill must measure actual RPO/RTO, reconcile with independent

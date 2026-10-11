@@ -4,6 +4,7 @@ import {requireAccess} from "./auth.mjs";
 import {CheckoutState} from "./checkout.mjs";
 import {ProviderState} from "./provider.mjs";
 import {remotePage} from "./ui.mjs";
+import {readScope,validRunId} from "./readback.mjs";
 import {validPayment,invariant} from "../../../site/reliability/logic.mjs";
 export {CheckoutState,ProviderState};
 const faultModes=new Set(["none","lost_reply","worker_crash"]);
@@ -38,7 +39,8 @@ export default {
       if(url.pathname==="/api/create"){
         const {key,amount}=validPayment(input.key,input.amount);
         const fault=faultModes.has(input.fault)?input.fault:"none";
-        const created=await invoke(checkout,{action:"create",key,amount,fault,account:user.userId});
+        const runId=input.runId===undefined?null:validRunId(input.runId);
+        const created=await invoke(checkout,{action:"create",key,amount,fault,runId,account:user.userId});
         const dispatch=await invoke(checkout,{action:"enqueue",keys:[key]});
         return json({created,dispatch,message:"202 means pending intent, not settled payment"},202);
       }
@@ -46,16 +48,27 @@ export default {
         const dispatch=await invoke(checkout,{action:"replay"});
         return json({dispatch,message:"Replayed only pending work with the original payment key"});
       }
-      const [local,charges,checkoutBookmark,providerBookmark]=await Promise.all([
-        invoke(checkout,{action:"state"}),invoke(provider,{action:"state"}),
-        invoke(checkout,{action:"bookmark"}),invoke(provider,{action:"bookmark"})]);
-      return json({schema:"checkout-remote-evidence@2",
+      const selection=readScope(input);
+      if(input.includeBookmarks!==undefined&&typeof input.includeBookmarks!=="boolean")throw Error("includeBookmarks must be boolean");
+      const [local,remote]=await Promise.all([
+        invoke(checkout,{action:"state",scope:selection}),invoke(provider,{action:"state",scope:selection})]);
+      let bookmarks;
+      if(input.includeBookmarks===true){
+        const [checkoutBookmark,providerBookmark]=await Promise.all([
+          invoke(checkout,{action:"bookmark"}),invoke(provider,{action:"bookmark"})]);
+        bookmarks={checkout:checkoutBookmark,provider:providerBookmark};
+      }
+      const {rowsRead:checkoutReads,...state}=local,charges=remote.charges;
+      return json({schema:"checkout-remote-evidence@3",selection,
         quotaPolicy:{enforcement:"Cloudflare platform quotas",requiredPlan:"Workers Free",planVerification:"OPERATOR_REQUIRED",remaining:"UNKNOWN",
           usage:"Platform usage must be read from Cloudflare; the app does not meter account quotas"},
         scope:"two independent Cloudflare SQLite Durable Objects with Queue",
-        at:new Date().toISOString(),...local,charges,
-        bookmarks:{checkout:checkoutBookmark,provider:providerBookmark},
-        integrity:invariant({orders:local.orders,charges}),
+        at:new Date().toISOString(),...state,charges,
+        ...(bookmarks?{bookmarks}:{}),
+        readbackUsage:{checkoutRowsRead:checkoutReads,providerRowsRead:remote.rowsRead,
+          totalRowsRead:checkoutReads==null||remote.rowsRead==null?null:checkoutReads+remote.rowsRead,
+          scope:"Only these fully consumed SQL readback cursors; excludes initialization, mutations, alarms and other account usage"},
+        integrity:{...invariant({orders:state.orders,charges}),scope:selection},
         note:"Separate-service behavioral and disaster recovery proof requires external observation"});
     }catch(err){
       const reason=String(err?.message||err);
@@ -65,14 +78,15 @@ export default {
   },
   async queue(batch,env){
     for(const message of batch.messages){
-      const {account,key,amount,fault}=message.body||{};
+      const {account,key,amount,fault,runId}=message.body||{};
       try{
         if(typeof account!=="string"||account.length>300)throw Error("Invalid queued Access identity");
         validPayment(key,amount);
+        if(runId!=null)validRunId(runId);
         const {checkout,provider}=stores(env,account);
         // Only trusted mock-provider readback establishes its committed effect.
         let charge=await invoke(provider,{action:"lookup",key});
-        if(!charge)charge=await invoke(provider,{action:"charge",key,amount});
+        if(!charge)charge=await invoke(provider,{action:"charge",key,amount,runId});
         if(charge.amount!==amount||charge.currency!=="USD")throw Error("Provider evidence mismatch");
         if(fault==="lost_reply"||fault==="worker_crash"){
           if(await invoke(checkout,{action:"claimFault",key})){
