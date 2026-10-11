@@ -36,8 +36,8 @@ class SloptrimInstallationTests(unittest.TestCase):
         self.assertTrue(customized.startswith(original))
         supplement = customized[len(original):]
         self.assertTrue(supplement.startswith(b"\n\n## Medium-compiler reader-article editorial supplement"))
-        self.assertIn(b"Do **not** remove:", supplement)
-        self.assertIn(b"Never apply it to P-class guidance", supplement)
+        self.assertIn(b"**Keep:**", supplement)
+        self.assertIn(b"Do not apply it to P-class guidance", supplement)
         blob = hashlib.sha1(
             b"blob " + str(len(customized)).encode() + b"\0" + customized
         ).hexdigest()
