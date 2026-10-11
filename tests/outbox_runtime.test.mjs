@@ -26,6 +26,14 @@ test("outbox reads depend on active work, not 100/1000/10000 delivered history r
           }
           return Response.json({fixtureRows:this.rows("SELECT COUNT(*) AS n FROM outbox")[0].n});
         }
+        if(q.action==="pending-fixture"){
+          for(let i=0;i<q.pending;i++){
+            const key="pending-"+i;
+            this.create({key,amount:1250,fault:"none",account:"owner"});
+            this.sql.exec("UPDATE outbox SET published=1 WHERE key=?",key);
+          }
+          return Response.json({pending:this.pendingCount()});
+        }
         this.measured=[];
         const value=await this.enqueue(q.keys??null);
         const queries=this.measured;
@@ -56,12 +64,21 @@ test("outbox reads depend on active work, not 100/1000/10000 delivered history r
       const select=result.queries.filter(q=>q.query.startsWith("SELECT"));
       assert.ok(select.every(q=>q.rowsRead<20),JSON.stringify(result));
       assert.ok(result.plans.some(q=>JSON.stringify(q.plan).includes("outbox_retry_due")),JSON.stringify(result.plans));
-      assert.ok(result.plans.some(q=>JSON.stringify(q.plan).includes("outbox_pending")),JSON.stringify(result.plans));
+      assert.equal(select.find(q=>q.query.includes("FROM outbox_totals")).rowsRead,1);
       const costs=result.queries.map(({query,rowsRead,rowsWritten})=>({query,rowsRead,rowsWritten}));
       if(first)assert.deepEqual(costs,first);else first=costs;
       const again=await call(active,{action:"measure"});
       assert.deepEqual(again.value,{dispatched:0,pending:4});
       console.log(JSON.stringify({history,emptyRowsRead:idleReads,activeQueries:costs,plans:result.plans}));
+    }
+    for(const pending of [1,100,10000]){
+      const stub=ns.get(ns.idFromName("pending-"+pending));
+      assert.deepEqual(await call(stub,{action:"pending-fixture",pending}),{pending});
+      const result=await call(stub,{action:"measure",keys:[]});
+      assert.deepEqual(result.value,{dispatched:0,pending});
+      assert.equal(result.queries.length,1);
+      assert.equal(result.queries[0].rowsRead,1);
+      console.log(JSON.stringify({pending,queries:result.queries}));
     }
   }finally{await runtime.dispose();}
 });

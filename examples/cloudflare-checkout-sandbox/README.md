@@ -52,10 +52,16 @@ autoscaling instead of a fixed one-consumer cap. This does not increase the
 account's Free quotas or demonstrate payment capacity.
 
 Outbox partial indexes contain only undelivered keys and retry-eligible entries.
-Pending COUNT scans the active index; the next alarm reads the first due-index
-entry. Relay orders by next_attempt_at/key and joins only selected Orders.
-Completed history is excluded from these indexes, not deleted. Pending/backlog
-work can still increase reads; index inserts/removals add writes and the first
+A persistent pending total replaces COUNT on the relay path; the next alarm
+reads the first due-index entry. The total is bootstrapped once from existing
+undelivered rows. Create increments it with Order + Outbox commit; only the
+first delivered=0 → 1 transition decrements it in the PAID transaction.
+Duplicate creates and PAID callbacks leave it unchanged. A failed total update
+rolls back the whole transaction. Object recreation reads the saved total,
+not the backlog. The total is local Outbox state, not account usage or a bill.
+Relay orders by next_attempt_at/key and joins only selected Orders.
+Completed history is excluded from these indexes, not deleted. Selected
+relay/recovery work can still increase reads; index inserts/removals add writes and the first
 index creation scans existing rows. Manual recovery uses the pending index,
 including published work whose Provider outcome must be read back.
 
@@ -65,8 +71,10 @@ attempts. A durable 30-second claim excludes routine concurrent relays; successf
 Queue acknowledgement persists `published=1`. Create dispatches only its own key;
 later Creates and alarms skip acknowledged entries. Recovery persists an alarm
 before external awaits and reads the Provider before retrying an unknown publish.
-Manual recovery reads all selected Provider evidence before resetting absent
-entries; an epoch prevents stale completions from overwriting newer claims.
+Manual recovery reads selected Provider evidence and reconciles known effects.
+Provider absence does not reset an acknowledged publication: paused delivery
+must resume without republishing. Only unacknowledged entries can be reset;
+an epoch prevents stale completions from overwriting newer claims.
 Lease expiry does not terminate an older send: unknown outcomes can still produce
 same-key duplicate messages. This is not exactly-once publication or payment.
 Queue batch size is one with two retries and a DLQ. These bounds stop
@@ -85,6 +93,16 @@ The application cannot verify the account plan or estimate remaining platform
 quota. Its JSON evidence reports this uncertainty. Read current usage from
 Cloudflare; internal order counts are not invoice measurements. Old budget
 records remain stored as history but no longer govern admission or dispatch.
+
+A Queue delivery-pause drill can accumulate pending work while publication
+continues. It tests consumer unavailability and resumption, not producer refusal
+or a Cloudflare-wide outage. Use operator Wrangler pause/resume on this sandbox,
+retain original keys, verify bounded pending scopes, and always resume delivery
+in cleanup. Queue acknowledgement and internal sends counts do not establish
+exactly-once broker delivery; compare native Queue writes and Provider charges.
+If an acknowledged message expires, this replay path keeps it pending rather
+than guessing that a second publication is safe. Expiry recovery is a separate
+operator decision and is not proven by a short pause drill.
 
 ## Scoped readback
 
