@@ -1,0 +1,82 @@
+{
+  "schema_version": "medium-source-explanation@1",
+  "purpose": "source-explanation",
+  "title": "一場促銷揭露了付款系統的未知狀態：從故障實驗學會可靠的分散式系統",
+  "article_path": "articles/checkout-reliability-large-traffic.md",
+  "article_sha256": "b15a3ec4d187fc4495890ab669f3ac1e4aca3488ae9f4af8fee4f1be11383a3e",
+  "english_path": "articles/checkout-reliability-large-traffic.en.md",
+  "english_sha256": "ebbafcef03178ddc7244e0f54dc58a5a1fb7be1b27fb805869580bbe3f53bf6c",
+  "compilation": {
+    "stage_mode": "0-7",
+    "status": "VALID",
+    "semantic_correctness": "NOT_ASSESSED",
+    "style_lint_findings": 0
+  },
+  "authoring": {
+    "language_order": [
+      "English full draft",
+      "sloptrim upstream detector",
+      "English editorial readback",
+      "Traditional Chinese translation",
+      "author semantic crosscheck"
+    ],
+    "sloptrim_score": 21,
+    "sloptrim_band": "light tells",
+    "sloptrim_project_editorial_pass": "author_reviewed_not_independently_observed",
+    "bilingual_fidelity": "AUTHOR_REVIEW_ONLY",
+    "independent_semantic_review": "NOT_RUN"
+  },
+  "lab": {
+    "path": "examples/checkout-reliability-lab",
+    "local_test_results": "7/7 passed in isolated Python environment",
+    "real_provider": "NOT_RUN",
+    "real_broker": "NOT_RUN",
+    "disaster_recovery_restore": "NOT_RUN",
+    "k6_load": "NOT_RUN",
+    "scenario_type": "two separate local SQLite stores; one process mock provider; no network boundary",
+    "invariants": [
+      "same-key duplicate suppression",
+      "same key different amount conflict",
+      "provider commits before lost reply",
+      "crash after provider effect before local state commit",
+      "duplicate worker effect suppression"
+    ]
+  },
+  "sources": [
+    {
+      "kind": "source",
+      "url": "https://github.com/ed3c/medium-compiler/blob/3c982823e2d8f7e59069e20c5c55dd5bfa5ca2cf/articles/architect-amplifier-payment-decisions.md",
+      "topic": "previous article and constructed case"
+    },
+    {
+      "kind": "pattern",
+      "url": "https://microservices.io/patterns/data/transactional-outbox.html",
+      "topic": "outbox guarantees and relay duplication"
+    },
+    {
+      "kind": "official",
+      "url": "https://www.rabbitmq.com/docs/reliability",
+      "topic": "recovery and duplicate message delivery"
+    },
+    {
+      "kind": "official",
+      "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+      "topic": "isolation semantics"
+    },
+    {
+      "kind": "official",
+      "url": "https://grafana.com/docs/k6/latest/using-k6/thresholds/",
+      "topic": "load-test criteria"
+    },
+    {
+      "kind": "reference-implementation",
+      "url": "https://github.com/dotnet/eShop",
+      "license": "MIT"
+    },
+    {
+      "kind": "reference-implementation",
+      "url": "https://github.com/temporalio/samples-python",
+      "license": "MIT"
+    }
+  ]
+}
