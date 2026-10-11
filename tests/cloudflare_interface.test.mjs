@@ -106,6 +106,43 @@ test("orders exceed former application caps and preserve idempotency",async()=>{
     assert.equal(object.snapshot().outbox.length,31);
   }finally{fixture.close();}
 });
+test("pending total survives recreation, duplicate callbacks and transaction rollback",()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    let object=fixture.env.CHECKOUT.get("counter");
+    for(const key of ["a","b"])object.create({key,amount:1250,fault:"none",account:"counter"});
+    assert.equal(object.pendingCount(),2);
+    object.create({key:"a",amount:1250,fault:"none",account:"counter"});
+    assert.equal(object.pendingCount(),2);
+    object.paid({key:"a",amount:1250});object.paid({key:"a",amount:1250});
+    assert.equal(object.pendingCount(),1);
+    assert.throws(()=>object.paid({key:"b",amount:99}),/mismatch/);
+    assert.equal(object.pendingCount(),1);
+    // Failure after the increment rolls back the Order, Outbox and total.
+    object.sql.exec("INSERT INTO faults(key,injected) VALUES('rollback',0)");
+    assert.throws(()=>object.create({key:"rollback",amount:1250,fault:"none",account:"counter"}));
+    assert.equal(object.pendingCount(),1);
+    assert.equal(object.rows("SELECT key FROM orders WHERE key='rollback'").length,0);
+    assert.equal(object.rows("SELECT key FROM outbox WHERE key='rollback'").length,0);
+    // Emulate an old ledger with no materialized total, then reopen it.
+    object.sql.exec("DROP TABLE outbox_totals");
+    object=new CheckoutState(object.ctx,object.env);
+    assert.equal(object.pendingCount(),1);
+    const exec=object.sql.exec;
+    object.sql.exec=(query,...args)=>{assert.doesNotMatch(query,/COUNT\(/);return exec(query,...args);};
+    object=new CheckoutState(object.ctx,object.env);
+    assert.equal(object.pendingCount(),1);
+    object.sql.exec=exec;
+    // An underflow refuses and rolls back the preceding PAID update.
+    object.sql.exec("UPDATE outbox_totals SET pending=0 WHERE id=1");
+    assert.throws(()=>object.paid({key:"b",amount:1250}),/CHECK/);
+    assert.equal(object.rows("SELECT status FROM orders WHERE key='b'")[0].status,"PENDING");
+    assert.equal(object.rows("SELECT delivered FROM outbox WHERE key='b'")[0].delivered,0);
+    object.sql.exec("UPDATE outbox_totals SET pending=1 WHERE id=1");
+    object.paid({key:"b",amount:1250});
+    assert.equal(object.pendingCount(),0);
+  }finally{fixture.close();}
+});
 test("Queue quota refusal preserves pending work and stops automatic publish retries",async t=>{
   let now=Date.now();t.mock.method(Date,"now",()=>now);
   const fixture=sqliteEnvironment();
@@ -136,8 +173,8 @@ test("successful publication is excluded from concurrent and later relays",async
     await object.alarm();
     assert.equal(fixture.sent.length,1);
     for(let i=0;i<4;i++)await object.fetch(post("replay",{action:"replay"}));
-    assert.equal(object.snapshot().outbox[0].replays,4);
-    assert.equal(fixture.sent.length,5);
+    assert.equal(object.snapshot().outbox[0].replays,0);
+    assert.equal(fixture.sent.length,1);
     assert.equal(fixture.readbacks.length,4);
     object.paid({key:"pending",amount:1250});
     const before=fixture.sent.length;
@@ -145,7 +182,7 @@ test("successful publication is excluded from concurrent and later relays",async
     assert.equal(fixture.sent.length,before);
     for(let i=0;i<18;i++)object.create({key:"next-"+i,amount:1250,fault:"none",account:"user"});
     for(let i=0;i<6;i++)await object.enqueue();
-    assert.equal(fixture.sent.length,23);
+    assert.equal(fixture.sent.length,19);
     assert.ok(object.snapshot().outbox.filter(row=>row.key.startsWith("next-")).every(row=>row.sends===1&&row.published===1));
     assert.ok(fixture.sent.every(message=>message.amount===1250));
   }finally{fixture.close();}

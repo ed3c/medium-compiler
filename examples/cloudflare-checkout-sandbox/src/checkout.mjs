@@ -18,8 +18,24 @@ export class CheckoutState{
       this.sql.exec("ALTER TABLE outbox ADD COLUMN next_attempt_at INTEGER NOT NULL DEFAULT 0");
     this.sql.exec("CREATE INDEX IF NOT EXISTS outbox_pending ON outbox(key) WHERE delivered=0");
     this.sql.exec("CREATE INDEX IF NOT EXISTS outbox_retry_due ON outbox(next_attempt_at,key) WHERE delivered=0 AND published=0 AND sends<3");
+    this.sql.exec("CREATE TABLE IF NOT EXISTS outbox_totals(id INTEGER PRIMARY KEY CHECK(id=1),pending INTEGER NOT NULL CHECK(pending>=0))");
+    // Bootstrap an existing ledger once. Synchronous SQL cannot yield to a
+    // request; later creates and deliveries update this row in their transaction.
+    this.ctx.storage.transactionSync(()=>{
+      if(!this.rows("SELECT pending FROM outbox_totals WHERE id=1").length)
+        this.sql.exec("INSERT INTO outbox_totals(id,pending) SELECT 1,COUNT(*) FROM outbox WHERE delivered=0");
+    });
   }
   rows(query,...params){return this.sql.exec(query,...params).toArray();}
+  pendingCount(){
+    const row=this.rows("SELECT pending FROM outbox_totals WHERE id=1")[0];
+    if(!row)throw new Error("Outbox pending total unavailable");
+    return row.pending;
+  }
+  changePending(delta){
+    if(!this.rows("UPDATE outbox_totals SET pending=pending+? WHERE id=1 RETURNING pending",delta).length)
+      throw new Error("Outbox pending total unavailable");
+  }
   create({key,amount,fault,account,runId=null}){
     const previous=this.rows("SELECT * FROM orders WHERE key=?",key)[0];
     if(previous){
@@ -30,6 +46,7 @@ export class CheckoutState{
     return this.ctx.storage.transactionSync(()=>{
       this.sql.exec("INSERT INTO orders(key,amount,status,fault,account,run_id) VALUES(?,?,'PENDING',?,?,?)",key,amount,fault,account,runId);
       this.sql.exec("INSERT INTO outbox(key,delivered,sends) VALUES(?,0,0)",key);
+      this.changePending(1);
       this.sql.exec("INSERT INTO faults(key,injected) VALUES(?,0)",key);
       return {key,amount,status:"PENDING",fault,run_id:runId,replay:false};
     });
@@ -51,7 +68,8 @@ export class CheckoutState{
       const order=this.rows("SELECT * FROM orders WHERE key=?",key)[0];
       if(!order||order.amount!==amount)throw new Error("Payment identity mismatch");
       this.sql.exec("UPDATE orders SET status='PAID' WHERE key=?",key);
-      this.sql.exec("UPDATE outbox SET delivered=1 WHERE key=?",key);
+      if(this.rows("UPDATE outbox SET delivered=1 WHERE key=? AND delivered=0 RETURNING key",key).length)
+        this.changePending(-1);
       return {key,status:"PAID"};
     });
   }
@@ -75,7 +93,7 @@ export class CheckoutState{
     this.paid(row);return true;
   }
   async enqueue(keys=null){
-    if(keys&&!keys.length)return {dispatched:0,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
+    if(keys&&!keys.length)return {dispatched:0,pending:this.pendingCount()};
     const scope=keys?" AND o.key IN ("+keys.map(()=>"?").join(",")+")":"";
     const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,o.run_id,x.sends,x.replays FROM outbox x JOIN orders o ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY x.next_attempt_at,x.key LIMIT 15",Date.now(),...(keys||[]));
     let dispatched=0;
@@ -99,7 +117,7 @@ export class CheckoutState{
     }
     const next=this.rows("SELECT next_attempt_at AS at FROM outbox WHERE delivered=0 AND published=0 AND sends<3 ORDER BY next_attempt_at,key LIMIT 1")[0]?.at;
     if(next!==undefined)await this.ctx.storage.setAlarm(Math.max(Date.now()+1000,next));
-    return {dispatched,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
+    return {dispatched,pending:this.pendingCount()};
   }
   async fetch(request){
     try{
@@ -117,10 +135,13 @@ export class CheckoutState{
         case "enqueue": value=await this.enqueue(q.keys||null);break;
         case "replay":
           {
-            const pending=this.rows("SELECT o.key,o.amount,o.account,x.sends,x.replays FROM outbox x JOIN orders o ON o.key=x.key WHERE x.delivered=0 AND x.next_attempt_at<=? ORDER BY x.key LIMIT 15",Date.now());
+            const pending=this.rows("SELECT o.key,o.amount,o.account,x.sends,x.replays,x.published FROM outbox x JOIN orders o ON o.key=x.key WHERE x.delivered=0 AND x.next_attempt_at<=? ORDER BY x.key LIMIT 15",Date.now());
             const recoverable=[];
             for(const row of pending){
               if(await this.readback(row))continue;
+              // Provider absence while delivery is paused does not undo a
+              // trusted Queue acknowledgement. Resume delivery, do not republish.
+              if(row.published)continue;
               recoverable.push(row);
             }
             // Validate the batch before resetting any published marker. A
