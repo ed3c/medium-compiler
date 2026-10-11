@@ -16,6 +16,13 @@ ARTICLES=[
         "context": "articles/agent-primitives-product-differentiation.context.json"
     },
     {
+        "slug": "architect-amplifier-payment-decisions",
+        "title": "架構師不再贏辯論的那一天：一張付款流程圖如何改變團隊的決策",
+        "description": "從付款 Timeout、架構選型到主管決策，跟著團隊用證據重新理解架構爭論。",
+        "source": "articles/architect-amplifier-payment-decisions.md",
+        "video_id": "F8X9_Dp3ZUk",
+    },
+    {
         "slug": "ai-engineer-learning-path",
         "title": "從軟體工程師到 AI Engineer",
         "description": "以 Ops Reconciliation Copilot 串起技術決策、實驗與來源證據。",
@@ -124,6 +131,25 @@ def markdown(text:str)->str:
     flush_p();close_list()
     if in_code: out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
     return '\n'.join(out)
+
+def youtube_article_embed(item:dict)->str:
+    """Render a source-bound, responsive YouTube iframe from an allowlisted video ID."""
+    video_id=item.get('video_id')
+    if not video_id:
+        return ''
+    if not isinstance(video_id,str) or not re.fullmatch(r'[A-Za-z0-9_-]{11}',video_id):
+        raise ValueError('Invalid YouTube video ID in site article registry')
+    video_url='https://www.youtube.com/watch?v='+video_id
+    return (f'<section class="article-video" aria-label="訪談影片">'
+            f'<div class="youtube-frame"><iframe '
+            f'src="https://www.youtube-nocookie.com/embed/{video_id}" '
+            f'title="Beyond Coding — Gregor Hohpe 訪談" '
+            f'loading="lazy" referrerpolicy="strict-origin-when-cross-origin" '
+            f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+            f'allowfullscreen></iframe></div>'
+            f'<p class="video-caption">原始訪談：<a href="{video_url}" target="_blank" '
+            f'rel="noopener noreferrer">Gregor Hohpe × Patrick Akil · Beyond Coding</a></p>'
+            f'</section>')
 
 def page(title:str, body:str, active:str='')->str:
     nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles'),('transcripts','/transcripts/','逐字稿來源')]
@@ -296,13 +322,23 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     article_provenance=[]
     for item in ARTICLES:
         source_bytes=(ROOT/item['source']).read_bytes()
-        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+markdown(source_bytes.decode('utf-8'))+lesson_navigation(item,course_route)+'</article>'
+        content_html=markdown(source_bytes.decode('utf-8'))
+        video_html=youtube_article_embed(item)
+        if video_html:
+            if '</p>' not in content_html:
+                raise ValueError('Video article must have an introductory paragraph')
+            content_html=content_html.replace('</p>','</p>'+video_html,1)
+        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+'</article>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         source_record={}
         if item.get('source_manifest'):
             panel,source_record=transcript_source(item,source_bytes,article_dir)
             article_body+=panel
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
+        if item.get('video_id'):
+            (article_dir/'article.md').write_bytes(source_bytes)
+            source_record['video_id']=item['video_id']
+            source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
         article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
         if item.get('notebook'):
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
