@@ -78,7 +78,7 @@ export default {
   },
   async queue(batch,env){
     const batchStartedAt=Date.now();
-    for(const message of batch.messages){
+    await Promise.all(batch.messages.map(async message=>{
       const {account,key,amount,fault,runId}=message.body||{};
       const startedAt=Date.now(),queuedAt=message.timestamp?.getTime?.();
       const timing={phase:"queue-consumer-result",key:null,runId:null,
@@ -104,7 +104,7 @@ export default {
           if(injected){
             // Deliberately preserve PENDING after Provider COMMIT. Redelivery
             // must read back the same payment identity, not charge twice.
-            message.retry({delaySeconds:3});timing.result="retry-injected";continue;
+            message.retry({delaySeconds:3});timing.result="retry-injected";return;
           }
         }
         stepAt=Date.now();await invoke(checkout,{action:"paid",key,amount});
@@ -116,6 +116,6 @@ export default {
         // Live tail only: no SQL writes, persistent Logs, account IDs or headers.
         console.log(JSON.stringify(timing));
       }
-    }
+    }));
   }
 };
