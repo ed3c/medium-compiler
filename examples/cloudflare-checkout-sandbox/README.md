@@ -11,7 +11,8 @@ Cloudflare Worker (Access protected) -> CheckoutState SQLite Durable Object
 
 Two independent Durable Objects mean the provider commit can succeed while
 Checkout stays PENDING. There is no cross-object ACID transaction or real money.
-Each Access identity has one private pair of objects and a maximum of 30 orders.
+Each Access identity has one private pair of objects. Order counts are not capped
+by the application; platform quotas apply across the Cloudflare account.
 Queue delivery, three bounded relay attempts and DLQ prevent unlimited retries.
 All inputs are bounded and effects use stable payment keys. The public Vercel
 frontend carries no account keys and cannot trigger this Worker anonymously.
@@ -44,33 +45,30 @@ not 10,000 fully settled payments. Verify current quotas before running load.
 
 ## Workload guards
 
-One extra instance of the existing CheckoutState class holds a shared UTC-day
-budget across this sandbox’s Access users: 20 new intent reservations and 50 Queue publish reservations. Reservations
-precede effects and are not refunded after uncertain failure. They conservatively
-overcount work; they are not Cloudflare usage or invoice measurements. This
-budget does not govern other Workers, products or the separate one-payment DR
-drill in the same Cloudflare account. Free subscriptions remain the fee boundary. A missing
-guard refuses admission. Existing pending intents remain readable when the budget
-is exhausted; dispatch stops and does not schedule an endless quota retry alarm.
-The next day requires an operator replay if no alarm remains scheduled.
+Cloudflare Workers Free is the required plan. The application no longer imposes
+20 orders/day, 50 dispatches/day, 30 orders/identity, two lifetime manual replays,
+or the 20/10-second route limiter. Queue consumer concurrency uses native
+autoscaling instead of a fixed one-consumer cap. This does not increase the
+account's Free quotas or demonstrate payment capacity.
 
-Each identity still has a lifetime limit of 30 orders. Each pending order permits
-two manual replays. Consumer concurrency is one; batch size one; two Queue retries
-then DLQ. Read and write route groups each have a native 20/10-second rate limiter
-per identity and Cloudflare location. That limiter is approximate and consumes a
-Worker request before refusing with 429; it is not an account-wide financial cap.
+Only pending work can be manually replayed, using the original payment key.
+Each relay processes at most 15 entries; each entry has three automatic publish
+attempts. Queue batch size is one with two retries and a DLQ. These bounds stop
+automatic failure loops; they are not lifetime usage caps. After platform quota
+refusal, orders remain PENDING. Read back provider effects before recovery.
+Manual replay does not reset Cloudflare usage or imply that a timeout failed.
 
 No Cron triggers, preview URLs or persistent Workers Logs are enabled. The
-workers.dev entry remains protected by Access so the learning UI is usable.
-Immediate Tail can capture a bounded acceptance run. Free plan quota refusal,
-not these counters, prevents usage overage billing for these products. Existing
-paid subscriptions or domain renewals require a separate Billing audit. Do not
-create an origin fallback or automatically switch to Paid after quota failure.
+workers.dev entry remains protected by Access. Only the authorized owner can
+operate this sandbox; visitors cannot trigger remote load. Free plan quota
+refusal is the relevant usage fee boundary. Existing paid subscriptions or
+domain renewals require a separate Billing audit. Do not create an origin
+fallback or automatically switch to Paid after quota failure.
 
-On adoption into an existing sandbox, the operator must seed the new daily
-budget from the actual prior order and dispatch records before admitting new
-work. Use authorized administrative SQLite access, not a public reset endpoint.
-Never reset counters merely to make a load test pass.
+The application cannot verify the account plan or estimate remaining platform
+quota. Its JSON evidence reports this uncertainty. Read current usage from
+Cloudflare; internal order counts are not invoice measurements. Old budget
+records remain stored as history but no longer govern admission or dispatch.
 
 ## Tests
 
@@ -78,7 +76,7 @@ Run from the repository root:
   node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs
   python3 -m unittest discover -s tests -p test_reliability_site.py -v
 
-The Node owner/transport adapters are contract tests. Quota controls execute
+The Node owner/transport adapters are contract tests. Recovery controls execute
 the actual CheckoutState SQL in Node SQLite; they still do not prove native
 Cloudflare DO/Queue behavior.
 For local Wrangler testing, configure a dev-only Access identity following
@@ -109,13 +107,12 @@ short-lived application token into process environment `CF_ACCESS_TOKEN` via
 chat or commit them. `RUN_ID` must be unique. Set `ARRIVALS_PER_SECOND=1` and
 `DURATION_SECONDS=4` for the first baseline; do not increase load after a failed
 baseline. One VU per finite arrival plus a conservative boundary slot is preallocated
-(up to 17); this separates generator capacity from settlement waiting. Both
-quota preflights reserve that extra intent and its three dispatches. It does not
-increase the arrival rate or window. Polls every two
+(up to 17); this separates generator capacity from settlement waiting. The boundary slot does not increase the arrival rate or window. Polls every two
 seconds make observed settlement latency an upper bound that includes polling
-and network delay. Admission/settlement/error/drop metrics are separate. The
-preflight requires room for all intents and three dispatch reservations each.
-That preflight is observational; the atomic admission guard remains decisive.
+and network delay. Admission/settlement/error/drop metrics are separate. Before remote execution, read back Billing and set
+`CONFIRM_FREE_PLAN="Workers Free"` only after verification. This operator
+confirmation is not an API check or a Cloudflare quota reservation. Platform
+usage must be checked separately; do not increase load to exhaust Free quotas.
 Export JSON using `EVIDENCE_FILE`. Visitors never receive the operator token.
 
 ## P3 restore
@@ -153,7 +150,7 @@ PAID with the same charge ID. The receipt measures elapsed recovery and reports
 zero lost intents only for that one case. It is not a regional service outage,
 a joint cross-DO restore, or a production RPO/RTO guarantee. A used run ID or an
 existing receipt refuses rerun; select a new isolated run explicitly in config.
-Do not reset production data or daily counters for a drill.
+Do not reset production data or platform usage for a drill.
 
 References:
 - https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/

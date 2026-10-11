@@ -7,7 +7,6 @@
   "preview_urls": false,
   "triggers": {"crons": []},
   "observability": {"enabled": false},
-  "ratelimits": [{"name":"REQUEST_LIMITER","namespace_id":"91261011","simple":{"limit":20,"period":10}}],
   "durable_objects": {
     "bindings": [
       {
@@ -42,8 +41,7 @@
         "max_batch_size": 1,
         "max_batch_timeout": 1,
         "max_retries": 2,
-        "dead_letter_queue": "checkout-reliability-dlq",
-        "max_concurrency": 1
+        "dead_letter_queue": "checkout-reliability-dlq"
       }
     ]
   }
