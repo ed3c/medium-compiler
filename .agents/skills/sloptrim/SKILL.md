@@ -237,85 +237,55 @@ The catalogue folds publicly documented signs of AI writing with newer model-spe
 
 ## Medium-compiler reader-article editorial supplement
 
-This appended section is a **project-local extension**, not part of upstream
-`seyedehsanhadi/sloptrim` v0.9.4. The original upstream SKILL.md bytes are
-preserved separately at `references/upstream/sloptrim-SKILL.md`, and the
-version lock records this extension. Keep the upstream pattern catalogue and
-detector behavior unchanged.
+**Local extension; not part of upstream sloptrim v0.9.4.** The pristine
+`SKILL.md` is retained in `references/upstream/sloptrim-SKILL.md`.
+The lock records the customized Git blob. The original detector and its 71
+patterns are unchanged. Apply this pass to completed **English reader-facing
+article prose**, even when the detector score is `clean`, before translation
+to Traditional Chinese. Do not apply it to P-class guidance, CLI contracts,
+code, quotes, fixed receipts, or other engineering evidence.
 
-### Delete editorial self-narration, not engineering meaning
+### Reader-attention test
 
-For **reader-facing essays and technical Medium articles**, run this semantic
-editorial pass even when `detect.py` scores the English draft as `clean`.
-The detector's lexical score cannot recognize every passage where the author
-explains the writing process instead of the subject. This pass is an editorial
-judgment, not a new detector pattern, score threshold, CI gate, or correctness
-claim. Never apply it to P-class guidance, CLI contracts, code, immutable
-receipts, or engineering reviews owned by Soodles `review-writing`.
+For every sentence, ask: if deleted, could the reader still identify the
+actor, relevant condition, causal relation, observed versus hypothetical
+status, and decision boundary? If so, cut it. If not, preserve the missing
+meaning in fewer words or near the action that depends on it.
 
-Ask of each sentence: if it vanished, could the reader still identify the
-actor, condition, action, causal link, actual vs hypothetical status, relevant
-evidence, and the decision boundary? If yes, remove it. If not, preserve the
-missing detail, often in fewer words or at the point where it affects the
-decision. Preserve the article's scene and natural rhythm.
+- **Writer narration:** Delete "This teaching scenario combines five
+  concepts" or "This diagram illustrates the method". Show the interaction.
+- **Framework name-checking:** Replace "Acting as an Amplifier, the
+  architect asks..." with "The architect asks...". Name an unfamiliar
+  concept once when it genuinely improves comprehension, not at every scene.
+- **Repeated provenance/disclaimers:** Keep source attribution and one clear
+  marker that an invented case is hypothetical. Keep concrete unknowns
+  where they change runtime decisions. Move general "not a real incident"
+  and "not tested here" disclosures to a concise source note instead of
+  repeatedly interrupting the narrative.
+- **Restating the scene:** Delete "The real lesson is..." paragraphs and
+  mirrored rhetorical contrasts that add no new mechanism, evidence, or
+  consequence. Do not replace them with new inspirational endings.
+- **Internal bookkeeping:** Keep card IDs, stages, detector scores,
+  verification receipts, and writing-process descriptions outside article
+  prose. Retain substantive citations and relevant technical details.
 
-Look especially for:
+**Controls:**
+- Cut: "This teaching example uses Solution Space Framing to connect the
+  cards." The next paragraph can describe splitting design modularity
+  from deployment independence without this announcement.
+- Rewrite: "This diagram is only a proposed model; it does not mean
+  Payment Attempt exists." → "Check whether the current code persists
+  Payment Attempt before calling the provider."
+- **Keep:** "A Timeout does not prove that the provider rejected the
+  payment; read back the outcome before retrying." This is a correctness
+  condition, not filler.
+- **Keep provenance:** Start a constructed case with "Suppose..." or an
+  equivalent unambiguous framing; never portray invented dialogue as a
+  recorded customer incident.
 
-1. **Writing-process narration:** "This article uses five concepts to
-   illustrate...", "In this teaching scenario we will...", "The point of
-   this diagram is..." Delete the announcement and show the scene or mechanism.
-2. **Concept-label handoffs:** "Acting as an Amplifier, the architect...",
-   "This is where Political Capital comes in", "This is Hohpe's Left-Right
-   Brain Ping-Pong." Let the actor do the observable work. Introduce the
-   technical term once where it helps; do not reintroduce it after every step.
-3. **Repetitive defensive caveats:** "This is only a model", "Not yet
-   tested", "This is not a real incident" after every diagram and example.
-   Preserve exact uncertainty where it changes an action or trust boundary.
-   Put general provenance and hypothetical-case disclosure in a clear first
-   framing and/or a concise source note. Never imply a scenario was observed.
-4. **Post-example restatements:** An abstract "The real lesson is..."
-   paragraph that merely repeats the scene, or two mirrored "If the team
-   only..." sentences restating the same contrast. Cut them unless the
-   paragraph adds a new, testable consequence.
-5. **Checklist leakage:** A Medium paragraph that inventories which source
-   cards, writing stages, methods, or review passes it has used. Keep card IDs,
-   audit status, prompts, and verification receipts in companion evidence,
-   not in the narrative. A substantive source citation belongs in the article.
-6. **Synthetic dialogue portrayed as reportage:** Invented quotations or
-   meeting outcomes cannot be attributed to real participants. Keep useful
-   hypothetical exchanges as explicitly hypothetical; rewrite unsupported
-   staged dialogue into conditional examples rather than hiding the fiction.
-
-### Minimal pair controls
-
-- Before: "Acting as an Amplifier, the architect first asks what everyone
-  fears." After: "The architect asks which failure each engineer fears most."
-  The action conveys the concept without turning a framework into a job title.
-- Before: "This teaching example uses Solution Space Framing to connect the
-  cards." After: "The team separates code modularity from deployment
-  independence." No reader-relevant fact is lost.
-- Before: "This diagram is a proposed model, not a tested implementation.
-  It does not mean Payment Attempt exists." After: "The team must check
-  whether the current code persists a Payment Attempt before the provider
-  call." Keep the real uncertainty and its operational consequence.
-- Do **not** remove: "A Timeout does not prove the provider rejected the
-  payment; check the outcome before retrying." This is a correctness
-  condition, not an annoying disclaimer.
-- Do **not** erase hypothetical framing. Start a constructed case with
-  "Suppose a checkout team..." and retain one source note identifying the
-  invented setting. Do not convert it into a fabricated customer incident.
-
-### English-first, then bilingual fidelity
-
-Apply this pass to the **complete English article** after its source-grounded
-argument exists and before translating into Traditional Chinese. Preserve
-the accepted English text, all source links, quotations, qualifiers, negation,
-technical identifiers, data-flow relationships, and necessary unknowns. Run a
-source-fidelity readback after deletions. Translate only that approved version;
-keep exact English technical terms and compare the Chinese article with source
-and English final for missing conditions or shifted claims.
-
-A lower detector score is not evidence that this editorial pass was effective.
-If the deletion would change the decision or hide an unverified assumption,
-keep or relocate the smallest precise disclosure. A reader should encounter
-the engineering problem, not the manuscript's internal production log.
+After deletion, compare the English result with sources for facts, negation,
+qualifiers, attribution, technical terms, runtime order, and unknown effects.
+Only translate the approved English version. Check the Traditional Chinese
+version against both source and English final, preserving exact English
+technical terms. A style score or copyedit is not a semantic PASS, and this
+appendix creates no runtime gate.
