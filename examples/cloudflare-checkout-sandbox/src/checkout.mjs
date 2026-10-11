@@ -63,6 +63,7 @@ export class CheckoutState{
       switch(q.action){
         case "create": value=this.create(q);await this.ctx.storage.setAlarm(Date.now()+15000);break;
         case "state": value=this.snapshot();break;
+        case "bookmark": value=await this.ctx.storage.getCurrentBookmark().catch(()=>null);break;
         case "paid": value=this.paid(q);break;
         case "claimFault": value=this.claimFault(q);break;
         case "enqueue": value=await this.enqueue();break;
