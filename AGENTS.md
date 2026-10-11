@@ -32,6 +32,31 @@ action is Session-local, not product-wide. Retain the native route and name the 
 operation; refresh capability observations on a new Session, not every unchanged turn.
 Proceed without asking again when the selected route's actual requirements are met.
 
+## Vercel host route and external state
+
+For a Local Codex task, use Vercel CLI with its own local credentials. Verify the
+requested team and project through that CLI. For a cloud task, use the connected
+Vercel Connector with the explicit team and project. The Session's selected host
+determines this route; an installed binary or a failed request does not change it.
+Use Computer Use for the selected route's authorized browser login when needed.
+Do not request a token in chat or provision local credentials for a cloud task.
+
+A Connector 403 describes that Connector's request and scope. It does not prove
+that the local CLI, Owner browser or Git deployment lacks access. A CLI waiting
+for authentication, including a disabled browser approval button, has not
+completed login; it does not prove team denial or deployment failure. After login,
+read the requested project in the selected team before making project changes.
+
+Record the actual command/tool, target, response and source revision. Keep login,
+target authorization, deployment and runtime verification separate. An exit-zero
+deploy or READY deployment does not prove Browser, Queue, DO or recovery behavior.
+If an external mutation's result is unknown, obtain its authoritative readback
+before repeating it. Block only the operation whose prerequisite is missing.
+
+The Medium compiler CLI owns article stage order and admitted bytes. Its VALID or
+VALIDATED result does not authorize or verify Vercel/Cloudflare effects. Hosting
+errors do not reset article stages; continue from the compiler's actual next.
+
 ## Writing routes
 
 Engineering-facing requirements, skills, specifications, evidence reports and

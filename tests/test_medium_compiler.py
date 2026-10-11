@@ -183,6 +183,12 @@ class MediumCompilerTests(unittest.TestCase):
         result = mc.check_receipt(self.run_dir)
         self.assertEqual(result["status"], "VALID")
         self.assertEqual(result["semantic_correctness"], "NOT_ASSESSED")
+        for output in [result, mc.next_action(self.run_dir), mc.build_receipt(self.run_dir)]:
+            self.assertEqual(output["verification_scope"], "MECHANICAL_WRITING_CONTRACT")
+            self.assertEqual(output["platform_authorization"], "NOT_ASSESSED")
+            self.assertEqual(output["deployment"], "NOT_ASSESSED")
+            self.assertEqual(output["runtime_correctness"], "NOT_ASSESSED")
+            self.assertFalse(output["authorizes_external_effects"])
 
     def _assemble_valid_run(self) -> str:
         self._through_stage5()
