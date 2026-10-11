@@ -77,7 +77,9 @@ must resume without republishing. Only unacknowledged entries can be reset;
 an epoch prevents stale completions from overwriting newer claims.
 Lease expiry does not terminate an older send: unknown outcomes can still produce
 same-key duplicate messages. This is not exactly-once publication or payment.
-Queue batch size is one with two retries and a DLQ. These bounds stop
+Queue batch size is at most ten with two retries and a DLQ. The Consumer
+processes each message sequentially with its own ack/retry decision; a fault
+does not retry an already acknowledged neighbor. These bounds stop
 automatic failure loops; they are not lifetime usage caps. After platform quota
 refusal, orders remain PENDING. Read back provider effects before recovery.
 Manual replay does not reset Cloudflare usage or imply that a timeout failed.
