@@ -151,8 +151,13 @@ Queue backlog, Pending Age, DLQ and operation cost.
 Never offer uncontrolled public load generation.
 A remote runner requires the operator’s human Access identity because this
 Worker accepts an email identity, not an anonymous service identity. Use the
-official `cloudflared access login --url <protected-worker-url>` flow. Load the
-short-lived application token into process environment `CF_ACCESS_TOKEN` via
+official `cloudflared access login --quiet <protected-worker-url>` flow. The
+URL is a positional argument; use the installed CLI help, not an unsupported
+`--url` flag. A zero exit or an HTTP 200 after a login redirect does not prove
+authorized API readback. Require the API JSON response for the original Run ID.
+If a session expires, renew it and inspect existing Run/Payment Keys before
+restarting a load; keep failed evidence and do not create replacement identities.
+Load the short-lived application token into process environment `CF_ACCESS_TOKEN` via
 `cloudflared access token --app <protected-worker-url>`; never paste tokens into
 chat or commit them. `RUN_ID` must be unique. Set `ARRIVALS_PER_SECOND=1` and
 `DURATION_SECONDS=4` for the first baseline; do not increase load after a failed

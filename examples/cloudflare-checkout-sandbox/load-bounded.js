@@ -31,6 +31,8 @@ const readRequests=new Counter("readback_requests"),readRows=new Counter("readba
 function state(selection){
   const r=http.post(url+"/api/state",JSON.stringify(selection),{headers,tags:{phase:"readback"},timeout:"5s"});
   if(r.status!==200)throw Error("Owner readback failed: HTTP "+r.status);
+  if(!String(r.headers["Content-Type"]||"").toLowerCase().includes("application/json"))
+    throw Error("Owner readback returned non-JSON; renew Access and inspect the original Run before restarting");
   const value=r.json();
   if(value.schema!=="checkout-remote-evidence@3"||typeof value.readbackUsage?.totalRowsRead!=="number")throw Error("Native scoped readback measurement unavailable");
   readRequests.add(1);readRows.add(value.readbackUsage.totalRowsRead);readBytes.add(r.body.length);
