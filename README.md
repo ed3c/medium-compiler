@@ -235,6 +235,13 @@ Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consu
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
 
+The primary deployment now targets Cloudflare Workers Static Assets with a separate
+read-only transcript Worker API. [Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md)
+explain the cost boundary between public asset traffic and the Access-protected payment
+Sandbox. Use `npm ci --ignore-scripts`, `npm run build`, then the pinned Wrangler route;
+retain Vercel as a rollback and old-Origin OPFS readback site. Deployment and runtime
+evidence are recorded per source revision, not inferred from this configuration.
+
 The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use
 the existing player controls. The browser reads the selected file without uploading it.

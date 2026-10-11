@@ -306,6 +306,7 @@ def build(out:Path)->dict:
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
     (out/'assets').mkdir()
+    shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
     snapshot=json.loads((ROOT/'references/ops-experiment-catalog.json').read_text())
     state=learning_state()

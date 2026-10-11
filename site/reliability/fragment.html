@@ -6,7 +6,7 @@
 </section>
 <section class="panel" aria-label="執行環境">
 <strong>實驗範圍</strong>
-<p>這是一個 Browser Worker 中的邏輯服務模擬，不是多節點測試，也不能量測 Vercel 的伺服器吞吐量。資料只在此瀏覽器 Origin 中保存，重新整理頁面後可 Readback。</p>
+<p>這是一個 Browser Worker 中的邏輯服務模擬，不是多節點測試，也不能量測雲端付款吞吐量。資料只在此瀏覽器 Origin 中保存，重新整理頁面後可 Readback。更換網站 Origin 不會自動搬移資料；可在原站匯出 JSON evidence。</p>
 <p id="reliability-ready" role="status" aria-live="polite">正在初始化 SQLite-Wasm / OPFS…</p>
 </section>
 <div class="panel reliability-lab">
@@ -39,7 +39,9 @@
 </div>
 <section class="panel">
 <h2>下一階段：Cloudflare Remote Sandbox</h2>
-<p>真正的 Multi-process 訊息重送、Queue Outage、持久化 Readback 和受控 Load Test，使用獨立的 Cloudflare Worker／Durable Objects／Queues 實作。只有完成部署、Access 驗證及跨服務測試後，才會宣稱雲端驗證成功。</p>
+<p>在獨立的 Cloudflare Worker／Durable Objects／Queues 執行付款實驗。Cloudflare Access 目前只允許帳號 Owner；其他讀者可在上方執行 Browser Lab，或從開源程式部署自己的 Sandbox。</p>
+<p><a class="button secondary" href="https://checkout-reliability-sandbox.ga874199.workers.dev/" target="_blank" rel="noopener noreferrer">開啟受 Access 保護的 Remote Sandbox ↗</a></p>
+<p>Load Test 由獨立、授權的 Runner 執行。靜態網頁流量、202 Accepted 與實際 PAID Throughput 分別量測；免費 baseline 不代表已驗證大流量容量。</p>
 <p><a href="https://github.com/ed3c/medium-compiler/tree/main/examples/cloudflare-checkout-sandbox">Cloudflare 原始碼與部署步驟</a></p>
 </section>
 <link rel="stylesheet" href="/assets/reliability/styles.css">

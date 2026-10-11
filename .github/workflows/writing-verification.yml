@@ -22,6 +22,9 @@ jobs:
           node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs > /tmp/writing-evidence/browser-cloudflare-contracts.txt 2>&1
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
+          npm ci --ignore-scripts
+          npm run build > /tmp/writing-evidence/cloudflare-site-build.txt
+          npm run test:site > /tmp/writing-evidence/cloudflare-site-runtime.txt 2>&1
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
           set +e
           python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/writing-evidence/behavior
