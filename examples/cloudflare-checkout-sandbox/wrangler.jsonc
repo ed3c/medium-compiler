@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
   "name": "checkout-reliability-sandbox",
+  "account_id": "3751568573ab98ef44d3224c418b1c61",
   "main": "src/index.mjs",
   "compatibility_date": "2026-10-11",
   "workers_dev": true,

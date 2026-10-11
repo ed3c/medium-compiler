@@ -6,6 +6,8 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 ROOT=Path(__file__).resolve().parents[1]
+MAIN_ORIGIN='https://medium-compiler.vercel.app'
+LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
     {
         "slug": "agent-primitives-product-differentiation",
@@ -172,10 +174,20 @@ def youtube_article_embed(item:dict)->str:
             f'rel="noopener noreferrer">Gregor Hohpe × Patrick Akil · Beyond Coding</a></p>'
             f'</section>')
 
-def page(title:str, body:str, active:str='')->str:
+def page(title:str, body:str, active:str='', main_origin:str='')->str:
     nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles'),('reliability','/reliability/','Reliability Lab'),('transcripts','/transcripts/','逐字稿來源')]
-    links=''.join(f'<a class="{"active" if key==active else ""}" href="{href}">{label}</a>' for key,href,label in nav)
-    return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+    links=''.join(f'<a class="{"active" if key==active else ""}" href="{LAB_ORIGIN+href if key=="reliability" else main_origin+href}">{label}</a>' for key,href,label in nav)
+    return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="{main_origin}/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+
+def build_reliability(out:Path, main_origin:str='')->None:
+    lab_dir=out/'reliability';lab_dir.mkdir(parents=True)
+    lab_source=ROOT/'site/reliability'
+    shutil.copytree(lab_source,out/'assets/reliability')
+    lab_html=(lab_source/'fragment.html').read_text(encoding='utf-8')
+    sqlite_version=json.loads((ROOT/'references/sqlite-wasm-lock.json').read_text(encoding='utf-8'))['version']
+    lab_html=lab_html.replace('{{SQLITE_WASM_VERSION}}',html.escape(sqlite_version))
+    lab_html=lab_html.replace('href="/articles/',f'href="{MAIN_ORIGIN}/articles/')
+    (lab_dir/'index.html').write_text(page('Checkout Reliability Lab',lab_html,'reliability',main_origin),encoding='utf-8')
 
 def learning_state()->dict:
     path=ROOT/'LEARNING.md'
@@ -333,15 +345,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
     # Single-browser fault experiments are static and require no server credentials.
-    lab_dir=out/'reliability'
-    lab_dir.mkdir()
-    lab_source=ROOT/'site/reliability'
-    lab_assets=out/'assets/reliability'
-    shutil.copytree(lab_source,lab_assets)
-    lab_html=(lab_source/'fragment.html').read_text(encoding='utf-8')
-    sqlite_version=json.loads((ROOT/'references/sqlite-wasm-lock.json').read_text(encoding='utf-8'))['version']
-    lab_html=lab_html.replace('{{SQLITE_WASM_VERSION}}',html.escape(sqlite_version))
-    (lab_dir/'index.html').write_text(page('Checkout Reliability Lab',lab_html,'reliability'),encoding='utf-8')
+    build_reliability(out)
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
     transcript_dir=out/'transcripts';transcript_dir.mkdir()

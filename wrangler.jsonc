@@ -7,7 +7,7 @@
   "workers_dev": true,
   "preview_urls": false,
   "assets": {
-    "directory": "./dist",
+    "directory": "./dist-cloudflare",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "run_worker_first": ["/api/*"]

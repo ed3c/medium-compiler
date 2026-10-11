@@ -20,7 +20,7 @@ function fakeEnvironment(){
            if(previous&&previous.amount!==x.amount)throw Error("409: identical key, different amount");
            if(!previous){
              this.orders.set(x.key,{key:x.key,amount:x.amount,status:"PENDING",fault:x.fault,account:x.account});
-             this.outbox.set(x.key,{key:x.key,delivered:0,sends:0});
+             this.outbox.set(x.key,{key:x.key,delivered:0,sends:0,published:0});
            }
            value={...this.orders.get(x.key),replay:!!previous};break;
          }
@@ -30,12 +30,12 @@ function fakeEnvironment(){
            let count=0;
            for(const o of this.orders.values()){
              const e=this.outbox.get(o.key);
-             if(!e.delivered&&e.sends<3){e.sends++;pending.push({account:o.account,key:o.key,amount:o.amount,fault:o.fault});count++;}
+             if((!x.keys||x.keys.includes(o.key))&&!e.delivered&&!e.published&&e.sends<3){e.sends++;e.published=1;pending.push({account:o.account,key:o.key,amount:o.amount,fault:o.fault});count++;}
            }
            value={dispatched:count,pending:[...this.outbox.values()].filter(e=>!e.delivered).length};break;
          }
          case "replay":{
-           for(const e of this.outbox.values())if(!e.delivered)e.sends=0;
+           for(const e of this.outbox.values())if(!e.delivered){e.sends=0;e.published=0;}
            return this.fetch(_url,{body:JSON.stringify({action:"enqueue"})});
          }
          case "claimFault":value=!this.faults.has(x.key);this.faults.add(x.key);break;
@@ -77,21 +77,21 @@ const ctx={access:{async getIdentity(){return {email:"owner@example.test"};}}};
 // Real source SQL against SQLite; only platform transport and alarm are adapters.
 // This verifies quota semantics, not Cloudflare-native execution.
 function sqliteEnvironment(Class=CheckoutState){
-  const objects=new Map(),databases=[],sent=[];
-  const env={PAYMENTS_QUEUE:{async send(value){sent.push(value);}}};
+  const objects=new Map(),databases=[],sent=[],evidence=new Map(),readbacks=[],alarms=[];
+  const env={PAYMENTS_QUEUE:{async send(value){sent.push(value);}},PROVIDER:{idFromName:name=>name,get(){return {async fetch(_url,options){const input=JSON.parse(options.body);readbacks.push(input.key);return Response.json({ok:true,value:evidence.get(input.key)||null});}};}}};
   env.CHECKOUT={idFromName:name=>name,get(name){
     if(!objects.has(name)){
       const db=new DatabaseSync(":memory:");databases.push(db);
       const storage={sql:{exec(sql,...params){const rows=db.prepare(sql).all(...params);return {toArray:()=>rows};}},
         transactionSync(fn){db.exec("BEGIN");try{const value=fn();db.exec("COMMIT");return value;}catch(error){db.exec("ROLLBACK");throw error;}},
-        async setAlarm(){},async getCurrentBookmark(){throw Error("PITR is unavailable in this local SQL adapter");}};
+        async setAlarm(at){alarms.push(at);},async getCurrentBookmark(){throw Error("PITR is unavailable in this local SQL adapter");}};
       const object=new Class({storage},env),fetch=object.fetch.bind(object);
       object.fetch=(request,options)=>fetch(request instanceof Request?request:new Request(request,options));
       objects.set(name,object);
     }
     return objects.get(name);
   }};
-  return {env,sent,close(){for(const db of databases)db.close();}};
+  return {env,sent,evidence,readbacks,alarms,close(){for(const db of databases)db.close();}};
 }
 test("orders exceed former application caps and preserve idempotency",async()=>{
   const fixture=sqliteEnvironment();
@@ -104,14 +104,15 @@ test("orders exceed former application caps and preserve idempotency",async()=>{
     assert.equal(object.snapshot().outbox.length,31);
   }finally{fixture.close();}
 });
-test("Queue quota refusal preserves pending work and stops automatic publish retries",async()=>{
+test("Queue quota refusal preserves pending work and stops automatic publish retries",async t=>{
+  let now=Date.now();t.mock.method(Date,"now",()=>now);
   const fixture=sqliteEnvironment();
   try{
     const object=fixture.env.CHECKOUT.get("user");
     object.create({key:"unknown",amount:1250,fault:"none",account:"user"});
     let attempts=0;
     fixture.env.PAYMENTS_QUEUE.send=async()=>{attempts++;throw Error("Platform quota exceeded");};
-    for(let i=0;i<5;i++)await object.alarm();
+    for(let i=0;i<5;i++){await object.alarm();now+=30001;}
     assert.equal(attempts,3);
     assert.equal(object.snapshot().orders[0].status,"PENDING");
     assert.equal(object.snapshot().outbox[0].delivered,0);
@@ -122,24 +123,151 @@ test("Queue quota refusal preserves pending work and stops automatic publish ret
     assert.equal(object.snapshot().orders[0].status,"PENDING");
   }finally{fixture.close();}
 });
-test("concurrent relay stays finite; manual recovery exceeds former replay and dispatch caps",async()=>{
+test("successful publication is excluded from concurrent and later relays",async()=>{
   const fixture=sqliteEnvironment();
   try{
     const object=fixture.env.CHECKOUT.get("user");
     object.create({key:"pending",amount:1250,fault:"none",account:"user"});
     await Promise.all(Array.from({length:8},()=>object.enqueue()));
-    assert.equal(fixture.sent.length,3);
+    assert.equal(fixture.sent.length,1);
+    assert.equal(object.snapshot().outbox[0].published,1);
+    await object.alarm();
+    assert.equal(fixture.sent.length,1);
     for(let i=0;i<4;i++)await object.fetch(post("replay",{action:"replay"}));
     assert.equal(object.snapshot().outbox[0].replays,4);
-    assert.equal(fixture.sent.length,7);
+    assert.equal(fixture.sent.length,5);
+    assert.equal(fixture.readbacks.length,4);
     object.paid({key:"pending",amount:1250});
     const before=fixture.sent.length;
     await object.fetch(post("replay",{action:"replay"}));
     assert.equal(fixture.sent.length,before);
     for(let i=0;i<18;i++)object.create({key:"next-"+i,amount:1250,fault:"none",account:"user"});
     for(let i=0;i<6;i++)await object.enqueue();
-    assert.equal(fixture.sent.length,61);
+    assert.equal(fixture.sent.length,23);
+    assert.ok(object.snapshot().outbox.filter(row=>row.key.startsWith("next-")).every(row=>row.sends===1&&row.published===1));
     assert.ok(fixture.sent.every(message=>message.amount===1250));
+  }finally{fixture.close();}
+});
+test("Create relays only its key even beyond the first fifteen pending orders",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("access-user:owner@example.test");
+    for(let i=0;i<18;i++)object.create({key:"a-"+i,amount:1250,fault:"none",account:"owner@example.test"});
+    const response=await worker.fetch(post("api/create",{key:"z-current",amount:1250}),fixture.env,ctx);
+    assert.equal(response.status,202);
+    assert.deepEqual(fixture.sent.map(row=>row.key),["z-current"]);
+    await worker.fetch(post("api/create",{key:"z-current",amount:1250}),fixture.env,ctx);
+    assert.equal(fixture.sent.length,1);
+  }finally{fixture.close();}
+});
+test("unknown publish reply reads provider evidence before deciding to resend",async t=>{
+  let now=Date.now();t.mock.method(Date,"now",()=>now);
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"lost-publish",amount:1250,fault:"none",account:"user"});
+    fixture.env.PAYMENTS_QUEUE.send=async message=>{fixture.sent.push(message);throw Error("Lost publish reply after Queue accepted");};
+    await object.enqueue();
+    await object.enqueue();
+    assert.equal(fixture.sent.length,1);
+    fixture.evidence.set("lost-publish",{key:"lost-publish",amount:1250,currency:"USD",charge_id:"readback"});
+    now+=30001;await object.alarm();
+    assert.equal(fixture.sent.length,1);
+    assert.equal(object.snapshot().orders[0].status,"PAID");
+    assert.equal(object.snapshot().outbox[0].delivered,1);
+    assert.deepEqual(fixture.readbacks,["lost-publish"]);
+  }finally{fixture.close();}
+});
+test("late publish completion cannot overwrite a manual recovery epoch",async t=>{
+  let now=Date.now();t.mock.method(Date,"now",()=>now);
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"slow",amount:1250,fault:"none",account:"user"});
+    let finish;
+    fixture.env.PAYMENTS_QUEUE.send=()=>new Promise(resolve=>{finish=resolve;});
+    const first=object.enqueue();
+    await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(object.snapshot().outbox[0].replays,0);
+    now+=30001;
+    fixture.env.PAYMENTS_QUEUE.send=async()=>{throw Error("New publish unavailable");};
+    await object.fetch(post("replay",{action:"replay"}));
+    finish();await first;
+    const row=object.snapshot().outbox[0];
+    assert.equal(row.replays,1);assert.equal(row.sends,1);
+    assert.equal(row.published,0);assert.equal(row.next_attempt_at,now+30000);
+  }finally{fixture.close();}
+});
+test("manual recovery reconciles known effects and refuses mismatched evidence",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"known",amount:1250,fault:"none",account:"user"});
+    await object.enqueue();
+    fixture.evidence.set("known",{key:"known",amount:1250,currency:"USD",charge_id:"known"});
+    await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(fixture.sent.length,1);assert.equal(object.snapshot().orders[0].status,"PAID");
+    object.create({key:"mismatch",amount:1250,fault:"none",account:"user"});
+    fixture.evidence.set("mismatch",{key:"mismatch",amount:999,currency:"USD"});
+    const response=await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(response.status,400);
+    assert.equal(object.snapshot().orders.find(row=>row.key==="mismatch").status,"PENDING");
+    assert.equal(fixture.sent.length,1);
+  }finally{fixture.close();}
+});
+test("recovery wake-up is persisted before committing intent or awaiting Queue",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.ctx.storage.setAlarm=async()=>{throw Error("Alarm persistence unavailable");};
+    assert.equal((await object.fetch(post("create",{action:"create",key:"new",amount:1250,fault:"none",account:"user"}))).status,400);
+    assert.equal(object.snapshot().orders.length,0);
+    object.create({key:"relay",amount:1250,fault:"none",account:"user"});
+    await assert.rejects(object.alarm(),/Alarm persistence unavailable/);
+    assert.equal(fixture.sent.length,0);
+    object.sql.exec("UPDATE outbox SET sends=2,next_attempt_at=0 WHERE key='relay'");
+    await assert.rejects(object.alarm(),/Alarm persistence unavailable/);
+    assert.equal(fixture.sent.length,0);
+    object.ctx.storage.setAlarm=async at=>fixture.alarms.push(at);
+    object.sql.exec("UPDATE outbox SET sends=0,next_attempt_at=0 WHERE key='relay'");
+    fixture.env.PAYMENTS_QUEUE.send=async message=>{
+      assert.ok(fixture.alarms.length>0);fixture.sent.push(message);
+    };
+    await object.alarm();assert.equal(fixture.sent.length,1);
+  }finally{fixture.close();}
+});
+test("an expired readback cannot publish after another recovery epoch succeeds",async t=>{
+  let now=Date.now();t.mock.method(Date,"now",()=>now);
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"delayed-read",amount:1250,fault:"none",account:"user"});
+    fixture.env.PAYMENTS_QUEUE.send=async()=>{throw Error("Unknown publish result");};
+    await object.enqueue();now+=30001;
+    let finish;
+    fixture.env.PROVIDER.get=()=>({fetch:()=>new Promise(resolve=>{finish=()=>resolve(Response.json({ok:true,value:null}));})});
+    const old=object.enqueue();
+    // Wait for the fake storage await to finish, then the deferred provider read.
+    await new Promise(resolve=>setImmediate(resolve));
+    now+=30001;
+    fixture.env.PROVIDER.get=()=>({async fetch(){return Response.json({ok:true,value:null});}});
+    fixture.env.PAYMENTS_QUEUE.send=async message=>fixture.sent.push(message);
+    await object.fetch(post("replay",{action:"replay"}));
+    finish();await old;
+    assert.equal(fixture.sent.length,1);assert.equal(object.snapshot().outbox[0].published,1);
+  }finally{fixture.close();}
+});
+test("mixed replay readback failure does not reset an earlier published intent",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    for(const key of ["a","b"])object.create({key,amount:1250,fault:"none",account:"user"});
+    await object.enqueue();
+    fixture.evidence.set("b",{key:"b",amount:999,currency:"USD"});
+    const response=await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(response.status,400);
+    assert.ok(object.snapshot().outbox.every(row=>row.published===1&&row.replays===0));
+    await object.alarm();assert.equal(fixture.sent.length,2);
   }finally{fixture.close();}
 });
 function post(path,body={}){return new Request("https://sandbox.example/"+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}

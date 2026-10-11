@@ -1,5 +1,6 @@
 __pycache__/
 /dist/
+/dist-cloudflare/
 /.transcripts/
 /.wrangler/
 /node_modules/

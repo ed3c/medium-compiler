@@ -34,7 +34,13 @@ Proceed without asking again when the selected route's actual requirements are m
 
 ## Vercel host route and external state
 
-For a Local Codex task, use Vercel CLI with its own local credentials. Verify the
+The total site remains on Vercel Hobby (`noodles8/medium-compiler`); its deployment
+owner is the ChatGPT cloud task using the Vercel Connector. The Reliability Lab
+subsite and Access-protected remote sandbox use Cloudflare Workers Free; Local
+Codex owns their Wrangler setup and native Git build configuration. Navigate
+directly between origins; do not proxy Access identity or payment load through Vercel.
+
+For an explicitly selected Local Vercel task, use Vercel CLI with its own local credentials. Verify the
 requested team and project through that CLI. For a cloud task, use the connected
 Vercel Connector with the explicit team and project. The Session's selected host
 determines this route; an installed binary or a failed request does not change it.
@@ -52,6 +58,24 @@ target authorization, deployment and runtime verification separate. An exit-zero
 deploy or READY deployment does not prove Browser, Queue, DO or recovery behavior.
 If an external mutation's result is unknown, obtain its authoritative readback
 before repeating it. Block only the operation whose prerequisite is missing.
+
+Cloudflare tasks with a Wrangler configuration use the pinned project Wrangler;
+other Cloudflare tasks use cf CLI. Read the target account, existing Worker,
+Access policy and Free plan before remote effects. Do not upgrade plans or add
+billable subscriptions. An unknown remaining quota is not unused quota.
+Workers Builds executes Git-triggered builds on Cloudflare, even when Local
+Codex configured the connection. GitHub App installation is not a connected
+build trigger; a trigger is not an active deployment. Read the actual build SHA,
+result, active Worker version and runtime separately. Keep production on main
+and preview builds disabled for this sandbox; never attach preview code to its
+production Queue or Durable Objects.
+
+Queue publish acknowledgement means the Queue accepted the intent, not that the
+Order is PAID. A durable claim prevents routine concurrent relays, and a saved
+publish acknowledgement prevents later Creates from publishing it again.
+Unknown publish results require Provider readback before same-key recovery;
+lease expiry does not prove the old request stopped. Do not claim exactly-once
+Queue publication or use internal sends counters as Cloudflare billable usage.
 
 The Medium compiler CLI owns article stage order and admitted bytes. Its VALID or
 VALIDATED result does not authorize or verify Vercel/Cloudflare effects. Hosting
