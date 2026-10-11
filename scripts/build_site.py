@@ -338,6 +338,8 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     lab_assets=out/'assets/reliability'
     shutil.copytree(lab_source,lab_assets)
     lab_html=(lab_source/'fragment.html').read_text(encoding='utf-8')
+    sqlite_version=json.loads((ROOT/'references/sqlite-wasm-lock.json').read_text(encoding='utf-8'))['version']
+    lab_html=lab_html.replace('{{SQLITE_WASM_VERSION}}',html.escape(sqlite_version))
     (lab_dir/'index.html').write_text(page('Checkout Reliability Lab',lab_html,'reliability'),encoding='utf-8')
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
