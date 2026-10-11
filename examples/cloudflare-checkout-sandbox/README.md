@@ -89,6 +89,17 @@ refusal is the relevant usage fee boundary. Existing paid subscriptions or
 domain renewals require a separate Billing audit. Do not create an origin
 fallback or automatically switch to Paid after quota failure.
 
+For an operator latency drill, `wrangler tail --format json` observes
+`queue-publish-ack` and `queue-consumer-result` console records. They add no
+SQLite writes and do not enable persistent Logs. Consumer wall time is split
+into Provider lookup/charge, fault claim and Checkout PAID calls. Queue lag
+uses the platform message timestamp and includes intentional pauses and retry
+delay; batch wait is reported separately. These are wall times, not CPU time.
+Keep the same workload, polling schedule and pause window when comparing runs;
+polling first observes PAID after commit and is not the commit timestamp.
+Live tail may drop records, so verify capture completeness before comparing.
+Do not save request headers, cookies or Access identity from a raw tail stream.
+
 The application cannot verify the account plan or estimate remaining platform
 quota. Its JSON evidence reports this uncertainty. Read current usage from
 Cloudflare; internal order counts are not invoice measurements. Old budget
