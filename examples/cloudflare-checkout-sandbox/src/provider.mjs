@@ -21,6 +21,8 @@ export class ProviderState{
         value=this.rows("SELECT * FROM charges WHERE key=?",q.key)[0]||null;
       }else if(q.action==="state"){
         value=this.rows("SELECT * FROM charges ORDER BY key");
+      }else if(q.action==="bookmark"){
+        value=await this.ctx.storage.getCurrentBookmark().catch(()=>null);
       }else throw new Error("Invalid internal provider action");
       return Response.json({ok:true,value});
     }catch(e){return Response.json({ok:false,error:e.message},{status:400});}
