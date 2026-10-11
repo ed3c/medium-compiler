@@ -4,6 +4,8 @@ import assert from "node:assert/strict";
 import worker from "../examples/cloudflare-checkout-sandbox/src/index.mjs";
 import {DatabaseSync} from "node:sqlite";
 import {CheckoutState} from "../examples/cloudflare-checkout-sandbox/src/checkout.mjs";
+import drill,{DrillCheckout,DrillProvider} from "../examples/cloudflare-checkout-sandbox/dr/worker.mjs";
+import proxy from "../examples/cloudflare-checkout-sandbox/dr/proxy.mjs";
 
 function fakeEnvironment(){
  const pending=[];
@@ -76,7 +78,7 @@ function fakeEnvironment(){
 const ctx={access:{async getIdentity(){return {email:"owner@example.test"};}}};
 // Real source SQL against SQLite; only platform transport and alarm are adapters.
 // This verifies quota semantics, not Cloudflare-native execution.
-function sqliteEnvironment(){
+function sqliteEnvironment(Class=CheckoutState){
   const objects=new Map(),databases=[],sent=[];
   const env={PAYMENTS_QUEUE:{async send(value){sent.push(value);}}};
   env.CHECKOUT={idFromName:name=>name,get(name){
@@ -84,8 +86,8 @@ function sqliteEnvironment(){
       const db=new DatabaseSync(":memory:");databases.push(db);
       const storage={sql:{exec(sql,...params){const rows=db.prepare(sql).all(...params);return {toArray:()=>rows};}},
         transactionSync(fn){db.exec("BEGIN");try{const value=fn();db.exec("COMMIT");return value;}catch(error){db.exec("ROLLBACK");throw error;}},
-        async setAlarm(){}};
-      const object=new CheckoutState({storage},env),fetch=object.fetch.bind(object);
+        async setAlarm(){},async getCurrentBookmark(){throw Error("PITR is unavailable in this local SQL adapter");}};
+      const object=new Class({storage},env),fetch=object.fetch.bind(object);
       object.fetch=(request,options)=>fetch(request instanceof Request?request:new Request(request,options));
       objects.set(name,object);
     }
@@ -172,4 +174,32 @@ test("replay preserves same identity and anonymous cross-site writes refuse",asy
   assert.equal(data.orders.length,1);
   const req=new Request("https://sandbox.example/api/state",{method:"POST",headers:{Origin:"https://evil.invalid"},body:"{}"});
   assert.equal((await worker.fetch(req,env,ctx)).status,403);
+});
+
+test("isolated DR commands preserve provider evidence and reject reuse",async()=>{
+  const checkout=sqliteEnvironment(DrillCheckout),provider=sqliteEnvironment(DrillProvider);
+  const env={CHECKOUT:checkout.env.CHECKOUT,PROVIDER:provider.env.CHECKOUT,DR_RUN_ID:"dr-control"};
+  const invoke=async(action)=>{const r=await drill.fetch(post("dr",{action}),env);return {status:r.status,...await r.json()};};
+  try{
+    assert.equal((await invoke("create")).status,200);
+    assert.equal((await invoke("create")).status,503);
+    assert.equal((await invoke("reconcile")).status,503);
+    await invoke("provider-commit");await invoke("reconcile");
+    const paid=(await invoke("state")).value;
+    assert.equal(paid.orders[0].status,"PAID");assert.equal(paid.charges.length,1);
+    await invoke("corrupt");
+    assert.equal((await invoke("reconcile")).status,503);
+    const damaged=(await invoke("state")).value;
+    assert.equal(damaged.orders[0].amount,999);
+    assert.equal(damaged.charges[0].charge_id,paid.charges[0].charge_id);
+    assert.equal((await drill.fetch(post("dr",{action:"prepare-restore",bookmark:"invalid"}),env)).status,503);
+  }finally{checkout.close();provider.close();}
+});
+test("DR bridge rejects non-loopback and cross-origin requests before remote effects",async()=>{
+  let calls=0;const env={DR:{async fetch(){calls++;return new Response("local operator accepted");}}};
+  assert.equal((await proxy.fetch(new Request("http://remote.example/",{method:"POST"}),env)).status,403);
+  assert.equal((await proxy.fetch(new Request("http://127.0.0.1:8877/",{method:"POST",headers:{Origin:"https://evil.invalid"}}),env)).status,403);
+  assert.equal(calls,0);
+  assert.equal((await proxy.fetch(new Request("http://127.0.0.1:8877/",{method:"POST"}),env)).status,200);
+  assert.equal(calls,1);
 });

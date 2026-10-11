@@ -122,6 +122,34 @@ PITR drill must measure actual RPO/RTO, reconcile with independent
 Provider charges, and observe restored order state before declaring PASS.
 Reading bookmarks or exporting JSON alone is NOT disaster recovery proof.
 
+The isolated drill in `dr/` deploys a separate Worker and two new SQLite DO
+namespaces with no workers.dev, preview, route, Queue or Cron trigger. It reuses
+the checkout/provider source but restricts the drill to one fixed payment. Its
+restore actions are available only through an account service binding, never
+through the public lab. Do not deploy `dr/proxy.jsonc`: use it only as a loopback
+Wrangler development bridge to the private native Worker. Local DO bindings do
+not support native PITR; the remote service binding reaches the deployed DOs.
+
+After verifying Free plans and operator authority:
+
+1. From this directory deploy: `npx wrangler@4 deploy --config dr/wrangler.jsonc`.
+2. Start the loopback bridge: `npx wrangler@4 dev --config dr/proxy.jsonc --ip 127.0.0.1 --port 8877`.
+3. Run `python3 dr/drive.py /absolute/path/outside/repo/dr-evidence.json` once.
+4. Stop the bridge. Read back native version and confirm the private Worker
+   has no public URLs, routes, Cron or persistent Logs.
+
+The driver saves every input/readback, creates PENDING plus outbox, captures
+independent bookmarks, commits one provider effect and marks PAID. It corrupts
+only the isolated checkout amount, prepares native restore to the earlier
+checkout bookmark and issues one restart. An uncertain restart is read back,
+never repeated blindly. Restored checkout must be PENDING/1250 with pending
+outbox while the original provider charge remains. Reconciliation must recover
+PAID with the same charge ID. The receipt measures elapsed recovery and reports
+zero lost intents only for that one case. It is not a regional service outage,
+a joint cross-DO restore, or a production RPO/RTO guarantee. A used run ID or an
+existing receipt refuses rerun; select a new isolated run explicitly in config.
+Do not reset production data or daily counters for a drill.
+
 References:
 - https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/
 - https://developers.cloudflare.com/queues/configuration/dead-letter-queues/

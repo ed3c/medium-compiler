@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  "name": "checkout-reliability-dr-local-proxy",
+  "main": "proxy.mjs",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": false,
+  "preview_urls": false,
+  "services": [{"binding":"DR","service":"checkout-reliability-dr","remote":true}],
+  "dev": {"ip":"127.0.0.1","port":8877}
+}
