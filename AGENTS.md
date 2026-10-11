@@ -45,8 +45,11 @@ Reader-facing articles use the existing `medium-writing` owner. Compose the
 complete English text for the selected article or accepted incremental unit
 from pinned sources. Apply upstream
 [sloptrim](.agents/skills/sloptrim/SKILL.md) to that English prose
-before translation. Read its result against source claims and correct any
-changed condition, negation, attribution, quantity or technical relationship.
+before translation. Run its project-local reader-article editorial supplement even when the
+English detector score is `clean`. Remove self-referential writing-process
+narration and redundant concept-label introductions, not concrete system
+behavior or source limitations. Read its result against source claims and
+correct any changed condition, negation, attribution, quantity or technical relationship.
 Only then translate the approved English text to Traditional Chinese,
 retaining exact English technical terms. Check the two texts against sources
 before submitting the Traditional Chinese stages and assembling the final
