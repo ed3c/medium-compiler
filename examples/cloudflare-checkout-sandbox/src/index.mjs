@@ -25,9 +25,6 @@ export default {
       const url=new URL(request.url),origin=request.headers.get("Origin");
       if(origin&&origin!==url.origin)return json({error:"Cross-origin mutation refused"},403);
       const user=await requireAccess(ctx);
-      if(!env.REQUEST_LIMITER?.limit)throw Error("503: Request usage guard is unavailable");
-      const limited=await env.REQUEST_LIMITER.limit({key:user.userId+":"+(url.pathname==="/api/state"?"read":"write")});
-      if(!limited.success)return json({error:"Rate limit reached; preserve the payment key and wait"},429);
       if(request.method==="GET"&&url.pathname==="/")
         return new Response(remotePage,{headers:{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store",
           "Content-Security-Policy":"default-src 'none'; base-uri 'none'; frame-ancestors 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'"}});
@@ -52,9 +49,9 @@ export default {
       const [local,charges,checkoutBookmark,providerBookmark]=await Promise.all([
         invoke(checkout,{action:"state"}),invoke(provider,{action:"state"}),
         invoke(checkout,{action:"bookmark"}),invoke(provider,{action:"bookmark"})]);
-      const budget=env.CHECKOUT.get(env.CHECKOUT.idFromName("sandbox-account-budget"));
-      const usage=await invoke(budget,{action:"usage"});
-      return json({schema:"checkout-remote-evidence@1",usage,
+      return json({schema:"checkout-remote-evidence@2",
+        quotaPolicy:{enforcement:"Cloudflare platform quotas",requiredPlan:"Workers Free",planVerification:"OPERATOR_REQUIRED",remaining:"UNKNOWN",
+          usage:"Platform usage must be read from Cloudflare; the app does not meter account quotas"},
         scope:"two independent Cloudflare SQLite Durable Objects with Queue",
         at:new Date().toISOString(),...local,charges,
         bookmarks:{checkout:checkoutBookmark,provider:providerBookmark},

@@ -26,6 +26,12 @@ questions or an older topic's decision count is not a universal quota. P-class i
 sources, selects the main question/property/representation/witness/alternative and explains
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
 
+Website delivery follows the selected host route in repository AGENTS.md: Local
+uses Vercel CLI; cloud uses the Vercel Connector. A hosting authentication or scope
+error belongs to that operation, not the article state machine. Preserve admitted
+article state and consume the compiler's actual next. Mechanical validation does
+not establish platform authorization, deployment or runtime correctness.
+
 ## Language and style owner
 
 This is a reader-facing article workflow, not the engineering-instruction

@@ -9,6 +9,8 @@ if(!runId||!/^[a-zA-Z0-9-]{1,40}$/.test(runId))throw Error("Supply a unique RUN_
 if(![1,2].includes(rate)||![4,8].includes(seconds))throw Error("Bounded fixture: rate 1 or 2, duration 4 or 8 seconds");
 if(!local&&(!/^https:\/\/[a-z0-9-]+\.[a-z0-9-]+\.workers\.dev$/.test(url)||!__ENV.CF_ACCESS_TOKEN))
   throw Error("Remote targets require an application-scoped Access JWT from cloudflared access login");
+if(!local&&__ENV.CONFIRM_FREE_PLAN!=="Workers Free")
+  throw Error("Read back Cloudflare Billing, then set CONFIRM_FREE_PLAN='Workers Free'; never upgrade for a load run");
 const headers={"Content-Type":"application/json"};
 if(__ENV.CF_ACCESS_TOKEN)headers["Cf-Access-Token"]=__ENV.CF_ACCESS_TOKEN;
 // Cover a boundary tick conservatively without increasing the arrival rate/window.
@@ -32,10 +34,7 @@ function state(){
 export function setup(){
   const before=state();
   if(before.orders.some(o=>o.key.startsWith(runId+"-")))throw Error("RUN_ID already exists; do not mix runs");
-  if(before.orders.length+maxIntents>30)throw Error("Identity lacks quota for this bounded run");
-  if(!before.usage||before.usage.orders+maxIntents>before.usage.limits.orders||
-     before.usage.dispatches+3*maxIntents>before.usage.limits.dispatches)
-    throw Error("Account lacks reserved order/dispatch capacity for this bounded run");
+  if(before.schema!=="checkout-remote-evidence@2")throw Error("Read back the deployed quota policy before this bounded run");
   return {start:Date.now()};
 }
 export default function(run){

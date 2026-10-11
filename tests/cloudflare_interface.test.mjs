@@ -19,7 +19,6 @@ function fakeEnvironment(){
            const previous=this.orders.get(x.key);
            if(previous&&previous.amount!==x.amount)throw Error("409: identical key, different amount");
            if(!previous){
-             if(this.orders.size>=30)throw Error("Sandbox quota");
              this.orders.set(x.key,{key:x.key,amount:x.amount,status:"PENDING",fault:x.fault,account:x.account});
              this.outbox.set(x.key,{key:x.key,delivered:0,sends:0});
            }
@@ -27,7 +26,6 @@ function fakeEnvironment(){
          }
          case "state":value={orders:[...this.orders.values()],outbox:[...this.outbox.values()]};break;
          case "bookmark":value="FAKE_BOOKMARK";break;
-         case "usage":value={orders:0,dispatches:0,limits:{orders:20,dispatches:50}};break;
          case "enqueue":{
            let count=0;
            for(const o of this.orders.values()){
@@ -73,7 +71,7 @@ function fakeEnvironment(){
    get(name){if(!this.objects.has(name))this.objects.set(name,new this.Class());return this.objects.get(name);}
  }
  const CHECKOUT=new Namespace(Checkout),PROVIDER=new Namespace(Provider);
- return {CHECKOUT,PROVIDER,REQUEST_LIMITER:{async limit(){return {success:true};}},PAYMENTS_QUEUE:{async send(x){pending.push(x);}},pending};
+ return {CHECKOUT,PROVIDER,PAYMENTS_QUEUE:{async send(x){pending.push(x);}},pending};
 }
 const ctx={access:{async getIdentity(){return {email:"owner@example.test"};}}};
 // Real source SQL against SQLite; only platform transport and alarm are adapters.
@@ -95,46 +93,53 @@ function sqliteEnvironment(Class=CheckoutState){
   }};
   return {env,sent,close(){for(const db of databases)db.close();}};
 }
-test("account reservations share the 20-order budget and preserve idempotency",async()=>{
-  const fixture=sqliteEnvironment();
-  try{
-    const result=await Promise.allSettled(Array.from({length:21},(_,i)=>
-      fixture.env.CHECKOUT.get("user-"+i).admit({key:"order",amount:1250,fault:"none",account:"user-"+i})));
-    assert.equal(result.filter(r=>r.status==="fulfilled").length,20);
-    assert.match(result.find(r=>r.status==="rejected").reason.message,/429/);
-    const object=fixture.env.CHECKOUT.get("user-0");
-    assert.equal((await object.admit({key:"order",amount:1250,fault:"none",account:"user-0"})).replay,true);
-    await assert.rejects(object.admit({key:"order",amount:1300,fault:"none",account:"user-0"}),/409/);
-    assert.equal(fixture.env.CHECKOUT.get("sandbox-account-budget").usage().orders,20);
-  }finally{fixture.close();}
-});
-test("unavailable account budget preserves no new order or outbox effect",async()=>{
-  const fixture=sqliteEnvironment();
-  try{
-    const object=fixture.env.CHECKOUT.get("user"),get=fixture.env.CHECKOUT.get;
-    fixture.env.CHECKOUT.get=name=>name==="sandbox-account-budget"?{async fetch(){throw Error("transport unavailable");}}:get(name);
-    await assert.rejects(object.admit({key:"unknown",amount:1250,fault:"none",account:"user"}),/503:.*transport unavailable/);
-    assert.deepEqual(object.snapshot(),{orders:[],outbox:[]});
-    assert.equal(fixture.sent.length,0);
-  }finally{fixture.close();}
-});
-test("dispatch budget, concurrent relay and manual replay stay bounded",async()=>{
+test("orders exceed former application caps and preserve idempotency",async()=>{
   const fixture=sqliteEnvironment();
   try{
     const object=fixture.env.CHECKOUT.get("user");
-    await object.admit({key:"pending",amount:1250,fault:"none",account:"user"});
+    for(let i=0;i<31;i++)object.create({key:"order-"+i,amount:1250,fault:"none",account:"user"});
+    assert.equal(object.snapshot().orders.length,31);
+    assert.equal(object.create({key:"order-0",amount:1250,fault:"none",account:"user"}).replay,true);
+    assert.throws(()=>object.create({key:"order-0",amount:1300,fault:"none",account:"user"}),/409/);
+    assert.equal(object.snapshot().outbox.length,31);
+  }finally{fixture.close();}
+});
+test("Queue quota refusal preserves pending work and stops automatic publish retries",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"unknown",amount:1250,fault:"none",account:"user"});
+    let attempts=0;
+    fixture.env.PAYMENTS_QUEUE.send=async()=>{attempts++;throw Error("Platform quota exceeded");};
+    for(let i=0;i<5;i++)await object.alarm();
+    assert.equal(attempts,3);
+    assert.equal(object.snapshot().orders[0].status,"PENDING");
+    assert.equal(object.snapshot().outbox[0].delivered,0);
+    assert.equal(fixture.sent.length,0);
+    fixture.env.PAYMENTS_QUEUE.send=async message=>fixture.sent.push(message);
+    await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(fixture.sent[0].key,"unknown");
+    assert.equal(object.snapshot().orders[0].status,"PENDING");
+  }finally{fixture.close();}
+});
+test("concurrent relay stays finite; manual recovery exceeds former replay and dispatch caps",async()=>{
+  const fixture=sqliteEnvironment();
+  try{
+    const object=fixture.env.CHECKOUT.get("user");
+    object.create({key:"pending",amount:1250,fault:"none",account:"user"});
     await Promise.all(Array.from({length:8},()=>object.enqueue()));
     assert.equal(fixture.sent.length,3);
-    for(let i=0;i<3;i++)await object.fetch(post("replay",{action:"replay"}));
-    assert.equal(object.snapshot().outbox[0].replays,2);
-    assert.equal(fixture.sent.length,5);
-    const budget=fixture.env.CHECKOUT.get("sandbox-account-budget");
-    while(budget.usage().dispatches<50)budget.reserve({kind:"dispatch"});
+    for(let i=0;i<4;i++)await object.fetch(post("replay",{action:"replay"}));
+    assert.equal(object.snapshot().outbox[0].replays,4);
+    assert.equal(fixture.sent.length,7);
+    object.paid({key:"pending",amount:1250});
     const before=fixture.sent.length;
-    await object.enqueue();
+    await object.fetch(post("replay",{action:"replay"}));
     assert.equal(fixture.sent.length,before);
-    assert.equal(budget.usage().dispatches,50);
-    assert.equal(object.snapshot().orders[0].status,"PENDING");
+    for(let i=0;i<18;i++)object.create({key:"next-"+i,amount:1250,fault:"none",account:"user"});
+    for(let i=0;i<6;i++)await object.enqueue();
+    assert.equal(fixture.sent.length,61);
+    assert.ok(fixture.sent.every(message=>message.amount===1250));
   }finally{fixture.close();}
 });
 function post(path,body={}){return new Request("https://sandbox.example/"+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}
@@ -143,12 +148,14 @@ test("Access-gated: no authenticated ctx rejects every route",async()=>{
   assert.equal((await worker.fetch(post("api/state"),env,{})).status,403);
   assert.equal((await worker.fetch(new Request("https://sandbox.example/"),env,{})).status,403);
 });
-test("missing or refusing rate guard blocks effects before DO access",async()=>{
-  const env=fakeEnvironment();delete env.REQUEST_LIMITER;
-  assert.equal((await worker.fetch(post("api/create",{key:"guarded",amount:1250}),env,ctx)).status,503);
-  env.REQUEST_LIMITER={async limit(){return {success:false};}};
-  assert.equal((await worker.fetch(post("api/create",{key:"guarded",amount:1250}),env,ctx)).status,429);
-  assert.equal(env.CHECKOUT.objects.size,0);assert.equal(env.pending.length,0);
+test("API reports platform quota uncertainty without inventing remaining order capacity",async()=>{
+  const env=fakeEnvironment();
+  const read=await (await worker.fetch(post("api/state"),env,ctx)).json();
+  assert.equal(read.schema,"checkout-remote-evidence@2");
+  assert.equal(read.quotaPolicy.remaining,"UNKNOWN");
+  assert.equal(read.quotaPolicy.planVerification,"OPERATOR_REQUIRED");
+  assert.equal("usage" in read,false);
+  assert.equal(env.CHECKOUT.objects.size,1);
 });
 test("one lost reply retries under same key and reconciles once",async()=>{
   const env=fakeEnvironment(),input={key:"cart-42",amount:1250,fault:"lost_reply"};
