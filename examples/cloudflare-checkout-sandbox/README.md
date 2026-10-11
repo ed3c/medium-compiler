@@ -51,6 +51,14 @@ or the 20/10-second route limiter. Queue consumer concurrency uses native
 autoscaling instead of a fixed one-consumer cap. This does not increase the
 account's Free quotas or demonstrate payment capacity.
 
+Outbox partial indexes contain only undelivered keys and retry-eligible entries.
+Pending COUNT scans the active index; the next alarm reads the first due-index
+entry. Relay orders by next_attempt_at/key and joins only selected Orders.
+Completed history is excluded from these indexes, not deleted. Pending/backlog
+work can still increase reads; index inserts/removals add writes and the first
+index creation scans existing rows. Manual recovery uses the pending index,
+including published work whose Provider outcome must be read back.
+
 Only pending work can be manually replayed, using the original payment key.
 Each relay processes at most 15 entries; each entry has three automatic publish
 attempts. A durable 30-second claim excludes routine concurrent relays; successful
@@ -148,8 +156,11 @@ short-lived application token into process environment `CF_ACCESS_TOKEN` via
 `cloudflared access token --app <protected-worker-url>`; never paste tokens into
 chat or commit them. `RUN_ID` must be unique. Set `ARRIVALS_PER_SECOND=1` and
 `DURATION_SECONDS=4` for the first baseline; do not increase load after a failed
-baseline. One VU per finite arrival plus a conservative boundary slot is preallocated
-(up to 17); this separates generator capacity from settlement waiting. The boundary slot does not increase the arrival rate or window. Polls every two
+baseline. Allowed finite windows are 4, 8, 30 or 60 seconds at 1 or 2 arrivals/s,
+with at most 60 scheduled intents plus a boundary slot. The longer windows are
+operator-only sustained-load observations, not a daily capacity guarantee.
+One VU per finite arrival plus a conservative boundary slot is preallocated
+(up to 61); this separates generator capacity from settlement waiting. The boundary slot does not increase the arrival rate or window. Polls every two
 seconds make observed settlement latency an upper bound that includes polling
 and network delay. Admission/settlement/error/drop metrics are separate. Before remote execution, read back Billing and set
 `CONFIRM_FREE_PLAN="Workers Free"` only after verification. This operator

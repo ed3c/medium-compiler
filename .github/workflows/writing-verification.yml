@@ -23,7 +23,7 @@ jobs:
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
           npm ci --ignore-scripts
-          node --test tests/scoped_readback_runtime.test.mjs > /tmp/writing-evidence/scoped-readback-runtime.txt 2>&1
+          node --test tests/scoped_readback_runtime.test.mjs tests/outbox_runtime.test.mjs > /tmp/writing-evidence/scoped-readback-runtime.txt 2>&1
           npm run build > /tmp/writing-evidence/cloudflare-site-build.txt
           npm run build:cloudflare > /tmp/writing-evidence/cloudflare-lab-build.txt
           npm run test:site > /tmp/writing-evidence/cloudflare-site-runtime.txt 2>&1

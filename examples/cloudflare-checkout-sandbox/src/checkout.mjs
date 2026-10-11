@@ -16,6 +16,8 @@ export class CheckoutState{
       this.sql.exec("ALTER TABLE outbox ADD COLUMN published INTEGER NOT NULL DEFAULT 0");
     if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="next_attempt_at"))
       this.sql.exec("ALTER TABLE outbox ADD COLUMN next_attempt_at INTEGER NOT NULL DEFAULT 0");
+    this.sql.exec("CREATE INDEX IF NOT EXISTS outbox_pending ON outbox(key) WHERE delivered=0");
+    this.sql.exec("CREATE INDEX IF NOT EXISTS outbox_retry_due ON outbox(next_attempt_at,key) WHERE delivered=0 AND published=0 AND sends<3");
   }
   rows(query,...params){return this.sql.exec(query,...params).toArray();}
   create({key,amount,fault,account,runId=null}){
@@ -75,7 +77,7 @@ export class CheckoutState{
   async enqueue(keys=null){
     if(keys&&!keys.length)return {dispatched:0,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
     const scope=keys?" AND o.key IN ("+keys.map(()=>"?").join(",")+")":"";
-    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,o.run_id,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY o.key LIMIT 15",Date.now(),...(keys||[]));
+    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,o.run_id,x.sends,x.replays FROM outbox x JOIN orders o ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY x.next_attempt_at,x.key LIMIT 15",Date.now(),...(keys||[]));
     let dispatched=0;
     for(const row of pending){
       // Durable claim excludes concurrent relays while send awaits. Replays is
@@ -95,8 +97,8 @@ export class CheckoutState{
       }
       catch(err){console.warn(JSON.stringify({phase:"queue-publish",error:err.message}));}
     }
-    const next=this.rows("SELECT MIN(next_attempt_at) AS at FROM outbox WHERE delivered=0 AND published=0 AND sends<3")[0].at;
-    if(next!==null)await this.ctx.storage.setAlarm(Math.max(Date.now()+1000,next));
+    const next=this.rows("SELECT next_attempt_at AS at FROM outbox WHERE delivered=0 AND published=0 AND sends<3 ORDER BY next_attempt_at,key LIMIT 1")[0]?.at;
+    if(next!==undefined)await this.ctx.storage.setAlarm(Math.max(Date.now()+1000,next));
     return {dispatched,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
   }
   async fetch(request){
@@ -115,7 +117,7 @@ export class CheckoutState{
         case "enqueue": value=await this.enqueue(q.keys||null);break;
         case "replay":
           {
-            const pending=this.rows("SELECT o.key,o.amount,o.account,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.next_attempt_at<=? ORDER BY o.key LIMIT 15",Date.now());
+            const pending=this.rows("SELECT o.key,o.amount,o.account,x.sends,x.replays FROM outbox x JOIN orders o ON o.key=x.key WHERE x.delivered=0 AND x.next_attempt_at<=? ORDER BY x.key LIMIT 15",Date.now());
             const recoverable=[];
             for(const row of pending){
               if(await this.readback(row))continue;
