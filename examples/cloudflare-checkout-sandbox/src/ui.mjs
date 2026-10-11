@@ -10,7 +10,7 @@ export const remotePage=[
 '<label>Failure <select id="fault"><option value="none">None</option><option value="lost_reply">Lost Reply after Provider COMMIT</option><option value="worker_crash">Worker Crash Simulation</option></select></label>',
 '<p><button id="create">Create + Queue</button><button id="state">Owner Readback</button><button id="replay">Replay Pending (bounded)</button><button id="export">Export JSON</button></p>',
 '<p id="status">Waiting for operation</p><pre id="result">No observations</pre>',
-'<p>Limit: 30 purchase identities per Access user. Repeated messages never generate new Payment Keys. An injected error is not a real process kill.</p>',
+'<p>Limit: 30 purchase identities per Access user; account-wide daily reservations: 20 new intents / 50 Queue dispatches (UTC). Pending work permits 2 manual replays per order. Readback is rate-limited. Usage counters are workload limits, not a billing meter. Repeated messages never generate new Payment Keys. An injected error is not a real process kill.</p>',
 '<a href="https://medium-compiler.vercel.app/articles/checkout-reliability-large-traffic/">Read the article</a>',
 '<script>',
 'let last=null;',
