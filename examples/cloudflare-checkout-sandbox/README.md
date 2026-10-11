@@ -92,7 +92,11 @@ fallback or automatically switch to Paid after quota failure.
 For an operator latency drill, `wrangler tail --format json` observes
 `queue-publish-ack` and `queue-consumer-result` console records. They add no
 SQLite writes and do not enable persistent Logs. Consumer wall time is split
-into Provider lookup/charge, fault claim and Checkout PAID calls. Queue lag
+into Provider charge/readback, fault claim and Checkout PAID calls. The Provider
+checks the payment key inside its charge transaction before any insert and
+returns an existing charge on redelivery. The Consumer uses this one trusted
+response instead of a separate lookup followed by the same provider-side read.
+Queue lag
 uses the platform message timestamp and includes intentional pauses and retry
 delay; batch wait is reported separately. These are wall times, not CPU time.
 Keep the same workload, polling schedule and pause window when comparing runs;

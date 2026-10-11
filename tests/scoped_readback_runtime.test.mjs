@@ -25,6 +25,12 @@ test("workerd scoped cursors read only indexed payment/run rows as ledger grows"
     const full=await read({type:"full"}),run=await read({type:"run",runId:"r"}),key=await read({type:"key",key:"fixture-0"});
     assert.equal(full.local.orders.length,100);assert.equal(run.local.orders.length,5);assert.equal(run.remote.charges.length,5);
     assert.equal(key.local.outbox.length,1);assert.equal(key.remote.charges.length,1);
+    const redelivery=await invoke(p,{action:"charge",key:"fixture-0",runId:"r",amount:1250});
+    assert.equal(redelivery.replay,true);
+    assert.equal(redelivery.charge_id,key.remote.charges[0].charge_id);
+    const conflict=await p.fetch("https://internal/",{method:"POST",body:JSON.stringify({action:"charge",key:"fixture-0",runId:"r",amount:1251})});
+    assert.equal(conflict.status,400);
+    assert.deepEqual((await read({type:"key",key:"fixture-0"})).remote.charges,key.remote.charges);
     assert.ok(key.rows>0&&key.rows<15);assert.ok(run.rows<full.rows/5);
     await invoke(c,{action:"create",key:"extra",runId:"other",amount:1250,fault:"none",account:"owner"});
     await invoke(p,{action:"charge",key:"extra",runId:"other",amount:1250});
