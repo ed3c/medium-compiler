@@ -44,7 +44,7 @@ reference is not a claim that the external skill is installed locally.
 Reader-facing articles use the existing `medium-writing` owner. Compose the
 complete English text for the selected article or accepted incremental unit
 from pinned sources. Apply upstream
-[sloptrim](https://github.com/seyedehsanhadi/sloptrim) to that English prose
+[sloptrim](.agents/skills/sloptrim/SKILL.md) to that English prose
 before translation. Read its result against source claims and correct any
 changed condition, negation, attribution, quantity or technical relationship.
 Only then translate the approved English text to Traditional Chinese,
@@ -53,8 +53,11 @@ before submitting the Traditional Chinese stages and assembling the final
 artifact. Do not run sloptrim on the translated text or canonical Stage 7
 bytes. Record actual English/Traditional Chinese draft identities, sloptrim
 execution or NOT_RUN, and author semantic review outside public prose.
+Use the repository-local pinned upstream skill and its
+`python3 .agents/skills/sloptrim/scripts/detect.py <english-draft.md>` detector;
+the vendored Claude plugin hooks are not activated for this repository.
 Sloptrim detects stylistic patterns; its score is not a semantic or authorship
-verdict. A missing external installation does not justify invented PASS
+verdict. A missing execution or unreadable detector result does not justify invented PASS
 evidence or a new compiler stage.
 
 ## Writing and verification

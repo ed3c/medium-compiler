@@ -36,6 +36,15 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 
 ## Entry points
 
+- [Pinned upstream sloptrim skill](.agents/skills/sloptrim/SKILL.md): complete unmodified
+  v0.9.4 upstream source at the [recorded SHA](references/upstream/sloptrim-lock.json).
+  Use it on completed English reader-facing prose before Traditional Chinese translation.
+  Run `python3 .agents/skills/sloptrim/scripts/detect.py <english-draft.md>` for local
+  detection, followed by source-fidelity review. Its optional Claude/Cursor hook files
+  are retained but not auto-registered or activated here. Engineering instructions
+  remain under Soodles `review-writing`; a style score cannot approve correctness.
+
+
 - [Podcast to Medium](.agents/skills/podcast-to-medium/SKILL.md): repository-local orchestration
   from a podcast/video/topic to CLI search, verified source snapshot, relevant passages,
   `medium-writing` Stage 0–7 and requested website deployment. `transcript.py locate`,
