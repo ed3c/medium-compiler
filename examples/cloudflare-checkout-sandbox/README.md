@@ -106,7 +106,10 @@ short-lived application token into process environment `CF_ACCESS_TOKEN` via
 `cloudflared access token --app <protected-worker-url>`; never paste tokens into
 chat or commit them. `RUN_ID` must be unique. Set `ARRIVALS_PER_SECOND=1` and
 `DURATION_SECONDS=4` for the first baseline; do not increase load after a failed
-baseline. Four VUs are preallocated to avoid allocation drops; polls every two
+baseline. One VU per finite arrival plus a conservative boundary slot is preallocated
+(up to 17); this separates generator capacity from settlement waiting. Both
+quota preflights reserve that extra intent and its three dispatches. It does not
+increase the arrival rate or window. Polls every two
 seconds make observed settlement latency an upper bound that includes polling
 and network delay. Admission/settlement/error/drop metrics are separate. The
 preflight requires room for all intents and three dispatch reservations each.
