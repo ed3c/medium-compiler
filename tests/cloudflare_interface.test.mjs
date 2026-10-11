@@ -426,6 +426,30 @@ test("mismatched provider evidence leaves checkout pending and retries the messa
   assert.equal(acks,0);assert.equal(retries,1);
   assert.equal([...env.CHECKOUT.objects.values()][0].orders.get("evidence-control").status,"PENDING");
 });
+test("a slow provider response does not block its batch neighbors or broaden retry",{timeout:1000},async t=>{
+  t.mock.method(console,"log",()=>{});t.mock.method(console,"warn",()=>{});
+  const env=fakeEnvironment();
+  for(const key of ["slow","unavailable","healthy"])
+    await worker.fetch(post("api/create",{key,amount:1250}),env,ctx);
+  // Create does not contact Provider. Wrap its first actual namespace stub.
+  const originalGet=env.PROVIDER.get.bind(env.PROVIDER);
+  let release;const blocked=new Promise(resolve=>{release=resolve;});
+  env.PROVIDER.get=name=>{
+    const actual=originalGet(name);
+    return {async fetch(url,options){
+      const input=JSON.parse(options.body);
+      if(input.key==="slow")await blocked;
+      if(input.key==="unavailable"){release();throw Error("Provider response unavailable");}
+      return actual.fetch(url,options);
+    }};
+  };
+  const acks=[],retries=[];
+  await worker.queue({messages:env.pending.map(body=>({body,ack(){acks.push(body.key);},retry(){retries.push(body.key);}}))},env);
+  assert.deepEqual(acks.sort(),["healthy","slow"]);assert.deepEqual(retries,["unavailable"]);
+  const checkout=[...env.CHECKOUT.objects.values()][0];
+  assert.equal(checkout.orders.get("slow").status,"PAID");assert.equal(checkout.orders.get("healthy").status,"PAID");
+  assert.equal(checkout.orders.get("unavailable").status,"PENDING");
+});
 test("replay preserves same identity and anonymous cross-site writes refuse",async()=>{
   const env=fakeEnvironment();
   await worker.fetch(post("api/create",{key:"same",amount:100,fault:"none"}),env,ctx);
