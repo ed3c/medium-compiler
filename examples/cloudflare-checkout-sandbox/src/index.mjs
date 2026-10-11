@@ -92,15 +92,12 @@ export default {
         if(runId!=null)validRunId(runId);
         timing.key=key;timing.runId=runId??null;
         const {checkout,provider}=stores(env,account);
-        // Only trusted mock-provider readback establishes its committed effect.
+        // Provider charge reads this key inside its transaction before any INSERT.
+        // A committed unknown effect returns the same trusted evidence on retry.
         let stepAt=Date.now();
-        let charge=await invoke(provider,{action:"lookup",key});
-        timing.lookupMs=Date.now()-stepAt;timing.providerFound=!!charge;
-        if(!charge){
-          stepAt=Date.now();charge=await invoke(provider,{action:"charge",key,amount,runId});
-          timing.chargeMs=Date.now()-stepAt;
-        }
-        if(charge.amount!==amount||charge.currency!=="USD")throw Error("Provider evidence mismatch");
+        const charge=await invoke(provider,{action:"charge",key,amount,runId});
+        timing.chargeMs=Date.now()-stepAt;timing.providerFound=charge.replay===true;
+        if(charge.key!==key||charge.amount!==amount||charge.currency!=="USD")throw Error("Provider evidence mismatch");
         if(fault==="lost_reply"||fault==="worker_crash"){
           stepAt=Date.now();const injected=await invoke(checkout,{action:"claimFault",key});
           timing.claimFaultMs=Date.now()-stepAt;

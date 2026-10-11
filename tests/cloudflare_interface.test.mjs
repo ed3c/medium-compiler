@@ -5,6 +5,7 @@ import worker from "../examples/cloudflare-checkout-sandbox/src/index.mjs";
 import {DatabaseSync} from "node:sqlite";
 import {readScope} from "../examples/cloudflare-checkout-sandbox/src/readback.mjs";
 import {CheckoutState} from "../examples/cloudflare-checkout-sandbox/src/checkout.mjs";
+import {ProviderState} from "../examples/cloudflare-checkout-sandbox/src/provider.mjs";
 import drill,{DrillCheckout,DrillProvider} from "../examples/cloudflare-checkout-sandbox/dr/worker.mjs";
 import proxy from "../examples/cloudflare-checkout-sandbox/dr/proxy.mjs";
 
@@ -60,7 +61,11 @@ function fakeEnvironment(){
      if(x.action==="lookup")value=this.charges.get(x.key)||null;
      else if(x.action==="charge"){
        value=this.charges.get(x.key);
+       const replay=!!value;
+       if(value&&(value.amount!==x.amount||(x.runId!=null&&value.run_id!==x.runId)))
+         return Response.json({ok:false,error:"Provider key conflict"},{status:400});
        if(!value){value={key:x.key,amount:x.amount,currency:"USD",charge_id:"mock",run_id:x.runId??null};this.charges.set(x.key,value);}
+       value={...value,replay};
      }else if(x.action==="state")value={charges:[...this.charges.values()].filter(o=>matches(o,x.scope)),rowsRead:null};
      else if(x.action==="bookmark")value="FAKE_BOOKMARK";
      else throw Error("Unknown action");
@@ -392,9 +397,34 @@ test("mixed batch retains per-message recovery and emits secret-free live timing
   assert.ok(records.filter(r=>r.result==="ack").every(r=>r.paidConfirmedAt>=r.startedAt));
   await worker.queue({messages:[{...messages[1],attempts:2}]},env);
   assert.equal(records.at(-1).providerFound,true);assert.equal(records.at(-1).result,"ack");
-  assert.equal("chargeMs" in records.at(-1),false);
+  assert.ok(records.at(-1).chargeMs>=0);
+  assert.equal(env.actions.filter(action=>action==="lookup").length,0);
   const state=await (await worker.fetch(post("api/state",{runId}),env,ctx)).json();
   assert.equal(state.charges.length,3);assert.ok(state.orders.every(o=>o.status==="PAID"));
+});
+test("provider transaction reads an unknown committed effect before any new charge",async()=>{
+  const fixture=sqliteEnvironment(ProviderState);
+  try{
+    const provider=fixture.env.CHECKOUT.get("provider"),input={action:"charge",key:"unknown-effect",amount:1250,runId:"provider-control"};
+    const call=async payload=>{const response=await provider.fetch(post("charge",payload));return {status:response.status,...await response.json()};};
+    const first=await call(input),retry=await call(input);
+    assert.equal(first.value.replay,false);assert.equal(retry.value.replay,true);
+    assert.equal(first.value.charge_id,retry.value.charge_id);
+    assert.equal((await call({...input,amount:1251})).status,400);
+    assert.equal((await call({...input,runId:"another-run"})).status,400);
+    const state=await call({action:"state",scope:{type:"key",key:input.key}});
+    assert.equal(state.value.charges.length,1);assert.equal(state.value.charges[0].amount,1250);
+  }finally{fixture.close();}
+});
+test("mismatched provider evidence leaves checkout pending and retries the message",async t=>{
+  t.mock.method(console,"log",()=>{});t.mock.method(console,"warn",()=>{});
+  const env=fakeEnvironment();
+  await worker.fetch(post("api/create",{key:"evidence-control",amount:1250}),env,ctx);
+  env.PROVIDER.get=()=>({async fetch(){return Response.json({ok:true,value:{key:"another-payment",amount:1250,currency:"USD",replay:true}});}});
+  let acks=0,retries=0;
+  await worker.queue({messages:[{body:env.pending[0],ack(){acks++;},retry(){retries++;}}]},env);
+  assert.equal(acks,0);assert.equal(retries,1);
+  assert.equal([...env.CHECKOUT.objects.values()][0].orders.get("evidence-control").status,"PENDING");
 });
 test("replay preserves same identity and anonymous cross-site writes refuse",async()=>{
   const env=fakeEnvironment();

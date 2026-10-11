@@ -16,10 +16,10 @@ export class ProviderState{
       if(q.action==="charge"){
         value=this.ctx.storage.transactionSync(()=>{
           const old=this.rows("SELECT * FROM charges WHERE key=?",q.key)[0];
-          if(old){if(old.amount!==q.amount||(q.runId!=null&&old.run_id!==q.runId))throw new Error("Provider key conflict");return old;}
+          if(old){if(old.amount!==q.amount||(q.runId!=null&&old.run_id!==q.runId))throw new Error("Provider key conflict");return {...old,replay:true};}
           const id=crypto.randomUUID();
           this.sql.exec("INSERT INTO charges(key,amount,currency,charge_id,run_id) VALUES(?,?,'USD',?,?)",q.key,q.amount,id,q.runId??null);
-          return {key:q.key,amount:q.amount,currency:"USD",charge_id:id,run_id:q.runId??null};
+          return {key:q.key,amount:q.amount,currency:"USD",charge_id:id,run_id:q.runId??null,replay:false};
         });
       }else if(q.action==="lookup"){
         value=this.rows("SELECT * FROM charges WHERE key=?",q.key)[0]||null;
