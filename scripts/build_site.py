@@ -21,6 +21,14 @@ ARTICLES=[
         "description": "從付款 Timeout、架構選型到主管決策，跟著團隊用證據重新理解架構爭論。",
         "source": "articles/architect-amplifier-payment-decisions.md",
         "video_id": "F8X9_Dp3ZUk",
+        "next_article_slug": "checkout-reliability-large-traffic",
+    },
+    {
+        "slug": "checkout-reliability-large-traffic",
+        "title": "一場促銷揭露了付款系統的未知狀態：從故障實驗學會可靠的分散式系統",
+        "description": "實作 Payment Idempotency、Outbox、Lost Reply、Crash Recovery，再擴展到 Load、Business Impact 和英文 Incident Communication。",
+        "source": "articles/checkout-reliability-large-traffic.md",
+        "download_markdown": True,
     },
     {
         "slug": "ai-engineer-learning-path",
@@ -85,6 +93,19 @@ def lesson_navigation(item:dict, route:dict)->str:
     else:
         links.append('<p>已到這條學習路線的最後一課。</p>')
     return '<section class="panel" aria-label="課程導航"><h2>接續課程</h2><p>'+html.escape(route['title'])+f' · 第 {index+1} / {len(paths)} 課</p>'+''.join(links)+'</section>'
+
+def sequel_navigation(item:dict)->str:
+    slug=item.get('next_article_slug')
+    if not slug:
+        return ''
+    matches=[article for article in ARTICLES if article['slug']==slug]
+    if len(matches)!=1:
+        raise ValueError('Sequel article registry target is missing or ambiguous')
+    target=matches[0]
+    return (f'<section class="panel"><h2>延伸實作</h2><p>下一篇將付款狀態與 '
+            f'Unknown Outcome 變成可執行的故障測試。</p>'
+            f'<a rel="next" href="/articles/{html.escape(slug,quote=True)}/">'
+            f'{html.escape(target["title"])}</a></section>')
 
 def inline(text:str)->str:
     text=html.escape(text,quote=False)
@@ -328,15 +349,16 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             if '</p>' not in content_html:
                 raise ValueError('Video article must have an introductory paragraph')
             content_html=content_html.replace('</p>','</p>'+video_html,1)
-        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+'</article>'
+        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+sequel_navigation(item)+'</article>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         source_record={}
         if item.get('source_manifest'):
             panel,source_record=transcript_source(item,source_bytes,article_dir)
             article_body+=panel
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
-        if item.get('video_id'):
+        if item.get('video_id') or item.get('download_markdown'):
             (article_dir/'article.md').write_bytes(source_bytes)
+        if item.get('video_id'):
             source_record['video_id']=item['video_id']
             source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
         article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
