@@ -5,6 +5,15 @@ Access + Worker + Queues + 兩個 SQLite Durable Objects。帳號維持 Workers 
 Zero Trust Free；不新增 R2、Containers、付費 Load Balancer 或 Workers Paid。
 這是 US$0 約束下的實驗部署，不是持續大流量付款服務的容量承諾。
 
+| 方案 | 網站成本／限制 | 付款測試 | 選擇 |
+| --- | --- | --- | --- |
+| [Vercel Hobby](https://vercel.com/docs/plans/hobby) + Cloudflare Free | US$0；100 GB Fast Data Transfer、1 million CDN requests 的 included usage；限個人非商業用途 | 仍受 Cloudflare Queue／DO 額度 | 保留回退，不能解除付款瓶頸 |
+| Workers Static Assets + Cloudflare Free | US$0；直接資產請求免費、不限次數；動態 API 另計 | 有界故障／恢復與 baseline | 本次部署 |
+| Workers Static Assets + Workers Paid | 基本 US$5/month，加超額操作成本 | 可擴大 native load window，仍需處理熱 DO 與量測 SLO | 尚未獲授權，不啟用 |
+
+只升級 Vercel 不能擴大 Cloudflare Queues 額度。若未來的要求是持續大流量付款，
+最小付費升級候選在 Cloudflare dynamic runtime；公開靜態網站仍可維持免費。
+
 ## 網站與付款系統分別計量
 
 網站的 HTML、CSS、JS、Wasm、音檔與影片由 Static Assets 直接回傳。根目錄

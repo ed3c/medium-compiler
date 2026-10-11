@@ -242,7 +242,7 @@ Sandbox. Use `npm ci --ignore-scripts`, `npm run build`, then the pinned Wrangle
 retain Vercel as a rollback and old-Origin OPFS readback site. Deployment and runtime
 evidence are recorded per source revision, not inferred from this configuration.
 
-The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
+The [Four-Pass technical lesson](https://medium-compiler.ga874199.workers.dev/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use
 the existing player controls. The browser reads the selected file without uploading it.
 It cannot read an arbitrary local path; reload requires selecting the file again.

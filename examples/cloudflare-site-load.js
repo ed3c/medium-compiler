@@ -10,7 +10,7 @@ if (!Number.isInteger(rate) || !Number.isInteger(seconds) || rate < 1 || rate > 
   throw Error("Finite operator workload: max 10,000 static requests, rate <= 1,000/s, duration <= 60s");
 export const options = {
   scenarios: {assets: {executor: "constant-arrival-rate", rate, timeUnit: "1s", duration: seconds + "s",
-    preAllocatedVUs: 20, maxVUs: 100, gracefulStop: "10s"}},
+    preAllocatedVUs: 100, maxVUs: 100, gracefulStop: "10s"}},
   summaryTrendStats: ["min", "med", "p(95)", "p(99)", "max"],
   thresholds: {http_req_failed: ["rate==0"], checks: ["rate==1"], dropped_iterations: ["count==0"]}
 };
