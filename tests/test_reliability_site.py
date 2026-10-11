@@ -1,4 +1,5 @@
 """Static site contract for the browser-only reliability lab; not a browser drive."""
+import hashlib
 import json
 import tempfile
 import unittest
@@ -23,12 +24,17 @@ class ReliabilitySiteTests(unittest.TestCase):
                                  (ROOT/"site/reliability"/name).read_bytes())
             worker=(output/"assets/reliability/browser-worker.mjs").read_text()
             self.assertIn("OpfsDb",worker)
-            self.assertIn("3.53.4-build2",worker)
+            self.assertIn('from "./sqlite/index.mjs"',worker)
+            lock=json.loads((ROOT/'references/sqlite-wasm-lock.json').read_text())
+            self.assertEqual(lock['version'],'3.53.4-build2')
+            for name,digest in lock['files'].items():
+                asset=output/'assets/reliability/sqlite'/name
+                self.assertEqual(hashlib.sha256(asset.read_bytes()).hexdigest(),digest)
             self.assertNotIn("Payment Provider API Key",worker)
     def test_cross_origin_isolation_is_scoped_to_lab(self):
         settings=json.loads((ROOT/"vercel.json").read_text())
         routes={x["source"]:x["headers"] for x in settings["headers"]}
-        for path in ("/reliability/:path*","/assets/reliability/:path*"):
+        for path in ("/reliability/","/reliability/:path*","/assets/reliability/:path*"):
             headers={v["key"]:v["value"] for v in routes[path]}
             self.assertEqual(headers["Cross-Origin-Opener-Policy"],"same-origin")
             self.assertEqual(headers["Cross-Origin-Embedder-Policy"],"require-corp")

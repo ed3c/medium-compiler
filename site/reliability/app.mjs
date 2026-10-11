@@ -35,7 +35,7 @@ async function run(action){
       setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent="已匯出此瀏覽器的實際資料";return;
     }
     const key=$("payment-key").value.trim(),amount=Number($("payment-amount").value);
-    const result=await call(action==="refresh"?"counts":action,key,action==="duplicate"?36:amount);
+    const result=await call(action==="refresh"?"counts":action,key,amount);
     show(result);status.textContent="SQLite "+result.sqlite+" · OPFS · "+action+" 已回讀";
   }catch(err){error.textContent=err.message;status.textContent="此操作未完成；保留原本狀態及拒絕原因";}
 }

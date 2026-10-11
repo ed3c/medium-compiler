@@ -1,5 +1,5 @@
 // Browser-only SQLite-Wasm / OPFS payment fault lab. No external payment calls.
-import sqlite3InitModule from "https://cdn.jsdelivr.net/npm/@sqlite.org/sqlite-wasm@3.53.4-build2/dist/index.mjs";
+import sqlite3InitModule from "./sqlite/index.mjs";
 import {validPayment,invariant} from "./logic.mjs";
 let db,sqlite;
 function sql(statement,bind=[]){
@@ -23,8 +23,10 @@ function current(){
   return {orders,charges,outbox,events,integrity:invariant({orders,charges}),storage:"SQLite-Wasm / OPFS",sqlite:sqlite.version.libVersion};
 }
 async function initialize(){
+  if(!self.isSecureContext||!self.crossOriginIsolated||!navigator.storage?.getDirectory)
+    throw new Error("SQLite OPFS needs a secure, cross-origin-isolated browser. Check COOP/COEP and browser support.");
   sqlite=await sqlite3InitModule();
-  if(!("opfs" in sqlite)||!self.crossOriginIsolated)throw new Error("SQLite OPFS needs a secure, cross-origin-isolated browser. Check COOP/COEP and browser support.");
+  if(typeof sqlite.oo1?.OpfsDb!=="function")throw new Error("SQLite OPFS VFS failed to initialize. Check the same-origin proxy Worker and browser console.");
   db=new sqlite.oo1.OpfsDb("/medium-checkout-reliability-v1.sqlite3");
   sql("CREATE TABLE IF NOT EXISTS orders(payment_key TEXT PRIMARY KEY,amount_cents INTEGER NOT NULL CHECK(amount_cents>0),status TEXT NOT NULL CHECK(status IN ('PENDING','PAID')))");
   sql("CREATE TABLE IF NOT EXISTS outbox(payment_key TEXT PRIMARY KEY,delivered INTEGER NOT NULL DEFAULT 0 CHECK(delivered IN (0,1)))");
@@ -65,7 +67,7 @@ function reconcile(key){
 function scenario(action,key,amount){
   if(action==="reset"){transaction(()=>{for(const t of ["events","outbox","orders","charges"])sql("DELETE FROM "+t);});return;}
   if(action==="duplicate"){
-    for(let i=0;i<Math.min(36,Number(amount)||1);i++)create(key,1250);
+    for(let i=0;i<36;i++)create(key,amount);
     event("DUPLICATE_EXERCISE",key,"Sequential replay only; not a multi-thread stress test");return;
   }
   if(action==="create")return create(key,amount);

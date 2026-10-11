@@ -1,0 +1,16 @@
+{
+  "package": "@sqlite.org/sqlite-wasm",
+  "version": "3.53.4-build2",
+  "tarball": "https://registry.npmjs.org/@sqlite.org/sqlite-wasm/-/sqlite-wasm-3.53.4-build2.tgz",
+  "integrity": "sha512-kQVArGJA4z7s56Dm8t+eTBXad4LiohuVj9pfgDNOcxa+Ic5xMrWlLPTq6cT0hw5S4MIvtpsraW+B0wD+IPvC7A==",
+  "license": "Apache-2.0",
+  "license_source": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "files": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "README.md": "d2ec8bfad836bdb010d5a9a20ec9adb3322dd8ffca1eaaa3005852e110b7fadb",
+    "index.mjs": "a6d3fe46aa3f924e7686329f97b0564549ef1f787e0c19924179aef7f72bcc01",
+    "package.json": "87d3c9f70a8fec09a199c7eafd38ef0666c4a0cdeb1e1fce5432e5f86901b713",
+    "sqlite3-opfs-async-proxy.js": "9f1970e05ee07a79332498858740b705eeb1dcee03bc150f6f690bc0fb5f0a06",
+    "sqlite3.wasm": "2ee8f3dab694532afc8840e07703127287662d08b74e6ff50491ce63f00d5752"
+  }
+}
