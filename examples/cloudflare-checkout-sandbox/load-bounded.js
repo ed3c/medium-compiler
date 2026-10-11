@@ -6,7 +6,8 @@ const url=(__ENV.TEST_URL||"http://127.0.0.1:8787").replace(/\/$/,"");
 const local=/^http:\/\/(127\.0\.0\.1|localhost):8787$/.test(url);
 const runId=__ENV.RUN_ID,rate=Number(__ENV.ARRIVALS_PER_SECOND||2),seconds=Number(__ENV.DURATION_SECONDS||8);
 if(!runId||!/^[a-zA-Z0-9-]{1,40}$/.test(runId))throw Error("Supply a unique RUN_ID (1–40 letters, digits or hyphens)");
-if(![1,2].includes(rate)||![4,8].includes(seconds))throw Error("Bounded fixture: rate 1 or 2, duration 4 or 8 seconds");
+if(![1,2].includes(rate)||![4,8,30,60].includes(seconds)||rate*seconds>60)
+  throw Error("Bounded fixture: rate 1 or 2, duration 4, 8, 30 or 60 seconds, at most 60 scheduled intents");
 if(!local&&(!/^https:\/\/[a-z0-9-]+\.[a-z0-9-]+\.workers\.dev$/.test(url)||!__ENV.CF_ACCESS_TOKEN))
   throw Error("Remote targets require an application-scoped Access JWT from cloudflared access login");
 if(!local&&__ENV.CONFIRM_FREE_PLAN!=="Workers Free")
