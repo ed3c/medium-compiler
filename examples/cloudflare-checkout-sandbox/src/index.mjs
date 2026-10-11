@@ -31,7 +31,9 @@ export default {
       if(request.method!=="POST"||!["/api/create","/api/state","/api/replay"].includes(url.pathname))
         return json({error:"Unknown or unapproved route"},404);
       if(Number(request.headers.get("Content-Length")||0)>2048)return json({error:"Payload too large"},413);
-      const input=await request.json();
+      const raw=await request.text();
+      if(raw.length>2048)return json({error:"Payload too large"},413);
+      const input=JSON.parse(raw);
       const {checkout,provider}=stores(env,user.userId);
       if(url.pathname==="/api/create"){
         const {key,amount}=validPayment(input.key,input.amount);
@@ -44,16 +46,19 @@ export default {
         const dispatch=await invoke(checkout,{action:"replay"});
         return json({dispatch,message:"Replayed only pending work with the original payment key"});
       }
-      const [local,charges]=await Promise.all([invoke(checkout,{action:"state"}),invoke(provider,{action:"state"})]);
+      const [local,charges,checkoutBookmark,providerBookmark]=await Promise.all([
+        invoke(checkout,{action:"state"}),invoke(provider,{action:"state"}),
+        invoke(checkout,{action:"bookmark"}),invoke(provider,{action:"bookmark"})]);
       return json({schema:"checkout-remote-evidence@1",
         scope:"two independent Cloudflare SQLite Durable Objects with Queue",
         at:new Date().toISOString(),...local,charges,
+        bookmarks:{checkout:checkoutBookmark,provider:providerBookmark},
         integrity:invariant({orders:local.orders,charges}),
         note:"Separate-service behavioral and disaster recovery proof requires external observation"});
     }catch(err){
       const reason=String(err?.message||err);
       const accessFailure=/Cloudflare Access/.test(reason);
-      return json({error:reason},accessFailure?403:400);
+      return json({error:reason},accessFailure?403:reason.startsWith("409:")?409:400);
     }
   },
   async queue(batch,env){
