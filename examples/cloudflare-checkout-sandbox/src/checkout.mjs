@@ -27,7 +27,7 @@ export class CheckoutState{
   usage(){
     const day=new Date().toISOString().slice(0,10);
     return {day,...(this.rows("SELECT orders,dispatches FROM usage WHERE day=?",day)[0]||{orders:0,dispatches:0}),
-      limits:{orders:20,dispatches:50},scope:"Account-wide conservative reservations; not Cloudflare billing usage"};
+      limits:{orders:20,dispatches:50},scope:"Sandbox-wide across Access users; conservative reservations, not Cloudflare billing usage"};
   }
   reserve({kind,identity,amount}){
     return this.ctx.storage.transactionSync(()=>{

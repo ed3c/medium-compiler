@@ -45,9 +45,11 @@ not 10,000 fully settled payments. Verify current quotas before running load.
 ## Workload guards
 
 One extra instance of the existing CheckoutState class holds a shared UTC-day
-budget: 20 new intent reservations and 50 Queue publish reservations. Reservations
+budget across this sandbox’s Access users: 20 new intent reservations and 50 Queue publish reservations. Reservations
 precede effects and are not refunded after uncertain failure. They conservatively
-overcount work; they are not Cloudflare usage or invoice measurements. A missing
+overcount work; they are not Cloudflare usage or invoice measurements. This
+budget does not govern other Workers, products or the separate one-payment DR
+drill in the same Cloudflare account. Free subscriptions remain the fee boundary. A missing
 guard refuses admission. Existing pending intents remain readable when the budget
 is exhausted; dispatch stops and does not schedule an endless quota retry alarm.
 The next day requires an operator replay if no alarm remains scheduled.
