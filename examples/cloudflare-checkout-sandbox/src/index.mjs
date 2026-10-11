@@ -25,6 +25,9 @@ export default {
       const url=new URL(request.url),origin=request.headers.get("Origin");
       if(origin&&origin!==url.origin)return json({error:"Cross-origin mutation refused"},403);
       const user=await requireAccess(ctx);
+      if(!env.REQUEST_LIMITER?.limit)throw Error("503: Request usage guard is unavailable");
+      const limited=await env.REQUEST_LIMITER.limit({key:user.userId+":"+(url.pathname==="/api/state"?"read":"write")});
+      if(!limited.success)return json({error:"Rate limit reached; preserve the payment key and wait"},429);
       if(request.method==="GET"&&url.pathname==="/")
         return new Response(remotePage,{headers:{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store",
           "Content-Security-Policy":"default-src 'none'; base-uri 'none'; frame-ancestors 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'"}});
@@ -49,7 +52,9 @@ export default {
       const [local,charges,checkoutBookmark,providerBookmark]=await Promise.all([
         invoke(checkout,{action:"state"}),invoke(provider,{action:"state"}),
         invoke(checkout,{action:"bookmark"}),invoke(provider,{action:"bookmark"})]);
-      return json({schema:"checkout-remote-evidence@1",
+      const budget=env.CHECKOUT.get(env.CHECKOUT.idFromName("sandbox-account-budget"));
+      const usage=await invoke(budget,{action:"usage"});
+      return json({schema:"checkout-remote-evidence@1",usage,
         scope:"two independent Cloudflare SQLite Durable Objects with Queue",
         at:new Date().toISOString(),...local,charges,
         bookmarks:{checkout:checkoutBookmark,provider:providerBookmark},
@@ -58,7 +63,7 @@ export default {
     }catch(err){
       const reason=String(err?.message||err);
       const accessFailure=/Cloudflare Access/.test(reason);
-      return json({error:reason},accessFailure?403:reason.startsWith("409:")?409:400);
+      return json({error:reason},accessFailure?403:reason.startsWith("409:")?409:reason.startsWith("429:")?429:reason.startsWith("503:")?503:400);
     }
   },
   async queue(batch,env){
@@ -81,7 +86,7 @@ export default {
         }
         await invoke(checkout,{action:"paid",key,amount});
         message.ack();
-      }catch(_error){message.retry({delaySeconds:5});}
+      }catch(error){console.warn(JSON.stringify({phase:"queue-consumer",error:error.message}));message.retry({delaySeconds:5});}
     }
   }
 };

@@ -18,7 +18,10 @@ frontend carries no account keys and cannot trigger this Worker anonymously.
 
 ## Install: actions performed in your Cloudflare account
 
-Cloudflare is NOT connected to this ChatGPT session. To deploy yourself:
+Before deploying, read back Workers Free and Zero Trust Free in Billing. Do not
+upgrade or activate a paid product. Keep Vercel on Hobby for personal learning.
+Budget alerts are notifications, not spending caps. Account credentials and
+subscriptions must be verified in the operator’s current session. To deploy:
 
 1. Enable Workers, Queues and Zero Trust on the Cloudflare account.
 2. From this directory sign in interactively: npx wrangler@4 login
@@ -27,24 +30,55 @@ Cloudflare is NOT connected to this ChatGPT session. To deploy yourself:
    npx wrangler@4 queues create checkout-reliability-dlq
 4. Deploy: npx wrangler@4 deploy
 5. Dashboard -> Workers & Pages -> checkout-reliability-sandbox -> Access
-   -> Protect this Worker -> Production and preview. Allow ONLY your own
+   -> Protect this Worker. Preview URLs are disabled. Allow ONLY your own
    Cloudflare account members / exact authorized email.
 6. Open the protected workers.dev URL, sign in and run the remote UI.
    It uses native ctx.access identity; no public database API Key or
-   manually embedded JWT. Without Access, API returns 403.
+   manually embedded JWT. Without Worker-Level Access, API returns 403; enabled Access may redirect
+   anonymous requests to sign-in before Worker execution.
 7. Do not announce deployment completion until the actual URL, Access
    denial test, Queue/DO evidence and source head are read back.
 
 Cloudflare queues Free includes 10,000 operations/day across reads/writes/deletes,
 not 10,000 fully settled payments. Verify current quotas before running load.
 
+## Workload guards
+
+One extra instance of the existing CheckoutState class holds a shared UTC-day
+budget: 20 new intent reservations and 50 Queue publish reservations. Reservations
+precede effects and are not refunded after uncertain failure. They conservatively
+overcount work; they are not Cloudflare usage or invoice measurements. A missing
+guard refuses admission. Existing pending intents remain readable when the budget
+is exhausted; dispatch stops and does not schedule an endless quota retry alarm.
+The next day requires an operator replay if no alarm remains scheduled.
+
+Each identity still has a lifetime limit of 30 orders. Each pending order permits
+two manual replays. Consumer concurrency is one; batch size one; two Queue retries
+then DLQ. Read and write route groups each have a native 20/10-second rate limiter
+per identity and Cloudflare location. That limiter is approximate and consumes a
+Worker request before refusing with 429; it is not an account-wide financial cap.
+
+No Cron triggers, preview URLs or persistent Workers Logs are enabled. The
+workers.dev entry remains protected by Access so the learning UI is usable.
+Immediate Tail can capture a bounded acceptance run. Free plan quota refusal,
+not these counters, prevents usage overage billing for these products. Existing
+paid subscriptions or domain renewals require a separate Billing audit. Do not
+create an origin fallback or automatically switch to Paid after quota failure.
+
+On adoption into an existing sandbox, the operator must seed the new daily
+budget from the actual prior order and dispatch records before admitting new
+work. Use authorized administrative SQLite access, not a public reset endpoint.
+Never reset counters merely to make a load test pass.
+
 ## Tests
 
 Run from the repository root:
-  node --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs
+  node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs
   python3 -m unittest discover -s tests -p test_reliability_site.py -v
 
-The Node fake-owner tests are contract tests, NOT deployed DO/Queue observations.
+The Node owner/transport adapters are contract tests. Quota controls execute
+the actual CheckoutState SQL in Node SQLite; they still do not prove native
+Cloudflare DO/Queue behavior.
 For local Wrangler testing, configure a dev-only Access identity following
 https://developers.cloudflare.com/workers/configuration/cloudflare-access/ .
 Never commit real account identity or secrets to the production config.
@@ -65,8 +99,19 @@ test environment. Default is 2 arrivals/second for 8 seconds.
 Measure PAID completion, not just HTTP 202. Observe p95/p99, errors,
 Queue backlog, Pending Age, DLQ and operation cost.
 Never offer uncontrolled public load generation.
-A remote k6 runner may use an operator-only Access service token kept
-outside the repository. Visitors do not need this token.
+A remote runner requires the operator’s human Access identity because this
+Worker accepts an email identity, not an anonymous service identity. Use the
+official `cloudflared access login --url <protected-worker-url>` flow. Load the
+short-lived application token into process environment `CF_ACCESS_TOKEN` via
+`cloudflared access token --app <protected-worker-url>`; never paste tokens into
+chat or commit them. `RUN_ID` must be unique. Set `ARRIVALS_PER_SECOND=1` and
+`DURATION_SECONDS=4` for the first baseline; do not increase load after a failed
+baseline. Four VUs are preallocated to avoid allocation drops; polls every two
+seconds make observed settlement latency an upper bound that includes polling
+and network delay. Admission/settlement/error/drop metrics are separate. The
+preflight requires room for all intents and three dispatch reservations each.
+That preflight is observational; the atomic admission guard remains decisive.
+Export JSON using `EVIDENCE_FILE`. Visitors never receive the operator token.
 
 ## P3 restore
 

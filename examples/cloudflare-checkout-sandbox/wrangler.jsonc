@@ -4,6 +4,10 @@
   "main": "src/index.mjs",
   "compatibility_date": "2026-10-11",
   "workers_dev": true,
+  "preview_urls": false,
+  "triggers": {"crons": []},
+  "observability": {"enabled": false},
+  "ratelimits": [{"name":"REQUEST_LIMITER","namespace_id":"91261011","simple":{"limit":20,"period":10}}],
   "durable_objects": {
     "bindings": [
       {
@@ -39,7 +43,7 @@
         "max_batch_timeout": 1,
         "max_retries": 2,
         "dead_letter_queue": "checkout-reliability-dlq",
-        "max_concurrency": 2
+        "max_concurrency": 1
       }
     ]
   }
