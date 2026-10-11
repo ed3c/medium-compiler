@@ -1,0 +1,82 @@
+// Access-protected remote reliability lab; separate DOs + at-least-once Queue.
+// Never invokes a real payment processor or accepts visitor API tokens.
+import {requireAccess} from "./auth.mjs";
+import {CheckoutState} from "./checkout.mjs";
+import {ProviderState} from "./provider.mjs";
+import {remotePage} from "./ui.mjs";
+import {validPayment,invariant} from "../../../site/reliability/logic.mjs";
+export {CheckoutState,ProviderState};
+const faultModes=new Set(["none","lost_reply","worker_crash"]);
+function json(value,status=200){return Response.json(value,{status,headers:{"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"}});}
+async function invoke(stub,payload){
+  const r=await stub.fetch("https://internal/"+payload.action,{method:"POST",body:JSON.stringify(payload)});
+  const response=await r.json();
+  if(!response.ok)throw new Error(response.error||"Durable Object refused");
+  return response.value;
+}
+function stores(env,account){
+  const key="access-user:"+account;
+  return {checkout:env.CHECKOUT.get(env.CHECKOUT.idFromName(key)),
+          provider:env.PROVIDER.get(env.PROVIDER.idFromName(key))};
+}
+export default {
+  async fetch(request,env,ctx){
+    try{
+      const url=new URL(request.url),origin=request.headers.get("Origin");
+      if(origin&&origin!==url.origin)return json({error:"Cross-origin mutation refused"},403);
+      const user=await requireAccess(ctx);
+      if(request.method==="GET"&&url.pathname==="/")
+        return new Response(remotePage,{headers:{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store",
+          "Content-Security-Policy":"default-src 'none'; base-uri 'none'; frame-ancestors 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'"}});
+      if(request.method!=="POST"||!["/api/create","/api/state","/api/replay"].includes(url.pathname))
+        return json({error:"Unknown or unapproved route"},404);
+      if(Number(request.headers.get("Content-Length")||0)>2048)return json({error:"Payload too large"},413);
+      const input=await request.json();
+      const {checkout,provider}=stores(env,user.userId);
+      if(url.pathname==="/api/create"){
+        const {key,amount}=validPayment(input.key,input.amount);
+        const fault=faultModes.has(input.fault)?input.fault:"none";
+        const created=await invoke(checkout,{action:"create",key,amount,fault,account:user.userId});
+        const dispatch=await invoke(checkout,{action:"enqueue"});
+        return json({created,dispatch,message:"202 means pending intent, not settled payment"},202);
+      }
+      if(url.pathname==="/api/replay"){
+        const dispatch=await invoke(checkout,{action:"replay"});
+        return json({dispatch,message:"Replayed only pending work with the original payment key"});
+      }
+      const [local,charges]=await Promise.all([invoke(checkout,{action:"state"}),invoke(provider,{action:"state"})]);
+      return json({schema:"checkout-remote-evidence@1",
+        scope:"two independent Cloudflare SQLite Durable Objects with Queue",
+        at:new Date().toISOString(),...local,charges,
+        integrity:invariant({orders:local.orders,charges}),
+        note:"Separate-service behavioral and disaster recovery proof requires external observation"});
+    }catch(err){
+      const reason=String(err?.message||err);
+      const accessFailure=/Cloudflare Access/.test(reason);
+      return json({error:reason},accessFailure?403:400);
+    }
+  },
+  async queue(batch,env){
+    for(const message of batch.messages){
+      const {account,key,amount,fault}=message.body||{};
+      try{
+        if(typeof account!=="string"||account.length>300)throw Error("Invalid queued Access identity");
+        validPayment(key,amount);
+        const {checkout,provider}=stores(env,account);
+        // Only trusted mock-provider readback establishes its committed effect.
+        let charge=await invoke(provider,{action:"lookup",key});
+        if(!charge)charge=await invoke(provider,{action:"charge",key,amount});
+        if(charge.amount!==amount||charge.currency!=="USD")throw Error("Provider evidence mismatch");
+        if(fault==="lost_reply"||fault==="worker_crash"){
+          if(await invoke(checkout,{action:"claimFault",key})){
+            // Deliberately preserve PENDING after Provider COMMIT. Redelivery
+            // must read back the same payment identity, not charge twice.
+            message.retry({delaySeconds:3});continue;
+          }
+        }
+        await invoke(checkout,{action:"paid",key,amount});
+        message.ack();
+      }catch(_error){message.retry({delaySeconds:5});}
+    }
+  }
+};
