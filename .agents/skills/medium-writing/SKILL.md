@@ -39,8 +39,9 @@ translation; preserve the existing queue and immutable prior units. Run the
 upstream [sloptrim](../sloptrim/SKILL.md) skill on the
 English prose, inspect each proposed change and verify source fidelity. Keep
 numbers, commands, API names, code, citations, uncertainty, ownership,
-negation, and runtime order unchanged. Sloptrim is an external, separately
-installed tool; its presence in these instructions does not mean it ran.
+negation, and runtime order unchanged. Sloptrim is installed locally in `../sloptrim/` at the revision recorded
+in `references/upstream/sloptrim-lock.json`. The installed files and detector
+are available, but their presence does not prove this article was processed.
 Record a real check and the reviewed English version in private task
 evidence, or mark `sloptrim=NOT_RUN` with the missing capability. Do not
 report its style score as correctness, authorship, or formal compliance.

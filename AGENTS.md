@@ -60,6 +60,30 @@ Sloptrim detects stylistic patterns; its score is not a semantic or authorship
 verdict. A missing execution or unreadable detector result does not justify invented PASS
 evidence or a new compiler stage.
 
+## P-class, CLI, and article inference corrections
+
+When a writing or verification result disagrees with the original task, name
+the claim, premise, pinned source, and observed counterevidence. Correct the
+inference and its consequence, not merely its sentence rhythm. Do not change
+a technical fact, failure condition, or publication scope to satisfy sloptrim
+or make a CLI result pass.
+
+For engineering specifications, instructions, or CLI contracts, apply Soodles
+review-writing criteria. A changed P-class instruction needs scoped consumer
+feedback before any Agent-behavior claim. Prose readback alone is insufficient.
+For reader-facing articles, medium-writing owns the complete English draft,
+repository-local sloptrim, English semantic final, Traditional Chinese
+translation with exact English technical terms, and bilingual source check.
+
+The compiler CLI decides only its implemented stage order, source/byte identity,
+and declared mechanical completion. Its Stage 7 receipt does not prove
+translation equivalence, reader understanding, or external publication.
+A sloptrim detector score does not prove the article was revised or meaning
+survived. Record performed checks separately, and mark missing checks `NOT_RUN`.
+A deterministic CLI fault belongs to the code/contract owner and focused tests,
+not a prose-only Stage 6 patch. Preserve accepted bytes and use implemented
+revision routes.
+
 ## Writing and verification
 
 Product delivery scope is defined in README.md's Delivery scope section. Issue #12 owns
