@@ -23,7 +23,7 @@ class SloptrimInstallationTests(unittest.TestCase):
             path = ROOT / entry["path"]
             expected.add(path.relative_to(SKILL).as_posix())
             data = path.read_bytes()
-            blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\\0" + data).hexdigest()
+            blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
             self.assertEqual(blob, entry["git_blob"], entry["path"])
         actual = {p.relative_to(SKILL).as_posix() for p in SKILL.rglob("*") if p.is_file()}
         self.assertEqual(actual, expected)
