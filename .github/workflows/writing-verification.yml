@@ -19,6 +19,9 @@ jobs:
           mkdir -p /tmp/writing-evidence
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
           python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
+          node --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs > /tmp/writing-evidence/browser-cloudflare-contracts.txt 2>&1
+          node --check examples/cloudflare-checkout-sandbox/src/index.mjs
+          node --check site/reliability/browser-worker.mjs
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
           set +e
           python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/writing-evidence/behavior
