@@ -43,9 +43,11 @@ data, license and trace limitations; this import makes no additional commercial
 licensing or proficiency claims. Writing and recording are optional output
 practice, not strict ALG or a CEFR assessment.
 
-Deployment reuses the existing `noodles8/medium-compiler` Git integration and
-`vercel.json`: repository root, Python build, `dist` output, clean URLs. No new
-project, environment secret or paid integration is required.
+Primary deployment uses the root `wrangler.jsonc`: original Python build, `dist`
+output, asset-first routing and a native transcript API. See
+[the deployment/cost contract](../docs/cloudflare-deployment.md).
+The existing `noodles8/medium-compiler` Vercel Hobby project remains the rollback
+and old-Origin OPFS readback route; its Git integration is separate.
 
 The studio narrator now defaults to Parler TTS published MP3 audio for all 24
 scene variants, with Kokoro browser as the on-device generation choice. Device

@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "medium-compiler",
+  "account_id": "3751568573ab98ef44d3224c418b1c61",
+  "main": "workers/site/index.mjs",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  "triggers": {"crons": []},
+  "observability": {"enabled": false}
+}
