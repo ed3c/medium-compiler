@@ -1,0 +1,46 @@
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  "name": "checkout-reliability-sandbox",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": true,
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "CHECKOUT",
+        "class_name": "CheckoutState"
+      },
+      {
+        "name": "PROVIDER",
+        "class_name": "ProviderState"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "CheckoutState",
+        "ProviderState"
+      ]
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "PAYMENTS_QUEUE",
+        "queue": "checkout-reliability-payments"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "checkout-reliability-payments",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 2,
+        "dead_letter_queue": "checkout-reliability-dlq",
+        "max_concurrency": 2
+      }
+    ]
+  }
+}
