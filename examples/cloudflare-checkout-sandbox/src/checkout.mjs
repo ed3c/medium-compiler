@@ -109,9 +109,12 @@ export class CheckoutState{
         // An earlier publish may have committed despite its missing reply.
         if(row.sends>0&&await this.readback(row))continue;
         if(!this.rows("SELECT key FROM outbox WHERE key=? AND delivered=0 AND published=0 AND sends=? AND replays=? AND next_attempt_at>?",row.key,claim.sends,claim.replays,Date.now()).length)continue;
-        await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault,runId:row.run_id});
+        const sendResult=await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault,runId:row.run_id});
         this.sql.exec("UPDATE outbox SET published=1,next_attempt_at=0 WHERE key=? AND sends=? AND replays=?",row.key,claim.sends,claim.replays);
         dispatched++;
+        console.log(JSON.stringify({phase:"queue-publish-ack",key:row.key,runId:row.run_id,
+          at:Date.now(),attempt:claim.sends,replayEpoch:claim.replays,
+          backlogCount:sendResult?.metadata?.metrics?.backlogCount??null}));
       }
       catch(err){console.warn(JSON.stringify({phase:"queue-publish",error:err.message}));}
     }

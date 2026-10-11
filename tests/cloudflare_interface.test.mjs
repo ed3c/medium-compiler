@@ -374,6 +374,28 @@ test("one lost reply retries under same key and reconciles once",async()=>{
   assert.equal(read.integrity.pass,true);
   assert.equal((await worker.fetch(post("api/create",{...input,amount:1300}),env,ctx)).status,409);
 });
+test("mixed batch retains per-message recovery and emits secret-free live timings",async t=>{
+  const records=[];t.mock.method(console,"log",line=>records.push(JSON.parse(line)));
+  const env=fakeEnvironment(),runId="timing-control";
+  for(const key of ["first","lost","last"])
+    await worker.fetch(post("api/create",{key,runId,amount:1250,fault:key==="lost"?"lost_reply":"none"}),env,ctx);
+  const acks=[],retries=[];
+  const messages=env.pending.map(body=>({body,timestamp:new Date(Date.now()-1000),attempts:1,
+    ack(){acks.push(body.key);},retry(){retries.push(body.key);}}));
+  await worker.queue({messages},env);
+  assert.deepEqual(acks,["first","last"]);assert.deepEqual(retries,["lost"]);
+  assert.equal(records.length,3);
+  assert.ok(records.every(r=>r.batchSize===3&&r.queueLagMs>=1000&&r.processingMs>=0));
+  assert.ok(records.every(r=>!("account" in r)&&!("headers" in r)));
+  const lost=records.find(r=>r.key==="lost");assert.equal(lost.result,"retry-injected");
+  assert.equal("paidConfirmedAt" in lost,false);
+  assert.ok(records.filter(r=>r.result==="ack").every(r=>r.paidConfirmedAt>=r.startedAt));
+  await worker.queue({messages:[{...messages[1],attempts:2}]},env);
+  assert.equal(records.at(-1).providerFound,true);assert.equal(records.at(-1).result,"ack");
+  assert.equal("chargeMs" in records.at(-1),false);
+  const state=await (await worker.fetch(post("api/state",{runId}),env,ctx)).json();
+  assert.equal(state.charges.length,3);assert.ok(state.orders.every(o=>o.status==="PAID"));
+});
 test("replay preserves same identity and anonymous cross-site writes refuse",async()=>{
   const env=fakeEnvironment();
   await worker.fetch(post("api/create",{key:"same",amount:100,fault:"none"}),env,ctx);

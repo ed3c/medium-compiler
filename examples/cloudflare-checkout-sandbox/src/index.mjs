@@ -77,27 +77,48 @@ export default {
     }
   },
   async queue(batch,env){
+    const batchStartedAt=Date.now();
     for(const message of batch.messages){
       const {account,key,amount,fault,runId}=message.body||{};
+      const startedAt=Date.now(),queuedAt=message.timestamp?.getTime?.();
+      const timing={phase:"queue-consumer-result",key:null,runId:null,
+        batchSize:batch.messages.length,batchStartedAt,startedAt,
+        queuedAt:Number.isFinite(queuedAt)?queuedAt:null,
+        queueLagMs:Number.isFinite(queuedAt)?batchStartedAt-queuedAt:null,
+        batchWaitMs:startedAt-batchStartedAt,attempt:message.attempts??null};
       try{
         if(typeof account!=="string"||account.length>300)throw Error("Invalid queued Access identity");
         validPayment(key,amount);
         if(runId!=null)validRunId(runId);
+        timing.key=key;timing.runId=runId??null;
         const {checkout,provider}=stores(env,account);
         // Only trusted mock-provider readback establishes its committed effect.
+        let stepAt=Date.now();
         let charge=await invoke(provider,{action:"lookup",key});
-        if(!charge)charge=await invoke(provider,{action:"charge",key,amount,runId});
+        timing.lookupMs=Date.now()-stepAt;timing.providerFound=!!charge;
+        if(!charge){
+          stepAt=Date.now();charge=await invoke(provider,{action:"charge",key,amount,runId});
+          timing.chargeMs=Date.now()-stepAt;
+        }
         if(charge.amount!==amount||charge.currency!=="USD")throw Error("Provider evidence mismatch");
         if(fault==="lost_reply"||fault==="worker_crash"){
-          if(await invoke(checkout,{action:"claimFault",key})){
+          stepAt=Date.now();const injected=await invoke(checkout,{action:"claimFault",key});
+          timing.claimFaultMs=Date.now()-stepAt;
+          if(injected){
             // Deliberately preserve PENDING after Provider COMMIT. Redelivery
             // must read back the same payment identity, not charge twice.
-            message.retry({delaySeconds:3});continue;
+            message.retry({delaySeconds:3});timing.result="retry-injected";continue;
           }
         }
-        await invoke(checkout,{action:"paid",key,amount});
-        message.ack();
-      }catch(error){console.warn(JSON.stringify({phase:"queue-consumer",error:error.message}));message.retry({delaySeconds:5});}
+        stepAt=Date.now();await invoke(checkout,{action:"paid",key,amount});
+        timing.paidMs=Date.now()-stepAt;timing.paidConfirmedAt=Date.now();
+        message.ack();timing.result="ack";
+      }catch(error){console.warn(JSON.stringify({phase:"queue-consumer",error:error.message}));message.retry({delaySeconds:5});timing.result="retry-error";}
+      finally{
+        timing.completedAt=Date.now();timing.processingMs=timing.completedAt-startedAt;
+        // Live tail only: no SQL writes, persistent Logs, account IDs or headers.
+        console.log(JSON.stringify(timing));
+      }
     }
   }
 };
