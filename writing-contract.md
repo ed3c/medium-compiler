@@ -122,7 +122,7 @@ compression of the article, not a place to introduce new facts.
 The semantic writing owner first completes the English prose for the entire
 requested article, or the currently admitted incremental unit. Before making
 a Traditional Chinese translation, apply the upstream
-[sloptrim](https://github.com/seyedehsanhadi/sloptrim) skill to this English
+[sloptrim](.agents/skills/sloptrim/SKILL.md) skill to this English
 prose, then check each changed passage against source facts, causal reasoning,
 technical terms, attribution, negation, qualifications and failure cases.
 The tool is a local style detector and rewrite method, not an authorship
