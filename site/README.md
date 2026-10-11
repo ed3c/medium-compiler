@@ -43,11 +43,13 @@ data, license and trace limitations; this import makes no additional commercial
 licensing or proficiency claims. Writing and recording are optional output
 practice, not strict ALG or a CEFR assessment.
 
-Primary deployment uses the root `wrangler.jsonc`: original Python build, `dist`
-output, asset-first routing and a native transcript API. See
+The total site uses Vercel Hobby and the original Python `dist` build. Cloudflare
+uses root `wrangler.jsonc` and `dist-cloudflare` for only the Reliability Lab
+subsite, with asset-first routing. Its navigation returns to the Vercel total site. See
 [the deployment/cost contract](../docs/cloudflare-deployment.md).
-The existing `noodles8/medium-compiler` Vercel Hobby project remains the rollback
-and old-Origin OPFS readback route; its Git integration is separate.
+ChatGPT cloud owns `noodles8/medium-compiler` through the Vercel Connector. Local
+Codex configures Cloudflare through Wrangler; native Git builds run on Cloudflare.
+The old Vercel Lab remains an OPFS readback route; origin-local data is not migrated.
 
 The studio narrator now defaults to Parler TTS published MP3 audio for all 24
 scene variants, with Kokoro browser as the on-device generation choice. Device

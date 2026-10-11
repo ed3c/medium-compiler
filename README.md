@@ -235,14 +235,16 @@ Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consu
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
 
-The primary deployment now targets Cloudflare Workers Static Assets with a separate
-read-only transcript Worker API. [Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md)
-explain the cost boundary between public asset traffic and the Access-protected payment
-Sandbox. Use `npm ci --ignore-scripts`, `npm run build`, then the pinned Wrangler route;
-retain Vercel as a rollback and old-Origin OPFS readback site. Deployment and runtime
+The total site stays on Vercel Hobby, owned by the ChatGPT cloud Vercel Connector
+route. Its Reliability Lab navigation opens the Cloudflare experiment subsite;
+Local Codex configures that subsite and the Access-protected payment Sandbox.
+[Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md) explains
+the cost boundary. `npm run build` produces the total site; `npm run build:cloudflare`
+produces only Lab assets for pinned Wrangler and Cloudflare native Git builds.
+The existing Vercel Lab remains readable for old-Origin OPFS evidence. Deployment and runtime
 evidence are recorded per source revision, not inferred from this configuration.
 
-The [Four-Pass technical lesson](https://medium-compiler.ga874199.workers.dev/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
+The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use
 the existing player controls. The browser reads the selected file without uploading it.
 It cannot read an arbitrary local path; reload requires selecting the file again.

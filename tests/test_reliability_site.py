@@ -40,5 +40,23 @@ class ReliabilitySiteTests(unittest.TestCase):
             self.assertEqual(headers["Cross-Origin-Embedder-Policy"],"require-corp")
         self.assertNotIn("/:path*",routes)
 
+    def test_cloudflare_subsite_keeps_assets_local_and_total_site_on_vercel(self):
+        import importlib.util
+        import sys
+        sys.path.insert(0,str(ROOT/'scripts'))
+        spec=importlib.util.spec_from_file_location('lab_build',ROOT/'scripts/build_reliability_site.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as temp:
+            out=Path(temp)/'lab';module.build(out)
+            page=(out/'reliability/index.html').read_text()
+            self.assertIn('href="https://medium-compiler.vercel.app/"',page)
+            self.assertIn('href="https://medium-compiler.ga874199.workers.dev/reliability/"',page)
+            self.assertIn('src="/assets/reliability/app.mjs"',page)
+            self.assertTrue((out/'assets/reliability/sqlite/sqlite3.wasm').exists())
+            self.assertFalse((out/'articles').exists())
+            self.assertFalse((out/'cefr-alg-c2').exists())
+            self.assertIn('/ https://medium-compiler.vercel.app/ 302',(out/'_redirects').read_text())
+            self.assertEqual((out/'_headers').read_bytes(),(ROOT/'site/_headers').read_bytes())
+
 if __name__=="__main__":
     unittest.main()

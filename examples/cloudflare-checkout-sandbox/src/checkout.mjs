@@ -8,6 +8,10 @@ export class CheckoutState{
     this.sql.exec("CREATE TABLE IF NOT EXISTS faults(key TEXT PRIMARY KEY,injected INTEGER NOT NULL DEFAULT 0)");
     if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="replays"))
       this.sql.exec("ALTER TABLE outbox ADD COLUMN replays INTEGER NOT NULL DEFAULT 0");
+    if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="published"))
+      this.sql.exec("ALTER TABLE outbox ADD COLUMN published INTEGER NOT NULL DEFAULT 0");
+    if(!this.rows("PRAGMA table_info(outbox)").some(row=>row.name==="next_attempt_at"))
+      this.sql.exec("ALTER TABLE outbox ADD COLUMN next_attempt_at INTEGER NOT NULL DEFAULT 0");
   }
   rows(query,...params){return this.sql.exec(query,...params).toArray();}
   create({key,amount,fault,account}){
@@ -25,7 +29,7 @@ export class CheckoutState{
   }
   snapshot(){
     return {orders:this.rows("SELECT key,amount,status,fault FROM orders ORDER BY key"),
-      outbox:this.rows("SELECT key,delivered,sends,replays FROM outbox ORDER BY key")};
+      outbox:this.rows("SELECT key,delivered,sends,replays,published,next_attempt_at FROM outbox ORDER BY key")};
   }
   paid({key,amount}){
     return this.ctx.storage.transactionSync(()=>{
@@ -45,36 +49,72 @@ export class CheckoutState{
       return true;
     });
   }
+  async readback(row){
+    const provider=this.env.PROVIDER.get(this.env.PROVIDER.idFromName("access-user:"+row.account));
+    const response=await provider.fetch("https://internal/lookup",{method:"POST",body:JSON.stringify({action:"lookup",key:row.key})});
+    const evidence=await response.json();
+    if(!response.ok||!evidence.ok)throw new Error(evidence.error||"Provider readback unavailable");
+    if(!evidence.value)return false;
+    if(evidence.value.key!==row.key||evidence.value.amount!==row.amount||evidence.value.currency!=="USD")
+      throw new Error("Provider evidence mismatch");
+    this.paid(row);return true;
+  }
   async enqueue(keys=null){
-    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,x.sends FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.sends<3 ORDER BY o.key LIMIT 15");
+    if(keys&&!keys.length)return {dispatched:0,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
+    const scope=keys?" AND o.key IN ("+keys.map(()=>"?").join(",")+")":"";
+    const pending=this.rows("SELECT o.key,o.amount,o.fault,o.account,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.published=0 AND x.sends<3 AND x.next_attempt_at<=?"+scope+" ORDER BY o.key LIMIT 15",Date.now(),...(keys||[]));
     let dispatched=0;
     for(const row of pending){
-      if(keys&&!keys.includes(row.key))continue;
-      // Mark intent before sending: a lost publish result leaves readback/retry work.
-      if(!this.rows("UPDATE outbox SET sends=sends+1 WHERE key=? AND delivered=0 AND sends<3 RETURNING sends",row.key).length)continue;
-      try{await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault});dispatched++;}
+      // Durable claim excludes concurrent relays while send awaits. Replays is
+      // the recovery epoch, so a late completion cannot overwrite a new claim.
+      const claim=this.rows("UPDATE outbox SET sends=sends+1,next_attempt_at=? WHERE key=? AND delivered=0 AND published=0 AND sends=? AND replays=? AND sends<3 AND next_attempt_at<=? RETURNING sends,replays",Date.now()+30000,row.key,row.sends,row.replays,Date.now())[0];
+      if(!claim)continue;
+      // A recovery wake-up is required even on the last bounded attempt.
+      // Propagate storage failure so the platform retries the alarm turn.
+      await this.ctx.storage.setAlarm(Date.now()+30000);
+      try{
+        // An earlier publish may have committed despite its missing reply.
+        if(row.sends>0&&await this.readback(row))continue;
+        if(!this.rows("SELECT key FROM outbox WHERE key=? AND delivered=0 AND published=0 AND sends=? AND replays=? AND next_attempt_at>?",row.key,claim.sends,claim.replays,Date.now()).length)continue;
+        await this.env.PAYMENTS_QUEUE.send({account:row.account,key:row.key,amount:row.amount,fault:row.fault});
+        this.sql.exec("UPDATE outbox SET published=1,next_attempt_at=0 WHERE key=? AND sends=? AND replays=?",row.key,claim.sends,claim.replays);
+        dispatched++;
+      }
       catch(err){console.warn(JSON.stringify({phase:"queue-publish",error:err.message}));}
     }
-    if(this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0 AND sends<3")[0].n>0)
-      await this.ctx.storage.setAlarm(Date.now()+30000);
+    const next=this.rows("SELECT MIN(next_attempt_at) AS at FROM outbox WHERE delivered=0 AND published=0 AND sends<3")[0].at;
+    if(next!==null)await this.ctx.storage.setAlarm(Math.max(Date.now()+1000,next));
     return {dispatched,pending:this.rows("SELECT COUNT(*) AS n FROM outbox WHERE delivered=0")[0].n};
   }
   async fetch(request){
     try{
       const q=await request.json();let value;
       switch(q.action){
-        case "create": value=this.create(q);await this.ctx.storage.setAlarm(Date.now()+15000);break;
+        case "create":
+          // Persist the wake-up before the atomic intent; a crash between
+          // commit and the API's relay still leaves an alarm to resume it.
+          if(!this.rows("SELECT key FROM orders WHERE key=?",q.key).length)await this.ctx.storage.setAlarm(Date.now()+15000);
+          value=this.create(q);break;
         case "state": value=this.snapshot();break;
         case "bookmark": value=await this.ctx.storage.getCurrentBookmark().catch(()=>null);break;
         case "paid": value=this.paid(q);break;
         case "claimFault": value=this.claimFault(q);break;
-        case "enqueue": value=await this.enqueue();break;
+        case "enqueue": value=await this.enqueue(q.keys||null);break;
         case "replay":
           {
-            const keys=this.rows("SELECT key FROM outbox WHERE delivered=0 ORDER BY key LIMIT 15").map(row=>row.key);
-            this.ctx.storage.transactionSync(()=>{
-              for(const key of keys)this.sql.exec("UPDATE outbox SET sends=0,replays=replays+1 WHERE key=?",key);
-            });
+            const pending=this.rows("SELECT o.key,o.amount,o.account,x.sends,x.replays FROM orders o JOIN outbox x ON o.key=x.key WHERE x.delivered=0 AND x.next_attempt_at<=? ORDER BY o.key LIMIT 15",Date.now());
+            const recoverable=[];
+            for(const row of pending){
+              if(await this.readback(row))continue;
+              recoverable.push(row);
+            }
+            // Validate the batch before resetting any published marker. A
+            // failed later readback must not leave an earlier intent unarmed.
+            if(recoverable.length)await this.ctx.storage.setAlarm(Date.now()+15000);
+            const keys=[];
+            for(const row of recoverable){
+              if(this.rows("UPDATE outbox SET sends=0,published=0,next_attempt_at=0,replays=replays+1 WHERE key=? AND delivered=0 AND sends=? AND replays=? AND next_attempt_at<=? RETURNING key",row.key,row.sends,row.replays,Date.now()).length)keys.push(row.key);
+            }
             value=await this.enqueue(keys);break;
           }
         default: throw new Error("Invalid internal action");

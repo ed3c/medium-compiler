@@ -53,7 +53,15 @@ account's Free quotas or demonstrate payment capacity.
 
 Only pending work can be manually replayed, using the original payment key.
 Each relay processes at most 15 entries; each entry has three automatic publish
-attempts. Queue batch size is one with two retries and a DLQ. These bounds stop
+attempts. A durable 30-second claim excludes routine concurrent relays; successful
+Queue acknowledgement persists `published=1`. Create dispatches only its own key;
+later Creates and alarms skip acknowledged entries. Recovery persists an alarm
+before external awaits and reads the Provider before retrying an unknown publish.
+Manual recovery reads all selected Provider evidence before resetting absent
+entries; an epoch prevents stale completions from overwriting newer claims.
+Lease expiry does not terminate an older send: unknown outcomes can still produce
+same-key duplicate messages. This is not exactly-once publication or payment.
+Queue batch size is one with two retries and a DLQ. These bounds stop
 automatic failure loops; they are not lifetime usage caps. After platform quota
 refusal, orders remain PENDING. Read back provider effects before recovery.
 Manual replay does not reset Cloudflare usage or imply that a timeout failed.

@@ -39,7 +39,7 @@ export default {
         const {key,amount}=validPayment(input.key,input.amount);
         const fault=faultModes.has(input.fault)?input.fault:"none";
         const created=await invoke(checkout,{action:"create",key,amount,fault,account:user.userId});
-        const dispatch=await invoke(checkout,{action:"enqueue"});
+        const dispatch=await invoke(checkout,{action:"enqueue",keys:[key]});
         return json({created,dispatch,message:"202 means pending intent, not settled payment"},202);
       }
       if(url.pathname==="/api/replay"){
