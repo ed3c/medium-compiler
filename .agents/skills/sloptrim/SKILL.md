@@ -233,3 +233,59 @@ Removing AI patterns is half the job; fill the space with patterns a person writ
 ## Reference
 
 The catalogue folds publicly documented signs of AI writing with newer model-specific tells; all worked examples in `references/patterns.md` are original, and the lexical layer (#1) is the refresh point as model vocabularies shift. Scope is rewriting, not detection; defeating institutional integrity systems is out of scope. Version **0.9.4**.
+
+
+## Medium-compiler reader-article editorial supplement
+
+**Local extension; not part of upstream sloptrim v0.9.4.** The pristine
+`SKILL.md` is retained in `references/upstream/sloptrim-SKILL.md`.
+The lock records the customized Git blob. The original detector and its 71
+patterns are unchanged. Apply this pass to completed **English reader-facing
+article prose**, even when the detector score is `clean`, before translation
+to Traditional Chinese. Do not apply it to P-class guidance, CLI contracts,
+code, quotes, fixed receipts, or other engineering evidence.
+
+### Reader-attention test
+
+For every sentence, ask: if deleted, could the reader still identify the
+actor, relevant condition, causal relation, observed versus hypothetical
+status, and decision boundary? If so, cut it. If not, preserve the missing
+meaning in fewer words or near the action that depends on it.
+
+- **Writer narration:** Delete "This teaching scenario combines five
+  concepts" or "This diagram illustrates the method". Show the interaction.
+- **Framework name-checking:** Replace "Acting as an Amplifier, the
+  architect asks..." with "The architect asks...". Name an unfamiliar
+  concept once when it genuinely improves comprehension, not at every scene.
+- **Repeated provenance/disclaimers:** Keep source attribution and one clear
+  marker that an invented case is hypothetical. Keep concrete unknowns
+  where they change runtime decisions. Move general "not a real incident"
+  and "not tested here" disclosures to a concise source note instead of
+  repeatedly interrupting the narrative.
+- **Restating the scene:** Delete "The real lesson is..." paragraphs and
+  mirrored rhetorical contrasts that add no new mechanism, evidence, or
+  consequence. Do not replace them with new inspirational endings.
+- **Internal bookkeeping:** Keep card IDs, stages, detector scores,
+  verification receipts, and writing-process descriptions outside article
+  prose. Retain substantive citations and relevant technical details.
+
+**Controls:**
+- Cut: "This teaching example uses Solution Space Framing to connect the
+  cards." The next paragraph can describe splitting design modularity
+  from deployment independence without this announcement.
+- Rewrite: "This diagram is only a proposed model; it does not mean
+  Payment Attempt exists." → "Check whether the current code persists
+  Payment Attempt before calling the provider."
+- **Keep:** "A Timeout does not prove that the provider rejected the
+  payment; read back the outcome before retrying." This is a correctness
+  condition, not filler.
+- **Keep provenance:** Start a constructed case with "Suppose..." or an
+  equivalent unambiguous framing; never portray invented dialogue as a
+  recorded customer incident.
+
+After deletion, compare the English result with sources for facts, negation,
+qualifiers, attribution, technical terms, runtime order, and unknown effects.
+Only translate the approved English version. Check the Traditional Chinese
+version against both source and English final, preserving exact English
+technical terms. A style score or copyedit is not a semantic PASS, and this
+appendix creates no runtime gate.

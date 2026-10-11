@@ -5,7 +5,7 @@
   "repository": "seyedehsanhadi/sloptrim",
   "revision": "38dbb7cb4e97de0b9bf157903c95bdcab016dda2",
   "installed_scope": "project-local .agents/skills/sloptrim",
-  "note": "Exact upstream bytes and modes (including optional hook/plugin files); nested plugin hooks are not registered or enabled by this repository. Invoke only for English reader-facing article prose. Soodles review-writing owns engineering guidance.",
+  "note": "Upstream v0.9.4 exact source retained; SKILL.md has an append-only medium-compiler editorial supplement, with pristine bytes stored separately. Other 59 files remain byte-identical. Optional hooks are not registered. Soodles review-writing owns engineering guidance.",
   "files": [
     {
       "source_path": ".claude-plugin/marketplace.json",
@@ -367,5 +367,15 @@
       "git_blob": "966983c6441d8dc377300e3844a4501affe5f51d",
       "mode": "100644"
     }
-  ]
+  ],
+  "project_customization": {
+    "scope": "reader-facing Medium prose only, after source-grounded English draft and before zh-Hant translation",
+    "strategy": "upstream-SKILL.md-exact-prefix-and-appended-supplement",
+    "upstream_skill_copy": "references/upstream/sloptrim-SKILL.md",
+    "active_skill_path": ".agents/skills/sloptrim/SKILL.md",
+    "active_git_blob": "8d336ccb55453d7fd2066483f818a31e6fb42cfb",
+    "original_git_blob": "7e0978d4fcfa48c426d468f95f9f260649c1a44e",
+    "upstream_detector_unchanged": true,
+    "claude_hooks_enabled": false
+  }
 }

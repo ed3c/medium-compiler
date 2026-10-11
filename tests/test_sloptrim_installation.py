@@ -20,13 +20,28 @@ class SloptrimInstallationTests(unittest.TestCase):
         self.assertEqual(lock["version"], "0.9.4")
         expected = set()
         for entry in lock["files"]:
-            path = ROOT / entry["path"]
-            expected.add(path.relative_to(SKILL).as_posix())
+            expected.add((ROOT / entry["path"]).relative_to(SKILL).as_posix())
+            if entry["source_path"] == "SKILL.md":
+                path = ROOT / lock["project_customization"]["upstream_skill_copy"]
+            else:
+                path = ROOT / entry["path"]
             data = path.read_bytes()
             blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
-            self.assertEqual(blob, entry["git_blob"], entry["path"])
+            self.assertEqual(blob, entry["git_blob"], entry["source_path"])
         actual = {p.relative_to(SKILL).as_posix() for p in SKILL.rglob("*") if p.is_file()}
         self.assertEqual(actual, expected)
+        local = lock["project_customization"]
+        original = (ROOT / local["upstream_skill_copy"]).read_bytes()
+        customized = (ROOT / local["active_skill_path"]).read_bytes()
+        self.assertTrue(customized.startswith(original))
+        supplement = customized[len(original):]
+        self.assertTrue(supplement.startswith(b"\n\n## Medium-compiler reader-article editorial supplement"))
+        self.assertIn(b"**Keep:**", supplement)
+        self.assertIn(b"Do not apply it to P-class guidance", supplement)
+        blob = hashlib.sha1(
+            b"blob " + str(len(customized)).encode() + b"\0" + customized
+        ).hexdigest()
+        self.assertEqual(blob, local["active_git_blob"])
 
     def test_detector_runs_without_external_dependencies(self):
         detector = SKILL / "scripts/detect.py"

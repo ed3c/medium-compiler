@@ -36,8 +36,13 @@ semantic checks with a style score.
 Complete the English prose for the selected article before translating it.
 For an authorized incremental patch, finish that English unit before
 translation; preserve the existing queue and immutable prior units. Run the
-upstream [sloptrim](../sloptrim/SKILL.md) skill on the
-English prose, inspect each proposed change and verify source fidelity. Keep
+project-local [sloptrim](../sloptrim/SKILL.md) skill on the
+English prose, including its **reader-article editorial supplement even when
+its detector score is clean**. Remove passages about the article's own
+writing process, repetitive concept-label handoffs, redundant disclaimers,
+and restatements that add no decision-relevant information. Keep one clear
+hypothetical framing and necessary source attribution outside repeated
+in-story warnings. Inspect each proposed change and verify source fidelity. Keep
 numbers, commands, API names, code, citations, uncertainty, ownership,
 negation, and runtime order unchanged. Sloptrim is installed locally in `../sloptrim/` at the revision recorded
 in `references/upstream/sloptrim-lock.json`. The installed files and detector

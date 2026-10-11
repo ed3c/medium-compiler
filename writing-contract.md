@@ -123,7 +123,13 @@ The semantic writing owner first completes the English prose for the entire
 requested article, or the currently admitted incremental unit. Before making
 a Traditional Chinese translation, apply the upstream
 [sloptrim](.agents/skills/sloptrim/SKILL.md) skill to this English
-prose, then check each changed passage against source facts, causal reasoning,
+prose. Its project-local editorial supplement also applies at a `clean`
+detector score: remove authorial explanations of the manuscript, repeated
+framework name-checks and after-the-fact summary sentences when the scene
+already conveys the same idea. Keep specific epistemic limitations close
+to decisions they affect; put general scenario provenance in one concise
+source note rather than repeating it in every paragraph. Then check each
+changed passage against source facts, causal reasoning,
 technical terms, attribution, negation, qualifications and failure cases.
 The tool is a local style detector and rewrite method, not an authorship
 classifier or semantic oracle. Record the actual run or `NOT_RUN`; do not
