@@ -5,7 +5,8 @@ Import does not deploy. The publisher reviews disclosure before import.
 The importer checks known private path and credential patterns. This check cannot
 certify that every free-text field is safe to publish.
 
-V1 retains its recorded timeline. It does not acquire causal edges.
+V1 retains its recorded timeline. A retained v2 run with no graph occurrences
+uses that same timeline renderer. It does not acquire causal edges.
 V2 uses the original Loop display contract in `contracts/loop-view-v2.schema.json`
 and the unchanged portable validator in `scripts/loop_graph_contract.py`.
 The public importer additionally validates every graph string and rejects original
@@ -60,3 +61,25 @@ python3 scripts/build_site.py --out /absolute/external/build-directory
 The fixture browser drive verifies rendering and interaction only. It does not
 certify new native executions, private source disclosure, or deployment. The
 publisher verifies the reviewed real snapshot and deployed page separately.
+
+## Superseding a selected public snapshot
+
+For a new reviewed version of existing runs, the original importer accepts
+`--supersede OLD_ID` together with a distinct new `--id`. The old ID must be
+selected in the current catalog. The importer validates the catalog and each
+source digest before writing. The new snapshot must retain every old run ID,
+repository, and mode. Runs may change their recorded stages and status.
+Duplicate run IDs in other selected snapshots still cause refusal.
+
+The importer writes the new snapshot bytes once, then atomically replaces the
+catalog entry. The new entry records the original entry under `supersedes`.
+The old snapshot file stays unchanged. Later imports and builds verify the
+retained history against those original digests. This history is needed because
+the old entry is no longer selected; recalculating its digest would not detect drift.
+
+A first completed replacement returns `SUPERSEDED`. If only the exact new file
+was written before an interruption, the same request returns `RECOVERED` after
+updating the catalog. An already recorded identical replacement returns `NOOP`
+without rewriting either file. Changed bytes, a different old ID, missing history,
+or source drift cause refusal. Read the catalog and response after an unknown
+result before deciding whether to repeat the same request. Import never deploys.

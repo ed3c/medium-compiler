@@ -106,8 +106,8 @@ def validate_snapshot(snapshot):
     return snapshot
 
 
-def checked_snapshot(root, entry):
-    fields(entry, ('path', 'sha256'))
+def checked_snapshot(root, entry, ancestry=()):
+    fields(entry, ('path', 'sha256'), ('supersedes',))
     name = entry['path']
     if not isinstance(name, str) or Path(name).is_absolute() or '..' in Path(name).parts:
         raise ValueError('Invalid public Loop snapshot path')
@@ -115,6 +115,8 @@ def checked_snapshot(root, entry):
     if unresolved.is_symlink():
         raise ValueError('Public Loop snapshot must not be a symlink')
     path = unresolved.resolve()
+    if path in ancestry:
+        raise ValueError('Cyclic public Loop supersession history')
     if (not path.is_relative_to(root.resolve())
             or not path.is_relative_to((root / 'reports/loops').resolve())):
         raise ValueError('Public Loop snapshot escapes its catalog directory')
@@ -123,6 +125,8 @@ def checked_snapshot(root, entry):
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != entry['sha256']:
         raise ValueError('Public Loop snapshot hash mismatch')
+    if 'supersedes' in entry:
+        checked_snapshot(root, entry['supersedes'], (*ancestry, path))
     return validate_snapshot(json.loads(raw))
 
 
@@ -185,7 +189,7 @@ def render_loops(root, out, page):
                 raise ValueError('Duplicate public Loop run across snapshots')
             seen.add(run['id'])
             runs.append(run)
-            if graph_url:
+            if graph_url and any(node['run_id'] == run['id'] for node in snapshot['graph']['nodes']):
                 graphs[run['id']] = graph_url
             provenance.append({'route': '/loops/' + run['id'] + '/', 'snapshot_sha256': entry['sha256'], 'repository': run['repository'], 'mode': run['mode'], 'status': run['status']})
     links = []

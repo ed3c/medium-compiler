@@ -32,10 +32,11 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         self.source.write_bytes(raw)
         return raw
 
-    def cli(self, snapshot_id='reviewed'):
+    def cli(self, snapshot_id='reviewed', supersede=None):
         return subprocess.run(
             [sys.executable, str(CLI), '--snapshot', str(self.source),
-             '--id', snapshot_id, '--root', str(self.root)],
+             '--id', snapshot_id, '--root', str(self.root)]
+            + (['--supersede', supersede] if supersede is not None else []),
             cwd=self.root, capture_output=True, text=True, check=False,
         )
 
@@ -43,9 +44,9 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         return {str(path.relative_to(self.root)): path.read_bytes()
                 for path in self.folder.rglob('*') if path.is_file()}
 
-    def refuse(self, snapshot_id='reviewed', error=None):
+    def refuse(self, snapshot_id='reviewed', error=None, supersede=None):
         before = self.stored_bytes()
-        result = self.cli(snapshot_id)
+        result = self.cli(snapshot_id, supersede)
         self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
         self.assertEqual(result.stdout, '')
         report = json.loads(result.stderr)
@@ -227,6 +228,76 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         self.catalog.symlink_to(target)
         self.refuse(error='symlink')
         self.assertEqual(target.read_bytes(), original)
+
+    def test_supersede_retains_old_bytes_and_reentry_is_noop(self):
+        old = self.add_existing('old', fixture())
+        original = (self.folder / 'old.json').read_bytes()
+        value = fixture(); value['runs'][0]['status'] = 'completed'
+        self.write_source(value)
+        result = self.cli(supersede='old')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(report['status'], 'SUPERSEDED')
+        self.assertEqual(report['supersedes'], old)
+        entries = json.loads(self.catalog.read_bytes())['snapshots']
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(entries[0]['supersedes'], old)
+        self.assertEqual((self.folder / 'old.json').read_bytes(), original)
+        before = self.stored_bytes()
+        stats = {path: path.stat().st_mtime_ns for path in self.folder.iterdir()}
+        self.assertEqual(json.loads(self.cli(supersede='old').stdout)['status'], 'NOOP')
+        self.assertEqual(json.loads(self.cli().stdout)['status'], 'NOOP')
+        self.assertEqual(self.stored_bytes(), before)
+        self.assertEqual({path: path.stat().st_mtime_ns for path in self.folder.iterdir()}, stats)
+        out = self.root / 'rendered'; out.mkdir()
+        self.assertEqual(len(site.render_loops(self.root, out, lambda title, body, active: body)), 1)
+
+    def test_supersede_rejects_missing_old_run_changed_identity_and_other_duplicates(self):
+        self.add_existing('old', fixture())
+        other = fixture(); other['runs'][0]['id'] = 'other-run'
+        self.add_existing('other', other)
+        for field, new in [('id', 'replaced-run'), ('repository', 'different/repo'), ('mode', 'different')]:
+            with self.subTest(field=field):
+                value = fixture(); value['runs'][0][field] = new; self.write_source(value)
+                self.refuse(supersede='old', error='preserve every old run')
+        value = fixture(); value['runs'].append(other['runs'][0]); self.write_source(value)
+        self.refuse(supersede='old', error='Duplicate public Loop run')
+        self.write_source(fixture())
+        self.refuse(supersede='absent', error='not selected')
+        self.refuse('old', supersede='old', error='distinct')
+        self.refuse(supersede='../old', error='Invalid public Loop ID')
+
+    def test_supersede_snapshot_only_interruption_recovers_and_preserves_history(self):
+        old = self.add_existing('old', fixture())
+        destination = self.folder / 'reviewed.json'; destination.write_bytes(self.raw)
+        before = destination.stat().st_mtime_ns
+        result = self.cli(supersede='old')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['status'], 'RECOVERED')
+        self.assertEqual(destination.stat().st_mtime_ns, before)
+        self.assertEqual(json.loads(self.catalog.read_bytes())['snapshots'][0]['supersedes'], old)
+        self.assertEqual(json.loads(self.cli(supersede='old').stdout)['status'], 'NOOP')
+
+    def test_supersede_reentry_refuses_wrong_lineage_and_retained_source_drift(self):
+        self.add_existing('old', fixture())
+        self.assertEqual(self.cli(supersede='old').returncode, 0)
+        self.refuse(supersede='unrelated', error='not this recorded supersession')
+        self.source.write_bytes(self.raw + b' ')
+        self.refuse(supersede='old', error='Conflicting')
+        self.source.write_bytes(self.raw)
+        (self.folder / 'old.json').write_bytes(b'{}')
+        self.refuse(supersede='old', error='hash mismatch')
+        self.refuse(error='hash mismatch')
+
+    def test_supersede_chain_validates_every_retained_snapshot(self):
+        self.add_existing('old', fixture())
+        self.assertEqual(self.cli(supersede='old').returncode, 0)
+        value = fixture(); value['runs'][0]['status'] = 'completed'; self.write_source(value)
+        self.assertEqual(self.cli('newer', supersede='reviewed').returncode, 0)
+        self.assertEqual(json.loads(self.cli('newer', supersede='reviewed').stdout)['status'], 'NOOP')
+        self.refuse('fresh', supersede='old', error='not selected')
+        (self.folder / 'old.json').write_bytes(b'{}')
+        self.refuse('newer', supersede='reviewed', error='hash mismatch')
 
 
 if __name__ == '__main__':

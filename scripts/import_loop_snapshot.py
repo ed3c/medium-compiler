@@ -33,10 +33,14 @@ def atomic_write(path, raw, replace=False):
             temporary.unlink(missing_ok=True)
 
 
-def import_snapshot(snapshot_path, snapshot_id, root=ROOT):
+def import_snapshot(snapshot_path, snapshot_id, root=ROOT, supersede=None):
     identifier(snapshot_id)
     if snapshot_id.lower() == 'catalog':
         raise ValueError('Snapshot ID is reserved for the public Loop catalog')
+    if supersede is not None:
+        identifier(supersede)
+        if supersede.lower() == 'catalog' or supersede == snapshot_id:
+            raise ValueError('Supersession requires distinct old and new snapshot IDs')
     root = root.resolve()
     folder = root / 'reports/loops'
     catalog_path = folder / 'catalog.json'
@@ -58,7 +62,9 @@ def import_snapshot(snapshot_path, snapshot_id, root=ROOT):
     if type(catalog['schema_version']) is not int or catalog['schema_version'] != 1:
         raise ValueError('Unsupported public Loop catalog')
     seen_runs, seen_paths = set(), set()
-    listed = False
+    listed = None
+    replaced = None
+    replaced_runs = set()
     for entry in items(catalog['snapshots']):
         existing = checked_snapshot(root, entry)
         path = (root / entry['path']).resolve()
@@ -70,24 +76,49 @@ def import_snapshot(snapshot_path, snapshot_id, root=ROOT):
                 raise ValueError('Duplicate public Loop run across snapshots')
             seen_runs.add(run['id'])
         if path == destination.resolve():
-            if entry != expected:
+            if {key: entry[key] for key in ('path', 'sha256')} != expected:
                 raise ValueError('Conflicting public Loop catalog entry for snapshot ID')
-            listed = True
+            listed = entry
+        if supersede is not None and path == (folder / (supersede + '.json')).resolve():
+            replaced = entry
+            replaced_runs = {run['id'] for run in existing['runs']}
 
     exists = destination.exists()
     if exists and destination.read_bytes() != raw:
         raise ValueError('Snapshot ID already exists with different bytes')
-    if not listed and seen_runs.intersection(run['id'] for run in snapshot['runs']):
+    if supersede is not None:
+        if listed is not None:
+            previous = listed.get('supersedes')
+            if (replaced is not None or not isinstance(previous, dict)
+                    or previous.get('path') != 'reports/loops/' + supersede + '.json'):
+                raise ValueError('Snapshot ID is not this recorded supersession')
+        else:
+            if replaced is None:
+                raise ValueError('Superseded snapshot ID is not selected in the catalog')
+            previous = replaced
+        old = checked_snapshot(root, previous)
+        new_runs = {run['id']: run for run in snapshot['runs']}
+        for run in old['runs']:
+            successor = new_runs.get(run['id'])
+            if successor is None or any(successor[key] != run[key] for key in ('repository', 'mode')):
+                raise ValueError('Supersession must preserve every old run ID, repository and mode')
+        expected['supersedes'] = previous
+    if not listed and (seen_runs - replaced_runs).intersection(run['id'] for run in snapshot['runs']):
         raise ValueError('Duplicate public Loop run across snapshots')
 
     status = 'NOOP'
     if not listed:
-        catalog['snapshots'].append(expected)
+        if replaced is not None:
+            catalog['snapshots'][catalog['snapshots'].index(replaced)] = expected
+        else:
+            catalog['snapshots'].append(expected)
         catalog_raw = (json.dumps(catalog, indent=2) + '\n').encode('utf-8')
         if not exists:
             atomic_write(destination, raw)
         atomic_write(catalog_path, catalog_raw, replace=True)
-        status = 'RECOVERED' if exists else 'IMPORTED'
+        status = 'RECOVERED' if exists else 'SUPERSEDED' if replaced is not None else 'IMPORTED'
+    elif 'supersedes' in listed:
+        expected['supersedes'] = listed['supersedes']
     return {'status': status, 'id': snapshot_id, **expected,
             'run_ids': [run['id'] for run in snapshot['runs']]}
 
@@ -96,10 +127,11 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--snapshot', required=True, type=Path)
     parser.add_argument('--id', required=True)
+    parser.add_argument('--supersede', help='Replace this selected catalog entry while retaining its snapshot bytes')
     parser.add_argument('--root', type=Path, default=ROOT, help='Repository root (defaults to this repository)')
     args = parser.parse_args(argv)
     try:
-        result = import_snapshot(args.snapshot, args.id, args.root)
+        result = import_snapshot(args.snapshot, args.id, args.root, args.supersede)
     except (OSError, TypeError, ValueError) as error:
         print(json.dumps({'status': 'REFUSED', 'error': str(error)}), file=sys.stderr)
         return 2

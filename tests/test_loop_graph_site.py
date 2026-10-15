@@ -95,6 +95,19 @@ class LoopGraphSiteTests(unittest.TestCase):
             self.assertEqual(public['graph']['artifacts'][0]['status'], 'not_public')
             self.assertEqual(public['graph']['edges'][0]['status'], 'observed')
 
+    def test_retained_run_without_graph_occurrences_keeps_original_timeline(self):
+        value = graph_fixture()
+        legacy = copy.deepcopy(value['runs'][0]); legacy['id'] = 'retained-legacy'
+        value['runs'].append(legacy)
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td); self.prepare(root, value)
+            out = root / 'out'; out.mkdir()
+            site.render_loops(root, out, lambda title, body, active: body)
+            historical = (out / 'loops/retained-legacy/index.html').read_text()
+            self.assertNotIn('loop-graph-app', historical)
+            self.assertIn('Consumer：NOT_RUN', historical)
+            self.assertIn('loop-graph-app', (out / 'loops/test-only-run/index.html').read_text())
+
     def test_canonical_invalid_edges_cycle_identity_and_metric_denominator_refuse(self):
         mutations = [lambda g: g['nodes'].append(copy.deepcopy(g['nodes'][0])),
                      lambda g: g['edges'][0].update(to_node_id='missing'),
