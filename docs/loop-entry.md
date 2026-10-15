@@ -15,10 +15,13 @@ python3 scripts/loop.py --soodles /path/to/installed/soodles --request-file /pat
 
 Request 使用 `schema: 1`。`repository` 是此 worktree 的絕對路徑。
 `mode` 使用 `outer-inner`、`inner-only` 或 `outer-only`。
-`goal`、`selected_skill`、`model` 是原 caller 選定的字串。
+`goal` 是原 caller 選定的完整任務。沒有 Issue authorization 的 inner 任務
+另需 `selected_skill` 與 `model`；`outer-only` 不要求這兩欄。
 `write_paths`、`acceptance`、`source_refs` 是字串陣列。
 `source_refs` 指向原 CLI 要讀取的實際檔案。原 caller 明確指定 Host 模型。
-選用欄位是 `intent_selection`、`authorization`、`noodle`、`output`。
+`output` 是必填的 repository 外部絕對路徑。`outer-only` 與 `outer-inner`
+需要原 Schema 的 `intent_selection`。`authorization` 選用原 Issue 路徑。
+`noodle` 可指定已安裝的原生 binary。`knowledge_files` 是選用的唯讀展示資料。
 其有效性及所需條件由原 CLI 判定；adapter 不補造 identity、digest 或 receipt。
 
 Adapter 不重選 mode、Skill、模型或測試，不建立 scheduler、重試或執行狀態。
