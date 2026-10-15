@@ -3,6 +3,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 
@@ -62,6 +63,13 @@ class LoopSiteTests(unittest.TestCase):
     def test_private_fields_and_known_private_text_refuse(self):
         for value in ('/Users/person/private', '/home/person/secret', 'C:\\Users\\person',
                       'file:///private/data', 'API_KEY=not-public', 'Authorization: Bearer private',
+                      '{"api_key":"DUMMY_NOT_A_REAL_SECRET"}',
+                      "{'password': 'DUMMY_NOT_A_REAL_SECRET'}", 'TOKEN=DUMMY_NOT_A_REAL_SECRET',
+                      '{"access_token": "DUMMY_NOT_A_REAL_SECRET"}',
+                      '{"credentials": "DUMMY_NOT_A_REAL_SECRET"}',
+                      '{"Authorization": "Bearer DUMMY_NOT_A_REAL_SECRET"}',
+                      '.noodle/sessions/example/raw.ndjson', './.worktrees/example/prompt.txt',
+                      r'.noodle\sessions\example\input.txt', 'nested/.worktrees/example',
                       'sk-' + 'a' * 30):
             with self.subTest(value=value):
                 data = fixture()
@@ -72,6 +80,65 @@ class LoopSiteTests(unittest.TestCase):
         data['runs'][0]['environment'] = {'TOKEN': 'not-public'}
         with self.assertRaises(ValueError):
             site.validate_snapshot(data)
+
+    def test_public_text_remains_valid_and_nested_private_refs_refuse(self):
+        for value in ('Tokens: UNKNOWN', 'Token count: 200', 'No credentials provided.',
+                      'https://github.com/example/repository/blob/main/source.md',
+                      'source:review-stage', '本階段保留原始要求。'):
+            self.assertEqual(site.text(value), value)
+        for collection in ('cards', 'notes'):
+            data = fixture()
+            data['runs'][0][collection][0]['source_refs'] = ['.noodle/sessions/example/raw.ndjson']
+            with self.subTest(collection=collection), self.assertRaises(ValueError):
+                site.validate_snapshot(data)
+        data = fixture()
+        data['runs'][0]['resources'][0]['value'] = '{"token": "DUMMY_NOT_A_REAL_SECRET"}'
+        with self.assertRaises(ValueError):
+            site.validate_snapshot(data)
+
+    def test_prompt_comparison_preserves_text_and_unknown(self):
+        run = fixture()['runs'][0]
+        first = run['stages'][0]
+        first['prompt'] = '原文😀'
+        first['consumer_status'] = 'UNKNOWN'
+        for stage_id, prompt in (('same', '原文😀'), ('changed', '<b>😀'), ('shorter', '短')):
+            stage = copy.deepcopy(first)
+            stage.update(id=stage_id, prompt=prompt)
+            run['stages'].append(stage)
+        rendered = site.render_run(run)
+        first_rendered = rendered.split('</article>', 1)[0]
+        self.assertIn('第一階段 · 3 字元 · 無前一階段可比較。', first_rendered)
+        self.assertNotIn('並列比較', first_rendered)
+        self.assertIn('完全相同 · 3 → 3 字元（0）', rendered)
+        self.assertIn('文字不同 · 3 → 4 字元（+1）', rendered)
+        self.assertIn('文字不同 · 4 → 1 字元（-3）', rendered)
+        self.assertEqual(rendered.count('前一階段 → 本階段：並列比較'), 3)
+        self.assertIn('前一階段 · same · source-review', rendered)
+        self.assertIn('本階段 · changed · source-review', rendered)
+        self.assertIn('&lt;b&gt;😀', rendered)
+        self.assertNotIn('<b>', rendered)
+        self.assertIn('僅比較文字；不代表語義改變或 consumer 已遵循。', rendered)
+        self.assertIn('Consumer：UNKNOWN', rendered)
+        self.assertIn('evidence · UNKNOWN', rendered)
+        self.assertIn('Read original source', rendered)
+
+    def test_publication_excludes_native_state_and_environment_files(self):
+        private_paths = ['.noodle/sessions/fixture/raw.ndjson', 'nested/.noodle/input.txt',
+                         '.worktrees/fixture/source.py', 'nested/.worktrees/fixture/prompt.txt',
+                         '.env', '.env.local', 'nested/.env.production']
+        ignored = subprocess.run(['git', 'check-ignore', '--no-index', '--stdin'],
+                                 cwd=ROOT, input='\n'.join(private_paths) + '\n',
+                                 text=True, capture_output=True, check=True)
+        self.assertEqual(ignored.stdout.splitlines(), private_paths)
+        upload_rules = set((ROOT / '.vercelignore').read_text().splitlines())
+        settings = json.loads((ROOT / 'vercel.json').read_text())
+        function_rules = set(settings['functions']['api/transcripts.py']['excludeFiles'][1:-1].split(','))
+        required_rules = {'**/.noodle/**', '**/.worktrees/**', '**/.transcripts/**', '**/.env*',
+                          '**/raw.ndjson', '**/events.ndjson', '**/prompt.txt', '**/input.txt', '**/spawn.json'}
+        self.assertTrue(required_rules <= upload_rules)
+        self.assertTrue(required_rules <= function_rules)
+        self.assertEqual(settings['buildCommand'], 'python3 scripts/build_site.py')
+        self.assertEqual(settings['outputDirectory'], 'dist')
 
     def test_hash_drift_and_path_escape_refuse(self):
         with tempfile.TemporaryDirectory() as td:

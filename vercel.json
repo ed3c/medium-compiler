@@ -6,7 +6,7 @@
   "functions": {
     "api/transcripts.py": {
       "maxDuration": 60,
-      "excludeFiles": "{.git/**,.agents/**,.transcripts/**,vendor/**,evidence/**,tests/**,dist/**,site/**}"
+      "excludeFiles": "{.git/**,.agents/**,.transcripts/**,vendor/**,evidence/**,tests/**,dist/**,site/**,.noodle/**,.worktrees/**,.env*,**/.noodle/**,**/.worktrees/**,**/.transcripts/**,**/.env*,**/raw.ndjson,**/events.ndjson,**/prompt.txt,**/input.txt,**/spawn.json}"
     }
   },
   "headers": [

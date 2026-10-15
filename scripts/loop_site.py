@@ -9,8 +9,10 @@ import re
 PRIVATE_TEXT = re.compile(
     r'(?:/(?:Users|home|tmp|private|var|etc|opt|root|mnt|Volumes)/|(?<![A-Za-z0-9])[A-Za-z]:[\\/]|'
     r'file://|~/|-----BEGIN [A-Z ]*PRIVATE KEY-----|'
+    r'(?<![\w.-])\.(?:noodle|worktrees)[\\/]|'
     r'\b(?:sk-[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9_]{16,})|'
-    r'\b(?:authorization\s*:\s*bearer|(?:api[_-]?key|access[_-]?token|password|secret)\s*[=:]))',
+    r'''\b(?:authorization["']?\s*[=:]\s*["']?bearer\b|'''
+    r'''(?:api[_-]?key|(?:api|access|refresh|auth|bearer)[_-]?token|token|password|secret|credentials?)["']?\s*[=:]))''',
     re.IGNORECASE,
 )
 
@@ -114,8 +116,25 @@ def render_run(run):
     esc = html.escape
     body = f'<section class="page-head"><div class="eyebrow">Loop · {esc(run["mode"])}</div><h1>{esc(run["id"])}</h1><p>{esc(run["repository"])} · {esc(run["status"])}</p></section>'
     body += '<section class="panel"><h2>Prompt 階段</h2>'
+    previous = None
     for stage in run['stages']:
-        body += f'<article id="stage-{stage["id"]}"><h3>{esc(stage["id"])} · {esc(stage["kind"])}</h3><p>狀態：{esc(stage["status"])} · Consumer：{esc(stage["consumer_status"])}</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere">{esc(stage["prompt"])}</pre><h4>輸入來源</h4>{refs(stage["input_refs"])}<h4>輸出來源</h4>{refs(stage["output_refs"])}</article>'
+        body += f'<article id="stage-{stage["id"]}"><h3>{esc(stage["id"])} · {esc(stage["kind"])}</h3><p>狀態：{esc(stage["status"])} · Consumer：{esc(stage["consumer_status"])}</p>'
+        length = len(stage['prompt'])
+        if previous is None:
+            body += f'<p>第一階段 · {length} 字元 · 無前一階段可比較。</p>'
+        else:
+            old_length = len(previous['prompt'])
+            delta = length - old_length
+            label = '完全相同' if previous['prompt'] == stage['prompt'] else '文字不同'
+            change = f'+{delta}' if delta > 0 else str(delta)
+            body += f'<p>{label} · {old_length} → {length} 字元（{change}）</p>'
+            body += '<p>僅比較文字；不代表語義改變或 consumer 已遵循。字元數按 Unicode code point 計算。</p>'
+            body += '<details><summary>前一階段 → 本階段：並列比較</summary><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:1rem">'
+            for compared, heading in ((previous, '前一階段'), (stage, '本階段')):
+                body += f'<div><h4>{heading} · {esc(compared["id"])} · {esc(compared["kind"])}</h4><pre style="white-space:pre-wrap;overflow-wrap:anywhere">{esc(compared["prompt"])}</pre></div>'
+            body += '</div></details>'
+        body += f'<pre style="white-space:pre-wrap;overflow-wrap:anywhere">{esc(stage["prompt"])}</pre><h4>輸入來源</h4>{refs(stage["input_refs"])}<h4>輸出來源</h4>{refs(stage["output_refs"])}</article>'
+        previous = stage
     body += '</section>'
     for collection, label in (('cards', '規格卡片'), ('notes', '卡盒筆記')):
         body += '<section class="panel"><h2>' + label + '</h2>'
