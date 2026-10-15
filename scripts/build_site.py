@@ -175,7 +175,7 @@ def youtube_article_embed(item:dict)->str:
             f'</section>')
 
 def page(title:str, body:str, active:str='', main_origin:str='')->str:
-    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('loops','/loops/','Loops'),('article','/articles/','Articles'),('reliability','/reliability/','Reliability Lab'),('transcripts','/transcripts/','逐字稿來源')]
+    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('loops','/loops/','Loops'),('scopes','/scopes/','Scopes'),('article','/articles/','Articles'),('reliability','/reliability/','Reliability Lab'),('transcripts','/transcripts/','逐字稿來源')]
     links=''.join(f'<a class="{"active" if key==active else ""}" href="{LAB_ORIGIN+href if key=="reliability" else main_origin+href}">{label}</a>' for key,href,label in nav)
     return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="{main_origin}/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
 
@@ -341,6 +341,10 @@ def build(out:Path)->dict:
     loop_module=importlib.util.module_from_spec(loop_spec)
     loop_spec.loader.exec_module(loop_module)
     loop_provenance=loop_module.render_loops(ROOT,out,page)
+    scope_spec=importlib.util.spec_from_file_location("scope_site",ROOT/"scripts/scope_site.py")
+    scope_module=importlib.util.module_from_spec(scope_spec)
+    scope_spec.loader.exec_module(scope_module)
+    scope_provenance=scope_module.render_scopes(ROOT,out,page)
     eval_home='<section class="panel"><div class="eyebrow">Engineering judgment</div><h2>AI Evals · Soodles</h2><p>閱讀六份歷史 Agent reports 的工程評估，區分可支持的判斷與缺少的證據。</p><a href="/ai-evals/">查看 AI Evals 報告 →</a></section>'
     (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+eval_home+alg+flow+exp+art,'home'),encoding='utf-8')
     (out/'experiments').mkdir();(out/'experiments/index.html').write_text(page('Experiments · AI Engineer Lab',f'''<section class="page-head"><div class="eyebrow">Ops Reconciliation Copilot</div><h1>Experiment Templates</h1><p>這些卡片來自 Ops provider snapshot <code>{snapshot['provider_revision'][:12]}</code>。範本只定義實驗邊界，不代表實驗已執行，也不授權 production promotion。</p></section>{cards(snapshot)}''','experiments'),encoding='utf-8')
@@ -387,6 +391,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     provenance={'schema_version':'ai-engineer-site-build@1','article':'articles/ai-engineer-learning-path.md','ops_provider_revision':snapshot['provider_revision'],'curriculum_revision':json.loads((ROOT/'references/upstream/ai-engineering-skills-lock.json').read_text())['revision'],'learning':state,'articles':article_provenance}
     provenance['ai_evals']=eval_provenance
     provenance['loops']=loop_provenance
+    provenance['scopes']=scope_provenance
     provenance['cefr_alg']={'repository':alg_provenance['repository'],'revision':alg_provenance['revision'],'route':alg_provenance['route'],'manifest':'/cefr-alg-c2/provenance.json'}
     (out/'provenance.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     return provenance

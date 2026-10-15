@@ -1,0 +1,311 @@
+{
+  "schema": 1,
+  "kind": "neoweaver/selected-scope/v1",
+  "bundle_sha256": "ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073",
+  "goal": "Pure parser/refusal: legal current single-surface proposal returns ParsedProposal; invalid input returns DiagnosticRefusal without replay, training or provider effects.",
+  "requirements": [
+    {
+      "acceptance": [
+        "Preserve the original Goal, acceptance, TaskSnapshot, rights status and all ten requirements; each inspected material unit maps to a Card/REQ or named gap. UNKNOWN rights stop dependent training, not read-only parser work."
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "A generated summary cannot authorize a merge",
+      "id": "REQ-source-integrity",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 User／Source Reader／Issue Owner",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Preserve actual Issue Goal, acceptance, Repo snapshot, training rights and full original REQ inventory"
+    },
+    {
+      "acceptance": [
+        "被允許的候選只進入 disposable replay；驗收 oracle 由獨立來源固定"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Self-reported success is a rejection",
+      "id": "REQ-three-planes",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 execution 與 verification Owners",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Learning may propose, Execution may sandbox, independent Verification determines acceptance"
+    },
+    {
+      "acceptance": [
+        "合法 patch 可 parse、通過靜態限制並在固定 snapshot 重放；重播資料由原 runner 提供"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Arbitrary source rewrite without replay is not RL-ready",
+      "id": "REQ-trainability",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 Patch Validator／Snapshot Runner",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Candidate has bounded mutable surface and patch parser, reproducible task and replay"
+    },
+    {
+      "acceptance": [
+        "Only the selected policy may update from its eligible data; actor/action/reward lineage is bound to the same observation, the counterpart stays fixed for the selected comparison, and Codex weights are not updated."
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "depends_on": [
+        "K-training-data-and-token-provenance-unavailable"
+      ],
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Codex transcript cannot be treated as Proposer policy-gradient tokens",
+      "id": "REQ-two-policies",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 generation／Trainer Owners",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Proposer πθ modifies Harness; optional open Solver πφ is trained only with valid own token provenance; Codex φC stays frozen"
+    },
+    {
+      "acceptance": [
+        "A=H0/φ0、B=H1/φ0、C=H0/φ1、D=H1/φ1 使用匹配條件；frozen Codex 另測 H0/H1；whole Goal需無hard-gate violation且有可重複正向paired effect"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Improvement in D alone cannot identify cause",
+      "id": "REQ-causal-attribution",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 paired evaluator",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "A=H0/φ0, B=H1/φ0, C=H0/φ1, D=H1/φ1; separate frozen Codex H0/H1 transfer"
+    },
+    {
+      "acceptance": [
+        "The failure reference identifies an observed trace, the target is allowed, and an explicit source-bound causal hypothesis explains its relevance. Hypothesis is not verified cause; plugin targets additionally need the applicable capability readback. Preserve original Goal and acceptance."
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Proposed unsupported native Hook must be rejected",
+      "id": "REQ-scoped-patch",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 observation／admission／Patch Validator",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Only observed failure supports a single causal target; capability probe before generating plugin patch"
+    },
+    {
+      "acceptance": [
+        "probe 證明介面、bytes、load 與 fresh consumer consumption；保留安裝／執行／效果三種 readback"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "depends_on": [
+        "K-native-codex-transfer-has-no-observed-consumer"
+      ],
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Proposal != installed or consumed plugin",
+      "id": "REQ-plugin-transfer",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 target Host／plugin／provider",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Verified artifact maps solely to capability-proven Skill, MCP wrapper, or supported lifecycle interface"
+    },
+    {
+      "acceptance": [
+        "actual Stage capture 顯示 consumed task／preselected playbook；必要 Test／Schema next 有真實 consumption；Provider 有 exact-head delivery"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Writer-complete != merged/receipted goal",
+      "id": "REQ-full-lifecycle",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 Soodles／Noodle／Test／Schema／Provider",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Soodles Outer chooses only real needed method and admission; Noodle Poteto receives bounded delta and implements freely; Test/Schema results read back; provider owns effects"
+    },
+    {
+      "acceptance": [
+        "train samples 有完整合法 lineage；validation 用於 acceptance；held-out 只做封存評估"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "depends_on": [
+        "K-training-data-and-token-provenance-unavailable"
+      ],
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "A sample with guessed tokens, leaked held-out tests or noncommercial rights is ineligible",
+      "id": "REQ-learning-dataset",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 dataset／generation／verification Owners",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "Training/validation/held-out partition; trace refs preserved; producer binds rollout/action/reward; legal rights for code/data/model/trace checked independently"
+    },
+    {
+      "acceptance": [
+        "LESSON 每個 Issue／Commit／PR edge 可讀回；正反控制能區分首個因果錯誤與後續症狀"
+      ],
+      "claim_kind": "NORMATIVE",
+      "delivery_status": "NOT_STARTED",
+      "engineering_status": "CONTRACT_DEFINED",
+      "falsifier": "Do not invent SHA, DAG edge or closure",
+      "id": "REQ-lesson-lineage",
+      "knowledge_status": "SPECIFIED",
+      "owner": "原 GitHub／capture／source Owners",
+      "source_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "statement": "LESSON.md references observed issue/commit/PR relations and actual rework edges, distinguishing unknown from observed"
+    }
+  ],
+  "selected_requirement_ids": [
+    "REQ-source-integrity",
+    "REQ-three-planes",
+    "REQ-trainability",
+    "REQ-scoped-patch"
+  ],
+  "selected_card_ids": [
+    "SPEC-trainability-boundary",
+    "V-trainability-discriminating-controls",
+    "C-independent-immutable-verification",
+    "G-cards-preserve-original-effect-ownership",
+    "G-hard-gates-precede-reward",
+    "S-start-at-the-patch-acceptance-boundary"
+  ],
+  "cards": [
+    {
+      "canonical_key": "NeoWeaver|SPEC|trainability-boundary|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "payload": "given: The Original Owner supplies raw single-surface PatchProposal bytes and the complete fixed_inputs mapping: snapshot_ref, failure_ref, allowlist_ref, acceptance_ref, causal_target_ref, allowlist, and protected_target_refs. References are opaque; the parser does not load their targets.\nwhen: parse_proposal(raw: bytes, fixed_inputs: Mapping) checks JSON ambiguity, fixed reference equality, the one causal target, selected surface, allowlist, protected targets, and expected source without executing a replacement or reading referenced files.\nthen: Return ParsedProposal for a well-formed, current, allowed single-surface candidate, or DiagnosticRefusal naming the failed condition. Neither result starts replay, training or provider effects.\ninputs_outputs: Raw PatchProposal bytes + Owner-fixed mapping of opaque references/allowlist/protected targets → frozen ParsedProposal or DiagnosticRefusal with condition/path. No TaskSnapshot file loading, Replay, Trainer, or external effect.\nforbidden: Do not accept duplicate keys, stale expected source, targets outside the allowlist, protected oracle/acceptance edits, credentials or effect fields; do not execute a proposal.\nnegative_case: Keep the otherwise valid proposal fixed and independently introduce a duplicate key, stale expected source, protected target or extra effect field; each must produce a diagnostic refusal and no replay/write.\nunknown_effect: The parser produces no external effects. Missing required Owner input yields DiagnosticRefusal; unknown effects from an earlier operation require its original Owner readback and are not repaired by replaying a write.\nreplay: Re-reading identical raw proposal and fixed boundary inputs must reproduce the same parse/refusal decision. This is parser determinism, not TaskSnapshot replay.\noracle: Original fixed parser controls compare the returned variant, diagnostic condition and unchanged immutable references; execution/reward/native outcomes remain NOT_RUN.\noriginal_owner: Original NeoWeaver parser/Patch Validator; Source Reader and authorization Producers retain their own truth and effect boundaries.",
+      "revision": 3,
+      "series": "SPEC",
+      "stable_id": "SPEC-trainability-boundary",
+      "status": "ACTIVE",
+      "title": "Trainability boundary",
+      "typed_links": [
+        {
+          "relation": "implements",
+          "target": "REQ-trainability"
+        },
+        {
+          "relation": "validated_by",
+          "target": "V-trainability-discriminating-controls"
+        },
+        {
+          "relation": "based_on",
+          "target": "C-independent-immutable-verification"
+        },
+        {
+          "relation": "depends_on",
+          "target": "G-cards-preserve-original-effect-ownership"
+        },
+        {
+          "relation": "depends_on",
+          "target": "G-hard-gates-precede-reward"
+        }
+      ]
+    },
+    {
+      "canonical_key": "NeoWeaver|V|trainability-discriminating-controls|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "payload": "subject: Pure parser/static-boundary slice of trainability; fixed TaskSnapshot replay is a separate parent obligation.\noracle: Original parser controls compare ParsedProposal/DiagnosticRefusal, named condition and unchanged fixed references; TaskSnapshot replay is not part of this oracle.\nproducer: Original parser/Patch Validator control Producer; later Snapshot Runner observations are not covered by this parser oracle.\npositive_control: Given current TaskSnapshot/FailureScope/allowlist/acceptance references and one allowed single-surface raw proposal, return ParsedProposal and preserve immutable inputs; no replay/training/effects.\nnegative_control: Independently add a duplicate JSON key, stale expected source, out-of-allowlist target, protected oracle edit or extra effect/credential field: DiagnosticRefusal naming that condition; no replay/write. Missing required fixed input also refuses.\nobservation_status: Current public API Parser evidence is PASS_SCOPED (28 parser tests within 36 local tests) in docs/parser-verification.json. Original frozen compiled verification previously said NOT_RUN and remains unchanged. TaskSnapshot replay, native P-class/Noodle behavior, learning and transfer are NOT_RUN.",
+      "revision": 3,
+      "series": "V",
+      "stable_id": "V-trainability-discriminating-controls",
+      "status": "ACTIVE",
+      "title": "Trainability discriminating controls",
+      "typed_links": [
+        {
+          "relation": "based_on",
+          "target": "D-matching-raw-catalog-pin-still-allowed-duplicate-keys"
+        }
+      ]
+    },
+    {
+      "canonical_key": "NeoWeaver|C|independent-immutable-verification|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "payload": "mechanism: Learning 只能提出候選；Execution replay 生成 observation；Verification 用 writer 不能修改的 oracle 決定 scoped acceptance。\nconditions: 候選會影響 reward 或 completion，且原 verifier/source refs 可固定。\ninputs_outputs: Patch proposal 與 paired observations → 原 verifier PASS/FAIL/INCONCLUSIVE；仍非 provider delivery。\nfailure_mode: 若 writer 能改 oracle，reward 反映自簽結果而非原 Goal。\ndecision_consequence: 把 evaluator、held-out 與 admission 排除 mutation allowlist。",
+      "revision": 1,
+      "series": "C",
+      "stable_id": "C-independent-immutable-verification",
+      "status": "ACTIVE",
+      "title": "Independent immutable verification",
+      "typed_links": []
+    },
+    {
+      "canonical_key": "NeoWeaver|G|cards-preserve-original-effect-ownership|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-skills-factoryweaver-skill-md",
+        "SRC-references-zettelkasten-v7-2-md",
+        "SRC-references-card-classification-and-scope-assembly-md",
+        "SRC-references-card-prompts-registry-json",
+        "SRC-references-prompt-carrier-and-ownership-md",
+        "SRC-cursor-skills-verify-factoryweaver-skill-md"
+      ],
+      "payload": "invariant: Card、Scope、Prompt Delta、Reader readback 都不授予 effects、admission 或 landing。\napplicability: Proposal-to-native effects requiring original admission/continuation. The parser inherits no-effects protection; ordinary read-only work and expressly authorized local edits use their actual task/Host authorization.\nauthority_owner: 原 Issue/admission、native carrier 與 Provider 各自負責相應 fact。\nrefusal: For an operation that depends on original native admission, missing or invented next cannot authorize it. Continue independent authorized local/source work; do not manufacture permission or retry an unknown write.\nconsequences: local PASS／writer exit 不能升級為 native Stage 或 whole Goal closure。\nexception: 原 Owner 已回有效 unchanged continuation 時消費它；沒有新增授權例外。",
+      "revision": 2,
+      "series": "G",
+      "stable_id": "G-cards-preserve-original-effect-ownership",
+      "status": "ACTIVE",
+      "title": "Cards preserve original effect ownership",
+      "typed_links": []
+    },
+    {
+      "canonical_key": "NeoWeaver|G|hard-gates-precede-reward|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "payload": "invariant: Acceptance、protected regressions、rights、split 與 authority 任一 gate 未通過，都不能用 soft cost bonus 抵銷。\napplicability: Artifact acceptance and reward interpretation after replay; training-sample eligibility has a separate rights/lineage/method check. Parser uses only the protected-acceptance constraint.\nauthority_owner: 原 independent Verifier／Dataset／admission Owner。\nrefusal: UNKNOWN gate 產生 INCONCLUSIVE；held-out 或 foreign tokens 排除 gradient。\nconsequences: A failed acceptance gate cannot be offset by cost. Whether a safe, rights-cleared task-failure observation is an eligible negative training sample depends on the original Trainer/Dataset method; this card does not decide it.\nexception: 不需要的外部 effect 標 N/A；這不免除實際必要 gates。",
+      "revision": 2,
+      "series": "G",
+      "stable_id": "G-hard-gates-precede-reward",
+      "status": "ACTIVE",
+      "title": "Hard gates precede reward",
+      "typed_links": []
+    },
+    {
+      "canonical_key": "NeoWeaver|S|start-at-the-patch-acceptance-boundary|proposed|source-bound|v1",
+      "evidence_ids": [
+        "SRC-original-neoweaver-spec"
+      ],
+      "payload": "goal: 合法 single-surface proposal 保留 immutable acceptance；非法輸入 fail closed。\ncausal_hypothesis: 先固定 parser／validator 可避免未驗收候選污染 replay/reward；尚未測 NeoWeaver。\nintervention: A proposed pure parser/refusal bootstrap atom returns ParsedProposal or DiagnosticRefusal without replay, reward, training or native effects. This is not an observed NeoWeaver runtime defect.\nalternative: 若原 source 顯示另一個更早 failure，先修其原 Producer，不建立無需要的 parser layer。\nmeasurement: Owner-fixed allowed single-surface input and duplicate/stale/protected-target/extra-effect negative inputs discriminate parser outcomes; native execution remains NOT_RUN.\nstop_rule: Missing native admission blocks only dependent native work; independent authorized local parsing can continue. Under the applicable original Session correction policy, three failed authorized corrections trigger causal reassessment in the same task, not an automatic Parser retry counter or a new scheduler. Never relax immutable acceptance.",
+      "revision": 3,
+      "series": "S",
+      "stable_id": "S-start-at-the-patch-acceptance-boundary",
+      "status": "ACTIVE",
+      "title": "Start at the patch acceptance boundary",
+      "typed_links": []
+    }
+  ],
+  "prompt_delta": [
+    "Parse only the selected single-surface raw proposal against original fixed inputs; produce ParsedProposal or DiagnosticRefusal with a diagnostic condition.",
+    "Reject duplicate keys, stale expected source, targets outside the allowlist or protected acceptance, missing fixed inputs and extra credentials/effect fields; preserve the original references.",
+    "Do not start replay, training, native transfer or provider effects; preserve the ten parent requirements and report later obligations separately.",
+    "Within the actual authorized scope and selected playbook, choose implementation details freely; do not reconstruct original next or retry an unknown write."
+  ],
+  "proof_ceiling": "SOURCE_BOUND_SELECTION_ONLY",
+  "effects": [],
+  "authorizes_landing": false
+}
