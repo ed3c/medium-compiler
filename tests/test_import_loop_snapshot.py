@@ -54,6 +54,7 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         if error:
             self.assertIn(error, report['error'])
         self.assertEqual(self.stored_bytes(), before)
+        return report
 
     def add_existing(self, name, value):
         raw = json.dumps(value).encode('utf-8')
@@ -110,24 +111,32 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         self.refuse(error='Conflicting')
 
     def test_invalid_and_private_snapshots_refuse(self):
-        self.add_existing('existing', fixture())
-        values = [{}, {'schema_version': 2, 'runs': []}]
+        existing = fixture()
+        existing['runs'][0]['id'] = 'existing-run'
+        self.add_existing('existing', existing)
+        values = [({}, 'Invalid public Loop fields'),
+                  ({'schema_version': 2, 'runs': []}, 'Unsupported public Loop schema')]
         for private in ('/Users/person/private', 'API_KEY=not-public'):
             value = fixture()
             value['runs'][0]['stages'][0]['prompt'] = private
-            values.append(value)
+            values.append((value, 'Public Loop text contains private data or is not text'))
         value = fixture()
         value['runs'][0]['environment'] = {'TOKEN': 'not-public'}
-        values.append(value)
-        value = fixture()
-        value['runs'][0]['breakpoints'][0]['stage_id'] = []
-        values.append(value)
-        for value in values:
+        values.append((value, 'Invalid public Loop fields'))
+        for value, error in values:
             with self.subTest(value=value):
                 self.write_source(value)
-                self.refuse()
+                self.assertEqual(self.refuse()['error'], error)
+        value = fixture()
+        value['runs'][0]['breakpoints'][0]['stage_id'] = []
+        self.write_source(value)
+        self.refuse(error="unhashable type: 'list'")
         self.source.write_bytes(b'{invalid json')
-        self.refuse()
+        self.refuse(error='Expecting property name enclosed in double quotes')
+        self.write_source(fixture())
+        result = self.cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['status'], 'IMPORTED')
 
     def test_unsafe_and_reserved_ids_refuse(self):
         for snapshot_id in ('../escape', '/absolute', 'a/b', 'a\\b', '.', '..', '',
