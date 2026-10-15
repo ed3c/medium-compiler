@@ -45,6 +45,10 @@ def import_snapshot(snapshot_path, snapshot_id, root=ROOT):
             or catalog_path.is_symlink() or destination.is_symlink()):
         raise ValueError('Public Loop import path escapes its directory or is a symlink')
 
+    if snapshot_path.is_symlink() or not snapshot_path.is_file():
+        raise ValueError('Public Loop source must be a regular file, not a symlink')
+    if snapshot_path.stat().st_size > 32 * 1024 * 1024:
+        raise ValueError('Public Loop snapshot exceeds size limit')
     raw = snapshot_path.read_bytes()
     snapshot = validate_snapshot(json.loads(raw))
     digest = hashlib.sha256(raw).hexdigest()

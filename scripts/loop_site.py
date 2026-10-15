@@ -1,5 +1,6 @@
 """Render catalog-approved public Loop snapshots as inert text."""
 import hashlib
+import importlib.util
 import html
 import json
 from pathlib import Path
@@ -40,10 +41,20 @@ def identifier(value):
     return value
 
 
+def graph_site():
+    spec = importlib.util.spec_from_file_location('loop_graph_site', Path(__file__).with_name('loop_graph_site.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def validate_snapshot(snapshot):
-    fields(snapshot, ('schema_version', 'runs'))
-    if type(snapshot['schema_version']) is not int or snapshot['schema_version'] != 1:
+    fields(snapshot, ('schema_version', 'runs'), ('graph',) if isinstance(snapshot, dict) and snapshot.get('schema_version') == 2 else ())
+    if type(snapshot['schema_version']) is not int or snapshot['schema_version'] not in (1, 2):
         raise ValueError('Unsupported public Loop schema')
+    if snapshot['schema_version'] == 2:
+        if 'graph' not in snapshot:
+            raise ValueError('Unsupported public Loop schema')
     seen = set()
     for run in items(snapshot['runs']):
         fields(run, ('id', 'repository', 'mode', 'status', 'stages', 'cards', 'notes', 'breakpoints', 'next'), ('resources',))
@@ -90,6 +101,8 @@ def validate_snapshot(snapshot):
             fields(resource, ('label', 'value'))
             text(resource['label'])
             text(resource['value'])
+    if snapshot['schema_version'] == 2:
+        graph_site().validate_public_graph(snapshot, text)
     return snapshot
 
 
@@ -98,10 +111,15 @@ def checked_snapshot(root, entry):
     name = entry['path']
     if not isinstance(name, str) or Path(name).is_absolute() or '..' in Path(name).parts:
         raise ValueError('Invalid public Loop snapshot path')
-    path = (root / name).resolve()
+    unresolved = root / name
+    if unresolved.is_symlink():
+        raise ValueError('Public Loop snapshot must not be a symlink')
+    path = unresolved.resolve()
     if (not path.is_relative_to(root.resolve())
             or not path.is_relative_to((root / 'reports/loops').resolve())):
         raise ValueError('Public Loop snapshot escapes its catalog directory')
+    if path.stat().st_size > 32 * 1024 * 1024:
+        raise ValueError('Public Loop snapshot exceeds size limit')
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != entry['sha256']:
         raise ValueError('Public Loop snapshot hash mismatch')
@@ -155,22 +173,28 @@ def render_loops(root, out, page):
     fields(catalog, ('schema_version', 'snapshots'))
     if type(catalog['schema_version']) is not int or catalog['schema_version'] != 1:
         raise ValueError('Unsupported public Loop catalog')
-    runs, provenance, seen = [], [], set()
+    runs, provenance, seen, graphs = [], [], set(), {}
+    target = out / 'loops'
+    target.mkdir()
     for entry in items(catalog['snapshots']):
         snapshot = checked_snapshot(root, entry)
+        graph_url = (graph_site().build_graph_package(snapshot, entry['sha256'], target)
+                     if snapshot['schema_version'] == 2 else None)
         for run in snapshot['runs']:
             if run['id'] in seen:
                 raise ValueError('Duplicate public Loop run across snapshots')
             seen.add(run['id'])
             runs.append(run)
+            if graph_url:
+                graphs[run['id']] = graph_url
             provenance.append({'route': '/loops/' + run['id'] + '/', 'snapshot_sha256': entry['sha256'], 'repository': run['repository'], 'mode': run['mode'], 'status': run['status']})
-    target = out / 'loops'
-    target.mkdir()
     links = []
     for run in runs:
         destination = target / run['id']
         destination.mkdir()
-        (destination / 'index.html').write_text(page(run['id'] + ' · Loops', render_run(run), 'loops'), encoding='utf-8')
+        body = (graph_site().render_graph_run(run, graphs[run['id']])
+                if run['id'] in graphs else render_run(run))
+        (destination / 'index.html').write_text(page(run['id'] + ' · Loops', body, 'loops'), encoding='utf-8')
         links.append('<article class="card"><h2>' + html.escape(run['id']) + '</h2><p>' + html.escape(run['repository']) + ' · ' + html.escape(run['mode']) + ' · ' + html.escape(run['status']) + '</p><a href="/loops/' + run['id'] + '/">查看階段與卡片 →</a></article>')
     intro = '<section class="page-head"><h1>Loops</h1><p>閱讀已公開的 Prompt 階段、規格卡片與筆記。狀態保留來源的觀察結果；本頁不執行工作。</p></section>'
     empty = '<p>目前沒有已公開的 Loop 紀錄。</p>' if not runs else ''

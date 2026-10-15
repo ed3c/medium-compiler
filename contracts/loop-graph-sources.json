@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_repository": "ed3c/soodles",
+      "source_path": "loop_graph_contract.py",
+      "source_commit": "c186fe1f9a510cd4d1e1c82ac945906e3461661b",
+      "sha256": "8c08ed9a9437d5725e5a70afa8cb4bc937e34338e23df69839ff42d7a1c505bd",
+      "vendored_path": "scripts/loop_graph_contract.py"
+    },
+    {
+      "source_repository": "ed3c/soodles",
+      "source_path": "contracts/loop-view-v2.schema.json",
+      "source_commit": "c186fe1f9a510cd4d1e1c82ac945906e3461661b",
+      "sha256": "ec8b5fa1997ac9aaf97a76cb7d7a5224fde5e0428d7368720f181d7786f26095",
+      "vendored_path": "contracts/loop-view-v2.schema.json"
+    },
+    {
+      "source_repository": "ed3c/noodle",
+      "source_path": "ui/src/client/loop-graph-layout.mjs",
+      "source_commit": "656898f7a9d23f1020bc3c7d53037a6a7908d990",
+      "sha256": "a258c1c713a700080d7c34a4629f26c8b86afb714024d2320f6d013c3418f505",
+      "vendored_path": "site/loop-graph-layout.mjs"
+    }
+  ]
+}
