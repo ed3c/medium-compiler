@@ -2,8 +2,12 @@
   "schema_version": 1,
   "snapshots": [
     {
-      "path": "reports/loops/loop-manager-20261015.json",
-      "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+      "path": "reports/loops/loop-manager-dag-20261015.json",
+      "sha256": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d",
+      "supersedes": {
+        "path": "reports/loops/loop-manager-20261015.json",
+        "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+      }
     }
   ]
 }
