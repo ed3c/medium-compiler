@@ -82,6 +82,9 @@ class LoopGraphSiteTests(unittest.TestCase):
             self.assertTrue((out / 'assets/loop-graph-layout.mjs').is_file())
             self.assertTrue((out / 'assets/loop-panorama.mjs').is_file())
             self.assertTrue((out / 'assets/loop-panorama.css').is_file())
+            self.assertTrue((out / 'assets/loop-isometric.mjs').is_file())
+            self.assertTrue((out / 'assets/anatomy/iso-kit.mjs').is_file())
+            self.assertTrue((out / 'assets/anatomy/LICENSE').is_file())
 
     def test_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls(self):
         value = graph_fixture()
