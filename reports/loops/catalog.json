@@ -2,23 +2,27 @@
   "schema_version": 1,
   "snapshots": [
     {
-      "path": "reports/loops/loop-manager-host10-leases-20261016.json",
-      "sha256": "2e4e5fcc84949173a61c9f83c46828ff91f2f8c4279bf07de763b8481a69c0ac",
+      "path": "reports/loops/loop-manager-detail-20261017.json",
+      "sha256": "87dcf1b6b168732d7a3047d4175b14c0532b83784e66bb4c1d5ebf4ec8d28c05",
       "supersedes": {
-        "path": "reports/loops/loop-manager-owner-boundary-20261016.json",
-        "sha256": "3f26489c08fd8cc651b435c48073818968f261222dba673ae53d1e241dd108c2",
+        "path": "reports/loops/loop-manager-host10-leases-20261016.json",
+        "sha256": "2e4e5fcc84949173a61c9f83c46828ff91f2f8c4279bf07de763b8481a69c0ac",
         "supersedes": {
-          "path": "reports/loops/loop-manager-resource-evidence-20261016.json",
-          "sha256": "9f29cdcbf981771648581dc06f084145cc421b1fef46c8d6bf2d130273580099",
+          "path": "reports/loops/loop-manager-owner-boundary-20261016.json",
+          "sha256": "3f26489c08fd8cc651b435c48073818968f261222dba673ae53d1e241dd108c2",
           "supersedes": {
-            "path": "reports/loops/loop-manager-handoff-20261016.json",
-            "sha256": "f4eee3394aefa7bbab6c008fa675d4046490d53a38bc2aca26962a5e89b7f10b",
+            "path": "reports/loops/loop-manager-resource-evidence-20261016.json",
+            "sha256": "9f29cdcbf981771648581dc06f084145cc421b1fef46c8d6bf2d130273580099",
             "supersedes": {
-              "path": "reports/loops/loop-manager-dag-20261015.json",
-              "sha256": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d",
+              "path": "reports/loops/loop-manager-handoff-20261016.json",
+              "sha256": "f4eee3394aefa7bbab6c008fa675d4046490d53a38bc2aca26962a5e89b7f10b",
               "supersedes": {
-                "path": "reports/loops/loop-manager-20261015.json",
-                "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+                "path": "reports/loops/loop-manager-dag-20261015.json",
+                "sha256": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d",
+                "supersedes": {
+                  "path": "reports/loops/loop-manager-20261015.json",
+                  "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+                }
               }
             }
           }

@@ -1,5 +1,5 @@
 import { layoutGraph } from './loop-graph-layout.mjs';
-import { mountPanorama, projectPanorama } from './loop-panorama.mjs';
+import { mountPanorama, projectPanorama, readStructuredField } from './loop-panorama.mjs';
 
 const svgNS = 'http://www.w3.org/2000/svg';
 const unknown = value => value == null ? 'UNKNOWN' : String(value);
@@ -188,6 +188,7 @@ export async function mount(app) {
       onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); },
       onSelect: value => {
         if(value.kind === 'edge') { const edge = graph.edges.find(e=>e.id===value.id); highlightSources(refs(edge)); inspectEdge(edge); }
+        else if(value.kind === 'artifact') { const a=artifacts.get(value.id); highlightSources([a.id],[]); inspectArtifacts([a.id],a.role,a); }
         else if(value.kind === 'finding') { const f=graph.findings.find(f=>f.id===value.id); inspectArtifacts(f.artifact_ids,f.message,f); }
         else if(value.kind === 'node') { const n=graph.nodes.find(n=>n.id===value.id); drawIndex(n); highlightSources(refs(n),[n.id]); inspectArtifacts(refs(n),n.label,n); }
         else { const o=objects.get(value.id); inspectArtifacts(o.source_artifact_ids,o.label,o); }
@@ -261,6 +262,17 @@ export async function mount(app) {
   }
   async function inspectArtifacts(ids, label, metadata) {
     const ticket = ++generation; selection = label; heading(label, metadata);
+    const source = unique(ids).map(id => artifacts.get(id)).find(a => a.source && metadata?.identity?.locator?.startsWith(a.source.path + '#/'));
+    if (source) {
+      const fieldPanel = element('section', null, { 'aria-label': '結構化欄位內容' });
+      inspector.append(fieldPanel);
+      let loaded;
+      try { loaded = await content(source.id); }
+      catch (error) { loaded = { text: null, reason: error.message }; }
+      if (ticket !== generation) return;
+      const field = loaded.text == null ? null : readStructuredField(loaded.text, metadata.identity.locator, source.source.path);
+      fieldPanel.append(element('h3', '原 Schema 欄位'), element('p', '欄位狀態：' + (field?.status || 'unknown')), element('p', field?.pointer || metadata.identity.locator), element('pre', field?.text || loaded.reason), element('p', '欄位投影不代表 Session 判斷正確或 next 已執行。'));
+    }
     if (!ids.length) inspector.append(element('p', '只有已公開的索引或接口資料；沒有註冊可讀內容。'));
     for (const id of unique(ids)) { if (ticket !== generation) break; await artifactPane([id], artifacts.get(id).role, inspector, ticket); }
   }
