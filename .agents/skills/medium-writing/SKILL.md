@@ -14,6 +14,13 @@ at repository root: its relative paths resolve from repository root. This file i
 single registered entrypoint; the reference is not another selectable skill. The executable
 routing and incremental rules below replace any outdated backward-transition suggestion.
 
+## 修改本指引或 CLI 時
+
+只有修改 AGENTS、P-class 或 CLI 狀態機的任務才讀
+[狀態機修改契約套用](../../../docs/state-machine-change.md)。
+保留本 skill 的原工作及驗證流程。引用契約不要求啟動 Soodles／Noodle；
+需要委派執行才沿專案的可選 Loop 入口，不因本段改變 Card 或文章驗收。
+
 ## Product and responsibility
 
 Produce a complete article that a software engineer can understand without earlier chat:
