@@ -80,6 +80,7 @@ export async function mount(app) {
   const data = await readStatic(app.dataset.manifest), graph = data.graph;
   const artifacts = new Map(graph.artifacts.map(a => [a.id, a]));
   const objects = new Map(graph.objects.map(o => [o.id, o]));
+  let panoramaController;
   let runId = '*', layer = 'observed', selection = null, generation = 0, loadedBytes = 0, zoom = 1, initialRenderMs = null, visibleNodes = 0, visibleEdges = 0, tabGeneration = 0;
   let workspace = { goal: '', runIds: null }, focus = null;
   const contentCache = new Map(), collectionCache = new Map(), sourcePages = new Map();
@@ -118,6 +119,7 @@ export async function mount(app) {
       const id = el.dataset.node || el.dataset.edge || el.dataset.object;
       el.classList.toggle('lg-highlight', !!related && related[kind].has(id));
     });
+    panorama.querySelectorAll('[data-detail-node]').forEach(el => el.classList.toggle('is-linked', !!related && related.nodes.has(el.dataset.detailNode)));
     panorama.querySelectorAll('[data-panorama-object]').forEach(el => {
       el.classList.toggle('lg-highlight', !!related && related.objects.has(el.dataset.panoramaObject));
     });
@@ -183,9 +185,10 @@ export async function mount(app) {
     runControl.replaceChildren(...[['*', 'Workspace 全部執行'], ...data.runs.filter(r => !workspace.runIds || workspace.runIds.includes(r.id)).map(r => [r.id, r.repository + ' · ' + r.id])].map(([id, label]) => element('option', label, { value: id })));
     runControl.value = runId;
     toolbar.querySelector('[aria-label="圖層"]').value = layer;
-    mountPanorama(panorama, { graph, runs: data.runs, ...workspace,
+    panoramaController = mountPanorama(panorama, { graph, runs: data.runs, ...workspace,
+      onReset: () => { focus=null; selection=null; generation++; inspector.hidden=true; draw(); },
       onScope: value => { workspace = value; focus = null; runId = '*'; generation++; inspector.hidden = true; draw(); showTab('graph'); },
-      onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); },
+      onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); if(value.reveal !== false) canvas.scrollIntoView({block:'start'}); },
       onSelect: value => {
         if(value.kind === 'edge') { const edge = graph.edges.find(e=>e.id===value.id); highlightSources(refs(edge)); inspectEdge(edge); }
         else if(value.kind === 'artifact') { const a=artifacts.get(value.id); highlightSources([a.id],[]); inspectArtifacts([a.id],a.role,a); }
@@ -229,7 +232,7 @@ export async function mount(app) {
       const p = positions.get(node.id);
       const group = svg('g', { class: 'lg-node', tabindex: 0, role: 'button', 'aria-label': node.label + ' · ' + node.identity.status, 'data-node': node.id, transform: `translate(${p.x},${p.y})` });
       group.append(svg('rect', { width: p.width, height: p.height, rx: 10 }), svg('text', { x: 12, y: 24, class: 'lg-node-kind' }, node.kind + ' · ' + node.identity.status), svg('text', { x: 12, y: 47 }, node.label.slice(0, 28)), svg('text', { x: 12, y: 71, class: 'lg-node-status' }, `${node.status.execution} / ${node.status.transfer} / ${node.status.acceptance}`));
-      const activate = () => { selection = node.id; drawIndex(node); highlight(sourceRelations(graph, refs(node), [node.id])); inspectArtifacts(refs(node), node.label, { object: objects.get(node.object_id), identity: node.identity, status: node.status }); };
+      const activate = () => { selection = node.id; drawIndex(node); highlight(sourceRelations(graph, refs(node), [node.id])); inspectArtifacts(refs(node), node.label, { ...node, object: objects.get(node.object_id) }); };
       group.addEventListener('click', activate); group.addEventListener('focus', () => { highlight(sourceRelations(graph, refs(node), [node.id])); highlightSources(refs(node), [node.id]); }); group.addEventListener('mouseenter', () => highlightSources(refs(node), [node.id])); group.addEventListener('mouseleave', () => highlightSources()); group.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(); } }); drawing.append(group);
     }
     canvas.replaceChildren(drawing); setZoom(zoom);
@@ -261,6 +264,8 @@ export async function mount(app) {
     return load();
   }
   async function inspectArtifacts(ids, label, metadata) {
+    const originalNode = graph.nodes.find(n=>n.id===metadata?.id);
+    if(originalNode) panoramaController?.setSelection({kind:'node',id:originalNode.id});
     const ticket = ++generation; selection = label; heading(label, metadata);
     const source = unique(ids).map(id => artifacts.get(id)).find(a => a.source && metadata?.identity?.locator?.startsWith(a.source.path + '#/'));
     if (source) {
@@ -277,6 +282,7 @@ export async function mount(app) {
     for (const id of unique(ids)) { if (ticket !== generation) break; await artifactPane([id], artifacts.get(id).role, inspector, ticket); }
   }
   async function inspectEdge(edge) {
+    panoramaController?.setSelection({kind:'edge',id:edge.id});
     const ticket = ++generation; selection = edge.id; heading(edge.label, edge);
     inspector.append(element('p', '表示法轉換不自動證明語義保留、指引遵循或驗收完成。'));
     const columns = element('div', null, { class: 'lg-comparison' }); inspector.append(columns);
