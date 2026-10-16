@@ -69,6 +69,7 @@ class LoopGraphSiteTests(unittest.TestCase):
             public = json.loads((folder / 'graph.json').read_bytes())
             rendered = (out / 'loops/test-only-run/index.html').read_text()
             self.assertIn('/assets/loop-graph.mjs', rendered)
+            self.assertIn('loop-graph-app', (out / 'loops/index.html').read_text())
             self.assertNotIn('<script>inert', rendered)
             self.assertNotIn('public_content', (folder / 'graph.json').read_text())
             self.assertNotIn('stages', public['runs'][0])
@@ -79,6 +80,8 @@ class LoopGraphSiteTests(unittest.TestCase):
                 self.assertNotEqual(artifact['source']['sha256'], artifact['public_sha256'])
             self.assertEqual(public['graph']['metrics'][0]['denominator'], None)
             self.assertTrue((out / 'assets/loop-graph-layout.mjs').is_file())
+            self.assertTrue((out / 'assets/loop-panorama.mjs').is_file())
+            self.assertTrue((out / 'assets/loop-panorama.css').is_file())
 
     def test_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls(self):
         value = graph_fixture()

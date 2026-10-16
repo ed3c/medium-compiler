@@ -1,4 +1,5 @@
 import { layoutGraph } from './loop-graph-layout.mjs';
+import { mountPanorama, projectPanorama } from './loop-panorama.mjs';
 
 const svgNS = 'http://www.w3.org/2000/svg';
 const unknown = value => value == null ? 'UNKNOWN' : String(value);
@@ -80,8 +81,10 @@ export async function mount(app) {
   const artifacts = new Map(graph.artifacts.map(a => [a.id, a]));
   const objects = new Map(graph.objects.map(o => [o.id, o]));
   let runId = '*', layer = 'observed', selection = null, generation = 0, loadedBytes = 0, zoom = 1, initialRenderMs = null, visibleNodes = 0, visibleEdges = 0, tabGeneration = 0;
+  let workspace = { goal: '', runIds: null }, focus = null;
   const contentCache = new Map(), collectionCache = new Map(), sourcePages = new Map();
   app.replaceChildren();
+  const panorama = element('section', null, { 'aria-label': 'Workspace 全景圖' });
   const toolbar = element('div', null, { class: 'lg-toolbar' });
   const tabs = element('div', null, { class: 'lg-tabs', role: 'tablist', 'aria-label': '資料工作台' });
   const graphPanel = element('div', null, { class: 'lg-workspace' });
@@ -95,7 +98,7 @@ export async function mount(app) {
   const announce = element('p', '選取來源、節點或交接線查看證據。', { role: 'status', class: 'lg-notice' });
   const cost = element('p', null, { class: 'loop-note' });
   graphPanel.append(sidebar, canvasArea); canvasArea.append(ownerPanel, element('p', '節點依序顯示執行／傳遞／驗收。綠色實線：已證實且目前有效；灰色虛線：有效性未知或歷史版本；紅 X：已證實失敗。', { class: 'lg-legend' }), canvas, findings);
-  app.append(toolbar, tabs, announce, graphPanel, otherPanel, inspector, cost);
+  app.append(panorama, toolbar, tabs, announce, graphPanel, otherPanel, inspector, cost);
   toolbar.append(select('Run', [['*', '全部 repo / runs'], ...data.runs.map(r => [r.id, r.repository + ' · ' + r.id])], runId, value => { runId = value; draw(); showTab('graph'); }));
   toolbar.append(select('圖層', [['observed', '已證實交接'], ['all', '全部證據'], ['failed', '斷點']], layer, value => { layer = value; draw(); }));
   toolbar.append(button('縮小', () => setZoom(Math.max(.4, zoom - .2))), button('放大', () => setZoom(Math.min(2, zoom + .2))), button('原比例', () => setZoom(1)));
@@ -105,13 +108,18 @@ export async function mount(app) {
   const metricLabel = metric => metric.status === 'not_applicable' || metric.denominator === 0 ? 'N/A' : metric.status !== 'observed' || metric.value == null ? 'UNKNOWN' : metric.value + ' ' + metric.unit;
   function currentNodes() {
     const endpoints = new Set(graph.edges.filter(e => e.run_id === runId).flatMap(e => [e.from_node_id, e.to_node_id]));
-    return graph.nodes.filter(n => runId === '*' || n.run_id === runId || endpoints.has(n.id));
+    const scoped = projectPanorama(graph, workspace.runIds);
+    return scoped.nodes.filter(n => (runId === '*' || n.run_id === runId || endpoints.has(n.id)) &&
+      (!focus || focus.node_ids.includes(n.id) || scoped.edges.some(e => focus.edge_ids.includes(e.id) && (e.from_node_id === n.id || e.to_node_id === n.id))));
   }
   function highlight(related) {
     app.querySelectorAll('[data-node], [data-edge], [data-object]').forEach(el => {
       const kind = el.dataset.node ? 'nodes' : el.dataset.edge ? 'edges' : 'objects';
       const id = el.dataset.node || el.dataset.edge || el.dataset.object;
       el.classList.toggle('lg-highlight', !!related && related[kind].has(id));
+    });
+    panorama.querySelectorAll('[data-panorama-object]').forEach(el => {
+      el.classList.toggle('lg-highlight', !!related && related.objects.has(el.dataset.panoramaObject));
     });
   }
   function highlightSources(artifactIds = [], nodeIds = []) {
@@ -171,6 +179,21 @@ export async function mount(app) {
     runtime.forEach(a => { const b = button(a.role + ' · ' + a.status, () => inspectArtifacts([a.id], a.role)); wireSource(b, [{ artifact_ids: [a.id], node_ids: [] }]); extra.append(b); }); sidebar.append(extra);
   }
   function draw() {
+    const runControl = toolbar.querySelector('[aria-label="Run"]');
+    runControl.replaceChildren(...[['*', 'Workspace 全部執行'], ...data.runs.filter(r => !workspace.runIds || workspace.runIds.includes(r.id)).map(r => [r.id, r.repository + ' · ' + r.id])].map(([id, label]) => element('option', label, { value: id })));
+    runControl.value = runId;
+    toolbar.querySelector('[aria-label="圖層"]').value = layer;
+    mountPanorama(panorama, { graph, runs: data.runs, ...workspace,
+      onScope: value => { workspace = value; focus = null; runId = '*'; generation++; inspector.hidden = true; draw(); showTab('graph'); },
+      onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); },
+      onSelect: value => {
+        if(value.kind === 'edge') { const edge = graph.edges.find(e=>e.id===value.id); highlightSources(refs(edge)); inspectEdge(edge); }
+        else if(value.kind === 'finding') { const f=graph.findings.find(f=>f.id===value.id); inspectArtifacts(f.artifact_ids,f.message,f); }
+        else if(value.kind === 'node') { const n=graph.nodes.find(n=>n.id===value.id); drawIndex(n); highlightSources(refs(n),[n.id]); inspectArtifacts(refs(n),n.label,n); }
+        else { const o=objects.get(value.id); inspectArtifacts(o.source_artifact_ids,o.label,o); }
+      }
+    });
+    if(focus) panorama.append(button('返回 Workspace 全部執行',()=>{focus=null;draw();}));
     drawIndex(); ownerPanel.replaceChildren(element('h2', '唯一責任物件與接口'));
     for (const owner of graph.objects) {
       const box = element('details', null, { class: 'lg-owner', 'data-object': owner.id });
@@ -184,7 +207,7 @@ export async function mount(app) {
       ownerPanel.append(box);
     }
     const nodes = currentNodes(), nodeIds = new Set(nodes.map(n => n.id));
-    const allEdges = graph.edges.filter(e => (runId === '*' || e.run_id === runId) && nodeIds.has(e.from_node_id) && nodeIds.has(e.to_node_id));
+    const allEdges = projectPanorama(graph, workspace.runIds).edges.filter(e => (runId === '*' || e.run_id === runId) && nodeIds.has(e.from_node_id) && nodeIds.has(e.to_node_id));
     const shownEdges = allEdges.filter(e => layer === 'all' || (layer === 'failed' ? e.status === 'failed' : e.kind === 'handoff' && e.status === 'observed'));
     const layout = layoutGraph({ nodes: nodes.map(n => ({ id: n.id, repository_id: n.repository_id })), edges: allEdges.filter(e => e.kind === 'handoff').map(e => ({ from: e.from_node_id, to: e.to_node_id })) });
     const positions = new Map(layout.nodes.map(n => [n.id, n]));
@@ -211,7 +234,7 @@ export async function mount(app) {
     canvas.replaceChildren(drawing); setZoom(zoom);
     findings.replaceChildren(element('h3', '已知斷點與證據缺口'));
     if (!shownEdges.length) findings.append(element('p', '此圖層沒有已記錄的交接；未連接節點不代表自動化成功。'));
-    graph.findings.filter(f => runId === '*' || f.run_id === runId).forEach(f => { const item = element('article', null, { class: f.status === 'failed' ? 'lg-failed' : 'lg-unknown' }); item.append(element('strong', (f.status === 'failed' ? '✕ ' : f.status === 'unknown' ? '? ' : f.status === 'resolved' ? '✓ ' : 'N/A ') + f.kind + ' · ' + f.status), element('p', f.message), button('查看原證據與下一步', () => inspectArtifacts(f.artifact_ids, f.message, f))); findings.append(item); });
+    graph.findings.filter(f => (!workspace.runIds || workspace.runIds.includes(f.run_id)) && (runId === '*' || f.run_id === runId)).forEach(f => { const item = element('article', null, { class: f.status === 'failed' ? 'lg-failed' : 'lg-unknown' }); item.append(element('strong', (f.status === 'failed' ? '✕ ' : f.status === 'unknown' ? '? ' : f.status === 'resolved' ? '✓ ' : 'N/A ') + f.kind + ' · ' + f.status), element('p', f.message), button('查看原證據與下一步', () => inspectArtifacts(f.artifact_ids, f.message, f))); findings.append(item); });
     visibleNodes = nodes.length; visibleEdges = shownEdges.length;
     if (initialRenderMs === null) initialRenderMs = Math.round(performance.now() - started);
     updateCost();
@@ -271,18 +294,18 @@ export async function mount(app) {
     if (id === 'graph') return;
     otherPanel.replaceChildren(element('h2', tabNames.find(t => t[0] === id)[1]));
     if (id === 'metrics') {
-      graph.metrics.filter(m => runId === '*' || m.run_id === runId).forEach(m => { const row = element('article'); row.append(element('h3', m.name + ' · ' + metricLabel(m)), element('p', `原計數：${unknown(m.numerator)} / ${unknown(m.denominator)} · ${m.status}`), element('p', m.gaps.join('；')), button('量測來源', () => inspectArtifacts(m.source_artifact_ids, m.name, m))); if (m.observation_scope) { const scope = m.observation_scope; row.append(element('p', '歷史量測 · ' + scope.host_version + ' · ' + unknown(scope.started_at) + ' → ' + unknown(scope.finished_at)), element('p', scope.formula), element('p', scope.limitations.join('；'))); } otherPanel.append(row); });
+      graph.metrics.filter(m => (!workspace.runIds || workspace.runIds.includes(m.run_id)) && (runId === '*' || m.run_id === runId)).forEach(m => { const row = element('article'); row.append(element('h3', m.name + ' · ' + metricLabel(m)), element('p', `原計數：${unknown(m.numerator)} / ${unknown(m.denominator)} · ${m.status}`), element('p', m.gaps.join('；')), button('量測來源', () => inspectArtifacts(m.source_artifact_ids, m.name, m))); if (m.observation_scope) { const scope = m.observation_scope; row.append(element('p', '歷史量測 · ' + scope.host_version + ' · ' + unknown(scope.started_at) + ' → ' + unknown(scope.finished_at)), element('p', scope.formula), element('p', scope.limitations.join('；'))); } otherPanel.append(row); });
       if (!otherPanel.querySelector('article')) otherPanel.append(element('p', 'UNKNOWN：原 Owner 未提供此範圍的量測。'));
       return;
     }
     if (id === 'requirements') {
       otherPanel.append(element('p', '完整要求分母未由此圖建立。歷史測試結果與驗收標準有效性分開保留。'));
-      graph.findings.filter(f => (runId === '*' || f.run_id === runId) && (f.requirement_refs.length || f.kind === 'acceptance')).forEach(f => { const row = element('article'); row.append(element('h3', f.status + ' · ' + f.kind), element('p', f.message), element('pre', JSON.stringify({ requirements: f.requirement_refs, original_next: f.original_next }, null, 2))); otherPanel.append(row); }); return;
+      graph.findings.filter(f => (!workspace.runIds || workspace.runIds.includes(f.run_id)) && (runId === '*' || f.run_id === runId) && (f.requirement_refs.length || f.kind === 'acceptance')).forEach(f => { const row = element('article'); row.append(element('h3', f.status + ' · ' + f.kind), element('p', f.message), element('pre', JSON.stringify({ requirements: f.requirement_refs, original_next: f.original_next }, null, 2))); otherPanel.append(row); }); return;
     }
     otherPanel.append(element('p', '卡片與筆記是資料附著；相同 ID 依 repository、run 與快照版本分開。消費關聯未提供時保留未觀察。'));
     const filter = element('input', null, { type: 'search', placeholder: '篩選 repo、類型、標題或 ID', 'aria-label': '篩選全部卡片或筆記' }), list = element('div'); otherPanel.append(filter, list);
     const rows = [];
-    for (const run of data.runs) {
+    for (const run of data.runs.filter(r => !workspace.runIds || workspace.runIds.includes(r.id))) {
       if (!collectionCache.has(run.id)) collectionCache.set(run.id, JSON.parse(await readVersioned(data.collection_refs[run.id])));
       if (tabTicket !== tabGeneration) return;
       for (const entry of collectionCache.get(run.id)[id]) rows.push({ run, entry });

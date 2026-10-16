@@ -202,5 +202,9 @@ def render_loops(root, out, page):
         links.append('<article class="card"><h2>' + html.escape(run['id']) + '</h2><p>' + html.escape(run['repository']) + ' · ' + html.escape(run['mode']) + ' · ' + html.escape(run['status']) + '</p><a href="/loops/' + run['id'] + '/">查看階段與卡片 →</a></article>')
     intro = '<section class="page-head"><h1>Loops</h1><p>閱讀已公開的 Prompt 階段、規格卡片與筆記。狀態保留來源的觀察結果；本頁不執行工作。</p></section>'
     empty = '<p>目前沒有已公開的 Loop 紀錄。</p>' if not runs else ''
-    (target / 'index.html').write_text(page('Loops · AI Engineer Lab', intro + empty + '<div class="cards">' + ''.join(links) + '</div>', 'loops'), encoding='utf-8')
+    overview = ''
+    if len(set(graphs.values())) == 1:
+        first = next(run for run in runs if run['id'] in graphs)
+        overview = graph_site().render_graph_run(first, graphs[first['id']])
+    (target / 'index.html').write_text(page('Loops · AI Engineer Lab', intro + overview + empty + '<h2>原始 Run 頁面</h2><div class="cards">' + ''.join(links) + '</div>', 'loops'), encoding='utf-8')
     return provenance

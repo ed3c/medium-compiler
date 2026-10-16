@@ -81,14 +81,14 @@ def build_graph_package(snapshot, digest, target):
     (destination / 'graph.json').write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
     assets = target.parent / 'assets'
     assets.mkdir(exist_ok=True)
-    for name in ('loop-graph.mjs', 'loop-graph-layout.mjs', 'loop-graph.css'):
+    for name in ('loop-graph.mjs', 'loop-graph-layout.mjs', 'loop-graph.css', 'loop-panorama.mjs', 'loop-panorama.css'):
         shutil.copyfile(ROOT / 'site' / name, assets / name)
     return '/assets/loop-data/' + digest + '/graph.json'
 
 
 def render_graph_run(run, url):
     esc = html.escape
-    return f'''<link rel="stylesheet" href="/assets/loop-graph.css">
+    return f'''<link rel="stylesheet" href="/assets/loop-graph.css"><link rel="stylesheet" href="/assets/loop-panorama.css">
 <section class="page-head loop-head"><div class="eyebrow">Loop · 公開證據快照</div>
 <h1>跨 repo 資料流工作台</h1><p>{esc(run['repository'])} · {esc(run['status'])}</p>
 <p class="loop-note">預設顯示全部 runs；可選單一範圍。只顯示已公開的來源與原 Owner 觀察。圖上接口與下一步是資料，不會執行命令。</p></section>

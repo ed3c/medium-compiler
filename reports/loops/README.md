@@ -23,3 +23,22 @@ The builder records each route, snapshot digest, repository, mode and observed s
 under `loops` in `/provenance.json`. It does not publish raw snapshots. Build and Git
 deployment use the existing medium-compiler owners. Reading a page does not run or
 resume a Loop. Native acceptance and deployment readback remain separate observations.
+
+## Workspace panorama
+
+Each v2 run page opens the whole reviewed snapshot in a two-level Workspace. Select
+a goal and runs, then expand an object relationship into original occurrences and
+source comparisons. This selection changes only the page view. It is not a saved
+plan or an access boundary; the published source index remains available.
+
+The renderer keeps consumption, feedback continuation and whole-goal acceptance
+separate. A scoped review proves only its edge. Historical feedback continuation
+does not imply current validity. Missing evidence stays unknown; confirmed failures
+retain a red X even when no occurrence DAG exists. The v2 source has no complete
+goal acceptance denominator, so the renderer cannot declare whole-goal completion.
+
+The canonical shared renderer is Noodle's `ui/src/client/loop-panorama.mjs`; its
+test file and `ui/src/components/loop-panorama.css` are vendored into `site/` unchanged.
+Copy all three together and compare their bytes when updating. The site adapter
+continues to read only reviewed, digest-checked public content. No new daemon,
+worker, execution endpoint or public disclosure source is introduced.
