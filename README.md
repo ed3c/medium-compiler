@@ -36,6 +36,15 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
 
 ## Entry points
 
+- [Pinned upstream sloptrim skill](.agents/skills/sloptrim/SKILL.md): complete unmodified
+  v0.9.4 upstream source at the [recorded SHA](references/upstream/sloptrim-lock.json).
+  Use it on completed English reader-facing prose before Traditional Chinese translation.
+  Run `python3 .agents/skills/sloptrim/scripts/detect.py <english-draft.md>` for local
+  detection, followed by source-fidelity review. Its optional Claude/Cursor hook files
+  are retained but not auto-registered or activated here. Engineering instructions
+  remain under Soodles `review-writing`; a style score cannot approve correctness.
+
+
 - [Podcast to Medium](.agents/skills/podcast-to-medium/SKILL.md): repository-local orchestration
   from a podcast/video/topic to CLI search, verified source snapshot, relevant passages,
   `medium-writing` Stage 0–7 and requested website deployment. `transcript.py locate`,
@@ -225,6 +234,15 @@ in `references/upstream/ai-engineering-skills-lock.json`. No placement is fabric
 Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consumes only a
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
+
+The total site stays on Vercel Hobby, owned by the ChatGPT cloud Vercel Connector
+route. Its Reliability Lab navigation opens the Cloudflare experiment subsite;
+Local Codex configures that subsite and the Access-protected payment Sandbox.
+[Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md) explains
+the cost boundary. `npm run build` produces the total site; `npm run build:cloudflare`
+produces only Lab assets for pinned Wrangler and Cloudflare native Git builds.
+The existing Vercel Lab remains readable for old-Origin OPFS evidence. Deployment and runtime
+evidence are recorded per source revision, not inferred from this configuration.
 
 The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use

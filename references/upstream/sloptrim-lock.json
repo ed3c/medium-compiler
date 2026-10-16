@@ -1,0 +1,381 @@
+{
+  "schema_version": "upstream-skill-lock@1",
+  "name": "sloptrim",
+  "version": "0.9.4",
+  "repository": "seyedehsanhadi/sloptrim",
+  "revision": "38dbb7cb4e97de0b9bf157903c95bdcab016dda2",
+  "installed_scope": "project-local .agents/skills/sloptrim",
+  "note": "Upstream v0.9.4 exact source retained; SKILL.md has an append-only medium-compiler editorial supplement, with pristine bytes stored separately. Other 59 files remain byte-identical. Optional hooks are not registered. Soodles review-writing owns engineering guidance.",
+  "files": [
+    {
+      "source_path": ".claude-plugin/marketplace.json",
+      "path": ".agents/skills/sloptrim/.claude-plugin/marketplace.json",
+      "git_blob": "63b02701e7bcb3075286c32bbdbc605b7c57333e",
+      "mode": "100644"
+    },
+    {
+      "source_path": ".claude-plugin/plugin.json",
+      "path": ".agents/skills/sloptrim/.claude-plugin/plugin.json",
+      "git_blob": "0c50fbea8787fb9c08fe1d532285cf2e2d411f3d",
+      "mode": "100644"
+    },
+    {
+      "source_path": ".cursor/rules/sloptrim.mdc",
+      "path": ".agents/skills/sloptrim/.cursor/rules/sloptrim.mdc",
+      "git_blob": "12738994be4b777670503769830863cc868726d3",
+      "mode": "100644"
+    },
+    {
+      "source_path": ".gitattributes",
+      "path": ".agents/skills/sloptrim/.gitattributes",
+      "git_blob": "46526f6accedfe14ec426977a774ab9c5e0e442c",
+      "mode": "100644"
+    },
+    {
+      "source_path": ".github/workflows/test.yml",
+      "path": ".agents/skills/sloptrim/.github/workflows/test.yml",
+      "git_blob": "ef0c20e7d8a7716ee7e6ea28fb0b374987fb16e2",
+      "mode": "100644"
+    },
+    {
+      "source_path": ".gitignore",
+      "path": ".agents/skills/sloptrim/.gitignore",
+      "git_blob": "eadd417d3831adc68b1d11e5f0ca1f564225fab6",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/demo-dark.svg",
+      "path": ".agents/skills/sloptrim/assets/demo-dark.svg",
+      "git_blob": "540ab1e8b2b8dd2395c946f0e509bebd8a05182a",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/demo-light.svg",
+      "path": ".agents/skills/sloptrim/assets/demo-light.svg",
+      "git_blob": "aa0416b4ff51154fc63722e3353a26f0bd093314",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/detection-dark.svg",
+      "path": ".agents/skills/sloptrim/assets/detection-dark.svg",
+      "git_blob": "2d09d234daed6692a6fc0a5ba3b84584f61e700b",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/detection-light.svg",
+      "path": ".agents/skills/sloptrim/assets/detection-light.svg",
+      "git_blob": "84542c165615ac7c77b80e6ed734cda6e714296b",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/sloptrim-logo-dark.svg",
+      "path": ".agents/skills/sloptrim/assets/sloptrim-logo-dark.svg",
+      "git_blob": "3284b23aaed80dddecc5ab4d53e9f4e9a0110428",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/sloptrim-logo.svg",
+      "path": ".agents/skills/sloptrim/assets/sloptrim-logo.svg",
+      "git_blob": "c7bcb0d319d2c1b0436cc54c1c8a8e9e6aabad57",
+      "mode": "100644"
+    },
+    {
+      "source_path": "assets/social-preview.png",
+      "path": ".agents/skills/sloptrim/assets/social-preview.png",
+      "git_blob": "4fec85d23ba430cad56bcd680ac2747cf9f5718e",
+      "mode": "100644"
+    },
+    {
+      "source_path": "CHANGELOG.md",
+      "path": ".agents/skills/sloptrim/CHANGELOG.md",
+      "git_blob": "d4e591d068cfcd154a1a8ad2bfa130173a6341a8",
+      "mode": "100644"
+    },
+    {
+      "source_path": "CITATION.cff",
+      "path": ".agents/skills/sloptrim/CITATION.cff",
+      "git_blob": "6651bac943675f60d660c31803ecffc52177fa1a",
+      "mode": "100644"
+    },
+    {
+      "source_path": "CONTRIBUTING.md",
+      "path": ".agents/skills/sloptrim/CONTRIBUTING.md",
+      "git_blob": "51449256d77bdba46a8668a47a3d0ec8f817998c",
+      "mode": "100644"
+    },
+    {
+      "source_path": "docs/research/frontier-benchmark-results.json",
+      "path": ".agents/skills/sloptrim/docs/research/frontier-benchmark-results.json",
+      "git_blob": "a2c63b8c79a822753792bd764fbd1656785339d1",
+      "mode": "100644"
+    },
+    {
+      "source_path": "ETHICS.md",
+      "path": ".agents/skills/sloptrim/ETHICS.md",
+      "git_blob": "f659fa0ab73a2e7d4d3e989c8e6a47f90bd7929e",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-activate.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-activate.js",
+      "git_blob": "105b0db3d961b01a43b1979a9a8367090d1b7dc2",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-guard.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-guard.js",
+      "git_blob": "d79f548799b3270aed6107b3d8ce2cb18b19c64e",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-lib.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-lib.js",
+      "git_blob": "ee6435224e1d91364da90f9ab125b918b5f0c71a",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-stats.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-stats.js",
+      "git_blob": "1c14fd9e09d7b06f94c1c1675de6571faeb40172",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-statusline.ps1",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-statusline.ps1",
+      "git_blob": "32b6a57b2f2af78e9502d42ccfdb9d06a828c2fd",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-subagent.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-subagent.js",
+      "git_blob": "2b8c126cd4ed8e8ebe6bcf91ec584432b96705fb",
+      "mode": "100644"
+    },
+    {
+      "source_path": "hooks/sloptrim-tracker.js",
+      "path": ".agents/skills/sloptrim/hooks/sloptrim-tracker.js",
+      "git_blob": "c1bed2312937c8104394df50166986a80d485f27",
+      "mode": "100644"
+    },
+    {
+      "source_path": "install/sloptrim-command.md",
+      "path": ".agents/skills/sloptrim/install/sloptrim-command.md",
+      "git_blob": "87fdaecb9e6015362b2d84aad701dbd54842e79f",
+      "mode": "100644"
+    },
+    {
+      "source_path": "LICENSE.txt",
+      "path": ".agents/skills/sloptrim/LICENSE.txt",
+      "git_blob": "f05b9161b2639ba96de7f7306d3ad70664587ec4",
+      "mode": "100644"
+    },
+    {
+      "source_path": "NOTICE",
+      "path": ".agents/skills/sloptrim/NOTICE",
+      "git_blob": "ee0182cb3705f8f8f70e16f08ad507f50fc37264",
+      "mode": "100644"
+    },
+    {
+      "source_path": "README.md",
+      "path": ".agents/skills/sloptrim/README.md",
+      "git_blob": "d0b6d5bd6f90f0b94d38fac41b9b199457d411b3",
+      "mode": "100644"
+    },
+    {
+      "source_path": "record/anim.py",
+      "path": ".agents/skills/sloptrim/record/anim.py",
+      "git_blob": "ec67eb8708aaf8e2f4469d6a816eac57ce960771",
+      "mode": "100644"
+    },
+    {
+      "source_path": "record/draft.md",
+      "path": ".agents/skills/sloptrim/record/draft.md",
+      "git_blob": "91e10b090f353e40766842100bc20b32df8f1ea6",
+      "mode": "100644"
+    },
+    {
+      "source_path": "record/rewrite.md",
+      "path": ".agents/skills/sloptrim/record/rewrite.md",
+      "git_blob": "e3aa2987e61ccc4cbbbba2b93a726e5dc8e75f24",
+      "mode": "100644"
+    },
+    {
+      "source_path": "record/session_capture.py",
+      "path": ".agents/skills/sloptrim/record/session_capture.py",
+      "git_blob": "3efdde754970e1ca5ee5960b0dd55a84b6a765eb",
+      "mode": "100644"
+    },
+    {
+      "source_path": "record/session.json",
+      "path": ".agents/skills/sloptrim/record/session.json",
+      "git_blob": "aa4b474e7501c46d66e1f6784a668d5bbc93468c",
+      "mode": "100644"
+    },
+    {
+      "source_path": "references/patterns.md",
+      "path": ".agents/skills/sloptrim/references/patterns.md",
+      "git_blob": "a9d8d866f1ae91f9adb2b5eec34980b31616143d",
+      "mode": "100644"
+    },
+    {
+      "source_path": "scripts/benchmark_frontier.py",
+      "path": ".agents/skills/sloptrim/scripts/benchmark_frontier.py",
+      "git_blob": "bc7b49a65c20199c11210d43c4e8e23ad8d124bd",
+      "mode": "100644"
+    },
+    {
+      "source_path": "scripts/check_docs.py",
+      "path": ".agents/skills/sloptrim/scripts/check_docs.py",
+      "git_blob": "77f7da19191b11cb045e91bdc53f85b5c4c37caa",
+      "mode": "100644"
+    },
+    {
+      "source_path": "scripts/detect.py",
+      "path": ".agents/skills/sloptrim/scripts/detect.py",
+      "git_blob": "d185e4baa846061cbdafbb19dd3b51414c2a5662",
+      "mode": "100644"
+    },
+    {
+      "source_path": "SECURITY.md",
+      "path": ".agents/skills/sloptrim/SECURITY.md",
+      "git_blob": "f01997c383099bf176f180154ecb0172db2ddb1f",
+      "mode": "100644"
+    },
+    {
+      "source_path": "SKILL.md",
+      "path": ".agents/skills/sloptrim/SKILL.md",
+      "git_blob": "7e0978d4fcfa48c426d468f95f9f260649c1a44e",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/interp.js",
+      "path": ".agents/skills/sloptrim/tests/interp.js",
+      "git_blob": "ff9d82098850e2000dba69a2ebfa611feda708e1",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_benchmark_frontier.py",
+      "path": ".agents/skills/sloptrim/tests/test_benchmark_frontier.py",
+      "git_blob": "189ddd8615611427e9ae780fa34fc71864cd82bb",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_catalogue.py",
+      "path": ".agents/skills/sloptrim/tests/test_catalogue.py",
+      "git_blob": "4897bdf0f4a540c7bb582e97d144d948976c5539",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_claims_hold.py",
+      "path": ".agents/skills/sloptrim/tests/test_claims_hold.py",
+      "git_blob": "5f852ceb09649301b0fee9093111ce30775fe9aa",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_contract_reach.py",
+      "path": ".agents/skills/sloptrim/tests/test_contract_reach.py",
+      "git_blob": "000ec03d3587ad9aedbba48647fa18ad34387f73",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_corpus.py",
+      "path": ".agents/skills/sloptrim/tests/test_corpus.py",
+      "git_blob": "43df0e82a463c90e2c431a13abdb6d6c52943ff6",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_coverage.py",
+      "path": ".agents/skills/sloptrim/tests/test_coverage.py",
+      "git_blob": "86e2807107dfd3fead61da775a631e5c8faf3aa8",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_decisive_floors.py",
+      "path": ".agents/skills/sloptrim/tests/test_decisive_floors.py",
+      "git_blob": "ffdc944c3030aadbacbb7e2de350a53c8162a417",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_detect.py",
+      "path": ".agents/skills/sloptrim/tests/test_detect.py",
+      "git_blob": "a3d8243ff837ee187007cd126cfbe16ec69eb928",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_hooks_suite.py",
+      "path": ".agents/skills/sloptrim/tests/test_hooks_suite.py",
+      "git_blob": "d2489be27cac46dd5a017f81366f4f0149fa8174",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_hooks.sh",
+      "path": ".agents/skills/sloptrim/tests/test_hooks.sh",
+      "git_blob": "121698cd56ca47ea36e763cdc3edd3d5be9aa314",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_no_network.py",
+      "path": ".agents/skills/sloptrim/tests/test_no_network.py",
+      "git_blob": "a5a7681bd464af2b0d9d27ea927d30f244495628",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_office.py",
+      "path": ".agents/skills/sloptrim/tests/test_office.py",
+      "git_blob": "8a3de255cf7518172bbeb4498489f88e621d8ab8",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_output_reach.py",
+      "path": ".agents/skills/sloptrim/tests/test_output_reach.py",
+      "git_blob": "3306ddbf597e3a1f3fa1b94ad73a24c3aa003a58",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_protected_prose.py",
+      "path": ".agents/skills/sloptrim/tests/test_protected_prose.py",
+      "git_blob": "fc87f5587afc0747a6549b419c3a05a68bb22ba7",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_reach.py",
+      "path": ".agents/skills/sloptrim/tests/test_reach.py",
+      "git_blob": "170afca8be7819f53388d8309fd829da9ed90ce7",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_regressions.py",
+      "path": ".agents/skills/sloptrim/tests/test_regressions.py",
+      "git_blob": "0489ecf079fff93a97a2ccddd68995c7805d2d28",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_skill.py",
+      "path": ".agents/skills/sloptrim/tests/test_skill.py",
+      "git_blob": "a1edf35a2e4ff16da7598b433715388d762d7ef0",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/test_watermark.py",
+      "path": ".agents/skills/sloptrim/tests/test_watermark.py",
+      "git_blob": "17c7b53de89723c127fa859410c7deb0d24cedb9",
+      "mode": "100644"
+    },
+    {
+      "source_path": "tests/validation_corpus.py",
+      "path": ".agents/skills/sloptrim/tests/validation_corpus.py",
+      "git_blob": "966983c6441d8dc377300e3844a4501affe5f51d",
+      "mode": "100644"
+    }
+  ],
+  "project_customization": {
+    "scope": "reader-facing Medium prose only, after source-grounded English draft and before zh-Hant translation",
+    "strategy": "upstream-SKILL.md-exact-prefix-and-appended-supplement",
+    "upstream_skill_copy": "references/upstream/sloptrim-SKILL.md",
+    "active_skill_path": ".agents/skills/sloptrim/SKILL.md",
+    "active_git_blob": "8d336ccb55453d7fd2066483f818a31e6fb42cfb",
+    "original_git_blob": "7e0978d4fcfa48c426d468f95f9f260649c1a44e",
+    "upstream_detector_unchanged": true,
+    "claude_hooks_enabled": false
+  }
+}

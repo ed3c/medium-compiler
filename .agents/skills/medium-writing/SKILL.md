@@ -33,6 +33,16 @@ questions or an older topic's decision count is not a universal quota. P-class i
 sources, selects the main question/property/representation/witness/alternative and explains
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
 
+Website delivery follows repository AGENTS.md: ChatGPT cloud owns the Vercel total
+site through its Connector; Local Codex owns the Cloudflare experiment subsite
+and sandbox through project Wrangler. An explicitly selected Local Vercel task
+uses Vercel CLI. Cloudflare executes configured Git builds; this is not a Local
+Codex or ChatGPT runtime. App installation, build trigger, active deployment,
+and Browser/Queue/DO acceptance require separate readbacks. A hosting authentication or scope
+error belongs to that operation, not the article state machine. Preserve admitted
+article state and consume the compiler's actual next. Mechanical validation does
+not establish platform authorization, deployment or runtime correctness.
+
 ## Language and style owner
 
 This is a reader-facing article workflow, not the engineering-instruction
@@ -43,11 +53,17 @@ semantic checks with a style score.
 Complete the English prose for the selected article before translating it.
 For an authorized incremental patch, finish that English unit before
 translation; preserve the existing queue and immutable prior units. Run the
-upstream [sloptrim](https://github.com/seyedehsanhadi/sloptrim) skill on the
-English prose, inspect each proposed change and verify source fidelity. Keep
+project-local [sloptrim](../sloptrim/SKILL.md) skill on the
+English prose, including its **reader-article editorial supplement even when
+its detector score is clean**. Remove passages about the article's own
+writing process, repetitive concept-label handoffs, redundant disclaimers,
+and restatements that add no decision-relevant information. Keep one clear
+hypothetical framing and necessary source attribution outside repeated
+in-story warnings. Inspect each proposed change and verify source fidelity. Keep
 numbers, commands, API names, code, citations, uncertainty, ownership,
-negation, and runtime order unchanged. Sloptrim is an external, separately
-installed tool; its presence in these instructions does not mean it ran.
+negation, and runtime order unchanged. Sloptrim is installed locally in `../sloptrim/` at the revision recorded
+in `references/upstream/sloptrim-lock.json`. The installed files and detector
+are available, but their presence does not prove this article was processed.
 Record a real check and the reviewed English version in private task
 evidence, or mark `sloptrim=NOT_RUN` with the missing capability. Do not
 report its style score as correctness, authorship, or formal compliance.

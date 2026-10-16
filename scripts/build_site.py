@@ -6,6 +6,8 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 ROOT=Path(__file__).resolve().parents[1]
+MAIN_ORIGIN='https://medium-compiler.vercel.app'
+LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
     {
         "slug": "agent-primitives-product-differentiation",
@@ -14,6 +16,21 @@ ARTICLES=[
         "source": "articles/agent-primitives-product-differentiation.md",
         "source_manifest": "references/transcripts/openrouter-agent-primitives.json",
         "context": "articles/agent-primitives-product-differentiation.context.json"
+    },
+    {
+        "slug": "architect-amplifier-payment-decisions",
+        "title": "架構師不再贏辯論的那一天：一張付款流程圖如何改變團隊的決策",
+        "description": "從付款 Timeout、架構選型到主管決策，跟著團隊用證據重新理解架構爭論。",
+        "source": "articles/architect-amplifier-payment-decisions.md",
+        "video_id": "F8X9_Dp3ZUk",
+        "next_article_slug": "checkout-reliability-large-traffic",
+    },
+    {
+        "slug": "checkout-reliability-large-traffic",
+        "title": "一場促銷揭露了付款系統的未知狀態：從故障實驗學會可靠的分散式系統",
+        "description": "實作 Payment Idempotency、Outbox、Lost Reply、Crash Recovery，再擴展到 Load、Business Impact 和英文 Incident Communication。",
+        "source": "articles/checkout-reliability-large-traffic.md",
+        "download_markdown": True,
     },
     {
         "slug": "ai-engineer-learning-path",
@@ -79,6 +96,19 @@ def lesson_navigation(item:dict, route:dict)->str:
         links.append('<p>已到這條學習路線的最後一課。</p>')
     return '<section class="panel" aria-label="課程導航"><h2>接續課程</h2><p>'+html.escape(route['title'])+f' · 第 {index+1} / {len(paths)} 課</p>'+''.join(links)+'</section>'
 
+def sequel_navigation(item:dict)->str:
+    slug=item.get('next_article_slug')
+    if not slug:
+        return ''
+    matches=[article for article in ARTICLES if article['slug']==slug]
+    if len(matches)!=1:
+        raise ValueError('Sequel article registry target is missing or ambiguous')
+    target=matches[0]
+    return (f'<section class="panel"><h2>延伸實作</h2><p>下一篇將付款狀態與 '
+            f'Unknown Outcome 變成可執行的故障測試。</p>'
+            f'<a rel="next" href="/articles/{html.escape(slug,quote=True)}/">'
+            f'{html.escape(target["title"])}</a></section>')
+
 def inline(text:str)->str:
     text=html.escape(text,quote=False)
     text=re.sub(r'`([^`]+)`',r'<code>\1</code>',text)
@@ -125,10 +155,39 @@ def markdown(text:str)->str:
     if in_code: out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
     return '\n'.join(out)
 
-def page(title:str, body:str, active:str='')->str:
-    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles'),('transcripts','/transcripts/','逐字稿來源')]
-    links=''.join(f'<a class="{"active" if key==active else ""}" href="{href}">{label}</a>' for key,href,label in nav)
-    return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+def youtube_article_embed(item:dict)->str:
+    """Render a source-bound, responsive YouTube iframe from an allowlisted video ID."""
+    video_id=item.get('video_id')
+    if not video_id:
+        return ''
+    if not isinstance(video_id,str) or not re.fullmatch(r'[A-Za-z0-9_-]{11}',video_id):
+        raise ValueError('Invalid YouTube video ID in site article registry')
+    video_url='https://www.youtube.com/watch?v='+video_id
+    return (f'<section class="article-video" aria-label="訪談影片">'
+            f'<div class="youtube-frame"><iframe '
+            f'src="https://www.youtube-nocookie.com/embed/{video_id}" '
+            f'title="Beyond Coding — Gregor Hohpe 訪談" '
+            f'loading="lazy" referrerpolicy="strict-origin-when-cross-origin" '
+            f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+            f'allowfullscreen></iframe></div>'
+            f'<p class="video-caption">原始訪談：<a href="{video_url}" target="_blank" '
+            f'rel="noopener noreferrer">Gregor Hohpe × Patrick Akil · Beyond Coding</a></p>'
+            f'</section>')
+
+def page(title:str, body:str, active:str='', main_origin:str='')->str:
+    nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('article','/articles/','Articles'),('reliability','/reliability/','Reliability Lab'),('transcripts','/transcripts/','逐字稿來源')]
+    links=''.join(f'<a class="{"active" if key==active else ""}" href="{LAB_ORIGIN+href if key=="reliability" else main_origin+href}">{label}</a>' for key,href,label in nav)
+    return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="{main_origin}/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+
+def build_reliability(out:Path, main_origin:str='')->None:
+    lab_dir=out/'reliability';lab_dir.mkdir(parents=True)
+    lab_source=ROOT/'site/reliability'
+    shutil.copytree(lab_source,out/'assets/reliability')
+    lab_html=(lab_source/'fragment.html').read_text(encoding='utf-8')
+    sqlite_version=json.loads((ROOT/'references/sqlite-wasm-lock.json').read_text(encoding='utf-8'))['version']
+    lab_html=lab_html.replace('{{SQLITE_WASM_VERSION}}',html.escape(sqlite_version))
+    lab_html=lab_html.replace('href="/articles/',f'href="{MAIN_ORIGIN}/articles/')
+    (lab_dir/'index.html').write_text(page('Checkout Reliability Lab',lab_html,'reliability',main_origin),encoding='utf-8')
 
 def learning_state()->dict:
     path=ROOT/'LEARNING.md'
@@ -259,6 +318,7 @@ def build(out:Path)->dict:
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
     (out/'assets').mkdir()
+    shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
     snapshot=json.loads((ROOT/'references/ops-experiment-catalog.json').read_text())
     state=learning_state()
@@ -284,6 +344,8 @@ def build(out:Path)->dict:
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
+    # Single-browser fault experiments are static and require no server credentials.
+    build_reliability(out)
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
     transcript_dir=out/'transcripts';transcript_dir.mkdir()
@@ -296,13 +358,24 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     article_provenance=[]
     for item in ARTICLES:
         source_bytes=(ROOT/item['source']).read_bytes()
-        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+markdown(source_bytes.decode('utf-8'))+lesson_navigation(item,course_route)+'</article>'
+        content_html=markdown(source_bytes.decode('utf-8'))
+        video_html=youtube_article_embed(item)
+        if video_html:
+            if '</p>' not in content_html:
+                raise ValueError('Video article must have an introductory paragraph')
+            content_html=content_html.replace('</p>','</p>'+video_html,1)
+        article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+sequel_navigation(item)+'</article>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         source_record={}
         if item.get('source_manifest'):
             panel,source_record=transcript_source(item,source_bytes,article_dir)
             article_body+=panel
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
+        if item.get('video_id') or item.get('download_markdown'):
+            (article_dir/'article.md').write_bytes(source_bytes)
+        if item.get('video_id'):
+            source_record['video_id']=item['video_id']
+            source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
         article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
         if item.get('notebook'):
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)

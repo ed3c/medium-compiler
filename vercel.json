@@ -8,5 +8,40 @@
       "maxDuration": 60,
       "excludeFiles": "{.git/**,.agents/**,.transcripts/**,vendor/**,evidence/**,tests/**,dist/**,site/**}"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/reliability/",
+      "headers": [
+        {"key": "Cross-Origin-Opener-Policy", "value": "same-origin"},
+        {"key": "Cross-Origin-Embedder-Policy", "value": "require-corp"}
+      ]
+    },
+    {
+      "source": "/reliability/:path*",
+      "headers": [
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        }
+      ]
+    },
+    {
+      "source": "/assets/reliability/:path*",
+      "headers": [
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        }
+      ]
+    }
+  ]
 }

@@ -57,6 +57,15 @@ class CompilerError(RuntimeError):
     pass
 
 
+EXTERNAL_EFFECT_BOUNDARY = {
+    "verification_scope": "MECHANICAL_WRITING_CONTRACT",
+    "platform_authorization": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "runtime_correctness": "NOT_ASSESSED",
+    "authorizes_external_effects": False,
+}
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -482,6 +491,7 @@ def next_action(run_dir: Path) -> dict[str, Any]:
         if paths["receipt"].exists():
             check_receipt(run_dir)
             return {"status": "VALIDATED", "next": None,
+                    **EXTERNAL_EFFECT_BOUNDARY,
                     "semantic_correctness": "NOT_ASSESSED"}
         return {
             "status": "ASSEMBLED",
@@ -575,7 +585,8 @@ def _receipt_payload(run_dir: Path) -> dict[str, Any]:
     if any(marker in final.decode("utf-8") for marker in MACHINE_MARKERS):
         raise CompilerError("machine sidecar leaked into article")
     return {
-        "schema_version": "medium-compiler-validation@2",
+        "schema_version": "medium-compiler-validation@3",
+        **EXTERNAL_EFFECT_BOUNDARY,
         "topic": spec["topic"],
         "mode": state["mode"],
         "article_sha256": _sha256_bytes(final),
@@ -611,6 +622,7 @@ def check_receipt(run_dir: Path, receipt_path: Path | None = None) -> dict[str, 
     if receipt != _receipt_payload(run_dir):
         raise CompilerError("stale/invalid validation receipt: evidence changed; re-verify")
     return {"status": "VALID", "article_sha256": receipt["article_sha256"],
+            **EXTERNAL_EFFECT_BOUNDARY,
             "semantic_correctness": "NOT_ASSESSED"}
 
 

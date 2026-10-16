@@ -1,0 +1,49 @@
+<section class="page-head" data-sqlite-wasm-version="{{SQLITE_WASM_VERSION}}">
+<div class="eyebrow">Checkout Reliability · P0 Browser Lab</div>
+<h1>付款系統的故障實驗室</h1>
+<p>不連接真實金流、不需要 API Key。使用 SQLite-Wasm + OPFS 在這個瀏覽器內保存訂單、Outbox 與模擬 Provider Charge。</p>
+<p><a href="https://medium-compiler.ga874199.workers.dev/reliability/">主要 Lab 網址：Cloudflare</a> · <a href="https://medium-compiler.vercel.app/reliability/" target="_blank" rel="noopener noreferrer">回讀舊 Vercel Origin 的本機資料 ↗</a></p>
+<p><a href="/articles/checkout-reliability-large-traffic/">閱讀原理及可執行的 Python Lab →</a></p>
+</section>
+<section class="panel" aria-label="執行環境">
+<strong>實驗範圍</strong>
+<p>這是一個 Browser Worker 中的邏輯服務模擬，不是多節點測試，也不能量測雲端付款吞吐量。資料只在此瀏覽器 Origin 中保存，重新整理頁面後可 Readback。更換網站 Origin 不會自動搬移資料；可在原站匯出 JSON evidence。</p>
+<p id="reliability-ready" role="status" aria-live="polite">正在初始化 SQLite-Wasm / OPFS…</p>
+</section>
+<div class="panel reliability-lab">
+<h2>1. 建立付款</h2>
+<label for="payment-key">Payment Key</label>
+<input id="payment-key" value="promo-001" maxlength="80" autocomplete="off">
+<label for="payment-amount">Amount (USD cents)</label>
+<input id="payment-amount" value="1250" type="number" min="1" max="1000000">
+<div class="reliability-actions">
+<button type="button" data-action="create">Create Order + Outbox</button>
+<button type="button" data-action="duplicate">Replay 36 requests (sequential)</button>
+</div>
+<h2>2. 注入故障</h2>
+<div class="reliability-actions">
+<button type="button" data-action="lost_reply">Provider Commit + Lost Reply</button>
+<button type="button" data-action="worker_crash">Provider Commit + Worker Crash</button>
+<button type="button" data-action="reconcile">Readback + Reconcile</button>
+</div>
+<h2>3. 實際狀態與證據</h2>
+<div id="reliability-summary" role="status">尚無資料。</div>
+<p id="reliability-integrity"></p>
+<details><summary>Orders / Provider Charges / Outbox</summary><pre id="reliability-records"></pre></details>
+<details open><summary>事件 Trace（最近 70 筆）</summary><pre id="reliability-events"></pre></details>
+<div class="reliability-actions">
+<button type="button" data-action="export">Download JSON evidence</button>
+<button type="button" data-action="refresh">Readback after Reload</button>
+<button type="button" data-action="reset">Reset only this browser Lab</button>
+</div>
+<p id="reliability-error" role="alert"></p>
+</div>
+<section class="panel">
+<h2>下一階段：Cloudflare Remote Sandbox</h2>
+<p>在獨立的 Cloudflare Worker／Durable Objects／Queues 執行付款實驗。Cloudflare Access 目前只允許帳號 Owner；其他讀者可在上方執行 Browser Lab，或從開源程式部署自己的 Sandbox。</p>
+<p><a class="button secondary" href="https://checkout-reliability-sandbox.ga874199.workers.dev/" target="_blank" rel="noopener noreferrer">開啟受 Access 保護的 Remote Sandbox ↗</a></p>
+<p>Load Test 由獨立、授權的 Runner 執行。靜態網頁流量、202 Accepted 與實際 PAID Throughput 分別量測；免費 baseline 不代表已驗證大流量容量。</p>
+<p><a href="https://github.com/ed3c/medium-compiler/tree/main/examples/cloudflare-checkout-sandbox">Cloudflare 原始碼與部署步驟</a></p>
+</section>
+<link rel="stylesheet" href="/assets/reliability/styles.css">
+<script type="module" src="/assets/reliability/app.mjs"></script>

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  "name": "checkout-reliability-dr",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": false,
+  "preview_urls": false,
+  "triggers": {"crons": []},
+  "observability": {"enabled": false},
+  "version_metadata": {"binding":"DR_VERSION"},
+  "vars": {"DR_RUN_ID": "dr-20261011"},
+  "durable_objects": {"bindings": [
+    {"name":"CHECKOUT","class_name":"DrillCheckout"},
+    {"name":"PROVIDER","class_name":"DrillProvider"}
+  ]},
+  "migrations": [{"tag":"v1","new_sqlite_classes":["DrillCheckout","DrillProvider"]}]
+}
