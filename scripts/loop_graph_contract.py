@@ -16,7 +16,7 @@ FIELDS = {
     'findings': 'id run_id kind status message node_ids edge_ids artifact_ids requirement_refs original_next',
     'metrics': 'id run_id name status value unit numerator denominator source_artifact_ids gaps',
 }
-OPTIONAL = {'artifacts': {'content', 'content_encoding', 'public_content', 'public_sha256', 'public_bytes'},
+OPTIONAL = {'objects': {'mechanism'}, 'nodes': {'mechanism'}, 'artifacts': {'content', 'content_encoding', 'public_content', 'public_sha256', 'public_bytes'},
             'metrics': {'observation_scope'}, 'repositories': {'observation'}}
 
 
@@ -82,6 +82,18 @@ def validate(view):
     check(len(set(namespaces)) == len(namespaces), 'duplicate owner namespace')
     for obj in tables['objects'].values():
         check(obj['scope'] in ('shared', 'repository'), 'object scope')
+        if 'mechanism' in obj:
+            m = obj['mechanism']
+            record(m, 'version template capabilities', 'mechanism')
+            check(type(m['version']) is int and m['version'] == 1, 'mechanism version')
+            check(isinstance(m['template'], str) and ID.fullmatch(m['template']), 'mechanism template')
+            check(isinstance(m['capabilities'], list) and bool(m['capabilities']), 'mechanism capabilities')
+            seen = set()
+            for c in m['capabilities']:
+                record(c, 'id function entry input output readback refusal source', 'capability')
+                check(all(isinstance(v, str) and v for v in c.values()), 'capability fields')
+                check(c['id'] not in seen, 'duplicate capability')
+                seen.add(c['id'])
     for port in tables['ports'].values():
         ref(port['object_id'], 'objects')
         check(port['direction'] in ('input', 'output'), 'port direction')
@@ -137,6 +149,8 @@ def validate(view):
         else:
             check('public_sha256' not in artifact and 'public_bytes' not in artifact, 'public representation missing')
     for node in tables['nodes'].values():
+        if 'mechanism' in node:
+            check(isinstance(node['mechanism'], str) and ID.fullmatch(node['mechanism']), 'node mechanism')
         ref(node['object_id'], 'objects')
         check(node['kind'] in ('session', 'pclass', 'cli', 'observation'), 'node kind')
         record(node['status'], 'execution transfer acceptance', 'node status')
