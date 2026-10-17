@@ -189,7 +189,7 @@ export async function mount(app) {
       readArtifact: async id => (await content(id)).text,
       onReset: () => { focus=null; selection=null; generation++; inspector.hidden=true; draw(); },
       onScope: value => { workspace = value; focus = null; runId = '*'; generation++; inspector.hidden = true; draw(); showTab('graph'); },
-      onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); if(value.reveal !== false) { drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); } },
+      onFocus: value => { focus = value; selection = null; generation++; inspector.hidden = true; runId = '*'; layer = 'all'; draw(); showTab('graph'); if(value.reveal !== false) { drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); } },
       onSelect: value => {
         if(value.kind === 'edge') { const edge = graph.edges.find(e=>e.id===value.id); highlightSources(refs(edge)); inspectEdge(edge); }
         else if(value.kind === 'artifact') { const a=artifacts.get(value.id); highlightSources([a.id],[]); inspectArtifacts([a.id],a.role,a); }
