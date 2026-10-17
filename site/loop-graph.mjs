@@ -186,6 +186,7 @@ export async function mount(app) {
     runControl.value = runId;
     toolbar.querySelector('[aria-label="圖層"]').value = layer;
     panoramaController = mountPanorama(panorama, { graph, runs: data.runs, ...workspace,
+      readArtifact: async id => (await content(id)).text,
       onReset: () => { focus=null; selection=null; generation++; inspector.hidden=true; draw(); },
       onScope: value => { workspace = value; focus = null; runId = '*'; generation++; inspector.hidden = true; draw(); showTab('graph'); },
       onFocus: value => { focus = value; runId = '*'; layer = 'all'; draw(); showTab('graph'); if(value.reveal !== false) { drawIndex(graph.nodes.find(n=>value.node_ids.includes(n.id))); canvas.scrollIntoView({block:'start'}); } },
