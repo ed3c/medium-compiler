@@ -1,0 +1,573 @@
+{
+  "schema": 1,
+  "task": "soodles-task-3bc1d7b882125cde8090",
+  "execution_scope": "LOCAL_ONLY",
+  "source_revision": "0b54476a08664392c13a36b7978dd7836a782fec",
+  "scratch": "/tmp/medium-scope-acceptance-x2fa4x4t",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "../../../NeoWeaver/scripts/import_factory_scope.py",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--output",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/native-selected-scope.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"valid\": true, \"bundle_sha256\": \"ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073\", \"proof_ceiling\": \"SOURCE_BOUND_SELECTION_ONLY\", \"effects\": [], \"authorizes_landing\": false}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "../../../NeoWeaver/artifacts/selected-scope.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_scope_result.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "test_conflicting_serialization_refuses_even_when_values_match (test_scope_result.NativeScopeResultTests.test_conflicting_serialization_refuses_even_when_values_match) ... FAIL\ntest_destination_symlink_and_escaping_parent_refuse (test_scope_result.NativeScopeResultTests.test_destination_symlink_and_escaping_parent_refuse) ... FAIL\ntest_empty_site_does_not_invent_selection (test_scope_result.NativeScopeResultTests.test_empty_site_does_not_invent_selection) ... ok\ntest_exact_bytes_then_noop_without_rewrite (test_scope_result.NativeScopeResultTests.test_exact_bytes_then_noop_without_rewrite) ... FAIL\ntest_forged_fields_and_reordering_refuse_without_public_mutation (test_scope_result.NativeScopeResultTests.test_forged_fields_and_reordering_refuse_without_public_mutation) ... FAIL\ntest_html_in_native_source_imports_as_inert_text (test_scope_result.NativeScopeResultTests.test_html_in_native_source_imports_as_inert_text) ... FAIL\ntest_invalid_source_cannot_be_blessed_by_matching_digest (test_scope_result.NativeScopeResultTests.test_invalid_source_cannot_be_blessed_by_matching_digest) ... FAIL\ntest_private_paths_and_credentials_refuse (test_scope_result.NativeScopeResultTests.test_private_paths_and_credentials_refuse) ... FAIL\ntest_render_preserves_all_source_text_order_routes_and_provenance (test_scope_result.NativeScopeResultTests.test_render_preserves_all_source_text_order_routes_and_provenance) ... FAIL\ntest_renderer_escapes_nested_strings_and_keys_without_active_markup (test_scope_result.NativeScopeResultTests.test_renderer_escapes_nested_strings_and_keys_without_active_markup) ... FAIL\ntest_source_bound_private_text_still_refuses (test_scope_result.NativeScopeResultTests.test_source_bound_private_text_still_refuses) ... FAIL\ntest_source_digest_binds_raw_bundle_bytes (test_scope_result.NativeScopeResultTests.test_source_digest_binds_raw_bundle_bytes) ... FAIL\ntest_symlinks_and_wrong_upstream_roots_refuse (test_scope_result.NativeScopeResultTests.test_symlinks_and_wrong_upstream_roots_refuse) ... ok\ntest_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse (test_scope_result.NativeScopeResultTests.test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse) ... FAIL\ntest_existing_builder_connects_scope_routes_css_and_loop_provenance (test_scope_result.ScopeBuildTests.test_existing_builder_connects_scope_routes_css_and_loop_provenance) ... ERROR\ntest_conflicting_serialization_refuses_even_when_values_match (test_scope_result.ScopeResultTests.test_conflicting_serialization_refuses_even_when_values_match) ... FAIL\ntest_destination_symlink_and_escaping_parent_refuse (test_scope_result.ScopeResultTests.test_destination_symlink_and_escaping_parent_refuse) ... FAIL\ntest_empty_site_does_not_invent_selection (test_scope_result.ScopeResultTests.test_empty_site_does_not_invent_selection) ... ok\ntest_exact_bytes_then_noop_without_rewrite (test_scope_result.ScopeResultTests.test_exact_bytes_then_noop_without_rewrite) ... FAIL\ntest_forged_fields_and_reordering_refuse_without_public_mutation (test_scope_result.ScopeResultTests.test_forged_fields_and_reordering_refuse_without_public_mutation) ... FAIL\ntest_private_paths_and_credentials_refuse (test_scope_result.ScopeResultTests.test_private_paths_and_credentials_refuse) ... FAIL\ntest_render_preserves_all_source_text_order_routes_and_provenance (test_scope_result.ScopeResultTests.test_render_preserves_all_source_text_order_routes_and_provenance) ... FAIL\ntest_renderer_escapes_nested_strings_and_keys_without_active_markup (test_scope_result.ScopeResultTests.test_renderer_escapes_nested_strings_and_keys_without_active_markup) ... FAIL\ntest_source_digest_binds_raw_bundle_bytes (test_scope_result.ScopeResultTests.test_source_digest_binds_raw_bundle_bytes) ... FAIL\ntest_symlinks_and_wrong_upstream_roots_refuse (test_scope_result.ScopeResultTests.test_symlinks_and_wrong_upstream_roots_refuse) ... ok\ntest_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse (test_scope_result.ScopeResultTests.test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse) ... FAIL\n\n======================================================================\nERROR: test_existing_builder_connects_scope_routes_css_and_loop_provenance (test_scope_result.ScopeBuildTests.test_existing_builder_connects_scope_routes_css_and_loop_provenance)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 60, in test_existing_builder_connects_scope_routes_css_and_loop_provenance\n    result = builder.build(out)\n  File \"<worktree>/scripts/build_site.py\", line 347, in build\n    scope_provenance=scope_module.render_scopes(ROOT,out,page)\n  File \"<worktree>/scripts/scope_site.py\", line 107, in render_scopes\n    value = checked_result(raw)\n  File \"<worktree>/scripts/scope_site.py\", line 82, in checked_result\n    public_text(value)\n    ~~~~~~~~~~~^^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 59, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 52, in public_text\n    raise ValueError('scope_contains_private_text')\nValueError: scope_contains_private_text\n\n======================================================================\nFAIL: test_conflicting_serialization_refuses_even_when_values_match (test_scope_result.NativeScopeResultTests.test_conflicting_serialization_refuses_even_when_values_match)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 159, in test_conflicting_serialization_refuses_even_when_values_match\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_destination_symlink_and_escaping_parent_refuse (test_scope_result.NativeScopeResultTests.test_destination_symlink_and_escaping_parent_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 242, in test_destination_symlink_and_escaping_parent_refuse\n    self.refused('scope_public_path')\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"<worktree>/tests/test_scope_result.py\", line 136, in refused\n    self.assertIn(error, report['error'])\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'scope_public_path' not found in 'scope_contains_private_text'\n\n======================================================================\nFAIL: test_exact_bytes_then_noop_without_rewrite (test_scope_result.NativeScopeResultTests.test_exact_bytes_then_noop_without_rewrite)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 148, in test_exact_bytes_then_noop_without_rewrite\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_forged_fields_and_reordering_refuse_without_public_mutation (test_scope_result.NativeScopeResultTests.test_forged_fields_and_reordering_refuse_without_public_mutation)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 164, in test_forged_fields_and_reordering_refuse_without_public_mutation\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_html_in_native_source_imports_as_inert_text (test_scope_result.NativeScopeResultTests.test_html_in_native_source_imports_as_inert_text)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 349, in test_html_in_native_source_imports_as_inert_text\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_invalid_source_cannot_be_blessed_by_matching_digest (test_scope_result.NativeScopeResultTests.test_invalid_source_cannot_be_blessed_by_matching_digest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 316, in test_invalid_source_cannot_be_blessed_by_matching_digest\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_private_paths_and_credentials_refuse (test_scope_result.NativeScopeResultTests.test_private_paths_and_credentials_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 211, in test_private_paths_and_credentials_refuse\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_render_preserves_all_source_text_order_routes_and_provenance (test_scope_result.NativeScopeResultTests.test_render_preserves_all_source_text_order_routes_and_provenance)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 252, in test_render_preserves_all_source_text_order_routes_and_provenance\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_renderer_escapes_nested_strings_and_keys_without_active_markup (test_scope_result.NativeScopeResultTests.test_renderer_escapes_nested_strings_and_keys_without_active_markup)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 280, in test_renderer_escapes_nested_strings_and_keys_without_active_markup\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_source_bound_private_text_still_refuses (test_scope_result.NativeScopeResultTests.test_source_bound_private_text_still_refuses)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 333, in test_source_bound_private_text_still_refuses\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_source_digest_binds_raw_bundle_bytes (test_scope_result.NativeScopeResultTests.test_source_digest_binds_raw_bundle_bytes)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 191, in test_source_digest_binds_raw_bundle_bytes\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse (test_scope_result.NativeScopeResultTests.test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 196, in test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_conflicting_serialization_refuses_even_when_values_match (test_scope_result.ScopeResultTests.test_conflicting_serialization_refuses_even_when_values_match)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 159, in test_conflicting_serialization_refuses_even_when_values_match\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_destination_symlink_and_escaping_parent_refuse (test_scope_result.ScopeResultTests.test_destination_symlink_and_escaping_parent_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 242, in test_destination_symlink_and_escaping_parent_refuse\n    self.refused('scope_public_path')\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"<worktree>/tests/test_scope_result.py\", line 136, in refused\n    self.assertIn(error, report['error'])\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'scope_public_path' not found in 'scope_contains_private_text'\n\n======================================================================\nFAIL: test_exact_bytes_then_noop_without_rewrite (test_scope_result.ScopeResultTests.test_exact_bytes_then_noop_without_rewrite)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 148, in test_exact_bytes_then_noop_without_rewrite\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_forged_fields_and_reordering_refuse_without_public_mutation (test_scope_result.ScopeResultTests.test_forged_fields_and_reordering_refuse_without_public_mutation)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 164, in test_forged_fields_and_reordering_refuse_without_public_mutation\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_private_paths_and_credentials_refuse (test_scope_result.ScopeResultTests.test_private_paths_and_credentials_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 211, in test_private_paths_and_credentials_refuse\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_render_preserves_all_source_text_order_routes_and_provenance (test_scope_result.ScopeResultTests.test_render_preserves_all_source_text_order_routes_and_provenance)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 252, in test_render_preserves_all_source_text_order_routes_and_provenance\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_renderer_escapes_nested_strings_and_keys_without_active_markup (test_scope_result.ScopeResultTests.test_renderer_escapes_nested_strings_and_keys_without_active_markup)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 280, in test_renderer_escapes_nested_strings_and_keys_without_active_markup\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_source_digest_binds_raw_bundle_bytes (test_scope_result.ScopeResultTests.test_source_digest_binds_raw_bundle_bytes)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 191, in test_source_digest_binds_raw_bundle_bytes\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n======================================================================\nFAIL: test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse (test_scope_result.ScopeResultTests.test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_scope_result.py\", line 196, in test_unknown_fields_duplicate_keys_constants_and_wrong_types_refuse\n    self.imported()\n    ~~~~~~~~~~~~~^^\n  File \"<worktree>/tests/test_scope_result.py\", line 142, in imported\n    self.assertEqual(result.returncode, 0, result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2 != 0 : {\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n\n\n----------------------------------------------------------------------\nRan 26 tests in 2.404s\n\nFAILED (failures=21, errors=1)\n",
+      "environment_inputs": {
+        "SCOPE_FACTORYWEAVER_ROOT": "../../../factoryweaver",
+        "SCOPE_NEOWEAVER_ROOT": "../../../NeoWeaver",
+        "SCOPE_BUNDLE": "../../../factoryweaver/artifacts/parser-scope.json",
+        "SCOPE_RESULT": "../../../NeoWeaver/artifacts/selected-scope.json"
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/build_site.py",
+        "--out",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/site"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<worktree>/scripts/build_site.py\", line 403, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"<worktree>/scripts/build_site.py\", line 401, in main\n    print(json.dumps(build(a.out),ensure_ascii=False,indent=2))\n                     ~~~~~^^^^^^^\n  File \"<worktree>/scripts/build_site.py\", line 347, in build\n    scope_provenance=scope_module.render_scopes(ROOT,out,page)\n  File \"<worktree>/scripts/scope_site.py\", line 107, in render_scopes\n    value = checked_result(raw)\n  File \"<worktree>/scripts/scope_site.py\", line 82, in checked_result\n    public_text(value)\n    ~~~~~~~~~~~^^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 59, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 52, in public_text\n    raise ValueError('scope_contains_private_text')\nValueError: scope_contains_private_text\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*loop*.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "test_catalog_only_missing_snapshot_is_not_recovered (test_import_loop_snapshot.ImportLoopSnapshotTests.test_catalog_only_missing_snapshot_is_not_recovered) ... ok\ntest_duplicate_catalog_paths_refuse_even_with_no_runs (test_import_loop_snapshot.ImportLoopSnapshotTests.test_duplicate_catalog_paths_refuse_even_with_no_runs) ... ok\ntest_duplicate_run_ids_within_input_and_across_catalog_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_duplicate_run_ids_within_input_and_across_catalog_refuse) ... ok\ntest_existing_catalog_digest_drift_refuses_new_import_and_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_existing_catalog_digest_drift_refuses_new_import_and_noop) ... ok\ntest_existing_duplicate_run_ids_refuse_even_on_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_existing_duplicate_run_ids_refuse_even_on_noop) ... ok\ntest_first_import_preserves_original_bytes_and_renderer_content (test_import_loop_snapshot.ImportLoopSnapshotTests.test_first_import_preserves_original_bytes_and_renderer_content) ... ok\ntest_invalid_and_private_snapshots_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_invalid_and_private_snapshots_refuse) ... ok\ntest_invalid_catalog_and_escaping_source_paths_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_invalid_catalog_and_escaping_source_paths_refuse) ... ok\ntest_same_bytes_are_noop_without_rewriting_files (test_import_loop_snapshot.ImportLoopSnapshotTests.test_same_bytes_are_noop_without_rewriting_files) ... ok\ntest_same_id_with_different_bytes_refuses (test_import_loop_snapshot.ImportLoopSnapshotTests.test_same_id_with_different_bytes_refuses) ... ok\ntest_snapshot_only_interruption_recovers_existing_catalog (test_import_loop_snapshot.ImportLoopSnapshotTests.test_snapshot_only_interruption_recovers_existing_catalog) ... ok\ntest_snapshot_only_with_different_bytes_refuses (test_import_loop_snapshot.ImportLoopSnapshotTests.test_snapshot_only_with_different_bytes_refuses) ... ok\ntest_supersede_chain_validates_every_retained_snapshot (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_chain_validates_every_retained_snapshot) ... ok\ntest_supersede_reentry_refuses_wrong_lineage_and_retained_source_drift (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_reentry_refuses_wrong_lineage_and_retained_source_drift) ... ok\ntest_supersede_rejects_missing_old_run_changed_identity_and_other_duplicates (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_rejects_missing_old_run_changed_identity_and_other_duplicates) ... ok\ntest_supersede_retains_old_bytes_and_reentry_is_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_retains_old_bytes_and_reentry_is_noop) ... ok\ntest_supersede_snapshot_only_interruption_recovers_and_preserves_history (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_snapshot_only_interruption_recovers_and_preserves_history) ... ok\ntest_symlink_destination_and_catalog_refuse_without_touching_targets (test_import_loop_snapshot.ImportLoopSnapshotTests.test_symlink_destination_and_catalog_refuse_without_touching_targets) ... ok\ntest_unsafe_and_reserved_ids_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_unsafe_and_reserved_ids_refuse) ... ok\ntest_duplicate_fields_refuse_before_launch (test_loop_entry.LoopEntryTests.test_duplicate_fields_refuse_before_launch) ... ok\ntest_forwards_unchanged_request_once_and_returns_original_status (test_loop_entry.LoopEntryTests.test_forwards_unchanged_request_once_and_returns_original_status) ... ok\ntest_semantic_fields_are_validated_only_by_original_cli (test_loop_entry.LoopEntryTests.test_semantic_fields_are_validated_only_by_original_cli) ... ok\ntest_wrong_repository_and_schema_refuse_before_launch (test_loop_entry.LoopEntryTests.test_wrong_repository_and_schema_refuse_before_launch) ... ok\ntest_canonical_invalid_edges_cycle_identity_and_metric_denominator_refuse (test_loop_graph_site.LoopGraphSiteTests.test_canonical_invalid_edges_cycle_identity_and_metric_denominator_refuse) ... ok\ntest_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls (test_loop_graph_site.LoopGraphSiteTests.test_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls) ... ok\ntest_private_original_content_public_digest_and_oversized_payload_refuse (test_loop_graph_site.LoopGraphSiteTests.test_private_original_content_public_digest_and_oversized_payload_refuse) ... ok\ntest_public_v2_import_preserves_bytes_noop_and_rejects_symlink_source (test_loop_graph_site.LoopGraphSiteTests.test_public_v2_import_preserves_bytes_noop_and_rejects_symlink_source) ... ok\ntest_retained_run_without_graph_occurrences_keeps_original_timeline (test_loop_graph_site.LoopGraphSiteTests.test_retained_run_without_graph_occurrences_keeps_original_timeline) ... ok\ntest_v2_build_keeps_original_identity_and_fetches_only_reviewed_static_content (test_loop_graph_site.LoopGraphSiteTests.test_v2_build_keeps_original_identity_and_fetches_only_reviewed_static_content) ... ok\ntest_duplicate_ids_unknown_stage_and_extra_fields_refuse (test_loop_site.LoopSiteTests.test_duplicate_ids_unknown_stage_and_extra_fields_refuse) ... ok\ntest_empty_catalog_does_not_invent_execution (test_loop_site.LoopSiteTests.test_empty_catalog_does_not_invent_execution) ... ok\ntest_existing_builder_exposes_loop_navigation_and_provenance (test_loop_site.LoopSiteTests.test_existing_builder_exposes_loop_navigation_and_provenance) ... ERROR\ntest_hash_drift_and_path_escape_refuse (test_loop_site.LoopSiteTests.test_hash_drift_and_path_escape_refuse) ... ok\ntest_private_fields_and_known_private_text_refuse (test_loop_site.LoopSiteTests.test_private_fields_and_known_private_text_refuse) ... ok\ntest_prompt_comparison_preserves_text_and_unknown (test_loop_site.LoopSiteTests.test_prompt_comparison_preserves_text_and_unknown) ... ok\ntest_public_snapshot_renders_inert_text_and_preserves_unknown (test_loop_site.LoopSiteTests.test_public_snapshot_renders_inert_text_and_preserves_unknown) ... ok\ntest_public_text_remains_valid_and_nested_private_refs_refuse (test_loop_site.LoopSiteTests.test_public_text_remains_valid_and_nested_private_refs_refuse) ... ok\ntest_publication_excludes_native_state_and_environment_files (test_loop_site.LoopSiteTests.test_publication_excludes_native_state_and_environment_files) ... ok\n\n======================================================================\nERROR: test_existing_builder_exposes_loop_navigation_and_provenance (test_loop_site.LoopSiteTests.test_existing_builder_exposes_loop_navigation_and_provenance)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<worktree>/tests/test_loop_site.py\", line 184, in test_existing_builder_exposes_loop_navigation_and_provenance\n    result = builder.build(out)\n  File \"<worktree>/scripts/build_site.py\", line 347, in build\n    scope_provenance=scope_module.render_scopes(ROOT,out,page)\n  File \"<worktree>/scripts/scope_site.py\", line 107, in render_scopes\n    value = checked_result(raw)\n  File \"<worktree>/scripts/scope_site.py\", line 82, in checked_result\n    public_text(value)\n    ~~~~~~~~~~~^^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 59, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 56, in public_text\n    public_text(item)\n    ~~~~~~~~~~~^^^^^^\n  File \"<worktree>/scripts/scope_site.py\", line 52, in public_text\n    raise ValueError('scope_contains_private_text')\nValueError: scope_contains_private_text\n\n----------------------------------------------------------------------\nRan 38 tests in 4.987s\n\nFAILED (errors=1)\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "../../../NeoWeaver/artifacts/selected-scope.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"NOOP\", \"path\": \"reports/scopes/parser-scope.json\", \"sha256\": \"053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad\", \"bundle_sha256\": \"ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073\", \"proof_ceiling\": \"SOURCE_BOUND_SELECTION_ONLY\", \"effects\": [], \"authorizes_landing\": false}\n",
+      "stderr": "",
+      "phase": "after_path_boundary_fix"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/build_site.py",
+        "--out",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/site"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"schema_version\": \"ai-engineer-site-build@1\",\n  \"article\": \"articles/ai-engineer-learning-path.md\",\n  \"ops_provider_revision\": \"b31e3c52360946a018f44e326e1218324177043a\",\n  \"curriculum_revision\": \"c257687012e3b0ae7cf55f7f467e4b703652b3cc\",\n  \"learning\": {\n    \"status\": \"NOT_INITIALIZED\",\n    \"entry_point\": null,\n    \"pace\": null,\n    \"progress_rows\": 0,\n    \"review_items\": 0\n  },\n  \"articles\": [\n    {\n      \"source\": \"articles/agent-primitives-product-differentiation.md\",\n      \"route\": \"/articles/agent-primitives-product-differentiation/\",\n      \"sha256\": \"08422f0ee969df705160c72348f6ca32699f89135fce3d4f1d1f7ff884f51b38\",\n      \"source_manifest\": \"references/transcripts/openrouter-agent-primitives.json\",\n      \"source_manifest_sha256\": \"97ddec6decd7d672d98a91c0a069cfe225e6dd1576729082451354e7fbc2a5ed\",\n      \"source_route\": \"/articles/agent-primitives-product-differentiation/source.json\",\n      \"audio_verified\": false\n    },\n    {\n      \"source\": \"articles/architect-amplifier-payment-decisions.md\",\n      \"route\": \"/articles/architect-amplifier-payment-decisions/\",\n      \"sha256\": \"d674509ae9a16e74b5df53588c9c70a465cd52802e43d92a902e1b6dd5aa7a46\",\n      \"video_id\": \"F8X9_Dp3ZUk\",\n      \"video_url\": \"https://www.youtube.com/watch?v=F8X9_Dp3ZUk\"\n    },\n    {\n      \"source\": \"articles/checkout-reliability-large-traffic.md\",\n      \"route\": \"/articles/checkout-reliability-large-traffic/\",\n      \"sha256\": \"b15a3ec4d187fc4495890ab669f3ac1e4aca3488ae9f4af8fee4f1be11383a3e\"\n    },\n    {\n      \"source\": \"articles/ai-engineer-learning-path.md\",\n      \"route\": \"/articles/ai-engineer-learning-path/\",\n      \"sha256\": \"04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\"\n    },\n    {\n      \"source\": \"articles/application-engineering-colab.md\",\n      \"route\": \"/articles/application-engineering-colab/\",\n      \"sha256\": \"8f62ba37cd820cf3e68755bfc214bcd9f4b307bcb5dd050de28ffd0f818287a5\"\n    },\n    {\n      \"source\": \"articles/git-collaboration.md\",\n      \"route\": \"/articles/git-collaboration/\",\n      \"sha256\": \"14da88f545a69fe6a84024456802c545d6d0ada8ff07cb33c4677de48d62b17d\"\n    },\n    {\n      \"source\": \"articles/python-environments.md\",\n      \"route\": \"/articles/python-environments/\",\n      \"sha256\": \"519bbee91281f1545182b3d4eb8aefd9e6905115ef05c03f221bcba530b7e9b0\"\n    }\n  ],\n  \"ai_evals\": [\n    {\n      \"route\": \"/ai-evals/soodles-claim-refusal/\",\n      \"report_sha256\": \"2869620bcf61c966e0cf4699f1fc2a1cb2a5ff7b0926054fe3d95c9778ce6f7a\",\n      \"repository\": \"ed3c/soodles\",\n      \"revision\": \"d58c4e7ba0685c367da5c3060e06e6c5fc38f85f\",\n      \"assessment_sha256\": \"571677828b3909cef029ef7666a596cf375608bb6218461c8d9e1e2e6133cf59\",\n      \"audit_sha256\": \"2c9de5fa4e5849416a24a923562243f5dff5b8e9cceb5b1f13a45f447ea55b07\",\n      \"mode\": \"RETROSPECTIVE_REVIEW\"\n    },\n    {\n      \"route\": \"/ai-evals/soodles-manager-cost/\",\n      \"report_sha256\": \"0e95c7946bd767daea78d6460ae9d799248e479d93cf4f2576b93597c8663abf\",\n      \"repository\": \"ed3c/soodles\",\n      \"revision\": \"d58c4e7ba0685c367da5c3060e06e6c5fc38f85f\",\n      \"assessment_sha256\": \"a2cd34495bc9f83c00ca737c5b39fd1c1a23a0f03ca3332a4b77ea6216e61dd8\",\n      \"audit_sha256\": \"44a838e070212351cf794741d90b863d27f077caeb0e8b58e5cccdb0aaf7e7d0\",\n      \"mode\": \"SOURCE_AND_RUNTIME_REVIEW\"\n    },\n    {\n      \"route\": \"/ai-evals/staff-engineering-decisions/\",\n      \"report_sha256\": \"eb69e139541f93539a8c1fb4acdcedef79b997506f042b2bf2e3cb6f3ddc3068\",\n      \"repository\": \"ed3c/medium-compiler\",\n      \"revision\": \"e30508d0f78a98a225e72f8c9e13273ae0582b25\",\n      \"assessment_sha256\": \"7979004b0890daad92be5b89b7859078b0a55bf8579313774e2534989474a1f8\",\n      \"audit_sha256\": \"fb30cb80766f79029c2dbe9144fbd92c0957d22936338e1a79b4f509f6a16580\",\n      \"mode\": \"RECORDED_DECISIONS_AND_SOURCE_REVIEW\"\n    },\n    {\n      \"route\": \"/ai-evals/staff-evals-method-loop/\",\n      \"report_sha256\": \"82648004298beceedab5a209e85dbf2f38dff4aa54753d002422db7d46cf3525\",\n      \"repository\": \"ed3c/medium-compiler\",\n      \"revision\": \"1ef857be738e4de106457063539ff28d75dc36d9\",\n      \"assessment_sha256\": \"1830545038e23fe8576796455ca8b773ee57254c0e7d1bc5c086b529f733b729\",\n      \"audit_sha256\": \"92f9b973534b8f6b0fddcfc7e1d750201f0a63356634d6a117d8aa8d194ac41c\",\n      \"mode\": \"SCOPED_METHOD_AND_CONSUMER_REVIEW\"\n    }\n  ],\n  \"loops\": [\n    {\n      \"route\": \"/loops/13660f039ac062c7270f9054ae56fd33ff5afe267fda423beef69251091d0b79/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://parallel//factoryweaver\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/38d5ee3d9f3707534a897542c2e34ca37cefaa6b1e368025e793166b5dd99b8d/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://acceptance//NeoWeaver\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/40b047d3f076f6aa8f48a54f0d2db3b9a76a851d167920f2cbad84aa5e202003/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://NeoWeaver\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/74f76b5898cb355938db73d92e93ae0ab598d2a51c2936069063b31b60be9bcc/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://acceptance//medium-compiler\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/75d690ead0c70e93951e725dfafb792c947913a8b09c6f6c06a1053ffd072418/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://parallel//NeoWeaver\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/83e74e6a1964d0234c15ea2c2a5fb8309c98a9abeb1697f12f21757a9e7efcbd/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://medium-compiler\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/caba10d9114a888c7f3291d9bacdaea4feacff9f9ac67aa3c8e1a239c681e0ed/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://parallel//medium-compiler\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/d78e65e9592966fb2699282ac669c24234861dd3e8c86d990aae847a230a1222/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://factoryweaver\",\n      \"mode\": \"outer-only\",\n      \"status\": \"prepared\"\n    },\n    {\n      \"route\": \"/loops/e6b8405392b6391864525c97e24fca41c3813338972c6f70bf6f911145f075d7/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://factoryweaver\",\n      \"mode\": \"outer-inner\",\n      \"status\": \"completed\"\n    },\n    {\n      \"route\": \"/loops/f1c874e90a5c6fa4ebefdd3f6ab3284994eeb15951569a91a879316f005ab48f/\",\n      \"snapshot_sha256\": \"2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d\",\n      \"repository\": \"repo://acceptance//factoryweaver\",\n      \"mode\": \"inner-only\",\n      \"status\": \"completed\"\n    }\n  ],\n  \"scopes\": [\n    {\n      \"route\": \"/scopes/parser-scope/\",\n      \"result_sha256\": \"053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad\",\n      \"bundle_sha256\": \"ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073\",\n      \"proof_ceiling\": \"SOURCE_BOUND_SELECTION_ONLY\"\n    }\n  ],\n  \"cefr_alg\": {\n    \"repository\": \"https://github.com/ed3c/cefr-alg-c2-plus\",\n    \"revision\": \"b4b37fd95e9e654aa11c70ce76333aaeea683cd1\",\n    \"route\": \"/cefr-alg-c2/\",\n    \"manifest\": \"/cefr-alg-c2/provenance.json\"\n  }\n}\n",
+      "stderr": "",
+      "phase": "after_path_boundary_fix"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*loop*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_catalog_only_missing_snapshot_is_not_recovered (test_import_loop_snapshot.ImportLoopSnapshotTests.test_catalog_only_missing_snapshot_is_not_recovered) ... ok\ntest_duplicate_catalog_paths_refuse_even_with_no_runs (test_import_loop_snapshot.ImportLoopSnapshotTests.test_duplicate_catalog_paths_refuse_even_with_no_runs) ... ok\ntest_duplicate_run_ids_within_input_and_across_catalog_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_duplicate_run_ids_within_input_and_across_catalog_refuse) ... ok\ntest_existing_catalog_digest_drift_refuses_new_import_and_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_existing_catalog_digest_drift_refuses_new_import_and_noop) ... ok\ntest_existing_duplicate_run_ids_refuse_even_on_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_existing_duplicate_run_ids_refuse_even_on_noop) ... ok\ntest_first_import_preserves_original_bytes_and_renderer_content (test_import_loop_snapshot.ImportLoopSnapshotTests.test_first_import_preserves_original_bytes_and_renderer_content) ... ok\ntest_invalid_and_private_snapshots_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_invalid_and_private_snapshots_refuse) ... ok\ntest_invalid_catalog_and_escaping_source_paths_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_invalid_catalog_and_escaping_source_paths_refuse) ... ok\ntest_same_bytes_are_noop_without_rewriting_files (test_import_loop_snapshot.ImportLoopSnapshotTests.test_same_bytes_are_noop_without_rewriting_files) ... ok\ntest_same_id_with_different_bytes_refuses (test_import_loop_snapshot.ImportLoopSnapshotTests.test_same_id_with_different_bytes_refuses) ... ok\ntest_snapshot_only_interruption_recovers_existing_catalog (test_import_loop_snapshot.ImportLoopSnapshotTests.test_snapshot_only_interruption_recovers_existing_catalog) ... ok\ntest_snapshot_only_with_different_bytes_refuses (test_import_loop_snapshot.ImportLoopSnapshotTests.test_snapshot_only_with_different_bytes_refuses) ... ok\ntest_supersede_chain_validates_every_retained_snapshot (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_chain_validates_every_retained_snapshot) ... ok\ntest_supersede_reentry_refuses_wrong_lineage_and_retained_source_drift (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_reentry_refuses_wrong_lineage_and_retained_source_drift) ... ok\ntest_supersede_rejects_missing_old_run_changed_identity_and_other_duplicates (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_rejects_missing_old_run_changed_identity_and_other_duplicates) ... ok\ntest_supersede_retains_old_bytes_and_reentry_is_noop (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_retains_old_bytes_and_reentry_is_noop) ... ok\ntest_supersede_snapshot_only_interruption_recovers_and_preserves_history (test_import_loop_snapshot.ImportLoopSnapshotTests.test_supersede_snapshot_only_interruption_recovers_and_preserves_history) ... ok\ntest_symlink_destination_and_catalog_refuse_without_touching_targets (test_import_loop_snapshot.ImportLoopSnapshotTests.test_symlink_destination_and_catalog_refuse_without_touching_targets) ... ok\ntest_unsafe_and_reserved_ids_refuse (test_import_loop_snapshot.ImportLoopSnapshotTests.test_unsafe_and_reserved_ids_refuse) ... ok\ntest_duplicate_fields_refuse_before_launch (test_loop_entry.LoopEntryTests.test_duplicate_fields_refuse_before_launch) ... ok\ntest_forwards_unchanged_request_once_and_returns_original_status (test_loop_entry.LoopEntryTests.test_forwards_unchanged_request_once_and_returns_original_status) ... ok\ntest_semantic_fields_are_validated_only_by_original_cli (test_loop_entry.LoopEntryTests.test_semantic_fields_are_validated_only_by_original_cli) ... ok\ntest_wrong_repository_and_schema_refuse_before_launch (test_loop_entry.LoopEntryTests.test_wrong_repository_and_schema_refuse_before_launch) ... ok\ntest_canonical_invalid_edges_cycle_identity_and_metric_denominator_refuse (test_loop_graph_site.LoopGraphSiteTests.test_canonical_invalid_edges_cycle_identity_and_metric_denominator_refuse) ... ok\ntest_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls (test_loop_graph_site.LoopGraphSiteTests.test_nonpublic_and_unknown_artifacts_keep_named_gaps_without_content_urls) ... ok\ntest_private_original_content_public_digest_and_oversized_payload_refuse (test_loop_graph_site.LoopGraphSiteTests.test_private_original_content_public_digest_and_oversized_payload_refuse) ... ok\ntest_public_v2_import_preserves_bytes_noop_and_rejects_symlink_source (test_loop_graph_site.LoopGraphSiteTests.test_public_v2_import_preserves_bytes_noop_and_rejects_symlink_source) ... ok\ntest_retained_run_without_graph_occurrences_keeps_original_timeline (test_loop_graph_site.LoopGraphSiteTests.test_retained_run_without_graph_occurrences_keeps_original_timeline) ... ok\ntest_v2_build_keeps_original_identity_and_fetches_only_reviewed_static_content (test_loop_graph_site.LoopGraphSiteTests.test_v2_build_keeps_original_identity_and_fetches_only_reviewed_static_content) ... ok\ntest_duplicate_ids_unknown_stage_and_extra_fields_refuse (test_loop_site.LoopSiteTests.test_duplicate_ids_unknown_stage_and_extra_fields_refuse) ... ok\ntest_empty_catalog_does_not_invent_execution (test_loop_site.LoopSiteTests.test_empty_catalog_does_not_invent_execution) ... ok\ntest_existing_builder_exposes_loop_navigation_and_provenance (test_loop_site.LoopSiteTests.test_existing_builder_exposes_loop_navigation_and_provenance) ... ok\ntest_hash_drift_and_path_escape_refuse (test_loop_site.LoopSiteTests.test_hash_drift_and_path_escape_refuse) ... ok\ntest_private_fields_and_known_private_text_refuse (test_loop_site.LoopSiteTests.test_private_fields_and_known_private_text_refuse) ... ok\ntest_prompt_comparison_preserves_text_and_unknown (test_loop_site.LoopSiteTests.test_prompt_comparison_preserves_text_and_unknown) ... ok\ntest_public_snapshot_renders_inert_text_and_preserves_unknown (test_loop_site.LoopSiteTests.test_public_snapshot_renders_inert_text_and_preserves_unknown) ... ok\ntest_public_text_remains_valid_and_nested_private_refs_refuse (test_loop_site.LoopSiteTests.test_public_text_remains_valid_and_nested_private_refs_refuse) ... ok\ntest_publication_excludes_native_state_and_environment_files (test_loop_site.LoopSiteTests.test_publication_excludes_native_state_and_environment_files) ... ok\n\n----------------------------------------------------------------------\nRan 38 tests in 5.383s\n\nOK\n",
+      "phase": "after_path_boundary_fix"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "doctor",
+        "--out",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/doctor"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"alg-explainer-video\",\n        \"alg-vocab-encounter\",\n        \"build-review-interface\",\n        \"cefr-alg-four-pass\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"podcast-to-medium\",\n        \"sloptrim\",\n        \"staff-evals\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:0fa917e7944dc339bb4ef94f97c4f0efc7a1310eb63b807f4890ee3ee1c41b22\",\n      \"cefr_skill_revision\": \"b4b37fd95e9e654aa11c70ce76333aaeea683cd1\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": "",
+      "phase": "after_path_boundary_fix"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        ".agents/skills/verify-medium/scripts/verify.py",
+        "--feature",
+        "delivery",
+        "--out",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/delivery"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"features\": {\n    \"doctor\": {\n      \"status\": \"PASS\",\n      \"python\": \"3.14.6\",\n      \"registered_skills\": [\n        \"alg-explainer-video\",\n        \"alg-vocab-encounter\",\n        \"build-review-interface\",\n        \"cefr-alg-four-pass\",\n        \"check-understanding\",\n        \"course-guide\",\n        \"error-discovery\",\n        \"eval-audit\",\n        \"evals-start\",\n        \"evaluate-rag\",\n        \"find-your-level\",\n        \"generate-synthetic-data\",\n        \"learn\",\n        \"maintain-medium-verification\",\n        \"medium-behavior-evals\",\n        \"medium-writing\",\n        \"podcast-to-medium\",\n        \"sloptrim\",\n        \"staff-evals\",\n        \"start-learning\",\n        \"validate-evaluator\",\n        \"verify-learning-article\",\n        \"verify-medium\",\n        \"write-code-eval\",\n        \"write-judge-prompt\"\n      ],\n      \"registration\": \"FILES_VERIFIED; live host instruction activation not measured\",\n      \"compiler_sha256\": \"sha256:0fa917e7944dc339bb4ef94f97c4f0efc7a1310eb63b807f4890ee3ee1c41b22\",\n      \"cefr_skill_revision\": \"b4b37fd95e9e654aa11c70ce76333aaeea683cd1\"\n    },\n    \"delivery\": {\n      \"status\": \"PASS\",\n      \"parts\": 5,\n      \"refusal_controls\": {\n        \"missing_part\": true,\n        \"reordered_parts\": true,\n        \"changed_part\": true\n      },\n      \"article_sha256\": \"sha256:04175f5ab3ab09c6b47b3217a818a83da4532967ec84f8ba767cf847c326fee4\",\n      \"medium_browser_rendering\": \"NOT_RUN\"\n    }\n  },\n  \"outcome\": \"mechanical_pass\",\n  \"source_review\": \"coordinator source review is separate; no subagent wave fabricated\",\n  \"strict_pstack_maintenance\": \"NOT_CLAIMED\",\n  \"evidence_retained\": true\n}\n",
+      "stderr": "",
+      "phase": "after_path_boundary_fix"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_scope_result.py",
+        "-v"
+      ],
+      "environment_inputs": {
+        "SCOPE_FACTORYWEAVER_ROOT": "../../../factoryweaver",
+        "SCOPE_NEOWEAVER_ROOT": "../../../NeoWeaver",
+        "SCOPE_BUNDLE": "../../../factoryweaver/artifacts/parser-scope.json",
+        "SCOPE_RESULT": "../../../NeoWeaver/artifacts/selected-scope.json"
+      },
+      "exit_code": 0,
+      "stderr_summary": "Ran 26 tests in 13.904s; OK. Includes 14 native integration tests, 11 transport tests and 1 full builder test.",
+      "observation": "Captured from exec session 29629 after path-boundary correction; no native tests skipped."
+    }
+  ],
+  "cloud_browser": "NOT_RUN",
+  "provider_effects": "NOT_RUN",
+  "deployment": "NOT_RUN",
+  "push": "NOT_RUN",
+  "merge": "NOT_RUN",
+  "independent_agent_review": "NOT_RUN: task forbids new agents",
+  "methodology": {
+    "selected_skills_read": [
+      "local-task",
+      "poteto-mode"
+    ],
+    "grounding": "Read original NeoWeaver CLI, native result, FactoryWeaver bundle and exporter, existing Loop importer/renderer and builder.",
+    "design": "Recompute through original CLI in subprocess; field/type/list-order comparison; atomic hard-link exact bytes; existing page/CSS renderer. No second FactoryWeaver schema validator.",
+    "checkpoint": {
+      "blocking_first_steps": "Read selected skills and upstream artifacts before editing.",
+      "independent_workstreams": "One worker owns the coupled importer, renderer and tests. New agents forbidden.",
+      "shared_mutable_state": "Only reports/scopes/parser-scope.json is imported, with atomic create/noop/conflict refusal.",
+      "smallest_safe_decomposition": "Importer controls, then site build and existing Loop regression."
+    }
+  },
+  "loop_files_before": {
+    "reports/loops/README.md": "e1406fd1975695df3d1fc931c268d2856fcfd5a644ca62355816de4e907a1fe8",
+    "reports/loops/catalog.json": "dcbdf3cfb94c572d51e500ea161b4f97852b660b928bf71e8128d756757d00ac",
+    "reports/loops/loop-manager-20261015.json": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3",
+    "reports/loops/loop-manager-dag-20261015.json": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d"
+  },
+  "native_result_matches_supplied_exact_bytes": true,
+  "result_sha256": "053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad",
+  "bundle_sha256": "ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073",
+  "initial_import_observed": {
+    "argv": [
+      "python3",
+      "-B",
+      "scripts/import_scope_result.py",
+      "--result",
+      "../../../NeoWeaver/artifacts/selected-scope.json",
+      "--bundle",
+      "../../../factoryweaver/artifacts/parser-scope.json",
+      "--factoryweaver-root",
+      "../../../factoryweaver",
+      "--neoweaver-root",
+      "../../../NeoWeaver"
+    ],
+    "exit_code": 0,
+    "status": "IMPORTED",
+    "result_sha256": "053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad",
+    "observation": "Executed before this recording harness; stdout observed in session tool output."
+  },
+  "loop_files_after": {
+    "reports/loops/README.md": "e1406fd1975695df3d1fc931c268d2856fcfd5a644ca62355816de4e907a1fe8",
+    "reports/loops/catalog.json": "dcbdf3cfb94c572d51e500ea161b4f97852b660b928bf71e8128d756757d00ac",
+    "reports/loops/loop-manager-20261015.json": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3",
+    "reports/loops/loop-manager-dag-20261015.json": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d"
+  },
+  "loop_files_unchanged": true,
+  "status": "LOCAL_ACCEPTANCE_OBSERVED",
+  "corrections": [
+    {
+      "attempt": 1,
+      "failure": "Private path extension matched /data/ inside code/data/model/trace, refusing an unchanged legitimate source. Focused suite and build failed; existing Loop build test also failed.",
+      "root_cause": "The added POSIX roots pattern did not require a path-start boundary.",
+      "change": "Require a boundary before added POSIX private roots. Preserve original source text."
+    }
+  ],
+  "log_redaction": "Personal absolute worktree paths in tracebacks replaced with <worktree>; argv arrays are actual commands.",
+  "source_files": {
+    "../../../NeoWeaver/scripts/import_factory_scope.py": {
+      "sha256": "c605f88761c20a9d47b813124a1194284a516b829764db67fb2dfc8ecdfd521f"
+    },
+    "../../../NeoWeaver/artifacts/selected-scope.json": {
+      "sha256": "053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad"
+    },
+    "../../../factoryweaver/scripts/soodles_handoff.py": {
+      "sha256": "ba9d6fcfab896a5ef522bd61cf37e9d82edcffc6103785624da8a3663ac5d22d"
+    },
+    "../../../factoryweaver/scripts/factoryweaver.py": {
+      "sha256": "49dbfa2b85de3949edf3c0b2edb9546395edbae78db135f40ed16a38c5864537"
+    },
+    "../../../factoryweaver/artifacts/parser-scope.json": {
+      "sha256": "ca20523f82c892593d8608bb70859b9ef00dafac05b9c5fa740257f387233073"
+    }
+  },
+  "controls": [
+    {
+      "control": "source_digest",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-source_digest.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"source_bundle_digest_mismatch\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "goal",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-goal.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"source_result_value_mismatch:$.goal\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "prompt_delta",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-prompt_delta.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"source_result_length_mismatch:$.prompt_delta\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "unknown_protocol",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-unknown_protocol.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"unknown_scope_protocol\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "landing",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-landing.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_has_no_effect_or_landing_authority\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "effects",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-effects.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_has_no_effect_or_landing_authority\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "private_path",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-private_path.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "credential",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-credential.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_contains_private_text\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "byte_conflict",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-byte_conflict.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"scope_output_conflict_requires_original_readback\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "card",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-card.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"source_result_value_mismatch:$.cards[0].payload\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    },
+    {
+      "control": "requirements_order",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/import_scope_result.py",
+        "--result",
+        "/tmp/medium-scope-acceptance-x2fa4x4t/negative-requirements_order.json",
+        "--bundle",
+        "../../../factoryweaver/artifacts/parser-scope.json",
+        "--factoryweaver-root",
+        "../../../factoryweaver",
+        "--neoweaver-root",
+        "../../../NeoWeaver"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "{\"status\": \"REFUSED\", \"error\": \"source_result_value_mismatch:$.requirements[0].acceptance[0]\"}\n",
+      "public_bytes_unchanged": true,
+      "public_inode_and_mtime_unchanged": true
+    }
+  ],
+  "artifact_readback": {
+    "public_exact_native_bytes": true,
+    "result_sha256": "053ac08c6be6b222bbd60d21c5937b4acdb5281e430234fd8aa3c79cb7fc7cad",
+    "requirements": 10,
+    "selected_cards": 6,
+    "prompt_delta_items": 4,
+    "html_source_text_and_order_exact": true,
+    "inert_html": true,
+    "routes": [
+      "/scopes/",
+      "/scopes/parser-scope/"
+    ],
+    "css_exact": true,
+    "existing_loop_routes": [
+      "/loops/13660f039ac062c7270f9054ae56fd33ff5afe267fda423beef69251091d0b79/",
+      "/loops/38d5ee3d9f3707534a897542c2e34ca37cefaa6b1e368025e793166b5dd99b8d/",
+      "/loops/40b047d3f076f6aa8f48a54f0d2db3b9a76a851d167920f2cbad84aa5e202003/",
+      "/loops/74f76b5898cb355938db73d92e93ae0ab598d2a51c2936069063b31b60be9bcc/",
+      "/loops/75d690ead0c70e93951e725dfafb792c947913a8b09c6f6c06a1053ffd072418/",
+      "/loops/83e74e6a1964d0234c15ea2c2a5fb8309c98a9abeb1697f12f21757a9e7efcbd/",
+      "/loops/caba10d9114a888c7f3291d9bacdaea4feacff9f9ac67aa3c8e1a239c681e0ed/",
+      "/loops/d78e65e9592966fb2699282ac669c24234861dd3e8c86d990aae847a230a1222/",
+      "/loops/e6b8405392b6391864525c97e24fca41c3813338972c6f70bf6f911145f075d7/",
+      "/loops/f1c874e90a5c6fa4ebefdd3f6ab3284994eeb15951569a91a879316f005ab48f/"
+    ],
+    "loop_files_unchanged": true
+  },
+  "limitations": [
+    "Cloud browser, provider, deployment, push and merge were not run or inferred.",
+    "Configured upstream checkout code is trusted input; source/result text is treated as data.",
+    "Private-text patterns reject tested local paths and obvious credentials, not all possible secrets.",
+    "Native tests require explicitly supplied SCOPE_* checkout/artifact inputs; default CI skips that class.",
+    "Independent Agent review and delegated skill steps were not run because this task forbids new agents."
+  ],
+  "acceptance_observed": true,
+  "selected_skill_identities": {
+    "local-task": "0545364fe54dec43a3b013c9db9d7c5f5dfa0b72ae3c545b080fa783ec6918ad",
+    "poteto-mode": "7645c9ee27ef9798c48a84060b6df409f8593d1058c7c25cbec28dce976195f9"
+  },
+  "local_browser_rendering": "NOT_RUN: built HTML parsed/read back; no browser-rendering claim",
+  "write_scope_preserved": true,
+  "self_review": {
+    "diff_check": "git diff --check exited 0",
+    "allowed_changes_only": [
+      "reports/scope-import-acceptance.json",
+      "reports/scopes/parser-scope.json",
+      "scripts/build_site.py",
+      "scripts/import_scope_result.py",
+      "scripts/scope_site.py",
+      "tests/test_scope_result.py"
+    ],
+    "source_integrity": "Supplied upstream result and recomputed native result match exact bytes; public file matches supplied result.",
+    "previous_failure": "Recorded overbroad path regex fixed; focused tests, real importer, site build and affected Loop suite rerun successfully.",
+    "review": "Reviewed importer, renderer, tests and build-site diff in this worker; no independent review claimed."
+  },
+  "implementation_sha256": {
+    "scripts/import_scope_result.py": "27b628b81bf80c35613efb879e6e9218ae96d67a73dd6b006548c76e85023264",
+    "scripts/scope_site.py": "ca2d9288cdd76ab9160a829e292e734a1f3c346f411452f96d213a5b70102422",
+    "scripts/build_site.py": "3ea79f188d071286695d7fc14ca63443e606c468b6563c633dfc301e3a977939",
+    "tests/test_scope_result.py": "ae3539db27740d69d18305af6bb1cdb7054b5aede9d8fee86eb06b8af75f97db"
+  }
+}

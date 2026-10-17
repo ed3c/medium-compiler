@@ -1,0 +1,13 @@
+.noodle/
+.worktrees/
+.transcripts/
+.env*
+**/.noodle/**
+**/.worktrees/**
+**/.transcripts/**
+**/.env*
+**/raw.ndjson
+**/events.ndjson
+**/prompt.txt
+**/input.txt
+**/spawn.json

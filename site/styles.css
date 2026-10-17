@@ -2,3 +2,27 @@
 
 /* Responsive source-video embed for verified article registry entries. */
 .article-video{margin:30px 0 44px}.youtube-frame{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;border-radius:16px;background:#191919}.youtube-frame iframe{display:block;width:100%;height:100%;border:0}.article .video-caption{font:14px/1.5 ui-sans-serif,system-ui,sans-serif;color:var(--muted);margin:8px 0 0}
+
+/* Keep long snapshot identities and prompt text inside Loop layouts. */
+body:has(nav a.active[href="/loops/"]) main {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+body:has(nav a.active[href="/loops/"]) .cards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+body:has(nav a.active[href="/loops/"]) .cards > *,
+body:has(nav a.active[href="/loops/"]) .panel details > div > * {
+  min-width: 0;
+}
+body:has(nav a.active[href="/loops/"]) .panel {
+  max-width: 100%;
+}
+body:has(nav a.active[href="/loops/"]) pre {
+  max-width: 100%;
+}
+@media (max-width: 800px) {
+  body:has(nav a.active[href="/loops/"]) .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

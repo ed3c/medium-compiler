@@ -4,3 +4,7 @@ __pycache__/
 /.transcripts/
 /.wrangler/
 /node_modules/
+.noodle/
+.worktrees/
+.env*
+.vercel
