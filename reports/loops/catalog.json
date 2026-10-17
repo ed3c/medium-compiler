@@ -2,41 +2,45 @@
   "schema_version": 1,
   "snapshots": [
     {
-      "path": "reports/loops/loop-expectation-installed-20261017.json",
-      "sha256": "519d20d2c38234bd174993e6262546a2e8718cce241da6769f7b5b3f6e301ca0",
+      "path": "reports/loops/loop-main-delivery-20261017.json",
+      "sha256": "3ef53cefaa16c7cbdc8eb4f2e86fe71eed603f993551ff6e420f748d9babd3df",
       "supersedes": {
-        "path": "reports/loops/loop-expectation-20261017.json",
-        "sha256": "bc9c8b4d5938d721860bb5179651b5c7917d049faca643c6b5d6f8a6b58cacf4",
+        "path": "reports/loops/loop-expectation-installed-20261017.json",
+        "sha256": "519d20d2c38234bd174993e6262546a2e8718cce241da6769f7b5b3f6e301ca0",
         "supersedes": {
-          "path": "reports/loops/loop-functional-mechanisms-20261017.json",
-          "sha256": "7aaba56cde1b163281f89101fa75fcf639b9246f4f96d6d5b41c5ad387382a25",
+          "path": "reports/loops/loop-expectation-20261017.json",
+          "sha256": "bc9c8b4d5938d721860bb5179651b5c7917d049faca643c6b5d6f8a6b58cacf4",
           "supersedes": {
-            "path": "reports/loops/loop-manager-repo-anatomy-20261017.json",
-            "sha256": "92802f137612988f24aab0c683351d58b794a41d5c397f7a372843c85077815e",
+            "path": "reports/loops/loop-functional-mechanisms-20261017.json",
+            "sha256": "7aaba56cde1b163281f89101fa75fcf639b9246f4f96d6d5b41c5ad387382a25",
             "supersedes": {
-              "path": "reports/loops/loop-manager-detail-fields-20261017.json",
-              "sha256": "19a229162fb0d67414f7736ea5b9bec01bf6f5bcc4f2bd6c7f40efac9b3e8428",
+              "path": "reports/loops/loop-manager-repo-anatomy-20261017.json",
+              "sha256": "92802f137612988f24aab0c683351d58b794a41d5c397f7a372843c85077815e",
               "supersedes": {
-                "path": "reports/loops/loop-manager-detail-20261017.json",
-                "sha256": "87dcf1b6b168732d7a3047d4175b14c0532b83784e66bb4c1d5ebf4ec8d28c05",
+                "path": "reports/loops/loop-manager-detail-fields-20261017.json",
+                "sha256": "19a229162fb0d67414f7736ea5b9bec01bf6f5bcc4f2bd6c7f40efac9b3e8428",
                 "supersedes": {
-                  "path": "reports/loops/loop-manager-host10-leases-20261016.json",
-                  "sha256": "2e4e5fcc84949173a61c9f83c46828ff91f2f8c4279bf07de763b8481a69c0ac",
+                  "path": "reports/loops/loop-manager-detail-20261017.json",
+                  "sha256": "87dcf1b6b168732d7a3047d4175b14c0532b83784e66bb4c1d5ebf4ec8d28c05",
                   "supersedes": {
-                    "path": "reports/loops/loop-manager-owner-boundary-20261016.json",
-                    "sha256": "3f26489c08fd8cc651b435c48073818968f261222dba673ae53d1e241dd108c2",
+                    "path": "reports/loops/loop-manager-host10-leases-20261016.json",
+                    "sha256": "2e4e5fcc84949173a61c9f83c46828ff91f2f8c4279bf07de763b8481a69c0ac",
                     "supersedes": {
-                      "path": "reports/loops/loop-manager-resource-evidence-20261016.json",
-                      "sha256": "9f29cdcbf981771648581dc06f084145cc421b1fef46c8d6bf2d130273580099",
+                      "path": "reports/loops/loop-manager-owner-boundary-20261016.json",
+                      "sha256": "3f26489c08fd8cc651b435c48073818968f261222dba673ae53d1e241dd108c2",
                       "supersedes": {
-                        "path": "reports/loops/loop-manager-handoff-20261016.json",
-                        "sha256": "f4eee3394aefa7bbab6c008fa675d4046490d53a38bc2aca26962a5e89b7f10b",
+                        "path": "reports/loops/loop-manager-resource-evidence-20261016.json",
+                        "sha256": "9f29cdcbf981771648581dc06f084145cc421b1fef46c8d6bf2d130273580099",
                         "supersedes": {
-                          "path": "reports/loops/loop-manager-dag-20261015.json",
-                          "sha256": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d",
+                          "path": "reports/loops/loop-manager-handoff-20261016.json",
+                          "sha256": "f4eee3394aefa7bbab6c008fa675d4046490d53a38bc2aca26962a5e89b7f10b",
                           "supersedes": {
-                            "path": "reports/loops/loop-manager-20261015.json",
-                            "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+                            "path": "reports/loops/loop-manager-dag-20261015.json",
+                            "sha256": "2ceaa26f114fb95f13f0719f26c4026a42dab31bb83c519cc6c8fbc5c435924d",
+                            "supersedes": {
+                              "path": "reports/loops/loop-manager-20261015.json",
+                              "sha256": "ae8d19b6c396a38e9614603f89ca263afb31d010a0e066000fe03058046893e3"
+                            }
                           }
                         }
                       }
