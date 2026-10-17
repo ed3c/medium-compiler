@@ -52,6 +52,10 @@
           }
         }
       }
+    },
+    {
+      "path": "reports/loops/loop-review-handoff-20261017.json",
+      "sha256": "2b7074fafe9944fc0bec22f92656f5a2f7528223bcdbc9128dfbe905fabf2741"
     }
   ]
 }
