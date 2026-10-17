@@ -71,8 +71,9 @@ source digest before writing. The new snapshot must retain every old run ID,
 repository, and mode. Runs may change their recorded stages and status.
 Duplicate run IDs in other selected snapshots still cause refusal.
 
-The importer writes the new snapshot bytes once, then atomically replaces the
-catalog entry. The new entry records the original entry under `supersedes`.
+The importer serializes transactions on the same catalog with a directory lock.
+It re-reads the source and catalog after acquiring the lock. It writes the new
+snapshot bytes once, then atomically replaces the catalog entry. The new entry records the original entry under `supersedes`.
 The old snapshot file stays unchanged. Later imports and builds verify the
 retained history against those original digests. This history is needed because
 the old entry is no longer selected; recalculating its digest would not detect drift.

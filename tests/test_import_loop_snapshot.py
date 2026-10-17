@@ -1,7 +1,9 @@
 import copy
+import fcntl
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -105,6 +107,69 @@ class ImportLoopSnapshotTests(unittest.TestCase):
         self.assertEqual(json.loads(result.stdout)['status'], 'NOOP')
         self.assertEqual(self.stored_bytes(), before)
         self.assertEqual({path: path.stat().st_mtime_ns for path in self.folder.iterdir()}, stats)
+
+    def concurrent_imports(self, requests):
+        descriptor = os.open(self.folder, os.O_RDONLY | os.O_DIRECTORY)
+        processes = []
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX)
+            for source, name in requests:
+                processes.append(subprocess.Popen(
+                    [sys.executable, str(CLI), '--snapshot', str(source),
+                     '--id', name, '--root', str(self.root)], cwd=self.root,
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                ))
+            # Hold the transaction boundary externally: neither importer may
+            # publish or return success while another catalog writer owns it.
+            for process in processes:
+                with self.assertRaises(subprocess.TimeoutExpired):
+                    process.communicate(timeout=0.25)
+            self.assertEqual(json.loads(self.catalog.read_bytes())['snapshots'], [])
+            fcntl.flock(descriptor, fcntl.LOCK_UN)
+            results = []
+            for process in processes:
+                stdout, stderr = process.communicate(timeout=10)
+                results.append((process.returncode, json.loads(stdout or stderr)))
+            return results
+        finally:
+            os.close(descriptor)
+            for process in processes:
+                if process.poll() is None:
+                    process.kill()
+                process.communicate(timeout=10)
+
+    def test_concurrent_distinct_imports_preserve_both_catalog_entries(self):
+        other = self.root / 'other.json'
+        value = fixture(); value['runs'][0]['id'] = 'other-run'
+        other.write_text(json.dumps(value))
+        results = self.concurrent_imports([(self.source, 'first'), (other, 'second')])
+        self.assertEqual([status for status, _ in results], [0, 0])
+        self.assertEqual([result['status'] for _, result in results], ['IMPORTED', 'IMPORTED'])
+        entries = json.loads(self.catalog.read_bytes())['snapshots']
+        self.assertEqual({entry['path'] for entry in entries},
+                         {'reports/loops/first.json', 'reports/loops/second.json'})
+        self.assertEqual((self.folder / 'first.json').read_bytes(), self.raw)
+        self.assertEqual((self.folder / 'second.json').read_bytes(), other.read_bytes())
+
+    def test_concurrent_identical_imports_return_one_import_and_one_noop(self):
+        results = self.concurrent_imports([(self.source, 'same'), (self.source, 'same')])
+        self.assertEqual([status for status, _ in results], [0, 0])
+        self.assertEqual(sorted(result['status'] for _, result in results), ['IMPORTED', 'NOOP'])
+        self.assertEqual(len(json.loads(self.catalog.read_bytes())['snapshots']), 1)
+        self.assertEqual((self.folder / 'same.json').read_bytes(), self.raw)
+
+    def test_concurrent_conflicting_import_refuses_without_overwriting_winner(self):
+        other = self.root / 'other.json'
+        value = fixture(); value['runs'][0]['status'] = 'completed'
+        other.write_text(json.dumps(value))
+        results = self.concurrent_imports([(self.source, 'same'), (other, 'same')])
+        self.assertEqual(sorted(status for status, _ in results), [0, 2])
+        self.assertEqual(sorted(result['status'] for _, result in results), ['IMPORTED', 'REFUSED'])
+        entries = json.loads(self.catalog.read_bytes())['snapshots']
+        self.assertEqual(len(entries), 1)
+        saved = (self.folder / 'same.json').read_bytes()
+        self.assertIn(saved, [self.raw, other.read_bytes()])
+        self.assertEqual(hashlib.sha256(saved).hexdigest(), entries[0]['sha256'])
 
     def test_same_id_with_different_bytes_refuses(self):
         self.assertEqual(self.cli().returncode, 0)

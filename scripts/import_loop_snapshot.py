@@ -5,6 +5,7 @@ The original owner must review disclosure before import. Validation does not
 establish publication authorization or detect every secret in free text.
 """
 import argparse
+import fcntl
 import hashlib
 import json
 import os
@@ -34,6 +35,21 @@ def atomic_write(path, raw, replace=False):
 
 
 def import_snapshot(snapshot_path, snapshot_id, root=ROOT, supersede=None):
+    root = root.resolve()
+    folder = root / 'reports/loops'
+    if not folder.resolve().is_relative_to(root) or folder.is_symlink():
+        raise ValueError('Public Loop import directory escapes its root or is a symlink')
+    # The directory identity survives atomic catalog replacement. Locking the
+    # catalog inode would let another importer lock its replacement too early.
+    descriptor = os.open(folder, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        fcntl.flock(descriptor, fcntl.LOCK_EX)
+        return _import_snapshot_locked(snapshot_path, snapshot_id, root, supersede)
+    finally:
+        os.close(descriptor)
+
+
+def _import_snapshot_locked(snapshot_path, snapshot_id, root, supersede):
     identifier(snapshot_id)
     if snapshot_id.lower() == 'catalog':
         raise ValueError('Snapshot ID is reserved for the public Loop catalog')
