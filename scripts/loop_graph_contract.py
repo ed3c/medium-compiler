@@ -17,7 +17,7 @@ FIELDS = {
     'metrics': 'id run_id name status value unit numerator denominator source_artifact_ids gaps',
 }
 OPTIONAL = {'artifacts': {'content', 'content_encoding', 'public_content', 'public_sha256', 'public_bytes'},
-            'metrics': {'observation_scope'}}
+            'metrics': {'observation_scope'}, 'repositories': {'observation'}}
 
 
 def check(condition, message):
@@ -89,6 +89,23 @@ def validate(view):
         check(repo['index_status'] in ('complete', 'unknown', 'not_public'), 'index status')
         strings(repo['gaps'], 'repository gaps')
         check(repo['index_status'] != 'complete' or isinstance(repo['revision'], str) and repo['revision'], 'complete index revision missing')
+        if 'observation' in repo:
+            obs = repo['observation']
+            record(obs, 'status scope observed_at repository_id worktree_id snapshot_id branch detached dirty revision gap', 'repository observation')
+            check(obs['status'] in ('observed', 'unknown') and obs['scope'] == 'display_readback', 'observation scope/status')
+            check(isinstance(obs['observed_at'], str) and obs['observed_at'], 'observation time')
+            check(obs['revision'] == repo['revision'], 'observation revision differs')
+            for field in ('repository_id', 'worktree_id', 'snapshot_id'):
+                check(obs[field] is None or isinstance(obs[field], str) and ID.fullmatch(obs[field]), 'observation identity')
+            check(obs['branch'] is None or isinstance(obs['branch'], str) and obs['branch'], 'observation branch')
+            check(obs['gap'] is None or isinstance(obs['gap'], str), 'observation gap')
+            for field in ('dirty', 'detached'):
+                check(obs[field] is None or type(obs[field]) is bool, 'observation boolean')
+            if obs['status'] == 'observed':
+                check(all(obs[k] is not None for k in ('repository_id', 'worktree_id', 'snapshot_id', 'dirty', 'detached')), 'observed Git identity missing')
+                check((obs['branch'] is None) == obs['detached'] and obs['gap'] is None, 'observed branch state')
+            else:
+                check(all(obs[k] is None for k in ('repository_id', 'worktree_id', 'snapshot_id', 'branch', 'dirty', 'detached')) and bool(obs['gap']), 'unknown Git observation claims state')
         for key in ('tracked_files', 'selected_files'):
             check(isinstance(repo[key], list), 'files must be array')
             seen = set()

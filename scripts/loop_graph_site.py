@@ -81,7 +81,7 @@ def build_graph_package(snapshot, digest, target):
     (destination / 'graph.json').write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
     assets = target.parent / 'assets'
     assets.mkdir(exist_ok=True)
-    for name in ('loop-graph.mjs', 'loop-graph-layout.mjs', 'loop-graph.css', 'loop-panorama.mjs', 'loop-panorama.css', 'loop-isometric.mjs'):
+    for name in ('loop-graph.mjs', 'loop-graph-layout.mjs', 'loop-graph.css', 'loop-panorama.mjs', 'loop-panorama.css', 'loop-isometric.mjs', 'loop-repository.mjs', 'loop-anatomy.mjs'):
         shutil.copyfile(ROOT / 'site' / name, assets / name)
     shutil.copytree(ROOT / 'site' / 'anatomy', assets / 'anatomy', dirs_exist_ok=True)
     return '/assets/loop-data/' + digest + '/graph.json'
