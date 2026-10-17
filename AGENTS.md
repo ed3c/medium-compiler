@@ -1,5 +1,12 @@
 # Medium writing entrypoint
 
+## 狀態機修改契約與可選 Loop 接入
+
+修改本 repo 的 AGENTS、P-class、CLI 狀態機及其敘述時，先讀
+[狀態機修改契約套用](docs/state-machine-change.md)，由該頁解析固定版本原文。
+契約可獨立使用；只有選定迴圈任務才沿原 adapter 接入 LoopManager。
+既有驗證、雲端及發布邊界保持有效。CLI 驗證資料與合法轉移，不保證完整語義正確。
+
 ## Session entry: preserve the selected host route
 
 Read this entry at the task's selected ref; a ChatGPT cloud Session reads it through

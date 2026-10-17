@@ -1,8 +1,12 @@
 # Repository Loop 入口
 
+修改本入口與指引時，依 [狀態機修改契約套用](state-machine-change.md)。
+獨立使用契約不需要這個執行入口。
+
 `scripts/loop.py` 把已選定的語義 request 交給原 Soodles
 `loop enter --request-file`。它只核對 request version 與本 repository 綁定，
-再原樣傳遞檔案。原 CLI 驗證完整語義、固定來源 bytes，並回傳原 owner next。
+再原樣傳遞檔案。原 CLI 驗證資料形狀、來源綁定與合法轉移，並回傳原 owner next。
+語義判斷與實際效果仍需 Session 及原證據；CLI 不保證完整語義正確。
 
 呼叫形式：
 
@@ -22,8 +26,11 @@ Request 使用 `schema: 1`。`repository` 是此 worktree 的絕對路徑。
 `output` 是必填的 repository 外部絕對路徑。`outer-only` 與 `outer-inner`
 需要原 Schema 的 `intent_selection`。`authorization` 選用原 Issue 路徑。
 `noodle` 可指定已安裝的原生 binary。`knowledge_files` 是選用的唯讀展示資料。
-其有效性及所需條件由原 CLI 判定；adapter 不補造 identity、digest 或 receipt。
+`output` 是必填的 checkout 外絕對路徑。其餘欄位的有效性及所需條件由原 CLI 判定；adapter 不補造 identity、digest 或 receipt。
 
 Adapter 不重選 mode、Skill、模型或測試，不建立 scheduler、重試或執行狀態。
 原 CLI 的 stdout、stderr 與 exit code 直接保留。語義 request 不是執行成功證據；
 native consumer、scope 驗收與 Provider readback 仍各自保留原結果。
+
+`outer-only` 回傳投影，不自動執行 Thinking Method 或啟動 worker。
+Request 必須綁定本 adapter 所屬 checkout；跨 repo 交接沿原 owner 的已支援入口。
