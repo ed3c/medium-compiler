@@ -8,3 +8,30 @@ __pycache__/
 .worktrees/
 .env*
 .vercel
+
+# Local, commit-pinned optional design skill installs (source remains upstream).
+/.agents/skills/taste-skill/
+/.agents/skills/anatomy/
+/.agents/skills/impeccable/
+/.agents/skills/animate/
+/.agents/skills/animate-expo/
+/.agents/skills/animation-performance/
+/.agents/skills/animation-vocabulary/
+/.agents/skills/apple-design/
+/.agents/skills/ask-sonner/
+/.agents/skills/break-ui/
+/.agents/skills/emil-design-eng/
+/.agents/skills/find-animation-opportunities/
+/.agents/skills/improve-animations/
+/.agents/skills/mobile-native/
+/.agents/skills/pick-ui-library/
+/.agents/skills/prototype/
+/.agents/skills/review-animations/
+/.agents/skills/write-swift/
+
+# Isolated TanStack Start preview build output.
+/apps/loop-workbench/node_modules/
+/apps/loop-workbench/.output/
+/apps/loop-workbench/dist/
+/apps/loop-workbench/.tanstack/
+/apps/loop-workbench/src/routeTree.gen.ts
