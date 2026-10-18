@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "install_scope": "repository-local .agents/skills; optional, not a runtime requirement",
+  "sources": [
+    {
+      "id": "taste",
+      "repo": "Leonxlnx/taste-skill",
+      "sha": "f624f37a8c650b9cc550253104925efe4c8de246",
+      "license": "MIT",
+      "source": "skills/taste-skill",
+      "targets": [
+        "taste-skill"
+      ],
+      "role": "public presentation and editorial art direction; not operations dashboards"
+    },
+    {
+      "id": "anatomy",
+      "repo": "wheresryan22/anatomy",
+      "sha": "e9488296a44211c42701ff71705b7901470ec78f",
+      "license": "MIT",
+      "source": ".",
+      "targets": [
+        "anatomy"
+      ],
+      "role": "source-bound isometric machine drawings"
+    },
+    {
+      "id": "impeccable",
+      "repo": "pbakaus/impeccable",
+      "sha": "9304afa97f89b30609e4c538584fb3e0cd4df013",
+      "license": "Apache-2.0",
+      "source": ".agents/skills/impeccable",
+      "targets": [
+        "impeccable"
+      ],
+      "role": "operations dashboard design audit"
+    },
+    {
+      "id": "emil",
+      "repo": "emilkowalski/skills",
+      "sha": "2d228630ba1446365f614a108cb8252f1feda202",
+      "license": "MIT",
+      "source": "skills",
+      "targets": [
+        "all-skill-subdirectories"
+      ],
+      "role": "interaction and animation reviews"
+    }
+  ],
+  "execution_policy": "Install as design-time repository-local source; never execute upstream scripts or download their optional binaries without separate review. No inference/effect authority."
+}
