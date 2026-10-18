@@ -34,3 +34,8 @@ native consumer、scope 驗收與 Provider readback 仍各自保留原結果。
 
 `outer-only` 回傳投影，不自動執行 Thinking Method 或啟動 worker。
 Request 必須綁定本 adapter 所屬 checkout；跨 repo 交接沿原 owner 的已支援入口。
+
+公開 Workspace 的 Harness 區沿原比較 artifact 顯示四類缺口與來源。
+Session 提交的分類不等於缺陷已證實，工具註冊不等於已執行。
+「交給 Session 檢視」只存在於具備原 Host 接口的本機頁面。
+雲端頁面不保存交接選取，不呼叫本機工具，也不載入私有原始 bytes。
