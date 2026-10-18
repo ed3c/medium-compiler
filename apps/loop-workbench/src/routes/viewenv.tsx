@@ -74,7 +74,7 @@ function ViewEnv(){
         <div className="ve-scene-head"><span className="eyebrow">02 / Interactive environment topology</span>
           <span className="ve-scene-pill">{inspected.status}</span></div>
         <div className="ve-stage"><div className="ve-stage-grid" aria-hidden="true"></div>
-          {cards.map(([title,content],i)=><button key={title} className={'ve-unit '+(focus===title?'active':'')} onClick={()=>setFocus(title)} aria-pressed={focus===title}>
+          {cards.map(([title,content],i)=><button key={title} className={'ve-unit '+(focus===title?'active':'')} onClick={()=>setFocus(String(title))} aria-pressed={focus===title}>
             <span className="ve-iso" aria-hidden="true"><span></span></span>
             <span className="ve-unit-type">0{i+1} / {content?'SOURCE REF':'UNOBSERVED'}</span>
             <strong>{title}</strong><small>{content||'UNKNOWN'}</small></button>)}
