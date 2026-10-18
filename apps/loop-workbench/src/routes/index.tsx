@@ -20,6 +20,7 @@ function LoopWorkbench() {
   const [focus, setFocus] = useState('')
   const [tab, setTab] = useState<'execution' | 'environment' | 'comparison'>('execution')
   useEffect(() => {
+    setRunId(''); setFocus('')
     if (!manifest) { setRaw(null); setLoadError(''); return }
     const safe = safeManifest(manifest, window.location.origin)
     if (!safe) { setRaw(null); setLoadError('REFUSED: 非同源、非版本化的公開 Snapshot'); return }
