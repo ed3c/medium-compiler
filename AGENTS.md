@@ -161,6 +161,19 @@ Read README.md and .agents/skills/medium-writing/SKILL.md before writing; use pr
 - Keep real same-article before/after proof. Preserve current source versions, uncertainty, substantive open links and tableless Medium prose. No model/production/publishing writes without separate authorization.
 - Upstream pstack examples use .cursor/skills; this repository deliberately adapts placement to .agents/skills. The verification procedure and evidence standards remain applicable.
 
+## Loop Workbench 視覺設計路由（按需）
+
+當且僅當 Task 是 LoopManager／Noodle 的 UI、立體機構、資料流或 Agent RL
+Environment 展示時，先讀
+[Loop Visual Design](.agents/skills/loop-visual-design/SKILL.md) 和
+[TanStack Start Preview 契約](docs/loop-workbench-tanstack-start.md)。
+外部 Taste／Anatomy／Impeccable／Emil 需在選定、可信的 repository checkout
+使用固定版本安裝器完成實際安裝與原 Source Review，不能把 lockfile 當已安裝。
+公共展示與操作 Dashboard 需選不同設計 Skill；非 UI 工作不啟用此路由。
+新 Preview 隔離於現有 Vercel Production／Cloudflare Lab；Viewer 不得透過
+TanStack Start Server Functions 取得 Host／Provider／Training Effect 權限。
+視覺造型、交互動畫、Fixture 與 Published Snapshot 都不能證明 Native 執行。
+
 ## 共用 Loop 入口
 
 當本機任務選用小迴圈時，使用 [Repository Loop 入口](docs/loop-entry.md)
