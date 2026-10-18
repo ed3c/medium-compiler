@@ -63,7 +63,7 @@ function select(label, choices, value, action) {
 async function readStatic(url, asJSON = true) {
   const target = new URL(url, location.href);
   if (target.origin !== location.origin || !target.pathname.startsWith('/assets/loop-data/')) throw new Error('非此快照的公開靜態資源');
-  const response = await fetch(target, { credentials: 'omit', redirect: 'error' });
+  const response = await fetch(target, { credentials: 'same-origin', redirect: 'error' });
   if (!response.ok) throw new Error('公開內容讀取失敗：' + response.status);
   return asJSON ? response.json() : response.text();
 }
