@@ -43,3 +43,17 @@ test('an independently referenced failed/verdict keeps separate reward and termi
   assert.equal(view.termination.status,'done')
   assert.equal(inspectLayer(view,'replay').status,'RECORDED')
 })
+
+test('hash check rejects substituted public episode bytes', async()=>{
+  const crypto=await import('node:crypto')
+  const raw=JSON.stringify(base)
+  const digest=crypto.createHash('sha256').update(raw).digest('hex')
+  const uri='/assets/viewenv/episodes/'+digest+'.json'
+  const {readReviewedEpisode}=await import('./viewenv.mjs')
+  const createResponse=payload=>({ok:true,arrayBuffer:async()=>new TextEncoder().encode(payload).buffer})
+  const read=await readReviewedEpisode(uri,'https://app.example',
+    {fetcher:async()=>createResponse(raw),cryptoProvider:crypto.webcrypto})
+  assert.equal(read.episode_ref,'ep-a')
+  await assert.rejects(()=>readReviewedEpisode(uri,'https://app.example',
+    {fetcher:async()=>createResponse(raw+' '),cryptoProvider:crypto.webcrypto}),/digest_mismatch/)
+})
