@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "policy": "source pinned; project-local; no upstream scripts run by installer",
+  "sources": [
+    {
+      "id": "taste",
+      "repository": "Leonxlnx/taste-skill",
+      "commit": "f624f37a8c650b9cc550253104925efe4c8de246",
+      "license": "MIT",
+      "subtree": "skills/taste-skill",
+      "destination": ".agents/skills/design-taste-frontend",
+      "role": "public presentation only"
+    },
+    {
+      "id": "anatomy",
+      "repository": "wheresryan22/anatomy",
+      "commit": "e9488296a44211c42701ff71705b7901470ec78f",
+      "license": "MIT",
+      "subtree": ".",
+      "destination": ".agents/skills/anatomy",
+      "role": "interactive mechanism geometry; not runtime truth"
+    },
+    {
+      "id": "impeccable",
+      "repository": "pbakaus/impeccable",
+      "commit": "9304afa97f89b30609e4c538584fb3e0cd4df013",
+      "license": "Apache-2.0",
+      "subtree": ".agents/skills/impeccable",
+      "destination": ".agents/skills/impeccable",
+      "role": "product UI, accessibility, design QA; bundled tools need separate execution approval"
+    },
+    {
+      "id": "emil",
+      "repository": "emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "license": "MIT",
+      "subtree": "skills",
+      "destination": ".agents/skills",
+      "role": "individual motion/design skills; each skill installed under its own name"
+    }
+  ]
+}

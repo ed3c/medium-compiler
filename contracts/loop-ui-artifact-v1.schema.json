@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ed3c/medium-compiler/blob/main/contracts/loop-ui-artifact-v1.schema.json",
+  "title": "LoopUIArtifactV1: design projection only",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "render_target",
+    "design",
+    "views",
+    "verification",
+    "permissions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_ref",
+        "source_sha256",
+        "visibility"
+      ],
+      "properties": {
+        "snapshot_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "visibility": {
+          "enum": [
+            "local",
+            "reviewed_public"
+          ]
+        }
+      }
+    },
+    "render_target": {
+      "const": "tanstack-start-react"
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_skill",
+        "skill_pins",
+        "mode",
+        "rationale"
+      ],
+      "properties": {
+        "primary_skill": {
+          "enum": [
+            "anatomy",
+            "impeccable",
+            "emil-design-eng",
+            "design-taste-frontend",
+            "build-review-interface"
+          ]
+        },
+        "skill_pins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "mode": {
+          "enum": [
+            "read",
+            "operate",
+            "explain",
+            "present"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "view_id",
+          "source_artifact_ids",
+          "states"
+        ],
+        "properties": {
+          "view_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_artifact_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "states": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "observed",
+                "unknown",
+                "failed",
+                "stale",
+                "not_public",
+                "not_run",
+                "not_applicable"
+              ]
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanical",
+        "browser",
+        "semantic",
+        "native_consumer"
+      ],
+      "properties": {
+        "mechanical": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        },
+        "browser": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        },
+        "semantic": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        },
+        "native_consumer": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dispatch",
+        "review_effect",
+        "deployment",
+        "train"
+      ],
+      "properties": {
+        "dispatch": {
+          "const": false
+        },
+        "review_effect": {
+          "const": false
+        },
+        "deployment": {
+          "const": false
+        },
+        "train": {
+          "const": false
+        }
+      }
+    }
+  }
+}
