@@ -51,3 +51,20 @@ export function inspectLayer(scene,layer){
   return {layer,status:scene.termination.status==='unknown'?'UNKNOWN':'RECORDED',
     refs:[...scene.actions,...scene.observations]}
 }
+
+/** Bound preview fetch: check original content bytes, not just a hash-shaped URL. */
+export async function readReviewedEpisode(uri, origin, options = {}) {
+  const path = reviewedEpisodePath(uri, origin)
+  if (!path) throw new Error('untrusted_episode_location')
+  const response = await (options.fetcher || fetch)(path, {
+    credentials: 'omit', redirect: 'error', signal: options.signal,
+  })
+  if (!response.ok) throw new Error('episode_http_error:' + response.status)
+  const raw = new Uint8Array(await response.arrayBuffer())
+  if (raw.length > 2 * 1024 * 1024) throw new Error('episode_exceeds_size_limit')
+  const digest = new Uint8Array(await (options.cryptoProvider || crypto).subtle.digest('SHA-256', raw))
+  const actual = [...digest].map(x => x.toString(16).padStart(2,'0')).join('')
+  const expected = path.slice(path.lastIndexOf('/')+1,-5)
+  if (actual !== expected) throw new Error('episode_source_digest_mismatch')
+  return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw))
+}
