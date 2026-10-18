@@ -6,7 +6,7 @@
     "dev": "vite dev --port 3107",
     "build": "vite build",
     "test": "node --test src/workbench.test.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "vite build && tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/react-router": "1.170.45",
