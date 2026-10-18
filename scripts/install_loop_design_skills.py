@@ -77,12 +77,12 @@ def stage_source(row, scratch):
     else:
         copy_safe(src, output / row["id"])
     # Preserve the upstream LICENSE in each installed skill for redistribution.
-    license_file = checkout / "LICENSE"
-    if license_file.is_file() and not license_file.is_symlink():
-        destinations = list(output.iterdir()) if row["id"] == "emil" else [output / row["id"]] if row["id"] != "anatomy" else [output]
-        for destination in destinations:
-            if destination.is_dir() and not (destination / "LICENSE").exists():
-                shutil.copy2(license_file, destination / "LICENSE")
+    # Sparse checkout may exclude root LICENSE; read its pinned Git blob instead.
+    license_bytes = subprocess.check_output(["git", "-C", str(checkout), "show", row["commit"] + ":LICENSE"])
+    destinations = list(output.iterdir()) if row["id"] == "emil" else [output / row["id"]] if row["id"] != "anatomy" else [output]
+    for destination in destinations:
+        if destination.is_dir() and not (destination / "LICENSE").exists():
+            (destination / "LICENSE").write_bytes(license_bytes)
     if row["id"] == "emil":
         return [(child, ROOT / row["destination"] / child.name) for child in output.iterdir()]
     final = ROOT / row["destination"]
