@@ -1,6 +1,6 @@
 {
   "repository": "ed3c/noodle",
-  "commit": "d54052c561596af5413f63bb94c591194094295d",
+  "commit": "f4e78d9893ac7ff5e23a1a2f428f16cbbb08ff7c",
   "description": "Exact source-only Noodle canonical panorama closure. Source update requires manifest refresh and independent interface CI. Not a runtime effect or deployment.",
   "files": [
     {
@@ -36,7 +36,7 @@
     {
       "path": "loop-isometric.mjs",
       "upstream": "ui/src/client/loop-isometric.mjs",
-      "git_blob": "a8ed6d4ca1d2bd42818b3203b18c90a1b6b20a4c"
+      "git_blob": "889bc85dbb56f20e3aab6e04c5167d35da0f58f3"
     },
     {
       "path": "loop-scene-focus.mjs",
