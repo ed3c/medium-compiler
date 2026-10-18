@@ -77,7 +77,7 @@ def selected_skills(source, files):
                 target = PurePosixPath(original.parts[1]) / PurePosixPath(*original.parts[2:])
                 chosen[target] = data
     elif source["id"] == "anatomy":
-        chosen = {PurePosixPath("anatomy") / p: data for p, data in files.items()}
+        chosen = dict(files)
     else:
         prefix = base.parts
         target_root = PurePosixPath(source["targets"][0])
