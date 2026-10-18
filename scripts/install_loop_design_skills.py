@@ -28,7 +28,7 @@ def load_plan():
         if not repo or "/" not in repo or not all(x.replace("-", "").replace("_", "").isalnum() for x in repo.split("/")):
             raise ValueError("Invalid repository")
         dest = Path(row["destination"])
-        if dest.is_absolute() or ".." in dest.parts or not str(dest).startswith(".agents/skills/"):
+        if dest.is_absolute() or ".." in dest.parts or not (str(dest).startswith(".agents/skills/") or (row["id"] == "emil" and str(dest) == ".agents/skills")):
             raise ValueError("Install outside project skill root")
     return data
 
@@ -76,6 +76,13 @@ def stage_source(row, scratch):
                 raise ValueError("Unexpected Anatomy entry")
     else:
         copy_safe(src, output / row["id"])
+    # Preserve the upstream LICENSE in each installed skill for redistribution.
+    license_file = checkout / "LICENSE"
+    if license_file.is_file() and not license_file.is_symlink():
+        destinations = list(output.iterdir()) if row["id"] == "emil" else [output / row["id"]] if row["id"] != "anatomy" else [output]
+        for destination in destinations:
+            if destination.is_dir() and not (destination / "LICENSE").exists():
+                shutil.copy2(license_file, destination / "LICENSE")
     if row["id"] == "emil":
         return [(child, ROOT / row["destination"] / child.name) for child in output.iterdir()]
     final = ROOT / row["destination"]

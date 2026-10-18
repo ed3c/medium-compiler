@@ -16,7 +16,7 @@ class InstallPlanTests(unittest.TestCase):
                          ["taste","anatomy","impeccable","emil"])
         for source in plan["sources"]:
             self.assertEqual(len(source["commit"]),40)
-            self.assertTrue(source["destination"].startswith(".agents/skills/"))
+            self.assertTrue(source["destination"].startswith(".agents/skills/") or source["destination"] == ".agents/skills")
 
     def test_plan_has_no_install_effect(self):
         with contextlib.redirect_stdout(io.StringIO()) as stream:
