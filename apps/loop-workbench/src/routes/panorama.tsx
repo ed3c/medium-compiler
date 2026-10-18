@@ -91,7 +91,7 @@ function CanonicalPanorama() {
     {error && <p role="alert">{error}</p>}
     {!source && !error && <section className="empty"><strong>No reviewed public snapshot selected</strong>
       <p>Open a versioned same-origin manifest through the <code>manifest</code> URL parameter. No native execution or source is invented.</p></section>}
-    {source && !isSnapshot(source) && <p role="alert">REFUSED: invalid source-bound Graph v2 shape</p>}
+    {Boolean(source) && !isSnapshot(source) && <p role="alert">REFUSED: invalid source-bound Graph v2 shape</p>}
     <div ref={element} aria-label="Canonical LoopManager panorama" />
     <footer><span>HUMAN INTENT → SESSION → P-CLASS → CLI / TOOL CALL</span>
       <span>Source rail ≠ execution · Whole Goal UNKNOWN without Owner acceptance</span></footer>
