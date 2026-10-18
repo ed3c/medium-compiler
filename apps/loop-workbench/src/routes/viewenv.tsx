@@ -1,6 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router'
 import {useEffect,useMemo,useState} from 'react'
-import {inspectLayer,projectViewEnv,reviewedEpisodePath} from '../viewenv.mjs'
+import {inspectLayer,projectViewEnv,readReviewedEpisode} from '../viewenv.mjs'
+import '../viewenv.css'
 
 export const Route=createFileRoute('/viewenv')({
   validateSearch:(raw:Record<string,unknown>)=>({
@@ -19,11 +20,8 @@ function ViewEnv(){
   useEffect(()=>{
     setRaw(null);setLayer('actual');setFocus('');setError('')
     if(!episode)return
-    const target=reviewedEpisodePath(episode,window.location.origin)
-    if(!target){setError('REFUSED: requires a reviewed, versioned same-origin Episode');return}
     const controller=new AbortController()
-    fetch(target,{credentials:'omit',redirect:'error',signal:controller.signal})
-      .then(r=>{if(!r.ok)throw new Error('Unavailable source: '+r.status);return r.json()})
+    readReviewedEpisode(episode,window.location.origin,{signal:controller.signal})
       .then(v=>{if(!controller.signal.aborted)setRaw(v)})
       .catch(e=>{if(!controller.signal.aborted)setError(String(e))})
     return()=>controller.abort()
