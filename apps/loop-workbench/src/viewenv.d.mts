@@ -11,3 +11,7 @@ export function reviewedEpisodePath(input: unknown, origin:string):string|null
 export function projectViewEnv(record: unknown):EpisodeScene
 export function inspectLayer(scene:EpisodeScene,layer:'actual'|'proposed'|'replay'):
   {layer:string;status:string;refs:string[]}
+
+export function readReviewedEpisode(uri: string, origin: string,
+  options?: {fetcher?:(url:string,init:RequestInit)=>Promise<Response>; signal?:AbortSignal;
+    cryptoProvider?:Crypto}):Promise<unknown>
