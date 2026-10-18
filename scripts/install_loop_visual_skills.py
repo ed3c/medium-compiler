@@ -19,10 +19,7 @@ MAX_FILE_BYTES = 16 * 1024 * 1024
 MAX_TOTAL_BYTES = 100 * 1024 * 1024
 
 
-def read_archive(source, archive_dir=None):
-    name = source["repo"].replace("/", "-") + "-" + source["sha"] + ".tar.gz"
-    if archive_dir is not None:
-        return (archive_dir / name).read_bytes()
+def read_archive(source):
     owner, repo = source["repo"].split("/")
     url = "https://github.com/" + owner + "/" + repo + "/archive/" + source["sha"] + ".tar.gz"
     with urlopen(url, timeout=30) as response:
@@ -102,13 +99,13 @@ def selected_skills(source, files):
     return groups
 
 
-def install(root, lock, archive_dir=None, dry_run=False):
+def install(root, lock, dry_run=False):
     skills = root / ".agents" / "skills"
     if skills.is_symlink():
         raise ValueError("Skill directory cannot be a symlink")
     planned = {}
     for source in lock["sources"]:
-        members = extracted_files(read_archive(source, archive_dir), source)
+        members = extracted_files(read_archive(source), source)
         groups = selected_skills(source, members)
         for name, files in groups.items():
             if name in planned:
@@ -144,13 +141,12 @@ def install(root, lock, archive_dir=None, dry_run=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--archive-dir", type=Path, help="Offline pinned GitHub tarballs")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     lock = json.loads((ROOT / "design/visual-skills.lock.json").read_text("utf-8"))
     if lock.get("schema_version") != 1:
         raise ValueError("Unsupported visualization skill lock")
-    print(json.dumps(install(ROOT, lock, args.archive_dir, args.dry_run), ensure_ascii=False))
+    print(json.dumps(install(ROOT, lock, args.dry_run), ensure_ascii=False))
 
 
 if __name__ == "__main__":
