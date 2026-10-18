@@ -91,3 +91,36 @@ Use the original Test Manager for source change controls, fresh browser
 inspection for visuals, and independent Native/Replay verification
 before any performance or training claim. Stop only the operation
 with missing source, authorization or reward, preserving all others.
+
+## Unified LoopManager panorama (Q16–Q31)
+
+When the user requests a whole-system isometric end-to-end Harness view,
+route to `docs/viewenv-unified-panorama.md` and the exact source-pinned
+Noodle canonical `apps/loop-workbench/vendor/noodle/loop-panorama.mjs`
+rather than designing a second source of geometry or runtime facts.
+
+- Preserve Soodles Graph v2's unique Original Object, Run, Attempt and Artifact
+  identities, independent original expectation/comparison refs, and the five
+  state-machine-change classifiers `method`, `case`, `loop`,
+  `assertion`, `repair` with their shared geometries.
+- At overview, show complete machine and applicable Goal gaps; at Object,
+  show original inputs/outputs/neighbors and five optional classifiers;
+  at Principle, show original rule, source-linked Native Occurrences and
+  Expected/Actual/Prompt comparison. These are inspection levels, not mandatory
+  executed steps.
+- In the same source-grounded scene, Human Intent → Session Judgment →
+  Prompt/P-class → CLI/Tool Call is an original Carrier *reference* rail.
+  It does not add a Node or a green causal Edge. Original handoff requires
+  original two-endpoint identity, source, transfer and evidence. Recorded failed
+  handoff may be green for transport while the failure result remains red.
+- Real expected routes remain yellow; endpoint-bound falsifiable hypotheses
+  remain dashed yellow. A missing expected handoff is UNKNOWN until the
+  original Producer/Consumer supports a mechanical failure claim; semantic
+  root-cause classification remains an unverified original Session assessment.
+- Only correct a descriptive Agent instruction by moving uniquely calculable
+  behavior into the existing Owner CLI when a verified first causal breakpoint
+  actually supports doing so. This skill itself never generates an executable
+  Tool Call, an arbitrary argv or a second verification Owner.
+- The TanStack Start `/panorama` adapter is source-only and read-only.
+  All cloud promotion remains paused. Passing browser and vendor-parity CI
+  proves a viewer, not native Agent compliance or whole Goal acceptance.
