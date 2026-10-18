@@ -62,3 +62,16 @@ NeoWeaver's existing \`learned-harness-coevolution.md\` ten REQ, frozen Codex bo
 5. Harness² and RL adapters tested with a disposable known-episode replay and protected negative, then paired/held-out evaluation before any claim of learned improvement.
 
 References: https://tanstack.com/start/latest/docs/framework/react/build-from-scratch ; https://github.com/google-research/harness2 ; https://github.com/adithya-s-k/FineEnvs ; https://huggingface.co/spaces/FineEnvs/simulation-rl-environments (requested design reference; direct read unavailable in this review).
+
+
+## Implemented pure View IR compiler (source-only)
+
+The framework-neutral adapter at \`site/loop-ui-artifact.mjs\` is a deliberately small
+\`LoopUIArtifactV1\` compiler. It selects only existing Run-scoped graph references,
+preserves failed/unknown/not_public states, emits an always-false effect-permission object,
+and refuses foreign Run IDs or missing snapshot identity. \`node --test
+tests/loop_ui_artifact.test.mjs\` checks representative positive/negative display
+cases without contacting any Host. The compiler assumes that the original public
+importer has already validated the snapshot and catalog digest; it does not certify
+a semantic Goal or replace the original validator. Connecting it to a compiled
+TanStack Start app and real browser remains NOT_RUN.
