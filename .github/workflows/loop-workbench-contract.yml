@@ -1,0 +1,28 @@
+name: Loop Workbench Contract
+on:
+  pull_request:
+    paths:
+      - 'design/visual-skills.lock.json'
+      - 'scripts/install_loop_visual_skills.py'
+      - 'tests/test_install_loop_visual_skills.py'
+      - 'apps/loop-workbench/**'
+      - '.github/workflows/loop-workbench-contract.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-bound-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Installer negative controls and license pins
+        run: python3 -m unittest discover -s tests -p 'test_install_loop_visual_skills.py' -v
+      - name: Evidence projection node controls
+        run: node --test apps/loop-workbench/src/workbench.test.mjs
+      - name: Validate versioned skill manifest
+        run: python3 -m json.tool design/visual-skills.lock.json > /dev/null
+      # The independent TanStack Start app is not bundled into existing
+      # production. npm dependency audit / lockfile / build + browser checks
+      # are required before considering a cutover.
