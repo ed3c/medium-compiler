@@ -4,6 +4,9 @@ on:
     paths:
       - 'design/visual-skills.lock.json'
       - 'scripts/install_loop_visual_skills.py'
+      - 'scripts/viewenv_design.py'
+      - 'tests/test_viewenv_design.py'
+      - '.agents/skills/viewenv/SKILL.md'
       - 'tests/test_install_loop_visual_skills.py'
       - 'apps/loop-workbench/**'
       - '.github/workflows/loop-workbench-contract.yml'
@@ -19,6 +22,8 @@ jobs:
           persist-credentials: false
       - name: Installer negative controls and license pins
         run: python3 -m unittest discover -s tests -p 'test_install_loop_visual_skills.py' -v
+      - name: ViewEnv design router and source binding controls
+        run: python3 -m unittest discover -s tests -p 'test_viewenv_design.py' -v
       - name: Evidence projection node controls
         run: node --test apps/loop-workbench/src/workbench.test.mjs
       - name: Validate versioned skill manifest
