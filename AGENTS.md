@@ -163,6 +163,16 @@ Read README.md and .agents/skills/medium-writing/SKILL.md before writing; use pr
 
 ## Loop Workbench 視覺設計路由（按需）
 
+ViewEnv 的 Session Judgment 全景來源必須將 `intent_selection`（決策輸入）、
+`loop_owner_readback`／`schema_feedback`（原 Owner 讀回）和
+`harness_review`（已提交但未經語義驗證的 Session Assessment）分開。
+只有原 `soodles_loop_review_inspect` 可唯讀取得 review selection；
+`soodles_loop_review_feedback` 才保存帶 Premise／Falsifier 的判斷。
+不能用工具註冊、Source Reference、JSON Schema PASS 或 Viewer 高亮
+宣稱 P-class 已被 Agent 遵循、Tool Call 已執行或 Goal 已閉環。
+可由原 CLI 固定的選擇不重新提示 Session 猜測；沒有原 Native Trace 時保留 UNKNOWN。
+這是按需 ViewEnv 案例，不為普通文章或一般工程任務增加檢查 Gate。
+
 當且僅當 Task 是 LoopManager／Noodle 的 UI、立體機構、資料流或 Agent RL
 Environment 展示時，先讀
 [Loop Visual Design](.agents/skills/loop-visual-design/SKILL.md) 和

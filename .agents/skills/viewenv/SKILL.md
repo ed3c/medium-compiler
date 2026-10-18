@@ -124,3 +124,28 @@ rather than designing a second source of geometry or runtime facts.
 - The TanStack Start `/panorama` adapter is source-only and read-only.
   All cloud promotion remains paused. Passing browser and vendor-parity CI
   proves a viewer, not native Agent compliance or whole Goal acceptance.
+\n## Q32–Q33: factual judgment/tool boundary
+
+The native Soodles `soodles_loop_review_inspect` is **read-only**:
+it uses the existing original Host Review Selection and current Owner
+readback without writing a new assessment, publishing or running a Worker.
+The MCP tool's `readOnlyHint` must be true; the separate
+`soodles_loop_review_feedback` tool remains an effectful, source-bound
+Session submission with original `session_submitted/unverified` semantics.
+Their registrations, invocations, semantic classification, actual P-class
+consumption and provider effect are separate evidence claims.
+
+Noodle's source-rail `intent_selection` is **not a completed Session
+engineering decision**. `loop_owner_readback` and `schema_feedback`
+are producer readbacks, not Session decision outcomes. A
+`harness_review` artifact is an original Session-submitted assessment,
+but is still semantically `UNVERIFIED`. Treat its absence or stale
+content as UNKNOWN, not a missing Tool Call, and never add a green
+Edge to repair a visual gap. The original Soodles review owner must
+verify any change to original CLI routing. Only source-proven
+first causal failures warrant new deterministic CLI behavior.
+
+When source is vendor-pinned, refresh the original Noodle version and
+the Git blob manifest together, test actual React/DOM Browser and
+preserve Source/Runtime separation. These are not real Agent-compliance
+Evals or production Cloud promotion.

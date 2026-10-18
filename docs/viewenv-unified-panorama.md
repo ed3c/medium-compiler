@@ -41,3 +41,25 @@ called a fresh original Run or a semantic behavior improvement.
 (until exact pin refresh), actual owner-bound Run browser acceptance,
 native P-class behavior verification, complete whole-goal acceptance,
 cloud upload/deploy and production promotion. Prior cloud pause stands.
+\n## Session provenance correction (Q32–Q33)
+
+The canonical Noodle source rail now distinguishes three independently
+meaningful facts: `intent_selection` represents **selected decision
+input**; `loop_owner_readback` and `schema_feedback` are original
+**Owner readbacks**; and `harness_review` represents an original
+**Session-submitted assessment**, explicitly `UNVERIFIED` for
+semantic correctness. Missing or stale assessment stays UNKNOWN.
+The Viewer neither observes private reasoning nor proves a named
+P-class Skill was loaded or complied with.
+
+Soodles corrected the original `soodles_loop_review_inspect`
+`readOnlyHint` to match the actual read-only Host/Owner consumer.
+The original `soodles_loop_review_feedback` remains effectful and
+must never be invoked by the public ViewEnv route. Session uses
+original current `review_id`, Claim/Premise/Falsifier and independently
+available sources; the UI does not synthesize argv or authorization.
+Do not infer a CLI wiring defect from a yellow expected line.
+
+Exact source-parity and CI Browser tests can establish static
+visualization behavior but not fresh Native Agent consumption.
+No Cloud deployment/promotion or PR Merge is authorized by this fix.
