@@ -23,6 +23,16 @@ jobs:
         run: node --test apps/loop-workbench/src/workbench.test.mjs
       - name: Validate versioned skill manifest
         run: python3 -m json.tool design/visual-skills.lock.json > /dev/null
+      - name: Install pinned upstream source packages in isolated CI checkout
+        run: |
+          python3 scripts/install_loop_visual_skills.py --dry-run
+          python3 scripts/install_loop_visual_skills.py
+          python3 scripts/install_loop_visual_skills.py
+          test -f .agents/skills/taste-skill/SKILL.md
+          test -f .agents/skills/anatomy/SKILL.md
+          test -f .agents/skills/impeccable/SKILL.md
+          test -f .agents/skills/emil-design-eng/SKILL.md
+        timeout-minutes: 5
       # The independent TanStack Start app is not bundled into existing
       # production. npm dependency audit / lockfile / build + browser checks
       # are required before considering a cutover.
