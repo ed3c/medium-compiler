@@ -37,6 +37,18 @@ class DesignInstallerTests(unittest.TestCase):
         self.assertIn(module.PurePosixPath("references/example.md"), result["taste-skill"])
         self.assertIn(module.PurePosixPath(".upstream-provenance.json"), result["taste-skill"])
 
+    def test_anatomy_root_repo_installs_as_one_skill(self):
+        source = {"id":"anatomy","repo":"Example/anatomy","sha":"a"*40,
+                  "license":"MIT","source":".","targets":["anatomy"]}
+        members = module.extracted_files(archive({
+            "SKILL.md":"---\\nname: anatomy\\n---",
+            ".gitattributes":"* text=auto",
+            "kit/iso-kit.mjs":"export const scale = 1",
+            "LICENSE":"MIT"}), source)
+        result = module.selected_skills(source, members)
+        self.assertEqual(["anatomy"], list(result))
+        self.assertIn(module.PurePosixPath("kit/iso-kit.mjs"), result["anatomy"])
+
     def test_refuse_tar_symlink(self):
         b = io.BytesIO()
         with tarfile.open(fileobj=b, mode="w:gz") as tar:
