@@ -189,10 +189,9 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
             note = node['note']
             return (
                 f'<details class="alg-outline-paragraph" data-outline-index="{i}">'
-                '<summary>'
-                f'<a href="#alg-p-{i}" data-outline-link="{i}">'
+                '<summary aria-label="展開或收合段落註解">▸</summary>'
+                f'<a href="#alg-p-{i}" data-outline-link="{i}" class="alg-outline-jump">'
                 f'<span class="alg-paragraph-num">{i+1:02}</span> {esc(node["title"])}</a>'
-                '</summary>'
                 + note_html(i, note, decisions, index_items)
                 + '</details>'
             )
@@ -201,7 +200,8 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
             return contents
         return (
             '<details class="alg-outline-section" data-heading-id="' + node['heading'] + '">'
-            '<summary><a href="#' + node['heading'] + '">' + esc(node['title']) + '</a></summary>'
+            '<summary aria-label="展開或收合章節索引">▸</summary>'
+            '<a class="alg-outline-heading-link" href="#' + node['heading'] + '">' + esc(node['title']) + '</a>'
             '<div class="alg-outline-children">' + contents + '</div>'
             '</details>'
         )
