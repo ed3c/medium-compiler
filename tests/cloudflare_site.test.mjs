@@ -21,7 +21,7 @@ const transcript = `<title>Fixture episode - Transcript</title>
 let runtime, temporary, calls = [], payload = results, responseStatus = 200, responseType = "text/html";
 before(async () => {
   temporary = mkdtempSync(join(tmpdir(), "medium-site-worker-"));
-  execFileSync(process.execPath, ["node_modules/wrangler/bin/wrangler.js", "deploy", "--dry-run", "--outdir", temporary], {stdio: "pipe"});
+  execFileSync(process.execPath, ["node_modules/wrangler/bin/wrangler.js", "deploy", "--dry-run", "--config", process.env.SITE_WRANGLER_CONFIG || "wrangler.jsonc", "--outdir", temporary], {stdio: "pipe"});
   runtime = new Miniflare(convertV4MiniflareOptions({workers: [{name: "site-test", modules: true, script: readFileSync(join(temporary, "index.js"), "utf8"), compatibilityDate: "2026-10-11",
     serviceBindings: {ASSETS: () => new Response("fixture asset")},
     outboundService: request => {
@@ -97,7 +97,7 @@ test("only the read-only transcript API is public; no checkout or load proxy", a
   assert.equal((await get("/api/create")).status, 404);
   assert.equal((await runtime.dispatchFetch("https://site.test/api/transcripts", {method: "POST"})).status, 405);
   assert.equal(await (await get("/articles/")).text(), "fixture asset");
-  const config = JSON.parse(readFileSync("wrangler.jsonc", "utf8"));
+  const config = JSON.parse(readFileSync(process.env.SITE_WRANGLER_CONFIG || "wrangler.jsonc", "utf8"));
   assert.deepEqual(config.assets.run_worker_first, ["/api/*"]);
   assert.equal(config.queues, undefined);
   assert.equal(config.durable_objects, undefined);
