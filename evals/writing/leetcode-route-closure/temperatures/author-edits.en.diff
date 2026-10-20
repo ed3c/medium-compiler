@@ -1,0 +1,17 @@
+--- article.first.en.md
++++ article.en.md
+@@ -128 +128 @@
+-**Why store indices?** “Equal temperatures can belong to different days. An index identifies the output position and lets me compute the wait as the current index minus the previous index.”
++Why store indices? "Equal temperatures can belong to different days. An index identifies the output position and lets me compute the wait as the current index minus the previous index."
+@@ -130 +130 @@
+-**Why can the algorithm stop at the top?** “Pending temperatures are non-increasing. If today cannot resolve the coldest pending day at the top, it cannot resolve any earlier pending day.”
++Why can the algorithm stop at the top? "Pending temperatures are non-increasing. If today cannot resolve the coldest pending day at the top, it cannot resolve any earlier pending day."
+@@ -132 +132 @@
+-**Why is a pop safe?** “That day has remained unresolved through every earlier day we processed. Today is warmer, so today is its first warmer successor.”
++Why is a pop safe? "That day has remained unresolved through every earlier day we processed. Today is warmer, so today is its first warmer successor."
+@@ -134 +134 @@
+-**Why is the nested loop linear?** “Every index is pushed once and popped at most once. The total stack work is linear, assuming amortized constant-time end operations.”
++Why is the nested loop linear? "Every index is pushed once and popped at most once. The total stack work is linear, assuming amortized constant-time end operations."
+@@ -136 +136 @@
+-**What changes for warmer-or-equal?** “I use `>=`, remove equal pending temperatures, and restate the invariant for the new qualifying condition. The work count stays linear; with a fixed 71-value range, the strictly decreasing stack has at most 71 entries.”
++What changes for warmer-or-equal? "I use `>=`, remove equal pending temperatures, and restate the invariant for the new qualifying condition. The work count stays linear; with a fixed 71-value range, the strictly decreasing stack has at most 71 entries."

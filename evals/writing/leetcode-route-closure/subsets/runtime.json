@@ -1,0 +1,421 @@
+{
+  "python_version": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "implementation": "CPython",
+  "executable": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+  "commands": [
+    "python3 verify.py"
+  ],
+  "extracted_complete_solutions": [
+    "extracted-solution-1.py",
+    "extracted-solution-2.py",
+    "extracted-solution-3.py"
+  ],
+  "literal_checks": [
+    {
+      "method": "subsets",
+      "input": [
+        2,
+        5
+      ],
+      "output": [
+        [],
+        [
+          5
+        ],
+        [
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "method": "subsets",
+      "input": [
+        0
+      ],
+      "output": [
+        [],
+        [
+          0
+        ]
+      ]
+    },
+    {
+      "method": "subsets",
+      "input": [
+        -10,
+        10
+      ],
+      "output": [
+        [],
+        [
+          10
+        ],
+        [
+          -10
+        ],
+        [
+          -10,
+          10
+        ]
+      ]
+    },
+    {
+      "method": "subsets",
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "output": [
+        [],
+        [
+          3
+        ],
+        [
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "method": "subsets",
+      "input": [],
+      "output": [
+        []
+      ]
+    },
+    {
+      "method": "subsets_iterative",
+      "input": [
+        2,
+        5
+      ],
+      "output": [
+        [],
+        [
+          2
+        ],
+        [
+          5
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "method": "subsets_iterative",
+      "input": [
+        0
+      ],
+      "output": [
+        [],
+        [
+          0
+        ]
+      ]
+    },
+    {
+      "method": "subsets_iterative",
+      "input": [
+        -10,
+        10
+      ],
+      "output": [
+        [],
+        [
+          -10
+        ],
+        [
+          10
+        ],
+        [
+          -10,
+          10
+        ]
+      ]
+    },
+    {
+      "method": "subsets_iterative",
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "output": [
+        [],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "method": "subsets_iterative",
+      "input": [],
+      "output": [
+        []
+      ]
+    }
+  ],
+  "small_input_checks": 2283,
+  "small_input_arrays": 326,
+  "boundary_checks": [
+    {
+      "method": "subsets",
+      "n": 10,
+      "min": -10,
+      "max": 10,
+      "rows": 1024,
+      "entries": 5120
+    },
+    {
+      "method": "subsets_iterative",
+      "n": 10,
+      "min": -10,
+      "max": 10,
+      "rows": 1024,
+      "entries": 5120
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 0,
+      "rows": 1
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 1,
+      "rows": 10
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 2,
+      "rows": 45
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 3,
+      "rows": 120
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 4,
+      "rows": 210
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 5,
+      "rows": 252
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 6,
+      "rows": 210
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 7,
+      "rows": 120
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 8,
+      "rows": 45
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 9,
+      "rows": 10
+    },
+    {
+      "method": "subsets_of_size",
+      "k": 10,
+      "rows": 1
+    }
+  ],
+  "negative_controls": [
+    {
+      "kind": "advertised aliasing bug",
+      "input": [
+        2
+      ],
+      "actual": [
+        [],
+        []
+      ],
+      "same_object": true,
+      "expected_rejected": true,
+      "failure_file": "negative-control-alias.failure.txt"
+    }
+  ],
+  "failures": [],
+  "article_and_new_reconstruction_order_checks": 6,
+  "actual_program_trace": {
+    "input": [
+      2,
+      5
+    ],
+    "entries": [
+      {
+        "i": 0,
+        "path_at_entry": []
+      },
+      {
+        "i": 1,
+        "path_at_entry": []
+      },
+      {
+        "i": 2,
+        "path_at_entry": []
+      },
+      {
+        "i": 2,
+        "path_at_entry": [
+          5
+        ]
+      },
+      {
+        "i": 1,
+        "path_at_entry": [
+          2
+        ]
+      },
+      {
+        "i": 2,
+        "path_at_entry": [
+          2
+        ]
+      },
+      {
+        "i": 2,
+        "path_at_entry": [
+          2,
+          5
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "i": 2,
+        "path_at_return": []
+      },
+      {
+        "i": 2,
+        "path_at_return": [
+          5
+        ]
+      },
+      {
+        "i": 1,
+        "path_at_return": []
+      },
+      {
+        "i": 2,
+        "path_at_return": [
+          2
+        ]
+      },
+      {
+        "i": 2,
+        "path_at_return": [
+          2,
+          5
+        ]
+      },
+      {
+        "i": 1,
+        "path_at_return": [
+          2
+        ]
+      },
+      {
+        "i": 0,
+        "path_at_return": []
+      }
+    ],
+    "output": [
+      [],
+      [
+        5
+      ],
+      [
+        2
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  "out_of_contract_controls": [
+    {
+      "input": [
+        2,
+        2
+      ],
+      "actual": [
+        [],
+        [
+          2
+        ],
+        [
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "duplicate_membership_detected": true,
+      "meaning": "Confirms distinct-value premise is necessary; no support claimed."
+    }
+  ],
+  "repeat_call_control": true,
+  "status": "passed"
+}

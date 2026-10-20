@@ -1,0 +1,29 @@
+{
+  "inline_code_sequence_equal": false,
+  "source_link_sequence_equal": true,
+  "english_words": 2894,
+  "first_english_words": 2808,
+  "zh_characters": 11899,
+  "english_headings": 9,
+  "zh_headings": 9,
+  "inline_code_multiset_equal": false,
+  "sequence_difference": [
+    "+ [2, 5, 7]",
+    "- [2, 5, 7]",
+    "+ result.append(path.copy())",
+    "- result.append(path.copy())",
+    "+ path = []",
+    "- path = []",
+    "- Theta(n * 2**n)",
+    "+ Theta(n * 2**n)",
+    "+ x",
+    "+ x",
+    "- k",
+    "+ k"
+  ],
+  "author_interpretation": "Inline-code order differs through Chinese sentence order: [2,5,7] before its member [2,7]; old copy expression before new alias expression; trace state before its call; formula moved within its question; k positioned within its Chinese noun phrase. Two extra backticked x occurrences mark the same values named unbackticked in English. Counter comparison finds no English inline expression absent from Chinese. These are author-reviewed formatting/order differences, not a machine semantic proof.",
+  "english_inline_spans_missing_from_zh": [],
+  "extra_zh_inline_spans": {
+    "x": 2
+  }
+}

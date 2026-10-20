@@ -1,0 +1,26 @@
+{
+  "temperatures": {
+    "quotes_checked": 50,
+    "unmatched": [],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  },
+  "subsets": {
+    "quotes_checked": 52,
+    "unmatched": [],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  },
+  "cost-control": {
+    "quotes_checked": 13,
+    "unmatched": [],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  }
+}

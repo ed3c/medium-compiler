@@ -1,0 +1,265 @@
+{
+  "answers": [
+    {
+      "id": "contract",
+      "answer": "正確結果是在每個位置 i 回傳未來第一個嚴格更暖日期的日距 j-i；沒有就為 0。合法長度為 1–100,000、整數氣溫為 30–100，同溫不能解答。長度上限使重複逐日掃描的最壞比較數成為選法因素；有界整數支持固定時間算術假設。保留待解日期的 index，能區分同溫的不同日期、指定答案目的地、計算日距，並用仍可讀取的原 list 找回氣溫；不必複製氣溫。輸入保留，輸出另外配置。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "It contains between 1 and 100,000 entries, each between 30 and 100. Return a list of the same length: position `i` holds the smallest positive distance `j - i` for which `temperatures[j] > temperatures[i]`, or `0` if no such future position exists. Positions start at zero."
+        },
+        {
+          "language": "en",
+          "text": "At 100,000 days, that is 4,999,950,000 comparisons. The temperature range does not prevent this input: repeated 70s are legal."
+        },
+        {
+          "language": "en",
+          "text": "Storing their indices preserves both the output positions and the subtraction needed for each answer. The original list remains available to recover a stored day's temperature."
+        },
+        {
+          "language": "en",
+          "text": "The algorithm does not depend on temperatures staying within 30–100 for correctness; that bound makes the arithmetic cost assumption immediate."
+        },
+        {
+          "language": "en",
+          "text": "The statement asks for a returned answer; the solutions below leave the supplied list unchanged and allocate a separate result."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "state",
+      "answer": "checkpoint 位於處理新日期 d 之前。pending 恰好保存已處理但在已見日期中尚未找到更暖後繼者的 index；index 遞增，對應氣溫 non-increasing。已處理且不在 pending 的位置，answer 已存正確第一個更暖日距；待解及未處理位置仍為 0。temperatures 仍保存各 index 的氣溫。day、temperature 是 enumerate 當前產生的 index 與氣溫；previous 是 pop 移除並回傳、等待寫答案的 index。初始無已處理日期，所以空 pending、全零 answer 滿足 invariant。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Use a checkpoint immediately before processing a new day `d`. The loop invariant is the following claim about the entire state at that checkpoint: `pending` contains exactly the processed days still lacking a warmer day among the days already seen; their indices increase and their temperatures are non-increasing. Every processed index outside `pending` already has its correct first-warmer distance in `answer`. Pending and unprocessed positions still hold zero."
+        },
+        {
+          "language": "en",
+          "text": "Initially no day has been processed, so the empty pending list and zero-filled answer satisfy the claim."
+        },
+        {
+          "language": "en",
+          "text": "The complete solution uses `enumerate` to obtain each index and temperature together."
+        },
+        {
+          "language": "en",
+          "text": "`pending.pop()` returns `2` and mutates `[0, 1, 2]` into `[0, 1]`. Store that returned index as `previous`; then `answer[previous] = 3 - 2` makes the answer `[0, 0, 1, 0, 0]`."
+        },
+        {
+          "language": "en",
+          "text": "The original list remains available to recover a stored day's temperature."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "trace",
+      "answer": "選擇合法且不同於主範例的 [68, 66, 66, 69]。初始 answer=[0,0,0,0], pending=[]。day=0、temperature=68：空 pending 使 guard 跳過比較，append 0 → [0]。day=1、66：66>68 為 false，append 1 → [0,1]，answer 不變。day=2、66：66>66 為 false，append 2 → [0,1,2]。day=3、69：69>66，pop 得 previous=2，pending=[0,1]，answer[2]=3-2=1 → [0,0,1,0]；再以 69>66 pop 1，pending=[0]，answer[1]=2 → [0,2,1,0]；再以 69>68 pop 0，pending=[]，answer[0]=3 → [3,2,1,0]。空 pending 停止 while，append 3 → [3]。輸入結束，day 3 未遇更暖未來，保留 0，回傳 [3,2,1,0]。以上由正文的 guard、重複右端 pop、日距寫入及 append 規則逐步套用，未執行程式。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "It contains between 1 and 100,000 entries, each between 30 and 100."
+        },
+        {
+          "language": "en",
+          "text": "Process days from left to right and keep pending indices in that same order. The latest pending day goes at the right end of a Python list. If today's temperature exceeds that day's temperature, remove the pending index, fill its answer, and test the new rightmost entry."
+        },
+        {
+          "language": "en",
+          "text": "Equal temperatures stay pending together because equality does not answer either day's strict-warmer question."
+        },
+        {
+          "language": "en",
+          "text": "Thus `pending and ...` skips the indexing when `pending` is empty, including when a pop has just emptied it."
+        },
+        {
+          "language": "en",
+          "text": "        for day, temperature in enumerate(temperatures):\n            while pending and temperature > temperatures[pending[-1]]:\n                previous = pending.pop()\n                answer[previous] = day - previous\n            pending.append(day)\n\n        return answer"
+        },
+        {
+          "language": "en",
+          "text": "Every remaining pending day has no warmer future day anywhere in the input and correctly retains zero."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "failure",
+      "answer": "錯法一：把 > 換成 >=。輸入 [70,70]，day 0 後 pending=[0], answer=[0,0]；day 1 的相等比較錯誤地成功，pop 0 並寫 answer[0]=1，首次錯誤狀態為 answer=[1,0]，原題所需為 [0,0]。嚴格 > 使相等保留待解，避免這個錯誤。錯法二：把 while 換成 if，在 [71,70,72] 到 day 2 時只 pop 1、寫 answer[1]=1，隨即 append 2，使 pending=[0,2]，day 0 雖已有更暖日卻仍待解，answer=[0,1,0]；重複 while 再 pop 0 才補上 2。邊界上，移除最後一項後若直接讀 pending[-1] 會遇 IndexError；先檢查 pending 並利用 and 的短路規則避免讀空 list。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Changing `>` to `>=` breaks the original contract. On `[70, 70]` it would return `[1, 0]` instead of `[0, 0]`. This counterexample has the shortest possible length for that bug: a one-day input has no later day to compare."
+        },
+        {
+          "language": "en",
+          "text": "Another tempting change, replacing `while` by `if`, fails on `[71, 70, 72]`: it answers day 1 but leaves day 0 at zero, returning `[0, 1, 0]` instead of `[2, 1, 0]`."
+        },
+        {
+          "language": "en",
+          "text": "The `while` repeats until today has answered every pending day it can answer."
+        },
+        {
+          "language": "en",
+          "text": "The guard has two parts because an empty list has no last element. Python considers an empty list false, and `and` evaluates its right operand only when the left one is true. Thus `pending and ...` skips the indexing when `pending` is empty, including when a pop has just emptied it. That order prevents `IndexError`."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "proof",
+      "answer": "若 p 在 checkpoint 仍待解，則 p 與 d 之間沒有已見更暖日。當今天比較成功，d 因而是第一個符合者，寫 d-p 正確；pop 只丟棄已完成義務，對每次 pop 可重複同一論證。若 top 不比今天冷，左邊每個 pending 都至少一樣暖，因此今天也不能回答左邊；停下不會漏解。移除比今天冷的右端項目後，餘下 top 至少與今天同溫，append 保持 non-increasing；d 尚無已處理的未來日期，因此應開始待解。answer 的零先保留未完成位置，已解位置只更新各自一格。外層處理 n 天，內層每次移除一個 index，兩者都會結束。最終所有未來都看過，留下者沒有更暖日所以零正確；已移除者已有第一個更暖日距。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "If today is warmer than the top pending day `p`, no day between `p` and `d` was warmer than `p`; otherwise the checkpoint claim would not allow `p` to remain pending. Today qualifies, and all earlier future candidates failed, so `d` is the first warmer day for `p`. Writing `d - p` is correct, and removing `p` discards only a completed obligation. Repeat this argument for every pop."
+        },
+        {
+          "language": "en",
+          "text": "If the top is not colder than today, every earlier pending entry is at least as warm as that top. Today cannot answer any of them. The remaining entries therefore stay unresolved. Append `d`: it cannot already have a future day among the processed days, and the temperature order is preserved by the stopping comparison. This establishes the invariant before the next day."
+        },
+        {
+          "language": "en",
+          "text": "Assigning `answer[previous]` replaces one position; it does not change all zero entries."
+        },
+        {
+          "language": "en",
+          "text": "The outer loop processes exactly `n` days. Each inner iteration removes one pending index, so it also ends. At the final checkpoint all days have been seen. Every remaining pending day has no warmer future day anywhere in the input and correctly retains zero. All removed days already have their first-warmer distance. The returned list is therefore correct."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "cost",
+      "answer": "主方法：每個 index append 一次、pop 至多一次，因此 n 次 append、最多 n 次 pop；每次成功比較伴隨 pop，每天最多一次失敗氣溫比較，空 pending 也能結束檢查，故總檢查數與 n 成正比。已解位置只寫一次，全零 output 建立 n 個位置。以 list indexing、有界整數運算固定時間，以及尾端 append/pop 的 amortized constant time 作假設，總時間 O(n)。pending 最多 n 個 index，全同溫達上限；備用 capacity、resize 新舊 array 只加固定倍數。enumerate 不預先建 pairs list，當前 pair、index 等固定數量暫存，因此 auxiliary O(n)，answer output O(n)，合計 additional O(n)，不算輸入。直接掃描：全同溫時比較 (n-1)+(n-2)+…+0 = n(n-1)/2，故 worst-case O(n²)；除 answer 只有 n/i/j，range 不建 list，auxiliary O(1)，output O(n)。改成 >= 仍維持相同次數界線、O(n) 時間；固定 30–100 範圍且嚴格遞減 pending，最多 71 項，auxiliary O(1)，output/total O(n)；範圍可長大則 auxiliary 回到 O(n)。正文定義 Big O、O(n) 和 amortized constant time，也敘述 resize 的容量間隔。然而 NOT_STATED：正文使用「Geometric growth or shrink sizes」作為 copied capacities 總和有固定倍數上界的前提，沒有解釋 geometric 指什麼容量序列，亦沒有展開該級數為何具有這個界線；對 task 指定無漸近／runtime 先備知識讀者，此處有新成本概念未完整重建。其餘成本可按正文頻率與明示模型重建。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Big O describes how an upper bound grows with input size, suppressing fixed factors and lower-order terms. The sum above has a quadratic leading term, so the worst-case time is `O(n²)`."
+        },
+        {
+          "language": "en",
+          "text": "On an all-equal list of length `n`, the searches inspect `n - 1`, then `n - 2`, down to `0` candidates. Pairing the ends of that sum gives `n(n - 1)/2` comparisons."
+        },
+        {
+          "language": "en",
+          "text": "This assumes reading a list entry, comparing these bounded integers, and updating an index cost constant time. The method retains only `n`, `i`, and `j` beyond its answer, so it uses `O(1)` auxiliary space and `O(n)` output space. A `range` describes the progression of indices without building a list of them."
+        },
+        {
+          "language": "en",
+          "text": "Each index enters `pending` exactly once. It leaves at most once because a removed index is never added again. There are therefore `n` appends and at most `n` pops over the whole run. Each successful temperature comparison causes a pop. For each outer iteration, at most one failed temperature comparison stops the inner loop; an empty pending list can also stop it without a temperature comparison. The total number of loop checks is consequently proportional to `n`, even when one day triggers many pops. Each answered position is written once, and initializing the output takes `n` positions."
+        },
+        {
+          "language": "en",
+          "text": "This operation count assumes constant-time list indexing and bounded-integer arithmetic."
+        },
+        {
+          "language": "en",
+          "text": "These implementation facts support amortized constant time per end operation, meaning constant cost averaged across a sequence of operations, rather than a promise that each individual call takes equal time. Geometric growth or shrink sizes make the copied capacities sum to a constant multiple of the largest reached size; interleaved growth and shrink must cross those capacity gaps again, so their work can be charged to the intervening updates."
+        },
+        {
+          "language": "en",
+          "text": "At most `n` pending indices remain live. An all-equal input reaches that maximum even with only one distinct temperature. Spare list capacity and temporary old/new arrays during a resize add only a constant multiple of that storage. The loop's current pair and index variables retain only a fixed number of values. Auxiliary space is thus `O(n)` in the worst case. The separately returned answer has `n` entries, so output space is also `O(n)`, and combined additional space is `O(n)`."
+        },
+        {
+          "language": "en",
+          "text": "It yields pairs as the loop advances rather than creating a separate list of all pairs."
+        },
+        {
+          "language": "en",
+          "text": "In fact, with the original 30–100 temperature bound, the strictly decreasing pending temperatures allow at most 71 entries. Thus auxiliary space for this changed contract is `O(1)` when that range is fixed, while output and total additional space remain `O(n)`. If the temperature range is allowed to grow, a decreasing input can retain all `n` indices, restoring `O(n)` worst-case auxiliary space."
+        }
+      ],
+      "missing": true
+    },
+    {
+      "id": "transfer",
+      "answer": "將「嚴格更暖」改為「至少同溫」改變了 qualifies 的前提，因此 guard 改成 >=。保留 index、零初始化、左到右、重複 pop 及日距寫入；相等日期現在立即解答前一天。改題 invariant 為已見日期中尚無 >= 的未來日，pending 氣溫變成 strictly decreasing。今天若比 top 冷，也比所有較早 pending 冷，所以停止仍有效；每個 pop 仍因先前無 qualifying successor 而給第一個距離。例 [70,70,71] 從原本 [2,1,0] 改為 [1,1,0]。操作次數不變；固定 71 個可能值使改題 pending 至多 71、auxiliary O(1)，放寬範圍則可保留 n 個而回到 O(n)。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Suppose a different contract asks for the first future day at least as warm as today. Then `>=` becomes the correct comparison in the stack solution. Keep the same index representation, zero-filled output, processing direction, repeated pops, and distance writes."
+        },
+        {
+          "language": "en",
+          "text": "On `[70, 70, 71]`, day 1 now pops day 0 and writes `1`; day 2 pops day 1 and writes `1`, giving `[1, 1, 0]`. Under the original strict-warmer contract the answer is `[2, 1, 0]`."
+        },
+        {
+          "language": "en",
+          "text": "The changed invariant says pending days lack a future temperature greater than or equal to their own among the days seen. Their temperatures are now strictly decreasing: equal entries get removed before the new one enters. If today's temperature is less than the top's, it is less than every earlier pending temperature, so the stopping rule remains valid. A popped day had no earlier qualifying successor under the changed condition, making today's distance its first qualifying answer. The original termination argument still applies."
+        },
+        {
+          "language": "en",
+          "text": "This adaptation adds no collection, pass, or output entry. It still appends each index once, pops it at most once, and performs only a constant number of failed checks per day."
+        },
+        {
+          "language": "en",
+          "text": "Thus auxiliary space for this changed contract is `O(1)` when that range is fixed, while output and total additional space remain `O(n)`. If the temperature range is allowed to grow, a decreasing input can retain all `n` indices, restoring `O(n)` worst-case auxiliary space."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "bilingual",
+      "answer": "英繁正文在 index 表示、右端多次 pop／日距寫入、checkpoint invariant 與 first-warmer 證明、完整成本與固定範圍改題空間界線均保留相同實質關係。兩段 Python 程式逐行一致；Interview English 五題及英文回答保留。未發現實質遺漏或不一致。cost 所列 geometric 概念未展開的限制在兩語皆有，並非翻譯不一致。此比較依具體段落與程式，不能推論讀者理解或學習成效。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Storing their indices preserves both the output positions and the subtraction needed for each answer. The original list remains available to recover a stored day's temperature."
+        },
+        {
+          "language": "zh-TW",
+          "text": "儲存它們的 index，可以同時保留答案要寫入的位置，以及計算答案所需的減法運算元。原始 list 還在，因此可以從儲存的日期讀回其氣溫。"
+        },
+        {
+          "language": "en",
+          "text": "                previous = pending.pop()\n                answer[previous] = day - previous\n            pending.append(day)"
+        },
+        {
+          "language": "zh-TW",
+          "text": "                previous = pending.pop()\n                answer[previous] = day - previous\n            pending.append(day)"
+        },
+        {
+          "language": "en",
+          "text": "Today qualifies, and all earlier future candidates failed, so `d` is the first warmer day for `p`. Writing `d - p` is correct, and removing `p` discards only a completed obligation."
+        },
+        {
+          "language": "zh-TW",
+          "text": "今天符合條件，之前所有未來候選日期卻都不符合，所以 `d` 就是 `p` 的第一個較暖日期。寫入 `d - p` 正確，移除 `p` 也只會丟棄已完成的待辦。"
+        },
+        {
+          "language": "en",
+          "text": "Geometric growth or shrink sizes make the copied capacities sum to a constant multiple of the largest reached size; interleaved growth and shrink must cross those capacity gaps again, so their work can be charged to the intervening updates."
+        },
+        {
+          "language": "zh-TW",
+          "text": "成長或縮小時的容量呈幾何級數，讓被複製的各次容量總和不超過最大容量的固定倍數；成長、縮小交錯時，必須重新跨過那些容量差，才能再次 resize，因此可以把相關工作攤給中間的更新。"
+        },
+        {
+          "language": "en",
+          "text": "Thus auxiliary space for this changed contract is `O(1)` when that range is fixed, while output and total additional space remain `O(n)`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "因此，固定這個範圍時，改題版本的 auxiliary space 為 `O(1)`，output 與 total additional space 仍為 `O(n)`。"
+        },
+        {
+          "language": "en",
+          "text": "Why is the nested loop linear? \"Every index is pushed once and popped at most once. The total stack work is linear, assuming amortized constant-time end operations.\""
+        },
+        {
+          "language": "zh-TW",
+          "text": "Why is the nested loop linear? \"Every index is pushed once and popped at most once. The total stack work is linear, assuming amortized constant-time end operations.\""
+        }
+      ],
+      "missing": false
+    }
+  ],
+  "unanswered_question_ids": [
+    "cost"
+  ],
+  "bilingual_mismatches": [],
+  "limits": "僅讀 task.json 與指定英繁正文，未讀來源連結、其他檔案、repository、其他 agents 或網路，未執行文章程式。trace 是依正文規則人工重建。結論不代表程式實測、來源核驗、品質評分或人類學習觀察；cost 的 NOT_STATED 僅限 geometric resizing 概念與級數界線未展開。"
+}

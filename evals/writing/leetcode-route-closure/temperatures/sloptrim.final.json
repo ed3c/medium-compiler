@@ -1,0 +1,38 @@
+{
+  "3_promotional": {
+    "label": "Promotional language",
+    "count": 1,
+    "samples": [
+      "ove has a quadratic leading term, so the worst-"
+    ]
+  },
+  "_metrics": {
+    "scanned_chars": 18756,
+    "truncated": false,
+    "sentences": 221,
+    "length_cv": 0.514,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.662,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.002,
+    "semicolons_per_1k": 7.48,
+    "parentheticals_per_1k": 1.87,
+    "passive_voice_ratio": 0.059,
+    "readability_fk_stdev": 2.38,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.607,
+    "homoglyphs": 0,
+    "ai_tell_score": 6,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 1,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "scope": "Focused source/registration controls after method edit; not article understanding.",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_skill_registration.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 13
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_alg_leetcode_v4.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 5
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_final_method_holdout.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 2,
+      "scope": "Replay both packets and preserve raw Reader gaps; not semantic quality."
+    }
+  ],
+  "environment": {
+    "TMPDIR": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T"
+  },
+  "ci": "Existing exact-head writing-verification; no additional workflow dispatch or hashes",
+  "doctor": {
+    "argv": [
+      "python3",
+      ".agents/skills/verify-medium/scripts/verify.py",
+      "--feature",
+      "doctor",
+      "--out",
+      "<external-evidence>/verify-doctor"
+    ],
+    "exit": 0,
+    "result": "mechanical_pass",
+    "scope": "Source/registration only"
+  }
+}

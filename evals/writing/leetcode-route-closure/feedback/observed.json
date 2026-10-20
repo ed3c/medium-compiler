@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "owner": "schema-manager.pclass-feedback",
+  "observation_scope": "consumer_report",
+  "evidence_validity": "VALID",
+  "behavior": {
+    "classification": "PASS",
+    "failed_checks": []
+  },
+  "authorizes_landing": false,
+  "effects": [],
+  "test_demand": null,
+  "selection_sha256": "d29f8fd10afcac35431c675e09dd980f5213e4a5a9249eaa9f98387a6c66bf27",
+  "field_measurement": {
+    "unit": "reported_output_field",
+    "scope": "selected_protocol",
+    "expected": 10,
+    "observed": 10,
+    "failed": 0,
+    "missing": 0,
+    "workflow_decisions": null,
+    "reason": "Output fields do not measure observable workflow choices or complete trace coverage."
+  },
+  "sources": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/initial/protocol.json",
+      "sha256": "8b0a52599d0e1abd22925b7eb79ae5959841355bf8ca63e446797dc3f96ae318"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/SKILL.md",
+      "sha256": "af42034d5988cc61ad0e4b1a3ce007b851d0258ffea2fac4a001d6792d286338"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "6cf478ae8ce7a0708bce764836a46861c011fea28f21c57ec075190ed3b35e52"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/references/article-construction.md",
+      "sha256": "75cf24df506c7b3a51813e894bee4dc3224c7607ae3c85e8769bcbe8f0ca2373"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/sloptrim/SKILL.md",
+      "sha256": "121f22f4e1d4d5fef349871bcf4a292420907b5991db7db37d5f602d958a4d82"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+      "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/writers/temperatures/task.json",
+      "sha256": "ae3e28b53434994c1f43fb7173aa3c9d01b41f96b930e268ce906edad7bd42d1"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/writers/subsets/task.json",
+      "sha256": "9654f5f7d6eb35e9860ce2b549795f9da82f08fc4da5e76237f436abfeaaf4ca"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/requirements.json",
+      "sha256": "1469c6fde5d993c58119ed42dd6c6f874361959e5d4e2408ff48498eb0e94eb5"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/criteria-review.corrected.json",
+      "sha256": "b6ffbda2cd95f91c389d0c5df17d24018415f450bd0aedc312711b6c75b5c6d0"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed-reports/temperatures.json",
+      "sha256": "2c6bd37e92cd1fa59cd2f37313c4785983ffd428dfae5f94cd9d3e9ea88be0d4"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/observer/temperatures-native-capture.json",
+      "sha256": "138c65281f1acad8443440981c716212d0e675b82f02a815f74799d2e83ff79f"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed-reports/subsets.json",
+      "sha256": "f116175ceb807245f2daeb35dc95b5ea516acf209c19b5bd3812142ef1714b78"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/observer/subsets-native-capture.json",
+      "sha256": "32695fad3b077be8f19a928edc3b026bc5281724a713ead393acf7a457bac652"
+    }
+  ],
+  "cases": [
+    {
+      "id": "temperatures",
+      "status": "passed",
+      "checks": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": true,
+        "reference_article_read": true,
+        "runtime_test_executed": true
+      },
+      "observed": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": false,
+        "reference_article_read": false,
+        "runtime_test_executed": true
+      }
+    },
+    {
+      "id": "subsets",
+      "status": "passed",
+      "checks": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": true,
+        "reference_article_read": true,
+        "runtime_test_executed": true
+      },
+      "observed": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": false,
+        "reference_article_read": false,
+        "runtime_test_executed": true
+      }
+    }
+  ],
+  "dag": {
+    "instructions": {
+      "status": "ready",
+      "requires": []
+    },
+    "criteria": {
+      "status": "ready",
+      "requires": [
+        "requirements",
+        "criteria_review"
+      ]
+    },
+    "case:temperatures": {
+      "status": "passed",
+      "requires": [
+        "instructions",
+        "criteria"
+      ]
+    },
+    "case:subsets": {
+      "status": "passed",
+      "requires": [
+        "instructions",
+        "criteria"
+      ]
+    },
+    "feedback": {
+      "status": "ready",
+      "requires": [
+        "case:temperatures",
+        "case:subsets"
+      ]
+    }
+  },
+  "limits": [
+    "File digests bind bytes, not observer independence or complete capture.",
+    "Field equality checks reported behavior, not unobserved effects.",
+    "No formal writing compliance or comparative improvement is established."
+  ],
+  "subject": "Final-body author review actions in two new complete bilingual algorithm articles; reported fields only, not semantic quality",
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/initial/protocol.json",
+    "sha256": "8b0a52599d0e1abd22925b7eb79ae5959841355bf8ca63e446797dc3f96ae318"
+  },
+  "instructions": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/SKILL.md",
+      "sha256": "af42034d5988cc61ad0e4b1a3ce007b851d0258ffea2fac4a001d6792d286338"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "6cf478ae8ce7a0708bce764836a46861c011fea28f21c57ec075190ed3b35e52"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/leetcode-mental/references/article-construction.md",
+      "sha256": "75cf24df506c7b3a51813e894bee4dc3224c7607ae3c85e8769bcbe8f0ca2373"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/instructions/.agents/skills/sloptrim/SKILL.md",
+      "sha256": "121f22f4e1d4d5fef349871bcf4a292420907b5991db7db37d5f602d958a4d82"
+    }
+  ],
+  "case_fingerprints": {
+    "temperatures": "c016e419a23ebf887051a9b04f1786a1b61ad2cbc77b12e89c461fa0196c2383",
+    "subsets": "88b8c1ed00922fc4f3f1fd489e023884ee7ce4ded9602066bd0aa8bc5fd73769"
+  },
+  "criteria": {
+    "status": "SUPPORTED",
+    "required": [],
+    "reviewer": "independent-p-class-criteria-reviewer",
+    "source": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/criteria-review.corrected.json",
+      "sha256": "b6ffbda2cd95f91c389d0c5df17d24018415f450bd0aedc312711b6c75b5c6d0"
+    },
+    "requirements": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/requirements.json",
+      "sha256": "1469c6fde5d993c58119ed42dd6c6f874361959e5d4e2408ff48498eb0e94eb5"
+    },
+    "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness."
+  },
+  "requirements": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/requirements.json",
+    "sha256": "1469c6fde5d993c58119ed42dd6c6f874361959e5d4e2408ff48498eb0e94eb5"
+  },
+  "next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "projection_ms": 0.04395795986056328,
+  "status": "passed",
+  "elapsed_ms": 1.3269158080220222,
+  "materialization": {
+    "owner": "schema-manager.pclass-feedback",
+    "binding": {
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/reviewed-corrected/selection.json",
+        "sha256": "e3ee099a4acb93a3b3f9256ed19c6f2f2a39450a42a060e52e20af0f6ccbd7bc"
+      },
+      "criteria_review": null,
+      "observations": [
+        {
+          "case_id": "temperatures",
+          "report": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed-reports/temperatures.json",
+            "sha256": "2c6bd37e92cd1fa59cd2f37313c4785983ffd428dfae5f94cd9d3e9ea88be0d4"
+          },
+          "trace": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/observer/temperatures-native-capture.json",
+            "sha256": "138c65281f1acad8443440981c716212d0e675b82f02a815f74799d2e83ff79f"
+          }
+        },
+        {
+          "case_id": "subsets",
+          "report": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed-reports/subsets.json",
+            "sha256": "f116175ceb807245f2daeb35dc95b5ea516acf209c19b5bd3812142ef1714b78"
+          },
+          "trace": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/observer/subsets-native-capture.json",
+            "sha256": "32695fad3b077be8f19a928edc3b026bc5281724a713ead393acf7a457bac652"
+          }
+        }
+      ],
+      "readback_entry": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback"
+      ],
+      "readback_environment": {},
+      "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed/selection.json",
+      "sha256": "d29f8fd10afcac35431c675e09dd980f5213e4a5a9249eaa9f98387a6c66bf27"
+    },
+    "next": {
+      "kind": "executable",
+      "owner": "schema-manager.pclass-feedback",
+      "actor": "Session",
+      "argv": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback",
+        "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed/selection.json",
+        "d29f8fd10afcac35431c675e09dd980f5213e4a5a9249eaa9f98387a6c66bf27"
+      ],
+      "environment": {},
+      "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "limits": [
+      "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+      "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+    ]
+  },
+  "readback": {
+    "tool": "soodles_schema_inspect",
+    "arguments": {
+      "kind": "pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/feedback/observed/selection.json",
+        "sha256": "d29f8fd10afcac35431c675e09dd980f5213e4a5a9249eaa9f98387a6c66bf27"
+      }
+    }
+  }
+}

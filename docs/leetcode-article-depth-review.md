@@ -1,5 +1,8 @@
 # LeetCode 文章的推導粒度與通用產文方法
 
+最新一輪從實際正文重建每個方法的自審，另見
+[final-body review](leetcode-final-body-review.md)；兩個新題型均保留成本先備推導缺項，不宣稱方法已穩定達標。
+
 最終版方法的後續兩題首次產文，另見 [holdout 報告](leetcode-final-method-holdout.md)。
 它固定本版方法，不沿用下方開發集的修訂結果：Intervals 八題可重建，Islands 保留 `cost` 缺項，未宣稱一般穩定性。
 

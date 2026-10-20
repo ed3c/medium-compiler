@@ -1,0 +1,65 @@
+{
+  "audience": "Basic Python syntax, no prior data structures, algorithms, runtime internals or asymptotic complexity.",
+  "questions": [
+    {
+      "id": "contract",
+      "question": "What is a correct result, which constraints affect the choice, and why does the selected representation retain enough information?"
+    },
+    {
+      "id": "state",
+      "question": "At the article's explicit checkpoint, what does each material retained value represent, and why is initialization valid?"
+    },
+    {
+      "id": "trace",
+      "question": "Choose a small legal input different from the main worked example. Using only the body's explained rules, reconstruct concrete states and important branch/update/return steps. Quote the rules supporting the new trace; do not supply an algorithm from memory."
+    },
+    {
+      "id": "failure",
+      "question": "Reconstruct an actual wrong approach or boundary failure, the first incorrect state, and the condition/operation that prevents that failure in the selected algorithm."
+    },
+    {
+      "id": "proof",
+      "question": "Why is each important update, discard or reuse valid, what makes progress, and why does termination establish the required result?"
+    },
+    {
+      "id": "cost",
+      "question": "Derive time and auxiliary/output space from actual operation frequencies, variables, allocations and qualified primitive costs. Cover the primary method and any alternative/reconstruction/output builder. Identify unexplained notation or new cost concepts in caveats as well as the main argument."
+    },
+    {
+      "id": "transfer",
+      "question": "Which changed constraint changes a premise, what concrete adaptation follows, and why?"
+    },
+    {
+      "id": "bilingual",
+      "question": "Compare English and Traditional Chinese at representation, updates, proof, cost and changed constraints. Cite any material omissions/mismatches. Are code and English interview practice preserved? Do not infer understanding from matching headings."
+    }
+  ],
+  "answer_rule": "Use only the supplied article text, not external sources, instructions, author reports, tests or prior knowledge. Every necessary relation needs exact supporting quotations, with language. Mark NOT_STATED at a missing premise/transition rather than inventing an explanation. Reconstruction is not a quality grade or human-learning observation.",
+  "output_schema": {
+    "answers": [
+      {
+        "id": "question id",
+        "answer": "article-grounded reconstruction or NOT_STATED",
+        "quotes": [
+          {
+            "language": "en or zh-TW",
+            "text": "exact contiguous source passage"
+          }
+        ],
+        "missing": "boolean"
+      }
+    ],
+    "unanswered_question_ids": [
+      "ids with missing=true"
+    ],
+    "bilingual_mismatches": [
+      {
+        "claim": "material mismatch",
+        "en_quote": "exact passage or empty for omission",
+        "zh_quote": "exact passage or empty for omission",
+        "reason": "specific discrepancy"
+      }
+    ],
+    "limits": "actual limitations"
+  }
+}

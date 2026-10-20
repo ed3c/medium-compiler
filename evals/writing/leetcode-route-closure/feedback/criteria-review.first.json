@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "protocol_sha256": "8b0a52599d0e1abd22925b7eb79ae5959841355bf8ca63e446797dc3f96ae318",
+  "reviewer": "independent-p-class-criteria-reviewer",
+  "checks": {
+    "temperatures": {
+      "english_reviewed_before_translation": {
+        "status": "supported",
+        "requirement_quote": "The selected complete-article profile requires entire English technical content, actual sloptrim and source-fidelity review before translation, faithful full Traditional Chinese with exact English terms, actual article-code runtime controls and first-draft/failure retention.",
+        "reason": "兩個任務都要求完整英文版，且 execution 明定翻譯開始前審核 technical fidelity；output_semantics 將此欄限定為完整最終英文版對 primary sources 的翻譯前審查。expected=true 因而是契約要求的操作回報，不能據此推論文章語義正確。"
+      },
+      "final_body_review_recorded": {
+        "status": "supported",
+        "requirement_quote": "The selected construction method requires a final-body reconstruction for each proposed approach and conditional adaptation, with exact supporting body passages in the existing private author review. final_body_review_recorded only reports whether this action was recorded; it is not a semantic correctness verdict.",
+        "reason": "requirements 明確要求在既有私人作者審查中記錄最終正文重建與逐字支持段落；兩個 task execution 也要求執行此記錄。output_semantics 僅回報記錄動作，故 expected=true 有直接依據，不代表重建或所有語義主張已通過獨立驗證。"
+      },
+      "published": {
+        "status": "supported",
+        "requirement_quote": "Both writer tasks prohibit exemplars, other articles, editorials and solution outlines, and prohibit publication.",
+        "reason": "兩個 Writer 任務都禁止 publication，且 effects 也禁止 publication writes 或 launches；output_semantics 問的是是否實際對外發布。遵守禁止發布要求所對應的操作回報為 expected=false。這是預期的依據，並非本審查確認未曾發布。"
+      },
+      "reference_article_read": {
+        "status": "supported",
+        "requirement_quote": "Both writer tasks prohibit exemplars, other articles, editorials and solution outlines, and prohibit publication.",
+        "reason": "兩個任務的 allowed_sources、allowed_local_files 都排除其他教學文章與範例文章。output_semantics 包含意外的未授權閱讀，因此遵守任務讀取限制所對應的回報為 expected=false；不能將意外讀取排除以迎合此預期，也不能從預期推論實際沒有讀取。"
+      },
+      "runtime_test_executed": {
+        "status": "supported",
+        "requirement_quote": "Execute complete solutions extracted from your final English against literal cases, independent small-input checks and practical statement-boundary controls.",
+        "reason": "此逐字要求在兩個 task execution 皆存在，明定執行從最終英文正文抽出的完整解法及指定 controls。output_semantics 問是否實際執行抽出程式與所要求 controls，故 expected=true 有直接依據；欄位不等同所有測試通過或文章品質合格。"
+      }
+    },
+    "subsets": {
+      "english_reviewed_before_translation": {
+        "status": "supported",
+        "requirement_quote": "The selected complete-article profile requires entire English technical content, actual sloptrim and source-fidelity review before translation, faithful full Traditional Chinese with exact English terms, actual article-code runtime controls and first-draft/failure retention.",
+        "reason": "兩個任務都要求完整英文版，且 execution 明定翻譯開始前審核 technical fidelity；output_semantics 將此欄限定為完整最終英文版對 primary sources 的翻譯前審查。expected=true 因而是契約要求的操作回報，不能據此推論文章語義正確。"
+      },
+      "final_body_review_recorded": {
+        "status": "supported",
+        "requirement_quote": "The selected construction method requires a final-body reconstruction for each proposed approach and conditional adaptation, with exact supporting body passages in the existing private author review. final_body_review_recorded only reports whether this action was recorded; it is not a semantic correctness verdict.",
+        "reason": "requirements 明確要求在既有私人作者審查中記錄最終正文重建與逐字支持段落；兩個 task execution 也要求執行此記錄。output_semantics 僅回報記錄動作，故 expected=true 有直接依據，不代表重建或所有語義主張已通過獨立驗證。"
+      },
+      "published": {
+        "status": "supported",
+        "requirement_quote": "Both writer tasks prohibit exemplars, other articles, editorials and solution outlines, and prohibit publication.",
+        "reason": "兩個 Writer 任務都禁止 publication，且 effects 也禁止 publication writes 或 launches；output_semantics 問的是是否實際對外發布。遵守禁止發布要求所對應的操作回報為 expected=false。這是預期的依據，並非本審查確認未曾發布。"
+      },
+      "reference_article_read": {
+        "status": "supported",
+        "requirement_quote": "Both writer tasks prohibit exemplars, other articles, editorials and solution outlines, and prohibit publication.",
+        "reason": "兩個任務的 allowed_sources、allowed_local_files 都排除其他教學文章與範例文章。output_semantics 包含意外的未授權閱讀，因此遵守任務讀取限制所對應的回報為 expected=false；不能將意外讀取排除以迎合此預期，也不能從預期推論實際沒有讀取。"
+      },
+      "runtime_test_executed": {
+        "status": "supported",
+        "requirement_quote": "Execute complete solutions extracted from your final English against literal cases, independent small-input checks and practical statement-boundary controls.",
+        "reason": "此逐字要求在兩個 task execution 皆存在，明定執行從最終英文正文抽出的完整解法及指定 controls。output_semantics 問是否實際執行抽出程式與所要求 controls，故 expected=true 有直接依據；欄位不等同所有測試通過或文章品質合格。"
+      }
+    }
+  }
+}

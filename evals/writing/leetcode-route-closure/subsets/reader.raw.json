@@ -1,0 +1,273 @@
+{
+  "answers": [
+    {
+      "id": "contract",
+      "answer": "正確結果是互異整數 array 的每一個 subset，各出現一次；空 subset 必須保留，外層結果順序不限。輸入長度 1–10，值 -10–10；值的正負與大小不改變選取規則。重複值超出 contract，不能沿用既有 uniqueness 證明。以輸入位置的固定順序做一次 include/exclude，既能跳過元素，又不會把同一 membership 的不同排列算成不同 subset；互異值讓每條 decision sequence 對應唯一答案。i 保存尚未決定的位置，path 保存已選 membership，result 保存完成答案，因此足夠重建剩餘工作。程式保留 nums，傳回新的外層 list 與獨立 subset list；空輸入的 [[]] 是額外行為。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "[LeetCode 78](https://leetcode.com/problems/subsets/) asks for every subset of an array of distinct integers, without duplicate subsets. The collection of all subsets is called the power set. Result order is unrestricted. The input has between 1 and 10 elements, each between -10 and 10. A negative number is an ordinary candidate; neither its sign nor its magnitude changes whether it can be selected."
+        },
+        {
+          "language": "en",
+          "text": "The statement does not require changing `nums`. The implementations below leave it unchanged and return a new outer list containing new subset lists. They also return `[[]]` for an empty input, although that input is outside the stated constraints. Repeated input values are outside the contract: `[2, 2]` would need a different uniqueness argument."
+        },
+        {
+          "language": "en",
+          "text": "Process positions from left to right. At each position there are exactly two choices: exclude its value, or include it once. Advancing to the next position after either choice prevents reusing that position. Since values are distinct, two different sequences of these yes/no decisions must disagree on membership of some value. They therefore produce different subsets. Conversely, any required subset tells us exactly which positions to include, so this procedure can reach it."
+        },
+        {
+          "language": "zh-TW",
+          "text": "對 `nums = [2, 5]`，要求的結果包含 `[]`、`[2]`、`[5]` 與 `[2, 5]`。空 list 記錄「什麼都不選」這個選擇。`[5, 2]` 與 `[2, 5]` 描述的是同一個 subset；按照輸入順序選取元素，就能讓每個 subset 只有一種 list 表示方式。"
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "state",
+      "answer": "明示 checkpoint 是進入 visit(i)：n 是輸入長度；i 是下一個尚未決定的位置；path 恰好是 nums[0:i] 中已 include 的值，維持輸入順序；result 保存已完成答案。每個 active call 各自保留 i 與恢復執行的位置，但共用同一 path/result；它們並非各有 path copy。return checkpoint 要求 path 回到本次 entry 的內容，而 result 保留新增答案。初始 n=len(nums)、result=[]、path=[]、visit(0) 合法，因為尚無 earlier positions，亦無已完成答案。完成的 snapshot 是新的 list，共享整數 reference 足夠，因為只改 list membership。Iterative checkpoint 是 result 恰好包含已處理 prefix 的全部 subset；初始空 prefix 只有 []，故 result=[[]]；old_count 固定本輪開始時的列數，j 只走這些舊列。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "We need to remember the next undecided position, `i`, and the values already selected, `path`. At entry to a call `visit(i)`, `path` contains exactly the included values among `nums[0:i]`, in input order. No position from `i` onward has been decided in that call. The outer list `result` retains completed answers."
+        },
+        {
+          "language": "en",
+          "text": "To explore both choices, a function can call itself with `i + 1`. This is recursion: the caller pauses until that call finishes, then resumes at its next statement. Each active call retains its own `i` and where to resume. All calls use the same `path` and `result` lists from their enclosing function. They do not each receive a private copy."
+        },
+        {
+          "language": "en",
+          "text": "The checkpoint has a return condition too: when `visit(i)` finishes, it must leave `path` as it found it, while retaining the new completed subsets in `result`."
+        },
+        {
+          "language": "en",
+          "text": "Initially, `visit(0)` has an empty `path`: there are no earlier positions to include. Its entry checkpoint holds."
+        },
+        {
+          "language": "en",
+          "text": "Here the elements are integers. Copying their references is sufficient because the algorithm changes list membership, not the integers themselves. A new subset list can keep its entries even when `path` later loses an entry."
+        },
+        {
+          "language": "en",
+          "text": "The loop checkpoint is that before processing `x`, `result` contains every subset of the already processed prefix exactly once. The old half lacks `x`; the added half contains it, and removing `x` recovers a unique old row. Distinct input values make the halves disjoint. Initially the empty prefix has just the empty subset."
+        },
+        {
+          "language": "en",
+          "text": "Python list concatenation produces a new list; it does not append into the old row. `range(old_count)` supplies indices from 0 through `old_count - 1`, so rows appended during this iteration are not revisited."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "trace",
+      "answer": "選合法且不同於主例 [2,5] 的 nums=[-1,3]，n=2。初始 i=0,path=[],result=[]。exclude -1 進入 visit(1)，再 exclude 3 進入 visit(2)，保存空 snapshot，result=[[]]，返回 visit(1)，path 仍 []。append 3 得 [3]，include child visit(2) 保存 [3]，result=[[],[3]]；返回後 pop 3 復原 []，visit(1) 返回 visit(0)。原呼叫 append -1 得 [-1]，visit(1) 的 exclude 3 leaf 保存 [-1]，result=[[],[3],[-1]]；返回後 append 3 得 [-1,3]，include leaf 保存它，result=[[],[3],[-1],[-1,3]]。內層 pop 3 復原 [-1]，外層 pop -1 復原 []。visit(0) 結束，subsets 返回四個 snapshot。負值符合文章規則，沒有增加分支。Iterative 同一輸入從 [[]] 開始；x=-1,old_count=1,j=0 新建 [-1]；x=3,old_count=2，j=0 新建 [3]，j=1 新建 [-1,3]，回傳 [[],[-1],[3],[-1,3]]。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "A negative number is an ordinary candidate; neither its sign nor its magnitude changes whether it can be selected."
+        },
+        {
+          "language": "en",
+          "text": "The exclude branch needs no list change. For the include branch, append `nums[i]`, explore the remaining positions, and remove that appended value."
+        },
+        {
+          "language": "en",
+          "text": "At `i == n`, no positions remain. Even an empty `path` is now a completed answer, so the code saves it before returning. At a nonterminal call, the first child handles exclusion. The second child handles inclusion while the appended value is present. The final `pop()` undoes this call's inclusion after the second child has restored any choices of its own."
+        },
+        {
+          "language": "en",
+          "text": "`visit` communicates answers through `result`; its own return value is `None`. `subsets` waits for `visit(0)` to finish and returns the accumulated outer list."
+        },
+        {
+          "language": "en",
+          "text": "If recursion is undesirable, build complete subsets for a growing prefix instead. Start with `[[]]`. When the next value is `x`, keep every old row to represent excluding `x`, and add a fresh `old_row + [x]` to represent including it."
+        },
+        {
+          "language": "en",
+          "text": "Python list concatenation produces a new list; it does not append into the old row. `range(old_count)` supplies indices from 0 through `old_count - 1`, so rows appended during this iteration are not revisited."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "failure",
+      "answer": "正文的實際錯誤替換是 result.append(path)，沒有 copy。最小合法輸入 [2]：exclude leaf 儲存空的工作 list reference；此刻顯示內容仍是 [[]]，但已沒有 snapshot independence。回到 include branch 的 path.append(2) 是第一個使已保存答案內容錯誤的更新：原本應為 [] 的已保存 entry 變成 [2]，result 此刻呈 [[2]]。include leaf 再 append 同一 list，兩個 entry 都指 [2]；最後 pop 將共用 list 清空，結果成 [[],[]]，丟失 [2]。selected algorithm 在 leaf 用 path.copy() 建立獨立 list，將 copy 交給 result.append，後續 append/pop 只改工作 path，阻止這種失敗。另有只列 contiguous pieces 漏 [2,7]，任意順序則重複 [2,5]/[5,2]；固定位置逐一 include/exclude 防止兩者。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Consider a tempting replacement: `result.append(path)` instead of `result.append(path.copy())`. `append` would store a reference to the working list itself. It would not freeze its contents."
+        },
+        {
+          "language": "en",
+          "text": "The smallest legal input already breaks this replacement. For `[2]`, the exclude leaf appends the empty `path`. The include branch changes that same list to `[2]` and appends it again. Both result entries then refer to `[2]`. The final `pop()` empties the one shared list, so the returned result becomes `[[], []]`, with both entries referring to the same object. The required `[2]` has disappeared. No smaller legal input exists because the minimum input length is 1."
+        },
+        {
+          "language": "en",
+          "text": "Copying only when saving an answer preserves cheap updates to the working path while giving every answer stable membership. The return value of `path.copy()` goes into `result.append(...)`; the return value of `append` is ignored."
+        },
+        {
+          "language": "en",
+          "text": "Looking only for contiguous pieces misses `[2, 7]` from `[2, 5, 7]`. Subsets may skip elements. Choosing arbitrary orders creates the opposite problem: selecting 2 then 5 and selecting 5 then 2 would repeat the same membership choice."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "proof",
+      "answer": "初始化 checkpoint 成立。非 leaf 的 exclude child 前進一格但保留 earlier selections，故 child checkpoint 成立；child return 復原原 path。append nums[i] 使 include child 的 earlier-prefix membership 成立；該 child 回來留下包含本次選取的 path，再 pop 精確撤回 parent 的選取，故 parent restoration 成立。leaf copy 保存完整 choice 又不改 path；以 leaf 向上 induction 證明 restoration，無需預先假定 cleanup。i 每次加 1，最多 n+1 active calls 且在 n 停止。每一位置兩種決定都被覆蓋，且互異值與固定順序構成 decision/subset 對應，故終止時完整且不重複；copy 另外保護答案穩定。Iterative 保留 old rows 覆蓋 exclude，新 list 覆蓋 include；刪除 x 能還原唯一 old row，互異值使兩半 disjoint。固定 old_count 避免本輪新增列再次納入選 x。空 prefix 成立，每輪延伸 checkpoint，處理完整個 input 即完成。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Suppose it holds at a nonterminal `visit(i)`. The exclude call leaves the earlier selections unchanged and advances past position `i`, so its own entry checkpoint holds. When it returns, the return condition gives back the original `path`. Appending `nums[i]` then establishes the include child's checkpoint. That child restores this longer path when it returns; the parent's `pop()` removes exactly its own appended entry. The parent's return condition follows."
+        },
+        {
+          "language": "en",
+          "text": "At a leaf, the checkpoint means that `path` is one complete membership choice. Copying saves that choice and leaves the working list unchanged. Induction from leaves back toward the first call proves the restoration condition for every call, so the reasoning about siblings does not assume an unproved cleanup step."
+        },
+        {
+          "language": "en",
+          "text": "Each recursive call increases `i` by 1. It stops at `n`, so there are at most `n + 1` active calls and no branch can continue forever. Every position receives both decisions. The earlier correspondence proves that all subsets appear once and only once. Restoring `path` preserves the checkpoint; making a snapshot preserves the answer. Both obligations are needed."
+        },
+        {
+          "language": "en",
+          "text": "The loop checkpoint is that before processing `x`, `result` contains every subset of the already processed prefix exactly once. The old half lacks `x`; the added half contains it, and removing `x` recovers a unique old row. Distinct input values make the halves disjoint. Initially the empty prefix has just the empty subset. Each completed outer iteration extends the checkpoint, and after all positions it is the required result."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "cost",
+      "answer": "正文足以重建主要計數與宣告的界限，但完整 primitive-cost 推導有 NOT_STATED。把 n 視為變數且值互異：每多一位 branch 翻倍，2**n leaves、2**(n+1)-1 calls。每個非 leaf 一次 path append 與一次 pop，因此各 2**n-1 次；每個 leaf copy 與 result append 各 2**n 次。長 r 的 copy 寫 r references 並有固定 list creation；每值在一半 subset 中，總 copy entries=n*2**(n-1)，故正文宣告時間 Theta(n*2**n)，輸出同階，含 outer refs/inner objects/element slots。工作 path <=n、active calls <=n+1，加最多 n 的 transient copy，auxiliary O(n)。Iterative 新增 2**n-1 rows，每個非空 subset 建立一次，concat 總寫相同 entries；old rows 是最終輸出且不複製外層 list，時間/輸出同階。暫時 [x] 一格、新 row <=n；若 append 前計 transient 則 auxiliary O(n)，若建立即算 output 則控制值與 singleton scratch O(1)。size-k 版本 calls 不超過完整 tree；copy entries=k*C(n,k)，list creation=C(n,k)，上界 O(2**n+(k+1)*C(n,k))、output Theta((k+1)*C(n,k))、auxiliary O(n)；k=0 constant，k=n O(n) calls 加一次長 n copy。Theta/O、C、r、m 與 amortized 的角色正文有交代；模型假設足夠 memory/recursion capacity、忽略平台 byte size，且非所有 Python 的精確 allocation time 承諾。缺項：正文明說 growing sequence 的 m appends 為 aggregate O(m)，但沒有說明這項資格如何涵蓋反覆 append/pop 的共享 path；pop、len、index access、branch/call bookkeeping 的單次成本未明確給出，不能只憑 basic syntax 補出其上界。因此完整成本證明中這些 primitive premises 為 NOT_STATED。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "For a growth comparison, treat the number of positions as variable while keeping the same algorithm and distinct-value assumption. The official maximum is still 10. We count list-reference operations and active function calls, assume sufficient memory and recursion capacity, and ignore platform byte sizes."
+        },
+        {
+          "language": "en",
+          "text": "After one decision there are 2 branches. After two there are 4. Each extra position doubles the number, so there are `2**n` leaves. Across all levels there are `1 + 2 + 4 + ... + 2**n = 2**(n + 1) - 1` calls: doubling this sum and subtracting the original cancels all middle terms. Thus visiting calls alone grows in proportion to `2**n`."
+        },
+        {
+          "language": "en",
+          "text": "A copy of a path of length `r` writes `r` element references into a new list, plus fixed list-creation work. For `n >= 1`, each particular input value appears in half the subsets: pair each subset without it with the corresponding subset containing it. Across `n` values, the output therefore contains exactly `n * 2**(n - 1)` element entries. These are precisely the entries copied at leaves."
+        },
+        {
+          "language": "en",
+          "text": "The total time is consequently `Theta(n * 2**n)` for `n >= 1`. `Theta` means the growth has both an upper and a lower bound of that form, up to fixed multipliers. `O` alone gives an upper bound."
+        },
+        {
+          "language": "en",
+          "text": "The main live working state is one path of length at most `n` and at most `n + 1` active calls. Its auxiliary space, meaning storage beyond the input and retained output, is `O(n)`. A snapshot being built before its append has length at most `n` too, so counting that transient list separately leaves this bound unchanged. The returned output uses `Theta(n * 2**n)` space, counting its outer references, inner list objects and element-reference slots. Integer objects need not be duplicated."
+        },
+        {
+          "language": "en",
+          "text": "Here `m` is the number of appends in a growing sequence; spreading resize work across that sequence is called amortized analysis. A run of `m` appends costs `O(m)` in aggregate. Copying and concatenation explicitly visit their input references."
+        },
+        {
+          "language": "en",
+          "text": "There are `1 + 2 + ... + 2**(n - 1) = 2**n - 1` new rows. Each nonempty final subset is created once by copying its earlier entries and adding its last value. Thus concatenations write exactly the same `n * 2**(n - 1)` output entries counted above. Time and returned output space are again `Theta(n * 2**n)`."
+        },
+        {
+          "language": "en",
+          "text": "It never copies the outer list: the old rows remain part of the final output. A temporary `[x]` has one entry, and the new concatenated row has at most `n` entries before its append. Under the convention that a newly constructed row counts as transient until appended, peak auxiliary space is `O(n)`; if it is counted as output immediately, control and singleton-list scratch space are `O(1)`."
+        },
+        {
+          "language": "en",
+          "text": "Let `C(n, k)` mean the number of ways to choose `k` distinct positions from `n`; each unordered choice is counted once. Those are the leaves saved here. Calls occur only where the original include/exclude search would also call `visit`, hence there are at most `2**(n + 1) - 1`. Copies write `k * C(n, k)` entries, and creating the lists costs another `C(n, k)` units. A valid upper bound is `O(2**n + (k + 1) * C(n, k))`; it is deliberately not a tight bound for every `k`. Auxiliary space stays `O(n)` for the active calls, path and temporary snapshot. Output space is `Theta((k + 1) * C(n, k))`, including an object and outer reference even for an empty row."
+        }
+      ],
+      "missing": true
+    },
+    {
+      "id": "transfer",
+      "answer": "要求只列恰好 k 個值、0<=k<=n，改變『每一個完整 membership choice 都是答案』這個前提。i/path 意義不變：若 len(path)==k，剩下只能 exclude，故 copy 一次即 return；若 len(path)+(n-i)<k，即使全選剩餘值也不足，故 return 且不保存。兩個 early return 都不改 path，原 restoration 證明延用。每個合法 size-k route 的 prefix 不會被誤刪，選滿後剩餘 exclusions 被唯一決定，故完整且唯一；i==n 時必成功或不可能，阻止 nums[n] 存取。例 nums=[-1,3],k=1：exclude -1 後 exclude 3 到 i=2、path=[]，0+0<1 被拒；include 3 保存 [3]；回到 i=0 include -1 立即保存 [-1]，不再 include 3。另若要求禁止 recursion，可改 iterative prefix builder；若值重複，正文僅說需不同 uniqueness argument，並未提供 adaptation。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Suppose values remain distinct but the caller now asks for subsets containing exactly `k` values, where `0 <= k <= n`. Generating the full power set and filtering would still build all `2**n` rows. The search can instead stop once it has enough values, or reject a path that can no longer reach the target."
+        },
+        {
+          "language": "en",
+          "text": "The path and position retain their original meanings. Now `n - i` is the number of undecided positions. Even including all of them cannot succeed when `len(path) + (n - i) < k`; rejecting that call loses no valid answer. When `len(path) == k`, every remaining position must be excluded. Saving once and stopping represents that one completion, rather than exploring additional inclusions. Neither early return changes `path`, so the restoration proof still applies. The code assumes the stated bounds on `k`."
+        },
+        {
+          "language": "en",
+          "text": "Every size-`k` subset still has its unique decision route: no prefix of that route is impossible, and once it reaches `k` selected values its remaining exclusions are forced. Thus both early returns preserve completeness and uniqueness. At `i == n`, either success or impossibility must hold, so no code reads `nums[n]`."
+        },
+        {
+          "language": "en",
+          "text": "This alternative avoids recursive calls and a mutable shared path, so it is preferable when recursion depth or a no-recursion requirement controls the choice."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "bilingual",
+      "answer": "兩版在 representation、共享狀態、entry/return checkpoint、copy 與 restoration、完整/唯一性論證、cost model 與兩種 auxiliary-space 計帳、size-k early returns 的必要條件上未見實質遺漏或不一致。三段 Python code（Solution.subsets、subsets_iterative、subsets_of_size）逐段保留同樣的 statements、順序、條件與回傳。Interview English 五組問答在繁中版仍保留英文，包含 no duplicates、copy、restore、time、iterative selection；不是僅有相同 headings。cost 的 primitive premises 缺項兩版一致，屬共同未述而非翻譯不一致。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "At entry to a call `visit(i)`, `path` contains exactly the included values among `nums[0:i]`, in input order. No position from `i` onward has been decided in that call."
+        },
+        {
+          "language": "zh-TW",
+          "text": "進入 `visit(i)` 時，`path` 恰好包含 `nums[0:i]` 中已決定 include 的值，並維持輸入順序。在這次呼叫中，從 `i` 開始的所有位置都還沒有決定。"
+        },
+        {
+          "language": "en",
+          "text": "That child restores this longer path when it returns; the parent's `pop()` removes exactly its own appended entry. The parent's return condition follows."
+        },
+        {
+          "language": "zh-TW",
+          "text": "這個 child return 時會復原這條較長的 path；parent 的 `pop()` 再精確移除自己加入的 entry。因此 parent 的 return condition 也成立。"
+        },
+        {
+          "language": "en",
+          "text": "Under the convention that a newly constructed row counts as transient until appended, peak auxiliary space is `O(n)`; if it is counted as output immediately, control and singleton-list scratch space are `O(1)`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "若把新 row 在 append 之前算作 transient state，peak auxiliary space 為 `O(n)`；若從建立時就把它算入 output，control state 與 singleton-list scratch space 則是 `O(1)`。"
+        },
+        {
+          "language": "en",
+          "text": "Even including all of them cannot succeed when `len(path) + (n - i) < k`; rejecting that call loses no valid answer. When `len(path) == k`, every remaining position must be excluded."
+        },
+        {
+          "language": "zh-TW",
+          "text": "當 `len(path) + (n - i) < k`，即使把它們全部 include 也無法成功，因此拒絕這次呼叫不會丟失任何合法答案。當 `len(path) == k`，所有剩餘位置都必須 exclude。"
+        },
+        {
+          "language": "en",
+          "text": "Why copy the path? The working list is mutated after a leaf returns. A shallow copy gives the saved answer an independent list while safely sharing integer elements."
+        },
+        {
+          "language": "zh-TW",
+          "text": "Why copy the path? The working list is mutated after a leaf returns. A shallow copy gives the saved answer an independent list while safely sharing integer elements."
+        },
+        {
+          "language": "en",
+          "text": "When would you choose the iterative version? When recursive calls are unsuitable and all subsets are still required. Its old-prefix checkpoint replaces the recursive path-restoration checkpoint."
+        },
+        {
+          "language": "zh-TW",
+          "text": "When would you choose the iterative version? When recursive calls are unsuitable and all subsets are still required. Its old-prefix checkpoint replaces the recursive path-restoration checkpoint."
+        },
+        {
+          "language": "en",
+          "text": "            visit(i + 1)\n            path.append(nums[i])\n            visit(i + 1)\n            path.pop()"
+        },
+        {
+          "language": "zh-TW",
+          "text": "            visit(i + 1)\n            path.append(nums[i])\n            visit(i + 1)\n            path.pop()"
+        }
+      ],
+      "missing": false
+    }
+  ],
+  "unanswered_question_ids": [
+    "cost"
+  ],
+  "bilingual_mismatches": [],
+  "limits": "僅閱讀指定 task.json 與指定英繁正文；引文連結未開啟，文章程式未執行，無來源／實作／runtime 外部驗證。新 trace 是依正文規則手推。未使用 repository、作者筆記、報告、測試、其他 agents 或網路。此為 article-only reconstruction，不是品質分數、獨立執行證據或人類學習成效。cost 缺項只標正文未給出的必要成本前提，未以既有 Python runtime 知識補足。"
+}
