@@ -1,0 +1,456 @@
+{
+  "python": "3.14.6",
+  "implementation": "CPython",
+  "extracted_complete_solutions": 1,
+  "checks_passed": 761,
+  "literal_cases": 8,
+  "exhaustive_graphs_n_1_to_3": 530,
+  "random_graphs_n_4_to_6": 210,
+  "statement_boundary_cases": 5,
+  "checkpoint_observations": 22,
+  "checkpoint_states": [
+    {
+      "completed": [],
+      "remaining": [
+        0,
+        1
+      ],
+      "ready": [
+        0
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        0
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "ready": [
+        1
+      ],
+      "finished": 1
+    },
+    {
+      "completed": [
+        0,
+        1
+      ],
+      "remaining": [
+        0,
+        0
+      ],
+      "ready": [],
+      "finished": 2
+    },
+    {
+      "completed": [],
+      "remaining": [
+        1,
+        1
+      ],
+      "ready": [],
+      "finished": 0
+    },
+    {
+      "completed": [],
+      "remaining": [
+        0,
+        1,
+        1,
+        2,
+        0
+      ],
+      "ready": [
+        0,
+        4
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        0
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "ready": [
+        4,
+        1,
+        2
+      ],
+      "finished": 1
+    },
+    {
+      "completed": [
+        0,
+        4
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "ready": [
+        1,
+        2
+      ],
+      "finished": 2
+    },
+    {
+      "completed": [
+        0,
+        4,
+        1
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "ready": [
+        2
+      ],
+      "finished": 3
+    },
+    {
+      "completed": [
+        0,
+        4,
+        1,
+        2
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ready": [
+        3
+      ],
+      "finished": 4
+    },
+    {
+      "completed": [
+        0,
+        4,
+        1,
+        2,
+        3
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ready": [],
+      "finished": 5
+    },
+    {
+      "completed": [],
+      "remaining": [
+        1,
+        1,
+        0
+      ],
+      "ready": [
+        2
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        2
+      ],
+      "remaining": [
+        1,
+        1,
+        0
+      ],
+      "ready": [],
+      "finished": 1
+    },
+    {
+      "completed": [],
+      "remaining": [
+        0
+      ],
+      "ready": [
+        0
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        0
+      ],
+      "remaining": [
+        0
+      ],
+      "ready": [],
+      "finished": 1
+    },
+    {
+      "completed": [],
+      "remaining": [
+        1
+      ],
+      "ready": [],
+      "finished": 0
+    },
+    {
+      "completed": [],
+      "remaining": [
+        1,
+        0
+      ],
+      "ready": [
+        1
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        1
+      ],
+      "remaining": [
+        1,
+        0
+      ],
+      "ready": [],
+      "finished": 1
+    },
+    {
+      "completed": [],
+      "remaining": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "ready": [
+        0,
+        2
+      ],
+      "finished": 0
+    },
+    {
+      "completed": [
+        0
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "ready": [
+        2,
+        1
+      ],
+      "finished": 1
+    },
+    {
+      "completed": [
+        0,
+        2
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ready": [
+        1,
+        3
+      ],
+      "finished": 2
+    },
+    {
+      "completed": [
+        0,
+        2,
+        1
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ready": [
+        3
+      ],
+      "finished": 3
+    },
+    {
+      "completed": [
+        0,
+        2,
+        1,
+        3
+      ],
+      "remaining": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ready": [],
+      "finished": 4
+    }
+  ],
+  "container_controls": "PASS",
+  "wrong_rule_distinguished": true,
+  "append_capacity_observations": [
+    {
+      "length": 1,
+      "bytes": 88
+    },
+    {
+      "length": 5,
+      "bytes": 120
+    },
+    {
+      "length": 9,
+      "bytes": 184
+    },
+    {
+      "length": 17,
+      "bytes": 248
+    },
+    {
+      "length": 25,
+      "bytes": 312
+    },
+    {
+      "length": 33,
+      "bytes": 376
+    },
+    {
+      "length": 41,
+      "bytes": 472
+    },
+    {
+      "length": 53,
+      "bytes": 568
+    },
+    {
+      "length": 65,
+      "bytes": 664
+    },
+    {
+      "length": 77,
+      "bytes": 792
+    },
+    {
+      "length": 93,
+      "bytes": 920
+    },
+    {
+      "length": 109,
+      "bytes": 1080
+    },
+    {
+      "length": 129,
+      "bytes": 1240
+    },
+    {
+      "length": 149,
+      "bytes": 1432
+    },
+    {
+      "length": 173,
+      "bytes": 1656
+    },
+    {
+      "length": 201,
+      "bytes": 1912
+    },
+    {
+      "length": 233,
+      "bytes": 2200
+    },
+    {
+      "length": 269,
+      "bytes": 2520
+    },
+    {
+      "length": 309,
+      "bytes": 2872
+    },
+    {
+      "length": 353,
+      "bytes": 3256
+    },
+    {
+      "length": 401,
+      "bytes": 3704
+    },
+    {
+      "length": 457,
+      "bytes": 4216
+    },
+    {
+      "length": 521,
+      "bytes": 4792
+    },
+    {
+      "length": 593,
+      "bytes": 5432
+    },
+    {
+      "length": 673,
+      "bytes": 6136
+    },
+    {
+      "length": 761,
+      "bytes": 6936
+    },
+    {
+      "length": 861,
+      "bytes": 7832
+    },
+    {
+      "length": 973,
+      "bytes": 8856
+    },
+    {
+      "length": 1101,
+      "bytes": 10008
+    },
+    {
+      "length": 1245,
+      "bytes": 11288
+    },
+    {
+      "length": 1405,
+      "bytes": 12728
+    },
+    {
+      "length": 1585,
+      "bytes": 14360
+    },
+    {
+      "length": 1789,
+      "bytes": 16184
+    }
+  ],
+  "failures": [],
+  "limits": "Finite controls establish sampled behavior, not asymptotic proof or learner understanding. CPython source analysis is pinned to v3.14.0; runtime version is reported separately."
+}

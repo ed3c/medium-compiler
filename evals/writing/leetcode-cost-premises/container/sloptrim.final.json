@@ -1,0 +1,45 @@
+{
+  "25_question_answer": {
+    "label": "Question-answer rhetorical pattern",
+    "count": 1,
+    "samples": [
+      "already measured.  Does the next pair have to improve? No.        remembers ea"
+    ]
+  },
+  "6_stacked_adjectives": {
+    "label": "Stacked adjective chains",
+    "count": 1,
+    "samples": [
+      "comparison, addition, subtraction, multiplication, local binding"
+    ]
+  },
+  "_metrics": {
+    "scanned_chars": 16265,
+    "truncated": false,
+    "sentences": 185,
+    "length_cv": 0.591,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.713,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.002,
+    "semicolons_per_1k": 11.8,
+    "parentheticals_per_1k": 3.78,
+    "passive_voice_ratio": 0.086,
+    "readability_fk_stdev": 2.52,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.53,
+    "homoglyphs": 0,
+    "ai_tell_score": 12,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 2,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}

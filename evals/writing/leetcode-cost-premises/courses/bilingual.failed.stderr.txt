@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/writers/courses/finish.py", line 18, in <module>
+    assert all(checks.values()), checks
+           ~~~^^^^^^^^^^^^^^^^^
+AssertionError: {'all_fenced_blocks_identical': True, 'inline_code_sequence_identical': False, 'source_url_sequence_identical': True, 'same_heading_count': True, 'interview_questions_and_answers_unchanged': True}

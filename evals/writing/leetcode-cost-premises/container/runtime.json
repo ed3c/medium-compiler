@@ -1,0 +1,185 @@
+{
+  "status": "PASS",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "implementation": "CPython",
+  "article_code_blocks": 3,
+  "bilingual_code_identical": true,
+  "literal_results": [
+    {
+      "height": [
+        1,
+        8,
+        6,
+        2,
+        5,
+        4,
+        8,
+        3,
+        7
+      ],
+      "expected": 49,
+      "all_pairs": 49,
+      "two_pointer": 49
+    },
+    {
+      "height": [
+        1,
+        1
+      ],
+      "expected": 1,
+      "all_pairs": 1,
+      "two_pointer": 1
+    },
+    {
+      "height": [
+        2,
+        5,
+        1,
+        4
+      ],
+      "expected": 8,
+      "all_pairs": 8,
+      "two_pointer": 8
+    },
+    {
+      "height": [
+        3,
+        3,
+        3
+      ],
+      "expected": 6,
+      "all_pairs": 6,
+      "two_pointer": 6
+    },
+    {
+      "height": [
+        1,
+        3,
+        2
+      ],
+      "expected": 2,
+      "all_pairs": 2,
+      "two_pointer": 2
+    },
+    {
+      "height": [
+        1,
+        3,
+        3
+      ],
+      "expected": 3,
+      "all_pairs": 3,
+      "two_pointer": 3
+    },
+    {
+      "height": [
+        4,
+        1,
+        3,
+        2
+      ],
+      "expected": 6,
+      "all_pairs": 6,
+      "two_pointer": 6
+    },
+    {
+      "height": [
+        0,
+        0
+      ],
+      "expected": 0,
+      "all_pairs": 0,
+      "two_pointer": 0
+    },
+    {
+      "height": [
+        0,
+        10000
+      ],
+      "expected": 0,
+      "all_pairs": 0,
+      "two_pointer": 0
+    },
+    {
+      "height": [
+        10000,
+        10000
+      ],
+      "expected": 10000,
+      "all_pairs": 10000,
+      "two_pointer": 10000
+    },
+    {
+      "height": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": 0,
+      "all_pairs": 0,
+      "two_pointer": 0
+    },
+    {
+      "height": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected": 4,
+      "all_pairs": 4,
+      "two_pointer": 4
+    },
+    {
+      "height": [
+        4,
+        3,
+        2,
+        1
+      ],
+      "expected": 4,
+      "all_pairs": 4,
+      "two_pointer": 4
+    }
+  ],
+  "exhaustive_height_cases": 21840,
+  "exhaustive_coordinate_cases": 18720,
+  "statement_boundaries": {
+    "n_max": 100000,
+    "height_max": 10000,
+    "max_area": 999990000,
+    "coordinate_max_area": 10000000000000,
+    "zero_case": 0,
+    "all_pairs_practical_n": 300
+  },
+  "counted_controls": {
+    "two_pointer": {
+      "iterations": 99999,
+      "height_reads": 199998,
+      "length_reads": 1
+    },
+    "all_pairs": {
+      "pair_evaluations": 44850,
+      "outer_iterations": 299,
+      "height_reads": 89700,
+      "length_reads": 1
+    },
+    "coordinate_adaptation": {
+      "iterations": 2,
+      "height_reads": 4,
+      "coordinate_reads": 4
+    }
+  },
+  "negative_control_expected_failure": "negative-control.json",
+  "outside_contract": "Empty/one-wall inputs, negative heights, unordered/mismatched coordinates and non-integer elements are not claimed supported; no invented validation requirement.",
+  "elapsed_seconds": 0.20800562482327223,
+  "prior_failed_attempts": [
+    {
+      "failure": "Wrong author literal expectation [1,3,2] -> 3; actual correct algorithms returned2",
+      "log": "runtime-failures.log",
+      "repair": "repair.md"
+    }
+  ],
+  "unexpected_failures_current_successful_run": []
+}

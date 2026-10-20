@@ -1,6 +1,9 @@
 # LeetCode 文章的推導粒度與通用產文方法
 
-最新一輪從實際正文重建每個方法的自審，另見
+最新的成本推論自審與兩個新題型盲寫見
+[cost-inference review](leetcode-cost-inference-review.md)：兩位 Reader 八題均能重建，局部表述限制、首稿錯誤與所有失敗仍保留。
+
+前一輪從實際正文重建每個方法的自審，另見
 [final-body review](leetcode-final-body-review.md)；兩個新題型均保留成本先備推導缺項，不宣稱方法已穩定達標。
 
 最終版方法的後續兩題首次產文，另見 [holdout 報告](leetcode-final-method-holdout.md)。

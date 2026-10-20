@@ -1,0 +1,154 @@
+[
+  {
+    "capture": "container-native-capture.json",
+    "thread": "01a15ac9-da8a-7020-b646-5a6f970fc0c4",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ac9-db79-7f73-acdf-1d77ddb271cb",
+        "status": "completed",
+        "command_count": 12,
+        "command_failures": [],
+        "captured_output_truncated": 2,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "reasoning",
+          "webSearch"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": "courses-native-capture.json",
+    "thread": "01a15ac9-f315-7033-919d-d14c6f9dc71d",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ac9-f3b6-7fa3-a715-1d54ce68ac4e",
+        "status": "completed",
+        "command_count": 19,
+        "command_failures": [
+          {
+            "id": "exec-d8403015-95f4-475b-9a7c-5da8edd56b4b",
+            "exit": 1
+          }
+        ],
+        "captured_output_truncated": 1,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "reasoning",
+          "webSearch"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": "criteria-native-capture.json",
+    "thread": "01a15ac9-c04e-70c3-b48f-b96e6f305135",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ac9-c130-7942-86aa-5fc9e2f16a1b",
+        "status": "completed",
+        "command_count": 3,
+        "command_failures": [],
+        "captured_output_truncated": 0,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": "premise_container_reader-native-capture.json",
+    "thread": "01a15ad1-7629-7f03-a1fc-666a4f39f17f",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ad1-76f7-71b2-9b06-7e1c3b57aaf5",
+        "status": "completed",
+        "command_count": 3,
+        "command_failures": [],
+        "captured_output_truncated": 1,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": "premise_courses_reader-native-capture.json",
+    "thread": "01a15ad1-8b44-7e21-9980-605e525fef6c",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ad1-8bcc-7803-87b8-98162aada378",
+        "status": "completed",
+        "command_count": 4,
+        "command_failures": [],
+        "captured_output_truncated": 0,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": "premise_review_d-native-capture.json",
+    "thread": "01a15ad2-7421-7340-9bd6-605a5ad492f8",
+    "page": {
+      "order": "newest_first",
+      "limit": 10,
+      "nextCursor": null,
+      "hasMore": false
+    },
+    "turns": [
+      {
+        "id": "01a15ad2-7502-7693-b66b-06099352b282",
+        "status": "completed",
+        "command_count": 3,
+        "command_failures": [],
+        "captured_output_truncated": 0,
+        "item_types": [
+          "agentMessage",
+          "commandExecution",
+          "fileChange",
+          "reasoning"
+        ]
+      }
+    ]
+  }
+]

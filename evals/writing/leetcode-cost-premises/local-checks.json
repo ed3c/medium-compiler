@@ -1,0 +1,57 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_skill_registration.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 13
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_alg_leetcode_v4.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 5
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_final_method_holdout.py",
+        "-v"
+      ],
+      "exit": 0,
+      "tests": 2,
+      "scope": "Replay three frozen packets, retain raw Reader outcomes and audit quotations; not semantic grading"
+    }
+  ],
+  "doctor": {
+    "feature": "doctor",
+    "exit": 0,
+    "outcome": "mechanical_pass",
+    "scope": "Source and registration only"
+  },
+  "sha256_added_to_ci": false
+}

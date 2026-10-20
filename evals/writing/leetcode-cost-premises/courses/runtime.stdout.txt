@@ -1,0 +1,15 @@
+{
+  "python": "3.14.6",
+  "implementation": "CPython",
+  "extracted_complete_solutions": 1,
+  "checks_passed": 761,
+  "literal_cases": 8,
+  "exhaustive_graphs_n_1_to_3": 530,
+  "random_graphs_n_4_to_6": 210,
+  "statement_boundary_cases": 5,
+  "checkpoint_observations": 22,
+  "container_controls": "PASS",
+  "wrong_rule_distinguished": true,
+  "failures": [],
+  "limits": "Finite controls establish sampled behavior, not asymptotic proof or learner understanding. CPython source analysis is pinned to v3.14.0; runtime version is reported separately."
+}

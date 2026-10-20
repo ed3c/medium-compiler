@@ -1,0 +1,76 @@
+{
+  "answers": [
+    {
+      "id": "cost",
+      "answer": "正文定義 V = numCourses、E = len(prerequisites)，Big O 是忽略固定倍數的成長上界。成本模型將單個 list slot 讀寫、有界 integer 比較、counter 增加及 object reference 搬移或保存視為固定大小操作；配置或複製 k 個 slots 與 k 成正比。課程識別碼、計數有明示的界限。\n主方法先配置 V 個獨立 lists 與 V 個計數；讀 E 組 pairs 做 E 次 counter updates 及 E 次 adjacency appends。各課 b 的 dependents 數 d_b 合計恰為 E。readiness scan 檢查 V 個 slots。計數只減不增、正數只跨零一次、初始零計數只在初始化入列，所以每課最多入列與移除一次。每 edge 在唯一 dependent list 中，該 list 最多走訪一次，因此所有 inner-loop iterations 至多 E。deque 使用固定大小 blocks；在固定大小 block allocation 當成有界工作的條件下，單次 endpoint operation 為固定成本。如果接受正文聲明的 append-only aggregate O(d) bound，這些頻率合計得到 worst-case O(V + E)。但有共同必要推導缺口：NOT_STATED：正文從最終 capacity 與 length 成正比，直接推出 d 次 appends 的總工作 O(d)。它沒有把歷次 resize 複製量相加，也沒有說明約八分之一的 spare-capacity policy 如何限制這個總和。因此 amortized constant time 的名稱與 aggregate 意義有說明，但成立所需的累積成本轉換未展開；主方法的線性時間只能條件式重建。\n主方法空間：外層 adjacency list、V 個 inner-list headers 為 O(V)；內層 E references 加上與 V + E 成正比的 spare capacity；remaining 為 V scalar slots；ready 至多 V entries，block overhead 與容量成正比；scalar loop variables 為常數。resize 新舊 storage 暫時同存，但兩者皆與成長中的 list 成正比，故 peak auxiliary O(V + E)。既有 input 排除，Boolean output O(1)，無 recursion stack。\nlist pop(0) 的比較：連續 indexed slots 使移除首項後須左移其餘 references；V 課全可用時總搬移 (V - 1) + (V - 2) + ... + 1 = V(V - 1)/2，正文稱 quadratic growth。正文只比較此容器操作，沒有另立完整替代程式或獨立空間結論。\n重複掃描替代法：done[V]、每輪新配 blocked[V]、可選 group buffer 各至多 V entries。每成功一輪至少新完成一課，所以至多 V 成功 rounds 加一失敗 round；每輪 flags 初始化及課程檢查 O(V)，pair 檢查 O(E)，合成 O(V(V + E))。長度 V 的 chain 每輪只釋放一課，說明重複工作可以持續。舊 round buffers 在下一輪前釋放，故 peak auxiliary O(V)，Boolean output O(1)，仍排除存活的 E 組 input pairs。\n回傳順序的 adaptation：空 order list 在每次 removal 後 append course，最多 V 次單項 appends；沿用同一 aggregate bound 聲明增加 O(V) 工作、整體 O(V + E)，因此也承接上述 NOT_STATED 轉換。成功 output 恰有 V references，output O(V)；其他 adjacency、counts、queue auxiliary O(V + E)。失敗 partial order 至多 V entries，算 temporary auxiliary；回傳 [] 為 constant-size output。正文沒有另外的 reconstruction 演算法。\n符號與 caveats：V、E、k、d、d_b 均有局部指涉；d 是 append 次數、d_b 是 b 的 dependent 數；O(1) 由 constant cost 對應。bounded scalars、operation-count model、固定 block allocation 條件、單次 append 可能複製、resize peak、輸入及輸出分帳均有文字說明。主要缺項是累積 resize 複製量如何受線性界限約束，而非這些符號的指涉。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Let `V = numCourses` and `E = len(prerequisites)`. Big O describes an upper bound on growth, ignoring fixed multipliers; `O(V + E)` means work grows no faster than a constant times the number of courses plus pairs, under the following model. Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations. Course identifiers fit within 0 to 1999 and counts within 0 to 5000; treating these scalars as bounded units is appropriate for this contract. This is an operation-count model, not a statement that all Python instructions take identical physical time. Allocating or copying `k` slots costs proportional to `k`."
+        },
+        {
+          "language": "en",
+          "text": "A Python list stores references in consecutive indexed slots. Removing its first item must shift the later references left so indexing still starts at zero. With `V` initially available courses, draining a list through `pop(0)` moves `(V - 1) + (V - 2) + ... + 1` references. Pairing the terms gives `V(V - 1)/2`, quadratic growth even with no prerequisite edges."
+        },
+        {
+          "language": "en",
+          "text": "An endpoint operation changes an endpoint position and, at a block boundary, a fixed-size block connection; it does not shift all queued references. With fixed-size block allocation treated as bounded work, each queue endpoint operation has constant cost in this model, matching the documented approximately `O(1)` behavior. Queue size can grow, but the work of a single endpoint update does not grow with it."
+        },
+        {
+          "language": "en",
+          "text": "reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding. A growth may copy the old references, so one append is not always constant work."
+        },
+        {
+          "language": "en",
+          "text": "For an append-only sequence, final capacity is proportional to the final length, so d single-item appends, including their ordinary writes, take O(d) total work. This aggregate guarantee is called amortized constant time per append. It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument."
+        },
+        {
+          "language": "zh-TW",
+          "text": "對 append-only sequence 而言，最終 capacity 與最終 length 成正比，因此 d 次單項 appends，連同一般的寫入，總共花費 O(d) 工作。這個 aggregate guarantee 稱為每次 append 的 amortized constant time。這裡可以使用它，因為每個 adjacency list 都只靠每次 append 一項來成長；論證並未暗中混入交替刪除或 bulk update。"
+        },
+        {
+          "language": "en",
+          "text": "Building the `V` independent lists and `V` counts costs `O(V)`. Reading `E` pairs does `E` counter updates and `E` appends. If course `b` has `d_b` dependents, its append sequence costs `O(d_b)`; summing `d_b` across all courses gives exactly `E`. Small-list overhead contributes at most another `O(V)`. Building the representation therefore costs `O(V + E)`."
+        },
+        {
+          "language": "en",
+          "text": "Counts never increase during this phase. A positive count crosses zero only once, and initially zero courses enter during initialization, so each course enters the queue at most once. No additional visited set is needed."
+        },
+        {
+          "language": "en",
+          "text": "The readiness scan checks `V` slots and enqueues at most `V` courses. During processing, each course is enqueued and removed at most once. Each edge appears in exactly one dependent list, and that list is visited at most once. Hence all executions of the inner loop total at most `E`, even though the code nests that loop inside a `while`. Setup, queue operations and edge updates sum to worst-case `O(V + E)` time, with list construction analyzed over its append sequences. A cycle may stop processing early, but cannot avoid the initial pair-reading work."
+        },
+        {
+          "language": "en",
+          "text": "For auxiliary space, the outer adjacency list and its inner-list headers use `O(V)` slots or fixed-size records. The inner lists retain `E` references plus spare capacity proportional to `V + E`, by the same growth policy. Counts use `V` scalar slots, and the queue holds at most `V` entries plus fixed-size block overhead proportional to that capacity. Scalar loop variables need constant space. A resize can temporarily keep old and new storage alive, but both have size proportional to the list being grown; this leaves the peak bound `O(V + E)`. The existing input is excluded from auxiliary space, and the returned Boolean is `O(1)` output space. No recursion stack is used."
+        },
+        {
+          "language": "en",
+          "text": "Keep `done[V]` Booleans. In each round, allocate a fresh `blocked[V]` array of false values. Scan every pair `[a, b]`; if both `a` and `b` are unfinished, set `blocked[a]` to true. Then identify all unfinished, unblocked courses and mark that whole group done only after the scan has finished."
+        },
+        {
+          "language": "en",
+          "text": "Each successful round completes at least one new course, so there are at most `V` successful rounds and at most one final failed round. Initializing flags and inspecting courses costs `O(V)` per round; checking every pair costs `O(E)`. The resulting bound is `O(V(V + E))`. A length-`V` prerequisite chain releases only one course per round, showing why the repeated work can persist as size grows. `done`, `blocked` and an optional group buffer each hold at most `V` entries, so peak auxiliary storage is `O(V)`; old round buffers are released before the next round. The Boolean output stays `O(1)`. The input's `E` pairs remain live and are excluded under the same convention."
+        },
+        {
+          "language": "en",
+          "text": "Start an empty `order` list and append `course` immediately after each removal. Return `order` if its length equals `V`, otherwise return `[]`. Each retained entry records a legal completion, so the earlier proof establishes the returned ordering."
+        },
+        {
+          "language": "en",
+          "text": "This adaptation adds at most `V` single-item appends to one growing list. The append-only argument still applies, so the added work is `O(V)` and the whole algorithm remains `O(V + E)`. The adjacency representation, counts and queue remain, so auxiliary storage excluding a successful returned order stays `O(V + E)`. Successful output contains exactly `V` references and takes `O(V)` output space. On failure, the partial order is temporary auxiliary storage of at most `V` entries and the returned empty list has constant size. Keeping an order changes storage accounting, not the cost of visiting each edge."
+        },
+        {
+          "language": "zh-TW",
+          "text": "這個 adaptation 最多增加對同一個 growing list 的 `V` 次單項 appends。append-only 論證仍然適用，所以額外工作為 `O(V)`，整個 algorithm 仍是 `O(V + E)`。adjacency representation、計數與 queue 都還在，因此不含成功回傳 order 的 auxiliary storage 仍是 `O(V + E)`。成功時的 output 恰好含有 `V` 個 references，需要 `O(V)` output space。失敗時，partial order 是最多含有 `V` 個 entries 的暫時 auxiliary storage，回傳的 empty list 則是 constant size。保存 order 會改變 storage accounting，卻不改變每條 edge 的走訪成本。"
+        }
+      ],
+      "missing": true
+    }
+  ],
+  "unanswered_question_ids": [
+    "cost"
+  ],
+  "bilingual_mismatches": [],
+  "limits": "只讀 task.json 及指定兩份正文，未開啟連結、repository、skill、作者報告或其他檔案。未用背景知識補全累積 resize 成本的論證。NOT_STATED 標記必要轉換未展示，不判定最終界限錯誤；未評分或推論學習效果。兩語在上述主張與缺口相符。"
+}

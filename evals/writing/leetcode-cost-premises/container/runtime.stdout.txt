@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "exhaustive_height_cases": 21840,
+  "exhaustive_coordinate_cases": 18720,
+  "counted_controls": {
+    "two_pointer": {
+      "iterations": 99999,
+      "height_reads": 199998,
+      "length_reads": 1
+    },
+    "all_pairs": {
+      "pair_evaluations": 44850,
+      "outer_iterations": 299,
+      "height_reads": 89700,
+      "length_reads": 1
+    },
+    "coordinate_adaptation": {
+      "iterations": 2,
+      "height_reads": 4,
+      "coordinate_reads": 4
+    }
+  },
+  "elapsed_seconds": 0.20800562482327223
+}

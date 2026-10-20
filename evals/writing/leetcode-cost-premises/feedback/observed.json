@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "owner": "schema-manager.pclass-feedback",
+  "observation_scope": "consumer_report",
+  "evidence_validity": "VALID",
+  "behavior": {
+    "classification": "PASS",
+    "failed_checks": []
+  },
+  "authorizes_landing": false,
+  "effects": [],
+  "test_demand": null,
+  "selection_sha256": "cd75ad5b9f37993c2f8ce94b0389c67201bdd68f27413c4638a75ab56c36e692",
+  "field_measurement": {
+    "unit": "reported_output_field",
+    "scope": "selected_protocol",
+    "expected": 10,
+    "observed": 10,
+    "failed": 0,
+    "missing": 0,
+    "workflow_decisions": null,
+    "reason": "Output fields do not measure observable workflow choices or complete trace coverage."
+  },
+  "sources": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/initial/protocol.json",
+      "sha256": "42f7cf46604735e2cf64858c9218a63cf0152aa6b76a64827bfcaf5f0d113d47"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/SKILL.md",
+      "sha256": "af42034d5988cc61ad0e4b1a3ce007b851d0258ffea2fac4a001d6792d286338"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "19626cfaea644c253b4ce1f8003a3fd5930cfb84620005cd23210c8c7e5ce3c4"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-construction.md",
+      "sha256": "db0ea83d6ed10956bfa43deb7698827b36f09d2eeb5f6ee4163b171f8134809e"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/sloptrim/SKILL.md",
+      "sha256": "121f22f4e1d4d5fef349871bcf4a292420907b5991db7db37d5f602d958a4d82"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+      "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/writers/container/task.json",
+      "sha256": "da49bc7efd09677a663cef249472eb354e2b24cc66617b44d56637ebb2f722ef"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/writers/courses/task.json",
+      "sha256": "e6786c2f0249259affaf0a42b3acd47985f198de35187e23f90ed98eba9a6c25"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/requirements.json",
+      "sha256": "40666d55b8c5ab5fc1525130a324ca9fd171c36ee4f033eda9e94edf7cc6ce7a"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/criteria-review.json",
+      "sha256": "119cc1754e9b7b8a8a4f5722c7442c1cde7e242ef406db8c97e458819569ad45"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed-reports/container.json",
+      "sha256": "407d3b6f754db28654002eeb5d63e35bfa1ec7ed9a9c6a59de994e847200e262"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/observer/container-native-capture.json",
+      "sha256": "4e44488a6d4525ba77e9e4cee672b96f00678631f3f5783dfecbca0457d1cd79"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed-reports/courses.json",
+      "sha256": "c68762e3f30f469bb16f95b8798a014106af330574cdd93730e152926b50f41b"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/observer/courses-native-capture.json",
+      "sha256": "981946242b190a236f59dd51bec9936784eea9f34fc60b155e94a56326e8f09d"
+    }
+  ],
+  "cases": [
+    {
+      "id": "container",
+      "status": "passed",
+      "checks": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": true,
+        "reference_article_read": true,
+        "runtime_test_executed": true
+      },
+      "observed": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": false,
+        "reference_article_read": false,
+        "runtime_test_executed": true
+      }
+    },
+    {
+      "id": "courses",
+      "status": "passed",
+      "checks": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": true,
+        "reference_article_read": true,
+        "runtime_test_executed": true
+      },
+      "observed": {
+        "english_reviewed_before_translation": true,
+        "final_body_review_recorded": true,
+        "published": false,
+        "reference_article_read": false,
+        "runtime_test_executed": true
+      }
+    }
+  ],
+  "dag": {
+    "instructions": {
+      "status": "ready",
+      "requires": []
+    },
+    "criteria": {
+      "status": "ready",
+      "requires": [
+        "requirements",
+        "criteria_review"
+      ]
+    },
+    "case:container": {
+      "status": "passed",
+      "requires": [
+        "instructions",
+        "criteria"
+      ]
+    },
+    "case:courses": {
+      "status": "passed",
+      "requires": [
+        "instructions",
+        "criteria"
+      ]
+    },
+    "feedback": {
+      "status": "ready",
+      "requires": [
+        "case:container",
+        "case:courses"
+      ]
+    }
+  },
+  "limits": [
+    "File digests bind bytes, not observer independence or complete capture.",
+    "Field equality checks reported behavior, not unobserved effects.",
+    "No formal writing compliance or comparative improvement is established."
+  ],
+  "subject": "Cost-inference author review in two new complete bilingual articles; reported actions only",
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/initial/protocol.json",
+    "sha256": "42f7cf46604735e2cf64858c9218a63cf0152aa6b76a64827bfcaf5f0d113d47"
+  },
+  "instructions": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/SKILL.md",
+      "sha256": "af42034d5988cc61ad0e4b1a3ce007b851d0258ffea2fac4a001d6792d286338"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "19626cfaea644c253b4ce1f8003a3fd5930cfb84620005cd23210c8c7e5ce3c4"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-construction.md",
+      "sha256": "db0ea83d6ed10956bfa43deb7698827b36f09d2eeb5f6ee4163b171f8134809e"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/sloptrim/SKILL.md",
+      "sha256": "121f22f4e1d4d5fef349871bcf4a292420907b5991db7db37d5f602d958a4d82"
+    }
+  ],
+  "case_fingerprints": {
+    "container": "db78e6d8998ce6777dbd6f98df2bde59c5600b1da87c8054415c93d5ddb556b0",
+    "courses": "9a32d6bcd7546261a5973f60a601faaebd563dffde7fe263bb7bb0faef81e70c"
+  },
+  "criteria": {
+    "status": "SUPPORTED",
+    "required": [],
+    "reviewer": "independent-p-class-criteria-reviewer",
+    "source": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/criteria-review.json",
+      "sha256": "119cc1754e9b7b8a8a4f5722c7442c1cde7e242ef406db8c97e458819569ad45"
+    },
+    "requirements": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/requirements.json",
+      "sha256": "40666d55b8c5ab5fc1525130a324ca9fd171c36ee4f033eda9e94edf7cc6ce7a"
+    },
+    "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness."
+  },
+  "requirements": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/requirements.json",
+    "sha256": "40666d55b8c5ab5fc1525130a324ca9fd171c36ee4f033eda9e94edf7cc6ce7a"
+  },
+  "next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "projection_ms": 0.03941729664802551,
+  "status": "passed",
+  "elapsed_ms": 1.1193333193659782,
+  "materialization": {
+    "owner": "schema-manager.pclass-feedback",
+    "binding": {
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/reviewed/selection.json",
+        "sha256": "5d8d7b1ddcceebce1085a72d2776e8c0d409b264a4e90737b2355d4533c7ec05"
+      },
+      "criteria_review": null,
+      "observations": [
+        {
+          "case_id": "container",
+          "report": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed-reports/container.json",
+            "sha256": "407d3b6f754db28654002eeb5d63e35bfa1ec7ed9a9c6a59de994e847200e262"
+          },
+          "trace": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/observer/container-native-capture.json",
+            "sha256": "4e44488a6d4525ba77e9e4cee672b96f00678631f3f5783dfecbca0457d1cd79"
+          }
+        },
+        {
+          "case_id": "courses",
+          "report": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed-reports/courses.json",
+            "sha256": "c68762e3f30f469bb16f95b8798a014106af330574cdd93730e152926b50f41b"
+          },
+          "trace": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/observer/courses-native-capture.json",
+            "sha256": "981946242b190a236f59dd51bec9936784eea9f34fc60b155e94a56326e8f09d"
+          }
+        }
+      ],
+      "readback_entry": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback"
+      ],
+      "readback_environment": {},
+      "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed/selection.json",
+      "sha256": "cd75ad5b9f37993c2f8ce94b0389c67201bdd68f27413c4638a75ab56c36e692"
+    },
+    "next": {
+      "kind": "executable",
+      "owner": "schema-manager.pclass-feedback",
+      "actor": "Session",
+      "argv": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback",
+        "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed/selection.json",
+        "cd75ad5b9f37993c2f8ce94b0389c67201bdd68f27413c4638a75ab56c36e692"
+      ],
+      "environment": {},
+      "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "limits": [
+      "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+      "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+    ]
+  },
+  "readback": {
+    "tool": "soodles_schema_inspect",
+    "arguments": {
+      "kind": "pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed/selection.json",
+        "sha256": "cd75ad5b9f37993c2f8ce94b0389c67201bdd68f27413c4638a75ab56c36e692"
+      }
+    }
+  }
+}

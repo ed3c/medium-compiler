@@ -1,0 +1,38 @@
+{
+  "container": [
+    {
+      "code_index": 0,
+      "entry": "max_area_all_pairs",
+      "checks": 3282,
+      "passed": 3282,
+      "failures": [],
+      "bilingual_solution_identical": true
+    },
+    {
+      "code_index": 1,
+      "entry": "Solution.maxArea",
+      "checks": 3285,
+      "passed": 3285,
+      "failures": [],
+      "bilingual_solution_identical": true
+    },
+    {
+      "code_index": 2,
+      "entry": "max_area_at_positions",
+      "checks": 4665,
+      "passed": 4665,
+      "failures": [],
+      "bilingual_solution_identical": true
+    }
+  ],
+  "courses": [
+    {
+      "code_index": 0,
+      "entry": "Solution.canFinish",
+      "checks": 3058,
+      "passed": 3058,
+      "failures": [],
+      "bilingual_solution_identical": true
+    }
+  ]
+}

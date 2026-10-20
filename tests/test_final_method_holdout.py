@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKETS = (
     (ROOT / "evals/writing/leetcode-final-method-holdout", ("islands", "intervals")),
     (ROOT / "evals/writing/leetcode-route-closure", ("temperatures", "subsets")),
+    (ROOT / "evals/writing/leetcode-cost-premises", ("container", "courses")),
 )
 
 
