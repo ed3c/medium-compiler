@@ -30,7 +30,8 @@
       "context": "When 'eat', 'tea', and 'ate' share frequencies, they belong to one group even though their spellings differ.",
       "active_cue": "Without reading the code, explain in English why anagrams must share one identity. Distinguish the mathematical equivalence property from the loop invariant.",
       "oracle": "Two words are anagrams exactly when each character occurs the same number of times. The frequency vector expresses that equivalence. Separately, at the start of iteration i, the dictionary contains exactly the words from the processed prefix, each placed once in the bucket for its frequency vector.",
-      "counterexample": "A set of distinct characters cannot distinguish 'a' from 'aa'."
+      "counterexample": "A set of distinct characters cannot distinguish 'a' from 'aa'.",
+      "passive_skeleton": "Letter frequencies → identify equivalent words → assign processed strings to the correct groups"
     },
     {
       "id": "D2",
@@ -40,7 +41,8 @@
       "context": "In the same alphabet, 'eat' and 'tea' both give a vector with one a, one e, and one t.",
       "active_cue": "Explain why a fixed-size vector works here and under what changed input constraint it would fail. Include empty strings.",
       "oracle": "The alphabet is fixed at 26 lowercase letters, so one counter per character encodes every possible frequency without losing multiplicity. The empty word creates an all-zero vector and still belongs to a bucket. This representation would not cover arbitrary Unicode without redefining the indexing strategy and character-equivalence contract.",
-      "counterexample": "Using this index on characters outside a–z may cause invalid indexing or incorrect equivalence."
+      "counterexample": "Using this index on characters outside a–z may cause invalid indexing or incorrect equivalence.",
+      "passive_skeleton": "Lowercase alphabet → permits fixed counters → also represents empty strings without special branches"
     },
     {
       "id": "D3",
@@ -50,7 +52,8 @@
       "context": "The scanner reads e, a, t as indices 4, 0, 19, incrementing the three corresponding counters.",
       "active_cue": "Narrate exactly how 'eat' changes the count array. Why is ord(c) - ord('a') valid only under the stated contract?",
       "oracle": "The count array starts with 26 zeros. Reading e updates count[4], reading a updates count[0], and reading t updates count[19]. Each character is mapped using its code point minus ord('a'), which works because the input is constrained to the contiguous lowercase English alphabet.",
-      "counterexample": "For an uppercase 'E', the index is outside the approved 0–25 mapping."
+      "counterexample": "For an uppercase 'E', the index is outside the approved 0–25 mapping.",
+      "passive_skeleton": "Character code points → produce zero-based indexes → update the matching frequency counters"
     },
     {
       "id": "D4",
@@ -60,7 +63,8 @@
       "context": "The first key from 'eat' is a MISS and creates a bucket. 'tea' has the same tuple and is a HIT, so its original string is appended to that bucket.",
       "active_cue": "Explain the first MISS, the later HIT and why a hash collision does not incorrectly merge two different tuples. Distinguish the current reference code from the defaultdict alternative.",
       "oracle": "Two words with equal character-count tuples belong to one group, while different keys must not be merged merely because their hashes collide. Python dict resolves candidate slots and checks equality as needed. In the reference implementation, a MISS triggers an explicit new empty list. defaultdict(list) is an alternative that calls the default factory on missing-key access before appending the original word.",
-      "counterexample": "Treating equal hash values as sufficient for equal keys breaks dictionary identity semantics."
+      "counterexample": "Treating equal hash values as sufficient for equal keys breaks dictionary identity semantics.",
+      "passive_skeleton": "Tuple equality → defines groups; dictionary hashing → locates candidate entries before equality checks"
     },
     {
       "id": "D5",
@@ -70,7 +74,8 @@
       "context": "The list cannot be used directly as a dictionary key. A tuple of integers can; sorted(word) returns an unhashable list until converted to a string or tuple.",
       "active_cue": "Explain the list-to-tuple freeze boundary, tuple hashability caveat, counting versus sorting costs, and what Timsort does or does not prove.",
       "oracle": "A mutable list is unhashable and cannot serve as the dictionary key. The frozen tuple is hashable here because each element is an integer; tuples containing unhashable elements still fail. Counting over n words and M total characters takes O(n + M) average time including the fixed 26-slot work per word, with O(n) additional container references/keys for a fixed alphabet. Sorting each word takes up to O(k log k) time per word; a merge-level diagram is a complexity model, not a literal trace of Python Timsort.",
-      "counterexample": "A tuple containing a list is not hashable, even though a tuple itself cannot be mutated."
+      "counterexample": "A tuple containing a list is not hashable, even though a tuple itself cannot be mutated.",
+      "passive_skeleton": "Mutable counters → freeze into a hashable tuple → support deterministic grouping without sorting"
     }
   ],
   "paragraph_annotations": [
