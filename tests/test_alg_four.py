@@ -51,8 +51,8 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
 
     def test_cumulative_2000_admission_without_fabricated_complete_corpus(self):
         data=json.loads(MANIFEST.read_text())
-        self.assertEqual(data["schema_version"],"alg-four-paragraph-annotations@2")
-        self.assertEqual(data["format"],"source_preserved_with_inline_zh_tw_annotations")
+        self.assertEqual(data["schema_version"],"alg-four-reading-projection@3")
+        self.assertEqual(data["format"],"source_preserved_with_right_outline")
         self.assertEqual(data["source"]["technical_authority"],"leetcode-mental")
         self.assertEqual(data["source"]["writing_authority"],"medium-writing")
         self.assertEqual(data["learning_policy"]["goal_active_lexical_items"],2000)
