@@ -1,6 +1,6 @@
 # User-supplied Group Anagrams teaching reference
 
-Supplied in this task on 2026-10-20. This is the user's comparison source, not an independently fetched Medium body or an approved technical edition. Preserve its teaching questions and granular examples; verify technical claims before reusing them. See [source status and applicability](medium-reference.md).
+Supplied in this task on 2026-10-20. This is the user's comparison source, not an independently fetched Medium body or an approved technical edition. Preserve its teaching questions and granular examples; verify technical claims before reusing them. See [source status and applicability](medium-reference.md). Trailing spaces and final blank lines are normalized; the task evidence retains the original supplied text.
 
 ---
 
@@ -8,10 +8,13 @@ Group Anagrams：從 Problem 到 Python Runtime
 用一道 LeetCode 題目串起 invariant、canonical key、ASCII、mutable / immutable、hashing、dict、Timsort 與 Big O
 LeetCode 49 — Group Anagrams
 [COVER IMAGE]
-Cover concept: Group Anagrams: Problem → Invariant → Runtime → Hash Map → Complexity
- 
+Cover concept:
+Group Anagrams: Problem → Invariant → Runtime → Hash Map → Complexity
+
+
 ⸻
- 
+
+
 LeetCode 49 看起來只是一道 Hash Map 題目。
 但如果不只背 solution，而是沿著資料真正的 runtime data flow 往下追，這一道題其實會把許多平常分開學習的概念串在一起：
 * anagram
@@ -35,9 +38,11 @@ LeetCode 49 看起來只是一道 Hash Map 題目。
 而是建立一條可以從零重新推導答案的 reasoning chain：
 Problem → Decision → Representation → Runtime → Complexity
 只要這條 chain 沒有斷，就不需要把每個知識點分開死背。
- 
+
+
 ⸻
- 
+
+
 1. Problem：我們到底要 group 什麼？
 題目給一組 strings：
 ["eat", "tea", "tan", "ate", "nat", "bat"]
@@ -54,9 +59,11 @@ group 的順序不重要。
 我要用什麼 Python API？
 而是：
 什麼 property 可以判斷兩個 strings 應該屬於同一組？
- 
+
+
 ⸻
- 
+
+
 2. Decision 1：找到 invariant
 看三個 strings：
 eat
@@ -83,9 +90,11 @@ How do I group strings?
 而是先把問題改寫成：
 How do I give all equivalent strings
 the same identity?
- 
+
+
 ⸻
- 
+
+
 3. Decision 2：把 invariant 變成 canonical key
 題目提供一個非常強的 constraint：
 每個 string 只包含 lowercase English letters。
@@ -109,15 +118,21 @@ ate ─┘
 這個二十六個數字組成的 representation，就可以成為 canonical key。
 Canonical key 的作用是：
 讓外觀不同、但邏輯上等價的資料，得到同一個標準 identity。
- 
+
+
 ⸻
- 
+
+
 [FIGURE 1 — Problem & Decision Map]
-Caption: From problem statement to deterministic algorithm: find the invariant, encode it as a canonical key, and let the hash map perform the grouping.
-Alt text: Group Anagrams 的 decision-flow diagram。從 anagram 的共同 invariant 開始，經過 lowercase a-z constraint、二十六個 letter counters、character-to-index mapping、list 到 tuple 的 conversion，最後以 canonical key 進入 hash-map grouping。
- 
+Caption:
+From problem statement to deterministic algorithm: find the invariant, encode it as a canonical key, and let the hash map perform the grouping.
+Alt text:
+Group Anagrams 的 decision-flow diagram。從 anagram 的共同 invariant 開始，經過 lowercase a-z constraint、二十六個 letter counters、character-to-index mapping、list 到 tuple 的 conversion，最後以 canonical key 進入 hash-map grouping。
+
+
 ⸻
- 
+
+
 4. 真正的 Decision Points
 如果把語法細節全部拿掉，這題真正需要做的 decision 只有幾個。
 Decision 1
@@ -139,10 +154,12 @@ counter list 可以直接當 dictionary key 嗎？
 要先轉成：
 tuple
 完成這五個 decision 後，後面的 algorithm 幾乎就是 deterministic runtime。
- 
+
+
 ⸻
- 
-5. Runtime：從 
+
+
+5. Runtime：從
 "eat"
 開始
 現在不要看 final code。
@@ -154,10 +171,12 @@ count = [0] * 26
 這個 list 是：
 mutable working state
 因為接下來我們要一直修改它。
- 
+
+
 ⸻
- 
-6. 
+
+
+6.
 ord('a') == 97
 到底在做什麼？
 我們需要把 character：
@@ -201,10 +220,12 @@ ord('t') = 116
 19
 所以：
 t → count[19]
- 
+
+
 ⸻
- 
-7. 
+
+
+7.
 "eat"
 的完整 Character Runtime
 現在實際走一次。
@@ -248,15 +269,21 @@ count[19] += 1
 a b c d e ... t ... z
 1 0 0 0 1 ... 1 ... 0
 這就是 "eat" 的 frequency representation。
- 
+
+
 ⸻
- 
+
+
 [FIGURE 2 — End-to-End Runtime Data Flow]
-Caption: A string moves through several runtime representations: characters become indexes, indexes mutate a counting list, the list freezes into a tuple, and the tuple becomes the dictionary identity used for grouping.
-Alt text: 輸入 "eat" 後建立二十六個元素的 mutable list，逐一讀取 e、a、t，透過 ord(c) - ord('a') 得到 index 4、0、19 並更新 counters。掃描完成後將 list 轉成 tuple，再進入 hash 與 dictionary lookup。
- 
+Caption:
+A string moves through several runtime representations: characters become indexes, indexes mutate a counting list, the list freezes into a tuple, and the tuple becomes the dictionary identity used for grouping.
+Alt text:
+輸入 "eat" 後建立二十六個元素的 mutable list，逐一讀取 e、a、t，透過 ord(c) - ord('a') 得到 index 4、0、19 並更新 counters。掃描完成後將 list 轉成 tuple，再進入 hash 與 dictionary lookup。
+
+
 ⸻
- 
+
+
 8. 為什麼先用 List？
 因為 scanning 過程中 state 需要一直改變。
 例如：
@@ -275,9 +302,11 @@ update
 update
 這裡 list 的 semantic role 是：
 用來計算。
- 
+
+
 ⸻
- 
+
+
 9. 為什麼 List 不能當 Dictionary Key？
 dictionary key 必須具有 stable hash identity。
 但 list 可以被修改。
@@ -296,9 +325,11 @@ mutable
 unhashable
 ↓
 cannot be dict key
- 
+
+
 ⸻
- 
+
+
 10. Freeze Boundary：List → Tuple
 完成 character counting 之後，我們不再需要修改這二十六個 counters。
 所以：
@@ -321,9 +352,11 @@ list
 
 tuple
 → identify
- 
+
+
 ⸻
- 
+
+
 11. Tuple Immutable，不代表任何 Tuple 都能 Hash
 常見簡化說法是：
 Tuple is immutable, so it is hashable.
@@ -342,9 +375,11 @@ hashable
 (1, [2, 3])
 裡面包含 list，
 仍然不能拿來 hash。
- 
+
+
 ⸻
- 
+
+
 12. Canonical Key 與 Hash 是兩件不同的事
 假設 "eat" 最後得到：
 (1, 0, 0, 0, 1, ..., 1, ...)
@@ -363,9 +398,11 @@ Canonical key
 
 Hash
 → lookup efficiency
- 
+
+
 ⸻
- 
+
+
 13. Dict 拿到 Tuple 後發生什麼？
 概念上：
 tuple key
@@ -402,9 +439,11 @@ equal keys
 →
 same hash
 dictionary 不會因為 collision 就把兩個不同 tuple 錯誤合併。
- 
+
+
 ⸻
- 
+
+
 14. Dict Lookup 為什麼通常是 O(1)？
 如果沒有 hash table，
 可能要：
@@ -427,10 +466,12 @@ O(1)
 這不是說永遠只執行一個 CPU instruction。
 它代表：
 當 dictionary 變大時，正常 lookup cost 不會跟 entry 數量線性增加。
- 
+
+
 ⸻
- 
-15. 
+
+
+15.
 defaultdict(list)
 到底做了什麼？
 建立：
@@ -469,9 +510,11 @@ store []
 append "eat"
 ↓
 ["eat"]
- 
+
+
 ⸻
- 
+
+
 16. 第二次遇到相同 Key
 現在處理：
 "tea"
@@ -505,15 +548,21 @@ same tuple
 same dictionary key
 ↓
 same group
- 
+
+
 ⸻
- 
+
+
 [FIGURE 3 — Python Data Model & Dict Internals]
-Caption: The counting list is mutable working state. After counting finishes, it freezes into a tuple of integers, producing a hashable canonical key. The dictionary uses hashing for lookup, while defaultdict(list) owns the missing-key path.
-Alt text: 圖中先以 mutable list 保存二十六個 letter counters，再經 freeze boundary 轉成由 integers 組成的 immutable tuple。Tuple 作為 canonical key 經過 hashing 進入 dictionary lookup；HIT 取得既有 list，MISS 則由 defaultdict(list) 建立空 list，再 append 原始 string。
- 
+Caption:
+The counting list is mutable working state. After counting finishes, it freezes into a tuple of integers, producing a hashable canonical key. The dictionary uses hashing for lookup, while defaultdict(list) owns the missing-key path.
+Alt text:
+圖中先以 mutable list 保存二十六個 letter counters，再經 freeze boundary 轉成由 integers 組成的 immutable tuple。Tuple 作為 canonical key 經過 hashing 進入 dictionary lookup；HIT 取得既有 list，MISS 則由 defaultdict(list) 建立空 list，再 append 原始 string。
+
+
 ⸻
- 
+
+
 17. 現在再看核心 Code
 前面所有 runtime 最後壓成：
 groups[tuple(count)].append(s)
@@ -536,9 +585,11 @@ HIT / MISS
 existing / new list
 ↓
 append original string
- 
+
+
 ⸻
- 
+
+
 18. Sorting 其實也能建立 Canonical Key
 另一個直覺方法是：
 key = ''.join(sorted(s))
@@ -565,9 +616,11 @@ Counting：
 count letters
 Sorting：
 sort characters
- 
+
+
 ⸻
- 
+
+
 19. 為什麼 Sorting 是 K log K？
 假設一個 string 長度是：
 K
@@ -603,9 +656,11 @@ K work per level
 log K levels
 得到：
 O(K log K)
- 
+
+
 ⸻
- 
+
+
 20. 為什麼 Big O 不寫 log₂？
 因為 logarithm 的不同 base 只差 constant factor。
 在 asymptotic complexity 裡：
@@ -617,9 +672,11 @@ O(K log K)
 但在理解「一直除二需要幾層」時：
 log₂ K
 最直覺。
- 
+
+
 ⸻
- 
+
+
 21. Python Sorting 與 Timsort
 Python sorting 可以視為：
 stable
@@ -639,15 +696,21 @@ sorting K characters
 →
 O(K log K)
 不需要主動展開 Timsort internals。
- 
+
+
 ⸻
- 
+
+
 [FIGURE 4 — Sorting、Timsort 與 K log K]
-Caption: Sorting adds organization work: a useful complexity model is roughly K elements of work across log K levels, giving O(K log K). Counting only scans K characters once.
-Alt text: 左側以八個 elements 顯示 balanced merge-style hierarchy，每層總工作量約 K，共約 log₂ K 層，所以得到 O(K log K)。右側顯示 counting 只掃描 K 個 characters 一次，因此為 O(K)。圖中特別標註這是 complexity mental model，而不是 Timsort 的精確 runtime trace。
- 
+Caption:
+Sorting adds organization work: a useful complexity model is roughly K elements of work across log K levels, giving O(K log K). Counting only scans K characters once.
+Alt text:
+左側以八個 elements 顯示 balanced merge-style hierarchy，每層總工作量約 K，共約 log₂ K 層，所以得到 O(K log K)。右側顯示 counting 只掃描 K 個 characters 一次，因此為 O(K)。圖中特別標註這是 complexity mental model，而不是 Timsort 的精確 runtime trace。
+
+
 ⸻
- 
+
+
 22. 為什麼這題應優先 Counting？
 題目已經給：
 lowercase English letters only
@@ -673,9 +736,11 @@ Fixed small alphabet?
     ▼        ▼
  counting   sorting can be simpler
 這樣就不用每次解題重新猶豫。
- 
+
+
 ⸻
- 
+
+
 23. 完整 Time Complexity
 定義：
 N
@@ -732,9 +797,11 @@ N 個 strings：
 N × O(K)
 得到：
 O(NK)
- 
+
+
 ⸻
- 
+
+
 24. 更精確的 Time 表達方式
 如果每個 string 長度不同，
 其實最精確的是：
@@ -748,9 +815,11 @@ average K characters
 所以：
 O(NK)
 更方便溝通。
- 
+
+
 ⸻
- 
+
+
 25. Sorting 版本的 Complexity
 Sorting 一個 string：
 O(K log K)
@@ -764,15 +833,21 @@ Sorting
 O(NK log K)
 差別全部來自 canonicalization。
 Hash-map grouping 本身是兩種 solution 共用的部分。
- 
+
+
 ⸻
- 
+
+
 [FIGURE 5 — End-to-End Complexity Map]
-Caption: The only operation that grows with string length in the counting approach is scanning K characters. Fixed-size counter creation, tuple construction, tuple hashing, average dictionary lookup, and amortized append remain constant with respect to K.
-Alt text: 每個 string 建立固定二十六個 counters 為 O(1)，掃描 K 個 characters 為 O(K)，建立 tuple、hash tuple、average dictionary lookup 與 amortized append 都相對於 K 為 O(1)。所以每個 string 為 O(K)，N 個 strings 為 O(NK)；右側比較 sorting solution 的 O(NK log K)。
- 
+Caption:
+The only operation that grows with string length in the counting approach is scanning K characters. Fixed-size counter creation, tuple construction, tuple hashing, average dictionary lookup, and amortized append remain constant with respect to K.
+Alt text:
+每個 string 建立固定二十六個 counters 為 O(1)，掃描 K 個 characters 為 O(K)，建立 tuple、hash tuple、average dictionary lookup 與 amortized append 都相對於 K 為 O(1)。所以每個 string 為 O(K)，N 個 strings 為 O(NK)；右側比較 sorting solution 的 O(NK log K)。
+
+
 ⸻
- 
+
+
 26. Space Complexity 為什麼常看到兩個答案？
 這裡需要區分：
 Auxiliary Space
@@ -802,9 +877,11 @@ O(N)
 O(NK)
 面試時最安全的說法是：
 The extra hash-map structure stores up to N fixed-size keys and N string references, so the auxiliary container space is O of N. If we count the full returned string content, the output size can be O of N times K.
- 
+
+
 ⸻
- 
+
+
 27. Edge Cases 不需要額外 Branch
 好的 representation 應該自然吸收 edge cases。
 Empty String
@@ -828,9 +905,11 @@ Single Character
 count[0] = 1
 也自然形成自己的 canonical key。
 不需要 special case。
- 
+
+
 ⸻
- 
+
+
 28. Final Python Implementation
 現在完整 code 可以非常短：
 from typing import List
@@ -900,9 +979,11 @@ append original string
 groups.values()
 ↓
 return all groups
- 
+
+
 ⸻
- 
+
+
 29. English Interview Q&A
 理解完整 runtime 之後，面試反而應該講得更短。
 How would you solve this problem?
@@ -911,92 +992,118 @@ For each word, I count the twenty-six letters.
 The letter count is the key.
 Words with the same key go into the same group.
 At the end, I return all groups.
- 
+
+
 ⸻
- 
+
+
 What is the key idea?
 Anagrams have the same letter counts.
 The order can change.
 The counts do not change.
- 
+
+
 ⸻
- 
+
+
 Why does this work?
 If two words are anagrams, they have the same letter counts.
 So they get the same key.
 The same key goes to the same group.
- 
+
+
 ⸻
- 
+
+
 Why twenty-six counters?
 The input only has lowercase English letters.
 There are twenty-six possible letters.
 So I use one counter for each letter.
- 
+
+
 ⸻
- 
+
+
 Why use a list first?
 I need to update the counts while scanning the word.
 A list is mutable.
- 
+
+
 ⸻
- 
+
+
 Why convert it to a tuple?
 A list cannot be a dictionary key because it is mutable.
 A tuple is immutable.
 This tuple contains only integers, so it is hashable.
- 
+
+
 ⸻
- 
+
+
 Does the hash define the group?
 No.
 The tuple defines the group.
 The hash only helps the dictionary find the key quickly.
- 
+
+
 ⸻
- 
+
+
 What about hash collisions?
 The dictionary also checks key equality.
 The same hash does not mean the same key.
- 
+
+
 ⸻
- 
-Why 
+
+
+Why
 defaultdict(list)
 ?
 If a key is new, it creates an empty list for me.
 Then I can append the word directly.
- 
+
+
 ⸻
- 
+
+
 What is the time complexity?
 Let N be the number of words.
 Let K be the average word length.
 I scan every character once.
 So the total time is O of N times K.
- 
+
+
 ⸻
- 
+
+
 Can you solve it with sorting?
 Yes.
 I can sort each word and use the sorted word as the key.
 For example, eat, tea, and ate all become aet.
- 
+
+
 ⸻
- 
+
+
 What is the sorting complexity?
 Sorting one word takes O of K log K.
 For N words, the total is O of N K log K.
- 
+
+
 ⸻
- 
+
+
 Why do you prefer counting here?
 The alphabet is fixed to twenty-six lowercase letters.
 So I can build the key in one scan.
 That gives O of N K instead of O of N K log K.
- 
+
+
 ⸻
- 
+
+
 30. 最短 Interview Pack
 如果只保留最少英文：
 Approach
@@ -1015,15 +1122,21 @@ Time is O of N K.
 Sorting
 Sorting also works.
 It takes O of N K log K.
- 
+
+
 ⸻
- 
+
+
 [FIGURE 6 — Zero-Context Master Map]
-Caption: Group Anagrams is one continuous transformation: the problem constraint gives a fixed alphabet, the invariant becomes a twenty-six-counter representation, mutable counting state freezes into a hashable tuple, the dictionary groups equal keys, and the total runtime becomes O(NK).
-Alt text: Group Anagrams 的 Zero-context master map。從 lowercase a-z constraint 推導 letter-frequency invariant 與二十六個 counters；characters 經 ord(c) - ord('a') 映射到 index，更新 mutable list，再轉成由 integers 組成的 immutable、hashable tuple。Tuple 作為 canonical key 經 hash 進入 dictionary lookup；existing key 取得原 group，missing key 由 defaultdict(list) 建立空 list。旁邊展示 "eat" 的 index 4、0、19 runtime trace，以及 sorting fallback、Timsort、log₂ K、O(NK) 與 O(NK log K)。
- 
+Caption:
+Group Anagrams is one continuous transformation: the problem constraint gives a fixed alphabet, the invariant becomes a twenty-six-counter representation, mutable counting state freezes into a hashable tuple, the dictionary groups equal keys, and the total runtime becomes O(NK).
+Alt text:
+Group Anagrams 的 Zero-context master map。從 lowercase a-z constraint 推導 letter-frequency invariant 與二十六個 counters；characters 經 ord(c) - ord('a') 映射到 index，更新 mutable list，再轉成由 integers 組成的 immutable、hashable tuple。Tuple 作為 canonical key 經 hash 進入 dictionary lookup；existing key 取得原 group，missing key 由 defaultdict(list) 建立空 list。旁邊展示 "eat" 的 index 4、0、19 runtime trace，以及 sorting fallback、Timsort、log₂ K、O(NK) 與 O(NK log K)。
+
+
 ⸻
- 
+
+
 31. Zero-Context Master Map
 如果最後只保存一張圖，它應該長這樣：
                          GROUP ANAGRAMS
@@ -1134,9 +1247,11 @@ N strings
 K log K
 =
 O(NK log K)
- 
+
+
 ⸻
- 
+
+
 32. 最後真正需要記住的是什麼？
 不是：
 ASCII
@@ -1204,21 +1319,30 @@ O(NK log K)
 只要這三條線還在，
 就算忘記 exact code，
 也可以從零重新把 solution 推導回來。
- 
+
+
 ⸻
- 
+
+
 Key Takeaways
-1. 先找 invariant，不要先找 API。 Anagrams 的 invariant 是 character frequency。
-2. 把 invariant 轉成 canonical key。 題目只有 lowercase a-z，所以二十六個 counters 足夠。
-3. Runtime working state 與 identity state 不同。 list 用來修改；tuple 用來作為穩定 identity。
-4. Hash 不負責 correctness。 tuple equality 決定是否為同一 key；hash 只幫助 dictionary 快速 lookup。
-5. defaultdict(list) 消除 missing-key branch。 新 key 自動建立 empty list。
-6. Counting 是 O(NK)。 每個 character 只掃一次。
-7. Sorting 是 O(NK log K)。 每個 string 需要 O(K log K) 的 sorting canonicalization。
-8. Constraint 應該消除 decision。 fixed small alphabet 已經告訴我們：這題主路徑應該直接收斂到 counting，而不是每次重新在 sorting 和 counting 之間猶豫。
+1. 先找 invariant，不要先找 API。
+Anagrams 的 invariant 是 character frequency。
+2. 把 invariant 轉成 canonical key。
+題目只有 lowercase a-z，所以二十六個 counters 足夠。
+3. Runtime working state 與 identity state 不同。
+list 用來修改；tuple 用來作為穩定 identity。
+4. Hash 不負責 correctness。
+tuple equality 決定是否為同一 key；hash 只幫助 dictionary 快速 lookup。
+5. defaultdict(list) 消除 missing-key branch。
+新 key 自動建立 empty list。
+6. Counting 是 O(NK)。
+每個 character 只掃一次。
+7. Sorting 是 O(NK log K)。
+每個 string 需要 O(K log K) 的 sorting canonicalization。
+8. Constraint 應該消除 decision。
+fixed small alphabet 已經告訴我們：這題主路徑應該直接收斂到 counting，而不是每次重新在 sorting 和 counting 之間猶豫。
 最終要形成的能力不是：
 我記得 Group Anagrams 怎麼寫。
 而是：
 我看到 grouping problem 時，會先找 invariant，再把 invariant 轉成 canonical key。
 這個 pattern 才是這題真正可以帶走、並在其他問題重複使用的部分。
-
