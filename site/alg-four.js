@@ -24,8 +24,8 @@
         paragraphs[active].classList.remove("alg-current-source");
       }
       paragraphs[index].classList.add("alg-current-source");
-      sidebar.querySelectorAll('a[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
-      const activeLink = entry.querySelector("a[data-outline-link]");
+      sidebar.querySelectorAll('summary[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
+      const activeLink = entry.querySelector("summary[data-outline-link]");
       if (activeLink) activeLink.setAttribute("aria-current", "location");
       active = index;
     }
@@ -71,9 +71,9 @@
   }
 
   sidebar.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href^="#alg-"]');
+    const link = event.target.closest("summary[data-target-id]");
     if (!link) return;
-    const id = link.getAttribute("href").slice(1);
+    const id = link.dataset.targetId;
     const target = document.getElementById(id);
     if (!target || !source.contains(target)) return;
     event.preventDefault();
