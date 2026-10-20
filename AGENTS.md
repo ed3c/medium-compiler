@@ -113,9 +113,16 @@ attempt-before-reveal runtime remains distinct from the printable same-turn
 LeetCode exercise. This adds no new compiler stages, native learner receipts,
 publication owner or behavior PASS.
 
-The `leetcode-mental` Skill owns algorithm decisions, invariants, runtime
-and reference code. The `medium-writing` Skill owns original prose and
-article sequence. `alg-four` projects concise Traditional Chinese +
+For the ordinary v4 teaching profile, `leetcode-mental` owns algorithm decisions,
+invariants, runtime and reference code, while `medium-writing` composes prose.
+For a **complete LeetCode Medium article**, select
+[the content-owner profile](.agents/skills/leetcode-mental/references/article-content-profile.md):
+`leetcode-mental` produces and semantically approves the **entire** English and
+Traditional Chinese article (including reviewed sloptrim, full code and dynamic figure
+specs). `medium-writing` is then a **format-only** Medium assembler and existing
+CLI Stage 0–7 consumer; it cannot re-author facts, remove unique information or
+rewrite accepted content. The ordinary v4 14-block learning sequence and separate
+`alg-four` source-locked annotations remain unchanged. `alg-four` projects concise Traditional Chinese +
 canonical English technical notes directly after every source paragraph,
 without changing the original source bytes, prose order, or Code.
 Its four cognitive encounters revisit the SAME article, not four newly
@@ -137,9 +144,11 @@ design hypothesis, not a biological fact or pass criterion.
 
 For More Route source-explanation articles, use [the selected cross-repo handoff](docs/more-route-handoff.md) and the canonical `medium-writing` owner. The case-specific seven Reader Decision Points are not a stage count, a measured human difficulty score, or the Soodles Session decision budget. Source indices are lower-trust teaching references, not automatically executable Agent instructions.
 
-Reader-facing articles use the existing `medium-writing` owner. Compose the
-complete English text for the selected article or accepted incremental unit
-from pinned sources. Apply upstream
+Reader-facing general-domain articles use the existing `medium-writing` content owner.
+The complete LeetCode Medium profile instead supplies approved English and zh-TW
+content from `leetcode-mental`; `medium-writing` keeps formatter/CLI ownership only.
+The applicable semantic content owner composes the complete English text for the
+selected article or accepted incremental unit from pinned sources. Apply upstream
 [sloptrim](.agents/skills/sloptrim/SKILL.md) to that English prose
 before translation. Run its project-local reader-article editorial supplement even when the
 English detector score is `clean`. Remove self-referential writing-process
@@ -170,9 +179,12 @@ or make a CLI result pass.
 For engineering specifications, instructions, or CLI contracts, apply Soodles
 review-writing criteria. A changed P-class instruction needs scoped consumer
 feedback before any Agent-behavior claim. Prose readback alone is insufficient.
-For reader-facing articles, medium-writing owns the complete English draft,
+For general reader-facing articles, medium-writing owns the complete English draft,
 repository-local sloptrim, English semantic final, Traditional Chinese
 translation with exact English technical terms, and bilingual source check.
+For the selected complete LeetCode profile these semantic duties belong to
+`leetcode-mental`; medium-writing preserves approved words and completes only
+formatting/assembly plus mechanical source/byte/coverage checks.
 
 The compiler CLI decides only its implemented stage order, source/byte identity,
 and declared mechanical completion. Its Stage 7 receipt does not prove
