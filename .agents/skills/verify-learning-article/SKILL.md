@@ -39,7 +39,7 @@ Zero context 的定義是：
 ## ALG Four paragraph annotations
 
 新英文學習路由的 `alg-four` 不重寫 Medium 文章，不將文章拆成四份不同
-的 Pass 段落。它僅在**每個原文段落後面**加入繁體中文／原文英文專有詞
+的 Pass 段落。它僅在**右側可展開的文章段落索引**加入繁體中文／原文英文專有詞
 的 Passive／Active 註解及需要的工程英文生成句。
 四遍接觸針對同一段原始敘事採取不同認知操作。2000 Active 詞項及
 2000 工程英文關聯句必須跨文章以原文 Decision／Runtime 證據累積；
