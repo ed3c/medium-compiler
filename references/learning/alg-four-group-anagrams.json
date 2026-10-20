@@ -25,7 +25,8 @@
   "pass3": [
     "Picture a scanner processing 'eat', 'tea', and 'tan'. It builds a fresh zeroed counter list for each word. The characters of 'eat' increment indexes 4, 0, and 19. A tuple freezes the result and the dictionary creates the first group.",
     "The scanner later reads 'tea', builds the same tuple, finds the original group, and appends 'tea'. The vector for 'tan' differs, so the dictionary creates another group. A collision in a hash value alone does not make two keys equal.",
-    "Continue until every word has been processed. The dictionary now holds one group per exact frequency signature. For each decision, be ready to explain what changes if the assumptions are false."
+    "Continue until every word has been processed. The dictionary now holds one group per exact frequency signature. For each decision, be ready to explain what changes if the assumptions are false.",
+    "Reconnect the full chain: the list is mutable counting state, and the completed integer tuple becomes a hashable key. Hashing narrows lookup, while equality decides group identity even under collisions; missing keys create buckets. With n words and M characters, fixed-alphabet counting is O(n + M) average time. A sorted-character key also works at up to O(k log k) per word. A merge-level sketch explains an asymptotic bound, not literal Timsort steps."
   ],
   "passive_vocabulary": [
     {

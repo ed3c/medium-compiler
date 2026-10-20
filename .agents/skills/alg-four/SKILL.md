@@ -51,7 +51,7 @@ Provide an independent page/lesson for this sequence. Medium article bytes and p
 
 ## Acceptance and handoff
 
-A lesson requires a pinned source identity, exact complete decision inventory and explicit coverage map, five or more concrete contexts when useful (not five universal decisions), a wider Passive vocabulary group, smaller **priority** Active vocabulary within article-wide active decision prompts, all four passes, one oracle per decision, technical negation/conditions/invariant preservation, one counterexample/changed premise, and a separate learning page. **No new compiler stages, Owner state machine, authenticated user, scheduler, new token budget, writer or Vercel deploy command.**
+A lesson requires a pinned source identity, exact complete decision inventory and explicit coverage map, contextual encounters with meaningful variation when source/learner goal warrants them (no arbitrary quota), a wider Passive vocabulary group, smaller **priority** Active vocabulary within article-wide active decision prompts, all four passes, one oracle per decision, technical negation/conditions/invariant preservation, one counterexample/changed premise, and a separate learning page. **No new compiler stages, Owner state machine, authenticated user, scheduler, new token budget, writer or Vercel deploy command.**
 
 For Q54 A, optionally measure unprompted answer correctness, response latency, condition/negation fidelity and delayed recall **only after real learner attempts**. Model-composed example answers, checkbox clicks, screenshot comparisons or site build may verify layout/contract but cannot verify acquisition, word-level automatic retrieval or neural change.
 
