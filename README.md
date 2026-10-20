@@ -70,6 +70,14 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   [Independent LeetCode 49 example](examples/leetcode-49-group-anagrams-zero-context.md)
   has [executable Python code](examples/leetcode-49-group-anagrams.py)
   and focused tests; it is not the original linked Medium article.
+  For a **complete LeetCode Medium article**, select the
+  [article-content profile](.agents/skills/leetcode-mental/references/article-content-profile.md):
+  `leetcode-mental` owns full English/zh-TW article meaning, sloptrim review,
+  source fidelity, runnable code and dynamic figure briefs; `medium-writing`
+  only formats, partitions and uses the unchanged Stage 0–7 CLI. The
+  [reusable system/task prompt](prompts/leetcode-medium-system.md) is a thin
+  invocation adapter, not a second independently maintained source of truth.
+  The ordinary 14-block v4 teaching path remains available.
 - [ALG Four in-place article annotations](.agents/skills/alg-four/SKILL.md): new
   article-wide, source-locked per-paragraph Passive/Active notes owner with
   [Thinking V2/V3 routing](.agents/skills/alg-four/references/thinking-route.md),
@@ -104,6 +112,11 @@ explains why transaction IDs map to lists and why finding classification precede
 Its two runtime insertions and later learning-owner explanation are separately recorded; removing the three declared additions reconstructs the original article exactly.
 
 ## Writing routes
+
+For the complete LeetCode article route, semantic content is approved by `leetcode-mental`
+before `medium-writing` formats and submits the article stages. Stage 6 does not create
+new facts; Stage 7 copies exact admitted bytes. Other writing routes retain their
+original writer ownership.
 
 New articles use the existing CLI: Stage 0 contents/maps; Stage 1 problem/property/representation;
 Stage 2 witness/internals; Stage 3 alternative/cost; Stage 4 implementation/correctness;
