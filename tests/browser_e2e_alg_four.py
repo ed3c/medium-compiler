@@ -64,7 +64,7 @@ def run(site: Path, output: Path) -> dict:
             # Open the correct section via its actual outline hierarchy.
             target=desktop.locator('[data-outline-index="15"]')
             target.evaluate("(e)=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true}")
-            target.locator("summary a").click()
+            target.locator("a[data-outline-link]").click()
             desktop.wait_for_timeout(400)
             assert desktop.evaluate("location.hash")=="#alg-p-15"
             assert article.locator("#alg-p-15").count()==1
