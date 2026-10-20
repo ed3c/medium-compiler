@@ -57,3 +57,9 @@ speech synthesis is no longer used. Stop/navigation cancel pending generation
 and playback; speed and continuous scenes remain available. The narration
 manifest binds each encoded file to exact input text and the pinned model.
 `tests/test_learning_site.py` checks complete scene coverage and asset hashes.
+
+## More Route engineering decisions
+
+[Source handoff](../docs/more-route-handoff.md) records the selected AI Agent Handbook chapters and a commit-pinned external `system-design-notes` index. A Traditional Chinese article, its corresponding English source and a responsive decision explorer at `/more-route/` use the existing Vercel `dist/` builder. Provenance contains source-manifest SHA, seven case-specific Reader Decision Points and explicit `NOT_RUN` native experiment status.
+
+The JavaScript only filters seven already-rendered sections: all remain readable without JavaScript. A site build or successful Source-only CI is not a Medium Stage 7 completion, validated human understanding, permission for external effects or verified Vercel deployment.

@@ -10,6 +10,15 @@ MAIN_ORIGIN='https://medium-compiler.vercel.app'
 LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
     {
+        "slug": "agent-handbook-zero-context",
+        "title": "Agent 不是一段 Prompt：安全修補背後的七個工程決策",
+        "description": "基於 AI Agent Handbook，透過安全修補案例追蹤 Model、Harness、Context、工具授權與完成驗證。",
+        "source": "articles/agent-handbook-zero-context.md",
+        "english_source": "articles/agent-handbook-zero-context.en.md",
+        "companion_route": "/more-route/",
+        "download_markdown": True,
+    },
+    {
         "slug": "agent-primitives-product-differentiation",
         "title": "每個人都在做 Agent，為什麼產品仍然可以不同？",
         "description": "從 Alex Atallah 的 Web 類比，思考交付條件、證據版本與每件完成工作的成本。",
@@ -346,14 +355,38 @@ def build(out:Path)->dict:
     scope_spec.loader.exec_module(scope_module)
     scope_provenance=scope_module.render_scopes(ROOT,out,page)
     eval_home='<section class="panel"><div class="eyebrow">Engineering judgment</div><h2>AI Evals · Soodles</h2><p>閱讀六份歷史 Agent reports 的工程評估，區分可支持的判斷與缺少的證據。</p><a href="/ai-evals/">查看 AI Evals 報告 →</a></section>'
-    (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+eval_home+alg+flow+exp+art,'home'),encoding='utf-8')
+    more_intro='<section class="panel"><h2>More Route · Seven Engineering Decisions</h2><p>閱讀 AI Agent Handbook 的 Zero Context 教學，追蹤七個工程決策、失敗反例與可觀察證據。</p><a href="/more-route/">Open decision explorer →</a></section>'
+    (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+eval_home+alg+flow+exp+art+more_intro,'home'),encoding='utf-8')
     (out/'experiments').mkdir();(out/'experiments/index.html').write_text(page('Experiments · AI Engineer Lab',f'''<section class="page-head"><div class="eyebrow">Ops Reconciliation Copilot</div><h1>Experiment Templates</h1><p>這些卡片來自 Ops provider snapshot <code>{snapshot['provider_revision'][:12]}</code>。範本只定義實驗邊界，不代表實驗已執行，也不授權 production promotion。</p></section>{cards(snapshot)}''','experiments'),encoding='utf-8')
     learn_body=f'''<section class="page-head"><div class="eyebrow">AI Engineering from Scratch</div><h1>Learning Progress</h1><p>目前狀態：<strong>{state['status']}</strong></p></section><section class="panel"><h2>Source of truth</h2><p><code>LEARNING.md</code> 由 upstream <code>start-learning</code> / <code>learn</code> skills 管理。medium-compiler 不自行猜 placement，也不把文章進度當課程進度。</p><pre><code>Use start-learning to begin the course.
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
+    learn_body+='<section class="panel"><h2>More Route · Agent Engineering</h2><p>從真實 Domain 問題建立理論、Runtime、反例及可重現驗證的關係。</p><a href="/more-route/">Explore seven engineering decisions →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
     # Single-browser fault experiments are static and require no server credentials.
     build_reliability(out)
+    # More Route is a static, reviewed explanation. No tool, task or browser effects.
+    more_source=ROOT/'site/more-route'
+    more_dir=out/'more-route'
+    more_dir.mkdir()
+    more_manifest_bytes=(ROOT/'references/upstream/more-route-learning-sources.json').read_bytes()
+    more_manifest=json.loads(more_manifest_bytes)
+    if (more_manifest.get('schema_version')!='more-route-learning-sources@1'
+            or more_manifest.get('semantics',{}).get('decision_count')!=7
+            or len(more_manifest.get('sources',[]))!=2):
+        raise ValueError('More Route source registry is invalid for this selected case')
+    for asset in ('more-route.js','more-route.css'):
+        shutil.copyfile(more_source/asset,out/'assets'/asset)
+    more_fragment=(more_source/'fragment.html').read_text(encoding='utf-8')
+    if (len(re.findall(r'data-mr-choice="D[1-7]"',more_fragment))!=7
+            or len(re.findall(r'data-mr-panel="D[1-7]"',more_fragment))!=7):
+        raise ValueError('More Route needs seven matching decisions and source panels')
+    more_body='<link rel="stylesheet" href="/assets/more-route.css">'+more_fragment+'<script defer src="/assets/more-route.js"></script>'
+    (more_dir/'index.html').write_text(page('More Route · Agent Engineering',more_body,'learning'),encoding='utf-8')
+    (more_dir/'source.json').write_bytes(more_manifest_bytes)
+    more_provenance={'route':'/more-route/','decision_count':7,'source_manifest':'/more-route/source.json',
+                     'manifest_sha256':hashlib.sha256(more_manifest_bytes).hexdigest(),
+                     'native_experiment':'NOT_RUN'}
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
     transcript_dir=out/'transcripts';transcript_dir.mkdir()
@@ -373,6 +406,9 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
                 raise ValueError('Video article must have an introductory paragraph')
             content_html=content_html.replace('</p>','</p>'+video_html,1)
         article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+sequel_navigation(item)+'</article>'
+        if item.get('companion_route'):
+            route=html.escape(item['companion_route'],quote=True)
+            article_body+='<section class="panel"><h2>Interactive Decision Explorer</h2><p>Explore seven decisions, alternatives and counterexamples with the original source index.</p><a href="'+route+'">Open interactive lesson →</a></section>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         source_record={}
         if item.get('source_manifest'):
@@ -381,6 +417,11 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
         if item.get('video_id') or item.get('download_markdown'):
             (article_dir/'article.md').write_bytes(source_bytes)
+        if item.get('english_source'):
+            english_bytes=(ROOT/item['english_source']).read_bytes()
+            (article_dir/'article.en.md').write_bytes(english_bytes)
+            source_record['english_source']=item['english_source']
+            source_record['english_sha256']=hashlib.sha256(english_bytes).hexdigest()
         if item.get('video_id'):
             source_record['video_id']=item['video_id']
             source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
@@ -389,6 +430,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['notebook'],destination)
     provenance={'schema_version':'ai-engineer-site-build@1','article':'articles/ai-engineer-learning-path.md','ops_provider_revision':snapshot['provider_revision'],'curriculum_revision':json.loads((ROOT/'references/upstream/ai-engineering-skills-lock.json').read_text())['revision'],'learning':state,'articles':article_provenance}
+    provenance['more_route']=more_provenance
     provenance['ai_evals']=eval_provenance
     provenance['loops']=loop_provenance
     provenance['scopes']=scope_provenance
