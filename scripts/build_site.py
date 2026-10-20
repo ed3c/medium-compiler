@@ -136,7 +136,7 @@ def markdown(text:str)->str:
         if list_kind: out.append(f'</{list_kind}>');list_kind=None
     for raw in text.splitlines():
         line=raw.rstrip()
-        if line.startswith('```'):
+        if line.startswith('```') or line.startswith('~~~'):
             flush_p();close_list()
             if in_code:
                 out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
@@ -324,14 +324,14 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
 
 
 def render_alg_four(out:Path)->dict:
-    """Render a source-locked, static English acquisition worksheet (no LMS/runtime receipts)."""
+    """Project the byte-pinned article with additive notes after every prose paragraph."""
     manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
-    if (data.get('schema_version')!='alg-four-lesson@1' or data.get('owner')!='alg-four'
-            or data.get('scope')!='FULL_ARTICLE_ALL_DECISIONS'
-            or data.get('learner_attempt')!='NOT_OBSERVED'):
-        raise ValueError('Invalid ALG Four lesson owner, scope or evidence status')
+    if (data.get('schema_version')!='alg-four-paragraph-annotations@2'
+            or data.get('owner')!='alg-four'
+            or data.get('format')!='source_preserved_with_inline_zh_tw_annotations'):
+        raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
     source=data.get('source',{})
     source_path=(ROOT/source.get('path','')).resolve()
     if not source_path.is_relative_to(ROOT.resolve()) or not source_path.is_file():
@@ -340,51 +340,86 @@ def render_alg_four(out:Path)->dict:
     git_blob=hashlib.sha1(f"blob {len(source_bytes)}\0".encode()+source_bytes).hexdigest()
     if git_blob!=source.get('git_blob'):
         raise ValueError('ALG Four pinned source blob changed without lesson revision')
-    decisions=data.get('decisions',[])
-    ids=[item.get('id') for item in decisions]
-    if not ids or len(set(ids))!=len(ids) or any(not re.fullmatch(r'D[1-9][0-9]*',key) for key in ids):
-        raise ValueError('ALG Four requires unique concrete decision IDs')
-    required=('title','source_concept','passive','context','active_cue','oracle','counterexample')
-    if any(any(not isinstance(item.get(k),str) or not item[k].strip() for k in required) for item in decisions):
-        raise ValueError('ALG Four omitted a decision, cause, or oracle')
-    if any(not data.get(key) for key in ('pass1','pass2','pass3','passive_vocabulary',
-                                         'priority_active_phrases','whole_article_cue','whole_article_oracle')):
-        raise ValueError('ALG Four incomplete four-pass English lesson')
+    original_html=markdown(source_bytes.decode('utf-8'))
+    pattern=re.compile(r'<p>.*?</p>|<blockquote>.*?</blockquote>',re.S)
+    paragraphs=list(pattern.finditer(original_html))
+    notes=data.get('paragraph_annotations',[])
+    if not paragraphs or len(notes)!=len(paragraphs):
+        raise ValueError('ALG Four must annotate every original prose paragraph without omissions')
+    decisions={d['id']:d for d in data.get('decisions',[])}
+    if not decisions or len(decisions)!=len(data.get('decisions',[])):
+        raise ValueError('ALG Four has duplicate or empty decision IDs')
+    items=data.get('active_items',[])
+    item_ids=[x.get('id') for x in items]
+    if len(item_ids)!=len(set(item_ids)):
+        raise ValueError('ALG Four Active item IDs must be unique')
+    index_items={}
+    for item in items:
+        i=item.get('paragraph_index')
+        if (not isinstance(i,int) or not 0<=i<len(paragraphs)
+                or item.get('decision_id') not in decisions
+                or not item.get('english_sentence') or not item.get('term')):
+            raise ValueError('ALG Four Active word has no exact source paragraph, decision or sentence')
+        index_items.setdefault(i,[]).append(item)
+    for i,note in enumerate(notes):
+        if (note.get('paragraph_index')!=i
+                or note.get('kind') not in ('PASSIVE','PASSIVE_AND_ACTIVE')
+                or not note.get('zh_note')
+                or not note.get('decision_ids')
+                or any(d not in decisions for d in note['decision_ids'])):
+            raise ValueError('ALG Four paragraph annotation index, role or decision coverage is invalid')
+    policy=data.get('learning_policy',{})
+    if (policy.get('goal_active_lexical_items')!=2000
+            or policy.get('goal_linked_english_sentences')!=2000
+            or policy.get('learner_evidence')!='NOT_OBSERVED'
+            or policy.get('scope')!='cumulative_across_source_articles_not_per_single_article'):
+        raise ValueError('ALG Four 2000-item cross-article selection policy or evidence status invalid')
     esc=html.escape
-    def paras(items):
-        return ''.join('<p>'+esc(item)+'</p>' for item in items)
-    def section(title,body):
-        return '<section class="panel" aria-label="'+esc(title,quote=True)+'"><h2>'+esc(title)+'</h2>'+body+'</section>'
-    vocabulary='<dl class="alg-four-vocab">'+''.join(
-        '<div><dt>'+esc(item['term'])+'</dt><dd>'+esc(item['meaning'])+
-        '</dd><dd><small>Encounter: '+esc(item['context'])+'</small></dd></div>'
-        for item in data['passive_vocabulary'])+'</dl>'
-    details=lambda answer: '<details><summary>Oracle — first attempt the explanation without looking</summary><p>'+esc(answer)+'</p></details>'
-    steps=''.join('<article class="alg-four-decision" data-alg-four-decision="'+esc(item['id'],quote=True)+'">'+
-        '<h3>'+esc(item['id']+' · '+item['title'])+'</h3><p><strong>Concept:</strong> '+esc(item['source_concept'])+'</p>'+
-        '<p><strong>Passive context:</strong> '+esc(item['passive'])+' '+esc(item['context'])+'</p>'+
-        '<p><strong>Active cue:</strong> '+esc(item['active_cue'])+'</p>'+
-        '<p><strong>Falsifier:</strong> '+esc(item['counterexample'])+'</p>'+
-        details(item['oracle'])+'</article>' for item in decisions)
-    contents=('<section class="page-head"><div class="eyebrow">ALG Four · Independent English worksheet</div><h1>Group Anagrams: think in English from the runtime</h1>'+
-      '<p>A complete engineering article, five source-specific decisions and four distinct learning operations. No previous chat required.</p>'+
-      '<p><strong>Evidence:</strong> non-tracking preview, no learner attempt or native CEFR receipt observed. Opening an oracle is not proof of learning.</p>'+
-      '<p><a href="/alg-four/source.json">Source-locked lesson manifest</a> · <a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+'">Read technical article</a></p></section>')
-    contents+=section('Pass 1 · Low-friction encounter',paras(data['pass1']))
-    contents+=section('Pass 2 · Contextual recognition',paras(data['pass2'])+'<h3>Encounter vocabulary in several contexts</h3>'+vocabulary)
-    contents+=section('Pass 3 · Comprehension with context',paras(data['pass3'])+
-        '<p>The transcript remains visible. Listening or rereading is receptive and does not demonstrate production.</p>')
-    contents+=section('Pass 4 · Active engineering explanation', '<p>Without copying above text, explain every decision in English, including its runtime consequence. In a real guided session, compare the spoken or typed attempt with its source-bound oracle; this standalone worksheet does not record attempts.</p>'+steps+
-        '<h3>Whole-article reconstruction</h3><p>'+esc(data['whole_article_cue'])+'</p>'+details(data['whole_article_oracle'])+
-        '<p>Optional evaluation: record your own cue-to-speech latency, exact conditions retained, and a later unprompted attempt. No scores or learner states are inferred by this site.</p>')
-    d=out/'alg-four';d.mkdir()
-    (d/'index.html').write_text(page('ALG Four · Group Anagrams English',contents,'learning').replace('<html lang="zh-Hant">','<html lang="en">',1),encoding='utf-8')
-    (d/'source.json').write_bytes(raw)
+    def emit(match):
+        i=emit.next_index
+        emit.next_index+=1
+        note=notes[i]
+        kind=note['kind']
+        label='Passive + Active' if kind=='PASSIVE_AND_ACTIVE' else 'Passive'
+        decision_links=', '.join(note['decision_ids'])
+        annotation=(f'<aside class="alg-four-annotation" data-alg-four-index="{i}" '
+                    f'data-alg-four-role="{kind}"><p class="alg-four-label">{label}'
+                    f' · {esc(decision_links)}</p><p class="alg-four-zh">{esc(note["zh_note"])}</p>')
+        for item in index_items.get(i,[]):
+            annotation+='<div class="alg-four-word"><strong>'+esc(item['term'])+'</strong> · English sentence: '+esc(item['english_sentence'])+'</div>'
+        if kind=='PASSIVE_AND_ACTIVE':
+            cues=[decisions[x]['active_cue'] for x in note['decision_ids']]
+            oracles=[decisions[x]['oracle'] for x in note['decision_ids']]
+            annotation+=('<details class="alg-four-recall"><summary>Pass 4 · Use this paragraph to explain the decision in English</summary>'+
+                         '<p>'+esc(' '.join(cues))+'</p>'+
+                         '<details><summary>Oracle — compare after your own attempt</summary><p>'+
+                         esc(' '.join(oracles))+'</p></details></details>')
+        return match.group(0)+annotation+'</aside>'
+    emit.next_index=0
+    body=pattern.sub(emit,original_html)
+    if emit.next_index!=len(notes):
+        raise ValueError('ALG Four rendering omitted original paragraphs')
+    instructions=('<section class="page-head"><div class="eyebrow">ALG Four · Original article annotations</div>'
+        '<h1>Group Anagrams · 原文逐段 Passive／Active 英文註解</h1>'
+        '<p>原文敘述、段落順序及 Code 不變；每段下方新增繁體中文與英文技術詞註解。'
+        '同一份原文完成四次不同認知操作：第一次接觸，第二次辨識概念，'
+        '第三次追蹤 Runtime，第四次不看答案主動以英文重建再核對 Oracle。</p>'
+        '<p>Active 2,000 詞與 2,000 工程英文句為<strong>跨文章累積目標</strong>，不是本篇已達成數。'
+        '本頁無學員輸入紀錄、無間隔排程，不能據此判定語言習得或 Mastery。</p>'
+        '<p><a href="/alg-four/source.json">Source / annotation manifest</a> · '
+        '<a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+
+        '">查看未修改的原始 Markdown</a></p></section>')
+    target=out/'alg-four'
+    target.mkdir()
+    (target/'index.html').write_text(page('ALG Four · Annotated Original',instructions+
+                  '<article class="article alg-four-source">'+body+'</article>','learning'),encoding='utf-8')
+    (target/'source.json').write_bytes(raw)
     return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
             'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
-            'decision_ids':ids,'passive_count':len(data['passive_vocabulary']),
-            'priority_active_phrases':len(data['priority_active_phrases']),
-            'native_runtime':'NOT_RUN','learner_evidence':'NOT_OBSERVED'}
+            'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
+            'active_items_collected':len(items),'active_vocabulary_goal':2000,
+            'source_article_unchanged':True,'learning_evidence':'NOT_OBSERVED',
+            'native_runtime':'NOT_RUN'}
 
 
 def build(out:Path)->dict:
