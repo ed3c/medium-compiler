@@ -113,6 +113,16 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertIn('/alg-four/',(out/"learning/index.html").read_text())
             self.assertTrue((out/"cefr-alg-c2/technical.html").is_file())
 
+    def test_scroll_following_outline_script_has_valid_javascript_syntax(self):
+        import shutil
+        import subprocess
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("Node.js unavailable; browser interaction remains NOT_RUN")
+        proc=subprocess.run([node,"--check",str(ROOT/"site/alg-four.js")],
+                            capture_output=True,text=True,check=False)
+        self.assertEqual(proc.returncode,0,proc.stderr)
+
     def test_mode_c_projection_is_derived_and_preserves_english(self):
         import importlib.util
         proj_spec=importlib.util.spec_from_file_location("alg_four_projection",
