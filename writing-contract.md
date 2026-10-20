@@ -38,8 +38,8 @@ at runtime.
 ## Original article immutability under English annotations
 
 For the **ordinary v4 composition**, the `leetcode-mental` skill owns technical derivations and this `medium-writing` contract owns the article's prose and accepted bytes. For the separately selected **complete LeetCode Medium article profile**, `leetcode-mental` owns and approves the full English and zh-TW article content, while `medium-writing` owns **only Medium formatting and deterministic assembly** of that approved content. See [the canonical article-content profile](.agents/skills/leetcode-mental/references/article-content-profile.md); it is not a new CLI stage or another writer. `alg-four`
-appends zh-TW Passive/Active explanations and English source-bound production
-sentences under each same original paragraph, never rewriting the article
+projects zh-TW Passive/Active explanations and English source-bound production
+sentences in a **right-hand, source-paragraph-indexed outline**, not inside or below the original prose, never rewriting the article
 into four passes or creating alternative narrative text. A source change
 invalidates the pinned paragraph annotation. The 2,000 Active word/phrase
 and 2,000 linked-sentence goal is a deduplicated, source-linked corpus
