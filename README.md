@@ -291,14 +291,16 @@ Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consu
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
 
-The total site stays on Vercel Hobby, owned by the ChatGPT cloud Vercel Connector
-route. Its Reliability Lab navigation opens the Cloudflare experiment subsite;
-Local Codex configures that subsite and the Access-protected payment Sandbox.
+The selected full-site host is Cloudflare Workers Static Assets, deployed locally
+with pinned Wrangler through `wrangler.full-site.jsonc`. `npm run build:cloudflare:full`
+produces the complete `dist/` and `npm run deploy:cloudflare:full` targets the separate
+`medium-compiler-full-site` Worker. Vercel remains a rollback reference.
+Reliability Lab navigation still opens its original Cloudflare origin to preserve OPFS;
+the Access-protected payment Sandbox remains separate. `npm run build:cloudflare` and
+`npm run deploy` continue to own only the existing Lab Worker.
 [Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md) explains
-the cost boundary. `npm run build` produces the total site; `npm run build:cloudflare`
-produces only Lab assets for pinned Wrangler and Cloudflare native Git builds.
-The existing Vercel Lab remains readable for old-Origin OPFS evidence. Deployment and runtime
-evidence are recorded per source revision, not inferred from this configuration.
+account readback, matching-head CI, deployment and runtime acceptance. Configuration
+alone does not prove a public URL or deployed revision.
 
 The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use
