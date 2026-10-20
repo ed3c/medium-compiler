@@ -1,0 +1,129 @@
+{
+  "schema_version": "alg-four-lesson@1",
+  "id": "leetcode-49-full-article",
+  "owner": "alg-four",
+  "format": "standalone_english_worksheet_no_learning_state",
+  "source": {
+    "repository": "ed3c/medium-compiler",
+    "path": "examples/leetcode-49-group-anagrams-zero-context.md",
+    "git_blob": "0c49863b0a8b607a41b178963145ee760ad1c27f",
+    "technical_authority": "alg-leetcode-mental-simulator"
+  },
+  "language": "en",
+  "scope": "FULL_ARTICLE_ALL_DECISIONS",
+  "learner_attempt": "NOT_OBSERVED",
+  "decision_count_scope": "Five selected actual engineering decisions for the linked Group Anagrams article; not a universal cap.",
+  "pass1": [
+    "The task is to group words that are anagrams. First understand the output contract: all original strings must be preserved and equivalent strings grouped together.",
+    "The critical chain is: lowercase alphabet constraint → character-frequency equivalence → 26 counters → ord-based index → mutable counting → immutable tuple key → dictionary HIT/MISS → append original word.",
+    "The scanner always builds the full frequency vector before grouping the current word. At the end, each input occurrence appears in exactly one group. A sorted-character key is an alternative with a different canonicalization cost."
+  ],
+  "pass2": [
+    "Identify each engineering decision as you read. D1 defines equivalence and the processed-prefix loop invariant. D2 chooses a 26-counter representation under the a–z constraint. D3 maps characters to exact indexes.",
+    "D4 separates group identity from hash lookup and handles a missing group. D5 freezes working state into a hashable tuple and compares counting with sorting. Understand each condition, not just each technical term."
+  ],
+  "pass3": [
+    "Picture a scanner processing 'eat', 'tea', and 'tan'. It builds a fresh zeroed counter list for each word. The characters of 'eat' increment indexes 4, 0, and 19. A tuple freezes the result and the dictionary creates the first group.",
+    "The scanner later reads 'tea', builds the same tuple, finds the original group, and appends 'tea'. The vector for 'tan' differs, so the dictionary creates another group. A collision in a hash value alone does not make two keys equal.",
+    "Continue until every word has been processed. The dictionary now holds one group per exact frequency signature. For each decision, be ready to explain what changes if the assumptions are false."
+  ],
+  "passive_vocabulary": [
+    {
+      "term": "canonical key",
+      "context": "A stable representation shared by equivalent words.",
+      "meaning": "The grouping identity, defined by equality rather than by hash value alone."
+    },
+    {
+      "term": "character frequency",
+      "context": "Order may vary while counts remain the same.",
+      "meaning": "How many times each character occurs."
+    },
+    {
+      "term": "hash collision",
+      "context": "Two unequal keys may have the same hash candidate.",
+      "meaning": "Equal hash values do not by themselves prove key equality."
+    },
+    {
+      "term": "mutable",
+      "context": "A list can be incremented during counting.",
+      "meaning": "An object whose content can change."
+    },
+    {
+      "term": "hashable",
+      "context": "A tuple of integers can be used as a dict key.",
+      "meaning": "An object with a stable usable hash and compatible equality."
+    },
+    {
+      "term": "default factory",
+      "context": "defaultdict(list) can create the missing bucket.",
+      "meaning": "A callable used to initialize values on missing-key access."
+    },
+    {
+      "term": "sorting fallback",
+      "context": "Sorted characters can define another canonical identity.",
+      "meaning": "An alternative strategy when the chosen counting representation is unsuitable."
+    }
+  ],
+  "priority_active_phrases": [
+    "a character-frequency invariant",
+    "the processed prefix",
+    "a canonical tuple key",
+    "a dictionary lookup with equality checks",
+    "a mutable-to-immutable boundary",
+    "the fixed-alphabet assumption"
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "title": "Equivalence: what makes anagrams the same?",
+      "source_concept": "Character-frequency equivalence and grouping invariant",
+      "passive": "Anagrams can reorder their characters, but their character-frequency vectors remain equal. A group holds all previously processed words with an equal canonical vector.",
+      "context": "When 'eat', 'tea', and 'ate' share frequencies, they belong to one group even though their spellings differ.",
+      "active_cue": "Without reading the code, explain in English why anagrams must share one identity. Distinguish the mathematical equivalence property from the loop invariant.",
+      "oracle": "Two words are anagrams exactly when each character occurs the same number of times. The frequency vector expresses that equivalence. Separately, at the start of iteration i, the dictionary contains exactly the words from the processed prefix, each placed once in the bucket for its frequency vector.",
+      "counterexample": "A set of distinct characters cannot distinguish 'a' from 'aa'."
+    },
+    {
+      "id": "D2",
+      "title": "Representation: why exactly 26 counters?",
+      "source_concept": "Finite alphabet, fixed-size canonical representation and empty strings",
+      "passive": "The input contract limits each word to lowercase English letters. A fixed 26-counter vector is therefore a complete and stable representation; an empty word has an all-zero vector.",
+      "context": "In the same alphabet, 'eat' and 'tea' both give a vector with one a, one e, and one t.",
+      "active_cue": "Explain why a fixed-size vector works here and under what changed input constraint it would fail. Include empty strings.",
+      "oracle": "The alphabet is fixed at 26 lowercase letters, so one counter per character encodes every possible frequency without losing multiplicity. The empty word creates an all-zero vector and still belongs to a bucket. This representation would not cover arbitrary Unicode without redefining the indexing strategy and character-equivalence contract.",
+      "counterexample": "Using this index on characters outside a–z may cause invalid indexing or incorrect equivalence."
+    },
+    {
+      "id": "D3",
+      "title": "Character mapping: how does the scanner update state?",
+      "source_concept": "ord, ASCII-aligned lowercase code points and the full count update",
+      "passive": "Python ord returns a Unicode code point. For lowercase ASCII letters, subtracting ord('a') maps a through z to indices 0 through 25.",
+      "context": "The scanner reads e, a, t as indices 4, 0, 19, incrementing the three corresponding counters.",
+      "active_cue": "Narrate exactly how 'eat' changes the count array. Why is ord(c) - ord('a') valid only under the stated contract?",
+      "oracle": "The count array starts with 26 zeros. Reading e updates count[4], reading a updates count[0], and reading t updates count[19]. Each character is mapped using its code point minus ord('a'), which works because the input is constrained to the contiguous lowercase English alphabet.",
+      "counterexample": "For an uppercase 'E', the index is outside the approved 0–25 mapping."
+    },
+    {
+      "id": "D4",
+      "title": "Grouping: equality and hash lookup do different jobs",
+      "source_concept": "Canonical key equality, hash collisions, dictionary HIT/MISS and defaultdict alternative",
+      "passive": "The canonical key defines logical group identity. The dictionary uses hashing to find candidate entries; a hash collision is not key equality. A missing key can create an empty list, either through an explicit branch or defaultdict(list).",
+      "context": "The first key from 'eat' is a MISS and creates a bucket. 'tea' has the same tuple and is a HIT, so its original string is appended to that bucket.",
+      "active_cue": "Explain the first MISS, the later HIT and why a hash collision does not incorrectly merge two different tuples. Distinguish the current reference code from the defaultdict alternative.",
+      "oracle": "Two words with equal character-count tuples belong to one group, while different keys must not be merged merely because their hashes collide. Python dict resolves candidate slots and checks equality as needed. In the reference implementation, a MISS triggers an explicit new empty list. defaultdict(list) is an alternative that calls the default factory on missing-key access before appending the original word.",
+      "counterexample": "Treating equal hash values as sufficient for equal keys breaks dictionary identity semantics."
+    },
+    {
+      "id": "D5",
+      "title": "Freeze and trade-off: why tuple, not a mutable list?",
+      "source_concept": "Hashability, mutable working state, tuple freeze, sorting alternative and complexity",
+      "passive": "Counting mutates a list during scanning. The completed 26 integers are frozen into a hashable tuple before dictionary lookup. Sorting can also canonicalize the word, but uses a different per-word time cost.",
+      "context": "The list cannot be used directly as a dictionary key. A tuple of integers can; sorted(word) returns an unhashable list until converted to a string or tuple.",
+      "active_cue": "Explain the list-to-tuple freeze boundary, tuple hashability caveat, counting versus sorting costs, and what Timsort does or does not prove.",
+      "oracle": "A mutable list is unhashable and cannot serve as the dictionary key. The frozen tuple is hashable here because each element is an integer; tuples containing unhashable elements still fail. Counting over n words and M total characters takes O(n + M) average time including the fixed 26-slot work per word, with O(n) additional container references/keys for a fixed alphabet. Sorting each word takes up to O(k log k) time per word; a merge-level diagram is a complexity model, not a literal trace of Python Timsort.",
+      "counterexample": "A tuple containing a list is not hashable, even though a tuple itself cannot be mutated."
+    }
+  ],
+  "whole_article_cue": "Explain the entire algorithm in English, from input constraints to the returned grouping, including both mathematical equivalence and the loop invariant. Distinguish list, tuple, dictionary equality, hash collision, missing-key behavior, counting/sorting complexity, and one changed constraint.",
+  "whole_article_oracle": "Under a lowercase a–z constraint, two words are anagrams exactly when their 26 character frequencies agree. The algorithm counts each word in a mutable list, freezes its 26 integers into a hashable tuple, and uses that canonical tuple for dictionary grouping. The dictionary uses hashing for efficient candidate lookup but checks key equality as required; a first missing key creates a bucket, then the original word is appended. Each loop iteration adds exactly the current input occurrence to the appropriate group, preserving the processed-prefix invariant until all words are assigned. For n words with M total characters, counting takes O(n + M) average time including fixed 26-element work per word. Sorting provides an alternative canonical key at O(k log k) per word. These are source-backed engineering explanations, not evidence of learner mastery."
+}
