@@ -76,6 +76,12 @@ Reader IDs：baseline `01a15a01-bd94-7250-81f3-9993caff168e`；raw treatment `01
 本機實際控制涵蓋：從英繁文章抽出完整解法執行、literal grouping／multiplicity／input nonmutation、獨立 sorting oracle、main implementation 的 MISS factory object identity；ALG Four 的來源拒絕與 HTML recoverability；原 compiler 的 legal Stage 6 import／Stage 7 exact assembly／verify／check-receipt；真實 Chromium desktop／mobile 的 scroll、anchor、keyboard、七圖載入、outline 及 mobile overflow。
 Compiler import 是對已新作成的核准 edition 做 exact admission，沒有把舊 code 改成新 code 偽裝成 prose-only copyedit，也沒有補造先前 Stage 0–5 的作者歷史。
 
+PR 首輪 head `466a4b8` 的 run `39456225837` 在 Linux 的 mobile keyboard target 可見性檢查失敗；build、compiler 與 Chromium 安裝步驟通過，失敗 log／artifact 保留。
+原 CSS 使用固定 `125px` scroll margin，沒有反映 sticky header 的實際高度。
+現由 layout 繼承實測 header offset，scroll observer 使用相同的 header 邊界；原文 article DOM 不因此新增 style。
+本機實跑一般 header 與加高 header 控制：header bottom 分別約 129.6／161.6px，target top 分別約 146.1／178.1px，均完整露出目標段落。
+這是本機觀察；Linux 修正結果仍須讀回新 head 的 CI，沒有放寬可見性 assertion。
+
 ## CI 的 SHA-256 範圍
 
 文章與 browser CI 使用 `--no-deployment-manifest`，不計算部署專用全站 asset hashes。

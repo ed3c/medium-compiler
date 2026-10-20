@@ -130,13 +130,28 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
             anchor.press("Enter")
             mobile.wait_for_timeout(200)
             assert mobile.evaluate("location.hash")=="#alg-p-0"
-            target_top=mobile.locator('#alg-p-0').bounding_box()['y']
-            header_bottom=mobile.locator('header').bounding_box()['y']+mobile.locator('header').bounding_box()['height']
-            assert header_bottom-8 <= target_top < 844, "keyboard link did not reveal its source paragraph"
+            def assert_keyboard_target_visible():
+                target_top=mobile.locator('#alg-p-0').bounding_box()['y']
+                header_box=mobile.locator('header').bounding_box()
+                header_bottom=header_box['y']+header_box['height']
+                if not header_bottom <= target_top < 844:
+                    mobile.screenshot(path=str(output/'mobile-failure.png'))
+                    raise AssertionError(f'keyboard target top={target_top}, header bottom={header_bottom}')
+                return {'target_top':target_top,'header_bottom':header_bottom}
+
+            keyboard_position=assert_keyboard_target_visible()
             assert mobile.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "mobile page overflows horizontally"
             mobile.screenshot(path=str(output/"mobile-viewport.png"))
             mobile.screenshot(path=str(output/"mobile.png"),full_page=True)
-            report["mobile"]={"viewport":"390x844","collapsible_outline":True,"keyboard_anchor":"alg-p-0"}
+            # A taller real sticky header must not cover keyboard navigation.
+            mobile.add_style_tag(content='header{padding-top:34px;padding-bottom:34px}')
+            anchor.focus()
+            anchor.press('Enter')
+            mobile.wait_for_timeout(250)
+            tall_header_position=assert_keyboard_target_visible()
+            mobile.screenshot(path=str(output/'mobile-tall-header.png'))
+            report["mobile"]={"viewport":"390x844","collapsible_outline":True,"keyboard_anchor":"alg-p-0",
+                              'keyboard_position':keyboard_position,'tall_header_position':tall_header_position}
             browser.close()
         report["status"]="PASS"
     finally:

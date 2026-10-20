@@ -3,7 +3,9 @@
   "use strict";
   const source = document.querySelector(".alg-four-source");
   const sidebar = document.querySelector(".alg-four-sidebar");
-  if (!source || !sidebar) return;
+  const layout = document.querySelector(".alg-four-reading-layout");
+  const header = document.querySelector("header");
+  if (!source || !sidebar || !layout) return;
 
   const paragraphs = Array.from(source.querySelectorAll("[data-alg-four-index]"));
   const entries = Array.from(sidebar.querySelectorAll("details[data-outline-index]"));
@@ -14,6 +16,16 @@
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let active = -1;
   let scheduled = false;
+
+  function headerBottom() {
+    return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  }
+
+  function refreshScrollOffset() {
+    layout.style.setProperty("--alg-scroll-offset", `${Math.max(125, headerBottom() + 16)}px`);
+  }
+
+  refreshScrollOffset();
 
   function activate(index, moveOutline = false) {
     const entry = byIndex.get(index);
@@ -49,7 +61,7 @@
   }
 
   function currentParagraph() {
-    const line = Math.max(130, Math.min(160, window.innerHeight * 0.18));
+    const line = Math.max(130, Math.min(160, window.innerHeight * 0.18), headerBottom() + 20);
     let index = 0;
     for (let i = 0; i < paragraphs.length; i += 1) {
       const box = paragraphs[i].getBoundingClientRect();
@@ -90,12 +102,16 @@
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, "", "#" + id);
     }
+    refreshScrollOffset();
     target.scrollIntoView({ behavior: "auto", block: "start" });
     window.requestAnimationFrame(() => activate(selected, true));
   });
 
   window.addEventListener("scroll", scheduleUpdate, { passive: true });
-  window.addEventListener("resize", scheduleUpdate);
+  window.addEventListener("resize", () => {
+    refreshScrollOffset();
+    scheduleUpdate();
+  });
   window.addEventListener("hashchange", () => {
     const id = window.location.hash.slice(1);
     const node = document.getElementById(id);

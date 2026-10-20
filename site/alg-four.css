@@ -6,7 +6,7 @@
 .alg-four-reading-layout .alg-four-source{margin:0;min-width:0;max-width:none;padding:0 0 8rem}
 .alg-four-source h1{font-size:clamp(2.15rem,4vw,3.25rem)}
 .alg-four-source h2{font-size:clamp(1.6rem,2.8vw,2.15rem)}
-.alg-four-source [id^="alg-p-"],.alg-four-source [id^="alg-heading-"]{scroll-margin-top:125px}
+.alg-four-source [id^="alg-p-"],.alg-four-source [id^="alg-heading-"]{scroll-margin-top:var(--alg-scroll-offset,125px)}
 .alg-four-source [data-alg-four-index].alg-current-source{outline:2px solid rgba(190,154,21,.45);outline-offset:7px;border-radius:4px}
 .alg-four-source pre{max-width:100%;overflow:auto}
 .alg-four-sidebar{position:sticky;top:112px;max-height:calc(100vh - 130px);overflow-y:auto;overscroll-behavior:contain;background:var(--card);border:1px solid var(--line);border-radius:16px;min-width:0;padding:14px 15px}
