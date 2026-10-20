@@ -25,8 +25,9 @@ class AnnotationParser(HTMLParser):
         self.words=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
-        if "data-alg-four-index" in a:
-            self.indices.append(int(a["data-alg-four-index"]))
+        if "data-outline-index" in a:
+            self.indices.append(int(a["data-outline-index"]))
+        if "data-alg-four-role" in a:
             self.roles.append(a["data-alg-four-role"])
 
 
@@ -97,8 +98,18 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertEqual((out/"alg-four/source.json").read_bytes(),MANIFEST.read_bytes())
             article=re.search(r'<article class="article alg-four-source">(.*?)</article>',full,re.S)
             self.assertIsNotNone(article)
-            projection=re.sub(r'<aside class="alg-four-annotation".*?</aside>','',article.group(1),flags=re.S)
+            self.assertNotIn('class="alg-four-annotation"',article.group(1))
+            # Only anchor attributes are added to the original rendered blocks.
+            projection=re.sub(r' id="alg-(?:p|heading)-\d+" data-alg-(?:four-index|heading)="\d+"','',article.group(1))
             self.assertEqual(projection,site.markdown(source.decode("utf-8")))
+            self.assertIn('class="alg-four-sidebar"',full)
+            self.assertIn('id="alg-p-0"',article.group(1))
+            self.assertIn('href="#alg-p-74"',full)
+            self.assertIn('/assets/alg-four.js',full)
+            self.assertIn('/assets/alg-four.css',full)
+            self.assertIn('alg-active-term',full)
+            self.assertEqual(result["annotation_projection"],"right_outline")
+            self.assertGreater(result["heading_count"],0)
             self.assertIn('/alg-four/',(out/"learning/index.html").read_text())
             self.assertTrue((out/"cefr-alg-c2/technical.html").is_file())
 
