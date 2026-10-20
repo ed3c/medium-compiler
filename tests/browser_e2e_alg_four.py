@@ -49,8 +49,9 @@ def run(site: Path, output: Path) -> dict:
 
             # Real viewport scroll must pick the matching, detailed annotation.
             paragraph=article.locator('[data-alg-four-index="22"]')
-            paragraph.scroll_into_view_if_needed()
-            desktop.evaluate("window.scrollBy(0,-90)")
+            desktop.mouse.wheel(0, 600)
+            desktop.wait_for_timeout(100)
+            paragraph.evaluate("(el)=>el.scrollIntoView({block:'start',behavior:'auto'})")
             desktop.wait_for_timeout(250)
             active=desktop.locator('a[aria-current="location"]')
             assert active.count()==1, "one active source paragraph expected"
