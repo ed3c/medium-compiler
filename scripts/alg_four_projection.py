@@ -30,9 +30,7 @@ STRESS = {
     "hashing": ("hash", "ing"),
     "dictionary": ("dic", "tionary"),
     "contract": ("con", "tract"),
-    "representation": ("repre", "sentation"),  # not used until independently reviewed
 }
-STRESS.pop("representation")  # unresolved pronunciation: do not guess
 
 # Source-attested expressions; brackets are a *reading aid*, not the source.
 BUNDLES = {
@@ -104,6 +102,13 @@ def note_html(i: int, note: dict, decisions: dict, index_items: dict) -> str:
         f'<p class="alg-reading-text" lang="en">{scan_reading(decision["passive"], decision_id)}</p>',
         '<p class="alg-source-explain">衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。</p>'
     ]
+    skeleton = decision.get('passive_skeleton')
+    if skeleton:
+        # One decision-bound cognitive cue, not a replacement for the source.
+        if len(skeleton.split()) > 15 or '→' not in skeleton:
+            raise ValueError('ALG Four Mode C skeleton must be concise and source-bound')
+        out.append('<p class="alg-skeleton"><strong>極簡認知骨架</strong>：'
+                   + esc(skeleton) + '</p>')
     for item in index_items.get(i, []):
         out.append('<div class="alg-active-word">'
                    f'<span class="alg-active-term">{esc(item["term"])}</span>'
