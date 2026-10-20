@@ -79,10 +79,13 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   invocation adapter, not a second independently maintained source of truth.
   The ordinary 14-block v4 teaching path remains available.
 - [ALG Four in-place article annotations](.agents/skills/alg-four/SKILL.md): new
-  article-wide, source-locked per-paragraph Passive/Active notes owner with
+  article-wide, source-locked per-paragraph right-outline Passive/Active projection with
   [Thinking V2/V3 routing](.agents/skills/alg-four/references/thinking-route.md),
-  overlapping Passive/Active content roles on the **unchanged original article**
-  instead of four rewritten versions; includes the cumulative 2,000-item
+  overlapping Passive/Active roles in a **scroll-following right-side paragraph index**
+  instead of inline notes or four rewritten versions. Article headings are linked
+  with local anchors; expanded annotations provide yellow Active terms and a
+  conservative, source-bound Mode C Passive phrase/chunk/stress reading view.
+  The Markdown article and original rendered prose remain unchanged; includes the cumulative 2,000-item
   Active lexicon and 2,000 linked source-grounded English sentences goal.
   No learner performance is inferred from an annotation or its reveal. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
   and 12-file dependency lock remain unchanged for historical Frozen lessons.

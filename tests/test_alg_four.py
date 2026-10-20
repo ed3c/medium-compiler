@@ -25,8 +25,9 @@ class AnnotationParser(HTMLParser):
         self.words=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
-        if "data-alg-four-index" in a:
-            self.indices.append(int(a["data-alg-four-index"]))
+        if "data-outline-index" in a:
+            self.indices.append(int(a["data-outline-index"]))
+        if "data-alg-four-role" in a:
             self.roles.append(a["data-alg-four-role"])
 
 
@@ -50,8 +51,8 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
 
     def test_cumulative_2000_admission_without_fabricated_complete_corpus(self):
         data=json.loads(MANIFEST.read_text())
-        self.assertEqual(data["schema_version"],"alg-four-paragraph-annotations@2")
-        self.assertEqual(data["format"],"source_preserved_with_inline_zh_tw_annotations")
+        self.assertEqual(data["schema_version"],"alg-four-reading-projection@3")
+        self.assertEqual(data["format"],"source_preserved_with_right_outline")
         self.assertEqual(data["source"]["technical_authority"],"leetcode-mental")
         self.assertEqual(data["source"]["writing_authority"],"medium-writing")
         self.assertEqual(data["learning_policy"]["goal_active_lexical_items"],2000)
@@ -97,10 +98,65 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertEqual((out/"alg-four/source.json").read_bytes(),MANIFEST.read_bytes())
             article=re.search(r'<article class="article alg-four-source">(.*?)</article>',full,re.S)
             self.assertIsNotNone(article)
-            projection=re.sub(r'<aside class="alg-four-annotation".*?</aside>','',article.group(1),flags=re.S)
+            self.assertNotIn('class="alg-four-annotation"',article.group(1))
+            # Only anchor attributes are added to the original rendered blocks.
+            projection=re.sub(r' id="alg-(?:p|heading)-\d+" data-alg-(?:four-index|heading)="\d+"','',article.group(1))
             self.assertEqual(projection,site.markdown(source.decode("utf-8")))
+            self.assertIn('class="alg-four-sidebar"',full)
+            self.assertIn('id="alg-p-0"',article.group(1))
+            self.assertIn('href="#alg-p-74"',full)
+            self.assertIn('/assets/alg-four.js',full)
+            self.assertIn('/assets/alg-four.css',full)
+            self.assertIn('alg-active-term',full)
+            self.assertEqual(result["annotation_projection"],"right_outline")
+            self.assertGreater(result["heading_count"],0)
             self.assertIn('/alg-four/',(out/"learning/index.html").read_text())
             self.assertTrue((out/"cefr-alg-c2/technical.html").is_file())
+
+    def test_scroll_following_outline_script_has_valid_javascript_syntax(self):
+        import shutil
+        import subprocess
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("Node.js unavailable; browser interaction remains NOT_RUN")
+        proc=subprocess.run([node,"--check",str(ROOT/"site/alg-four.js")],
+                            capture_output=True,text=True,check=False)
+        self.assertEqual(proc.returncode,0,proc.stderr)
+
+    def test_mode_c_projection_is_derived_and_preserves_english(self):
+        import importlib.util
+        proj_spec=importlib.util.spec_from_file_location("alg_four_projection",
+                    ROOT/"scripts/alg_four_projection.py")
+        projection=importlib.util.module_from_spec(proj_spec)
+        proj_spec.loader.exec_module(projection)
+        decisions=json.loads(MANIFEST.read_text())["decisions"]
+        class Spoken(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.text=[]
+            def handle_data(self,data):
+                self.text.append(data)
+        for decision in decisions:
+            formatted=projection.scan_reading(decision["passive"],decision["id"])
+            rendered=Spoken()
+            rendered.feed(formatted)
+            restored=''.join(rendered.text).replace('//','').replace('/','').replace('[','').replace(']','')
+            self.assertEqual(re.sub(r'\s+',' ',restored).strip(),
+                             re.sub(r'\s+',' ',decision["passive"]).strip())
+            self.assertLessEqual(len(decision["passive_skeleton"].split()),15)
+            self.assertIn('→',decision["passive_skeleton"])
+        self.assertNotIn('representation',projection.STRESS)
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/"dist"
+            site.build(out)
+            for name in ("alg-four.js","alg-four.css"):
+                self.assertTrue((out/"assets"/name).is_file())
+            html_text=(out/"alg-four/index.html").read_text()
+            self.assertEqual(html_text.count('class="alg-outline-paragraph"'),75)
+            self.assertIn('class="alg-skeleton"',html_text)
+            self.assertIn('class="alg-active-term"',html_text)
+            self.assertIn('href="#alg-heading-',html_text)
+            self.assertIn('data-alg-four-index="74"',html_text)
 
     def test_refuse_source_drift_omitted_annotation_or_wrong_lexicon(self):
         data=json.loads(MANIFEST.read_text())

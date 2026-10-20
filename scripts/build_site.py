@@ -324,13 +324,13 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
 
 
 def render_alg_four(out:Path)->dict:
-    """Project the byte-pinned article with additive notes after every prose paragraph."""
+    """Render byte-pinned source with navigation anchors and a separate ALG Four sidecar."""
     manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
-    if (data.get('schema_version')!='alg-four-paragraph-annotations@2'
+    if (data.get('schema_version')!='alg-four-reading-projection@3'
             or data.get('owner')!='alg-four'
-            or data.get('format')!='source_preserved_with_inline_zh_tw_annotations'):
+            or data.get('format')!='source_preserved_with_right_outline'):
         raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
     source=data.get('source',{})
     source_path=(ROOT/source.get('path','')).resolve()
@@ -374,51 +374,44 @@ def render_alg_four(out:Path)->dict:
             or policy.get('learner_evidence')!='NOT_OBSERVED'
             or policy.get('scope')!='cumulative_across_source_articles_not_per_single_article'):
         raise ValueError('ALG Four 2000-item cross-article selection policy or evidence status invalid')
-    esc=html.escape
-    def emit(match):
-        i=emit.next_index
-        emit.next_index+=1
-        note=notes[i]
-        kind=note['kind']
-        label='Passive + Active' if kind=='PASSIVE_AND_ACTIVE' else 'Passive'
-        decision_links=', '.join(note['decision_ids'])
-        annotation=(f'<aside class="alg-four-annotation" data-alg-four-index="{i}" '
-                    f'data-alg-four-role="{kind}"><p class="alg-four-label">{label}'
-                    f' · {esc(decision_links)}</p><p class="alg-four-zh">{esc(note["zh_note"])}</p>')
-        for item in index_items.get(i,[]):
-            annotation+='<div class="alg-four-word"><strong>'+esc(item['term'])+'</strong> · English sentence: '+esc(item['english_sentence'])+'</div>'
-        if kind=='PASSIVE_AND_ACTIVE':
-            cues=[decisions[x]['active_cue'] for x in note['decision_ids']]
-            oracles=[decisions[x]['oracle'] for x in note['decision_ids']]
-            annotation+=('<details class="alg-four-recall"><summary>Pass 4 · Use this paragraph to explain the decision in English</summary>'+
-                         '<p>'+esc(' '.join(cues))+'</p>'+
-                         '<details><summary>Oracle — compare after your own attempt</summary><p>'+
-                         esc(' '.join(oracles))+'</p></details></details>')
-        return match.group(0)+annotation+'</aside>'
-    emit.next_index=0
-    body=pattern.sub(emit,original_html)
-    if emit.next_index!=len(notes):
+    import importlib.util
+    projection_path=ROOT/'scripts/alg_four_projection.py'
+    spec=importlib.util.spec_from_file_location('alg_four_projection',projection_path)
+    projection=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(projection)
+    body,outline,para_count,heading_count=projection.render_outline(original_html,notes,decisions,index_items)
+    if para_count!=len(notes):
         raise ValueError('ALG Four rendering omitted original paragraphs')
-    instructions=('<section class="page-head"><div class="eyebrow">ALG Four · Original article annotations</div>'
-        '<h1>Group Anagrams · 原文逐段 Passive／Active 英文註解</h1>'
-        '<p>原文敘述、段落順序及 Code 不變；每段下方新增繁體中文與英文技術詞註解。'
-        '同一份原文完成四次不同認知操作：第一次接觸，第二次辨識概念，'
-        '第三次追蹤 Runtime，第四次不看答案主動以英文重建再核對 Oracle。</p>'
-        '<p>Active 2,000 詞與 2,000 工程英文句為<strong>跨文章累積目標</strong>，不是本篇已達成數。'
-        '本頁無學員輸入紀錄、無間隔排程，不能據此判定語言習得或 Mastery。</p>'
+    esc=html.escape
+    instructions=(
+        '<section class="page-head alg-four-head">'
+        '<div class="eyebrow">ALG Four · Source-locked reading companion</div>'
+        '<h1>Group Anagrams · 文章段落索引與 Active／Passive</h1>'
+        '<p>先閱讀完整原文；右側依 Markdown 標題層級展開索引。'
+        '點擊任一段落就能跳轉，捲動時會自動顯示對應語塊與練習。'
+        '黃色詞彙為 Active；Passive 的句型折行與主重音只存在於註解視圖，不變更原始文章。</p>'
+        '<p>四次 cognitive encounters 使用同一份原文，不產生四份改寫文章。'
+        'Active 2,000 詞與 2,000 句是跨文章累積目標，本頁沒有學習結果觀察。</p>'
         '<p><a href="/alg-four/source.json">Source / annotation manifest</a> · '
         '<a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+
-        '">查看未修改的原始 Markdown</a></p></section>')
+        '">查看原始 Markdown</a></p></section>')
     target=out/'alg-four'
     target.mkdir()
-    (target/'index.html').write_text(page('ALG Four · Annotated Original',instructions+
-                  '<article class="article alg-four-source">'+body+'</article>','learning'),encoding='utf-8')
+    for asset in ('alg-four.css','alg-four.js'):
+        shutil.copyfile(ROOT/'site'/asset,out/'assets'/asset)
+    full_body=(instructions+'<link rel="stylesheet" href="/assets/alg-four.css">'
+               '<div class="alg-four-reading-layout">'
+               '<article class="article alg-four-source">'+body+'</article>'+outline+'</div>'
+               '<script defer src="/assets/alg-four.js"></script>')
+    (target/'index.html').write_text(
+        page('ALG Four · Annotated Original',full_body,'learning'),encoding='utf-8')
     (target/'source.json').write_bytes(raw)
     return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
             'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
             'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
             'active_items_collected':len(items),'active_vocabulary_goal':2000,
             'source_article_unchanged':True,'learning_evidence':'NOT_OBSERVED',
+            'annotation_projection':'right_outline','heading_count':heading_count,
             'native_runtime':'NOT_RUN'}
 
 

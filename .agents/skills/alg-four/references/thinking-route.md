@@ -8,7 +8,7 @@ Follow Soodles Thinking Router **V2 first**: Goal, Measurement, Effort Horizon, 
 
 **Effort Horizon** — Annotate the selected article without re-authoring, re-rendering frozen upstream videos, scheduling reviews, writing learner profiles or inventing large corpus data.
 
-**First Causal Breakpoint** — Earlier alg-four generated new `pass1/pass2/pass3` versions of the original. That destroys the same-narrative knowledge connection the user needs. Replace that path with a source-locked inline overlay.
+**First Causal Breakpoint** — Earlier alg-four generated new `pass1/pass2/pass3` versions of the original. That destroys the same-narrative knowledge connection the user needs. Replace that path with a source-locked right-side outline: identical original article text, paragraph anchors, and notes revealed only in the active heading/subheading entry. Passive Mode C text is a derived reading projection, not a rewritten source.
 
 **V2 route** — If a term is unfamiliar, add one concise contextual meaning. If a crucial decision needs English output, attach a source-faithful complete English sentence and a recall cue. If response loses a key condition, compare it with the source-bound meaning oracle. Do not build a new pass-specific article or reroute every sentence through an LLM.
 

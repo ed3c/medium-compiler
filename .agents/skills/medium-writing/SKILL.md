@@ -76,7 +76,7 @@ reader decision graph or source-grounded claims.
 ## ALG Four only annotates, never rewrites this author's work
 
 Once Medium prose is admitted, `alg-four` consumes the identical source
-Git blob and displays exact paragraphs, followed by concise zh-TW notes
+Git blob and displays the exact accepted article beside a right-hand paragraph index containing source-bound zh-TW notes
 preserving technical English, source decisions, and Passive/Active targets.
 Its four encounters act on the **same original prose**. It must not
 produce `pass1/pass2/pass3` replacement scripts, a rewritten essay,
@@ -92,7 +92,7 @@ to acquire English while understanding an entire engineering article, pass the
 **accepted, source-bound article and the original technical claims** to
 [alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
 decisions, builds receptive/passive + productive/active English lesson content,
-and projects source-preserving, non-tracking paragraph annotations on the same article. No vocabulary classification,
+and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
 Four-Pass route selection, learner receipt or adaptive learning state is written
 into the Medium article. The old upstream CEFR Compiler is historical,
 as described in the [migration](../alg-four/references/migration.md).
