@@ -328,9 +328,9 @@ def render_alg_four(out:Path)->dict:
     manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
-    if (data.get('schema_version')!='alg-four-paragraph-annotations@2'
+    if (data.get('schema_version')!='alg-four-reading-projection@3'
             or data.get('owner')!='alg-four'
-            or data.get('format')!='source_preserved_with_inline_zh_tw_annotations'):
+            or data.get('format')!='source_preserved_with_right_outline'):
         raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
     source=data.get('source',{})
     source_path=(ROOT/source.get('path','')).resolve()
