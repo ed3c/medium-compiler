@@ -1,5 +1,5 @@
 ---
-name: alg-leetcode-mental-simulator
+name: leetcode-mental
 description: Source-grounded algorithmic decision and runtime reasoning from LeetCode constraints through invariants, canonical state, code, proof, complexity and counterexamples. Article prose and English learning are separate owners.
 ---
 
