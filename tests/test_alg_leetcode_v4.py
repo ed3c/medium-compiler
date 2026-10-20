@@ -6,8 +6,8 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / ".agents/skills/alg-leetcode-mental-simulator/SKILL.md"
-CONTRACT = ROOT / ".agents/skills/alg-leetcode-mental-simulator/references/v4-contract.md"
+SKILL = ROOT / ".agents/skills/leetcode-mental/SKILL.md"
+CONTRACT = ROOT / ".agents/skills/leetcode-mental/references/v4-contract.md"
 EXAMPLE = ROOT / "examples/leetcode-49-group-anagrams-zero-context.md"
 REFERENCE = ROOT / "examples/leetcode-49-group-anagrams.py"
 
@@ -34,7 +34,7 @@ def independent_oracle(words):
 class LeetcodeMentalSimulatorTests(unittest.TestCase):
     def test_skill_registration_is_separate_from_frozen_cefr(self):
         content = SKILL.read_text()
-        self.assertIn("name: alg-leetcode-mental-simulator", content)
+        self.assertIn("name: leetcode-mental", content)
         self.assertIn("cefr-alg-four-pass", content)
         self.assertIn("FULL_SINGLE_TURN", content)
         self.assertIn("v4-contract.md", content)

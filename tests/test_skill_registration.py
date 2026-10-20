@@ -29,7 +29,7 @@ class SkillRegistrationTests(unittest.TestCase):
             self.assertIn('description:',text.split('---',2)[1])
             names.append(name)
         self.assertEqual(len(names),27)  # All registered repository-local skills
-        self.assertIn('alg-leetcode-mental-simulator', names)
+        self.assertIn('leetcode-mental', names)
         self.assertIn('alg-four', names)
         self.assertIn('sloptrim', names)
         self.assertIn('podcast-to-medium', names)

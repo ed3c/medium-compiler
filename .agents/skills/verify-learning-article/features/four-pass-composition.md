@@ -1,6 +1,16 @@
 # Four-Pass 與文章的組合
 
-本 recipe 接在來源研讀與雙語語意核對之後。**新的 alg-four Lesson 必須涵蓋本篇完整文章的每個工程決策與核心 Runtime 機制**，而非只選一個決策。若來源無法完整讀取，標記未涵蓋部分並拒絕宣稱 Full-article lesson 已完成；不得為了短 lesson 偷偷刪除內容。原已 Frozen 的 CEFR 技術 Lesson 使用歷史來源與其原本單決策契約，不追溯修改。
+本 recipe 接在來源研讀與雙語語意核對之後。**新的 alg-four Lesson 必須對原文完整逐段註解，涵蓋每個工程決策與 Runtime；不能改寫原文成四種 Pass 文章**，而非只選一個決策。若來源無法完整讀取，標記未涵蓋部分並拒絕宣稱 Full-article lesson 已完成；不得為了短 lesson 偷偷刪除內容。原已 Frozen 的 CEFR 技術 Lesson 使用歷史來源與其原本單決策契約，不追溯修改。
+
+## 原文不可改寫的 ALG Four 路由
+
+`leetcode-mental` 決定題目技術解法／Invariant／Runtime；`medium-writing`
+單獨擁有原始 Medium 文章敘事與文風；`alg-four` 只能在原本**每一個段落下方**
+追加繁體中文與英文專有詞的 Passive／Active 註解。四遍接觸使用相同原始敘事，
+不得產生 `pass1/pass2/pass3` 再敘述或修改 Source Markdown。
+2,000 Active 英文字／片語與 2,000 對應核心概念英文句子是跨文章累積
+Goal，必須綁定來源段落、Decision 與實際 Runtime；不可為單篇捏造數量。
+舊 CEFR 的 Frozen 技術 Lesson、Native Gate、原版 lock 與 Renderer 都保留。
 
 ## 取得完整依賴
 
@@ -30,8 +40,7 @@ repository、revision、path 與 byte hash。只讀入口名稱或搜尋摘要�
    先列實際目錄／symbol tree，再畫決策心智圖與一個具體輸入的 runtime 資料流。
    目錄只表示包含關係；圖中的執行順序須由 code 或來源支持。標明 observed、proposed
    或 source-reported，並區分教學主題的 runtime 與文章／影片製作流程。
-2. 執行 compiler，選本次學習目標與有來源支持的最小 lesson。保留 STE-inspired
-   clarity 與 C2+ precision 兩種英文表示，再核對繁中；清楚寫法不能刪除限制。
+2. 執行 compiler，選本次學習目標與有來源支持的最小 lesson。保留原文章的 STE-inspired clarity 與 C2+ precision，產生額外繁中註解而非第二份文章；清楚寫法不能刪除限制。
    依 alg-four 覆蓋**所有**工程決策與底層 Runtime，為每個 Decision 設 Passive Context 與至少一個可對照 Oracle 的 Active English reasoning cue；Passive 詞彙可以與 Active reasoning 的核心概念重疊，但不是每個單字都要生成。用 Thinking V2 選必要的 Pass 4 主要操作，僅對會改變教學選擇的可反駁新問題啟動 V3。保留來源 Actor/Conditions/Negation/Invariant，避免筆記漂亮但學習題無法重建 Runtime。
 3. 回到完整來源對照逐項 Decision Coverage 與相反解讀，產出獨立於 Medium 文章的英文學習 Lesson／網站 Preview；記錄 Source Identity、全部 Decisions、跨語言 Claim Fidelity、四遍來源對應、Active Cues、Oracles 及未完成的人類嘗試狀態。將必要的 Source Claims、英文 scripts、原始 Code、visual anchors 與輸入來源固定版本。**僅文件型 Preview** 可以使用自我展開的 Oracle，不以此宣稱既有原生 CEFR Attempt Gate 已接受或執行。
 4. 任務要求影片時，執行 renderer。使用使用者指定的 Hypit checkout 或該 host 可用的
