@@ -99,10 +99,10 @@ def note_html(i: int, note: dict, decisions: dict, index_items: dict) -> str:
         f'<p class="alg-four-label">{label} · {esc(", ".join(note["decision_ids"]))}</p>',
         f'<p class="alg-four-zh">{esc(note["zh_note"])}</p>',
         '<p class="alg-reading-label">Passive · 模式 C 語塊閱讀</p>',
-        f'<p class="alg-reading-text" lang="en">{scan_reading(decision["passive"], decision_id)}</p>',
+        f'<p class="alg-reading-text" lang="en">{scan_reading(note.get("english_source", decision["passive"]), decision_id)}</p>',
         '<p class="alg-source-explain">衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。</p>'
     ]
-    skeleton = decision.get('passive_skeleton')
+    skeleton = note.get('passive_skeleton')
     if skeleton:
         # One decision-bound cognitive cue, not a replacement for the source.
         if len(skeleton.split()) > 15 or '→' not in skeleton:
