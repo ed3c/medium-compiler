@@ -90,12 +90,14 @@ amortized claims. Account separately for retained auxiliary state, transient
 state and returned output when their conventions differ. Compare the relevant
 alternative through the same result contract and cost assumptions. The reader
 should see which changed condition would reverse the choice.
-Recount operations introduced by an alternative, reconstruction or output
-builder. Reuse earlier assumptions only if they cover those operations; state
-the added primitive costs and any allocation or growth qualifications.
+For an alternative, reconstruction or output builder, separate what it retains
+from what it changes. Count the added and removed operations and the state
+that remains live. Reuse a bound only after explaining why its operation
+frequencies and primitive-cost assumptions still apply. A similar result or
+the same problem name does not establish that reuse.
 
 Apply the prerequisite check to caveats, alternatives and output analysis too.
-Explain new notation and technical qualifications when first introduced, even
+Explain each new symbol's role and technical qualifications when introduced, even
 if they occur after the main solution. Where deeper machinery is unnecessary,
 state the limitation in plain language without losing its condition or scope.
 A correct formula or qualification can still leave a novice unable to follow
@@ -104,21 +106,45 @@ the explanation.
 ## Reconstruct, then edit and translate
 
 After a complete English draft exists, read it without the planning notes or
-reference example. Try to answer: why this representation; what happens on a
-new small input; why each important update or discard is valid; when the
-algorithm stops; why a tempting alternative fails or costs more; and how the
-cost follows from the operations. Use the article's premises and explained
-mechanisms. Do not silently supply an answer from the author's background.
-If the body cannot support an answer, repair the earliest missing premise or
-transition and check its dependent code, proof, example and cost explanation.
-Appending more topic names or repeating the final conclusion does not repair
-a missing causal link.
+reference example. Identify the proposed approaches and conditional adaptations actually
+introduced anywhere in that draft, including prose after the main cost section
+and methods without code. Do not reconstruct this scope from the original
+outline: the finished article may have added another claim.
+
+For each proposed approach, reconstruct the condition that permits it, the
+meaning of its retained state, its material updates and result, and the work
+and storage that those operations require. Locate the exact body passages
+supporting that reconstruction in the existing private author review. When a
+method reuses an earlier argument, name the preserved premise and explain why
+the new operations or state do not invalidate it. Check auxiliary, transient
+and output storage under the article's stated convention. A global "cost
+checked" label or a correct main solution cannot stand in for this review.
+These notes need no new schema, compiler status or public checklist.
+
+A short boundary comparison need not become a second full implementation.
+Explain enough to support the claims it makes, including a storage or speed
+trade-off; do not silently treat it as exempt because it has no Big O formula.
+Keep the required relevant alternative and changed-constraint pivot. Do not
+delete them, rename them as a caveat, or replace their reasoning with a link
+to make the review appear complete. Unrelated internals remain out of scope.
+
+Also reconstruct a new small input, why important updates or discards are
+valid, progress and termination, and the concrete failure of a tempting
+alternative. Use the article's premises, not the author's background. If a
+needed passage is absent, keep that part of self-review incomplete, repair the
+earliest missing premise or transition, and recheck dependent code, examples,
+proof and costs. Preserve the first complete draft and the actual repair;
+repeating a conclusion does not repair a missing causal link.
 
 Follow the profile's actual English editorial and semantic approval route
 before translating. Review an editorial cut against the reasoning it enables,
 not only against retained keywords. Mechanism explanation, a worked example,
 code mapping and short English interview recall do different teaching work.
 Retain useful recurrence while removing repetition that adds no understanding.
+Before approving the edited English edition, repeat the reconstruction for
+any method, claim or premise added or changed since the earlier review. Read
+the final body, including its alternatives, caveats and closing recall. Do not
+carry approval forward solely because the main code and formula are unchanged.
 
 Translate the approved edition, preserving code, values, links, conditions,
 negation, technical terms and the English interview practice. Check passages
@@ -126,6 +152,9 @@ that carry decisions, exceptions and state changes against the English text.
 Make figure captions describe their actual assets; a rendering brief is not a
 rendered figure. A language or figure defect returns to this Content Owner
 before the existing formatter admits the new edition.
+Check the same method-specific passages in the translation. Record unresolved
+gaps separately from bilingual agreement: both languages can preserve the
+same missing explanation.
 
 ## Observe transfer without mistaking a sample for reliability
 
