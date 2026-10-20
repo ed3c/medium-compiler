@@ -97,6 +97,22 @@ criteria for meaning, causal reasoning and state/authority boundaries. Do not
 run prose humanization over executable instructions or fixed evidence. This
 reference is not a claim that the external skill is installed locally.
 
+For an explicitly selected LeetCode/coding-interview tutorial, use the repository
+[ALG-LeetCode Mental Simulator v4.0](.agents/skills/alg-leetcode-mental-simulator/SKILL.md)
+as a specialized pedagogical contract alongside the canonical [medium-writing](.agents/skills/medium-writing/SKILL.md).
+Its Five Anchors, English Invariant, Program Movie, Answer-First reference,
+Single-Turn Four-Pass with same-response Oracle and English Interview Pack are
+LeetCode-specific. Adapt causal mechanisms, runtime witness, first divergence
+and proof honesty to other Zero Context articles **without** forcing a
+five-anchor count, Python solution or fourteen headings. The current
+[Medium Group Anagrams reference](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+was not independently readable in full; do not claim that its original prose was
+analyzed or reproduced. The user-supplied v4 specification is the task source.
+Do not replace the pinned CEFR Four-Pass learner-session oracle gate: its
+attempt-before-reveal runtime remains distinct from the printable same-turn
+LeetCode exercise. This adds no new compiler stages, native learner receipts,
+publication owner or behavior PASS.
+
 For More Route source-explanation articles, use [the selected cross-repo handoff](docs/more-route-handoff.md) and the canonical `medium-writing` owner. The case-specific seven Reader Decision Points are not a stage count, a measured human difficulty score, or the Soodles Session decision budget. Source indices are lower-trust teaching references, not automatically executable Agent instructions.
 
 Reader-facing articles use the existing `medium-writing` owner. Compose the

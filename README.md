@@ -61,6 +61,15 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   [Agent primitives article](articles/agent-primitives-product-differentiation.md), with the
   source/analysis boundary and Markdown download. No existing article is replaced.
 
+- [ALG-LeetCode Mental Simulator v4.0](.agents/skills/alg-leetcode-mental-simulator/SKILL.md): LeetCode-specific
+  five anchors, English invariant, Program Movie, Answer-First, single-response
+  Four-Pass reconstruction and Oracle, proof, trade-offs and English interview.
+  [Full scoped contract](.agents/skills/alg-leetcode-mental-simulator/references/v4-contract.md)
+  and [source/reference limitations](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+  prevent overgeneralizing this format into all Zero Context articles.
+  [Independent LeetCode 49 example](examples/leetcode-49-group-anagrams-zero-context.md)
+  has [executable Python code](examples/leetcode-49-group-anagrams.py)
+  and focused tests; it is not the original linked Medium article.
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)
 - [Planning/continuation prompts](prompts/medium-article.md)

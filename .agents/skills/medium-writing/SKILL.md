@@ -43,6 +43,33 @@ error belongs to that operation, not the article state machine. Preserve admitte
 article state and consume the compiler's actual next. Mechanical validation does
 not establish platform authorization, deployment or runtime correctness.
 
+## Select the granularity contract without replacing this writer
+
+When the original source is a LeetCode or algorithmic interview problem and
+the user selects the v4 learning profile, load
+[ALG-LeetCode Mental Simulator v4.0](../alg-leetcode-mental-simulator/SKILL.md)
+and its [v4 operational contract](../alg-leetcode-mental-simulator/references/v4-contract.md).
+Read the [Medium reference provenance](../alg-leetcode-mental-simulator/references/medium-reference.md)
+before claiming an editorial comparison. Use the correct task-specific
+input contract, algorithm invariant, Python semantics and smallest
+counterexample. Exactly five anchors and the fourteen teaching sections
+apply to **that LeetCode profile**, not to arbitrary Medium articles.
+
+Keep this Skill as the sole writer. The v4 printable same-turn
+reconstruction/Oracle is content in a complete article, not permission to
+override [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)'s
+attempt-before-reveal **interactive lesson runtime**. Keep English source
+draft/sloptrim review, source-verified Traditional Chinese translation,
+legal Stage 0–7 article admission and external site/provider verification.
+A solved mental trace is `MENTAL_TRACE`, not a record of executed tests.
+A supplied reconstruction exercise never proves learner mastery.
+
+For other Zero Context subjects, inherit only the meaningful *mechanisms*:
+whole before parts, reader-relevant invariant/contract, honest runtime
+movie, state/owner semantics, earliest falsifier, alternative cost, and
+reconstruction. Do not substitute fixed LeetCode headings for the actual
+reader decision graph or source-grounded claims.
+
 ## Language and style owner
 
 This is a reader-facing article workflow, not the engineering-instruction

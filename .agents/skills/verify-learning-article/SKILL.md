@@ -36,6 +36,25 @@ Zero context 的定義是：
 從原需求和證據推導接受、拒絕及未知條件。清楚的文字不能補足缺少的證據，
 也不能把取捨直接標成主觀問題，再交回使用者決定。
 
+## Algorithm / LeetCode v4 特殊路由（只在選中時）
+
+當本次來源是 LeetCode 或 coding-interview lesson，並要求使用者提供的
+ALG-LeetCode Mental Simulator v4.0 顆粒度時，先選
+[LeetCode v4 Skill](../alg-leetcode-mental-simulator/SKILL.md)；
+讀取其 [v4 contract](../alg-leetcode-mental-simulator/references/v4-contract.md)
+並以當次題目真實 Constraints 產生英文 Invariant、完整 Code、
+Program Movie、同一文章中的四遍練習及 Oracle Diff。隨後由原
+[medium-writing](../medium-writing/SKILL.md) 保存英文初稿與繁中最終稿；
+這不新增另一個 Writer、課程 placement、CLI 狀態或 Stage。
+
+文件型 `FULL_SINGLE_TURN` 可以讓讀者在同一篇文章取得 Oracle；
+若明確要進入本 repo 既有 [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)
+的 frozen interactive learning session，**仍維持**其必要的
+attempt acknowledgement → reveal → comparison。文件的 Oracle 存在
+不能冒充該 session 已經執行、已解鎖、或學員真的能重建答案。
+一般工程／More Route 文章只借用精確機理與最早反例，不硬套
+Exactly Five Anchors 或 LeetCode Interview Pack。
+
 ## 英文先行，繁體中文交付
 
 預設先以英文完成本次寫作單元的推理，再翻譯成繁體中文，保留精確英文專有名詞。
