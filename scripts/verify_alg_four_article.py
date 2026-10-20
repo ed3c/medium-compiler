@@ -48,7 +48,13 @@ def validate_import(out: Path) -> dict:
         original=ARTICLE.read_bytes()
         admitted=(run/"medium-canonical.md").read_bytes()
         if original!=admitted or receipt.get("article_sha256")!=hashlib.sha256(original).hexdigest():
-            raise RuntimeError("Canonical article bytes differ after compiler assembly")
+            first=next((i for i,(a,b) in enumerate(zip(original,admitted)) if a!=b),min(len(original),len(admitted)))
+            raise RuntimeError("Canonical article bytes differ after compiler assembly: "
+                               f"original={len(original)} assembled={len(admitted)} "
+                               f"first_diff={first} original_tail={original[-40:]!r} "
+                               f"assembled_tail={admitted[-40:]!r} "
+                               f"recorded={receipt.get('article_sha256')} "
+                               f"original_sha={hashlib.sha256(original).hexdigest()}")
         report={"status":"PASS","import_mode":"revision_not_fictional_stages",
                 "cli_status":checked.get("status"),"bytes_equal":True,
                 "article_sha256":receipt["article_sha256"],
