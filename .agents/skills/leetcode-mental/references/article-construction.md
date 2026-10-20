@@ -1,0 +1,155 @@
+# Construct a Zero Context algorithm article
+
+Use this method inside the [complete-article profile](article-content-profile.md).
+The profile owns coverage, language order and handoff. This reference explains
+how its Content Owner builds the reasoning, including when no model article is
+provided. These are authoring actions, not new compiler stages or required
+public headings. Keep working notes outside the copyable article.
+
+## Derive the explanation before choosing its headings
+
+Start from the actual statement, constraints and result contract. Work one
+small input by hand and describe what makes its output correct. Try a nearby
+input that separates a plausible shortcut from the required behavior. Use
+that difference to ask what information the algorithm must retain and what
+it can safely forget. Derive the representation from that need; do not start
+with a data structure name and rationalize it afterward.
+
+Write a short causal spine in the author's notes: the required result, the
+constraint that permits a choice, the information represented, the operations
+that preserve it, the stopping condition, and the returned result. Where an
+algorithm discards candidates or reuses a partial answer, explain what
+justifies that action. An equivalence key is useful for some problems, but is
+not a universal spine. A checkpointed search interval, unresolved obligations,
+reachable states or an optimal subproblem value can play different roles.
+Choose from the current problem rather than copying this list as an outline.
+
+Inspect the spine in both directions. Forward: can the input reach the result
+through the stated state changes? Backward: what must already be true for each
+operation and for the final return to be valid? Turn a missing premise into a
+reader question. Order the explanations so that the reader learns that premise
+before relying on it. A sketch of dependencies is useful when the relations are
+hard to see; a diagram or a separate planning file is not mandatory.
+
+Fix the reader's actual prerequisites. Knowing Python syntax does not establish
+knowledge of the chosen algorithm, library behavior or cost model. Introduce
+an unfamiliar term at the point where it answers a reader question. Expand a
+runtime detail when it explains a choice, a state change, correctness or cost.
+Stop expanding once those relations follow from the stated prerequisites and
+documented semantics. Do not recurse through unrelated internals or require a
+glossary chapter before the problem has a purpose.
+
+## Build worked states that explain the mechanism
+
+Choose witnesses from the algorithm's actual branches and proof obligations.
+A successful example should expose the mechanism, rather than merely produce
+the advertised answer. Add a short separating example when the main trace
+cannot show rejection, repeated state, a boundary or why a shortcut fails.
+Check that each witness satisfies the selected input contract. Call a
+counterexample *minimal* only if its stated size convention and minimality
+have been checked; a small distinguishing example is sufficient.
+
+For a material transition, explain what the current state means, why the next
+operation is permitted, its concrete operands, and the resulting state. Name
+what the operation returns, mutates, allocates or leaves unchanged when that
+distinction matters. Then explain why the next operation uses that result.
+For a library call, connect the actual expression to its documented behavior;
+do not leave an API name detached from its role in the algorithm. Distinguish
+language guarantees, qualified implementation facts and conceptual diagrams.
+If a source does not establish an internal detail, omit or qualify that detail
+instead of inventing an exact runtime trace.
+
+Interleave these explanations with concrete values. Do not replace the chain
+with either a list of definitions or a long state dump whose transitions are
+unexplained. Keep names, operation order and states consistent across prose,
+figures and the complete runnable solution. Give an early orientation, then
+let the developed explanation make the compact code understandable. A source
+link supports a claim; the body still needs the explanation required by this
+reader. A closing Master Map can recall this chain, but cannot repair it.
+
+Derive the correctness argument from the same states. State the checkpoint
+and what the state represents there. Explain why it is true initially, why
+each branch preserves it or validly rejects, and why termination establishes
+the result. Connect the failure example to the exact premise that the wrong
+approach breaks. A changed constraint must change a premise and motivate a
+specific adaptation, rather than simply attach another problem at the end.
+
+## Derive cost from the operations the reader just followed
+
+Define the input-size variables and the execution assumptions before using
+Big O. Count how often the actual operations occur, how much each costs and
+which allocations survive. Derive a logarithm, amortized bound or reuse bound
+when the reader would otherwise have to memorize it. Explain the changing
+quantity and why the bound follows; do not infer quadratic work merely from
+nested syntax or constant work merely from one source-code line.
+
+Keep variable-size work distinct from fixed-size work. For unequal inputs,
+derive the total or a justified bound before offering a conventional shorthand.
+Check empty or smallest legal inputs and distinguish worst-case, expected and
+amortized claims. Account separately for retained auxiliary state, transient
+state and returned output when their conventions differ. Compare the relevant
+alternative through the same result contract and cost assumptions. The reader
+should see which changed condition would reverse the choice.
+Recount operations introduced by an alternative, reconstruction or output
+builder. Reuse earlier assumptions only if they cover those operations; state
+the added primitive costs and any allocation or growth qualifications.
+
+Apply the prerequisite check to caveats, alternatives and output analysis too.
+Explain new notation and technical qualifications when first introduced, even
+if they occur after the main solution. Where deeper machinery is unnecessary,
+state the limitation in plain language without losing its condition or scope.
+A correct formula or qualification can still leave a novice unable to follow
+the explanation.
+
+## Reconstruct, then edit and translate
+
+After a complete English draft exists, read it without the planning notes or
+reference example. Try to answer: why this representation; what happens on a
+new small input; why each important update or discard is valid; when the
+algorithm stops; why a tempting alternative fails or costs more; and how the
+cost follows from the operations. Use the article's premises and explained
+mechanisms. Do not silently supply an answer from the author's background.
+If the body cannot support an answer, repair the earliest missing premise or
+transition and check its dependent code, proof, example and cost explanation.
+Appending more topic names or repeating the final conclusion does not repair
+a missing causal link.
+
+Follow the profile's actual English editorial and semantic approval route
+before translating. Review an editorial cut against the reasoning it enables,
+not only against retained keywords. Mechanism explanation, a worked example,
+code mapping and short English interview recall do different teaching work.
+Retain useful recurrence while removing repetition that adds no understanding.
+
+Translate the approved edition, preserving code, values, links, conditions,
+negation, technical terms and the English interview practice. Check passages
+that carry decisions, exceptions and state changes against the English text.
+Make figure captions describe their actual assets; a rendering brief is not a
+rendered figure. A language or figure defect returns to this Content Owner
+before the existing formatter admits the new edition.
+
+## Observe transfer without mistaking a sample for reliability
+
+An exemplar can calibrate the reader depth and presentation. Reverse-engineer
+its useful teaching actions and the relations they explain, not its topic
+sequence, APIs, algorithm or number of sections. Keep that case separate from
+this method. When a user supplies a complete reference, the profile still
+requires its material teaching work to be accounted for and technical errors
+to be corrected.
+
+When evaluating a changed method, include a fresh task from a different
+algorithm family with only the selected instructions, problem and primary
+sources. Do not provide the polished exemplar or problem-specific outline to
+that Writer. Preserve its first output and any later repairs separately. An
+independent article-only Reader reconstructs answers with exact supporting
+passages and marks missing information rather than supplying prior knowledge.
+The observer checks those passages, concrete states and executable code;
+author self-review and a Reader's report are distinct evidence.
+
+Repeated uncoached tasks and different proof/runtime mechanisms can expose
+whether the method depends on a particular example. Record what was actually
+sampled, failures, interventions and remaining gaps. Do not infer stable
+general performance from a polished example, one successful transfer, a small
+sample, a detector score, a compiler receipt or an uncalibrated model verdict.
+Human understanding remains unobserved without actual learner evidence.
+Stop revising when no new supported defect changes the method or its checks;
+continue the original authorized handoff and report the measured scope.

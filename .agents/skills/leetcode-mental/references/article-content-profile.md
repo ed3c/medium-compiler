@@ -10,6 +10,14 @@ For this profile, **leetcode-mental is the sole semantic Content Owner**: it pro
 
 The `alg-four` annotation owner is downstream only: it reads the accepted article bytes and adds Passive/Active notes without rewriting the base article. Neither this profile nor the formatting stage creates a Four-Pass learner session, runtime mastery evidence, new CLI stage, or publication authority.
 
+## Construct the reasoning, then check coverage
+
+Use [the article construction method](article-construction.md) to derive the
+reader's questions, prerequisite relations, worked states, correctness argument
+and cost explanation from the current problem. It applies without a polished
+example. The following coverage list checks the resulting article; it does not
+replace construction with a topic checklist.
+
 ## Required complete content, not fixed headings
 
 From the *actual* problem statement and assumptions derive a connected, zero-context explanation. Preserve, where applicable:
