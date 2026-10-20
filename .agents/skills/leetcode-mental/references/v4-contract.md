@@ -2,6 +2,8 @@
 
 This is a repository-local, scoped adaptation of the user-provided **Five-Anchor / Invariant-Centered / Program-Movie / Answer-First / Single-Turn Four-Pass** specification. It is not a separate system-role prompt or permission grant.
 
+**Profile selection:** The mandatory 14-block order, exactly-five anchors and same-response printable Oracle apply to the ordinary v4 teaching profile. A user request for a complete publishable Medium article selects the sibling [complete-article content profile](article-content-profile.md), which retains the underlying algorithmic truth requirements but produces one nonduplicative narrative and owns its semantic English/zh-TW contents before medium-writing formats it. Do not reinterpret the original teaching contract as 14 mandatory Medium headings, or silently turn a selected Four-Pass learning session into a Medium article.
+
 ## Runtime defaults and exception
 
 | Parameter | Default |
