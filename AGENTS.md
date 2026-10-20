@@ -121,10 +121,12 @@ For a **complete LeetCode Medium article**, select
 Traditional Chinese article (including reviewed sloptrim, full code and dynamic figure
 specs). `medium-writing` is then a **format-only** Medium assembler and existing
 CLI Stage 0–7 consumer; it cannot re-author facts, remove unique information or
-rewrite accepted content. The ordinary v4 14-block learning sequence and separate
-`alg-four` source-locked annotations remain unchanged. `alg-four` projects concise Traditional Chinese +
-canonical English technical notes directly after every source paragraph,
-without changing the original source bytes, prose order, or Code.
+rewrite accepted content. The ordinary v4 14-block learning sequence remains unchanged. `alg-four` projects
+source-bound Passive/Active notes into a **right-side hierarchical paragraph outline**
+with scroll-following anchors, yellow Active lexical items and an optional conservative
+Mode C Passive reading view. It does not append notes to article paragraphs or alter
+canonical article Markdown, prose order or Code. Legacy frozen CEFR material remains
+unchanged.
 Its four cognitive encounters revisit the SAME article, not four newly
 authored pass-specific articles. The Active target of 2,000 items with
 2,000 linked English engineering sentences is cumulative across
