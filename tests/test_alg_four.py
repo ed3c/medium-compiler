@@ -133,7 +133,8 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
                     ROOT/"scripts/alg_four_projection.py")
         projection=importlib.util.module_from_spec(proj_spec)
         proj_spec.loader.exec_module(projection)
-        decisions=json.loads(MANIFEST.read_text())["decisions"]
+        data=json.loads(MANIFEST.read_text())
+        decisions=data["decisions"]
         class Spoken(HTMLParser):
             def __init__(self):
                 super().__init__()
