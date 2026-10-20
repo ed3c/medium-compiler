@@ -104,6 +104,29 @@ preserved verbatim in writing-contract.md and explicitly loaded by the registere
 No user-global directory is modified. File registration is checked; actual Codex selection
 must still be verified in the user's Codex session. See [OpenAI's repository-skills example](https://developers.openai.com/zh-Hant/blog/skills-agents-sdk).
 
+## Canonical Part 7 and ALG Four reading projection
+
+The reviewed [Part 7 Traditional Chinese article](articles/leetcode-49-group-anagrams.md)
+has a complete [English-first source](articles/leetcode-49-group-anagrams.en.md),
+a Cover and six separate [SVG diagrams](site/alg-four-figures/), a runnable
+reference solution, runtime witness, proof and complexity assumptions.
+The [ALG Four bilingual manifest](references/learning/alg-four-group-anagrams.json)
+pins both sources by Git blob and binds **each actual source paragraph** to its
+English counterpart. The same full article is visible at `/alg-four/`; the
+older v4 75-paragraph case remains in `examples/` for regression teaching,
+not as this route's current source.
+
+The unchanged medium compiler can import an already-authored canonical article
+through the legal Stage 6 revision route and perform exact-byte Stage 7 assembly.
+This does **not** fabricate historical Stage 0–5 authoring or independently certify
+semantic quality. `scripts/verify_alg_four_article.py` executes that native route.
+
+The GitHub `browser-alg-four` job uses Chromium and Playwright on a built site
+for Desktop/Mobile viewport checks, paragraph anchors, scroll-following, yellow
+Active terms, keyboard access and screenshots. Mechanical CI, actual browser UI,
+source-bilingual review, learner performance and Vercel deployment are separate
+acceptance facts. A website build alone does not prove reading improvement.
+
 ## Current article
 
 [Continuous Medium article](articles/ai-engineer-learning-path.md),
