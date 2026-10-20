@@ -16,8 +16,10 @@ Use [the article construction method](article-construction.md) to derive the
 reader's questions, prerequisite relations, worked states, correctness argument
 and cost explanation from the current problem. Its final-body reconstruction
 checks each method and conditional adaptation actually introduced, before
-English approval and again where editing changes its premises. It applies
-without a polished example. The following coverage list checks the resulting
+English approval and again where editing changes its premises. Supporting
+passages must allow the cost inference to be rebuilt from explained premises
+or explicit elementary cost assumptions; quotation presence is not completion.
+It applies without a polished example. The following coverage list checks the resulting
 article; it does not replace construction with a topic checklist.
 
 ## Required complete content, not fixed headings

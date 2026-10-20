@@ -77,11 +77,27 @@ specific adaptation, rather than simply attach another problem at the end.
 ## Derive cost from the operations the reader just followed
 
 Define the input-size variables and the execution assumptions before using
-Big O. Count how often the actual operations occur, how much each costs and
+Big O. State what a unit of work and a stored unit mean in this model, including
+the range or representation that makes a scalar operation a unit. This is a
+model for comparing growth, not a claim that Python instructions take equal
+physical time. It gives the explanation a stopping point at declared elementary
+operations; it does not require a proof of hardware or memory allocation.
+Count how often the actual operations occur, how much each costs and
 which allocations survive. Derive a logarithm, amortized bound or reuse bound
 when the reader would otherwise have to memorize it. Explain the changing
 quantity and why the bound follows; do not infer quadratic work merely from
 nested syntax or constant work merely from one source-code line.
+
+Keep an assumed elementary cost separate from a property of a growing data
+structure or a sequence of operations. For a nonconstant cost or an aggregate
+bound that the argument needs, explain the size-dependent work and why its
+total has that bound. A concrete small sequence can make the mechanism visible;
+also explain why the relationship continues as size grows. Naming a series,
+amortization or a source theorem is not that argument. Qualify implementation
+claims using the actual source and operation pattern. A bound for a restricted
+sequence cannot be reused for a different update pattern without justification.
+Do not declare an unfamiliar structure's central performance property a unit
+cost merely to avoid explaining the comparison that motivated the algorithm.
 
 Keep variable-size work distinct from fixed-size work. For unequal inputs,
 derive the total or a justified bound before offering a conventional shorthand.
@@ -114,9 +130,25 @@ outline: the finished article may have added another claim.
 For each proposed approach, reconstruct the condition that permits it, the
 meaning of its retained state, its material updates and result, and the work
 and storage that those operations require. Locate the exact body passages
-supporting that reconstruction in the existing private author review. When a
-method reuses an earlier argument, name the preserved premise and explain why
-the new operations or state do not invalidate it. Check auxiliary, transient
+supporting that reconstruction in the existing private author review. Then
+check the inference between those passages, not just their presence. Work
+backward from each cost conclusion: which operation counts and per-operation
+or aggregate costs make it follow, under which size and sequence conditions?
+For each necessary dependency, distinguish an explained body argument from a
+declared elementary cost assumption or an unresolved claim. Follow an unfamiliar
+dependency until it reaches the stated reader prerequisites or the explicit
+elementary model; do not stop at a sentence that restates the desired bound.
+If two claims only justify each other, neither closes the explanation.
+
+Try to rebuild that argument using only those passages. Show the connecting
+calculation or reason in the private review, and identify anything supplied
+from memory or source notes rather than the body. A quotation, source citation,
+successful runtime or author confidence establishes no missing inference.
+Repair such a dependency in the body before approval, or keep the affected
+claim incomplete. The review needs no new fields or exhaustive inventory of
+every CPU operation. When a method reuses an earlier argument, name the preserved
+premise and explain why the new operations or state do not invalidate it.
+Check auxiliary, transient
 and output storage under the article's stated convention. A global "cost
 checked" label or a correct main solution cannot stand in for this review.
 These notes need no new schema, compiler status or public checklist.
