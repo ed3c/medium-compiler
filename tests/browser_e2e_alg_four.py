@@ -76,7 +76,10 @@ def run(site: Path, output: Path) -> dict:
                 raise AssertionError("Clicked paragraph annotation not visible: details.open="+
                     str(target.get_attribute("open"))+" active="+
                     str(desktop.locator('summary[data-outline-link][aria-current="location"]').get_attribute("data-outline-link"))+
-                    " parents="+str(parents)+" text="+str(reading.text_content()[:120]))
+                    " parents="+str(parents)+
+                    " css="+str(reading.evaluate("(e)=>{let s=getComputedStyle(e),r=e.getBoundingClientRect();return {display:s.display,visibility:s.visibility,opacity:s.opacity,width:r.width,height:r.height,offsetParent:Boolean(e.offsetParent)}}"))+
+                    " articleAside="+str(sidebar if False else desktop.locator(".alg-four-sidebar").is_visible())+
+                    " text="+str(reading.text_content()[:120]))
             assert desktop.locator(".alg-active-term").first.evaluate(
                 "(e)=>getComputedStyle(e).backgroundColor")=="rgb(245, 216, 88)"
             assert not errors, f"browser page errors: {errors}"
