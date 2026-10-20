@@ -47,9 +47,9 @@ not establish platform authorization, deployment or runtime correctness.
 
 When the original source is a LeetCode or algorithmic interview problem and
 the user selects the v4 learning profile, load
-[ALG-LeetCode Mental Simulator v4.0](../alg-leetcode-mental-simulator/SKILL.md)
-and its [v4 operational contract](../alg-leetcode-mental-simulator/references/v4-contract.md).
-Read the [Medium reference provenance](../alg-leetcode-mental-simulator/references/medium-reference.md)
+[ALG-LeetCode Mental Simulator v4.0](../leetcode-mental/SKILL.md)
+and its [v4 operational contract](../leetcode-mental/references/v4-contract.md).
+Read the [Medium reference provenance](../leetcode-mental/references/medium-reference.md)
 before claiming an editorial comparison. Use the correct task-specific
 input contract, algorithm invariant, Python semantics and smallest
 counterexample. Exactly five anchors and the fourteen teaching sections
@@ -71,6 +71,18 @@ movie, state/owner semantics, earliest falsifier, alternative cost, and
 reconstruction. Do not substitute fixed LeetCode headings for the actual
 reader decision graph or source-grounded claims.
 
+## ALG Four only annotates, never rewrites this author's work
+
+Once Medium prose is admitted, `alg-four` consumes the identical source
+Git blob and displays exact paragraphs, followed by concise zh-TW notes
+preserving technical English, source decisions, and Passive/Active targets.
+Its four encounters act on the **same original prose**. It must not
+produce `pass1/pass2/pass3` replacement scripts, a rewritten essay,
+a new authoring Stage or a parallel publisher.
+The cumulative 2,000 Active lexical items + 2,000 linked engineering
+sentences are accepted only when linked to actual paragraph, decision
+and runtime facts; they are not a one-article quota.
+
 ## Downstream English acquisition is a separate owner
 
 This Skill alone owns Medium prose, reader-facing format, sloptrim/editorial handling,
@@ -79,7 +91,7 @@ to acquire English while understanding an entire engineering article, pass the
 **accepted, source-bound article and the original technical claims** to
 [alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
 decisions, builds receptive/passive + productive/active English lesson content,
-and delivers a **separate** non-tracking lesson page. No vocabulary classification,
+and projects source-preserving, non-tracking paragraph annotations on the same article. No vocabulary classification,
 Four-Pass route selection, learner receipt or adaptive learning state is written
 into the Medium article. The old upstream CEFR Compiler is historical,
 as described in the [migration](../alg-four/references/migration.md).

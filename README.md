@@ -61,20 +61,22 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   [Agent primitives article](articles/agent-primitives-product-differentiation.md), with the
   source/analysis boundary and Markdown download. No existing article is replaced.
 
-- [ALG-LeetCode Mental Simulator v4.0](.agents/skills/alg-leetcode-mental-simulator/SKILL.md): LeetCode-specific
+- [ALG-LeetCode Mental Simulator v4.0](.agents/skills/leetcode-mental/SKILL.md): LeetCode-specific
   five anchors, English invariant, Program Movie, Answer-First, single-response
   Four-Pass reconstruction and Oracle, proof, trade-offs and English interview.
-  [Full scoped contract](.agents/skills/alg-leetcode-mental-simulator/references/v4-contract.md)
-  and [source/reference limitations](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+  [Full scoped contract](.agents/skills/leetcode-mental/references/v4-contract.md)
+  and [source/reference limitations](.agents/skills/leetcode-mental/references/medium-reference.md)
   prevent overgeneralizing this format into all Zero Context articles.
   [Independent LeetCode 49 example](examples/leetcode-49-group-anagrams-zero-context.md)
   has [executable Python code](examples/leetcode-49-group-anagrams.py)
   and focused tests; it is not the original linked Medium article.
-- [ALG Four English acquisition](.agents/skills/alg-four/SKILL.md): new
-  article-wide, source-locked Four-Pass learning owner with
+- [ALG Four in-place article annotations](.agents/skills/alg-four/SKILL.md): new
+  article-wide, source-locked per-paragraph Passive/Active notes owner with
   [Thinking V2/V3 routing](.agents/skills/alg-four/references/thinking-route.md),
-  overlapping Passive/Active content roles and a separate non-tracking
-  English learning page. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
+  overlapping Passive/Active content roles on the **unchanged original article**
+  instead of four rewritten versions; includes the cumulative 2,000-item
+  Active lexicon and 2,000 linked source-grounded English sentences goal.
+  No learner performance is inferred from an annotation or its reveal. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
   and 12-file dependency lock remain unchanged for historical Frozen lessons.
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)

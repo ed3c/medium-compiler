@@ -35,6 +35,17 @@ This is a writing skill, not a generic summarizer. A reader should be able to ex
 the main design follows from the stated constraints and what happens to one concrete input
 at runtime.
 
+## Original article immutability under English annotations
+
+The `leetcode-mental` skill owns technical derivations. This `medium-writing`
+contract owns the article's actual prose, flow and accepted bytes. `alg-four`
+appends zh-TW Passive/Active explanations and English source-bound production
+sentences under each same original paragraph, never rewriting the article
+into four passes or creating alternative narrative text. A source change
+invalidates the pinned paragraph annotation. The 2,000 Active word/phrase
+and 2,000 linked-sentence goal is a deduplicated, source-linked corpus
+**across articles**, not a mandatory per-article length.
+
 ## Invariant-centered Zero Context granularity
 
 For any technical article, make one meaningful constraint traceable through
@@ -47,14 +58,14 @@ changes a decision or runtime state. A model's or diagram's hypothetical
 steps cannot be relabeled as observed code/provider behavior.
 
 The user-specified ALG-LeetCode Mental Simulator v4.0 offers a more exact
-LeetCode-only [teaching contract](.agents/skills/alg-leetcode-mental-simulator/references/v4-contract.md):
+LeetCode-only [teaching contract](.agents/skills/leetcode-mental/references/v4-contract.md):
 five anchors, English invariant, truthful Program Movie, complete reference
 code, four single-turn cognitive passes, same-page reconstruction/Oracle Diff,
 proof, complexity, counterexample and English interview script. General
 architecture/database/Agent articles must keep their actual Domain questions,
 Owner/permission, and proof limits; do not invent code or append fourteen
 unnecessary sections to satisfy an algorithm-only format. The linked
-[Medium example reference](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+[Medium example reference](.agents/skills/leetcode-mental/references/medium-reference.md)
 is a style pointer whose full text was not independently retrievable; the
 user's supplied v4 specification defines the operational teaching requirements.
 Proof and mastery remain separate from layout and a successful compiler receipt.
