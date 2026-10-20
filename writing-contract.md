@@ -35,6 +35,30 @@ This is a writing skill, not a generic summarizer. A reader should be able to ex
 the main design follows from the stated constraints and what happens to one concrete input
 at runtime.
 
+## Invariant-centered Zero Context granularity
+
+For any technical article, make one meaningful constraint traceable through
+the **answer or architecture first**, governing invariant/contract, exact state
+representation, concrete input-to-output runtime, an applicable simpler
+alternative, the earliest falsifying failure case, an independent verification
+condition and a reader reconstruction cue. This is a **source-preserving prose
+standard**, not a fixed heading count. Explain a mechanism only where it
+changes a decision or runtime state. A model's or diagram's hypothetical
+steps cannot be relabeled as observed code/provider behavior.
+
+The user-specified ALG-LeetCode Mental Simulator v4.0 offers a more exact
+LeetCode-only [teaching contract](.agents/skills/alg-leetcode-mental-simulator/references/v4-contract.md):
+five anchors, English invariant, truthful Program Movie, complete reference
+code, four single-turn cognitive passes, same-page reconstruction/Oracle Diff,
+proof, complexity, counterexample and English interview script. General
+architecture/database/Agent articles must keep their actual Domain questions,
+Owner/permission, and proof limits; do not invent code or append fourteen
+unnecessary sections to satisfy an algorithm-only format. The linked
+[Medium example reference](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+is a style pointer whose full text was not independently retrievable; the
+user's supplied v4 specification defines the operational teaching requirements.
+Proof and mastery remain separate from layout and a successful compiler receipt.
+
 ## Authority split
 
 Do not decide stage order, completion, claim accounting, term identity, or final-byte
