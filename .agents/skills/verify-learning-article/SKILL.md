@@ -48,8 +48,9 @@ Program Movie、同一文章中的四遍練習及 Oracle Diff。隨後由原
 這不新增另一個 Writer、課程 placement、CLI 狀態或 Stage。
 
 文件型 `FULL_SINGLE_TURN` 可以讓讀者在同一篇文章取得 Oracle；
-若明確要進入本 repo 既有 [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)
-的 frozen interactive learning session，**仍維持**其必要的
+當要從完整文章編譯新英文 Lesson 時使用 [alg-four](../alg-four/SKILL.md)；
+只有既有 [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)
+的 **歷史 Frozen interactive learning session**，**仍維持**其必要的
 attempt acknowledgement → reveal → comparison。文件的 Oracle 存在
 不能冒充該 session 已經執行、已解鎖、或學員真的能重建答案。
 一般工程／More Route 文章只借用精確機理與最早反例，不硬套

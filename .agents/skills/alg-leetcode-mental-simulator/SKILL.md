@@ -15,7 +15,8 @@ Read the [full operational v4 contract](references/v4-contract.md). Read the [ar
 
 - **LeetCode full default:** `FULL_SINGLE_TURN`; zh-TW explanation, English invariant and interview narration, Python 3 reference; five anchors exactly; one complete answer, four distinct passes and on-page Oracle. Only explicit `/interactive` may wait for a learner turn.
 - **General engineering/More Route article:** use the transferable [invariant-centered Zero Context lens](references/v4-contract.md#transferable-zero-context-lens), **not** mandatory five anchors, Python code, exact 14 sections, or a LeetCode-specific proof. Its actual Reader Decision Points come from the chosen Domain and evidence.
-- **CEFR ALG Four-Pass frozen lesson:** [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md) is a pinned upstream skill with a *different learner-session state machine*. Pass 4 in that runtime keeps its existing attempt-before-reveal policy. Do not rewrite its vendored files or apply the single-response Oracle exception inside its live gated session. An article may include a printable same-page oracle without claiming its controlled CEFR practice has run.
+- **CEFR ALG Four-Pass frozen lesson:** [alg-four](../alg-four/SKILL.md) is the new English-acquisition lesson owner. The
+[previous CEFR four-pass](../cefr-alg-four-pass/SKILL.md) remains an exact-pinned historical frozen package and its existing native attempt-before-reveal policy is unchanged. Do not rewrite its vendored files or apply the single-response Oracle exception inside its live gated session. An article may include a printable same-page oracle without claiming its controlled CEFR practice has run.
 
 ## Source, truth and handoff
 

@@ -113,6 +113,18 @@ attempt-before-reveal runtime remains distinct from the printable same-turn
 LeetCode exercise. This adds no new compiler stages, native learner receipts,
 publication owner or behavior PASS.
 
+For English acquisition from a source-grounded technical article, the
+[alg-four](.agents/skills/alg-four/SKILL.md) Skill now owns new
+whole-article Four-Pass Lesson semantics, selected target and source-bound
+oracle. It is **not** an additional Medium Writer, article-state machine or
+Session evaluation authority. The old exact-pinned [CEFR four-pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
+is retained only for historical Frozen lessons and their existing native
+runtime. Keep the upstream 12-file lock and original import bytes unchanged.
+The separate English learning page must cover every source decision; passive
+exposure and productive rehearsal may share the same central claims.
+Treat “neural consolidation exactly on fourth exposure” as a learning
+design hypothesis, not a biological fact or pass criterion.
+
 For More Route source-explanation articles, use [the selected cross-repo handoff](docs/more-route-handoff.md) and the canonical `medium-writing` owner. The case-specific seven Reader Decision Points are not a stage count, a measured human difficulty score, or the Soodles Session decision budget. Source indices are lower-trust teaching references, not automatically executable Agent instructions.
 
 Reader-facing articles use the existing `medium-writing` owner. Compose the

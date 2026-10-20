@@ -57,8 +57,9 @@ apply to **that LeetCode profile**, not to arbitrary Medium articles.
 
 Keep this Skill as the sole writer. The v4 printable same-turn
 reconstruction/Oracle is content in a complete article, not permission to
-override [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)'s
-attempt-before-reveal **interactive lesson runtime**. Keep English source
+override [alg-four](../alg-four/SKILL.md)'s independent
+English-learning lesson handoff, nor [legacy CEFR runtime](../cefr-alg-four-pass/SKILL.md)'s
+attempt-before-reveal behavior for already Frozen lessons. Keep English source
 draft/sloptrim review, source-verified Traditional Chinese translation,
 legal Stage 0–7 article admission and external site/provider verification.
 A solved mental trace is `MENTAL_TRACE`, not a record of executed tests.
@@ -69,6 +70,19 @@ whole before parts, reader-relevant invariant/contract, honest runtime
 movie, state/owner semantics, earliest falsifier, alternative cost, and
 reconstruction. Do not substitute fixed LeetCode headings for the actual
 reader decision graph or source-grounded claims.
+
+## Downstream English acquisition is a separate owner
+
+This Skill alone owns Medium prose, reader-facing format, sloptrim/editorial handling,
+source-fidelity review and article publication. If the task also asks the learner
+to acquire English while understanding an entire engineering article, pass the
+**accepted, source-bound article and the original technical claims** to
+[alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
+decisions, builds receptive/passive + productive/active English lesson content,
+and delivers a **separate** non-tracking lesson page. No vocabulary classification,
+Four-Pass route selection, learner receipt or adaptive learning state is written
+into the Medium article. The old upstream CEFR Compiler is historical,
+as described in the [migration](../alg-four/references/migration.md).
 
 ## Language and style owner
 
