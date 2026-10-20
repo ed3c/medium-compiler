@@ -24,6 +24,9 @@
         paragraphs[active].classList.remove("alg-current-source");
       }
       paragraphs[index].classList.add("alg-current-source");
+      sidebar.querySelectorAll('a[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
+      const activeLink = entry.querySelector("summary a");
+      if (activeLink) activeLink.setAttribute("aria-current", "location");
       active = index;
     }
 
