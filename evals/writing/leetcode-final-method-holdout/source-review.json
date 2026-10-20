@@ -1,0 +1,32 @@
+{
+  "reviewer": "parent observer",
+  "scope": "Concrete source fidelity and reported Reader gaps; not a calibrated semantic judge",
+  "primary_sources_read": [
+    "https://leetcode.com/problems/number-of-islands/",
+    "https://leetcode.com/problems/merge-intervals/",
+    "https://docs.python.org/3.14/library/stdtypes.html",
+    "https://docs.python.org/3.14/howto/sorting.html",
+    "https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c",
+    "https://github.com/python/cpython/blob/v3.14.0/Objects/listsort.txt"
+  ],
+  "relations_reviewed": [
+    "Islands rectangular string grid, legal bounds, edge-only connectivity, seen-before-push and path completeness",
+    "Intervals closed endpoint overlap, arbitrary input order, permanent sorted gap, maximum right endpoint and exact union",
+    "Fresh output pairs preserve input despite shallow sorted outer copy; separate Boolean rows avoid aliasing",
+    "Python truth/short circuit and sequence access distinguished from CPython proportional list capacity facts",
+    "Conceptual equal-run merge cost explicitly distinguished from exact CPython powersort scheduling; temporary/key storage not claimed constant"
+  ],
+  "reader_adjudication": {
+    "intervals": "Eight answers and new trace supported by body; no material bilingual mismatch observed. Exact 62/62 quoted passages verified.",
+    "islands": "Main-method cost is reconstructible. Retain raw cost missing for the introduced recursive/shortest-path extensions not explicitly closing their costs. K has contextual final-size hint, so lack of explicit name is a novice notation concern, not proof the main amortized reasoning is false. Four formatting-loss quotes separately audited without rewriting raw output.",
+    "control": "Planted omission detected for cost; visible loop/allocation counts retained but removed primitive/sorting/space premises not supplied from memory. No natural Writer failure inferred from this control."
+  },
+  "not_claimed": [
+    "General reliability estimate",
+    "Instruction-only improvement",
+    "Human learning effect",
+    "Forced read isolation",
+    "Publication",
+    "Whole interpreter implementation proof"
+  ]
+}

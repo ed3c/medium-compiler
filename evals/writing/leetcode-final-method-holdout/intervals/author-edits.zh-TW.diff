@@ -1,0 +1,5 @@
+--- article.first.zh-TW.md
++++ article.zh-TW.md
+@@ -31 +31 @@
+-為何只需與最後一個 pair 比較？假設較早的 component 終於 `a`，最後一個 component 始於 `b`，且 `a < b`。後續每個 start 都至少是 `b`，所以不可能向左跨過這個 gap，碰到較早的 component。新 interval 若能碰到任何已存的 component，就只可能是最後一個。因此，不必在每讀一個 interval 後，重新掃描整份輸出。
++為何只需與最後一個 pair 比較？假設較早的 component 結束於 `a`，最後一個 component 始於 `b`，且 `a < b`。後續每個 start 都至少是 `b`，所以不可能向左跨過這個 gap，碰到較早的 component。新 interval 若能碰到任何已存的 component，就只可能是最後一個。因此，不必在每讀一個 interval 後，重新掃描整份輸出。

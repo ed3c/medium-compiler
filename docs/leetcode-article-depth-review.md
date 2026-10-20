@@ -1,5 +1,8 @@
 # LeetCode 文章的推導粒度與通用產文方法
 
+最終版方法的後續兩題首次產文，另見 [holdout 報告](leetcode-final-method-holdout.md)。
+它固定本版方法，不沿用下方開發集的修訂結果：Intervals 八題可重建，Islands 保留 `cost` 缺項，未宣稱一般穩定性。
+
 本次修正 complete-article profile 與 Group Anagrams 的 Part 7 完整英繁稿。
 目標讀者懂基本 Python syntax，但尚未學過 data structures、Python runtime internals 與 complexity。
 使用者提供的完整文章是內容及教學粒度的比較來源，不是正確性權威，也不是固定章節配額。

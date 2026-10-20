@@ -1,0 +1,38 @@
+--- article.first.en.md
++++ article.en.md
+@@ -1 +1 @@
+-# Number of Islands: count a region only after claiming its land
++# Number of Islands: claim every cell, count each region once
+@@ -5 +5 @@
+-A useful procedure is to find one land cell, record every land cell reachable from it, and count that whole region once. Then continue looking for land that no earlier search recorded. The difficult part is making “recorded” precise enough that a region cannot be counted twice.
++A useful procedure is to find one land cell, record every land cell reachable from it, and count that whole region once. Then continue looking for land that no earlier search recorded. The discovery record must prevent a region from being counted twice.
+@@ -28 +28 @@
+-There is one island: the bottom row connects both top cells. A tempting rule, “count land when neither its upper nor its left neighbor is land,” counts both top cells and returns 2. The connection appears later in scan order. Inspecting only already-scanned neighbors cannot justify a final new-island decision unless the algorithm also knows how to merge earlier groups. Searching the complete reachable region avoids that extra machinery.
++There is one island: the bottom row connects both top cells. A tempting rule, "count land when neither its upper nor its left neighbor is land," counts both top cells and returns 2. The connection appears later in scan order. Inspecting only already-scanned neighbors cannot justify a final new-island decision unless the algorithm also knows how to merge earlier groups. Searching the complete reachable region avoids that extra machinery.
+@@ -32 +32 @@
+-Keep that unfinished work in `stack`, a list of coordinates waiting for neighbor examination. A stack uses last-in, first-out order: the most recently added coordinate is processed next. This is an iterative depth-first search, or DFS. Its order tends to follow newly discovered branches before returning to older waiting cells. The count depends on reaching the region, not on the particular order of those visits.
++Keep that unfinished work in `stack`, a list of coordinates waiting for neighbor examination. A stack uses last-in, first-out order: the most recently added coordinate is processed next. This is an iterative depth-first search, or DFS. Its order tends to follow newly discovered branches before returning to older waiting cells. Any pending-cell order works for this count if it eventually examines every discovered cell.
+@@ -38 +38 @@
+-Create the record with:
++The discovery record needs one independently writable Boolean entry per cell:
+@@ -44 +44 @@
+-`[False] * cols` makes a row containing `cols` entries, initially all `False`. The comprehension evaluates that row-building expression once for each row, creating separate row lists. The underscore is an ordinary variable whose value is unused. For two rows and three columns, the initial values look like `[[False, False, False], [False, False, False]]`.
++`[False] * cols` makes a row containing `cols` entries, initially all `False`. The comprehension evaluates that row-building expression once for each row, creating separate row lists. The variable `_` has an unused value. For two rows and three columns, the initial values look like `[[False, False, False], [False, False, False]]`.
+@@ -144 +144 @@
+-This count treats bounded-size integer arithmetic, coordinate access, Boolean access, and one-character comparison as constant work. List end operations require a qualification. In CPython v3.14, a list keeps an array of object references with spare capacity; growth can allocate space and copy references, so a particular append need not be constant time. Capacity grows proportionally for repeated small extensions. For capacities growing by a factor greater than one, the copied sizes form a geometric sum bounded by a constant times the final size: read backward as `K + K/q + K/q² + ...`, for a fixed `q > 1`. Across many appends this spreads resizing work over the operations. “Amortized constant time” means that total bound per operation, not a guarantee for each call. Shrinking also leaves capacity room before another resize, so alternating end pushes and pops do not force a copy on every operation. The [CPython v3.14 list implementation](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) supplies these growth and shrink policies; they are implementation details, not a Python-language timing guarantee.
++This count treats bounded-size integer arithmetic, coordinate access, Boolean access, and one-character comparison as constant work. List end operations require a qualification. In CPython v3.14, a list keeps an array of object references with spare capacity; growth can allocate space and copy references, so a particular append need not be constant time. Capacity grows proportionally for repeated small extensions. For capacities growing by a factor greater than one, the copied sizes form a geometric sum bounded by a constant times the final size: read backward as `K + K/q + K/q² + ...`, for a fixed `q > 1`. Across many appends this spreads resizing work over the operations. "Amortized constant time" means that total bound per operation, not a guarantee for each call. Shrinking also leaves capacity room before another resize, so alternating end pushes and pops do not force a copy on every operation. The [CPython v3.14 list implementation](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) supplies these growth and shrink policies; they are implementation details, not a Python-language timing guarantee.
+@@ -162 +162 @@
+-**Why increase the count before the search?** An undiscovered land start identifies one previously uncounted island. The search records that entire island before scanning resumes.
++Why increase the count before the search? An undiscovered land start identifies one previously uncounted island. The search records that entire island before scanning resumes.
+@@ -164 +164 @@
+-**Why mark before pushing?** A waiting cell is already discovered. Immediate marking prevents another neighbor from placing the same coordinate on the stack again.
++Why mark before pushing? A waiting cell is already discovered. Immediate marking prevents another neighbor from placing the same coordinate on the stack again.
+@@ -166 +166 @@
+-**Why examine four directions?** The statement connects cells by shared horizontal or vertical edges. Diagonal contact does not establish a legal path.
++Why examine four directions? The statement connects cells by shared horizontal or vertical edges. Diagonal contact does not establish a legal path.
+@@ -168 +168 @@
+-**Why is the time linear in the number of cells?** The scan checks every cell once, and each land cell causes one pop and four neighbor tests across all searches.
++Why is the time linear in the number of cells? The scan checks every cell once, and each land cell causes one pop and four neighbor tests across all searches.
+@@ -170 +170 @@
+-**What does preserving the input cost?** The Boolean matrix uses `O(mn)` auxiliary space. Even if permitted mutation removes it, the explicit stack still has an `O(mn)` worst-case bound.
++What does preserving the input cost? The Boolean matrix uses `O(mn)` auxiliary space. Even if permitted mutation removes it, the explicit stack still has an `O(mn)` worst-case bound.

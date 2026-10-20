@@ -1,0 +1,44 @@
+{
+  "first_english_sha256": "6f4689df8538d424de9e272f267c388d330874200fdcef93c8425dce020c585b",
+  "final_english_sha256": "95283c2de4b6fc1adbcae753584dbce4d9720270674fa89eaae6c1ba1451c220",
+  "first_word_count": 3050,
+  "final_word_count": 3048,
+  "supplement": "Applied manually to every paragraph; retained intermediate stack states, alias explanation, full proof, complexity derivation, English Q&A because they provide different reconstruction work. Removed one vague difficulty sentence; clarified pending-order condition. No figure required: coordinate grids and consecutive stack values already give exact states; no images requested or generated.",
+  "source_review": "Original statement, Python 3.14 documentation, and CPython v3.14.0 list_resize checked. No editorial/community solution consulted. Sources establish contract and language primitives; region proof and cost counting independently derived.",
+  "english_author_approved_utc": "2026-10-20T17:47:26.917531+00:00",
+  "translation_started": true,
+  "author_repairs": [
+    {
+      "kind": "title/order clarity",
+      "before": "count a region only after claiming its land",
+      "after": "claim every cell, count each region once",
+      "why": "Original title could imply increment after flood fill, while code increments on discovering a seed; proof checkpoint is after search completion. Body/code did not change."
+    }
+  ],
+  "runtime_review": "All requested controls executed before translation; CPython 3.14.6 runtime, 3.14 docs with v3.14.0 source implementation qualification. No runtime failures.",
+  "translation_started_utc": "2026-10-20T17:47:26.917679+00:00",
+  "translation_first_sha256": "ba123d638b04ff6d49274c4df6b40c5f8bf74ef463fa43a730515d44b69d6565",
+  "translation_final_sha256": "528805ea3b263e6ea90127dd93b655bc8ce2d92d0aa54f7e335d93e32e5d00bf",
+  "translation_author_reviewed_utc": "2026-10-20T17:49:40.157176+00:00",
+  "translation_review": {
+    "code_and_text_grid_fences": "byte-identical by actual assertion",
+    "source_link_order": "identical by actual assertion",
+    "semantic_checks": [
+      "dimension bounds 1..300 and string values retained",
+      "four-way versus diagonal distinction retained",
+      "discovered versus examined distinction retained",
+      "mark-before-push order retained",
+      "movie state values and order retained",
+      "inner and outer invariant checkpoints retained",
+      "O(mn+L), 4L, amortized and CPython qualification retained",
+      "preserve-input alternative condition and stack-space caveat retained",
+      "BFS first-discovery minimum conditional on distance-layer order retained",
+      "English interview Q&A deliberately preserved in English per selected construction instructions"
+    ],
+    "repairs": [
+      "Introduced cell as English technical term with Chinese meaning.",
+      "Expanded queue-layer counter into a Chinese mechanism description without removing distance or counter."
+    ],
+    "independent_reviewer": false
+  }
+}

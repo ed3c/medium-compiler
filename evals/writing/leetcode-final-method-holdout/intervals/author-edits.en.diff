@@ -1,0 +1,20 @@
+--- article.first.en.md
++++ article.en.md
+@@ -125 +125 @@
+-This differs from the earlier task-equivalence property. Equal unions describe which answers are acceptable. The invariant additionally describes the intermediate state and what future work can change.
++This differs from the earlier task-equivalence property. Equal unions describe which answers are acceptable. The invariant also describes the intermediate state and what future work can change.
+@@ -159 +159 @@
+-**Why sort by start?** Sorting makes future starts nondecreasing. Once a new start exceeds the current end, no later interval can bridge the gap.
++Why sort by start? Sorting makes future starts nondecreasing. Once a new start exceeds the current end, no later interval can bridge the gap.
+@@ -161 +161 @@
+-**Why keep the maximum end?** The last output pair represents a whole connected component. A contained interval must not shorten its furthest reach.
++Why keep the maximum end? The last output pair represents a whole connected component. A contained interval must not shorten its furthest reach.
+@@ -163 +163 @@
+-**Why does equality merge?** The intervals are closed. Two intervals with a shared endpoint intersect at that point.
++Why does equality merge? The intervals are closed. Two intervals with a shared endpoint intersect at that point.
+@@ -165 +165 @@
+-**What is your invariant?** Before each iteration, the output is the fully merged union of the processed prefix, ordered with strict gaps. Earlier components are final; only the last may grow.
++What is your invariant? Before each iteration, the output is the fully merged union of the processed prefix, ordered with strict gaps. Earlier components are final; only the last may grow.
+@@ -167 +167 @@
+-**What are the costs and mutation effects?** Worst-case time is `O(n log n)`, auxiliary space is `O(n)`, and returned output uses `O(k)` space. The implementation preserves the input and creates new output pairs.
++What are the costs and mutation effects? Worst-case time is `O(n log n)`, auxiliary space is `O(n)`, and returned output uses `O(k)` space. The implementation preserves the input and creates new output pairs.

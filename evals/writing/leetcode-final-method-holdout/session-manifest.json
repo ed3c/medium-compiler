@@ -1,0 +1,60 @@
+{
+  "method_commit": "4e5ee4dba71b33287be0fd720d35133a8247409a",
+  "carrier": "Local Codex exposed collaboration.spawn_agent",
+  "fork_turns": "none",
+  "model_override": "omitted; inherited configured model, exact resolved model not independently captured",
+  "enforced_read_isolation": false,
+  "both_first_deliveries_frozen_before_readers": true,
+  "parent_solution_or_repair_hints": false,
+  "post_reader_article_edits": false,
+  "sessions": [
+    {
+      "native_thread_id": "01a15a72-7eb5-7a73-b9d5-dcbb52267696",
+      "capture_file": "final_cost_control_reader-native-capture.json",
+      "captured_command_count": 2,
+      "captured_nonzero_exits": [],
+      "capture_truncated_command_ids": [
+        "exec-cea1427b-2267-4a81-8611-81eebbde0c26"
+      ]
+    },
+    {
+      "native_thread_id": "01a15a71-d546-7831-b821-7050242ed0f0",
+      "capture_file": "final_intervals_reader-native-capture.json",
+      "captured_command_count": 2,
+      "captured_nonzero_exits": [],
+      "capture_truncated_command_ids": [
+        "exec-a4bd4cd5-892d-4c12-881a-a0d679cfd4fd"
+      ]
+    },
+    {
+      "native_thread_id": "01a15a71-c354-7311-80f7-1569d2957907",
+      "capture_file": "final_islands_reader-native-capture.json",
+      "captured_command_count": 2,
+      "captured_nonzero_exits": [],
+      "capture_truncated_command_ids": [
+        "exec-ea90ddf7-8e2e-4de8-8d4b-22c02b45cfa8"
+      ]
+    },
+    {
+      "native_thread_id": "01a15a69-2640-7030-b063-e3e1bb600d44",
+      "capture_file": "intervals-native-capture.json",
+      "captured_command_count": 17,
+      "captured_nonzero_exits": [],
+      "capture_truncated_command_ids": [
+        "exec-28a26685-c3a7-4c3e-ab49-9ff4a66607a5"
+      ]
+    },
+    {
+      "native_thread_id": "01a15a69-0a05-7670-b44b-748e67106ffe",
+      "capture_file": "islands-native-capture.json",
+      "captured_command_count": 23,
+      "captured_nonzero_exits": [],
+      "capture_truncated_command_ids": [
+        "exec-31628972-b5d7-4edb-bd86-bd1f41f4654e",
+        "exec-87d7e265-b16e-4f70-a788-92737ec6faec"
+      ]
+    }
+  ],
+  "raw_capture_directory": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-final-holdout-m22zvsha/observer",
+  "capture_limits": "read_thread outputs capped at 20000 characters per item. Captured truncation does not establish whether original tool response was truncated; no complete hidden-context or isolation proof is claimed."
+}

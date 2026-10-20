@@ -1,0 +1,127 @@
+{
+  "answers": [
+    {
+      "id": "contract",
+      "answer": "正確結果是一個整數，計算透過水平或垂直共邊 land path 連接的群組數；對角接觸不合併。輸入是每維 1–300 的長方形字串格網，故可讀 grid[0]，無需處理空格網；本解保留輸入。seen 的每格 Boolean 保存是否已被某次搜尋認領，stack 的座標對保存尚未檢查鄰居的工作，count 保存完整計入的島數，因此不需要保存面積或島標籤。單有 seen 不足以表示工作完成，但與 stack、完成鄰居檢查的規則及搜尋後才恢復 scan 的 checkpoint 合起來，就能保存足夠資訊。",
+      "quotes": [
+        {"language": "en", "text": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300. The answer is one integer: how many separate islands the map contains. Movement joins land through a shared horizontal or vertical edge; touching at a corner does not join it. Outside the rectangle is water."},
+        {"language": "en", "text": "Cells belong to the same island exactly when such a path connects them."},
+        {"language": "en", "text": "An empty grid is outside the stated contract, so the solution below reads `grid[0]` without an empty-input guard."},
+        {"language": "en", "text": "The solution preserves the supplied map. It keeps a separate record of discovered cells, avoiding a requirement that callers let it overwrite land. No area, coordinates, or island labels are returned."},
+        {"language": "en", "text": "For discovery records, `seen[r][c]` is a Boolean: `True` means this cell has already been claimed for a search. It does not mean that all the cell's neighbors have been examined."},
+        {"language": "en", "text": "Keep that unfinished work in `stack`, a list of coordinates waiting for neighbor examination."},
+        {"language": "en", "text": "All islands already counted have been completely marked, `count` is their number, and every earlier scan position that contains land is marked."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "state",
+      "answer": "search 的明示 checkpoint 是每次 while stack 測試前：stack 中都是起點所在原島的已標記陸地，沒有重複；本次搜尋標記的格子分為等待中與四鄰已查完，已查完格子的陸地鄰居都已標記。初始化只標記起點並把它作為唯一待辦，因此成立。外層 checkpoint 是上一個搜尋結束、檢查下一格之前：count 等於已完整標記的島數，較早掃描到的陸地都已標記；初始 count=0、沒有較早位置，因此成立。rows/cols 保存尺寸；seen 為分離的 row lists，初始全部 False；directions 是四個固定座標變化；row,col 為 scan 位置，r,c 為當前彈出位置，dr,dc 為某方向變化，nr,nc 為加法得到的鄰居位置。stack 在遇到第一個新陸地前沒有活動搜尋；格網保留原字串。",
+      "quotes": [
+        {"language": "en", "text": "During one search, consider the checkpoint just before each `while stack` test. Every coordinate on the stack is marked land belonging to the starting cell's original island, and no coordinate appears twice. Every marked cell from this search is either waiting on the stack or has already had all four neighbors examined. Any land neighbor of an already examined cell has already been marked."},
+        {"language": "en", "text": "The checkpoint holds initially: the only marked cell of this search is its start, waiting for examination."},
+        {"language": "en", "text": "For the outer scan, use the checkpoint before examining its next cell, after any preceding search has finished. All islands already counted have been completely marked, `count` is their number, and every earlier scan position that contains land is marked. Initially there are no earlier positions and `count` is zero."},
+        {"language": "en", "text": "Initially `count = 0`, every `seen` entry is `False`, and there is no active stack."},
+        {"language": "en", "text": "`[False] * cols` makes a row containing `cols` entries, initially all `False`. The comprehension evaluates that row-building expression once for each row, creating separate row lists."},
+        {"language": "en", "text": "        rows = len(grid)\n        cols = len(grid[0])\n        seen = [[False] * cols for _ in range(rows)]\n        count = 0\n        directions = ((-1, 0), (0, 1), (1, 0), (0, -1))"},
+        {"language": "en", "text": "                    r, c = stack.pop()\n                    for dr, dc in directions:\n                        nr, nc = r + dr, c + dc"},
+        {"language": "en", "text": "`directions` holds four changes to a coordinate. For example, adding `(0, 1)` keeps the row and increases the column, moving right. `row, col` belong to the outer scan; `r, c` belong to the current search."},
+        {"language": "en", "text": "Water remains unmarked. The input grid retains its original strings."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "trace",
+      "answer": "選用不同於正文主例的合法輸入 [[\"1\",\"0\",\"1\"],[\"1\",\"0\",\"0\"]]。初始 count=0、seen=[[F,F,F],[F,F,F]]。scan(0,0) 發現新陸地，count=1，seen=[[T,F,F],[F,F,F]]，stack=[(0,0)]。pop 後 stack=[]；依上右下左，上越界、右為水、下(1,0)未見陸地，立即標記並 append，左越界，故 seen=[[T,F,F],[T,F,F]]，stack=[(1,0)]。pop(1,0) 後，上已見、右水、下越界、左越界，stack=[]，第一搜尋結束。scan(0,1) 是水跳過；scan(0,2) 新陸地，count=2、seen=[[T,F,T],[T,F,F]]、stack=[(0,2)]。pop 後上越界、右越界、下(1,2)水、左(0,1)水，無新增。scan(1,0) 已見跳過，(1,1)、(1,2) 是水跳過；最後回傳 2，seen 維持 [[T,F,T],[T,F,F]]，輸入未變。F/T 分別為 False/True 的展示簡寫。",
+      "quotes": [
+        {"language": "en", "text": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300."},
+        {"language": "en", "text": "Read the map row by row, moving left to right within each row. Water cannot start an island. Previously discovered land cannot start a new island either: an earlier search already claimed it. When the scan finds undiscovered land, increase `count` by one and search from that cell until there is no reachable land left to discover."},
+        {"language": "en", "text": "Use neighbor order up, right, down, left throughout this trace and the code."},
+        {"language": "en", "text": "When a land cell is discovered, set its `seen` entry to `True` immediately and put its coordinates on the stack. Marking at discovery ensures that another neighboring cell cannot schedule it again while it is still waiting. When a coordinate is removed from the stack, examine its four neighboring positions. Schedule only neighbors that are inside the rectangle, land, and still undiscovered."},
+        {"language": "en", "text": "The loop `while stack:` runs while pending coordinates remain. The empty list is false in a condition, so the loop stops before calling `pop()` on an empty stack."},
+        {"language": "en", "text": "                count += 1\n                seen[row][col] = True\n                stack = [(row, col)]"},
+        {"language": "en", "text": "        return count"},
+        {"language": "en", "text": "Water remains unmarked. The input grid retains its original strings."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "failure",
+      "answer": "錯法是只看上方、左方是否為陸地來決定新島。在正文 1 0 1 / 1 1 1 中，第一個錯誤狀態發生於掃到 (0,2)：它的上、左都不是陸地，錯法將 count 從 1 增至 2，但下方 row 已使兩個頂格同屬一島。正解在第一起點就把完整可達區域標記，才繼續 scan；因此 (0,2) 後來已標記，不會增加 count。另一個明示失敗是延後至 pop 才標記，主例中 (1,1) 檢查上方時會把等待中的 (0,1) 再排一次，首次破壞無重複待辦狀態，stack 可成 [(0,1),(0,1)]；seen 檢查加立即標記防止它。邊界方面，若略過 bounds，row=-1 會讀最後一 row；先 bounds 再 grid access，靠 and 短路避免這個錯誤。別把重複排程本身宣稱一定導致錯誤島數：正文只說需要額外拒絕規則。",
+      "quotes": [
+        {"language": "en", "text": "1 0 1\n1 1 1"},
+        {"language": "en", "text": "There is one island: the bottom row connects both top cells. A tempting rule, \"count land when neither its upper nor its left neighbor is land,\" counts both top cells and returns 2. The connection appears later in scan order. Inspecting only already-scanned neighbors cannot justify a final new-island decision unless the algorithm also knows how to merge earlier groups. Searching the complete reachable region avoids that extra machinery."},
+        {"language": "en", "text": "Previously discovered land cannot start a new island either: an earlier search already claimed it."},
+        {"language": "en", "text": "If marking were delayed until popping, `(0, 1)` would still look undiscovered when `(1, 1)` checks its upper neighbor. The stack could become `[(0, 1), (0, 1)]`. A carefully written delayed-marking algorithm can reject repeated entries later, but it needs that extra rule. This solution prevents them from entering."},
+        {"language": "en", "text": "Python accepts negative list indices, so an unchecked row `-1` would read the last row instead of representing outside water. In an `and` expression, Python stops as soon as a condition is false; placing bounds first prevents an invalid position from reaching the grid access."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "proof",
+      "answer": "合法鄰居藉一條邊連到當前格，所以加入 stack 不會跨島；seen 檢查與立即標記令同格不重複排程。pop 只是取出一項待辦，四鄰檢查結束後該格轉為已檢查，待辦資訊不遺失。每格至多 push 一次，每輪 pop 一次，有限格網保證進展與終止。空 stack 意味所有已發現格都已查完；若同島仍有未發現格，沿路第一個未發現格的前驅已檢查，應已發現它，矛盾，所以整島已標記。scan 跳過水因它不能成島，跳過 seen 陸地因它屬已完整計入的島；遇未見陸地才 count+1 並完整搜尋，保持外層 checkpoint。掃描結束每個陸地都被覆蓋，而首次搜尋已涵蓋全島，故每島恰計一次。後續搜尋重用 seen 的持久標記是安全的，因 scan 只在前次完整搜尋結束後恢復。",
+      "quotes": [
+        {"language": "en", "text": "A pop removes one pending coordinate. For each neighbor, bounds and land checks ensure that any newly scheduled cell is connected by a legal edge to the popped cell. The `seen` check and immediate marking prevent duplicate scheduling. After all four checks, the popped cell has been fully examined, restoring the invariant."},
+        {"language": "en", "text": "At most one push occurs for each land cell, and every loop iteration pops one item. The finite grid therefore makes the search terminate. When the stack is empty, all cells discovered by this search have been examined. If some land cell in the same island were still undiscovered, take a land path from the start to it. The first undiscovered cell on that path has a discovered predecessor. That predecessor was examined and would have discovered it, a contradiction. The search reaches the entire island and cannot reach a different one."},
+        {"language": "en", "text": "For the outer scan, use the checkpoint before examining its next cell, after any preceding search has finished."},
+        {"language": "en", "text": "Water and marked land preserve the claim without increasing the count. Undiscovered land belongs to an island not previously counted, so adding one and completing its search preserves the checkpoint. After the last scan position, every land cell belongs to a counted island. No island can have contributed twice because its first search marked all of it."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "cost",
+      "answer": "主法可重建：m rows、n columns、L land 且 L<=mn；seen 建立寫 mn references，scan mn 格，跨所有搜尋共 L pushes、L pops、4L 鄰居測試，合計 O(mn+L)=O(mn)。座標／Boolean 存取、單字元比較、有界整數運算視固定成本。list append 個別可能複製，正文以比例 capacity growth 的 geometric sum 說明總複製量有固定倍數上界，故使用 amortized 而非每次固定成本；縮容保留餘裕避免每次交替 push/pop 都複製。seen mn entries、最多 L 個雙整數座標、固定 directions 與工作座標，額外空間 O(mn)；回傳一整數在有界模型是 O(1) output。BFS 保留同樣 discovery marking，可沿用每格一次與固定四鄰的頻率，deque 兩端約略固定成本，故 O(mn) time/auxiliary；list pop(0) 需搬移剩餘項，不能直接沿用尾端成本，但正文未指定此錯換的總界。允許 mutation 可省 seen，但 stack 仍 O(mn)；複製保留原圖會恢復 O(mn) copy storage，外層淺複製不足。八鄰是 8L，仍 O(mn)。Recursive DFS 只解釋每個未完成 call 必須留狀態、長路可能很多 calls 且可能超 recursion limit；NOT_STATED：沒有給 recursive 版本的完整 push/visit 對應、操作頻率或明確 time/auxiliary bound。最短路改法只指定 distance 或 layer counter，沒有進一步導出其儲存及輸出成本。新記號 K 出現在 geometric sum，正文沒有明文定義 K；q 明定為固定 q>1。unbounded numeric model 的位數成本沒有推導，只指出必須換模型。這些缺項不妨礙重建已明示的有界主法成本，但不能用自身知識補齊。",
+      "quotes": [
+        {"language": "en", "text": "Let `m` be the number of rows, `n` the number of columns, and `L` the number of land cells, with `L <= mn`. Big O describes how a cost can grow with input size while ignoring fixed multipliers."},
+        {"language": "en", "text": "Building `seen` writes `mn` Boolean references. The outer scan examines `mn` cells. Across all searches together, each land cell is pushed and popped once, so there are `L` pops and `4L` neighbor checks. The search inside the scan does not imply `mn` whole-grid searches: completed discoveries remain marked and cannot be repeated. The total is `O(mn + L) = O(mn)` time."},
+        {"language": "en", "text": "This count treats bounded-size integer arithmetic, coordinate access, Boolean access, and one-character comparison as constant work."},
+        {"language": "en", "text": "In CPython v3.14, a list keeps an array of object references with spare capacity; growth can allocate space and copy references, so a particular append need not be constant time. Capacity grows proportionally for repeated small extensions. For capacities growing by a factor greater than one, the copied sizes form a geometric sum bounded by a constant times the final size: read backward as `K + K/q + K/q² + ...`, for a fixed `q > 1`. Across many appends this spreads resizing work over the operations. \"Amortized constant time\" means that total bound per operation, not a guarantee for each call. Shrinking also leaves capacity room before another resize, so alternating end pushes and pops do not force a copy on every operation."},
+        {"language": "en", "text": "The `seen` matrix retains `mn` entries. At most `L` coordinates can be pending simultaneously, and each coordinate contains two bounded-size integers. Thus auxiliary space, meaning storage added beyond the input, is `O(mn)` in the worst case. An explicit stack does not make DFS constant-space. The directions and current coordinates occupy fixed extra space. The returned integer is one value, counted as `O(1)` output space under this bounded-input model. Counting its digits for unbounded dimensions would require a different numeric model."},
+        {"language": "en", "text": "Recursive DFS replaces the explicit stack with a function that calls itself on neighbors. Each unfinished function call must retain enough state to resume its neighbor checks after the child returns. A long, thin land path can require many simultaneous calls, so recursion does not remove the storage cost."},
+        {"language": "en", "text": "With the same discovery marking, BFS counts the same islands in `O(mn)` time and `O(mn)` worst-case auxiliary space. Avoid replacing `pop()` with list `pop(0)`: removing the front of a list shifts remaining entries."},
+        {"language": "en", "text": "This adaptation also needs a stored distance or queue-layer counter; merely returning the island count cannot answer it."},
+        {"language": "en", "text": "The stack can still require `O(mn)` space, and callers lose the original map. Copying first to preserve it restores `O(mn)` copy storage; copying only the outer list shares the original row lists and does not protect their entries."},
+        {"language": "en", "text": "There are eight checks per popped cell instead of four, still a fixed number, so the `O(mn)` bounds remain."}
+      ],
+      "missing": true
+    },
+    {
+      "id": "transfer",
+      "answer": "若改求最少邊移動，原先只需完整遍歷而任意 pending order 都可的前提不夠了，必須改 queue 的 oldest-first BFS 並保存 distance 或 layer counter：起點0、鄰居1、下一層2，逐層處理令首次發現終點具有最小移動數；DFS 首條路不保證最短。若呼叫者准許覆寫，保留原圖前提消失，可在 discovery 把 1 改成 0 取代 seen，惟 stack 還可能 O(mn)，需要保圖就必須複製內層 rows。若對角也連通，原本四邊 path 的定義改變，加入四個對角方向並同步修改 proof，對角兩格由2島變1島，固定八鄰不改漸進界。",
+      "quotes": [
+        {"language": "en", "text": "Any pending-cell order works for this count if it eventually examines every discovered cell."},
+        {"language": "en", "text": "BFS becomes preferable if the task changes to finding the fewest edge moves from one land cell to another. Put the start in a queue at distance zero. Its neighbors receive distance one, their newly discovered neighbors receive distance two, and so on. Oldest-first processing finishes each distance layer before the next, so the first discovery of the destination has the smallest move count. Our DFS stack does not preserve that ordering, so a first-found route need not be shortest. This adaptation also needs a stored distance or queue-layer counter; merely returning the island count cannot answer it."},
+        {"language": "en", "text": "If memory matters and the caller explicitly allows overwriting the map, land can be changed from \"1\" to \"0\" when discovered. Later checks then treat claimed land like water, replacing the separate `seen` matrix. The stack can still require `O(mn)` space, and callers lose the original map. Copying first to preserve it restores `O(mn)` copy storage; copying only the outer list shares the original row lists and does not protect their entries."},
+        {"language": "en", "text": "If diagonal contact also joins land, add the four diagonal coordinate changes and use that rule consistently in the proof. The two-cell diagonal witness then changes from 2 islands to 1. There are eight checks per popped cell instead of four, still a fixed number, so the `O(mn)` bounds remain."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "bilingual",
+      "answer": "逐一比較 representation、立即標記與 stack 更新、search/scan checkpoint、path contradiction、主法操作頻率與 CPython amortized 條件、mutation/BFS/八鄰改法，沒有發現材料性的雙語不一致或單邊省略。兩份完整 Python code 相同；中文尾部保留英文 interview 問答。這是對正文的比對，不能由相同標題推斷理解。cost 中 recursive/最短路成本與 K 的明示定義不足在兩語均存在，因此不是翻譯 mismatch。",
+      "quotes": [
+        {"language": "en", "text": "For discovery records, `seen[r][c]` is a Boolean: `True` means this cell has already been claimed for a search. It does not mean that all the cell's neighbors have been examined."},
+        {"language": "zh-TW", "text": "發現紀錄使用 Boolean `seen[r][c]`：`True` 表示這個格子已被某次 search 標記。它不代表這個格子的所有鄰居都已檢查完。"},
+        {"language": "en", "text": "                            seen[nr][nc] = True\n                            stack.append((nr, nc))"},
+        {"language": "zh-TW", "text": "                            seen[nr][nc] = True\n                            stack.append((nr, nc))"},
+        {"language": "en", "text": "The first undiscovered cell on that path has a discovered predecessor. That predecessor was examined and would have discovered it, a contradiction."},
+        {"language": "zh-TW", "text": "它前面的格子必定已經被發現。那個前驅格子已經檢查完，理應發現它，形成矛盾。"},
+        {"language": "en", "text": "The total is `O(mn + L) = O(mn)` time."},
+        {"language": "zh-TW", "text": "因此總時間是 `O(mn + L) = O(mn)`。"},
+        {"language": "en", "text": "\"Amortized constant time\" means that total bound per operation, not a guarantee for each call."},
+        {"language": "zh-TW", "text": "「Amortized constant time」指的是這種總成本換算成每次操作的上界，而不是保證每一次呼叫都有相同成本。"},
+        {"language": "en", "text": "If diagonal contact also joins land, add the four diagonal coordinate changes and use that rule consistently in the proof."},
+        {"language": "zh-TW", "text": "若對角接觸也算相連，就加入四種 diagonal coordinate changes，並讓 proof 一致採用這個規則。"},
+        {"language": "en", "text": "Why mark before pushing? A waiting cell is already discovered. Immediate marking prevents another neighbor from placing the same coordinate on the stack again."},
+        {"language": "zh-TW", "text": "Why mark before pushing? A waiting cell is already discovered. Immediate marking prevents another neighbor from placing the same coordinate on the stack again."},
+        {"language": "zh-TW", "text": "若題目改成尋找從一個陸地格子到另一個陸地格子，最少需要沿著邊移動幾次，BFS 就更合適。"},
+        {"language": "zh-TW", "text": "若記憶體是考量，而且呼叫端明確允許覆寫地圖，可以在發現陸地時，把它從 \"1\" 改成 \"0\"。稍後的檢查就會把已標記陸地當作水，不再需要獨立的 `seen` matrix。"},
+        {"language": "zh-TW", "text": "外層 scan 的 checkpoint，設在即將檢查下一個格子、且先前的 search 已結束之時。所有已計數的島都已完整標記，`count` 就是它們的數量，而先前所有已掃描位置中的陸地都已標記。"}
+      ],
+      "missing": false
+    }
+  ],
+  "unanswered_question_ids": ["cost"],
+  "bilingual_mismatches": [],
+  "limits": "只讀指定 task.json 與兩篇 article 正文；未讀 repository、來源連結、作者報告、其他 agents 或網路，未執行演算法或測試。trace 是按正文規則手工重建的新輸入，並非執行結果。缺項標示針對成本問項要求涵蓋所有替代法與 caveat；不以外部 Python 或演算法知識填補。此輸出不提供品質分，也不證明人類學習效果。"
+}

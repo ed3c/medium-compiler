@@ -1,0 +1,18 @@
+{
+  "islands": {
+    "all_fenced_blocks_identical": true,
+    "fenced_blocks": 5,
+    "source_url_sequence_identical": true,
+    "source_link_occurrences": 8,
+    "full_solution_identical": "separately verified by runtime_controls.py",
+    "english_interview_preserved_exactly": true
+  },
+  "intervals": {
+    "all_fenced_blocks_identical": true,
+    "fenced_blocks": 9,
+    "source_url_sequence_identical": true,
+    "source_link_occurrences": 9,
+    "full_solution_identical": "separately verified by runtime_controls.py",
+    "english_interview_preserved_exactly": true
+  }
+}

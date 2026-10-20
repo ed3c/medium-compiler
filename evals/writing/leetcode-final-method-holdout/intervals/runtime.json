@@ -1,0 +1,466 @@
+{
+  "started_at_utc": "2026-10-20T17:46:49.463206+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "implementation": "CPython",
+  "unexpected_failures": [],
+  "intentional_bad_algorithm_witnesses": [
+    {
+      "algorithm": "overwrite_end",
+      "input": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "required": [
+        [
+          1,
+          5
+        ]
+      ],
+      "observed_wrong": [
+        [
+          1,
+          3
+        ]
+      ],
+      "expected_failure_observed": true
+    },
+    {
+      "algorithm": "equality_gap",
+      "input": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "required": [
+        [
+          1,
+          3
+        ]
+      ],
+      "observed_wrong": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "expected_failure_observed": true
+    },
+    {
+      "algorithm": "unsorted_frontier",
+      "input": [
+        [
+          5,
+          6
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "required": [
+        [
+          1,
+          6
+        ]
+      ],
+      "observed_wrong": [
+        [
+          5,
+          6
+        ]
+      ],
+      "expected_failure_observed": true
+    }
+  ],
+  "english_sha256": "8b1a532a3324a1db795786f4a8831038be9d562df9de81fe9c9a116130ffdf76",
+  "solution_sha256": "3c07747af0d5e0f49485820e193f01e390a8a7006c3c9036fcf7ad1fa9c609dd",
+  "literal_cases": [
+    {
+      "label": "statement_1",
+      "input": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "statement_2",
+      "input": [
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "statement_3",
+      "input": [
+        [
+          4,
+          7
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          7
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "movie",
+      "input": [
+        [
+          8,
+          10
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          12,
+          14
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          10
+        ],
+        [
+          12,
+          14
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "contained",
+      "input": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "equality",
+      "input": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          3
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "integer_gap",
+      "input": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "unsorted_bridge",
+      "input": [
+        [
+          5,
+          6
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          6
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "chain",
+      "input": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          4
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "duplicate",
+      "input": [
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "expected": [
+        [
+          2,
+          2
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "same_start_reverse_ends",
+      "input": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "min_singleton",
+      "input": [
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "max_singleton",
+      "input": [
+        [
+          10000,
+          10000
+        ]
+      ],
+      "expected": [
+        [
+          10000,
+          10000
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "full_bounds",
+      "input": [
+        [
+          0,
+          10000
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          10000
+        ]
+      ],
+      "pass": true
+    },
+    {
+      "label": "extra_empty_outside_statement",
+      "input": [],
+      "expected": [],
+      "pass": true
+    }
+  ],
+  "independent_small_input": {
+    "oracle": "pairwise closed-intersection graph connected components",
+    "domain": "all valid endpoints 0..3, all ordered sequences of 1..4 intervals",
+    "cases": 11110,
+    "pass": true
+  },
+  "statement_boundary_controls": [
+    {
+      "label": "n10000_disjoint_points",
+      "n": 10000,
+      "k": 10000,
+      "pass": true,
+      "elapsed_seconds": 0.011326749809086323
+    },
+    {
+      "label": "n10000_reverse_touch_chain",
+      "n": 10000,
+      "k": 1,
+      "pass": true,
+      "elapsed_seconds": 0.008067124988883734
+    },
+    {
+      "label": "n10000_duplicates_full",
+      "n": 10000,
+      "k": 1,
+      "pass": true,
+      "elapsed_seconds": 0.008471624925732613
+    },
+    {
+      "label": "n10000_nested",
+      "n": 10000,
+      "k": 1,
+      "pass": true,
+      "elapsed_seconds": 0.007935416884720325
+    },
+    {
+      "label": "n10000_random_plus_full_cover",
+      "n": 10000,
+      "k": 1,
+      "pass": true,
+      "elapsed_seconds": 0.010124417021870613
+    }
+  ],
+  "pass": true,
+  "elapsed_seconds": 0.14519908279180527,
+  "finished_at_utc": "2026-10-20T17:46:49.609088+00:00"
+}

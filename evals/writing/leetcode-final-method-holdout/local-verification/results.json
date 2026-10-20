@@ -1,0 +1,33 @@
+{
+  "commands": [
+    {
+      "command": "python3 -m unittest discover -s tests -v",
+      "log": "unittest-initial.txt",
+      "exit": 1,
+      "tests": 287,
+      "failures": 8,
+      "errors": 12,
+      "skipped": 14,
+      "cause": "All failures/errors in existing learning-handoff tests because default macOS /var temporary path has a symlink ancestor; source guard refused symlinked source path.",
+      "raw_log": "unittest-initial.txt.gz",
+      "readable_log_projection": "unittest-initial.txt trims line-ending whitespace only; exact original bytes preserved in gzip archive"
+    },
+    {
+      "command": "env TMPDIR=/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T python3 -m unittest discover -s tests -p test_learning_handoff.py -v",
+      "log": "learning-physical.txt",
+      "exit": 0,
+      "tests": 21,
+      "cause": "Same tests with physical temporary path; no code/assertion change."
+    },
+    {
+      "command": "env TMPDIR=/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T python3 -m unittest discover -s tests -v",
+      "log": "unittest-physical.txt",
+      "exit": 0,
+      "tests": 287,
+      "skipped": 14,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "limits": "Local test runs, not GitHub CI; skipped tests remain skipped. No Writer/Reader resampling or modification."
+}

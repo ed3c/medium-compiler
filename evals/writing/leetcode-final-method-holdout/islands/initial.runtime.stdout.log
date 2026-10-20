@@ -1,0 +1,1 @@
+{"status": "passed", "literal_and_boundary_cases": 20, "small_exhaustive_cases": 682, "seeded_random_cases": 200, "failures": 0, "python": "3.14.6"}

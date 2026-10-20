@@ -1,0 +1,31 @@
+{
+  "_metrics": {
+    "scanned_chars": 19639,
+    "truncated": false,
+    "sentences": 234,
+    "length_cv": 0.555,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.711,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.001,
+    "semicolons_per_1k": 9.25,
+    "parentheticals_per_1k": 2.96,
+    "passive_voice_ratio": 0.115,
+    "readability_fk_stdev": 2.26,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.664,
+    "homoglyphs": 0,
+    "ai_tell_score": 0,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 0,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}

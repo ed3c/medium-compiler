@@ -1,0 +1,20 @@
+{
+  "islands": [
+    {
+      "code_index": 0,
+      "checks": 692,
+      "passed": 692,
+      "failures": [],
+      "standalone_code_identical_in_both_languages": true
+    }
+  ],
+  "intervals": [
+    {
+      "code_index": 0,
+      "checks": 1120,
+      "passed": 1120,
+      "failures": [],
+      "standalone_code_identical_in_both_languages": true
+    }
+  ]
+}

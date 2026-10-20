@@ -1,0 +1,53 @@
+{
+  "islands": {
+    "quotes_checked": 64,
+    "unmatched_quotes": [
+      {
+        "id": "contract",
+        "quote": {
+          "language": "en",
+          "text": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300. The answer is one integer: how many separate islands the map contains. Movement joins land through a shared horizontal or vertical edge; touching at a corner does not join it. Outside the rectangle is water."
+        }
+      },
+      {
+        "id": "trace",
+        "quote": {
+          "language": "en",
+          "text": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300."
+        }
+      },
+      {
+        "id": "transfer",
+        "quote": {
+          "language": "en",
+          "text": "If memory matters and the caller explicitly allows overwriting the map, land can be changed from \"1\" to \"0\" when discovered. Later checks then treat claimed land like water, replacing the separate `seen` matrix. The stack can still require `O(mn)` space, and callers lose the original map. Copying first to preserve it restores `O(mn)` copy storage; copying only the outer list shares the original row lists and does not protect their entries."
+        }
+      },
+      {
+        "id": "bilingual",
+        "quote": {
+          "language": "zh-TW",
+          "text": "若記憶體是考量，而且呼叫端明確允許覆寫地圖，可以在發現陸地時，把它從 \"1\" 改成 \"0\"。稍後的檢查就會把已標記陸地當作水，不再需要獨立的 `seen` matrix。"
+        }
+      }
+    ],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  },
+  "intervals": {
+    "quotes_checked": 62,
+    "unmatched_quotes": [],
+    "missing_ids": [],
+    "bilingual_mismatches": []
+  },
+  "cost-control": {
+    "quotes_checked": 18,
+    "unmatched_quotes": [],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  }
+}

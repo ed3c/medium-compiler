@@ -1,0 +1,54 @@
+{
+  "1_ai_vocabulary": {
+    "label": "AI vocabulary",
+    "count": 1,
+    "samples": [
+      "able. The invariant additionally describes the inter"
+    ]
+  },
+  "51_copula_avoidance": {
+    "label": "Copula avoidance",
+    "count": 1,
+    "samples": [
+      "he last output pair represents a whole connected com"
+    ]
+  },
+  "56_boldface": {
+    "label": "Boldface overuse",
+    "count": 5,
+    "samples": [
+      "nterview rehearsal  **Why sort by start?** Sorting makes futur",
+      "an bridge the gap.  **Why keep the maximum end?** The last output pai",
+      "ts furthest reach.  **Why does equality merge?** The intervals are c"
+    ]
+  },
+  "_metrics": {
+    "scanned_chars": 17783,
+    "truncated": false,
+    "sentences": 216,
+    "length_cv": 0.492,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.751,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.0,
+    "semicolons_per_1k": 6.47,
+    "parentheticals_per_1k": 4.05,
+    "passive_voice_ratio": 0.046,
+    "readability_fk_stdev": 2.41,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.664,
+    "homoglyphs": 0,
+    "ai_tell_score": 14,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 3,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}
