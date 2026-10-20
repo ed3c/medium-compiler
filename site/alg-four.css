@@ -53,3 +53,18 @@
   .alg-sidebar-shell:not([open]) .alg-outline-nav{display:none}
 }
 @media(prefers-reduced-motion:reduce){.alg-four-reading-layout *{scroll-behavior:auto!important}}
+
+/* The disclosure toggle and navigation link are siblings. Avoid nested
+   interactive anchors inside <summary>, whose native click toggling used to
+   close the active lesson immediately after navigation. */
+.alg-outline-section>summary,.alg-outline-paragraph>summary{display:inline-block;vertical-align:top;width:25px;min-height:36px;padding:8px 2px;text-align:center;cursor:pointer}
+.alg-outline-section>summary{font-size:0;color:transparent}
+.alg-outline-paragraph>summary{font-size:0;color:transparent}
+.alg-outline-section>summary::before,.alg-outline-paragraph>summary::before{content:'▸';font-size:14px;color:var(--muted)}
+.alg-outline-section[open]>summary::before,.alg-outline-paragraph[open]>summary::before{content:'▾'}
+.alg-outline-heading-link,.alg-outline-jump{display:inline-block;vertical-align:top;width:calc(100% - 29px);color:inherit;text-decoration:none;padding:8px 4px;line-height:1.45}
+.alg-outline-heading-link{font-size:.91rem;font-weight:720;color:var(--ink)}
+.alg-outline-jump{font-size:.81rem;overflow-wrap:anywhere}
+.alg-outline-jump[aria-current="location"]{font-weight:750;color:var(--ink)}
+.alg-four-source .article-figure{margin:28px 0 12px;overflow:hidden;border-radius:14px;background:#FAF9F5}
+.alg-four-source .article-figure img{display:block;width:100%;height:auto;object-fit:contain}
