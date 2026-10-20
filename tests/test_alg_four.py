@@ -108,7 +108,7 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertEqual(projection,site.markdown(source.decode("utf-8")))
             self.assertIn('class="alg-four-sidebar"',full)
             self.assertIn('id="alg-p-0"',article.group(1))
-            self.assertIn(f'href="#alg-p-{len(data["paragraph_annotations"])-1}"',full)
+            self.assertIn(f'data-target-id="alg-p-{len(data["paragraph_annotations"])-1}"',full)
             self.assertIn('/assets/alg-four.js',full)
             self.assertIn('/assets/alg-four.css',full)
             self.assertIn('alg-active-term',full)
@@ -160,7 +160,7 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertEqual(html_text.count('class="alg-outline-paragraph"'),len(data["paragraph_annotations"]))
             self.assertIn('class="alg-skeleton"',html_text)
             self.assertIn('class="alg-active-term"',html_text)
-            self.assertIn('href="#alg-heading-',html_text)
+            self.assertIn('data-target-id="alg-heading-',html_text)
             self.assertIn(f'data-alg-four-index="{len(data["paragraph_annotations"])-1}"',html_text)
 
     def test_refuse_source_drift_omitted_annotation_or_wrong_lexicon(self):
