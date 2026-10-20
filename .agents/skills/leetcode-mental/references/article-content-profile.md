@@ -23,7 +23,7 @@ From the *actual* problem statement and assumptions derive a connected, zero-con
 7. A relevant alternative and its trade-off. Clearly name the constraint under which it becomes preferable.
 8. Concise English interview Q&A *grounded in the approved technical claims*, plus a closing zero-context Master Map that only connects facts already established.
 
-This is a **content coverage contract**, not eight mandatory section names. Build a single causal narrative in natural paragraphs. Merge repeated claims across teaching passes, repeated summaries and duplicated introduction/closing sections, **without dropping unique examples, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
+This is a **content coverage contract**, not eight mandatory section names. The number of sections is determined by the actual reader decisions and distinct runtime boundaries, not a default quota. Build a single causal narrative in natural paragraphs. Merge repeated claims across teaching passes, repeated summaries and duplicated introduction/closing sections, **without dropping unique examples, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
 
 ## Language, editorial review and evidence
 
