@@ -366,10 +366,10 @@ def render_alg_four(out:Path)->dict:
         '<p><strong>Active cue:</strong> '+esc(item['active_cue'])+'</p>'+
         '<p><strong>Falsifier:</strong> '+esc(item['counterexample'])+'</p>'+
         details(item['oracle'])+'</article>' for item in decisions)
-    contents='<section class="page-head"><div class="eyebrow">ALG Four · Independent English worksheet</div><h1>Group Anagrams: think in English from the runtime</h1>'+
+    contents=('<section class="page-head"><div class="eyebrow">ALG Four · Independent English worksheet</div><h1>Group Anagrams: think in English from the runtime</h1>'+
       '<p>A complete engineering article, five source-specific decisions and four distinct learning operations. No previous chat required.</p>'+
       '<p><strong>Evidence:</strong> non-tracking preview, no learner attempt or native CEFR receipt observed. Opening an oracle is not proof of learning.</p>'+
-      '<p><a href="/alg-four/source.json">Source-locked lesson manifest</a> · <a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+'">Read technical article</a></p></section>'
+      '<p><a href="/alg-four/source.json">Source-locked lesson manifest</a> · <a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+'">Read technical article</a></p></section>')
     contents+=section('Pass 1 · Low-friction encounter',paras(data['pass1']))
     contents+=section('Pass 2 · Contextual recognition',paras(data['pass2'])+'<h3>Encounter vocabulary in several contexts</h3>'+vocabulary)
     contents+=section('Pass 3 · Comprehension with context',paras(data['pass3'])+
