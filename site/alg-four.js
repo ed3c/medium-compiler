@@ -49,7 +49,7 @@
   }
 
   function currentParagraph() {
-    const line = Math.max(120, Math.min(240, window.innerHeight * 0.3));
+    const line = Math.max(130, Math.min(160, window.innerHeight * 0.18));
     let index = 0;
     for (let i = 0; i < paragraphs.length; i += 1) {
       const box = paragraphs[i].getBoundingClientRect();
@@ -91,6 +91,7 @@
       window.history.replaceState(null, "", "#" + id);
     }
     target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    window.requestAnimationFrame(() => activate(selected, true));
   });
 
   window.addEventListener("scroll", scheduleUpdate, { passive: true });
