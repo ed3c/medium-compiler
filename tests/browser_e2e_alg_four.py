@@ -70,6 +70,10 @@ def run(site: Path, output: Path) -> dict:
             assert article.locator("#alg-p-15").count()==1
             assert desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text').count()==1
             reading=desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text')
+            try:
+                reading.wait_for(state="visible",timeout=3500)
+            except Exception:
+                pass
             if not reading.is_visible() or not reading.text_content().strip():
                 desktop.screenshot(path=str(output/"desktop-failure.png"),full_page=True)
                 parents=target.evaluate("(el)=>{const states=[];for(let p=el;p;p=p.parentElement)if(p.tagName==='DETAILS')states.push({cls:p.className,open:p.open});return states}")
