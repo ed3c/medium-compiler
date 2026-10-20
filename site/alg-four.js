@@ -90,7 +90,7 @@
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, "", "#" + id);
     }
-    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    target.scrollIntoView({ behavior: "auto", block: "start" });
     window.requestAnimationFrame(() => activate(selected, true));
   });
 
