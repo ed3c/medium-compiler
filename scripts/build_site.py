@@ -324,7 +324,7 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
 
 
 def render_alg_four(out:Path)->dict:
-    """Project the byte-pinned article with additive notes after every prose paragraph."""
+    """Render byte-pinned source with navigation anchors and a separate ALG Four sidecar."""
     manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
