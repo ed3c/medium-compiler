@@ -28,8 +28,9 @@ class SkillRegistrationTests(unittest.TestCase):
             self.assertEqual(name,p.parent.name)
             self.assertIn('description:',text.split('---',2)[1])
             names.append(name)
-        self.assertEqual(len(names),26)  # All registered repository-local skills
-        self.assertIn('alg-leetcode-mental-simulator', names)
+        self.assertEqual(len(names),27)  # All registered repository-local skills
+        self.assertIn('leetcode-mental', names)
+        self.assertIn('alg-four', names)
         self.assertIn('sloptrim', names)
         self.assertIn('podcast-to-medium', names)
         self.assertIn("staff-evals", names)
@@ -74,7 +75,7 @@ class SkillRegistrationTests(unittest.TestCase):
         entry_targets = verify_medium.relative_doc_targets(directory.parent/'SKILL.md', ROOT)
         self.assertIn((directory/'four-pass-composition.md').resolve(), entry_targets)
         targets = verify_medium.relative_doc_targets(directory/'four-pass-composition.md', ROOT)
-        for name in ('cefr-alg-four-pass', 'alg-vocab-encounter', 'alg-explainer-video', 'verify-medium'):
+        for name in ('alg-four', 'cefr-alg-four-pass', 'alg-vocab-encounter', 'alg-explainer-video', 'verify-medium'):
             self.assertIn((SKILLS/name/'SKILL.md').resolve(), targets)
         for path in directory.glob('*.md'):
             verify_medium.relative_doc_targets(path, ROOT)

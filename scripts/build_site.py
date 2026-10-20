@@ -136,7 +136,7 @@ def markdown(text:str)->str:
         if list_kind: out.append(f'</{list_kind}>');list_kind=None
     for raw in text.splitlines():
         line=raw.rstrip()
-        if line.startswith('```'):
+        if line.startswith('```') or line.startswith('~~~'):
             flush_p();close_list()
             if in_code:
                 out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
@@ -322,6 +322,106 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
                    'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
 
 
+
+def render_alg_four(out:Path)->dict:
+    """Project the byte-pinned article with additive notes after every prose paragraph."""
+    manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
+    raw=manifest_path.read_bytes()
+    data=json.loads(raw)
+    if (data.get('schema_version')!='alg-four-paragraph-annotations@2'
+            or data.get('owner')!='alg-four'
+            or data.get('format')!='source_preserved_with_inline_zh_tw_annotations'):
+        raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
+    source=data.get('source',{})
+    source_path=(ROOT/source.get('path','')).resolve()
+    if not source_path.is_relative_to(ROOT.resolve()) or not source_path.is_file():
+        raise ValueError('ALG Four source must resolve inside repository')
+    source_bytes=source_path.read_bytes()
+    git_blob=hashlib.sha1(f"blob {len(source_bytes)}\0".encode()+source_bytes).hexdigest()
+    if git_blob!=source.get('git_blob'):
+        raise ValueError('ALG Four pinned source blob changed without lesson revision')
+    original_html=markdown(source_bytes.decode('utf-8'))
+    pattern=re.compile(r'<p>.*?</p>|<blockquote>.*?</blockquote>',re.S)
+    paragraphs=list(pattern.finditer(original_html))
+    notes=data.get('paragraph_annotations',[])
+    if not paragraphs or len(notes)!=len(paragraphs):
+        raise ValueError('ALG Four must annotate every original prose paragraph without omissions')
+    decisions={d['id']:d for d in data.get('decisions',[])}
+    if not decisions or len(decisions)!=len(data.get('decisions',[])):
+        raise ValueError('ALG Four has duplicate or empty decision IDs')
+    items=data.get('active_items',[])
+    item_ids=[x.get('id') for x in items]
+    if len(item_ids)!=len(set(item_ids)):
+        raise ValueError('ALG Four Active item IDs must be unique')
+    index_items={}
+    for item in items:
+        i=item.get('paragraph_index')
+        if (not isinstance(i,int) or not 0<=i<len(paragraphs)
+                or item.get('decision_id') not in decisions
+                or not item.get('english_sentence') or not item.get('term')):
+            raise ValueError('ALG Four Active word has no exact source paragraph, decision or sentence')
+        index_items.setdefault(i,[]).append(item)
+    for i,note in enumerate(notes):
+        if (note.get('paragraph_index')!=i
+                or note.get('kind') not in ('PASSIVE','PASSIVE_AND_ACTIVE')
+                or not note.get('zh_note')
+                or not note.get('decision_ids')
+                or any(d not in decisions for d in note['decision_ids'])):
+            raise ValueError('ALG Four paragraph annotation index, role or decision coverage is invalid')
+    policy=data.get('learning_policy',{})
+    if (policy.get('goal_active_lexical_items')!=2000
+            or policy.get('goal_linked_english_sentences')!=2000
+            or policy.get('learner_evidence')!='NOT_OBSERVED'
+            or policy.get('scope')!='cumulative_across_source_articles_not_per_single_article'):
+        raise ValueError('ALG Four 2000-item cross-article selection policy or evidence status invalid')
+    esc=html.escape
+    def emit(match):
+        i=emit.next_index
+        emit.next_index+=1
+        note=notes[i]
+        kind=note['kind']
+        label='Passive + Active' if kind=='PASSIVE_AND_ACTIVE' else 'Passive'
+        decision_links=', '.join(note['decision_ids'])
+        annotation=(f'<aside class="alg-four-annotation" data-alg-four-index="{i}" '
+                    f'data-alg-four-role="{kind}"><p class="alg-four-label">{label}'
+                    f' · {esc(decision_links)}</p><p class="alg-four-zh">{esc(note["zh_note"])}</p>')
+        for item in index_items.get(i,[]):
+            annotation+='<div class="alg-four-word"><strong>'+esc(item['term'])+'</strong> · English sentence: '+esc(item['english_sentence'])+'</div>'
+        if kind=='PASSIVE_AND_ACTIVE':
+            cues=[decisions[x]['active_cue'] for x in note['decision_ids']]
+            oracles=[decisions[x]['oracle'] for x in note['decision_ids']]
+            annotation+=('<details class="alg-four-recall"><summary>Pass 4 · Use this paragraph to explain the decision in English</summary>'+
+                         '<p>'+esc(' '.join(cues))+'</p>'+
+                         '<details><summary>Oracle — compare after your own attempt</summary><p>'+
+                         esc(' '.join(oracles))+'</p></details></details>')
+        return match.group(0)+annotation+'</aside>'
+    emit.next_index=0
+    body=pattern.sub(emit,original_html)
+    if emit.next_index!=len(notes):
+        raise ValueError('ALG Four rendering omitted original paragraphs')
+    instructions=('<section class="page-head"><div class="eyebrow">ALG Four · Original article annotations</div>'
+        '<h1>Group Anagrams · 原文逐段 Passive／Active 英文註解</h1>'
+        '<p>原文敘述、段落順序及 Code 不變；每段下方新增繁體中文與英文技術詞註解。'
+        '同一份原文完成四次不同認知操作：第一次接觸，第二次辨識概念，'
+        '第三次追蹤 Runtime，第四次不看答案主動以英文重建再核對 Oracle。</p>'
+        '<p>Active 2,000 詞與 2,000 工程英文句為<strong>跨文章累積目標</strong>，不是本篇已達成數。'
+        '本頁無學員輸入紀錄、無間隔排程，不能據此判定語言習得或 Mastery。</p>'
+        '<p><a href="/alg-four/source.json">Source / annotation manifest</a> · '
+        '<a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+
+        '">查看未修改的原始 Markdown</a></p></section>')
+    target=out/'alg-four'
+    target.mkdir()
+    (target/'index.html').write_text(page('ALG Four · Annotated Original',instructions+
+                  '<article class="article alg-four-source">'+body+'</article>','learning'),encoding='utf-8')
+    (target/'source.json').write_bytes(raw)
+    return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
+            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
+            'active_items_collected':len(items),'active_vocabulary_goal':2000,
+            'source_article_unchanged':True,'learning_evidence':'NOT_OBSERVED',
+            'native_runtime':'NOT_RUN'}
+
+
 def build(out:Path)->dict:
     out=out.resolve()
     if out.exists(): shutil.rmtree(out)
@@ -362,7 +462,9 @@ def build(out:Path)->dict:
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
     learn_body+='<section class="panel"><h2>More Route · Agent Engineering</h2><p>從真實 Domain 問題建立理論、Runtime、反例及可重現驗證的關係。</p><a href="/more-route/">Explore seven engineering decisions →</a></section>'
+    learn_body+='<section class="panel"><h2>ALG Four · English from Engineering</h2><p>從完整演算法文章的所有 Decision 與 Runtime 出發，以四遍學習英文理解與主動生成。</p><a href="/alg-four/">Open English acquisition worksheet →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
+    alg_four_provenance=render_alg_four(out)
     # Single-browser fault experiments are static and require no server credentials.
     build_reliability(out)
     # More Route is a static, reviewed explanation. No tool, task or browser effects.
@@ -431,6 +533,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             shutil.copyfile(ROOT/item['notebook'],destination)
     provenance={'schema_version':'ai-engineer-site-build@1','article':'articles/ai-engineer-learning-path.md','ops_provider_revision':snapshot['provider_revision'],'curriculum_revision':json.loads((ROOT/'references/upstream/ai-engineering-skills-lock.json').read_text())['revision'],'learning':state,'articles':article_provenance}
     provenance['more_route']=more_provenance
+    provenance['alg_four']=alg_four_provenance
     provenance['ai_evals']=eval_provenance
     provenance['loops']=loop_provenance
     provenance['scopes']=scope_provenance

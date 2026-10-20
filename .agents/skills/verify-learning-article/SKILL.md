@@ -36,20 +36,30 @@ Zero context 的定義是：
 從原需求和證據推導接受、拒絕及未知條件。清楚的文字不能補足缺少的證據，
 也不能把取捨直接標成主觀問題，再交回使用者決定。
 
+## ALG Four paragraph annotations
+
+新英文學習路由的 `alg-four` 不重寫 Medium 文章，不將文章拆成四份不同
+的 Pass 段落。它僅在**每個原文段落後面**加入繁體中文／原文英文專有詞
+的 Passive／Active 註解及需要的工程英文生成句。
+四遍接觸針對同一段原始敘事採取不同認知操作。2000 Active 詞項及
+2000 工程英文關聯句必須跨文章以原文 Decision／Runtime 證據累積；
+單篇文章不能為滿足數量偽造詞句。Frozen CEFR native gate 不變。
+
 ## Algorithm / LeetCode v4 特殊路由（只在選中時）
 
 當本次來源是 LeetCode 或 coding-interview lesson，並要求使用者提供的
 ALG-LeetCode Mental Simulator v4.0 顆粒度時，先選
-[LeetCode v4 Skill](../alg-leetcode-mental-simulator/SKILL.md)；
-讀取其 [v4 contract](../alg-leetcode-mental-simulator/references/v4-contract.md)
+[LeetCode v4 Skill](../leetcode-mental/SKILL.md)；
+讀取其 [v4 contract](../leetcode-mental/references/v4-contract.md)
 並以當次題目真實 Constraints 產生英文 Invariant、完整 Code、
 Program Movie、同一文章中的四遍練習及 Oracle Diff。隨後由原
 [medium-writing](../medium-writing/SKILL.md) 保存英文初稿與繁中最終稿；
 這不新增另一個 Writer、課程 placement、CLI 狀態或 Stage。
 
 文件型 `FULL_SINGLE_TURN` 可以讓讀者在同一篇文章取得 Oracle；
-若明確要進入本 repo 既有 [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)
-的 frozen interactive learning session，**仍維持**其必要的
+當要從完整文章編譯新英文 Lesson 時使用 [alg-four](../alg-four/SKILL.md)；
+只有既有 [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md)
+的 **歷史 Frozen interactive learning session**，**仍維持**其必要的
 attempt acknowledgement → reveal → comparison。文件的 Oracle 存在
 不能冒充該 session 已經執行、已解鎖、或學員真的能重建答案。
 一般工程／More Route 文章只借用精確機理與最早反例，不硬套

@@ -98,20 +98,42 @@ run prose humanization over executable instructions or fixed evidence. This
 reference is not a claim that the external skill is installed locally.
 
 For an explicitly selected LeetCode/coding-interview tutorial, use the repository
-[ALG-LeetCode Mental Simulator v4.0](.agents/skills/alg-leetcode-mental-simulator/SKILL.md)
+[ALG-LeetCode Mental Simulator v4.0](.agents/skills/leetcode-mental/SKILL.md)
 as a specialized pedagogical contract alongside the canonical [medium-writing](.agents/skills/medium-writing/SKILL.md).
 Its Five Anchors, English Invariant, Program Movie, Answer-First reference,
 Single-Turn Four-Pass with same-response Oracle and English Interview Pack are
 LeetCode-specific. Adapt causal mechanisms, runtime witness, first divergence
 and proof honesty to other Zero Context articles **without** forcing a
 five-anchor count, Python solution or fourteen headings. The current
-[Medium Group Anagrams reference](.agents/skills/alg-leetcode-mental-simulator/references/medium-reference.md)
+[Medium Group Anagrams reference](.agents/skills/leetcode-mental/references/medium-reference.md)
 was not independently readable in full; do not claim that its original prose was
 analyzed or reproduced. The user-supplied v4 specification is the task source.
 Do not replace the pinned CEFR Four-Pass learner-session oracle gate: its
 attempt-before-reveal runtime remains distinct from the printable same-turn
 LeetCode exercise. This adds no new compiler stages, native learner receipts,
 publication owner or behavior PASS.
+
+The `leetcode-mental` Skill owns algorithm decisions, invariants, runtime
+and reference code. The `medium-writing` Skill owns original prose and
+article sequence. `alg-four` projects concise Traditional Chinese +
+canonical English technical notes directly after every source paragraph,
+without changing the original source bytes, prose order, or Code.
+Its four cognitive encounters revisit the SAME article, not four newly
+authored pass-specific articles. The Active target of 2,000 items with
+2,000 linked English engineering sentences is cumulative across
+source-bound articles and must never be fabricated from one article.
+
+For English acquisition from a source-grounded technical article, the
+[alg-four](.agents/skills/alg-four/SKILL.md) Skill now owns new
+whole-article Four-Pass Lesson semantics, selected target and source-bound
+oracle. It is **not** an additional Medium Writer, article-state machine or
+Session evaluation authority. The old exact-pinned [CEFR four-pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
+is retained only for historical Frozen lessons and their existing native
+runtime. Keep the upstream 12-file lock and original import bytes unchanged.
+The source-identical annotated reading view must cover every original paragraph and technical decision; passive
+exposure and productive rehearsal may share the same central claims.
+Treat “neural consolidation exactly on fourth exposure” as a learning
+design hypothesis, not a biological fact or pass criterion.
 
 For More Route source-explanation articles, use [the selected cross-repo handoff](docs/more-route-handoff.md) and the canonical `medium-writing` owner. The case-specific seven Reader Decision Points are not a stage count, a measured human difficulty score, or the Soodles Session decision budget. Source indices are lower-trust teaching references, not automatically executable Agent instructions.
 
