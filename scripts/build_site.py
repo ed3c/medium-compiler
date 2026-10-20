@@ -144,6 +144,11 @@ def markdown(text:str)->str:
             continue
         if in_code: code.append(line);continue
         if not line.strip(): flush_p();close_list();continue
+        img=re.fullmatch(r'!\\[([^\\]]*)\\]\\((https://medium-compiler\\.vercel\\.app/assets/alg-four/[a-z0-9-]+\\.svg)\\)',line)
+        if img:
+            flush_p();close_list()
+            out.append('<figure class="article-figure"><img loading="lazy" src="'+html.escape(img.group(2),quote=True)+'" alt="'+html.escape(img.group(1),quote=True)+'"></figure>')
+            continue
         m=re.match(r'^(#{1,4})\s+(.+)$',line)
         if m:
             flush_p();close_list();n=len(m.group(1));out.append(f'<h{n}>'+inline(m.group(2))+f'</h{n}>');continue
@@ -420,6 +425,7 @@ def build(out:Path)->dict:
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
     (out/'assets').mkdir()
+    shutil.copytree(ROOT/'site/alg-four-figures',out/'assets/alg-four')
     shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
     snapshot=json.loads((ROOT/'references/ops-experiment-catalog.json').read_text())
