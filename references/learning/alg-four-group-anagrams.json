@@ -1,78 +1,26 @@
 {
-  "schema_version": "alg-four-lesson@1",
+  "schema_version": "alg-four-paragraph-annotations@2",
   "id": "leetcode-49-full-article",
   "owner": "alg-four",
-  "format": "standalone_english_worksheet_no_learning_state",
+  "format": "source_preserved_with_inline_zh_tw_annotations",
   "source": {
     "repository": "ed3c/medium-compiler",
     "path": "examples/leetcode-49-group-anagrams-zero-context.md",
     "git_blob": "0c49863b0a8b607a41b178963145ee760ad1c27f",
-    "technical_authority": "alg-leetcode-mental-simulator"
+    "technical_authority": "leetcode-mental",
+    "writing_authority": "medium-writing"
   },
-  "language": "en",
-  "scope": "FULL_ARTICLE_ALL_DECISIONS",
-  "learner_attempt": "NOT_OBSERVED",
-  "decision_count_scope": "Five selected actual engineering decisions for the linked Group Anagrams article; not a universal cap.",
-  "pass1": [
-    "The task is to group words that are anagrams. First understand the output contract: all original strings must be preserved and equivalent strings grouped together.",
-    "The critical chain is: lowercase alphabet constraint → character-frequency equivalence → 26 counters → ord-based index → mutable counting → immutable tuple key → dictionary HIT/MISS → append original word.",
-    "The scanner always builds the full frequency vector before grouping the current word. At the end, each input occurrence appears in exactly one group. A sorted-character key is an alternative with a different canonicalization cost."
-  ],
-  "pass2": [
-    "Identify each engineering decision as you read. D1 defines equivalence and the processed-prefix loop invariant. D2 chooses a 26-counter representation under the a–z constraint. D3 maps characters to exact indexes.",
-    "D4 separates group identity from hash lookup and handles a missing group. D5 freezes working state into a hashable tuple and compares counting with sorting. Understand each condition, not just each technical term."
-  ],
-  "pass3": [
-    "Picture a scanner processing 'eat', 'tea', and 'tan'. It builds a fresh zeroed counter list for each word. The characters of 'eat' increment indexes 4, 0, and 19. A tuple freezes the result and the dictionary creates the first group.",
-    "The scanner later reads 'tea', builds the same tuple, finds the original group, and appends 'tea'. The vector for 'tan' differs, so the dictionary creates another group. A collision in a hash value alone does not make two keys equal.",
-    "Continue until every word has been processed. The dictionary now holds one group per exact frequency signature. For each decision, be ready to explain what changes if the assumptions are false.",
-    "Reconnect the full chain: the list is mutable counting state, and the completed integer tuple becomes a hashable key. Hashing narrows lookup, while equality decides group identity even under collisions; missing keys create buckets. With n words and M characters, fixed-alphabet counting is O(n + M) average time. A sorted-character key also works at up to O(k log k) per word. A merge-level sketch explains an asymptotic bound, not literal Timsort steps."
-  ],
-  "passive_vocabulary": [
-    {
-      "term": "canonical key",
-      "context": "A stable representation shared by equivalent words.",
-      "meaning": "The grouping identity, defined by equality rather than by hash value alone."
-    },
-    {
-      "term": "character frequency",
-      "context": "Order may vary while counts remain the same.",
-      "meaning": "How many times each character occurs."
-    },
-    {
-      "term": "hash collision",
-      "context": "Two unequal keys may have the same hash candidate.",
-      "meaning": "Equal hash values do not by themselves prove key equality."
-    },
-    {
-      "term": "mutable",
-      "context": "A list can be incremented during counting.",
-      "meaning": "An object whose content can change."
-    },
-    {
-      "term": "hashable",
-      "context": "A tuple of integers can be used as a dict key.",
-      "meaning": "An object with a stable usable hash and compatible equality."
-    },
-    {
-      "term": "default factory",
-      "context": "defaultdict(list) can create the missing bucket.",
-      "meaning": "A callable used to initialize values on missing-key access."
-    },
-    {
-      "term": "sorting fallback",
-      "context": "Sorted characters can define another canonical identity.",
-      "meaning": "An alternative strategy when the chosen counting representation is unsuitable."
-    }
-  ],
-  "priority_active_phrases": [
-    "a character-frequency invariant",
-    "the processed prefix",
-    "a canonical tuple key",
-    "a dictionary lookup with equality checks",
-    "a mutable-to-immutable boundary",
-    "the fixed-alphabet assumption"
-  ],
+  "learning_policy": {
+    "goal_active_lexical_items": 2000,
+    "goal_linked_english_sentences": 2000,
+    "scope": "cumulative_across_source_articles_not_per_single_article",
+    "selection": "Admit only useful source-attested English terms/phrases that enable independent explanation of an engineering/concept decision or actual runtime mechanism. Each Active item requires source paragraph, decision/concept link, precise zh-TW technical explanation, one faithful English productive sentence, and a source-bound self-comparison cue. Deduplicate by meaning and usage across articles; do not invent fillers to reach 2000.",
+    "sentence_requirement": "At least one complete, grammatically meaningful engineering English sentence for each Active item; broader multi-context encounters may reuse it, without claiming learning outcome.",
+    "receptive_policy": "Each prose paragraph receives a zh-TW note with canonical English terms. Active decisions remain visible passively too; tags are contextual roles, not mutually exclusive vocabulary bins.",
+    "four_encounters": "Revisit the same original paragraphs: (1) encounter form and meaning; (2) identify decision and runtime link; (3) read or listen in context; (4) reconstruct the exact concept in English without copying, then compare to the source oracle. These are practices on the original article, never four alternate article rewrites.",
+    "scientific_honesty": "Four-pass method is an instructional hypothesis, not a known neurological critical threshold.",
+    "learner_evidence": "NOT_OBSERVED"
+  },
   "decisions": [
     {
       "id": "D1",
@@ -125,6 +73,736 @@
       "counterexample": "A tuple containing a list is not hashable, even though a tuple itself cannot be mutated."
     }
   ],
-  "whole_article_cue": "Explain the entire algorithm in English, from input constraints to the returned grouping, including both mathematical equivalence and the loop invariant. Distinguish list, tuple, dictionary equality, hash collision, missing-key behavior, counting/sorting complexity, and one changed constraint.",
-  "whole_article_oracle": "Under a lowercase a–z constraint, two words are anagrams exactly when their 26 character frequencies agree. The algorithm counts each word in a mutable list, freezes its 26 integers into a hashable tuple, and uses that canonical tuple for dictionary grouping. The dictionary uses hashing for efficient candidate lookup but checks key equality as required; a first missing key creates a bucket, then the original word is appended. Each loop iteration adds exactly the current input occurrence to the appropriate group, preserving the processed-prefix invariant until all words are assigned. For n words with M total characters, counting takes O(n + M) average time including fixed 26-element work per word. Sorting provides an alternative canonical key at O(k log k) per word. These are source-backed engineering explanations, not evidence of learner mastery."
+  "paragraph_annotations": [
+    {
+      "paragraph_index": 0,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 1,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Invariant Memory（不變式記憶）：理解 Prefix 邊界、正確性證明與失敗條件。"
+    },
+    {
+      "paragraph_index": 2,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 3,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Invariant Memory（不變式記憶）：理解 Prefix 邊界、正確性證明與失敗條件。"
+    },
+    {
+      "paragraph_index": 4,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 5,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    },
+    {
+      "paragraph_index": 6,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 7,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 8,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Program Movie（程式電影）：依真實 Code 順序追蹤 Key、Bucket 與 Append。"
+    },
+    {
+      "paragraph_index": 9,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 10,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Program Movie（程式電影）：依真實 Code 順序追蹤 Key、Bucket 與 Append。"
+    },
+    {
+      "paragraph_index": 11,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D3"
+      ],
+      "zh_note": "Character Mapping（字元映射）只因題目限制 a–z 才能讓 ord(c) - ord('a') 對應到 0–25。"
+    },
+    {
+      "paragraph_index": 12,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 13,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 14,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D3"
+      ],
+      "zh_note": "Character Mapping（字元映射）只因題目限制 a–z 才能讓 ord(c) - ord('a') 對應到 0–25。"
+    },
+    {
+      "paragraph_index": 15,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 16,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 17,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 18,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    },
+    {
+      "paragraph_index": 19,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 20,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Structural Recognition（結構辨識）：將題目 Constraint 與必要資料表示連起來。"
+    },
+    {
+      "paragraph_index": 21,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 22,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 23,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 24,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    },
+    {
+      "paragraph_index": 25,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Structural Recognition（結構辨識）：將題目 Constraint 與必要資料表示連起來。"
+    },
+    {
+      "paragraph_index": 26,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 27,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 28,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 29,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 30,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 31,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 32,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 33,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 34,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 35,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 36,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 37,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 38,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 39,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 40,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    },
+    {
+      "paragraph_index": 41,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 42,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    },
+    {
+      "paragraph_index": 43,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 44,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 45,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 46,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 47,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Complexity（複雜度）應包含每字串固定 26-slot 初始化與所有字元掃描；固定 Alphabet 下平均 O(n + M)，M 為輸入總字元數。"
+    },
+    {
+      "paragraph_index": 48,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 49,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 50,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 51,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Source Binding（來源綁定）：這段保留原始論證內容；練習英文時先理解本文語境。"
+    },
+    {
+      "paragraph_index": 52,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 53,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 54,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 55,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 56,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D3"
+      ],
+      "zh_note": "Character Mapping（字元映射）只因題目限制 a–z 才能讓 ord(c) - ord('a') 對應到 0–25。"
+    },
+    {
+      "paragraph_index": 57,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D2"
+      ],
+      "zh_note": "Canonical Representation（標準表示）保留 26 個字元的完整 Frequency；相同 Signature 才能作為 Anagram 的分組 Identity。"
+    },
+    {
+      "paragraph_index": 58,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D3"
+      ],
+      "zh_note": "Character Mapping（字元映射）只因題目限制 a–z 才能讓 ord(c) - ord('a') 對應到 0–25。"
+    },
+    {
+      "paragraph_index": 59,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D3"
+      ],
+      "zh_note": "Character Mapping（字元映射）只因題目限制 a–z 才能讓 ord(c) - ord('a') 對應到 0–25。"
+    },
+    {
+      "paragraph_index": 60,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Complexity（複雜度）應包含每字串固定 26-slot 初始化與所有字元掃描；固定 Alphabet 下平均 O(n + M)，M 為輸入總字元數。"
+    },
+    {
+      "paragraph_index": 61,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 62,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Interview Explanation（英文面試說明）：保留條件、主體、Runtime 因果與完整推導。"
+    },
+    {
+      "paragraph_index": 63,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 64,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 65,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 66,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Loop Invariant（迴圈不變式）精確限制已處理 Prefix 與 Group Mapping；須能直接用於 Initialization／Maintenance／Termination。"
+    },
+    {
+      "paragraph_index": 67,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D4"
+      ],
+      "zh_note": "Dictionary Grouping（字典分組）以 Canonical Key Equality 決定同組，Hash 幫助快速定位；Missing Key 才建立 Bucket。"
+    },
+    {
+      "paragraph_index": 68,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Interview Explanation（英文面試說明）：保留條件、主體、Runtime 因果與完整推導。"
+    },
+    {
+      "paragraph_index": 69,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 70,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Complexity（複雜度）應包含每字串固定 26-slot 初始化與所有字元掃描；固定 Alphabet 下平均 O(n + M)，M 為輸入總字元數。"
+    },
+    {
+      "paragraph_index": 71,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 72,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Interview Explanation（英文面試說明）：保留條件、主體、Runtime 因果與完整推導。"
+    },
+    {
+      "paragraph_index": 73,
+      "kind": "PASSIVE_AND_ACTIVE",
+      "decision_ids": [
+        "D5"
+      ],
+      "zh_note": "Mutable Working State（可變計算狀態）轉成 Tuple of Integers 後才是可 Hash 的穩定 Key；Tuple 元素也必須能 Hash。"
+    },
+    {
+      "paragraph_index": 74,
+      "kind": "PASSIVE",
+      "decision_ids": [
+        "D1"
+      ],
+      "zh_note": "Knowledge Recall（知識提取）需從 Source 的實際 Contract／Runtime 說明，不以重讀或已看 Oracle 推論掌握。"
+    }
+  ],
+  "active_items": [
+    {
+      "id": "A0001",
+      "term": "invariant",
+      "decision_id": "D1",
+      "paragraph_index": 2,
+      "english_sentence": "Before processing word index i, each group contains exactly the words in the processed prefix with its character-count key.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0002",
+      "term": "processed prefix",
+      "decision_id": "D1",
+      "paragraph_index": 6,
+      "english_sentence": "The processed prefix excludes the current word and all future words.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0003",
+      "term": "character frequency",
+      "decision_id": "D1",
+      "paragraph_index": 13,
+      "english_sentence": "Anagrams share the same character frequencies even when their character order differs.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0004",
+      "term": "canonical key",
+      "decision_id": "D2",
+      "paragraph_index": 12,
+      "english_sentence": "A canonical key gives equivalent strings the same identity.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0005",
+      "term": "counter",
+      "decision_id": "D2",
+      "paragraph_index": 20,
+      "english_sentence": "A counter preserves the multiplicity of each lowercase letter.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0006",
+      "term": "mapping",
+      "decision_id": "D3",
+      "paragraph_index": 14,
+      "english_sentence": "The character mapping subtracts ord('a') to obtain an index from zero through twenty-five.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0007",
+      "term": "mutable",
+      "decision_id": "D5",
+      "paragraph_index": 15,
+      "english_sentence": "A mutable list supports frequency updates while scanning the current word.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0008",
+      "term": "hashable",
+      "decision_id": "D5",
+      "paragraph_index": 21,
+      "english_sentence": "The key is hashable because it is a tuple containing only integers.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0009",
+      "term": "freeze boundary",
+      "decision_id": "D5",
+      "paragraph_index": 15,
+      "english_sentence": "The freeze boundary converts completed mutable counts into a stable tuple key.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0010",
+      "term": "dictionary lookup",
+      "decision_id": "D4",
+      "paragraph_index": 22,
+      "english_sentence": "The dictionary lookup finds an existing group or detects a missing canonical key.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0011",
+      "term": "hash collision",
+      "decision_id": "D4",
+      "paragraph_index": 30,
+      "english_sentence": "A hash collision does not imply equal keys because the dictionary also checks key equality.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0012",
+      "term": "default factory",
+      "decision_id": "D4",
+      "paragraph_index": 22,
+      "english_sentence": "With defaultdict(list), the default factory creates an empty bucket on missing-key access.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0013",
+      "term": "counterexample",
+      "decision_id": "D1",
+      "paragraph_index": 54,
+      "english_sentence": "The pair 'a' and 'aa' is a counterexample to using only distinct letters as the signature.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0014",
+      "term": "amortized",
+      "decision_id": "D5",
+      "paragraph_index": 48,
+      "english_sentence": "Appending an item to a Python list has amortized constant cost.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0015",
+      "term": "termination",
+      "decision_id": "D1",
+      "paragraph_index": 46,
+      "english_sentence": "At termination, every input occurrence is stored in exactly one correct group.",
+      "admission": "decision_critical_reusable"
+    },
+    {
+      "id": "A0016",
+      "term": "sorting alternative",
+      "decision_id": "D5",
+      "paragraph_index": 73,
+      "english_sentence": "Sorting creates a valid canonical key but adds up to logarithmic sorting work per character.",
+      "admission": "decision_critical_reusable"
+    }
+  ]
 }
