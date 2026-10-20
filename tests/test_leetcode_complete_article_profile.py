@@ -36,7 +36,7 @@ class CompleteArticleRoutingTests(unittest.TestCase):
         self.assertIn("entire source-grounded English technical narrative", profile)
         self.assertIn("full Traditional Chinese final draft", profile)
         self.assertIn("medium-writing is the Medium formatter and assembler", profile)
-        self.assertIn("format-only", writer)
+        self.assertIn("Formatter/Assembler", writer)
         self.assertIn("leetcode-mental", writer)
         self.assertIn("Stage 0–7", profile)
         self.assertIn("Stage 7 copies admitted bytes", profile)
@@ -49,7 +49,7 @@ class CompleteArticleRoutingTests(unittest.TestCase):
             self.assertNotIn(forbidden, prompt)
         self.assertIn("number of sections", profile)
         self.assertIn("Figures are derived", profile)
-        self.assertIn("a different problem with different constraints", profile)
+        self.assertIn("another problem with different constraints", profile)
 
     def test_language_and_publication_claims_remain_scoped(self):
         profile = PROFILE.read_text()
