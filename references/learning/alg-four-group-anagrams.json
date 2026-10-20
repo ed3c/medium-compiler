@@ -100,7 +100,8 @@
       ],
       "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
       "english_source": "LeetCode 49 · A zero-context reconstruction of invariant, canonical identity, mutability, hashing, sorting, proof and complexity.",
-      "english_section_index": -1
+      "english_section_index": -1,
+      "passive_skeleton": "Problem contract → fixes the alphabet → enables a source-grounded grouping strategy"
     },
     {
       "paragraph_index": 1,
@@ -120,7 +121,8 @@
       ],
       "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
       "english_source": "The problem asks for groups of anagrams. Choosing a hash map is easy to memorize, but that answer hides the crucial step: how does the algorithm decide two differently ordered words belong to the same group? We will derive a stable identity from the input constraints, trace it through actual Python operations, and derive the cost from the work performed.",
-      "english_section_index": -1
+      "english_section_index": -1,
+      "passive_skeleton": "Anagram task → needs one stable identity → connects representation to verified output"
     },
     {
       "paragraph_index": 3,
@@ -140,7 +142,8 @@
       ],
       "zh_note": "Alphabet constraint 決定 counter representation；不可忽略 letter multiplicity。",
       "english_source": "Important constraints are the alphabet a–z, an input array that may contain repeated words, and strings that may be empty. Because the alphabet is fixed, we can build a complete identity using exactly 26 counters. That constraint—not a generic belief that hash maps are fast—is what determines our primary approach.",
-      "english_section_index": 0
+      "english_section_index": 0,
+      "passive_skeleton": "Fixed alphabet → allows twenty-six counters → preserves every lowercase letter count"
     },
     {
       "paragraph_index": 5,
@@ -150,7 +153,8 @@
       ],
       "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
       "english_source": "Anagrams can change character order, but every character occurs the same number of times. Thus two words are anagrams if and only if their complete character-frequency counts agree. This equivalence property describes the relation between words; it is not yet the algorithm's loop invariant.",
-      "english_section_index": 1
+      "english_section_index": 1,
+      "passive_skeleton": "Equal letter frequencies → define equivalence → explain why order never changes grouping"
     },
     {
       "paragraph_index": 6,
@@ -160,7 +164,8 @@
       ],
       "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
       "english_source": "A canonical key is a representation that gives logically equivalent inputs equal keys. For a–z words, key position zero is the count of a, position one is the count of b, and so on through z at position 25. Every relevant frequency is preserved, including repeated letters; a set of distinct letters would fail for 'a' versus 'aa'.",
-      "english_section_index": 1
+      "english_section_index": 1,
+      "passive_skeleton": "Canonical key → preserves frequency multiplicities → maps equivalent words into one group"
     },
     {
       "paragraph_index": 7,
@@ -190,7 +195,8 @@
       ],
       "zh_note": "ord() 傳回 Unicode code point；0–25 mapping 只能在 a–z constraint 使用。",
       "english_source": "Python ord returns a Unicode code point. For lowercase English letters, those code points coincide with the ASCII range: ord('a') is 97 and ord('z') is 122. Subtracting ord('a') maps a to zero, e to four, t to nineteen, and z to twenty-five. The formula is correct here only because the problem restricts the input to the contiguous a–z range.",
-      "english_section_index": 2
+      "english_section_index": 2,
+      "passive_skeleton": "Unicode code point → subtract a reference → obtain a valid lowercase letter index"
     },
     {
       "paragraph_index": 10,
@@ -220,7 +226,8 @@
       ],
       "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
       "english_source": "On the first word 'eat', the dictionary contains no matching key, so it creates a group holding ['eat']. The word 'tea' generates the same count tuple and appends to that group. 'tan' produces a different tuple and starts another group. 'ate' rejoins the first group; 'nat' joins the second. 'bat' starts a third. The dictionary never predicts future words: after each iteration it contains only the processed prefix.",
-      "english_section_index": 3
+      "english_section_index": 3,
+      "passive_skeleton": "Current word → generates a tuple key → enters an existing or new group"
     },
     {
       "paragraph_index": 13,
@@ -240,7 +247,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "The list is suitable for repeated mutation but cannot itself be used as a dictionary key: Python lists are unhashable. Calling tuple(counts) creates a separate immutable tuple snapshot; it does not freeze or mutate the original list. This tuple is hashable because all 26 elements are integers. An immutable tuple containing an unhashable list would still be unhashable.",
-      "english_section_index": 4
+      "english_section_index": 4,
+      "passive_skeleton": "Mutable list → accumulates counts → immutable integer tuple becomes a valid dictionary key"
     },
     {
       "paragraph_index": 15,
@@ -250,7 +258,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "When looking up a tuple key, Python's dictionary hashes it to find candidate entries and checks equality where required. Two unequal keys can collide in hash value without being treated as equal. The grouping is correct because canonical tuples compare equal exactly when the complete frequency counts are equal—not because equal hash values prove equivalent words.",
-      "english_section_index": 4
+      "english_section_index": 4,
+      "passive_skeleton": "Tuple equality → determines identity → hash collision alone cannot merge different groups"
     },
     {
       "paragraph_index": 16,
@@ -260,7 +269,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "Our reference implementation uses an explicit missing-key branch: if the key is absent, assign an empty list, then append the original word. defaultdict(list) is an equivalent convenience for that missing-key path; only a missing-key bracket lookup invokes its factory. Neither approach copies or sorts the string that is appended.",
-      "english_section_index": 4
+      "english_section_index": 4,
+      "passive_skeleton": "Missing key → creates a bucket → original words append without sorting or copying"
     },
     {
       "paragraph_index": 17,
@@ -280,7 +290,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "We could instead sort every word and join the sorted characters into a string key. For example, 'eat', 'tea', and 'ate' all become 'aet'. This uses the same hash-map grouping architecture, but a different canonicalization algorithm: counting works on frequencies; sorting works on ordered character sequences.",
-      "english_section_index": 5
+      "english_section_index": 5,
+      "passive_skeleton": "Sorting a word → creates a shared key → supports the same dictionary grouping"
     },
     {
       "paragraph_index": 19,
@@ -290,7 +301,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "For a word of length K, counting reads K characters, so its per-word scan is O(K), plus fixed-alphabet overhead. General comparison sorting has O(K log K) worst-case order. A balanced merge illustration shows roughly log2(K) levels, each doing O(K) total work. It is a complexity model, not a literal step-by-step trace of CPython's adaptive, stable Timsort-family implementation or its modern Powersort merge ordering.",
-      "english_section_index": 5
+      "english_section_index": 5,
+      "passive_skeleton": "Comparison sorting → incurs logarithmic levels → differs from one-pass character counting"
     },
     {
       "paragraph_index": 20,
@@ -320,7 +332,8 @@
       ],
       "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
       "english_source": "Let N be the number of words, M the sum of all word lengths, K the average word length when that shorthand is meaningful, and Σ the alphabet size, fixed here at 26. For each word we initialize Σ counters, scan each character once, construct and hash a Σ-element tuple, do an average-case dictionary lookup, and amortized O(1) list append. Therefore expected total counting time is O(M + NΣ), which becomes O(M + N) for Σ = 26; common interview shorthand is O(NK) when K is positive and fixed overhead is suppressed.",
-      "english_section_index": 6
+      "english_section_index": 6,
+      "passive_skeleton": "Character scanning plus per-word overhead → yields expected O(M+N) time with fixed alphabet"
     },
     {
       "paragraph_index": 23,
@@ -370,7 +383,8 @@
       ],
       "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
       "english_source": "Loop invariant: before processing index i, groups contains exactly the original words from strs[0:i], each once, partitioned by their complete character-frequency tuple; no future word is present. Initially i = 0 and the dictionary is empty, so the invariant holds. Processing a word computes the unique frequency tuple for its anagram-equivalence class, creates the group if necessary, and appends that word exactly once. The invariant is restored for i + 1.",
-      "english_section_index": 7
+      "english_section_index": 7,
+      "passive_skeleton": "Loop invariant → tracks exactly processed words → ensures every group remains valid"
     },
     {
       "paragraph_index": 28,
@@ -390,7 +404,8 @@
       ],
       "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
       "english_source": "An empty string executes no character updates and produces the all-zero tuple, so multiple empty strings naturally join the same group. A one-letter word increments exactly one counter. Repeated identical inputs are appended once for each occurrence. In contrast, a key built from only the distinct character set incorrectly groups 'a' with 'aa'; the first missing property is multiplicity, not hash-table speed.",
-      "english_section_index": 7
+      "english_section_index": 7,
+      "passive_skeleton": "Empty input word → keeps all counters zero → still creates a valid grouping key"
     },
     {
       "paragraph_index": 30,
