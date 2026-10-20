@@ -333,7 +333,7 @@ def render_alg_four(out:Path)->dict:
     manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
-    if (data.get('schema_version')!='alg-four-reading-projection@3'
+    if (data.get('schema_version')!='alg-four-reading-projection@4'
             or data.get('owner')!='alg-four'
             or data.get('format')!='source_preserved_with_right_outline'):
         raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
@@ -346,11 +346,38 @@ def render_alg_four(out:Path)->dict:
     if git_blob!=source.get('git_blob'):
         raise ValueError('ALG Four pinned source blob changed without lesson revision')
     original_html=markdown(source_bytes.decode('utf-8'))
+    english=data.get('english_source',{})
+    english_path=(ROOT/english.get('path','')).resolve()
+    if not english_path.is_relative_to(ROOT.resolve()) or not english_path.is_file():
+        raise ValueError('ALG Four aligned English source is missing')
+    english_bytes=english_path.read_bytes()
+    english_blob=hashlib.sha1(f"blob {len(english_bytes)}\0".encode()+english_bytes).hexdigest()
+    if english_blob!=english.get('git_blob'):
+        raise ValueError('ALG Four aligned English source blob changed')
+    english_html=markdown(english_bytes.decode('utf-8'))
+    def structure(markup):
+        return [
+            ('h'+a if a else b) for a,b in
+            re.findall(r'<h([1-4])>.*?</h\1>|<(p|blockquote)>.*?</\2>',markup,re.S)
+        ]
+    if structure(original_html)!=structure(english_html):
+        raise ValueError('ALG Four bilingual heading/paragraph structure drift')
+    if re.findall(r'<pre><code>.*?</code></pre>',original_html,re.S)!=re.findall(r'<pre><code>.*?</code></pre>',english_html,re.S):
+        raise ValueError('ALG Four bilingual source code diverged')
+    if original_html.count('<figure')!=7 or english_html.count('<figure')!=7:
+        raise ValueError('ALG Four canonical Cover + six Figure slots missing')
     pattern=re.compile(r'<p>.*?</p>|<blockquote>.*?</blockquote>',re.S)
     paragraphs=list(pattern.finditer(original_html))
     notes=data.get('paragraph_annotations',[])
     if not paragraphs or len(notes)!=len(paragraphs):
         raise ValueError('ALG Four must annotate every original prose paragraph without omissions')
+    english_paragraphs=list(pattern.finditer(english_html))
+    if len(english_paragraphs)!=len(paragraphs):
+        raise ValueError('ALG Four bilingual paragraph count changed')
+    for i,(native,note) in enumerate(zip(english_paragraphs,notes)):
+        source_text=html.unescape(re.sub(r'<[^>]+>','',native.group(0)))
+        if note.get('paragraph_index')!=i or note.get('english_source')!=source_text:
+            raise ValueError('ALG Four aligned English paragraph drift')
     decisions={d['id']:d for d in data.get('decisions',[])}
     if not decisions or len(decisions)!=len(data.get('decisions',[])):
         raise ValueError('ALG Four has duplicate or empty decision IDs')
@@ -363,7 +390,8 @@ def render_alg_four(out:Path)->dict:
         i=item.get('paragraph_index')
         if (not isinstance(i,int) or not 0<=i<len(paragraphs)
                 or item.get('decision_id') not in decisions
-                or not item.get('english_sentence') or not item.get('term')):
+                or not item.get('english_sentence') or not item.get('term')
+                or item.get('source_quote','').casefold() not in notes[i].get('english_source','').casefold()):
             raise ValueError('ALG Four Active word has no exact source paragraph, decision or sentence')
         index_items.setdefault(i,[]).append(item)
     for i,note in enumerate(notes):
@@ -413,6 +441,7 @@ def render_alg_four(out:Path)->dict:
     (target/'source.json').write_bytes(raw)
     return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
             'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'english_source_blob':english_blob,
             'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
             'active_items_collected':len(items),'active_vocabulary_goal':2000,
             'source_article_unchanged':True,'learning_evidence':'NOT_OBSERVED',
