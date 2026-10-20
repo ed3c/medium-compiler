@@ -113,6 +113,41 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertIn('/alg-four/',(out/"learning/index.html").read_text())
             self.assertTrue((out/"cefr-alg-c2/technical.html").is_file())
 
+    def test_mode_c_projection_is_derived_and_preserves_english(self):
+        import importlib.util
+        proj_spec=importlib.util.spec_from_file_location("alg_four_projection",
+                    ROOT/"scripts/alg_four_projection.py")
+        projection=importlib.util.module_from_spec(proj_spec)
+        proj_spec.loader.exec_module(projection)
+        decisions=json.loads(MANIFEST.read_text())["decisions"]
+        class Spoken(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.text=[]
+            def handle_data(self,data):
+                self.text.append(data)
+        for decision in decisions:
+            formatted=projection.scan_reading(decision["passive"],decision["id"])
+            rendered=Spoken()
+            rendered.feed(formatted)
+            restored=''.join(rendered.text).replace('//','').replace('/','').replace('[','').replace(']','')
+            self.assertEqual(re.sub(r'\s+',' ',restored).strip(),
+                             re.sub(r'\s+',' ',decision["passive"]).strip())
+            self.assertLessEqual(len(decision["passive_skeleton"].split()),15)
+            self.assertIn('→',decision["passive_skeleton"])
+        self.assertNotIn('representation',projection.STRESS)
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/"dist"
+            site.build(out)
+            for name in ("alg-four.js","alg-four.css"):
+                self.assertTrue((out/"assets"/name).is_file())
+            html_text=(out/"alg-four/index.html").read_text()
+            self.assertEqual(html_text.count('class="alg-outline-paragraph"'),75)
+            self.assertIn('class="alg-skeleton"',html_text)
+            self.assertIn('class="alg-active-term"',html_text)
+            self.assertIn('href="#alg-heading-',html_text)
+            self.assertIn('data-alg-four-index="74"',html_text)
+
     def test_refuse_source_drift_omitted_annotation_or_wrong_lexicon(self):
         data=json.loads(MANIFEST.read_text())
         with tempfile.TemporaryDirectory() as td:
