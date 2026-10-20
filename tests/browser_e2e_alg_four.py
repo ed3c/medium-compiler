@@ -68,7 +68,12 @@ def run(site: Path, output: Path) -> dict:
             assert desktop.evaluate("location.hash")=="#alg-p-15"
             assert article.locator("#alg-p-15").count()==1
             assert desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text').count()==1
-            assert desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text').inner_text().strip()
+            reading=desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text')
+            if not reading.inner_text().strip():
+                desktop.screenshot(path=str(output/"desktop-failure.png"),full_page=True)
+                raise AssertionError("Clicked paragraph annotation not visible: details.open="+
+                    str(target.get_attribute("open"))+" active="+
+                    str(desktop.locator('a[aria-current="location"]').get_attribute("data-outline-link")))
             assert desktop.locator(".alg-active-term").first.evaluate(
                 "(e)=>getComputedStyle(e).backgroundColor")=="rgb(245, 216, 88)"
             assert not errors, f"browser page errors: {errors}"
