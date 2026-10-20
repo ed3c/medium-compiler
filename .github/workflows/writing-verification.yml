@@ -35,6 +35,20 @@ jobs:
           test "$status" = 3
           printf 'BLOCKED: no fresh writer/reader experiment performed by this job\n' > /tmp/writing-evidence/behavior-status.txt
           git archive HEAD > /tmp/writing-evidence/checkout.tar
+      - name: Run pinned sloptrim detector on English More Route draft
+        shell: bash
+        run: |
+          mkdir -p /tmp/writing-evidence
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/agent-handbook-zero-context.en.md > /tmp/writing-evidence/more-route-sloptrim.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/writing-evidence/more-route-sloptrim.json').read_text())
+          if not isinstance(result,dict) or not result:
+              raise SystemExit('Missing sloptrim diagnostic report')
+          print('SLoptrim detector executed on the English More Route draft. Semantic fidelity still needs independent author/reader review.')
+          print('Diagnostic report keys:', ', '.join(sorted(result.keys())))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
