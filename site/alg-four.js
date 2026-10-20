@@ -25,7 +25,7 @@
       }
       paragraphs[index].classList.add("alg-current-source");
       sidebar.querySelectorAll('a[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
-      const activeLink = entry.querySelector("summary a");
+      const activeLink = entry.querySelector("a[data-outline-link]");
       if (activeLink) activeLink.setAttribute("aria-current", "location");
       active = index;
     }
