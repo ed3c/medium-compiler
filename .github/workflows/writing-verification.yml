@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir -p /tmp/writing-evidence
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
-          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
+          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1 || { tail -n 130 /tmp/writing-evidence/tests.txt; exit 1; }
           node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs > /tmp/writing-evidence/browser-cloudflare-contracts.txt 2>&1
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
