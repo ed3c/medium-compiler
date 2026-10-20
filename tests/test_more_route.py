@@ -22,11 +22,13 @@ class MoreRouteSiteTests(unittest.TestCase):
         for term in ("NOT_RUN","UNKNOWN","核准","否定"):self.assertIn(term,zh)
     def test_decision_route_and_provenance(self):
         class Parser(HTMLParser):
-            def __init__(self):super().__init__();self.choices=[];self.panels=[];self.scripts=[];self.css=[]
+            def __init__(self):super().__init__();self.choices=[];self.panels=[];self.graph_nodes=[];self.edges=[];self.scripts=[];self.css=[]
             def handle_starttag(self,tag,attrs):
                 a=dict(attrs)
                 if "data-mr-choice" in a:self.choices.append(a["data-mr-choice"])
                 if "data-mr-panel" in a:self.panels.append(a["data-mr-panel"])
+                if "data-mr-node" in a:self.graph_nodes.append(a["data-mr-node"])
+                if "data-mr-edge" in a:self.edges.append(a["data-mr-edge"])
                 if tag=="script" and a.get("src"):self.scripts.append(a["src"])
                 if tag=="link" and a.get("rel")=="stylesheet":self.css.append(a["href"])
         with tempfile.TemporaryDirectory() as tmp:
@@ -35,6 +37,13 @@ class MoreRouteSiteTests(unittest.TestCase):
             parser=Parser();parser.feed(page)
             self.assertEqual(parser.choices,["D"+str(i) for i in range(1,8)])
             self.assertEqual(parser.panels,["D"+str(i) for i in range(1,8)])
+            self.assertEqual(parser.graph_nodes,["D"+str(i) for i in range(1,8)])
+            self.assertEqual(parser.edges,["D1:D2","D2:D3","D3:D4","D1:D5","D4:D5","D2:D6","D5:D6","D6:D7"])
+            for edge in parser.edges:
+                parent, child=edge.split(":")
+                self.assertIn(parent,parser.graph_nodes)
+                self.assertIn(child,parser.graph_nodes)
+                self.assertLess(int(parent[1:]),int(child[1:]))
             self.assertIn("/assets/more-route.js",parser.scripts)
             self.assertIn("/assets/more-route.css",parser.css)
             self.assertNotIn(" hidden",page)
