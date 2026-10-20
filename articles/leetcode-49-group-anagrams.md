@@ -2,7 +2,7 @@
 
 LeetCode 49 · 從零串起 invariant、canonical identity、mutability、hashing、sorting、correctness proof 與 complexity。
 
-![封面：題目、invariant、representation、runtime 與驗證結果。](/assets/alg-four/cover.svg)
+![封面：題目、invariant、representation、runtime 與驗證結果。](https://medium-compiler.vercel.app/assets/alg-four/cover.svg)
 
 *封面 · 一道題目，一條因果鏈 — 封面只呈現 Problem Constraint 到 Verified Algorithm 的主線，不把所有 Python 機制擠進一張圖。*
 
@@ -29,7 +29,7 @@ Anagrams 可以改變字母順序，但每個 character 的出現次數保持相
 
 Canonical key 讓邏輯上等價的 inputs 得到相等的 keys。對 a–z words，位置 0 表示 a 的次數、位置 1 表示 b，直到位置 25 的 z。這個 representation 保留重複字母的數量；只保存不同字母的 set，會把 'a' 與 'aa' 誤判成同組。
 
-![決策圖：a–z → letter frequency → 26 counters → 相同 tuple keys → 同一組。](/assets/alg-four/figure-1.svg)
+![決策圖：a–z → letter frequency → 26 counters → 相同 tuple keys → 同一組。](https://medium-compiler.vercel.app/assets/alg-four/figure-1.svg)
 
 *從等價關係建立 canonical key — Alphabet constraint 導出固定 counters，再成為分組 identity。*
 
@@ -62,7 +62,7 @@ counts = [0] * 26
 
 第一個 word 'eat' 的 key 尚不存在，dictionary 建立 ['eat']。下一個 'tea' 得到相同的 count tuple，append 到原 group。'tan' 產生不同 tuple，建立新 group。接著 'ate' 回到第一組，'nat' 進第二組，'bat' 開第三組。Dictionary 不會預測未來；每次 iteration 結束後，只包含已處理 prefix 的 words。
 
-![Runtime 圖：eat indexes 4、0、19；tuple key；MISS 建立 eat；tea HIT 後 append。](/assets/alg-four/figure-2.svg)
+![Runtime 圖：eat indexes 4、0、19；tuple key；MISS 建立 eat；tea HIT 後 append。](https://medium-compiler.vercel.app/assets/alg-four/figure-2.svg)
 
 *一條真實的 character → bucket Runtime Trace — 更新 count list、轉換 tuple，再用 key 新增或查找 group。*
 
@@ -74,7 +74,7 @@ List 適合持續 mutation，但不能直接當 dictionary key：Python list 是
 
 參考實作使用明確的 missing-key branch：key 不存在就先配置 empty list，再 append 原始 word。defaultdict(list) 可以簡化相同的 missing-key path；只有透過方括號 lookup 並發現 key 缺失時才會呼叫 factory。兩個做法 append 的都是原始字串，沒有複製或排序該字串。
 
-![Python runtime：mutable list → 可 hash 的 integer tuple → hash candidates → equality → group；MISS/HIT。](/assets/alg-four/figure-3.svg)
+![Python runtime：mutable list → 可 hash 的 integer tuple → hash candidates → equality → group；MISS/HIT。](https://medium-compiler.vercel.app/assets/alg-four/figure-3.svg)
 
 *穩定 Identity 不是 Hash Value — List mutation 與 tuple identity 分工不同；hash collision 仍需 equality。*
 
@@ -89,7 +89,7 @@ key = "".join(sorted(word))
 
 一個 word 長度為 K 時，counting 只掃描 K 個 characters，主要成本是 O(K)，另外還有固定 alphabet 的 overhead。一般 comparison sorting 的 worst-case 量級是 O(K log K)。用 balanced merge 圖理解：大約 log2(K) 層、每層總共做 O(K) 工作。但這只是 complexity mental model，並非 CPython adaptive、stable 的 Timsort family 或現代 Powersort merge ordering 的逐步 trace。
 
-![雙路徑：count K chars O(K)，comparison sort K chars O(K log K)，並註明層級圖不是字面 runtime。](/assets/alg-four/figure-4.svg)
+![雙路徑：count K chars O(K)，comparison sort K chars O(K log K)，並註明層級圖不是字面 runtime。](https://medium-compiler.vercel.app/assets/alg-four/figure-4.svg)
 
 *Counting 與 Sorting 為何成本不同 — Counting 掃過 characters 一次；sorting 還需要 comparisons 與 merge 的組織成本。*
 
@@ -103,7 +103,7 @@ Sorting 對每個 word 做 comparison sort。若第 i 個 word 長度是 k_i，�
 
 Space 要分層看：暫時的 counter list 是 O(Σ)。最多 N 個不同的固定長度 tuple keys 需要 O(NΣ)；groups 裡總共保存 N 個指向既有 string objects 的 references，因此額外 container memory 是 O(NΣ + N)，Σ 固定時是 O(N)。若採把回傳字串所代表的 characters 全算入 output size 的 convention，抽象輸出大小可以是 O(M)。不能把 output value 誤當成 space complexity，也不能因為引用了字串就宣稱實作複製每個 character。
 
-![成本圖：expected time O(NΣ + M)，extra container space O(NΣ + N)，獨立標示 output convention。](/assets/alg-four/figure-5.svg)
+![成本圖：expected time O(NΣ + M)，extra container space O(NΣ + N)，獨立標示 output convention。](https://medium-compiler.vercel.app/assets/alg-four/figure-5.svg)
 
 *Time / Space 的操作成本帳本 — 主要工作是掃描 characters；固定 counters 與 key 成本每個 word 重複一次。*
 
@@ -150,7 +150,7 @@ Complexity：With a fixed 26-letter alphabet, each word is scanned once. Expecte
 
 最後必須保留幾個不同層次：task equivalence 定義什麼是正確分組；count tuple 表示該 equivalence；loop invariant 描述已處理的 prefix；dictionary hashing 加快 lookup，卻不取代 key equality。Output 是分組後的原始 words；Time 與 Space 是取得答案所走路徑的成本量測，不是中間或最終資料階段。
 
-![總圖包含 constraints、equivalence、mutable list、tuple、dict、group output，以及獨立的 Time/Space measurements。](/assets/alg-four/figure-6.svg)
+![總圖包含 constraints、equivalence、mutable list、tuple、dict、group output，以及獨立的 Time/Space measurements。](https://medium-compiler.vercel.app/assets/alg-four/figure-6.svg)
 
 *完整因果圖 — Problem → invariant → representation → runtime → correctness → complexity。*
 
