@@ -144,7 +144,7 @@ def markdown(text:str)->str:
             continue
         if in_code: code.append(line);continue
         if not line.strip(): flush_p();close_list();continue
-        img=re.fullmatch(r'!\\[([^\\]]*)\\]\\((https://medium-compiler\\.vercel\\.app/assets/alg-four/[a-z0-9-]+\\.svg)\\)',line)
+        img=re.fullmatch(r'!\[([^\]]*)\]\((https://medium-compiler\.vercel\.app/assets/alg-four/[a-z0-9-]+\.svg)\)',line)
         if img:
             flush_p();close_list()
             out.append('<figure class="article-figure"><img loading="lazy" src="'+html.escape(img.group(2),quote=True)+'" alt="'+html.escape(img.group(1),quote=True)+'"></figure>')
