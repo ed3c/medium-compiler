@@ -1,27 +1,26 @@
-# Full-article acquisition contract (Q51 A, Q52 B, Q53 A, Q54 A)
+# ALG Four source-preserving annotation and Active-2000 admission contract
 
-## Source and ownership
+The input is one already-reviewed article from `medium-writing` grounded in `leetcode-mental` decisions. Its exact Markdown Git blob is immutable for the annotation run. Article editing belongs only to its Writer and requires re-admission.
 
-The input is one accepted engineering article with a pinned source revision/bytes and its valid technical oracle. `leetcode-simulator` owns the algorithmic analysis; `medium-writing` owns the prose and article publication; `alg-four` owns acquisition representation. Neither downstream consumer may rewrite the source's invariant, proof, constraints, actor/authority, or runtime.
+## Paragraph-bound output
 
-## One complete article, not one selected decision
+Create **one short Traditional Chinese note after every original prose paragraph or blockquote**. Preserve the original English technical terms, conditions and causal links. Original HTML content must be reproducible by stripping notes from the page; never replace article sections with four rewritten passes, rewrite source bytes, or move a paragraph.
 
-- Build an inventory of *all* article engineering decisions **D**, including implicit choices that materially change mechanism or failure outcome. The count is source-derived, not fixed at 5, 7 or 14.
-- Map each decision to one or more core mechanisms and actual source passages.
-- Each D must have receptive explanation in Pass 1/2/3 and a **meaningfully productive**, oracle-comparable Pass 4 response cue. A final whole-article causal retell must connect the dependencies. If a dependency is unknown, label it unknown, not covered.
-- For source articles spanning multiple contexts, Pass 1–4 can contain many bounded units; the **lesson** covers them together. Do not misreport a one-decision extracted mini-lesson as full article acceptance.
-- Preserve selected source uncertainty. A hypothetical runtime is not a real execution observation.
+Bind every note to `source.git_blob`, a zero-based paragraph index, a source-derived decision/concept ID and one of `PASSIVE` or `PASSIVE_AND_ACTIVE`. Active and Passive semantic roles may overlap; a source paragraph can be read and rehearsed. Every Active phrase has a source paragraph and at least one complete technically correct English sentence. Each source revision requires a new reviewed manifest. Omitted or extra notes, source drift, unknown decision IDs, missing English sentences and duplicate active IDs refuse publication.
 
-## Passive/Active and encounter frequency
+## Admission to the 2000-word and 2000-sentence network
 
-Passive lexical items include word form, accurate contextual meaning and optionally a phonetic/stress cue, with repeated short encounters across *meaningful contexts*. Recognition of a term or meaning is not Active mastery. The smaller priority Active vocabulary is chosen from English phrases actually needed to explain the article, but **every engineering decision** must receive a productive English **reasoning** prompt. These are different counts: Passive lexical inventory, priority Active lexical inventory, and decision-level Active reasoning coverage.
+Target: **2,000 distinct English lexical items/phrases and at least 2,000 related complete engineering English sentences, accumulated across articles.** Source material determines the valid count per article, without invented filler. A candidate must be (a) tied to an engineering/concept decision, invariant, or runtime fact; (b) located in a specific source paragraph; (c) useful in spontaneous correct technical explanation; (d) paired with a grammatical source-faithful English sentence; (e) challengeable by a meaning-preserving prompt/oracle; and (f) deduplicated across articles by term + sense. Optional extra contexts do not create fake distinct entries.
 
-Claims need not be exclusive: a source claim can be `receptive + productive`. Lexical recognition alone does not promote it to Active. Avoid memorization duration quotas, fixed “neural fourth pass” cutoffs, and fabricated retention measurements.
+Passive is broader exposure/recognition, not evidence of comprehension. Active is a *production target*, not a claim of performance. A short annotated article cannot be called a complete 2000-item corpus until 2000 independently admitted items and matching sentences actually exist.
 
-## Oracle, runtime and evaluation
+## Four passes on one source
 
-A **document-only English worksheet** may contain a same-page manually opened oracle. It is not the legacy CEFR practice runtime, and it must be labeled as non-tracking. A native gated interactive practice must not reveal an oracle before an acknowledged oral/written attempt; after reveal it requires a distinct learner-reported comparison, and any local receipt reflects events only. Do not add another competing JS state machine for an article showcase.
+1. Recognize word form and short zh-TW contextual explanation.
+2. Recognize decision, concept and runtime role in the **same original paragraph**.
+3. Read/listen to the **same text**, keeping technical source/diagram available.
+4. Generate a source-accurate English engineering sentence/explanation without copying; compare after attempted recall.
 
-Relevant measures, only if actually obtained: response correctness including all engineering conditions, cue-to-start latency, deliberate premise-transfer correctness, reencounter recognition, and delayed unaided explanation. Record whether the answer was provided, attempted, compared, or later recalled; do not compute a mastery number from reading/expanding a details element.
+No `pass1/pass2/pass3` rewritten prose arrays, no second Medium article, no automatic practice events, no hidden application state in the article. The new static annotation overlay can use expandable optional oracles but cannot impersonate the frozen CEFR attempt-before-reveal native runtime. The four encounters are educational design rather than a neuroscience threshold.
 
-**Delivery acceptance**: source binding, full decision coverage, label separation, complete Four Passes, accurate oracle, independent page and no regression of frozen CEFR lock. **Human acquisition acceptance** remains NOT_OBSERVED without real learner output.
+Acceptance is source-byte preservation + 100% original paragraph annotation coverage + Source → Decision → Term → Sentence → Oracle linkage + PASSIVE/ACTIVE role integrity. Real learner mastery, measured latency and delayed recall remain NOT_OBSERVED without actual responses.

@@ -1,58 +1,45 @@
 ---
 name: alg-four
-description: Compile a source-locked complete technical article into four English-acquisition passes. Preserve every engineering/concept decision and core runtime mechanism; route passive encounters versus active production with Thinking Router's evidence-first principles. New lesson owner; not a Medium writer, LeetCode solution owner, video renderer, LMS, or mastery evaluator.
+description: Add source-bound Passive and Active English learning annotations beneath every unchanged Medium article paragraph. Select cumulatively 2000 reusable Active terms and 2000 linked engineering sentences from real decisions and runtime; four passes revisit the same original narrative without rewriting it.
 ---
 
-# ALG Four — English acquisition from engineering meaning
+# ALG Four — annotate original articles, never rewrite them
 
-## Activation and owner split
+## Three Owners
 
-Use when the original request requires **English learning from a verified engineering article**, including listening/reading, cross-context passive vocabulary and actively producing accurate reasoning about the underlying runtime. This Skill owns **new lesson semantic selection, Passive/Active allocation, whole-article Four-Pass composition, prompts and source-bound oracle**.
+- [leetcode-mental](../leetcode-mental/SKILL.md) owns the original coding problem, decision points, invariant, algorithm, runtime, code, proof and constraints.
+- [medium-writing](../medium-writing/SKILL.md) owns **all article prose, narrative, formatting and source-fidelity editing**. Its accepted original article must remain byte-identical when ALG Four annotates it.
+- **alg-four** owns the separate **annotation projection**, English Passive/Active selection, semantic word-to-concept links, productive English sentences, practice cues and source oracles **under the existing paragraphs**. It does not own rewritten versions of the article, a new Writer, a new LMS, a new CLI stage, or a second Router.
 
-- [LeetCode simulator](../alg-leetcode-mental-simulator/SKILL.md) owns problem contract, algorithm decisions, code, invariant, runtime movie and correctness; not this Skill.
-- [Medium writing](../medium-writing/SKILL.md) owns article shape, prose/editorial decisions, English original → source review → zh-TW writing stages and publication; not this Skill.
-- **ALG Four** consumes their **admitted, pinned source** without changing technical claims. It selects the learning task and builds a separate English learning lesson.
-- [Vocabulary encounter](../alg-vocab-encounter/SKILL.md) remains the *single* passive lexical-practice leaf, not a second semantic compiler. [Video renderer](../alg-explainer-video/SKILL.md) remains the media consumer for **compatible frozen legacy packages only** until its versioned handoff is explicitly updated.
-- [Legacy CEFR four-pass](../cefr-alg-four-pass/SKILL.md) is frozen upstream historical material for previously built lessons. Do not rewrite that directory, its exact-blob [lock](../../../references/upstream/cefr-alg-skills-lock.json), or the already frozen source-bound site import.
+[alg-vocab-encounter](../alg-vocab-encounter/SKILL.md) remains the passive lexical-practice leaf. Historical [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md), its 12-file upstream Git Blob lock, frozen lessons and original CEFR session oracle gate remain unchanged.
 
-Read [thinking and acquisition route](references/thinking-route.md), [whole-article lesson contract](references/lesson-contract.md), and [migration evidence](references/migration.md) only when needed by this task.
+## Cumulative 2000 Active terms and 2000 related sentences
 
-## Learning architecture
+This is a cross-article, deduplicated **target corpus**, NOT a requirement to find two thousand words inside one LeetCode explanation.
 
-Acquisition is not measured by reading a text, by the number of prompts, or by completing a fourth screen. Use *receptive exposure → recognition → contextual comprehension → active generation + source-bound comparison* as an **instructional hypothesis**. The claim that exactly three exposures are entertainment and exactly the fourth causes neural consolidation is not a proven threshold. Repeated meaningful encounters at different times and in varied contexts, generation and corrective feedback are plausible methods to test, not universal laws.
+An Active lexical item must satisfy every admission condition:
+1. It is necessary or reusable for explaining a **real decision, invariant, canonical identity, state transition or underlying runtime mechanism** from the source.
+2. It has an exact source-article identity and paragraph index; the term or its meaning is actually supported by that paragraph.
+3. It helps an engineer independently *produce* an explanation in precise English, not merely recognize a rare word.
+4. It has at least one fully formed English sentence faithful to the same original technical claim, actor, condition, negation and consequence.
+5. A source-bound question or meaning oracle can distinguish an accurate response from a superficially fluent one.
+6. Repeated terms with equivalent meanings across articles share one corpus identity; record more contexts, do not inflate the distinct count.
 
-**Q51 A**: Passive and Active are **roles of a selected semantic claim in a particular exercise**, never mutually exclusive sentence tags. An important mechanism can appear in all receptive passes **and** be an Active reconstruction target. Passive target = recognize a technical term/causal meaning in context. Active target = produce a coherent, technically correct English explanation without copying it. Do not confuse passive vocabulary with English grammatical passive voice.
+The wider **Passive** inventory covers encounter and recognition. Classify each original article paragraph as `PASSIVE` or `PASSIVE_AND_ACTIVE`; the same core concept may be encountered receptively and later generated actively. The labels are practice roles, not grammatical passive/active voice and not achievements. Reject nonsource filler rather than manufacturing 2000 entries.
 
-**Q52 B**: Inventory **every engineering decision and core mechanism** in the selected complete article, and preserve each at least once in receptive passes **and** in an appropriate full-article Pass 4 reconstruction prompt. Use a chain of bounded units in one lesson and an article-level final retell; no silent “one decision per lesson” truncation or invented universal count of five. A single exercise may cover multiple dependent decisions, but no decision may be orphaned. Nonessential English terms may remain receptive only; do not force every word into productive output.
+## Four cognitive encounters, always on the SAME original paragraphs
 
-## Route the *necessary* cognitive work (Thinking V2 by default)
+1. Encounter the actual original paragraph, notice term form, sound and the short zh-TW meaning annotation with original English technical terms.
+2. Revisit that same paragraph and recognize the engineering decision and its word-to-runtime link.
+3. Re-read or listen to the **same** paragraph with original context and trace its invariant, actor, branch or state change.
+4. Without copying the original, generate an English sentence and decision explanation; compare to the source-bound oracle after an authentic attempt.
 
-Follow [Thinking Route](references/thinking-route.md) rather than imposing shadowing, back-translation, retell, and mutation simultaneously. Pick the first observed learner obstacle and the minimum differentiating operation. V3 only for a falsifiable second cause that changes instruction or evaluation; no model thinking pass for each word.
+These are **four operations over the same prose**, not `pass1/pass2/pass3` replacement texts or separate rewritten sections. A published page may expose a non-tracking expandable prompt/oracle **directly below the source paragraph**, but that is not a native CEFR Session. That older UI still requires an acknowledged attempt before reveal and a distinct reported comparison event.
 
-- Can't recognize a term/meaning → use existing `alg-vocab-encounter` short contextual encounters and spaced re-encounters.
-- Understands with text visible, can't generate → hide cue, semantic retell from diagram/state trace; compare with source-bound English oracle.
-- Produces words but drops a condition, actor, negation or causal step → prompt a *minimal premise mutation* and rerun oracle meaning comparison.
-- Can generate accurately but wants faster English response → time bounded, unprompted output and measure latency *without* sacrificing exact semantics.
-- Speaking/pronunciation is a real learner goal → add shadowing as supportive practice; it is not proof of comprehension.
+Every original prose paragraph/blockquote must have exactly one immediately following annotation. Keep headings, paragraph sequence, code, technical semantics, original article facts and word choice **unchanged**. Annotation decisions come from the entire article, not a quota of exactly five; include the original engineering claims throughout. Notes must be concise Traditional Chinese with the canonical English terms intact and tied to an actual decision and the paragraph's subject.
 
-Retell and back-translation are different: meaning diagram → English = semantic retell; source English → L1 reconstruction → English → source diff = true back-translation. Select only one primary productive technique for the known gap; optional techniques need an identifiable gain.
+## Evidence and limits
 
-## Four Passes and learner data
+The [full annotation contract](references/lesson-contract.md) defines source identity, paragraph coverage and 2000-item admission; the [Thinking Route](references/thinking-route.md) chooses only necessary cognitive interventions and the [migration](references/migration.md) preserves legacy consumers. Freeze the source Git blob; refuse a changed original or missing paragraph. `RUNTIME_TESTED`, `ACTIVE_PRACTICED`, response latency and acquired vocabulary need real runtime/learner evidence; website build and 4 available passes establish none of these.
 
-Pass 1 **Low-friction encounter**: complete article's problem, causal decision graph, runtime and one natural English explanation. No demand to memorize; include every relevant decision.
-
-Pass 2 **Recognition**: accurate English engineering passage(s), full diagram/source context, technical terms tied to causality. Revisit all decisions in context. Broad Passive set with pronunciation/context uses the existing vocabulary leaf.
-
-Pass 3 **Contextual comprehension**: same decision coverage in fluent English with transcript/support visible by default. No required retrieval; optional hide transcript does not turn this into Active work.
-
-Pass 4 **Active reconstruction + oracle difference**: across *all selected article decisions*, move from decision/problem/runtime cue to an unprompted English explanation of mechanism, counterexample and consequences. End with a full-article retell. Require a real attempt before oracle in an interactive learning runtime, then record separately whether the learner compared and which claim(s) diverged. Learner reports of an attempt are not evidence of correctness.
-
-Provide an independent page/lesson for this sequence. Medium article bytes and progress remain untouched. The published **static example worksheet** is a non-tracking preview: any visible `details` oracle is *not* the existing gated CEFR Session and must not claim a completed learner action. The existing native CEFR gated session retains its attempt→reveal→comparison contract. Do not bypass or mislabel it.
-
-## Acceptance and handoff
-
-A lesson requires a pinned source identity, exact complete decision inventory and explicit coverage map, contextual encounters with meaningful variation when source/learner goal warrants them (no arbitrary quota), a wider Passive vocabulary group, smaller **priority** Active vocabulary within article-wide active decision prompts, all four passes, one oracle per decision, technical negation/conditions/invariant preservation, one counterexample/changed premise, and a separate learning page. **No new compiler stages, Owner state machine, authenticated user, scheduler, new token budget, writer or Vercel deploy command.**
-
-For Q54 A, optionally measure unprompted answer correctness, response latency, condition/negation fidelity and delayed recall **only after real learner attempts**. Model-composed example answers, checkbox clicks, screenshot comparisons or site build may verify layout/contract but cannot verify acquisition, word-level automatic retrieval or neural change. If no authentic learner response was observed, the learning-evidence status is `NOT_OBSERVED`; do not derive a mastery tier from a prepared lesson.
-
-Source and new lesson changes need revision and fresh readback; archived legacy lessons retain their locked byte identity. Refuse to promote a new-format lesson to the legacy video renderer or frozen runtime without an explicit compatible consumer acceptance. See [migration](references/migration.md).
+The fourth encounter is an instructional procedure **not** a scientifically established neural consolidation threshold. No invented repetition schedule, credential, learning database, or mastery claim.

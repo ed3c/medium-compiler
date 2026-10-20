@@ -1,17 +1,13 @@
-# ALG Four owner migration — source-level boundary and legacy compatibility
+# Migration: source annotation is not a second article or native CEFR
 
-Decision Q50 B selects an **independent project-local** `alg-four` for **new** learning lessons rather than a second alias pointing to the old `cefr-alg-four-pass`.
+The old ALG Four PR design generated four rewritten sections and a standalone summary. That inference is superseded: **new alg-four appends zh-TW Passive/Active annotations to the original source paragraphs without changing source prose, code, layout order or narrative.** The same source is revisited for four different learning operations.
 
-| Consumer or artifact | New owner/action | Why the old bytes remain |
-| --- | --- | --- |
-| New article→English lesson (verify-learning-article) | `alg-four` owns the full-article lesson. | Existing recipe currently says one decision only; that is replaced for new lessons. |
-| Writer (medium-writing) | Reuses `alg-four` for acquisition outputs; writer still sole Medium publisher. | Doesn't adopt CEFR learning/publishing authority. |
-| LeetCode simulator | Remains algorithm/solution owner; optional handoff to `alg-four` for English learning. | Its printable /full oracle is not a gated learner session. |
-| Passive vocabulary | Retain pinned `alg-vocab-encounter` leaf and its exact bytes. | Reuses lexical recognition instead of creating a second vocabulary trainer. |
-| Frozen existing lesson and CEFR technical UI | Legacy source-bound `cefr-alg-four-pass`; **read-only** compatibility. | `references/upstream/cefr-alg-skills-lock.json`, `site/cefr-alg-c2` snapshot and existing `lesson.json` point at exact historical file revisions. |
-| Old `alg-explainer-video` handoff | Frozen legacy packages only until consumer version supports new `alg-four` package. | It is pinned and still names the historical upstream Skill. Rewriting it would defeat the lock. |
-| New standalone English learning page | Source-bound ALG Four **worksheet**, separate from Medium article, non-tracking. | Not a new LMS, video renderer or runtime gate. |
+| Owner | Responsibility |
+| --- | --- |
+| [leetcode-mental](../../leetcode-mental/SKILL.md) | Algorithm constraints, decisions, loop invariant, canonical key, runtime trace, proof and runnable code. Renamed from `alg-leetcode-mental-simulator`. |
+| [medium-writing](../../medium-writing/SKILL.md) | Original Medium style, writing/editorial acceptance, source fidelity and publication. |
+| [alg-four](../SKILL.md) | New annotation layer under each source paragraph; source-bound Passive and Active term/sentence corpus and non-tracking learning cues. |
+| [alg-vocab-encounter](../../alg-vocab-encounter/SKILL.md) | Existing Passive vocabulary leaf. |
+| Frozen [cefr-alg-four-pass](../../cefr-alg-four-pass/SKILL.md), old technical UI and [alg-explainer-video](../../alg-explainer-video/SKILL.md) | Historical upstream lock and exact frozen lesson/renderer compatibility; do not rewrite or rename. |
 
-**A source lock is not a writable router.** The older 12-file `cefr-alg-skills-lock.json` authenticates upstream history; it must not be deleted, overwritten or altered merely because a future Authoring Owner changed. The new `alg-four` lives outside that 12-file scope and is registered normally. New lesson sources are bound by their own source blob in the learning manifest and site provenance.
-
-**Migration stop:** A true dynamic native CEFR lesson using `alg-four` must obtain a versioned consumer schema, an actually compatible runtime/renderer and fresh attempt/reveal/compare readback before claiming migrated execution. Until then new lessons can be authored and published as evidence-labeled **worksheet** pages; the old live CEFR route retains its historical operation. This is a deliberate partial boundary, not an implicit claim of full runtime migration.
+The original 12-file CEFR upstream Git Blob lock remains untouched. New article overlays are not supported native CEFR lesson packages, do not bypass attempt → reveal → comparison gates, do not record mastery or create an LMS. The 2000 Active items and related sentences are **cross-article targets**, not per-article filler quotas.
