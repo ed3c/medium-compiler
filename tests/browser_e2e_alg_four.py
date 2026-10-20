@@ -53,7 +53,7 @@ def run(site: Path, output: Path) -> dict:
             desktop.wait_for_timeout(100)
             paragraph.evaluate("(el)=>el.scrollIntoView({block:'start',behavior:'auto'})")
             desktop.wait_for_timeout(250)
-            active=desktop.locator('a[aria-current="location"]')
+            active=desktop.locator('summary[data-outline-link][aria-current="location"]')
             assert active.count()==1, "one active source paragraph expected"
             assert desktop.locator(".alg-outline-paragraph[open]").count()==1
             assert desktop.locator(".alg-outline-section[open]").count()>=1
@@ -64,7 +64,7 @@ def run(site: Path, output: Path) -> dict:
             # Open the correct section via its actual outline hierarchy.
             target=desktop.locator('[data-outline-index="15"]')
             target.evaluate("(e)=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true}")
-            target.locator("a[data-outline-link]").click()
+            target.locator("summary[data-outline-link]").click()
             desktop.wait_for_timeout(400)
             assert desktop.evaluate("location.hash")=="#alg-p-15"
             assert article.locator("#alg-p-15").count()==1
@@ -75,7 +75,7 @@ def run(site: Path, output: Path) -> dict:
                 parents=target.evaluate("(el)=>{const states=[];for(let p=el;p;p=p.parentElement)if(p.tagName==='DETAILS')states.push({cls:p.className,open:p.open});return states}")
                 raise AssertionError("Clicked paragraph annotation not visible: details.open="+
                     str(target.get_attribute("open"))+" active="+
-                    str(desktop.locator('a[aria-current="location"]').get_attribute("data-outline-link"))+
+                    str(desktop.locator('summary[data-outline-link][aria-current="location"]').get_attribute("data-outline-link"))+
                     " parents="+str(parents)+" text="+str(reading.text_content()[:120]))
             assert desktop.locator(".alg-active-term").first.evaluate(
                 "(e)=>getComputedStyle(e).backgroundColor")=="rgb(245, 216, 88)"
@@ -99,7 +99,7 @@ def run(site: Path, output: Path) -> dict:
             disclosure.locator("summary.alg-sidebar-toggle").click()
             assert disclosure.get_attribute("open") is not None, "mobile outline did not re-open"
             # Keyboard activation of an actual source link.
-            anchor=sidebar.locator('a[data-outline-link="0"]')
+            anchor=sidebar.locator('summary[data-outline-link="0"]')
             anchor.focus()
             anchor.press("Enter")
             mobile.wait_for_timeout(200)
