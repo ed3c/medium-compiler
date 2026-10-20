@@ -2,7 +2,7 @@
 
 LeetCode 49 · A zero-context reconstruction of invariant, canonical identity, mutability, hashing, sorting, proof and complexity.
 
-![Cover: problem, invariant, representation, runtime, verified result.](/assets/alg-four/cover.svg)
+![Cover: problem, invariant, representation, runtime, verified result.](https://medium-compiler.vercel.app/assets/alg-four/cover.svg)
 
 *Cover · One problem, one causal path — The cover introduces the transformation from problem constraints to a verified algorithm, not a second explanation of every Python feature.*
 
@@ -29,7 +29,7 @@ Anagrams can change character order, but every character occurs the same number 
 
 A canonical key is a representation that gives logically equivalent inputs equal keys. For a–z words, key position zero is the count of a, position one is the count of b, and so on through z at position 25. Every relevant frequency is preserved, including repeated letters; a set of distinct letters would fail for 'a' versus 'aa'.
 
-![Decision map: a–z → letter frequency → 26 counters → equal tuple keys → one group.](/assets/alg-four/figure-1.svg)
+![Decision map: a–z → letter frequency → 26 counters → equal tuple keys → one group.](https://medium-compiler.vercel.app/assets/alg-four/figure-1.svg)
 
 *From equivalence to a canonical key — The alphabet constraint leads to fixed counters, which become a grouping identity.*
 
@@ -62,7 +62,7 @@ counts = [0] * 26
 
 On the first word 'eat', the dictionary contains no matching key, so it creates a group holding ['eat']. The word 'tea' generates the same count tuple and appends to that group. 'tan' produces a different tuple and starts another group. 'ate' rejoins the first group; 'nat' joins the second. 'bat' starts a third. The dictionary never predicts future words: after each iteration it contains only the processed prefix.
 
-![Runtime diagram: eat character indexes 4,0,19; tuple key; MISS creates eat; tea HIT appends.](/assets/alg-four/figure-2.svg)
+![Runtime diagram: eat character indexes 4,0,19; tuple key; MISS creates eat; tea HIT appends.](https://medium-compiler.vercel.app/assets/alg-four/figure-2.svg)
 
 *One runtime trace, from character to bucket — A count list is updated, converted into a tuple, then used to create or retrieve one group.*
 
@@ -74,7 +74,7 @@ When looking up a tuple key, Python's dictionary hashes it to find candidate ent
 
 Our reference implementation uses an explicit missing-key branch: if the key is absent, assign an empty list, then append the original word. defaultdict(list) is an equivalent convenience for that missing-key path; only a missing-key bracket lookup invokes its factory. Neither approach copies or sorts the string that is appended.
 
-![Python runtime: mutable list → tuple of hashable integers → hash candidates → equality → group; MISS/HIT.](/assets/alg-four/figure-3.svg)
+![Python runtime: mutable list → tuple of hashable integers → hash candidates → equality → group; MISS/HIT.](https://medium-compiler.vercel.app/assets/alg-four/figure-3.svg)
 
 *Stable identity is not the hash value — List mutation and tuple identity have different responsibilities; hash collisions still require equality.*
 
@@ -89,7 +89,7 @@ key = "".join(sorted(word))
 
 For a word of length K, counting reads K characters, so its per-word scan is O(K), plus fixed-alphabet overhead. General comparison sorting has O(K log K) worst-case order. A balanced merge illustration shows roughly log2(K) levels, each doing O(K) total work. It is a complexity model, not a literal step-by-step trace of CPython's adaptive, stable Timsort-family implementation or its modern Powersort merge ordering.
 
-![Two paths: count K chars O(K) vs comparison sort K chars O(K log K), conceptual levels labelled non-literal.](/assets/alg-four/figure-4.svg)
+![Two paths: count K chars O(K) vs comparison sort K chars O(K log K), conceptual levels labelled non-literal.](https://medium-compiler.vercel.app/assets/alg-four/figure-4.svg)
 
 *Why counting and sorting have different costs — Counting scans characters once; sorting organizes them through comparisons/merges.*
 
@@ -103,7 +103,7 @@ Sorting performs a comparison sort for each word. A useful upper bound is O(N + 
 
 For memory, the temporary counter list is O(Σ). Up to N distinct fixed-size tuple keys require O(NΣ) storage; grouping containers hold N references to existing string objects, so the additional container memory is O(NΣ + N), which is O(N) for fixed Σ. If a convention counts the full character content represented by returned strings, abstract output size can be O(M). Do not confuse the output value with the definition of space complexity, and do not claim the algorithm physically copies every character when it appends a reference.
 
-![Cost chart: O(NΣ + M) expected time; O(NΣ+N) extra container space; output convention separated.](/assets/alg-four/figure-5.svg)
+![Cost chart: O(NΣ + M) expected time; O(NΣ+N) extra container space; output convention separated.](https://medium-compiler.vercel.app/assets/alg-four/figure-5.svg)
 
 *Operation accounting for time and space — One pass of characters dominates; fixed counter-key work repeats once per word.*
 
@@ -150,7 +150,7 @@ Complexity: With a fixed 26-letter alphabet, each word is scanned once. Expected
 
 Keep the distinctions visible: the task equivalence defines correct groups; the count tuple represents that equivalence; the loop invariant tracks the processed prefix; and dictionary hashing accelerates lookup without replacing key equality. The answer is the grouped original words. Time and space are measurements of the route taken to produce that answer, not intermediate or final data stages.
 
-![Master map with constraints, equivalence, mutable list, tuple, dict, group output and distinct time/space measurements.](/assets/alg-four/figure-6.svg)
+![Master map with constraints, equivalence, mutable list, tuple, dict, group output and distinct time/space measurements.](https://medium-compiler.vercel.app/assets/alg-four/figure-6.svg)
 
 *Complete causal map — Problem → invariant → representation → runtime → correctness → complexity.*
 
