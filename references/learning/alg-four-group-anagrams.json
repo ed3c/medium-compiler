@@ -1,8 +1,8 @@
 {
-  "schema_version": "alg-four-paragraph-annotations@2",
+  "schema_version": "alg-four-reading-projection@3",
   "id": "leetcode-49-full-article",
   "owner": "alg-four",
-  "format": "source_preserved_with_inline_zh_tw_annotations",
+  "format": "source_preserved_with_right_outline",
   "source": {
     "repository": "ed3c/medium-compiler",
     "path": "examples/leetcode-49-group-anagrams-zero-context.md",
