@@ -51,7 +51,7 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
 
     def test_cumulative_2000_admission_without_fabricated_complete_corpus(self):
         data=json.loads(MANIFEST.read_text())
-        self.assertEqual(data["schema_version"],"alg-four-reading-projection@3")
+        self.assertEqual(data["schema_version"],"alg-four-reading-projection@4")
         self.assertEqual(data["format"],"source_preserved_with_right_outline")
         self.assertEqual(data["source"]["technical_authority"],"leetcode-mental")
         self.assertEqual(data["source"]["writing_authority"],"medium-writing")
@@ -62,17 +62,21 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
         self.assertNotIn("pass2",data)
         self.assertNotIn("pass3",data)
         notes=data["paragraph_annotations"]
-        self.assertEqual([n["paragraph_index"] for n in notes],list(range(75)))
+        self.assertEqual([n["paragraph_index"] for n in notes],list(range(data["alignment"]["paragraph_count"])))
         self.assertEqual({n["kind"] for n in notes},{"PASSIVE","PASSIVE_AND_ACTIVE"})
         self.assertEqual({d["id"] for d in data["decisions"]},{"D1","D2","D3","D4","D5"})
         ids=[x["id"] for x in data["active_items"]]
         self.assertEqual(len(ids),len(set(ids)))
         self.assertLess(len(ids),2000)
+        self.assertEqual(data["source"]["path"],"articles/leetcode-49-group-anagrams.md")
+        self.assertEqual(data["english_source"]["path"],"articles/leetcode-49-group-anagrams.en.md")
+        self.assertEqual(len(notes),data["alignment"]["paragraph_count"])
         for item in data["active_items"]:
             self.assertGreater(len(item["english_sentence"].split()),5)
             self.assertIn(item["decision_id"],{d["id"] for d in data["decisions"]})
             self.assertGreaterEqual(item["paragraph_index"],0)
             self.assertLess(item["paragraph_index"],len(notes))
+            self.assertIn(item["source_quote"].lower(),notes[item["paragraph_index"]]["english_source"].lower())
 
     def test_original_paragraph_order_and_html_are_preserved(self):
         data=json.loads(MANIFEST.read_text())
@@ -87,10 +91,10 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertIn("<pre><code>",full)
             parser=AnnotationParser()
             parser.feed(full)
-            self.assertEqual(parser.indices,list(range(75)))
+            self.assertEqual(parser.indices,list(range(data["alignment"]["paragraph_count"])))
             self.assertEqual(parser.roles.count("PASSIVE_AND_ACTIVE"),
                              sum(n["kind"]=="PASSIVE_AND_ACTIVE" for n in data["paragraph_annotations"]))
-            self.assertEqual(result["annotated_paragraphs"],75)
+            self.assertEqual(result["annotated_paragraphs"],data["alignment"]["paragraph_count"])
             self.assertEqual(result["active_items_collected"],len(data["active_items"]))
             self.assertEqual(result["active_vocabulary_goal"],2000)
             self.assertTrue(result["source_article_unchanged"])
@@ -104,7 +108,7 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertEqual(projection,site.markdown(source.decode("utf-8")))
             self.assertIn('class="alg-four-sidebar"',full)
             self.assertIn('id="alg-p-0"',article.group(1))
-            self.assertIn('href="#alg-p-74"',full)
+            self.assertIn(f'href="#alg-p-{len(data["paragraph_annotations"])-1}"',full)
             self.assertIn('/assets/alg-four.js',full)
             self.assertIn('/assets/alg-four.css',full)
             self.assertIn('alg-active-term',full)
@@ -152,11 +156,11 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             for name in ("alg-four.js","alg-four.css"):
                 self.assertTrue((out/"assets"/name).is_file())
             html_text=(out/"alg-four/index.html").read_text()
-            self.assertEqual(html_text.count('class="alg-outline-paragraph"'),75)
+            self.assertEqual(html_text.count('class="alg-outline-paragraph"'),len(data["paragraph_annotations"]))
             self.assertIn('class="alg-skeleton"',html_text)
             self.assertIn('class="alg-active-term"',html_text)
             self.assertIn('href="#alg-heading-',html_text)
-            self.assertIn('data-alg-four-index="74"',html_text)
+            self.assertIn(f'data-alg-four-index="{len(data["paragraph_annotations"])-1}"',html_text)
 
     def test_refuse_source_drift_omitted_annotation_or_wrong_lexicon(self):
         data=json.loads(MANIFEST.read_text())
@@ -165,6 +169,9 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             source=root/data["source"]["path"]
             source.parent.mkdir(parents=True)
             source.write_text("tampered source")
+            english=root/data["english_source"]["path"]
+            english.parent.mkdir(parents=True,exist_ok=True)
+            english.write_bytes((ROOT/data["english_source"]["path"]).read_bytes())
             meta=root/"references/learning/alg-four-group-anagrams.json"
             meta.parent.mkdir(parents=True)
             meta.write_text(json.dumps(data))
