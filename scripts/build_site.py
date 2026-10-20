@@ -322,6 +322,71 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
                    'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
 
 
+
+def render_alg_four(out:Path)->dict:
+    """Render a source-locked, static English acquisition worksheet (no LMS/runtime receipts)."""
+    manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
+    raw=manifest_path.read_bytes()
+    data=json.loads(raw)
+    if (data.get('schema_version')!='alg-four-lesson@1' or data.get('owner')!='alg-four'
+            or data.get('scope')!='FULL_ARTICLE_ALL_DECISIONS'
+            or data.get('learner_attempt')!='NOT_OBSERVED'):
+        raise ValueError('Invalid ALG Four lesson owner, scope or evidence status')
+    source=data.get('source',{})
+    source_path=(ROOT/source.get('path','')).resolve()
+    if not source_path.is_relative_to(ROOT.resolve()) or not source_path.is_file():
+        raise ValueError('ALG Four source must resolve inside repository')
+    source_bytes=source_path.read_bytes()
+    git_blob=hashlib.sha1(f"blob {len(source_bytes)}\0".encode()+source_bytes).hexdigest()
+    if git_blob!=source.get('git_blob'):
+        raise ValueError('ALG Four pinned source blob changed without lesson revision')
+    decisions=data.get('decisions',[])
+    ids=[item.get('id') for item in decisions]
+    if not ids or len(set(ids))!=len(ids) or any(not re.fullmatch(r'D[1-9][0-9]*',key) for key in ids):
+        raise ValueError('ALG Four requires unique concrete decision IDs')
+    required=('title','source_concept','passive','context','active_cue','oracle','counterexample')
+    if any(any(not isinstance(item.get(k),str) or not item[k].strip() for k in required) for item in decisions):
+        raise ValueError('ALG Four omitted a decision, cause, or oracle')
+    if any(not data.get(key) for key in ('pass1','pass2','pass3','passive_vocabulary',
+                                         'priority_active_phrases','whole_article_cue','whole_article_oracle')):
+        raise ValueError('ALG Four incomplete four-pass English lesson')
+    esc=html.escape
+    def paras(items):
+        return ''.join('<p>'+esc(item)+'</p>' for item in items)
+    def section(title,body):
+        return '<section class="panel" aria-label="'+esc(title,quote=True)+'"><h2>'+esc(title)+'</h2>'+body+'</section>'
+    vocabulary='<dl class="alg-four-vocab">'+''.join(
+        '<div><dt>'+esc(item['term'])+'</dt><dd>'+esc(item['meaning'])+
+        '</dd><dd><small>Encounter: '+esc(item['context'])+'</small></dd></div>'
+        for item in data['passive_vocabulary'])+'</dl>'
+    details=lambda answer: '<details><summary>Oracle — first attempt the explanation without looking</summary><p>'+esc(answer)+'</p></details>'
+    steps=''.join('<article class="alg-four-decision" data-alg-four-decision="'+esc(item['id'],quote=True)+'">'+
+        '<h3>'+esc(item['id']+' · '+item['title'])+'</h3><p><strong>Concept:</strong> '+esc(item['source_concept'])+'</p>'+
+        '<p><strong>Passive context:</strong> '+esc(item['passive'])+' '+esc(item['context'])+'</p>'+
+        '<p><strong>Active cue:</strong> '+esc(item['active_cue'])+'</p>'+
+        '<p><strong>Falsifier:</strong> '+esc(item['counterexample'])+'</p>'+
+        details(item['oracle'])+'</article>' for item in decisions)
+    contents='<section class="page-head"><div class="eyebrow">ALG Four · Independent English worksheet</div><h1>Group Anagrams: think in English from the runtime</h1>'+
+      '<p>A complete engineering article, five source-specific decisions and four distinct learning operations. No previous chat required.</p>'+
+      '<p><strong>Evidence:</strong> non-tracking preview, no learner attempt or native CEFR receipt observed. Opening an oracle is not proof of learning.</p>'+
+      '<p><a href="/alg-four/source.json">Source-locked lesson manifest</a> · <a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+'">Read technical article</a></p></section>'
+    contents+=section('Pass 1 · Low-friction encounter',paras(data['pass1']))
+    contents+=section('Pass 2 · Contextual recognition',paras(data['pass2'])+'<h3>Encounter vocabulary in several contexts</h3>'+vocabulary)
+    contents+=section('Pass 3 · Comprehension with context',paras(data['pass3'])+
+        '<p>The transcript remains visible. Listening or rereading is receptive and does not demonstrate production.</p>')
+    contents+=section('Pass 4 · Active engineering explanation', '<p>Without copying above text, explain every decision in English, including its runtime consequence. In a real guided session, compare the spoken or typed attempt with its source-bound oracle; this standalone worksheet does not record attempts.</p>'+steps+
+        '<h3>Whole-article reconstruction</h3><p>'+esc(data['whole_article_cue'])+'</p>'+details(data['whole_article_oracle'])+
+        '<p>Optional evaluation: record your own cue-to-speech latency, exact conditions retained, and a later unprompted attempt. No scores or learner states are inferred by this site.</p>')
+    d=out/'alg-four';d.mkdir()
+    (d/'index.html').write_text(page('ALG Four · Group Anagrams English',contents,'learning').replace('<html lang="zh-Hant">','<html lang="en">',1),encoding='utf-8')
+    (d/'source.json').write_bytes(raw)
+    return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
+            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'decision_ids':ids,'passive_count':len(data['passive_vocabulary']),
+            'priority_active_phrases':len(data['priority_active_phrases']),
+            'native_runtime':'NOT_RUN','learner_evidence':'NOT_OBSERVED'}
+
+
 def build(out:Path)->dict:
     out=out.resolve()
     if out.exists(): shutil.rmtree(out)
@@ -362,7 +427,9 @@ def build(out:Path)->dict:
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
     learn_body+='<section class="panel"><h2>More Route · Agent Engineering</h2><p>從真實 Domain 問題建立理論、Runtime、反例及可重現驗證的關係。</p><a href="/more-route/">Explore seven engineering decisions →</a></section>'
+    learn_body+='<section class="panel"><h2>ALG Four · English from Engineering</h2><p>從完整演算法文章的所有 Decision 與 Runtime 出發，以四遍學習英文理解與主動生成。</p><a href="/alg-four/">Open English acquisition worksheet →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
+    alg_four_provenance=render_alg_four(out)
     # Single-browser fault experiments are static and require no server credentials.
     build_reliability(out)
     # More Route is a static, reviewed explanation. No tool, task or browser effects.
@@ -431,6 +498,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             shutil.copyfile(ROOT/item['notebook'],destination)
     provenance={'schema_version':'ai-engineer-site-build@1','article':'articles/ai-engineer-learning-path.md','ops_provider_revision':snapshot['provider_revision'],'curriculum_revision':json.loads((ROOT/'references/upstream/ai-engineering-skills-lock.json').read_text())['revision'],'learning':state,'articles':article_provenance}
     provenance['more_route']=more_provenance
+    provenance['alg_four']=alg_four_provenance
     provenance['ai_evals']=eval_provenance
     provenance['loops']=loop_provenance
     provenance['scopes']=scope_provenance
