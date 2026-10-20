@@ -93,17 +93,17 @@ Unit Test PASS 只能證明候選 Revision 的部分程式行為。它不能證�
 ## Master Map
 
 ```text
-User Goal / Constraints
-  → More Route：Domain 與要學的工程決策
-  → Thinking Router：具名因果斷點（V2，必要時 V3）
-  → Ambitious Route：按需改善 Outcome / Depth
-  → 單一 Source-bound Handoff
-  → Medium Compiler：英文原稿、語意核對、繁中說明
-  → HTML：可查看的七個決策與 Runtime Trace
-  → Vercel：獨立部署與公開頁面驗收
+支付服務需求 + 固定漏洞證據與 Repository Revision
+  → Model 提出相容版本候選（D1）
+  → Task Owner 保存 Goal、Stage 與 Unknown Effect（D2）
+  → Context Compression 保留限制與授權（D3）
+  → Direct Tool 或有收益的獨立查證（D4）
+  → Action Policy 檢查身份、權限與 Effect Scope（D5）
+  → Sandbox Patch、Tests、Scan、Approval、Provider Readback（D6）
+  → 用失敗例驗證修正，才將經驗轉成 Skill／Tool（D7）
 ```
 
-這是**教學文章的資料流**，不是支付服務的 Runtime Harness。文章通過 Build，也不代表已驗證企業 Agent，或已證明任何讀者學會。
+Runtime 圖只是設計模型。實際修補、正式發布及持續改善，各自需要對應的獨立觀察。教學文章與網站交付的不同 Owner 見 [More Route Handoff](https://github.com/ed3c/medium-compiler/blob/main/docs/more-route-handoff.md)。
 
 ## 對照原始教材
 

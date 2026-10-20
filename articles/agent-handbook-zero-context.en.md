@@ -69,17 +69,17 @@ Before claiming a learner understands the design, ask them to identify a safe an
 ## Master map
 
 ```text
-User Goal + Hard Constraints
-  -> Thinking (where a causal assumption is unresolved)
-  -> More Route (domain concepts, observed system and learning test)
-  -> Ambitious Route (optional outcome/depth improvements)
-  -> One source-bound handoff
-  -> Medium Compiler (English explanation, semantic review, Chinese version)
-  -> HTML (seven inspectable decisions and executable evidence references)
-  -> Vercel delivery (separate live deployment/readback)
+Payment-service request + pinned vulnerability/repository evidence
+  -> Model suggests a compatible dependency candidate (D1)
+  -> Durable task owner records goal, stage and unknown effects (D2)
+  -> Context retains constraints and approval after compression (D3)
+  -> Direct tools or justified independent investigation (D4)
+  -> Action policy checks identity, permission and effect scope (D5)
+  -> Sandbox patch + tests + scan + approval + provider readback (D6)
+  -> Compare failures and transfer proven behavior into tools/skills (D7)
 ```
 
-This writing workflow does not replace the product's runtime Harness. It is an explanation pipeline. A compiled article, passing build or live website still does not certify a working enterprise agent or a trained reader.
+A runtime diagram is a model of a design. An actual patch, approved release, and repeated improvement each require a matching independent observation. The accompanying [More Route article handoff](https://github.com/ed3c/medium-compiler/blob/main/docs/more-route-handoff.md) documents the separate writing and website delivery responsibilities.
 
 ## Sources and scope
 
