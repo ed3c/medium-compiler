@@ -20,7 +20,6 @@ FEATURES=("staged-authoring","bounded-revision","lossless-drilldown","delivery",
 
 
 def blob(data):return hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
-def sha(data):return "sha256:"+hashlib.sha256(data).hexdigest()
 def put(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+"\n")
 
 
@@ -110,7 +109,6 @@ class Driver:
         cefr_revision=verify_cefr_skill_lock(ROOT)
         return {'status':'PASS','python':sys.version.split()[0],'registered_skills':names,
                 'registration':'FILES_VERIFIED; live host instruction activation not measured',
-                'compiler_sha256':sha((ROOT/'medium_compiler.py').read_bytes()),
                 'cefr_skill_revision':cefr_revision}
     def staged(self):
         self.feature='staged-authoring'
@@ -193,7 +191,7 @@ class Driver:
         data=(self.out/'writer-article-proof/article.md').read_bytes()
         assert data==(ROOT/'articles/ai-engineer-learning-path.md').read_bytes()
         (self.out/'article.md').write_bytes(data)
-        return {'status':'PASS','article_sha256':sha(data),'real_article':True,
+        return {'status':'PASS','real_article':True,
                 'author_review':'performed, not independent','learning_handoff':handoff['missing_handoff'],
                 'authority_boundary':authority['authority_controls'],
                 'human_progress':'NOT_UPDATED','fresh_writer_ab':'NOT_RUN'}
@@ -217,7 +215,7 @@ class Driver:
             'changed_part': b''.join([pieces[0]+b'x',*pieces[1:]]) != article}
         if not all(controls.values()):raise ValueError('delivery controls insensitive')
         (self.out/'assembled-from-parts.md').write_bytes(data)
-        return {'status':'PASS','parts':len(order),'refusal_controls':controls,'article_sha256':sha(data),'medium_browser_rendering':'NOT_RUN'}
+        return {'status':'PASS','parts':len(order),'refusal_controls':controls,'medium_browser_rendering':'NOT_RUN'}
     def behavior(self):
         self.feature='behavior-evals'
         # Repository verification binds the selected cloud packet; Host exposure remains Session-owned.
@@ -236,7 +234,6 @@ class Driver:
                 'entry':'.agents/skills/medium-behavior-evals/SKILL.md',
                 'cloud_recipe':'evals/writing/ops-evidence-handoff/cloud-native.md',
                 'native_packet':'evals/writing/ops-evidence-handoff/native-cloud.json',
-                'native_packet_sha256':sha((ROOT/'evals/writing/ops-evidence-handoff/native-cloud.json').read_bytes()),
                 'carrier':native['carrier'],'fork_turns':native['fork_turns'],
                 'capability_observation':'HOST_SESSION_OWNED; not probed by this verifier',
                 'fresh_writer_ab':'NOT_RUN','independent_reader':'NOT_RUN',
@@ -258,7 +255,7 @@ def main():
         choices=FEATURES if args.feature=='all' else FEATURES[:-1] if args.feature=='mechanical' else [] if args.feature=='doctor' else [args.feature]
         functions=dict(zip(FEATURES,[driver.staged,driver.revision,driver.lossless,driver.delivery,driver.behavior]))
         for feature in choices:
-            driver.doctor() # each feature starts from a freshly checked CLI context
+            # The checkout is read-only during this drive; reuse its integrity check.
             try:results[feature]=functions[feature]()
             except Exception as exc:
                 failed=True;results[feature]={'status':'FAIL','error':str(exc)}

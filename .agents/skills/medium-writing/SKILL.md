@@ -35,10 +35,9 @@ questions or an older topic's decision count is not a universal quota. P-class i
 sources, selects the main question/property/representation/witness/alternative and explains
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
 
-Website delivery follows repository AGENTS.md: ChatGPT cloud owns the Vercel total
-site through its Connector; Local Codex owns the Cloudflare experiment subsite
-and sandbox through project Wrangler. An explicitly selected Local Vercel task
-uses Vercel CLI. Cloudflare executes configured Git builds; this is not a Local
+Website delivery follows the selected host and ownership in repository AGENTS.md
+and docs/cloudflare-deployment.md. Article admission does not authorize publication.
+Cloudflare executes configured Git builds; this is not a Local
 Codex or ChatGPT runtime. App installation, build trigger, active deployment,
 and Browser/Queue/DO acceptance require separate readbacks. A hosting authentication or scope
 error belongs to that operation, not the article state machine. Preserve admitted

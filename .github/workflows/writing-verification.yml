@@ -30,7 +30,7 @@ jobs:
           npm run build > /tmp/writing-evidence/cloudflare-site-build.txt
           npm run build:cloudflare > /tmp/writing-evidence/cloudflare-lab-build.txt
           npm run test:site > /tmp/writing-evidence/cloudflare-site-runtime.txt 2>&1
-          npm run build:cloudflare:full > /tmp/writing-evidence/cloudflare-full-build.json
+          npm run build:cloudflare:full -- --no-deployment-manifest > /tmp/writing-evidence/cloudflare-full-build.json
           npm run test:site:full > /tmp/writing-evidence/cloudflare-full-api-runtime.txt 2>&1
           npx --no-install wrangler deploy --dry-run --config wrangler.full-site.jsonc > /tmp/writing-evidence/cloudflare-full-dry-run.txt
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
@@ -75,7 +75,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Build pinned article and ALG Four site
-        run: python3 scripts/build_full_cloudflare_site.py --out /tmp/alg-four-browser-site > /tmp/alg-four-site-build.json
+        run: python3 scripts/build_full_cloudflare_site.py --no-deployment-manifest --out /tmp/alg-four-browser-site > /tmp/alg-four-site-build.json
       - name: Verify canonical Part 7 with original compiler and English detector
         run: |
           mkdir -p /tmp/alg-four-browser-evidence

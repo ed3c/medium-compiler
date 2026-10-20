@@ -252,6 +252,14 @@ actor, relevant condition, causal relation, observed versus hypothetical
 status, and decision boundary? If so, cut it. If not, preserve the missing
 meaning in fewer words or near the action that depends on it.
 
+For the complete LeetCode article profile, also apply its
+[reader prerequisites and explanatory steps](../leetcode-mental/references/article-content-profile.md#reader-prerequisites-and-explanatory-steps)
+before cutting. The reader must still be able to reconstruct the intermediate
+state and its cause from the article alone. A worked example, derivation,
+code-to-runtime mapping or interview recall may perform different teaching
+work while repeating a technical fact. Preserve that work; a surviving
+conclusion or a lower detector score does not justify removing its bridge.
+
 - **Writer narration:** Delete "This teaching scenario combines five
   concepts" or "This diagram illustrates the method". Show the interaction.
 - **Framework name-checking:** Replace "Acting as an Amplifier, the

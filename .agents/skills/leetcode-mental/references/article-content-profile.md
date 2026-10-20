@@ -23,7 +23,44 @@ From the *actual* problem statement and assumptions derive a connected, zero-con
 7. A relevant alternative and its trade-off. Clearly name the constraint under which it becomes preferable.
 8. Concise English interview Q&A *grounded in the approved technical claims*, plus a closing zero-context Master Map that only connects facts already established.
 
-This is a **content coverage contract**, not eight mandatory section names. The number of sections is determined by the actual reader decisions and distinct runtime boundaries, not a default quota. Build a single causal narrative in natural paragraphs. Merge repeated claims across teaching passes, repeated summaries and duplicated introduction/closing sections, **without dropping unique examples, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
+This is a **content coverage contract**, not eight mandatory section names. The number of sections is determined by the actual reader decisions and distinct runtime boundaries, not a default quota. Build a single causal narrative in natural paragraphs. Merge passages only when they perform the same teaching work, **without dropping examples, intermediate states, derivations, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
+
+## Reader prerequisites and explanatory steps
+
+Fix the actual audience before choosing detail. A reader who knows basic Python syntax
+does not thereby know hashability, a library factory, a data-structure operation or a
+logarithmic cost derivation. Naming a mechanism, stating its result or linking to a
+source does not explain it. Supply the missing steps where that reader would otherwise
+have to obtain the answer from prior knowledge.
+
+Separate **algorithm decisions** from **teaching steps**. One design choice can require
+several explanations: what information an object represents, why the next operation is
+valid, its input state, the operation itself, its returned value or mutation, and the
+effect on the next operation. A small decision count does not justify compressing those
+steps into one paragraph. Use prose and worked states as needed; neither a sentence per
+operation nor a fixed section count is required.
+
+When a complete reference is supplied, read its body and account for its material
+explanations, examples and derivations before drafting. Correct technical mistakes while
+preserving their teaching purpose. A previously unreadable external link is not a reason
+to ignore a later user-supplied full text. A requested API or runtime mechanism remains
+in scope if the author chooses an equivalent implementation; changing code cannot silently
+remove the teaching requirement. Explain that mechanism and show how it relates to the
+chosen solution, or resolve a real scope conflict with the user.
+
+Keep purposeful recurrence. Explaining a mechanism, following it with concrete values,
+mapping it to complete code, and recalling it in concise interview English have different
+reader purposes even when they mention the same fact. Preserve the necessary bridge in
+each context; remove verbatim repetition that does no additional teaching work. This does
+not require every concept to appear a fixed number of times. A Master Map may compress
+previously explained relations, but cannot supply an explanation missing from the body.
+
+Before accepting an editorial deletion, test the result against this reader and the
+requested source coverage. Can the reader derive the next state and explain why it
+follows, using the remaining article alone? If not, restore or rewrite the bridge.
+Preserving the conclusion, technical terms and code is insufficient. Keep this semantic
+review outside copyable prose; the detector, heading count, paragraph count and digest
+cannot certify it.
 
 ## Language, editorial review and evidence
 

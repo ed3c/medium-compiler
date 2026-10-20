@@ -77,6 +77,8 @@ unnecessary sections to satisfy an algorithm-only format. The linked
 [Medium example reference](.agents/skills/leetcode-mental/references/medium-reference.md)
 is a style pointer whose full text was not independently retrievable; the
 user's supplied v4 specification defines the operational teaching requirements.
+The complete Group Anagrams comparison text was subsequently supplied by the user;
+its current provenance and case-specific applicability are in that reference file.
 Proof and mastery remain separate from layout and a successful compiler receipt.
 
 ## Authority split

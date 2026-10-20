@@ -75,6 +75,10 @@ python3 tests/browser_e2e_alg_four.py --url <provider URL> --out <external brows
 要求乾淨且 revision 相同的本機 build，再逐檔讀回 HTTP bytes、MIME、主要路由、
 Lab isolation headers 與 API 拒絕。Manifest 不包含自身 digest，也不是 Provider version
 證明；active version 仍由 Wrangler 另讀。部署前先確認 `git status --short` 為空。
+文章／Browser CI 使用 `npm run build:cloudflare:full -- --no-deployment-manifest`，
+不計算部署專用的全站資產 SHA-256。來源鎖定與 compiler receipt 保留原本實際消費的
+完整性檢查；品質驗收檢查文章推導與實際 Reader 回答，不以 digest 數量代替。
+本機正式部署仍使用預設 build，產生供遠端逐檔讀回使用的 manifest。
 相容日沿用共用 API 的 `2026-10-11`：pinned Wrangler 4.149.0 的本機 workerd
 最高支援 `2026-10-13`，不能將今天日期寫入後只用 dry-run 宣稱 runtime 可用。
 
