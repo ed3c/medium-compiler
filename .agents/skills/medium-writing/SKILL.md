@@ -27,7 +27,7 @@ For general writing routes, produce a complete article that a software engineer 
 Problem -> Decision -> Representation -> Runtime -> Internals -> Alternatives ->
 Complexity/Cost -> Implementation -> Interview -> Master Map.
 
-**When a complete LeetCode Medium article is selected**, consume the fully approved English/zh-TW content from [leetcode-mental's complete-article profile](../leetcode-mental/references/article-content-profile.md). That Skill is the sole semantic Content Owner; **this Skill is the Medium-native Formatter/Assembler**, not a second article writer. Preserve all technical claims, exact English terms, code, proof, exceptions, figures and source identity. If coverage, translation or correctness fails, return it to the Content Owner before admission instead of summarizing or revising it here. The existing CLI Stage 0–7 and supported revision routes remain unchanged.
+**When a complete LeetCode Medium article is selected**, consume the fully approved English/zh-TW content from [leetcode-mental's complete-article profile](../leetcode-mental/references/article-content-profile.md). That Skill is the sole semantic Content Owner; **this Skill is the format-only Medium-native Formatter/Assembler**, not a second article writer. Preserve all technical claims, exact English terms, code, proof, exceptions, figures and source identity. If coverage, translation or correctness fails, return it to the Content Owner before admission instead of summarizing or revising it here. The existing CLI Stage 0–7 and supported revision routes remain unchanged.
 
 These are teaching responsibilities, not a required number of headings. Count the actual
 reader decisions from question, alternatives, condition and consequence; five organizing
