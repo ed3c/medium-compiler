@@ -24,8 +24,8 @@
         paragraphs[active].classList.remove("alg-current-source");
       }
       paragraphs[index].classList.add("alg-current-source");
-      sidebar.querySelectorAll('a[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
-      const activeLink = entry.querySelector("summary a");
+      sidebar.querySelectorAll('summary[aria-current="location"]').forEach((el) => el.removeAttribute("aria-current"));
+      const activeLink = entry.querySelector("summary[data-outline-link]");
       if (activeLink) activeLink.setAttribute("aria-current", "location");
       active = index;
     }
@@ -49,7 +49,7 @@
   }
 
   function currentParagraph() {
-    const line = Math.max(120, Math.min(240, window.innerHeight * 0.3));
+    const line = Math.max(130, Math.min(160, window.innerHeight * 0.18));
     let index = 0;
     for (let i = 0; i < paragraphs.length; i += 1) {
       const box = paragraphs[i].getBoundingClientRect();
@@ -71,9 +71,9 @@
   }
 
   sidebar.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href^="#alg-"]');
+    const link = event.target.closest("summary[data-target-id]");
     if (!link) return;
-    const id = link.getAttribute("href").slice(1);
+    const id = link.dataset.targetId;
     const target = document.getElementById(id);
     if (!target || !source.contains(target)) return;
     event.preventDefault();
@@ -90,7 +90,8 @@
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, "", "#" + id);
     }
-    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    target.scrollIntoView({ behavior: "auto", block: "start" });
+    window.requestAnimationFrame(() => activate(selected, true));
   });
 
   window.addEventListener("scroll", scheduleUpdate, { passive: true });

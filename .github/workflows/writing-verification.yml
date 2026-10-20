@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir -p /tmp/writing-evidence
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
-          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
+          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1 || { tail -n 130 /tmp/writing-evidence/tests.txt; exit 1; }
           node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs > /tmp/writing-evidence/browser-cloudflare-contracts.txt 2>&1
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
@@ -42,10 +42,14 @@ jobs:
         run: |
           mkdir -p /tmp/writing-evidence
           python3 .agents/skills/sloptrim/scripts/detect.py articles/agent-handbook-zero-context.en.md > /tmp/writing-evidence/more-route-sloptrim.json
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/leetcode-49-group-anagrams.en.md > /tmp/writing-evidence/leetcode-part7-sloptrim.json
           python3 - <<'PY'
           import json
           from pathlib import Path
           result=json.loads(Path('/tmp/writing-evidence/more-route-sloptrim.json').read_text())
+          part7=json.loads(Path('/tmp/writing-evidence/leetcode-part7-sloptrim.json').read_text())
+          if not isinstance(part7,dict) or not part7:
+              raise SystemExit('Missing LeetCode Part 7 sloptrim diagnostic')
           if not isinstance(result,dict) or not result:
               raise SystemExit('Missing sloptrim diagnostic report')
           print('SLoptrim detector executed on the English More Route draft. Semantic fidelity still needs independent author/reader review.')
@@ -56,4 +60,34 @@ jobs:
         with:
           name: mechanical-writing-evidence
           path: /tmp/writing-evidence/
+          retention-days: 7
+
+  browser-alg-four:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build pinned article and ALG Four site
+        run: python3 scripts/build_site.py --out /tmp/alg-four-browser-site > /tmp/alg-four-site-build.json
+      - name: Verify canonical Part 7 with original compiler and English detector
+        run: |
+          mkdir -p /tmp/alg-four-browser-evidence
+          python3 scripts/verify_alg_four_article.py --out /tmp/alg-four-browser-evidence
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/leetcode-49-group-anagrams.en.md > /tmp/alg-four-browser-evidence/sloptrim-diagnostic.json
+      - name: Install pinned Playwright Chromium
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+      - name: Native desktop and mobile browser verification
+        run: |
+          python3 tests/browser_e2e_alg_four.py --site /tmp/alg-four-browser-site --out /tmp/alg-four-browser-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: alg-four-native-browser-evidence
+          path: |
+            /tmp/alg-four-browser-evidence/
+            /tmp/alg-four-site-build.json
           retention-days: 7
