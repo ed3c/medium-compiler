@@ -39,13 +39,19 @@ action is Session-local, not product-wide. Retain the native route and name the 
 operation; refresh capability observations on a new Session, not every unchanged turn.
 Proceed without asking again when the selected route's actual requirements are met.
 
-## Vercel host route and external state
+## Selected full-site Cloudflare route and external state
 
-The total site remains on Vercel Hobby (`noodles8/medium-compiler`); its deployment
-owner is the ChatGPT cloud task using the Vercel Connector. The Reliability Lab
-subsite and Access-protected remote sandbox use Cloudflare Workers Free; Local
-Codex owns their Wrangler setup and native Git build configuration. Navigate
-directly between origins; do not proxy Access identity or payment load through Vercel.
+The user selected Local Codex + pinned Wrangler for the complete Cloudflare site.
+Use `wrangler.full-site.jsonc` and `npm run build:cloudflare:full` for the independent
+`medium-compiler-full-site` Worker serving full `dist/`. `npm run deploy` still owns
+only the existing Reliability Lab Worker and must not be used for full-site delivery.
+Vercel Hobby (`noodles8/medium-compiler`) remains a rollback reference; this selection
+does not authorize another Vercel deployment. The original Lab origin and the separate
+Access-protected payment sandbox retain their existing ownership and persistence.
+Navigate directly to the Lab; never proxy Access identity or payment load through
+the public website. Provider deployment, source revision and runtime acceptance
+must each be read back before calling the full-site URL verified.
+See [the deployment contract](docs/cloudflare-deployment.md) for commands and gates.
 
 For an explicitly selected Local Vercel task, use Vercel CLI with its own local credentials. Verify the
 requested team and project through that CLI. For a cloud task, use the connected

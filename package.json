@@ -7,8 +7,16 @@
     "build:cloudflare": "python3 scripts/build_reliability_site.py",
     "dev": "npm run build:cloudflare && wrangler dev",
     "deploy": "npm run build:cloudflare && wrangler deploy",
-    "test:site": "node --test tests/cloudflare_site.test.mjs"
+    "test:site": "node --test tests/cloudflare_site.test.mjs",
+    "build:cloudflare:full": "python3 scripts/build_full_cloudflare_site.py",
+    "dev:cloudflare:full": "npm run build:cloudflare:full && wrangler dev --config wrangler.full-site.jsonc",
+    "deploy:cloudflare:full": "npm run build:cloudflare:full && wrangler deploy --config wrangler.full-site.jsonc",
+    "test:site:full": "SITE_WRANGLER_CONFIG=wrangler.full-site.jsonc node --test tests/cloudflare_site.test.mjs"
   },
-  "dependencies": {"entities": "6.0.1"},
-  "devDependencies": {"wrangler": "4.149.0"}
+  "dependencies": {
+    "entities": "6.0.1"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
 }

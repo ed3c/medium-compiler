@@ -1,14 +1,17 @@
 # medium-compiler 的 Cloudflare 部署與負載成本
 
-總站維持 Vercel Hobby；Workers Static Assets 只承載 Reliability Lab 分頁，既有 Remote Sandbox 繼續使用
-Access + Worker + Queues + 兩個 SQLite Durable Objects。帳號維持 Workers Free、
+本次使用者明確選用 Local Codex + pinned Wrangler，將完整網站部署至獨立的
+`medium-compiler-full-site` Worker。新設定 `wrangler.full-site.jsonc` 使用完整 `dist/`；
+既有 `medium-compiler` Worker 仍只承載 Reliability Lab，Vercel 保留為回退參考。
+既有 Remote Sandbox 繼續使用 Access + Worker + Queues + 兩個 SQLite Durable Objects。
+帳號維持 Workers Free、
 Zero Trust Free；不新增 R2、Containers、付費 Load Balancer 或 Workers Paid。
 這是 US$0 約束下的實驗部署，不是持續大流量付款服務的容量承諾。
 
 | 方案 | 網站成本／限制 | 付款測試 | 選擇 |
 | --- | --- | --- | --- |
-| [Vercel Hobby](https://vercel.com/docs/plans/hobby) + Cloudflare Free | US$0；100 GB Fast Data Transfer、1 million CDN requests 的 included usage；限個人非商業用途 | 仍受 Cloudflare Queue／DO 額度 | 總站；付款測試直接連到 Cloudflare |
-| Workers Static Assets + Cloudflare Free | US$0；直接資產請求免費、不限次數；動態 API 另計 | 有界故障／恢復與 baseline | Lab 分頁 |
+| [Vercel Hobby](https://vercel.com/docs/plans/hobby) + Cloudflare Free | US$0；100 GB Fast Data Transfer、1 million CDN requests 的 included usage；限個人非商業用途 | 仍受 Cloudflare Queue／DO 額度 | 回退參考；本次不重新部署 |
+| Workers Static Assets + Cloudflare Free | US$0；直接資產請求免費、不限次數；動態 API 另計 | 有界故障／恢復與 baseline | 新完整網站與既有獨立 Lab |
 | Workers Static Assets + Workers Paid | 基本 US$5/month，加超額操作成本 | 可擴大 native load window，仍需處理熱 DO 與量測 SLO | 尚未獲授權，不啟用 |
 
 只升級 Vercel 不能擴大 Cloudflare Queues 額度。若未來的要求是持續大流量付款，
@@ -16,12 +19,15 @@ Zero Trust Free；不新增 R2、Containers、付費 Load Balancer 或 Workers P
 
 ## 網站與付款系統分別計量
 
-總站文章、Learning、ALG 與逐字稿功能仍由 Vercel 提供。總站的 Reliability Lab
-導覽直接開啟 Cloudflare Origin；Lab 的首頁／文章導覽回到 Vercel。Cloudflare
-只生成 Lab HTML、CSS、JS 與本地 Wasm，不再複製整個網站。舊 Cloudflare
-文章／課程 URL 以資產層 302 回總站；Vercel 舊 Lab 保留原 Origin 的 OPFS 讀回。
-網站 Worker 沒有 Queue／DO binding，也不代理 Remote Sandbox 的 Access 身分。
-已有 read-only transcript Worker API 保留相容性；它不是總站的部署 Owner。
+完整網站包含文章、Learning、ALG Four、CEFR、逐字稿介面與 read-only API。
+新 build 沿用 `scripts/build_site.py`，只將產出 HTML 中指向既有 Vercel 的
+`href`／`src` 映射為同源路徑；Markdown、雙語 source blob、註解 manifest、七張圖與
+下載檔案保持原始 bytes。完整目標不帶 Lab-only `_redirects`。
+導覽仍直接開啟既有 Lab Origin，保留其 OPFS；完整網站也包含 `/reliability/`，
+但新 Origin 的 OPFS 是獨立資料，並不搬移原狀態。
+兩個公開網站 Worker 均沒有 Queue／DO binding，也不代理 Sandbox Access 身分。
+`/api/transcripts` 共用既有 Worker handler，保留 search／inspect、限制及拒絕語義。
+未知 API 回 JSON 404；未知網站路由不回首頁假成功。
 
 Cloudflare [Static Assets](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/)
 的直接資產請求免費且不限次數；Free 每次部署上限 20,000 個檔案、每檔 25 MiB。
@@ -53,31 +59,39 @@ US$0.40/million operations。DO requests、duration、SQL、其他帳戶使用�
 
 ```sh
 npm ci --ignore-scripts
-npm run build:cloudflare
-npm run test:site
-npx wrangler deploy --dry-run
-# Owner 先在指定帳號 Billing 讀回 Workers Free，才執行遠端部署。
-npm run deploy -- --message 'Source <verified Git SHA>'
+npm run build:cloudflare:full
+python3 -m unittest discover -s tests -p test_cloudflare_full_site.py -v
+npm run test:site:full
+npx --no-install wrangler deploy --dry-run --config wrangler.full-site.jsonc
+# 在帳號、Workers Free、現有用量與匹配 HEAD 的 PR／CI／main 均讀回後：
+npm run deploy:cloudflare:full -- --message 'Source <verified main SHA>'
+npx --no-install wrangler deployments list --config wrangler.full-site.jsonc
+# URL 必須採用 Wrangler／Provider 實際回傳，不自行猜測 canonical origin。
+python3 scripts/verify_cloudflare_site.py --url <provider URL> --site dist --revision <main SHA> --out <external evidence.json>
+python3 tests/browser_e2e_alg_four.py --url <provider URL> --out <external browser evidence directory>
 ```
 
-`npm run deploy` 只生成 `dist-cloudflare` 的 Lab assets，再使用 pinned Wrangler 4.149.0。
-Public Worker 名稱為 `medium-compiler`，與 `checkout-reliability-sandbox` 分開。
-`npm run build`／`vercel.json` 維持總站；ChatGPT cloud 用 Vercel Connector 管理總站。
-Local Codex 用 Wrangler 設定 Cloudflare，不能因 Connector 403 改成另一部署 Owner。
-只有另行選定 Local Vercel 任務才用 Vercel CLI；不在遷移中購買網域。
-GitHub Actions 對 PR 執行原本的 Python／Node／mechanical drives，另加入本機
-workerd 的網站 API controls。CI 不能代替遠端 Browser 或第三方來源驗收。
-Workers Builds 只有真正完成 Git 連接後才算自動部署；一份 config 不構成連接證明。
+`deployment.json` 保存 Git revision、dirty 狀態與公開產物 SHA-256。Runtime verifier
+要求乾淨且 revision 相同的本機 build，再逐檔讀回 HTTP bytes、MIME、主要路由、
+Lab isolation headers 與 API 拒絕。Manifest 不包含自身 digest，也不是 Provider version
+證明；active version 仍由 Wrangler 另讀。部署前先確認 `git status --short` 為空。
+相容日沿用共用 API 的 `2026-10-11`：pinned Wrangler 4.149.0 的本機 workerd
+最高支援 `2026-10-13`，不能將今天日期寫入後只用 dry-run 宣稱 runtime 可用。
 
-`site/_headers` 隨 build 複製，保留 Lab 的 COOP same-origin／COEP require-corp。
-原網站路由、Markdown downloads、notebook、provenance 與 ALG assets 在 Vercel build 原樣生成。
-Static Assets 使用 auto-trailing-slash，未知 API 回傳 404，不回傳假成功的首頁。
-持久化 Workers Logs 保持關閉；操作員用平台 Usage、有限的 Tail 與實驗 JSON
-保存證據。這會限制歷史 Log 查詢，不把內部計數當成 Cloudflare 帳單。
+`npm run deploy`／`wrangler.jsonc` 繼續只生成 `dist-cloudflare` 的 Lab assets。
+本次不改既有 Workers Builds trigger、不連接新 Git 自動部署、不變更 Sandbox config。
+PR CI 執行原 controls、新完整資產及 API controls、dry-run、Chromium desktop／mobile；
+CI 不代替遠端部署或第三方逐字稿來源 readback。
+`site/_headers` 保留 Lab COOP／COEP。持久化 Workers Logs 沿用關閉的成本策略；
+平台 Usage、有限 Tail 與外部 evidence 保留觀察，不把內部計數當帳單。
+
+回退只作用於新 Worker：先記錄 active version，再使用 pinned Wrangler 的 rollback
+指令（以當前 `rollback --help` 為準）。首次部署若尚無可回退版本，讀者仍可使用既有
+Vercel／Lab URL。不得以回退名義覆蓋 Lab、Sandbox、Queue、DO 或 Access Policy。
 
 ## 驗收與獨立 Load Runner
 
-新網址的 P0 需實際 Browser Create → Provider Commit + Lost Reply → Readback
+既有 Lab／付款系統的 P0 需實際 Browser Create → Provider Commit + Lost Reply → Readback
 PAID + 單一 Charge → Reload 保存狀態，並檢查錯金額拒絕、Export、Reset。
 遷移到新 Origin 不會搬移舊 OPFS；舊 Vercel Lab 仍可回讀與匯出 evidence。
 JSON evidence 是執行紀錄，並不是已實作的資料 Import／Restore。

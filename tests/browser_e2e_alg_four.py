@@ -19,13 +19,17 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
-def run(site: Path, output: Path) -> dict:
+def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
     output.mkdir(parents=True, exist_ok=True)
-    factory=lambda *args,**kwargs: QuietHandler(*args,directory=str(site),**kwargs)
-    server=http.server.ThreadingHTTPServer(("127.0.0.1",0),factory)
-    worker=threading.Thread(target=server.serve_forever,daemon=True)
-    worker.start()
-    url=f"http://127.0.0.1:{server.server_port}/alg-four/"
+    server=None
+    if base_url:
+        url=base_url.rstrip('/')+'/alg-four/'
+    else:
+        factory=lambda *args,**kwargs: QuietHandler(*args,directory=str(site),**kwargs)
+        server=http.server.ThreadingHTTPServer(("127.0.0.1",0),factory)
+        worker=threading.Thread(target=server.serve_forever,daemon=True)
+        worker.start()
+        url=f"http://127.0.0.1:{server.server_port}/alg-four/"
     report={"url":url,"desktop":{},"mobile":{},"status":"INCONCLUSIVE"}
     try:
         with sync_playwright() as playwright:
@@ -40,6 +44,14 @@ def run(site: Path, output: Path) -> dict:
             assert "Group Anagrams" in article.inner_text()
             assert "Loop invariant" in article.inner_text()
             assert article.locator("figure.article-figure img").count()==7
+            images=article.locator("figure.article-figure img")
+            for img in images.all():
+                img.scroll_into_view_if_needed()
+                img.evaluate("e=>e.loading='eager'")
+                desktop.wait_for_function(
+                    "src=>{const e=[...document.images].find(i=>i.src===src);return e.complete && e.naturalWidth>0}",
+                    arg=img.evaluate("e=>e.src"))
+                assert img.evaluate("e=>new URL(e.src).origin===location.origin"), "Figure escaped deployed origin"
             assert desktop.locator("[data-outline-index]").count()==36
             assert article.locator("[data-alg-four-index]").count()==36
             assert desktop.locator(".alg-four-annotation").count()==36
@@ -116,18 +128,21 @@ def run(site: Path, output: Path) -> dict:
             browser.close()
         report["status"]="PASS"
     finally:
-        server.shutdown()
-        server.server_close()
+        if server:
+            server.shutdown()
+            server.server_close()
         (output/"result.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
     return report
 
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("--site",type=Path,required=True)
+    source=parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--site",type=Path)
+    source.add_argument("--url")
     parser.add_argument("--out",type=Path,required=True)
     args=parser.parse_args()
-    result=run(args.site.resolve(),args.out.resolve())
+    result=run(args.site.resolve() if args.site else None,args.out.resolve(),args.url)
     print(json.dumps(result,ensure_ascii=False,indent=2))
 
 
