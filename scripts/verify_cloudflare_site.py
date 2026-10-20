@@ -13,7 +13,8 @@ def verify(url: str, site: Path, revision: str) -> dict:
     origin=url.rstrip('/')
     checks=[]
     def request(path, status=200, method='GET'):
-        req=urllib.request.Request(origin+path, method=method)
+        req=urllib.request.Request(origin+path, method=method,
+                                   headers={'User-Agent':'medium-compiler-site-verifier/1.0'})
         try:
             response=urllib.request.urlopen(req, timeout=30)
         except urllib.error.HTTPError as error:
@@ -69,6 +70,9 @@ if __name__=='__main__':
     result={'status':'INCONCLUSIVE'}
     try:
         result=verify(args.url,args.site,args.revision)
+    except Exception as error:
+        result['error']=str(error)
+        raise
     finally:
         args.out.parent.mkdir(parents=True,exist_ok=True)
         args.out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
