@@ -324,6 +324,7 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
     (article_dir/'source.json').write_bytes(manifest_bytes)
     (article_dir/'article.md').write_bytes(source_bytes)
     return panel, {'source_manifest':item['source_manifest'],'source_manifest_sha256':manifest_hash,
+                   'sha256':article_hash,
                    'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
 
 
@@ -440,7 +441,7 @@ def render_alg_four(out:Path)->dict:
         page('ALG Four · Annotated Original',full_body,'learning'),encoding='utf-8')
     (target/'source.json').write_bytes(raw)
     return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
-            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'source_blob':git_blob,
             'english_source_blob':english_blob,
             'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
             'active_items_collected':len(items),'active_vocabulary_goal':2000,
@@ -551,11 +552,12 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             english_bytes=(ROOT/item['english_source']).read_bytes()
             (article_dir/'article.en.md').write_bytes(english_bytes)
             source_record['english_source']=item['english_source']
-            source_record['english_sha256']=hashlib.sha256(english_bytes).hexdigest()
         if item.get('video_id'):
             source_record['video_id']=item['video_id']
             source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
-        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
+        if 'sha256' not in source_record:
+            source_record['sha256']=hashlib.sha256(source_bytes).hexdigest()
+        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/',**source_record})
         if item.get('notebook'):
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['notebook'],destination)

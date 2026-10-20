@@ -64,7 +64,9 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
         notes=data["paragraph_annotations"]
         self.assertEqual([n["paragraph_index"] for n in notes],list(range(data["alignment"]["paragraph_count"])))
         self.assertEqual({n["kind"] for n in notes},{"PASSIVE","PASSIVE_AND_ACTIVE"})
-        self.assertEqual({d["id"] for d in data["decisions"]},{"D1","D2","D3","D4","D5"})
+        decision_ids=[d["id"] for d in data["decisions"]]
+        self.assertTrue(decision_ids)
+        self.assertEqual(len(set(decision_ids)),len(decision_ids))
         ids=[x["id"] for x in data["active_items"]]
         self.assertEqual(len(ids),len(set(ids)))
         self.assertLess(len(ids),2000)
@@ -127,6 +129,15 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
                             capture_output=True,text=True,check=False)
         self.assertEqual(proc.returncode,0,proc.stderr)
 
+    def test_projection_reuses_source_blobs_without_report_only_sha256(self):
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)
+            (out/'assets').mkdir()
+            with patch.object(site.hashlib,'sha256',side_effect=AssertionError('No consumer needs a projection report digest')):
+                report=site.render_alg_four(out)
+            self.assertTrue(report['source_article_unchanged'])
+            self.assertEqual((out/'alg-four/source.json').read_bytes(),MANIFEST.read_bytes())
+
     def test_mode_c_projection_is_derived_and_preserves_english(self):
         import importlib.util
         proj_spec=importlib.util.spec_from_file_location("alg_four_projection",
@@ -139,15 +150,30 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             def __init__(self):
                 super().__init__()
                 self.text=[]
+                self.ignored_spans=0
+            def handle_starttag(self,tag,attrs):
+                if tag=='span' and (self.ignored_spans or dict(attrs).get('class') in
+                        {'alg-reading-mark','alg-minor-break','alg-major-break'}):
+                    self.ignored_spans+=1
+            def handle_endtag(self,tag):
+                if tag=='span' and self.ignored_spans:
+                    self.ignored_spans-=1
             def handle_data(self,data):
-                self.text.append(data)
-        for decision in decisions:
-            formatted=projection.scan_reading(decision["passive"],decision["id"])
+                if not self.ignored_spans:
+                    self.text.append(data)
+        texts=[(d['passive'],d['id']) for d in decisions]
+        texts += [(n['english_source'],n['decision_ids'][0]) for n in data['paragraph_annotations']]
+        literal='Use dictionary lookup on strs[:i] and M / N, but preserve path/a//b and <script>x</script> & [literal].'
+        texts.append((literal,'D5'))
+        for text,decision_id in texts:
+            formatted=projection.scan_reading(text,decision_id)
             rendered=Spoken()
             rendered.feed(formatted)
-            restored=''.join(rendered.text).replace('//','').replace('/','').replace('[','').replace(']','')
+            restored=''.join(rendered.text)
             self.assertEqual(re.sub(r'\s+',' ',restored).strip(),
-                             re.sub(r'\s+',' ',decision["passive"]).strip())
+                             re.sub(r'\s+',' ',text).strip())
+            self.assertNotIn('<script>',formatted)
+        for decision in decisions:
             self.assertLessEqual(len(decision["passive_skeleton"].split()),15)
             self.assertIn('→',decision["passive_skeleton"])
         self.assertNotIn('representation',projection.STRESS)

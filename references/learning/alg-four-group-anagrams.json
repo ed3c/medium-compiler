@@ -6,22 +6,22 @@
   "source": {
     "repository": "ed3c/medium-compiler",
     "path": "articles/leetcode-49-group-anagrams.md",
-    "git_blob": "a83ce1430e82e5a7547e0c02b709f79494fd2df4",
+    "git_blob": "c0718f7ecebfc12d761f4c9f8b70b101548c59ea",
     "technical_authority": "leetcode-mental",
     "writing_authority": "medium-writing"
   },
   "english_source": {
     "repository": "ed3c/medium-compiler",
     "path": "articles/leetcode-49-group-anagrams.en.md",
-    "git_blob": "6e7de79eec88c8a43941f470a03af2368e161aa9"
+    "git_blob": "a4be808918ba6bcaf0af1b528d860bb81c25e19b"
   },
   "alignment": {
     "method": "one-to-one-source-paragraph",
-    "english_heading_count": 13,
-    "zh_heading_count": 13,
-    "paragraph_count": 36,
+    "english_heading_count": 29,
+    "zh_heading_count": 29,
+    "paragraph_count": 139,
     "image_count": 7,
-    "source_edition": "Part 7 complete, 2026-10-20"
+    "source_edition": "Part 7 complete expanded edition, 2026-10-21"
   },
   "learning_policy": {
     "goal_active_lexical_items": 2000,
@@ -38,13 +38,13 @@
     {
       "id": "D1",
       "title": "Equivalence: what makes anagrams the same?",
-      "source_concept": "Character-frequency equivalence and grouping invariant",
-      "passive": "Anagrams can reorder their characters, but their character-frequency vectors remain equal. A group holds all previously processed words with an equal canonical vector.",
+      "source_concept": "Anagram equivalence and canonical-key proof",
+      "passive": "Two lowercase strings are anagrams if and only if every letter count agrees. A canonical key preserves those counts in a fixed letter order.",
       "context": "When 'eat', 'tea', and 'ate' share frequencies, they belong to one group even though their spellings differ.",
       "active_cue": "Without reading the code, explain in English why anagrams must share one identity. Distinguish the mathematical equivalence property from the loop invariant.",
-      "oracle": "Two words are anagrams exactly when each character occurs the same number of times. The frequency vector expresses that equivalence. Separately, at the start of iteration i, the dictionary contains exactly the words from the processed prefix, each placed once in the bucket for its frequency vector.",
+      "oracle": "Rearrangement preserves every letter occurrence. Conversely, equal counts provide exactly the same supply of each letter, so either string can fill the other string’s positions. This equivalence property is distinct from the checkpointed loop invariant.",
       "counterexample": "A set of distinct characters cannot distinguish 'a' from 'aa'.",
-      "passive_skeleton": "Letter frequencies → identify equivalent words → assign processed strings to the correct groups"
+      "passive_skeleton": "Equal letter counts → identify anagrams → give equivalent strings the same canonical key"
     },
     {
       "id": "D2",
@@ -71,410 +71,1525 @@
     {
       "id": "D4",
       "title": "Grouping: equality and hash lookup do different jobs",
-      "source_concept": "Canonical key equality, hash collisions, dictionary HIT/MISS and defaultdict alternative",
-      "passive": "The canonical key defines logical group identity. The dictionary uses hashing to find candidate entries; a hash collision is not key equality. A missing key can create an empty list, either through an explicit branch or defaultdict(list).",
+      "source_concept": "Hash/equality search and defaultdict factory lifecycle",
+      "passive": "Hashing finds candidate entries, while equality distinguishes the actual tuple keys. A missing subscription calls the factory, stores its new list and returns it before append runs.",
       "context": "The first key from 'eat' is a MISS and creates a bucket. 'tea' has the same tuple and is a HIT, so its original string is appended to that bucket.",
-      "active_cue": "Explain the first MISS, the later HIT and why a hash collision does not incorrectly merge two different tuples. Distinguish the current reference code from the defaultdict alternative.",
-      "oracle": "Two words with equal character-count tuples belong to one group, while different keys must not be merged merely because their hashes collide. Python dict resolves candidate slots and checks equality as needed. In the reference implementation, a MISS triggers an explicit new empty list. defaultdict(list) is an alternative that calls the default factory on missing-key access before appending the original word.",
+      "active_cue": "Explain groups[key] through __getitem__, __missing__, list creation, insertion, return and append. Contrast a later HIT and get().",
+      "oracle": "A groups[key] subscription uses __getitem__. For a missing key it invokes __missing__, which calls list() with no arguments, inserts that new list under the key and returns the same object; append then mutates it. A HIT returns the existing list without calling the factory. get() does not invoke the missing-key factory. Hash collisions do not merge unequal tuple keys.",
       "counterexample": "Treating equal hash values as sufficient for equal keys breaks dictionary identity semantics.",
-      "passive_skeleton": "Tuple equality → defines groups; dictionary hashing → locates candidate entries before equality checks"
+      "passive_skeleton": "Hashing → finds candidates; equality → matches keys; defaultdict → creates and returns missing groups"
     },
     {
       "id": "D5",
-      "title": "Freeze and trade-off: why tuple, not a mutable list?",
-      "source_concept": "Hashability, mutable working state, tuple freeze, sorting alternative and complexity",
-      "passive": "Counting mutates a list during scanning. The completed 26 integers are frozen into a hashable tuple before dictionary lookup. Sorting can also canonicalize the word, but uses a different per-word time cost.",
+      "title": "Snapshot: why count in a list and identify with a tuple?",
+      "source_concept": "Mutable working state, separate tuple snapshot and conditional hashability",
+      "passive": "The list changes while counting. tuple(count) creates a separate snapshot without making the list immutable. The tuple is hashable here because every element is an integer.",
       "context": "The list cannot be used directly as a dictionary key. A tuple of integers can; sorted(word) returns an unhashable list until converted to a string or tuple.",
-      "active_cue": "Explain the list-to-tuple freeze boundary, tuple hashability caveat, counting versus sorting costs, and what Timsort does or does not prove.",
-      "oracle": "A mutable list is unhashable and cannot serve as the dictionary key. The frozen tuple is hashable here because each element is an integer; tuples containing unhashable elements still fail. Counting over n words and M total characters takes O(n + M) average time including the fixed 26-slot work per word, with O(n) additional container references/keys for a fixed alphabet. Sorting each word takes up to O(k log k) time per word; a merge-level diagram is a complexity model, not a literal trace of Python Timsort.",
-      "counterexample": "A tuple containing a list is not hashable, even though a tuple itself cannot be mutated.",
-      "passive_skeleton": "Mutable counters → freeze into a hashable tuple → support deterministic grouping without sorting"
+      "active_cue": "Explain which object changes, which object is newly created, and why tuple immutability alone does not guarantee hashability.",
+      "oracle": "Counting reassigns list slots. tuple(count) copies the current values into a separate immutable container; later list changes do not change that tuple. Every tuple element must be hashable. The 26 integer elements satisfy this condition, while a tuple containing a list does not.",
+      "counterexample": "A tuple containing a list is unhashable despite its fixed tuple positions.",
+      "passive_skeleton": "Mutable counters → produce a separate tuple snapshot → integers make this fixed-length key hashable"
+    },
+    {
+      "id": "D6",
+      "title": "Alternative: how does sorting canonicalize and acquire a logarithmic factor?",
+      "source_concept": "Sorted keys, merge-level derivation, log bases, Timsort and alphabet pivot",
+      "passive": "Sorting preserves character multiplicity in one standard order. A conceptual balanced merge model handles k elements on about log2(k) levels; this is not an exact trace of adaptive CPython sorting.",
+      "context": "eat, tea and ate all become aet. Eight singleton pieces merge in three levels; an unrestricted alphabet can make sorted keys simpler than fixed counters.",
+      "active_cue": "Derive three levels for eight elements, explain the fixed log-base factor, and state what CPython runs and Powersort do without claiming a literal balanced trace.",
+      "oracle": "Doubling one-element pieces L times produces size 2**L, so L = log2(k). Each level handles O(k) elements, giving O(k log k). Changing to a fixed base b divides log2(k) by constant log2(b). CPython exploits ordered runs and uses Powersort scheduling. Sorting code points preserves exact multiplicities but does not choose Unicode normalization policy.",
+      "counterexample": "Using a character set would merge ab and aab, while sorted keys retain their different lengths and multiplicities.",
+      "passive_skeleton": "Sorted characters → form another canonical key → logarithmic merge levels explain the sorting cost"
+    },
+    {
+      "id": "D7",
+      "title": "Cost: which work and allocations grow?",
+      "source_concept": "Expected time, amortized append, empty strings, unequal lengths and container/output space",
+      "passive": "With a fixed alphabet, total counting work is expected O(M + N), including per-string work for empty strings. New containers hold fixed-size group keys and N references, rather than fresh copies of every string character.",
+      "context": "For N empty strings, M is zero but setup, tuple work and append still occur N times. Unequal sorting lengths require a sum or a maximum-length bound.",
+      "active_cue": "Define M, N, A, G, k_i and maximum K. Account for key work, hash assumptions, amortized append and output-space convention before simplifying.",
+      "oracle": "Summing O(k_i + A) per word gives expected O(M + N A), hence O(M + N) for A=26. Normal hashing and bounded count operations are assumptions; append is amortized constant time. Sorting takes O(N + sum(k_i log(k_i + 1))) under the same hashing assumptions. New counting containers use O(G A + N + A); logical output content is a different convention from newly allocated character storage.",
+      "counterexample": "O(M) alone would predict no per-string work on an all-empty input; substituting average length into a nonlinear sorting bound is also insufficient.",
+      "passive_skeleton": "Per-character work plus per-string setup → yields expected O(M + N) under fixed-alphabet assumptions"
+    },
+    {
+      "id": "D8",
+      "title": "Correctness: which prefix does the state represent?",
+      "source_concept": "Outer-loop invariant, initialization, maintenance, termination and counter reset failure",
+      "passive": "Before iteration i, groups partitions exactly the occurrences in strs[:i] by complete frequency tuples. Each iteration counts a fresh word and appends that occurrence once; the return occurs only after all input is processed.",
+      "context": "Keeping count outside the outer loop makes the second a in [a, a] inherit the first count and split equal words into different groups.",
+      "active_cue": "State the exact checkpoint and prefix, prove initialization/maintenance/termination, and locate the first incorrect state when the count list is not reset.",
+      "oracle": "Initially the empty dictionary represents an empty prefix. A fresh count list produces the current word’s complete key; a HIT or MISS then appends exactly that occurrence to its matching group. No future input has been added. At termination the prefix is the whole input. Without resetting count, the next word starts with nonzero counters, violating the inner-prefix property before lookup.",
+      "counterexample": "With one shared count list, [a, a] produces keys for a:1 and a:2 instead of one shared group.",
+      "passive_skeleton": "Processed prefix → determines groups before each iteration → one correct append maintains the invariant"
     }
   ],
   "paragraph_annotations": [
     {
       "paragraph_index": 0,
-      "kind": "PASSIVE",
+      "zh_note": "讀這條推導時，區分用來識別群組的 canonical key，與用來累積計數的 mutable list。",
       "decision_ids": [
-        "D1"
+        "D1",
+        "D5"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "LeetCode 49 · A zero-context reconstruction of invariant, canonical identity, mutability, hashing, sorting, proof and complexity.",
-      "english_section_index": -1,
-      "passive_skeleton": "Problem contract → fixes the alphabet → enables a source-grounded grouping strategy"
+      "kind": "PASSIVE",
+      "english_source": "A derivation of canonical keys, ord, mutable lists, hashable tuples, defaultdict(list), and the cost of counting versus sorting.",
+      "english_section_index": 0
     },
     {
       "paragraph_index": 1,
-      "kind": "PASSIVE",
+      "zh_note": "封面把題目限制連到分組及 expected O(M + N)；N 包含每個字串固定要做的工作。",
       "decision_ids": [
-        "D1"
+        "D2",
+        "D7"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "*Cover · One problem, one causal path — The cover introduces the transformation from problem constraints to a verified algorithm, not a second explanation of every Python feature.*",
-      "english_section_index": -1
+      "kind": "PASSIVE",
+      "english_source": "*One causal path connects the problem constraints to grouping and its expected O(M + N) cost.*",
+      "english_section_index": 0
     },
     {
       "paragraph_index": 2,
-      "kind": "PASSIVE",
+      "zh_note": "eat、tea、ate 的順序不同，計數卻相同，因此可以共用同一個 dictionary key。",
       "decision_ids": [
         "D1"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "The problem asks for groups of anagrams. Choosing a hash map is easy to memorize, but that answer hides the crucial step: how does the algorithm decide two differently ordered words belong to the same group? We will derive a stable identity from the input constraints, trace it through actual Python operations, and derive the cost from the work performed.",
-      "english_section_index": -1,
-      "passive_skeleton": "Anagram task → needs one stable identity → connects representation to verified output"
+      "kind": "PASSIVE",
+      "english_source": "The strings \"eat\", \"tea\", and \"ate\" look different when read from left to right. Each contains one a, one e, and one t. Giving those three strings the same key turns a grouping problem into a dictionary lookup.",
+      "english_section_index": 0
     },
     {
       "paragraph_index": 3,
-      "kind": "PASSIVE",
+      "zh_note": "Key 既要保留 anagram 判別資訊，也要符合 dictionary 的型別要求，才導出 list 計算、tuple 識別。",
       "decision_ids": [
-        "D2"
+        "D1",
+        "D5"
       ],
-      "zh_note": "Alphabet constraint 決定 counter representation；不可忽略 letter multiplicity。",
-      "english_source": "Given an array of lowercase English words, return a list of groups. Each input word occurrence must appear exactly once in the output. Within a group, words are anagrams; words with different letter counts must not share a group. Group order and the order inside each group are unrestricted.",
+      "kind": "PASSIVE",
+      "english_source": "That key must preserve enough information to decide whether two strings are anagrams. Its Python representation must also be usable in a dictionary. The algorithm follows from those two requirements: count letters in a list, convert the completed counts to a tuple, and append the original string to the group stored under that tuple.",
       "english_section_index": 0
     },
     {
       "paragraph_index": 4,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "Anagram 比較的是每種字母的出現次數；只有字母相同而次數不同並不夠。",
       "decision_ids": [
-        "D2"
+        "D1"
       ],
-      "zh_note": "Alphabet constraint 決定 counter representation；不可忽略 letter multiplicity。",
-      "english_source": "Important constraints are the alphabet a–z, an input array that may contain repeated words, and strings that may be empty. Because the alphabet is fixed, we can build a complete identity using exactly 26 counters. That constraint—not a generic belief that hash maps are fast—is what determines our primary approach.",
-      "english_section_index": 0,
-      "passive_skeleton": "Fixed alphabet → allows twenty-six counters → preserves every lowercase letter count"
+      "kind": "PASSIVE",
+      "english_source": "In LeetCode 49, Group Anagrams, the input is a list of strings. Anagrams use the same letters with the same multiplicities, possibly in a different order. For example:",
+      "english_section_index": 1
     },
     {
       "paragraph_index": 5,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "下方結果將原輸入分成三個等價群組；它只是合法排列之一。",
       "decision_ids": [
         "D1"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "Anagrams can change character order, but every character occurs the same number of times. Thus two words are anagrams if and only if their complete character-frequency counts agree. This equivalence property describes the relation between words; it is not yet the algorithm's loop invariant.",
-      "english_section_index": 1,
-      "passive_skeleton": "Equal letter frequencies → define equivalence → explain why order never changes grouping"
+      "kind": "PASSIVE",
+      "english_source": "One valid result is:",
+      "english_section_index": 1
     },
     {
       "paragraph_index": 6,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "輸入中的每次出現都必須保留，兩筆 eat 不能因字串值相等就被去重。",
       "decision_ids": [
         "D1"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "A canonical key is a representation that gives logically equivalent inputs equal keys. For a–z words, key position zero is the count of a, position one is the count of b, and so on through z at position 25. Every relevant frequency is preserved, including repeated letters; a set of distinct letters would fail for 'a' versus 'aa'.",
-      "english_section_index": 1,
-      "passive_skeleton": "Canonical key → preserves frequency multiplicities → maps equivalent words into one group"
+      "kind": "PASSIVE",
+      "english_source": "The order of the groups and the order within a group do not affect acceptance. Every input occurrence must appear exactly once: two occurrences of \"eat\" must produce two occurrences in the output. This is grouping, so removing duplicates would change the task.",
+      "english_section_index": 1
     },
     {
       "paragraph_index": 7,
-      "kind": "PASSIVE",
+      "zh_note": "長度可為 0 且字母限定 lowercase，分別決定 empty-string 路徑與 26-slot representation。",
       "decision_ids": [
-        "D1"
+        "D2"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "*From equivalence to a canonical key — The alphabet constraint leads to fixed counters, which become a grouping identity.*",
+      "kind": "PASSIVE",
+      "english_source": "The published constraints allow between 1 and 10,000 strings, each between 0 and 100 characters long, using only lowercase English letters. The empty string is therefore a real case, not invalid input. Our implementation builds new containers and leaves the input list and its strings unchanged.",
       "english_section_index": 1
     },
     {
       "paragraph_index": 8,
-      "kind": "PASSIVE",
+      "zh_note": "逐組找代表字串的比較次數會累積成 N(N−1)/2，且尚未計入每次比較的字元成本。",
       "decision_ids": [
-        "D1"
+        "D1",
+        "D7"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "The decision sequence is now constrained: define the equivalence property, count its information, convert the count into a usable dictionary key, and insert the original word into that key's group. Hashing is a lookup mechanism; it does not define what an anagram is.",
+      "kind": "PASSIVE",
+      "english_source": "A direct baseline would keep a list of groups and compare each incoming string against a representative of every group until it finds an anagram. If many strings belong to different groups, the first string faces no existing representative, the second faces one, the third faces two, and so on. Up to N(N - 1) / 2 comparisons arise before accounting for the characters examined inside each comparison.",
       "english_section_index": 1
     },
     {
       "paragraph_index": 9,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "先求可靠 key，再直接 lookup 群組，取代反覆掃描全部群組。",
       "decision_ids": [
-        "D3"
+        "D1",
+        "D4"
       ],
-      "zh_note": "ord() 傳回 Unicode code point；0–25 mapping 只能在 a–z constraint 使用。",
-      "english_source": "Python ord returns a Unicode code point. For lowercase English letters, those code points coincide with the ASCII range: ord('a') is 97 and ord('z') is 122. Subtracting ord('a') maps a to zero, e to four, t to nineteen, and z to twenty-five. The formula is correct here only because the problem restricts the input to the contiguous a–z range.",
-      "english_section_index": 2,
-      "passive_skeleton": "Unicode code point → subtract a reference → obtain a valid lowercase letter index"
+      "kind": "PASSIVE",
+      "english_source": "The repeated work is searching through groups to discover the right one. A dictionary can avoid that search if we first give every group a reliable key.",
+      "english_section_index": 1
     },
     {
       "paragraph_index": 10,
-      "kind": "PASSIVE",
+      "zh_note": "比較三個字串時，追蹤的是字母頻率，而非字元在字串中的位置。",
       "decision_ids": [
-        "D3"
+        "D1"
       ],
-      "zh_note": "ord() 傳回 Unicode code point；0–25 mapping 只能在 a–z constraint 使用。",
-      "english_source": "An uppercase character or arbitrary Unicode symbol would violate this representation contract. A changed alphabet would require a different indexing or frequency-map strategy rather than silently reusing 26 counters.",
+      "kind": "PASSIVE",
+      "english_source": "For \"eat\", \"tea\", and \"ate\", position changes but letter frequency does not:",
       "english_section_index": 2
     },
     {
       "paragraph_index": 11,
-      "kind": "PASSIVE",
+      "zh_note": "「若且唯若」同時要求 anagrams 必得同 key，以及同 key 必定是 anagrams。",
       "decision_ids": [
-        "D4"
+        "D1"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "For every word, create a fresh list containing 26 zeroes. Scan its characters from left to right, convert each character into an index, and increment that counter. The temporary list is mutable because counting is an updating operation; it is discarded as working state after a separate tuple key is created.",
-      "english_section_index": 3
+      "kind": "PASSIVE",
+      "english_source": "This is the equivalence property we need: two lowercase strings are anagrams if and only if their counts agree for every letter.",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 12,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "反向證明依每種字母的供應量填滿目標位置，說明計數相同確實足夠。",
       "decision_ids": [
-        "D4"
+        "D1"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "On the first word 'eat', the dictionary contains no matching key, so it creates a group holding ['eat']. The word 'tea' generates the same count tuple and appends to that group. 'tan' produces a different tuple and starts another group. 'ate' rejoins the first group; 'nat' joins the second. 'bat' starts a third. The dictionary never predicts future words: after each iteration it contains only the processed prefix.",
-      "english_section_index": 3,
-      "passive_skeleton": "Current word → generates a tuple key → enters an existing or new group"
+      "kind": "PASSIVE",
+      "english_source": "The forward direction follows because rearranging letters cannot add or remove an occurrence. The reverse direction matters just as much. If every count agrees, take the letters required by the second string one position at a time. The first string has exactly the required supply of every letter, so its characters can fill all those positions. Equal counts are sufficient, as well as necessary.",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 13,
-      "kind": "PASSIVE",
+      "zh_note": "Canonical key 將整個 anagram 等價類映射到共同的標準表示。",
       "decision_ids": [
-        "D4"
+        "D1"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "*One runtime trace, from character to bucket — A count list is updated, converted into a tuple, then used to create or retrieve one group.*",
-      "english_section_index": 3
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "A *canonical key* is one standard representation shared by every member of an equivalence class. Here, a class is one anagram group. We want:",
+      "english_section_index": 2,
+      "passive_skeleton": "Canonical key → gives every member of one equivalence class the same representation"
     },
     {
       "paragraph_index": 14,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "ab 與 aab 區分 set 和計數：set 丟掉第二個 a，count 保留 multiplicity。",
       "decision_ids": [
-        "D5"
+        "D1"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "The list is suitable for repeated mutation but cannot itself be used as a dictionary key: Python lists are unhashable. Calling tuple(counts) creates a separate immutable tuple snapshot; it does not freeze or mutate the original list. This tuple is hashable because all 26 elements are integers. An immutable tuple containing an unhashable list would still be unhashable.",
-      "english_section_index": 4,
-      "passive_skeleton": "Mutable list → accumulates counts → immutable integer tuple becomes a valid dictionary key"
+      "kind": "PASSIVE",
+      "english_source": "Letter presence alone is too weak. \"ab\" and \"aab\" both contain the letters a and b, but the second has an extra a. A set discards that multiplicity. Counts keep it.",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 15,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "固定 26 種字母，才可以預留固定長度的 counters。",
       "decision_ids": [
-        "D5"
+        "D2"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "When looking up a tuple key, Python's dictionary hashes it to find candidate entries and checks equality where required. Two unequal keys can collide in hash value without being treated as equal. The grouping is correct because canonical tuples compare equal exactly when the complete frequency counts are equal—not because equal hash values prove equivalent words.",
-      "english_section_index": 4,
-      "passive_skeleton": "Tuple equality → determines identity → hash collision alone cannot merge different groups"
+      "kind": "PASSIVE",
+      "english_source": "Because the alphabet is fixed to a through z, we can reserve 26 positions in a fixed order:",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 16,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "計數必須和字母位置一起解讀；位置 0 的 1 與位置 1 的 1 表示不同字母。",
       "decision_ids": [
-        "D5"
+        "D1",
+        "D2"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "Our reference implementation uses an explicit missing-key branch: if the key is absent, assign an empty list, then append the original word. defaultdict(list) is an equivalent convenience for that missing-key path; only a missing-key bracket lookup invokes its factory. Neither approach copies or sorts the string that is appended.",
-      "english_section_index": 4,
-      "passive_skeleton": "Missing key → creates a bucket → original words append without sorting or copying"
+      "kind": "PASSIVE",
+      "english_source": "The order of the positions is part of the representation. A value of 1 at position 0 means one a; the same value at position 1 means one b. We must preserve both the counts and which letters they belong to.",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 17,
-      "kind": "PASSIVE",
+      "zh_note": "eat 與 tea 都只在位置 0、4、19 出現非零計數，因此無須先重排原字串。",
       "decision_ids": [
-        "D5"
+        "D1",
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "*Stable identity is not the hash value — List mutation and tuple identity have different responsibilities; hash collisions still require equality.*",
-      "english_section_index": 4
+      "kind": "PASSIVE",
+      "english_source": "For \"eat\", the completed representation has 1 at positions 0, 4, and 19, and 0 everywhere else. Counting \"tea\" gives the same representation without having to rearrange either original string.",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 18,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "下方四個選擇各自對應 multiplicity、固定 alphabet、完整分組輸出與 key 的型別要求。",
       "decision_ids": [
-        "D5"
+        "D1",
+        "D2"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "We could instead sort every word and join the sorted characters into a string key. For example, 'eat', 'tea', and 'ate' all become 'aet'. This uses the same hash-map grouping architecture, but a different canonicalization algorithm: counting works on frequencies; sorting works on ordered character sequences.",
-      "english_section_index": 5,
-      "passive_skeleton": "Sorting a word → creates a shared key → supports the same dictionary grouping"
+      "kind": "PASSIVE",
+      "english_source": "The design decisions now have explicit reasons:",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 19,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "Decision map 表達固定字母位置如何讓計數 key 保留 anagram 等價性。",
       "decision_ids": [
-        "D5"
+        "D1",
+        "D2"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "For a word of length K, counting reads K characters, so its per-word scan is O(K), plus fixed-alphabet overhead. General comparison sorting has O(K log K) worst-case order. A balanced merge illustration shows roughly log2(K) levels, each doing O(K) total work. It is a complexity model, not a literal step-by-step trace of CPython's adaptive, stable Timsort-family implementation or its modern Powersort merge ordering.",
-      "english_section_index": 5,
-      "passive_skeleton": "Comparison sorting → incurs logarithmic levels → differs from one-pass character counting"
+      "kind": "PASSIVE",
+      "english_source": "*Fixed letter positions preserve the anagram equivalence property in a canonical key.*",
+      "english_section_index": 2
     },
     {
       "paragraph_index": 20,
-      "kind": "PASSIVE",
+      "zh_note": "每個字串先建立全零計數，才能把後續狀態限定為當前字串的 prefix。",
       "decision_ids": [
-        "D5"
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "*Why counting and sorting have different costs — Counting scans characters once; sorting organizes them through comparisons/merges.*",
-      "english_section_index": 5
+      "kind": "PASSIVE",
+      "english_source": "Start one word with:",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 21,
-      "kind": "PASSIVE",
+      "zh_note": "Count slot 對應固定字母；list 允許把某個位置換成新的計數值。",
       "decision_ids": [
+        "D3",
         "D5"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "Because the input contract fixes a small alphabet, counting is the primary interview solution. If the alphabet were unknown or broad, a sorted string might be simpler to implement correctly, although its comparison-sorting cost would remain. There is no one universally best canonicalization independent of constraints.",
-      "english_section_index": 5
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "count[0] will hold the number of a characters seen, count[1] the number of b characters, and so on. The list is *mutable*: assigning a new value to one of its positions changes that list.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 22,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "Ord 回傳 Unicode code point，尚不是 counter index；lowercase 字母恰好也落在 ASCII 範圍。",
       "decision_ids": [
-        "D5"
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "Let N be the number of words, M the sum of all word lengths, K the average word length when that shorthand is meaningful, and Σ the alphabet size, fixed here at 26. For each word we initialize Σ counters, scan each character once, construct and hash a Σ-element tuple, do an average-case dictionary lookup, and amortized O(1) list append. Therefore expected total counting time is O(M + NΣ), which becomes O(M + N) for Σ = 26; common interview shorthand is O(NK) when K is positive and fixed overhead is suppressed.",
-      "english_section_index": 6,
-      "passive_skeleton": "Character scanning plus per-word overhead → yields expected O(M+N) time with fixed alphabet"
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The next operation needs a number between 0 and 25 for the current character. Python's ord returns the Unicode code point of a one-character string. For these letters, the values also agree with ASCII:",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 23,
-      "kind": "PASSIVE",
+      "zh_note": "減去 97 只是平移連續數值，將 a–z 的 code points 轉成 0–25。",
       "decision_ids": [
-        "D5"
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "Sorting performs a comparison sort for each word. A useful upper bound is O(N + Σ over words of k_i log(k_i+1)) for K-dependent work plus grouping overhead, usually expressed as O(NK log K) for typical nontrivial word lengths. Dictionary O(1) is an average-case expectation, not a universal worst-case guarantee; both approaches still store their groups in a hash map.",
-      "english_section_index": 6
+      "kind": "PASSIVE",
+      "english_source": "The values are consecutive. Subtracting the value for a shifts the range from 97–122 to 0–25:",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 24,
-      "kind": "PASSIVE",
+      "zh_note": "真正產生 alphabet index 的是減法與 lowercase 條件，不能把 ord 本身當成字母順位 API。",
       "decision_ids": [
-        "D5"
+        "D2",
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "For memory, the temporary counter list is O(Σ). Up to N distinct fixed-size tuple keys require O(NΣ) storage; grouping containers hold N references to existing string objects, so the additional container memory is O(NΣ + N), which is O(N) for fixed Σ. If a convention counts the full character content represented by returned strings, abstract output size can be O(M). Do not confuse the output value with the definition of space complexity, and do not claim the algorithm physically copies every character when it appends a reference.",
-      "english_section_index": 6
+      "kind": "PASSIVE",
+      "english_source": "ord does not return an alphabet position by itself. The subtraction supplies that position under the lowercase a–z constraint.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 25,
-      "kind": "PASSIVE",
+      "zh_note": "閱讀 eat trace 時，未列出的 counters 都保持 0，不能把精簡展示當成較短的 list。",
       "decision_ids": [
-        "D5"
+        "D3"
       ],
-      "zh_note": "關注 mutable／immutable 邊界、alternative 或實際 operation cost，不以語法名稱代替因果。",
-      "english_source": "*Operation accounting for time and space — One pass of characters dominates; fixed counter-key work repeats once per word.*",
-      "english_section_index": 6
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For \"eat\", the working state changes as follows. Each description of nonzero entries below means that every unlisted counter is still zero.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 26,
-      "kind": "PASSIVE",
+      "zh_note": "+= 更新 list slot 的 reference；integer 本身沒有被原地修改。",
       "decision_ids": [
-        "D4"
+        "D3",
+        "D5"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "The following implementation makes its missing-key branch explicit, matching the program movie. It creates a new count list for every word, freezes it as a tuple, and appends only the original word. No special-case branch is needed for the empty string.",
-      "english_section_index": 7
+      "kind": "PASSIVE",
+      "english_source": "count[index] += 1 reads the integer in one slot, adds one, and assigns the resulting integer back to that slot. The list changes; the integer object does not change in place.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 27,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "重複 immutable integer references 可逐槽替換，重複 inner list references 則會共享同一個 mutable object。",
       "decision_ids": [
-        "D4"
+        "D5"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "Loop invariant: before processing index i, groups contains exactly the original words from strs[0:i], each once, partitioned by their complete character-frequency tuple; no future word is present. Initially i = 0 and the dictionary is empty, so the invariant holds. Processing a word computes the unique frequency tuple for its anagram-equivalence class, creates the group if necessary, and appends that word exactly once. The invariant is restored for i + 1.",
-      "english_section_index": 7,
-      "passive_skeleton": "Loop invariant → tracks exactly processed words → ensures every group remains valid"
+      "kind": "PASSIVE",
+      "english_source": "The expression [0] * 26 is safe here even though it initially repeats references to the same integer value. Integers are immutable, and updating one slot replaces that slot's reference. This differs from repeating a mutable object such as [[]] * 26, where all positions would refer to the same inner list.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 28,
-      "kind": "PASSIVE",
+      "zh_note": "接下來的 checkpoint 把 counter 的意義精確限定到已掃描的字元 prefix。",
       "decision_ids": [
-        "D4"
+        "D3"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "When the loop exhausts all N words, the processed prefix is the full input. The invariant proves coverage and no duplicate insertion. Since equal tuples are equivalent to matching frequencies, each group contains only anagrams and every pair of anagrams shares a group. Returning the dictionary values therefore satisfies the task. This argument assumes the stated lowercase alphabet and Python's ordinary key equality.",
-      "english_section_index": 7
+      "kind": "PASSIVE",
+      "english_source": "There is a precise checkpoint property inside this loop:",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 29,
-      "kind": "PASSIVE_AND_ACTIVE",
+      "zh_note": "處理 j 之前，count 僅代表 s[:j]，不含當前位置或後面的字元。",
       "decision_ids": [
-        "D4"
+        "D3"
       ],
-      "zh_note": "Runtime 先建 canonical key 再進行 lookup；同組由 key equality 決定。",
-      "english_source": "An empty string executes no character updates and produces the all-zero tuple, so multiple empty strings naturally join the same group. A one-letter word increments exactly one counter. Repeated identical inputs are appended once for each occurrence. In contrast, a key built from only the distinct character set incorrectly groups 'a' with 'aa'; the first missing property is multiplicity, not hash-table speed.",
-      "english_section_index": 7,
-      "passive_skeleton": "Empty input word → keeps all counters zero → still creates a valid grouping key"
+      "kind": "PASSIVE",
+      "english_source": "Before processing character position j of s, count[p] equals the number of occurrences of the letter at alphabet position p in s[:j], for every p from 0 to 25.",
+      "english_section_index": 3,
+      "passive_skeleton": "Processed character prefix → determines the counts → excludes current and later characters"
     },
     {
       "paragraph_index": 30,
-      "kind": "PASSIVE",
+      "zh_note": "空 prefix 對應零計數；每次只加當前字母一個，直到 prefix 覆蓋整字串。",
       "decision_ids": [
-        "D1"
+        "D3"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "Approach: I use a hash map. For each word, I count the 26 lowercase letters. The count tuple is the key. Words with the same key go into the same group. I return all groups after scanning every word.",
-      "english_section_index": 8
+      "kind": "PASSIVE",
+      "english_source": "At j = 0, the processed prefix is empty, so zeros are correct. Processing one character increments exactly the corresponding counter. When the character loop ends, the prefix is the entire string and all 26 counts are complete.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 31,
-      "kind": "PASSIVE",
+      "zh_note": "Uppercase A 會算出 −32，顯示原 mapping 的有效性依賴 lowercase contract。",
       "decision_ids": [
-        "D1"
+        "D2",
+        "D3"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "Invariant: Before processing word i, the map contains exactly the earlier words, grouped by their frequency keys. Correctness: each word enters its matching group once; after the last word, all groups are complete.",
-      "english_section_index": 8
+      "kind": "PASSIVE",
+      "english_source": "The lowercase condition makes every index valid. This code should not be generalized by assuming that all Unicode letters occupy one consecutive range. Even uppercase A gives 65 - 97 = -32, outside this list's valid negative-index range. A different alphabet requires a different mapping.",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 32,
-      "kind": "PASSIVE",
+      "zh_note": "Character trace 圖把字元計數連到 tuple key，再接首次 MISS 與後續同 key 的群組重用。",
       "decision_ids": [
-        "D1"
+        "D3",
+        "D4"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "Complexity: With a fixed 26-letter alphabet, each word is scanned once. Expected time is O of N plus the total number of characters. The extra group containers and tuple keys use O of N space. Sorting also works, but each word takes O of K log K instead of a linear scan.",
-      "english_section_index": 8
+      "kind": "PASSIVE",
+      "english_source": "*One word moves from characters to counters to a tuple key. The first equal key is a MISS; later equal keys reuse the existing group.*",
+      "english_section_index": 3
     },
     {
       "paragraph_index": 33,
-      "kind": "PASSIVE",
+      "zh_note": "Working list 已完成計算後，key 的 hash 與 equality 還必須在儲存期間持續有效。",
       "decision_ids": [
-        "D1"
+        "D4",
+        "D5"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "Keep the distinctions visible: the task equivalence defines correct groups; the count tuple represents that equivalence; the loop invariant tracks the processed prefix; and dictionary hashing accelerates lookup without replacing key equality. The answer is the grouped original words. Time and space are measurements of the route taken to produce that answer, not intermediate or final data stages.",
-      "english_section_index": 9
+      "kind": "PASSIVE",
+      "english_source": "The list has served as working state. The dictionary needs a key whose hashing and equality behavior stay valid while it is stored.",
+      "english_section_index": 4
     },
     {
       "paragraph_index": 34,
-      "kind": "PASSIVE",
+      "zh_note": "Hashable 要求 hash 穩定且 equal implies same hash；tuple 還需所有 elements 皆 hashable。",
       "decision_ids": [
-        "D1"
+        "D5"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "*Complete causal map — Problem → invariant → representation → runtime → correctness → complexity.*",
-      "english_section_index": 9
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Python calls an object *hashable* when it has a lifetime-stable hash and supports comparison, with equal objects required to have equal hashes. Built-in lists are unhashable; a tuple is hashable only when all its elements are hashable. These rules are stated in the Python hashable definition.",
+      "english_section_index": 4
     },
     {
       "paragraph_index": 35,
+      "zh_note": "若 key 內容改變而搜尋路徑隨之改變，原 entry 就可能找不到，這說明 list key 的問題。",
+      "decision_ids": [
+        "D4",
+        "D5"
+      ],
       "kind": "PASSIVE",
+      "english_source": "Why would changing a key's value be a problem? Suppose a dictionary chose a search location from a list's contents, then those contents changed. Looking up the modified contents could lead to a different search path from the one used to store the original entry. Python avoids this problem for ordinary lists by rejecting them as keys:",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 36,
+      "zh_note": "List 是否可當 key 是內建型別的規則；不能從單一程式承諾不修改，或從所有 mutable objects 一概推論。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "This is a rule about the type, even if a particular program promises never to change that list. Mutability also does not universally imply unhashability: custom objects can define different identity rules. For this solution, the relevant facts are that a built-in list cannot be the key and a tuple of integers can.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 37,
+      "zh_note": "轉成 tuple 的時間點在完整 counting 之後，保留的是完成的計數。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "After counting, create the key:",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 38,
+      "zh_note": "完整 eat tuple 有 26 個位置，只有 a、e、t 對應位置為 1。",
+      "decision_ids": [
+        "D3",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The complete tuple for \"eat\" is:",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 39,
+      "zh_note": "Tuple 是新建 snapshot；原 list 仍可變，之後換掉 count[0] 不會改寫 key。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "tuple(count) creates a new container with the current 26 values. It does not turn the original list into a tuple, and it does not make that list immutable. Changing count[0] later would leave key unchanged. Calling this a *freeze boundary* describes the snapshot used as the key.",
+      "english_section_index": 4,
+      "passive_skeleton": "Completed counts → form a separate tuple snapshot → leave the original list mutable"
+    },
+    {
+      "paragraph_index": 40,
+      "zh_note": "Tuple 外層位置固定仍不保證 hashable；其中有 list 就會使 hashing 失敗。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A tuple's fixed positions alone are insufficient if an element is unhashable. For example, (1, [2, 3]) contains a list and cannot be hashed. Our key contains only integers, so this restriction is satisfied.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 41,
+      "zh_note": "每個字串需要新的計算 list，而 dictionary 只保留識別既有群組所需的完成 tuple。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The roles are different: the list holds counts that are still changing; the tuple records completed counts for identification. The next word receives a fresh counting list, while the dictionary retains any tuple needed to identify an existing group.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 42,
+      "zh_note": "本題 dictionary 的 key 是計數 tuple，value 是原始字串群組 list。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A dictionary, also called a hash map, stores associations from keys to values. Our association will be:",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 43,
+      "zh_note": "新建 tuple 可以因值相等命中原 entry，不需要與既有 key 是同一 object。",
+      "decision_ids": [
+        "D1",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The tuple for \"tea\" is a newly constructed object, but its 26 values equal those of the tuple for \"eat\". Dictionary keys do not have to be the same object to refer to the same entry. Equal tuple values identify the same key.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 44,
+      "zh_note": "Tuple hashing 會使用 elements 的 hashes；本題能視為常數成本的原因是長度固定 26。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Hashing helps find that entry. A hash function combines information about a key into an integer. For a tuple, its elements' hashes contribute to that calculation; hashing a sequence is not generally free regardless of its length. Here the length is always 26.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 45,
+      "zh_note": "概念 lookup 要追候選位置、key 是否相符及是否已能確定缺少該 key。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A useful conceptual lookup is:",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 46,
+      "zh_note": "Hash-table 圖省略 layout 與 probing；不能從一條箭頭推論 lookup 只做一次 memory access。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Python's design FAQ describes CPython dictionaries as resizable hash tables. The diagram abstracts away their exact layout and probing rules; it is not a promise of one memory access per lookup.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 47,
+      "zh_note": "相同 hash 與初始位置競爭都不等於 keys 相等，仍需要 equality 與後續搜尋。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Two unequal keys can have the same hash. This is a *hash collision*. They can also initially compete for a table position even when their full hash values differ. In either case, a dictionary resolves the search rather than declaring the keys equal. Where a hash permits a possible match, equality distinguishes the actual keys.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 48,
+      "zh_note": "同群組的依據依序是字母次數相同、tuple 相等、命中同 entry。",
+      "decision_ids": [
+        "D1",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For anagrams, the reasoning is therefore:",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 49,
+      "zh_note": "只存 hash integer 會失去 tuple equality 能提供的碰撞區分資訊。",
+      "decision_ids": [
+        "D1",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "It would be wrong to replace the tuple with hash(tuple(count)) as the sole key. That would discard the information needed to distinguish unequal frequency tuples if their hashes collided.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 50,
+      "zh_note": "Average O(1) 是有 hash 分布與 table-size 假設的成長界線，並非 worst-case 或 instruction 數保證。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Under the usual assumption of well-distributed hashes and a maintained table size, the average lookup takes constant time with respect to the number of dictionary entries. O(1) describes that scaling, not a literal count of CPU instructions. Severe collisions can require a search through many entries, so the bound is not an unconditional worst-case guarantee.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 51,
+      "zh_note": "建立 defaultdict(list) 時指定的是缺值處理 factory，而非預先建立一個共享群組。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Create the mapping with:",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 52,
+      "zh_note": "List 是 callable；list() 是立刻呼叫後的結果，兩者傳入 constructor 的角色不同。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "list is a callable stored as the dictionary's default_factory. Passing list gives the factory itself; list() would call it immediately and pass an empty list instead.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 53,
+      "zh_note": "Subscription groups[key] 經 __getitem__，缺少 key 才轉到 __missing__ 呼叫 factory、存入並回傳 list；get() 不走這條 factory 路徑。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The subscription groups[key] uses __getitem__; if the key is absent, that method invokes __missing__. With this factory, Python calls list() without arguments, inserts the resulting empty list under the missing key, and returns that list. A hit returns the stored list. The defaultdict documentation specifies this behavior and notes that get() does not trigger the factory.",
+      "english_section_index": 6,
+      "passive_skeleton": "Missing subscript key → calls factory → stores and returns a fresh group list"
+    },
+    {
+      "paragraph_index": 54,
+      "zh_note": "這行先取得群組 list，再 append 原字串，不能顛倒兩者的依賴順序。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "That makes the grouping operation:",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 55,
+      "zh_note": "MISS 建立並回傳新 list 後才 append；HIT 修改既有 list，各新 key 的 list 互不共用。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "On a miss, the subscription creates and returns the group before append runs. On a hit, append extends the existing group. Each missing key receives a separately created list.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 56,
+      "zh_note": "普通 dict 版本用顯式 branch 完成「缺少時先建 list」的工作。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "With an ordinary dictionary, the corresponding missing-key logic would be:",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 57,
+      "zh_note": "兩種寫法的 grouping 結果相同，不代表其底層 lookup 次數相同。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "This shows the same grouping behavior; it is not a claim that the two spellings execute the same number of lookups internally.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 58,
+      "zh_note": "Append 的成果是 mutation，不是 return value；把 None 存回 key 會破壞群組 list。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The return value of append is None. Its useful effect is mutating the group list, so we do not assign its return value back to groups[key]. Python documents this convention for collection-mutating methods in Built-in Types.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 59,
+      "zh_note": "Data-model 圖區分 tuple identity、hash candidate 與 equality，並保留原 list 仍可變的 snapshot 邊界。",
+      "decision_ids": [
+        "D4",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "*The completed tuple identifies the group. Hashing locates candidates; equality determines whether the key matches. The list remains mutable after its tuple snapshot is created.*",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 60,
+      "zh_note": "增加 empty string 與重複 eat，讓 movie 同時檢查零次掃描與重複輸入保留。",
+      "decision_ids": [
+        "D2",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Use the original example with an empty string and a duplicate added:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 61,
+      "zh_note": "E、T、B、Z 只是完整 frequency keys 的短標籤，方便追蹤 dictionary 狀態。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For compact state displays, call the completed frequency keys E, T, B, and Z:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 62,
+      "zh_note": "不能把展示標籤誤當實作 key；真正 lookup 仍使用 26-integer tuple。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "These letters are display labels, not the dictionary keys used by the program. The actual keys remain 26-integer tuples.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 63,
+      "zh_note": "第一個 eat 走完整 MISS 路徑：factory 建空 list、存入、回傳，再 append eat。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Initially groups is empty. For the first string, \"eat\", the character trace above produces E. groups[E] misses, calls list(), stores E -> [], and returns that empty list. Appending changes it to [\"eat\"].",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 64,
+      "zh_note": "Tea 從新的零計數開始，依 t、e、a 順序更新，而非沿用 eat 的工作 list。",
+      "decision_ids": [
+        "D3",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For \"tea\", a fresh zero-filled list receives three updates:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 65,
+      "zh_note": "Tea 的新 tuple 與 E 相等，所以 append 到既有 eat list，不另建 value list。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Its completed tuple equals E. The lookup hits the existing [\"eat\"] and appends \"tea\". No new value list is created:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 66,
+      "zh_note": "Tan 的 e/n counters 與 E 不同，產生新 key T，走 MISS 建立第二組。",
+      "decision_ids": [
+        "D3",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For \"tan\", the indexes are 19, 0, and 13. Its tuple is T, different from E at the e and n positions. The lookup misses and creates a second group:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 67,
+      "zh_note": "後續各字串依完整 key 決定重用 entry 或建立 entry，dictionary 不會預測未來輸入。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The next words reuse or create the appropriate entry:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 68,
+      "zh_note": "Empty string 的零次 character scan 留下全零 key，仍可正常經 factory 建立群組。",
+      "decision_ids": [
+        "D2",
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For \"\", no character iteration runs. The initial zeros are already the completed counts, so Z is a valid key. Its missing-key path produces Z -> [\"\"] without a special empty-string branch.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 69,
+      "zh_note": "第二筆 eat 需要再次 append，不能因 key 已存在而忽略這次輸入。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The final \"eat\" produces E again. Appending it preserves the second input occurrence:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 70,
+      "zh_note": "只有 outer loop 耗盡後才將 values 收集成 outer list，避免漏掉後續 occurrences。",
+      "decision_ids": [
+        "D4",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Only now, after the outer loop is exhausted, does list(groups.values()) build an outer list from the stored group lists:",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 71,
+      "zh_note": "回傳容器指向原群組 lists，內部保留原 strings；沒有先找到一組就 early return。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The result contains references to those group lists. The strings inside are the original string objects; counting did not replace them with tuples or sorted spellings. No early return occurs after finding the first matching group, because future input occurrences still need to be included.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 72,
+      "zh_note": "完整實作的操作順序對應前面的 movie，而不是另一種未解釋的演算法。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The implementation follows the same order as the movie:",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 73,
+      "zh_note": "Standalone call 展示如何實際呼叫含 empty string 與 duplicate 的完整解法。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A standalone call is:",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 74,
+      "zh_note": "Groups 跨字串累積，count 每字串重設，key 要等完整掃描後建立，每字串只 append 一次。",
+      "decision_ids": [
+        "D5",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "groups survives across word iterations because it contains the accumulated answer. count is created inside the outer loop because it describes only the current word. The inner loop completes before tuple(count) because a partial prefix is not the identity of the complete word. The append happens once per outer iteration, after the key is ready. Returning the values after all iterations exposes the groups rather than their implementation keys.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 75,
+      "zh_note": "單字母、雙 empty strings 自然走同一流程；empty list 回傳 [] 是超出題目下限但程式支援的行為。",
+      "decision_ids": [
+        "D2",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A single-character input such as [\"a\"] increments slot 0 and returns [[\"a\"]]. An input of two empty strings returns [[\"\", \"\"]]. Neither requires an additional branch. Although the published input contains at least one string, the same code also returns [] for an empty input list.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 76,
+      "zh_note": "Equivalence property 描述字串關係，loop invariant 則描述執行中某個 checkpoint 的 state。",
+      "decision_ids": [
+        "D1",
+        "D8"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The fact that anagrams share counts describes the relationship between strings. A *loop invariant* describes what the program state means at a particular time. The outer-loop invariant is:",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 77,
+      "zh_note": "Outer invariant 同時要求已處理 prefix 的完整分組、每筆一次、群組非空，以及未加入當前和未來輸入。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Before processing input index i, groups partitions exactly the occurrences in strs[:i] by their complete 26-letter frequency tuples: each processed occurrence appears once in its matching group, each stored group is nonempty, and no occurrence at index i or later has been added.",
+      "english_section_index": 9,
+      "passive_skeleton": "Before iteration i → groups partitions the processed prefix → excludes current and future inputs"
+    },
+    {
+      "paragraph_index": 78,
+      "zh_note": "Checkpoint 與 prefix 邊界讓 invariant 能支持證明，而非只有「目前分組正確」的口號。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "This wording includes the checkpoint, the processed prefix, the exclusion of future inputs, and the meaning of every stored group.",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 79,
+      "zh_note": "Initialization 用 i=0 的空 prefix 證明空 dictionary 滿足 invariant。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Initially, i = 0. No occurrences have been processed and the empty dictionary represents the empty prefix, so the invariant holds.",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 80,
+      "zh_note": "Maintenance 先靠 inner invariant 得到完整 key，再走 HIT/MISS 並只加入當前一筆，恢復下一個 prefix 的狀態。",
+      "decision_ids": [
+        "D3",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Suppose it holds before processing strs[i]. The inner-loop property established earlier proves that count records every letter of this word when the scan ends. Converting those counts to a tuple preserves the values. If the key already exists, the word is appended to its one matching group. If it is missing, a new empty list is stored and the word is appended there. The program adds exactly the current occurrence once and changes no other group's contents. The dictionary therefore partitions strs[:i + 1], restoring the invariant for the next iteration.",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 81,
+      "zh_note": "Termination 時 prefix 已是全部輸入，再由 key 的等價性推得輸出正是所需 partition。",
+      "decision_ids": [
+        "D1",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "At termination, i = N: the processed prefix is the entire input. Every occurrence appears once. Equal tuple keys put anagrams together, and the equivalence proof ensures that unequal anagram classes cannot share a tuple. Returning all the value lists therefore returns exactly the required partition.",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 82,
+      "zh_note": "證明依賴儲存 tuple 與 equality；只存 hash integer 就缺少不同群組不混淆的依據。",
+      "decision_ids": [
+        "D4",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Hash collisions do not invalidate this proof because the dictionary retains the tuple keys and uses their equality rules. The proof would fail if we stored only a hash integer and treated it as a unique group identity.",
+      "english_section_index": 9
+    },
+    {
+      "paragraph_index": 83,
+      "zh_note": "把 count 移出 outer loop 的改動雖少，卻會改變 working state 的 lifetime。",
+      "decision_ids": [
+        "D5",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Moving the counting list outside the outer loop may look like a harmless allocation saving:",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 84,
+      "zh_note": "第二個字串開始時仍殘留上一字串計數，使 count 不再只代表當前字串。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "It changes the meaning of count. After the first word, it still contains that word's counts when the next word begins.",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 85,
+      "zh_note": "接下來用兩個相同的 a 字串，揭露每字串未重設 count 的錯誤。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A two-word separating example is:",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 86,
+      "zh_note": "第二個 a 讓殘留的 count[0] 從 1 變 2，因此同樣的字串被錯分到兩個 keys。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The first word produces a key with a:1 and creates [\"a\"]. Before the second scan, count[0] is already 1. Reading the second a raises it to 2. The second word is stored under the key for two a characters, producing two separate groups instead of [[\"a\", \"a\"]].",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 87,
+      "zh_note": "第一個失敗 checkpoint 是第二字串的空 prefix 卻有非零 counters；每字串重建 count 可直接修復。",
+      "decision_ids": [
+        "D3",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The first incorrect state is the start of the second word: the current word has an empty processed prefix but its working counters are not zero. The inner-loop invariant already fails there, before the dictionary can do anything useful. Creating count = [0] * 26 inside the outer loop is the direct repair.",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 88,
+      "zh_note": "Dictionary 的累積 lifetime 與 counting list 的單字串 lifetime 必須分開。",
+      "decision_ids": [
+        "D5",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "This example also separates the lifetimes of the two containers. The dictionary must accumulate across words. The counting list must start fresh for each word.",
+      "english_section_index": 10
+    },
+    {
+      "paragraph_index": 89,
+      "zh_note": "Sorting 先建立字元的標準排列，再 join 成可作 key 的字串。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "An alternative is to sort the characters and join them into a string:",
+      "english_section_index": 11
+    },
+    {
+      "paragraph_index": 90,
+      "zh_note": "三個 anagrams 排序後都得到 aet，示範另一種相同等價類的標準表示。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For the same three anagrams:",
+      "english_section_index": 11
+    },
+    {
+      "paragraph_index": 91,
+      "zh_note": "Sorted 建新 list，join 建 key，原字串仍可輸出；重複字元也完整保留。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "sorted(s) creates a new list; join forms the key string. The original s remains available to append to the group. Sorting preserves all occurrences, so \"ab\" becomes \"ab\" and \"aab\" becomes \"aab\"; the multiplicity problem of a set does not arise.",
+      "english_section_index": 11
+    },
+    {
+      "paragraph_index": 92,
+      "zh_note": "換掉 canonicalization 後，key lookup 與 append 原字串的架構不變。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The grouping architecture is unchanged:",
+      "english_section_index": 11
+    },
+    {
+      "paragraph_index": 93,
+      "zh_note": "Counting 用數量表示等價類，sorting 用固定順序表示相同的字元 occurrences。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Only the canonicalization method differs. Counting describes how many of each letter exist. Sorting puts all those occurrences into one standard order.",
+      "english_section_index": 11
+    },
+    {
+      "paragraph_index": 94,
+      "zh_note": "八個 singleton 的 balanced merge 模型，提供推導 k log k 的具體起點。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Let one word have length k. A balanced merge-sort model explains the familiar k log k sorting bound. Start with eight one-element sorted pieces. Pairwise merging changes their sizes:",
+      "english_section_index": 12
+    },
+    {
+      "paragraph_index": 95,
+      "zh_note": "每層各 merge 合計仍處理八個 elements，因此層數增加時，每層工作量仍為 O(k)。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Merging two already sorted pieces means repeatedly taking the smaller next element until both pieces are consumed. Each element is handled a constant number of times in that merge. At level 1, four merges each handle two elements: eight elements in total. At level 2, two merges each handle four: again eight. At level 3, one merge handles eight.",
+      "english_section_index": 12
+    },
+    {
+      "paragraph_index": 96,
+      "zh_note": "大小 1 加倍三次到 8，將 merge 層數連到 log2(8)=3。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "There are three levels because doubling a piece of size 1 three times reaches 8:",
+      "english_section_index": 12
+    },
+    {
+      "paragraph_index": 97,
+      "zh_note": "由 2**L=k 解出層數，再將 O(k) 每層工作乘上 O(log k)，得到 sorting bound。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For k elements, after L doublings the piece size is 2**L. Setting that equal to k gives L = log2(k). Non-powers of two need rounding, which does not change the growth bound. Up to O(k) work on each of O(log k) levels gives O(k log k) work.",
+      "english_section_index": 12,
+      "passive_skeleton": "Doubling pieces → takes log2(k) levels → multiplies O(k) work by the level count"
+    },
+    {
+      "paragraph_index": 98,
+      "zh_note": "Logarithm 計算反覆除以 base 的次數，base 2 對應模型的兩兩合併。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A logarithm counts how many times a quantity can be repeatedly reduced by its base before reaching 1, or equivalently how many multiplications of that base build the quantity. The base 2 matches the halving and doubling in this model. Big O usually omits the base because, for any fixed base b > 1,",
+      "english_section_index": 12
+    },
+    {
+      "paragraph_index": 99,
+      "zh_note": "Change-of-base 的分母是固定常數，所以不同固定 base 不改變 Big O 的成長類型。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The denominator is a constant, and Big O ignores fixed multiplicative factors. Thus O(k log2 k), O(k log10 k), and O(k ln k) describe the same asymptotic growth.",
+      "english_section_index": 12
+    },
+    {
+      "paragraph_index": 100,
+      "zh_note": "Timsort 利用已排序 runs，Powersort 決定 merge scheduling；stability 與 adaptivity 是不同性質。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "CPython sorting is adaptive and stable. Its v3.14.0 implementation note describes Timsort as a natural mergesort that detects ordered runs and merges them; its merge scheduling uses Powersort. A run is a region that is already ordered. Adaptivity means the implementation can exploit such regions, so some inputs require much less work than a worst-case O(k log k) bound suggests. Stability preserves the relative order of equal elements, though that property is not needed for our key of repeated characters.",
+      "english_section_index": 13
+    },
+    {
+      "paragraph_index": 101,
+      "zh_note": "Balanced merge 圖是成本模型而非 CPython exact trace；sorted list 與 merge temporary storage 也有空間成本。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The balanced levels above explain the cost model. They are not an exact trace of the Python sorting implementation, which does not always split a word into a perfectly balanced tree. Sorting also needs storage: sorted(s) materializes k character entries, and CPython's merges may use linear temporary space.",
+      "english_section_index": 13
+    },
+    {
+      "paragraph_index": 102,
+      "zh_note": "這張圖比較 counting/sorting 兩種 canonicalization；logarithmic factor 的理由來自正文的 merge 推導。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "*Counting and sorting are alternative canonicalizations. The balanced merge derivation above explains the logarithmic factor; this schematic compares the two choices.*",
+      "english_section_index": 13
+    },
+    {
+      "paragraph_index": 103,
+      "zh_note": "常數 alphabet 可省略，逐字串固定操作卻必須保留，否則 empty strings 會被錯算成零成本。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Big O describes how a resource bound grows as input size grows. Constants such as a fixed 26-slot alphabet can be suppressed, but work that happens once per string cannot disappear when a string is empty.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 104,
+      "zh_note": "接下來的符號分開字串數 N、個別長度 k_i、總字元 M、最大長度 K、alphabet A 與群組 G。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Define:",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 105,
+      "zh_note": "逐項計算一字串的 setup、scan、tuple/hash、lookup 及 append，才能組合總成本。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For one string of length k_i, the counting solution performs these operations:",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 106,
+      "zh_note": "Tuple/equality 能化成常數是因 A 固定；MISS 多做固定次數 lookup 不改變階數。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The tuple and equality costs are constant with respect to N and K only because A = 26 is fixed. A tuple of growing length would not justify the same simplification. The table may perform more than one lookup on a miss, but a constant number does not change the bound.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 107,
+      "zh_note": "Amortized 將偶爾擴容與複製 references 的成本分攤到整串 appends，不保證每次 append 都是常數。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "\"Amortized\" describes a sequence of operations. A growing list occasionally needs a larger backing array and copies its existing references. That individual append can cost more than constant time. Spread over a sequence of appends, the aggregate growth work is linear in the number appended, yielding amortized O(1) per append in the usual dynamic-array model.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 108,
+      "zh_note": "加總字元掃描 M 與每字串 alphabet 工作 NA；G<=N 也讓 outer-list allocation 被總界線涵蓋。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Summing per-word work gives O(M + N A) expected time under normal hash-table behavior. Building the outer result list costs O(G), already covered since G <= N. With A = 26, the complete bound is:",
+      "english_section_index": 14,
+      "passive_skeleton": "Total character work plus per-word alphabet work → gives expected O(M + N A)"
+    },
+    {
+      "paragraph_index": 109,
+      "zh_note": "全空字串時 M=0，但每字串的 key 與 append 工作仍保留 N 成本。",
+      "decision_ids": [
+        "D2",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "This includes an input containing only empty strings: M = 0, yet creating and hashing keys and appending occurrences still takes work proportional to N.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 110,
+      "zh_note": "O(NK) 簡寫需要 K>=1；average-length 表示也不能無條件丟掉固定每字串工作。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Since M <= N K, a maximum-length formulation is O(N(K + 1)). When K >= 1, this is commonly shortened to O(NK). If using average length K_avg = M / N, write O(N(K_avg + 1)); omitting the +1 needs a positive lower-bound convention on that average. These are alternative notations for the same operations, not different algorithms.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 111,
+      "zh_note": "Severe collisions 可使 table work 接近平方，bounded count 假設也不等於任意大 integers 的 bit-cost 分析。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The assumptions matter. If severe collisions force each dictionary operation to inspect up to G entries, the table work can approach O(N²) for fixed-size keys. The expected linear result is not a collision-proof worst-case claim. The standard analysis also treats bounded-size index and count operations as constant time; the published length limit keeps counts at most 100. Extending to arbitrarily huge integers would require a bit-cost model.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 112,
+      "zh_note": "Sorting 的總成本還要計入 materialization、join、hash；log(k_i+1) 形式可涵蓋長度 0、1。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For the sorting solution, each word needs O(k_i log k_i) sorting work when k_i >= 2, plus linear materialization, joining, and key hashing. A form that also covers length 0 and 1 is:",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 113,
+      "zh_note": "Maximum-length bound 有明確 K>=2 簡寫條件，不等長字串不能任意把平均值代入 log 式。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Using maximum length gives O(N + N K log(K + 1)), usually written O(NK log K) when K >= 2. With unequal word lengths, substituting the arithmetic average into a logarithmic expression is not generally an equivalent bound; the sum or maximum-length form avoids that ambiguity.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 114,
+      "zh_note": "較佳 asymptotic growth 不等於每個短輸入都有較短 elapsed time，常數與 runs 仍影響實際速度。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Counting is the better asymptotic choice for this fixed small alphabet. This does not prove it is faster for every short Python input: allocation costs, implementation constants, and existing ordered runs also affect elapsed time.",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 115,
+      "zh_note": "成本圖區分 work 與 storage，並保留無字元掃描時仍存在的 per-string 工作。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "*Time and space measure the work and storage of one algorithm. Fixed per-string work remains even when there are no characters to scan.*",
+      "english_section_index": 14
+    },
+    {
+      "paragraph_index": 116,
+      "zh_note": "暫時 list 只有 A slots，dictionary 每組保留一個 A-tuple；重複計算出的相等 tuple 不必都留存。",
+      "decision_ids": [
+        "D5",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The temporary counting list holds A entries. Only one current counting list is needed at a time. The dictionary retains one A-element tuple per distinct group, so its keys take O(G A) space. A newly built tuple that equals an existing key need not become another retained dictionary key.",
+      "english_section_index": 15
+    },
+    {
+      "paragraph_index": 117,
+      "zh_note": "Container 計數包含 N 個 string references、G 組 lists/entries，以及 outer list 的 G 個 references。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Across all group lists there are exactly N references to input strings, including duplicates. There are G list objects, dictionary entries for G keys, and an outer return list with G references. Their total new container space is:",
+      "english_section_index": 15
+    },
+    {
+      "paragraph_index": 118,
+      "zh_note": "固定 alphabet 下新增容器為 O(N)；append 保留 reference，不新複製字串字元。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For a fixed alphabet and nonempty input, this is O(N). The implementation does not copy every string's character contents when appending; it stores references. The returned groups still keep those original strings reachable.",
+      "english_section_index": 15
+    },
+    {
+      "paragraph_index": 119,
+      "zh_note": "Auxiliary space 要先說明是否排除回傳容器；logical output content size 不等於實際新複製字元數。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "\"Auxiliary space excluding the output\" depends on which containers an analysis counts as output. If the returned inner and outer lists are excluded, the working dictionary, keys, and counters still use O(G A + A) space. If the abstract output is described as containing all string contents, its logical size is O(M + N), often bounded by O(NK + N). That is different from claiming this Python implementation newly allocates M character copies.",
+      "english_section_index": 15,
+      "passive_skeleton": "Output convention → separates newly allocated containers from logical string content"
+    },
+    {
+      "paragraph_index": 120,
+      "zh_note": "Sorting 有 O(K) temporary space，保留的 key strings 又可能合計 O(M) 字元，與固定 count keys 不同。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The sorting alternative also allocates character lists and key strings. Temporary sorting storage is O(K) in the worst case. Stored key strings can occupy up to O(M) characters across distinct groups, alongside the N references and dictionary containers. Fixed-size count keys avoid that length-dependent retained key storage.",
+      "english_section_index": 15
+    },
+    {
+      "paragraph_index": 121,
+      "zh_note": "放寬字元集後 grouping pattern 還在，但 26 counters 與 ord 減 a 的 mapping 不再符合 contract。",
+      "decision_ids": [
+        "D2",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Suppose the input may contain uppercase letters, punctuation, or arbitrary Unicode code points, with anagrams defined by exact code-point multiplicities. The dictionary grouping pattern survives. The 26-slot representation and ord(c) - ord('a') indexing do not.",
+      "english_section_index": 16
+    },
+    {
+      "paragraph_index": 122,
+      "zh_note": "Sorting 不必替全部可能字元預留 counters，因此是 unrestricted alphabet 的簡單替代。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Sorting becomes a simple alternative because it does not need us to allocate one slot for every possible character:",
+      "english_section_index": 16
+    },
+    {
+      "paragraph_index": 123,
+      "zh_note": "A! 與 !A 排序後共用 !A key，示範只替換 canonicalization 的 pivot。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The changed implementation replaces counting and tuple construction with one sorted-string key. For example, \"A!\" and \"!A\" both produce \"!A\", so they share a group. The sorting time and storage bounds derived above apply.",
+      "english_section_index": 16
+    },
+    {
+      "paragraph_index": 124,
+      "zh_note": "Sparse counts 也可行，但 character/count pairs 最終仍需穩定且 hashable 的 key representation。",
+      "decision_ids": [
+        "D5",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A sparse character-to-count mapping can also avoid allocating the entire alphabet, but it needs a stable, hashable representation of those character/count pairs. Sorting is often easier to explain and implement when the alphabet is unrestricted and exact character equality is sufficient.",
+      "english_section_index": 16
+    },
+    {
+      "paragraph_index": 125,
+      "zh_note": "Normalization 決定哪些人類文字視為相等，必須先定 contract，sorting code points 不會自動完成這件事。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Human text may need a further contract decision: whether case differences or different Unicode representations of visually identical text should count as equivalent. Sorting code points does not choose that policy. Any required normalization must be specified before canonicalization, because it changes which strings belong together.",
+      "english_section_index": 16
+    },
+    {
+      "paragraph_index": 126,
+      "zh_note": "面試 approach 依序交代 frequency key、fresh counts、tuple、append 與最後回傳 groups。",
+      "decision_ids": [
+        "D1",
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "I use a dictionary from a 26-letter frequency tuple to a list of words. For each word, I count its letters in a fresh list, convert that list to a tuple, and append the original word to the corresponding group. defaultdict(list) creates the group when the key is first encountered. After every word has been processed, I return the value lists.",
+      "english_section_index": 18
+    },
+    {
+      "paragraph_index": 127,
+      "zh_note": "口述正確性仍需保留必要與充分兩方向，不能只說 anagrams 的 counts 一樣。",
       "decision_ids": [
         "D1"
       ],
-      "zh_note": "Equivalence 與 loop invariant 不同；正確性必須能追蹤完整 processed prefix。",
-      "english_source": "The reusable interview habit is simple: when the task asks you to group equivalent items, first define what makes them equivalent. Then choose a canonical representation that preserves every distinguishing property. Only after that should you select the storage structure and derive its performance from the actual operations.",
-      "english_section_index": 9
+      "kind": "PASSIVE",
+      "english_source": "Rearranging a word preserves each letter's count. Conversely, if all counts agree, both words contain exactly the same supply of every letter, so one can be rearranged into the other. The tuple preserves all 26 counts in a fixed letter order.",
+      "english_section_index": 19
+    },
+    {
+      "paragraph_index": 128,
+      "zh_note": "口述 invariant 要標出處理 i 之前、完整的 strs[:i]，以及未加入當前和未來輸入。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Before processing input index i, the dictionary partitions exactly the occurrences in strs[:i] by their complete frequency tuples, each occurrence appears once, and no current or future occurrence has been added.",
+      "english_section_index": 20
+    },
+    {
+      "paragraph_index": 129,
+      "zh_note": "面試 proof 依空 prefix、每輪恢復 property、全部輸入處理完三步收束。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The empty dictionary correctly represents the empty prefix. Each iteration computes the current word's complete key and appends it once to its matching group, restoring the property for the next prefix. When the loop ends, the prefix is the entire input, so every occurrence is in exactly the correct group.",
+      "english_section_index": 21
+    },
+    {
+      "paragraph_index": 130,
+      "zh_note": "List 負責更新，tuple of integers 滿足 hashability；不可把所有 immutable tuples 都直接說成 hashable。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "I update the counts while scanning, so a mutable list is convenient. A built-in list is unhashable. The completed tuple contains only integers, so it is hashable and can serve as the dictionary key.",
+      "english_section_index": 22
+    },
+    {
+      "paragraph_index": 131,
+      "zh_note": "Collision 影響搜尋成本，equality 區分 tuple keys，因此要保存 tuple 本身。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The dictionary distinguishes keys using equality. A collision can affect lookup cost, but unequal tuples still identify different groups. I store the tuple itself rather than only its hash integer.",
+      "english_section_index": 23
+    },
+    {
+      "paragraph_index": 132,
+      "zh_note": "MISS 必須經建立、存入、回傳 list 後才 append；HIT 則直接取回既有 list。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "On a missing groups[key] subscription, it calls list(), stores the new empty list, and returns it. Then append adds the word. On a hit, it returns the existing group's list.",
+      "english_section_index": 24
+    },
+    {
+      "paragraph_index": 133,
+      "zh_note": "Complexity 回答保留 M+N、K>=1、正常 hashing 與 amortized append 等假設。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Let M be total characters and N the number of words. I scan every character once and do fixed 26-slot work per word, so expected time is O(M + N) under normal hash-table behavior. With maximum word length K >= 1, the usual shorthand is O(NK). The bound assumes constant-size count operations and amortized constant-time append.",
+      "english_section_index": 25
+    },
+    {
+      "paragraph_index": 134,
+      "zh_note": "Space 回答計的是固定 keys 與 N references，並非新建全部字元副本。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "I retain up to one fixed-size key per group and N references to original strings. The new container space is O(N) for the fixed alphabet; it does not include new copies of all string characters.",
+      "english_section_index": 26
+    },
+    {
+      "paragraph_index": 135,
+      "zh_note": "Sorting follow-up 同時說明 canonical string key、K>=2 的成本簡寫，以及 alphabet 改變時的選擇邊界。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Yes. Sorting every word gives a canonical string key, such as \"aet\" for \"eat\", \"tea\", and \"ate\". With maximum length K >= 2, the usual worst-case sorting shorthand is O(NK log K), plus the standard hash-table assumptions. It becomes attractive when the character set is not a small fixed alphabet.",
+      "english_section_index": 27
+    },
+    {
+      "paragraph_index": 136,
+      "zh_note": "Live-coding 敘述要維持 dictionary 一次建立、count 每字串重設、完整 key 後 append、最後 return 的時序。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "During coding, the state changes can be narrated directly: \"I create the dictionary once because it accumulates groups. I reset the 26 counters for each new word. I finish counting before constructing the key. I append once under that complete key. I return all group lists after the outer loop finishes.\"",
+      "english_section_index": 27
+    },
+    {
+      "paragraph_index": 137,
+      "zh_note": "重建程式先回到每筆 occurrence 必須保留的輸出義務，再推表示與操作順序。",
+      "decision_ids": [
+        "D1",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "To rebuild the solution, start with what the output must preserve: every original occurrence, grouped by anagram equivalence. The following dependencies supply the representation and operation order.",
+      "english_section_index": 28
+    },
+    {
+      "paragraph_index": 138,
+      "zh_note": "Master Map 把正文已建立的 constraint、representation、runtime 與 cost 接起來，沒有新增另一套演算法。",
+      "decision_ids": [
+        "D1",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "*The map connects facts established in the article. Reconstruct the representation, runtime and cost from the same problem constraints.*",
+      "english_section_index": 28
     }
   ],
   "active_items": [
     {
       "id": "A0001",
       "term": "invariant",
-      "decision_id": "D1",
-      "paragraph_index": 5,
-      "english_sentence": "This equivalence property describes the relation between words; it is not yet the algorithm's loop invariant.",
+      "decision_id": "D8",
+      "paragraph_index": 76,
+      "english_sentence": "The equivalence property relates strings, while a loop invariant describes program state at a defined checkpoint.",
       "source_quote": "invariant",
       "admission": "decision_critical_reusable"
     },
@@ -482,17 +1597,17 @@
       "id": "A0002",
       "term": "canonical key",
       "decision_id": "D1",
-      "paragraph_index": 6,
-      "english_sentence": "A canonical key is a representation that gives logically equivalent inputs equal keys.",
+      "paragraph_index": 13,
+      "english_sentence": "A canonical key is one standard representation shared by every member of an equivalence class.",
       "source_quote": "canonical key",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0003",
       "term": "counter",
-      "decision_id": "D2",
-      "paragraph_index": 4,
-      "english_sentence": "Because the alphabet is fixed, we can build a complete identity using exactly 26 counters.",
+      "decision_id": "D3",
+      "paragraph_index": 25,
+      "english_sentence": "For the eat trace, every counter not listed in the state display remains zero.",
       "source_quote": "counter",
       "admission": "decision_critical_reusable"
     },
@@ -500,17 +1615,17 @@
       "id": "A0004",
       "term": "Unicode",
       "decision_id": "D3",
-      "paragraph_index": 9,
-      "english_sentence": "Python ord returns a Unicode code point.",
+      "paragraph_index": 22,
+      "english_sentence": "Python ord returns the Unicode code point of a one-character string.",
       "source_quote": "Unicode",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0005",
       "term": "processed prefix",
-      "decision_id": "D4",
-      "paragraph_index": 12,
-      "english_sentence": "The dictionary never predicts future words: after each iteration it contains only the processed prefix.",
+      "decision_id": "D8",
+      "paragraph_index": 78,
+      "english_sentence": "The invariant identifies the checkpoint, processed prefix, excluded future inputs, and stored groups.",
       "source_quote": "processed prefix",
       "admission": "decision_critical_reusable"
     },
@@ -518,8 +1633,8 @@
       "id": "A0006",
       "term": "mutable",
       "decision_id": "D5",
-      "paragraph_index": 14,
-      "english_sentence": "Calling tuple(counts) creates a separate immutable tuple snapshot; it does not freeze or mutate the original list.",
+      "paragraph_index": 21,
+      "english_sentence": "Assigning a new value to one position changes the mutable counting list.",
       "source_quote": "mutable",
       "admission": "decision_critical_reusable"
     },
@@ -527,72 +1642,72 @@
       "id": "A0007",
       "term": "hashable",
       "decision_id": "D5",
-      "paragraph_index": 14,
-      "english_sentence": "The list is suitable for repeated mutation but cannot itself be used as a dictionary key: Python lists are unhashable.",
+      "paragraph_index": 34,
+      "english_sentence": "A tuple is hashable only when all its elements are hashable.",
       "source_quote": "hashable",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0008",
       "term": "hash value",
-      "decision_id": "D5",
-      "paragraph_index": 15,
-      "english_sentence": "Two unequal keys can collide in hash value without being treated as equal.",
-      "source_quote": "hash value",
+      "decision_id": "D4",
+      "paragraph_index": 47,
+      "english_sentence": "Unequal keys can have the same hash, so a collision does not establish equality.",
+      "source_quote": "hash values",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0009",
       "term": "defaultdict(list)",
-      "decision_id": "D5",
-      "paragraph_index": 16,
-      "english_sentence": "Our reference implementation uses an explicit missing-key branch: if the key is absent, assign an empty list, then append the original word. defaultdict(list) is an equivalent convenience for that missing-key path; only a missing-key bracket lookup invokes its factory.",
+      "decision_id": "D4",
+      "paragraph_index": 126,
+      "english_sentence": "Using defaultdict(list), I create a group when its key is first encountered.",
       "source_quote": "defaultdict(list)",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0010",
       "term": "sorting",
-      "decision_id": "D5",
-      "paragraph_index": 18,
-      "english_sentence": "This uses the same hash-map grouping architecture, but a different canonicalization algorithm: counting works on frequencies; sorting works on ordered character sequences.",
-      "source_quote": "sorting",
+      "decision_id": "D6",
+      "paragraph_index": 91,
+      "english_sentence": "Sorting preserves every occurrence, while join forms the canonical string key.",
+      "source_quote": "Sorting",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0011",
       "term": "Timsort",
-      "decision_id": "D5",
-      "paragraph_index": 19,
-      "english_sentence": "It is a complexity model, not a literal step-by-step trace of CPython's adaptive, stable Timsort-family implementation or its modern Powersort merge ordering.",
+      "decision_id": "D6",
+      "paragraph_index": 100,
+      "english_sentence": "In CPython 3.14, Timsort detects ordered runs and uses Powersort for merge scheduling.",
       "source_quote": "Timsort",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0012",
       "term": "amortized",
-      "decision_id": "D5",
-      "paragraph_index": 22,
-      "english_sentence": "For each word we initialize Σ counters, scan each character once, construct and hash a Σ-element tuple, do an average-case dictionary lookup, and amortized O(1) list append.",
-      "source_quote": "amortized",
+      "decision_id": "D7",
+      "paragraph_index": 107,
+      "english_sentence": "List growth work is linear across a sequence of appends, yielding amortized constant time per append.",
+      "source_quote": "Amortized",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0013",
       "term": "Loop invariant",
-      "decision_id": "D4",
-      "paragraph_index": 27,
-      "english_sentence": "Loop invariant: before processing index i, groups contains exactly the original words from strs[0:i], each once, partitioned by their complete character-frequency tuple; no future word is present.",
-      "source_quote": "Loop invariant",
+      "decision_id": "D8",
+      "paragraph_index": 128,
+      "english_sentence": "Before processing input index i, the dictionary partitions exactly the occurrences in strs[:i] by their complete frequency tuples.",
+      "source_quote": "Before processing input index i",
       "admission": "decision_critical_reusable"
     },
     {
       "id": "A0014",
       "term": "empty string",
-      "decision_id": "D4",
-      "paragraph_index": 29,
-      "english_sentence": "An empty string executes no character updates and produces the all-zero tuple, so multiple empty strings naturally join the same group.",
-      "source_quote": "empty string",
+      "decision_id": "D2",
+      "paragraph_index": 68,
+      "english_sentence": "An empty string produces the all-zero key without any character iterations.",
+      "source_quote": "empty-string",
       "admission": "decision_critical_reusable"
     }
   ]

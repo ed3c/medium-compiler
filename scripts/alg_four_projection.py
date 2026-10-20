@@ -60,31 +60,39 @@ def scan_reading(english: str, decision_id: str) -> str:
     The slash and square-bracket policy is conservative: clause boundaries and
     reviewed lexical bundles are marked.  Accent only reviewed content words.
     """
-    # Use exact text slices: every content token remains in the same order.
-    text = english
-    for phrase in sorted(BUNDLES.get(decision_id, ()), key=len, reverse=True):
-        pattern = re.compile(r'(?<!\w)' + re.escape(phrase) + r'(?!\w)', re.I)
-        text = pattern.sub(lambda match: '[' + match.group(0) + ']', text)
-    text = re.sub(r'(?<=\.)\s+(?=[A-Z])', ' //\n', text)
-    text = text.replace('; ', '; //\n')
-    text = text.replace(', but ', ', //\nbut ')
-    for preposition in ('during', 'before', 'with', 'without', 'through', 'into', 'under', 'after', 'from', 'for'):
-        # Do not split a reviewed lexical bundle.
-        text = re.sub(r'(?<![\w\[/]) ' + preposition + r'\b', ' /' + preposition, text, flags=re.I)
-    # Escape first; then apply a deliberately small reviewed stress set.
-    segments = re.split(r'(//\n|/|\[|\])', text)
+    # Match source spans once; never reparse original punctuation as added marks.
+    phrases = BUNDLES.get(decision_id, ())
+    bundle = '|'.join(re.escape(phrase) for phrase in sorted(phrases, key=len, reverse=True))
+    rules = []
+    if bundle:
+        rules.append(r'(?P<bundle>(?<!\w)(?i:' + bundle + r')(?!\w))')
+    rules.extend((
+        r'(?P<major_period>(?<=\.)\s+(?=[A-Z]))',
+        r'(?P<major_semicolon>; )',
+        r'(?P<major_comma>, (?=but\b))',
+        r'(?P<minor>(?<![\w\[/]) (?=(?i:during|before|with|without|through|into|under|after|from|for)\b))',
+    ))
+    pattern = re.compile('|'.join(rules))
+
+    def render_text(text):
+        return re.sub(r'\b[A-Za-z]+\b', _emphasize, html.escape(text))
+
     result = []
-    for segment in segments:
-        if segment == '//\n':
-            result.append('<span class="alg-major-break">//</span><br>')
-        elif segment == '/':
-            result.append('<span class="alg-minor-break">/</span>')
-        elif segment == '[':
-            result.append('<span class="alg-bundle">[')
-        elif segment == ']':
-            result.append(']</span>')
+    cursor = 0
+    for match in pattern.finditer(english):
+        result.append(render_text(english[cursor:match.start()]))
+        if match.lastgroup == 'bundle':
+            result.extend(('<span class="alg-bundle"><span class="alg-reading-mark">[</span>',
+                           render_text(match.group()),
+                           '<span class="alg-reading-mark">]</span></span>'))
         else:
-            result.append(re.sub(r'\b[A-Za-z]+\b', _emphasize, segment))
+            result.append(render_text(match.group()))
+            if match.lastgroup == 'minor':
+                result.append('<span class="alg-minor-break">/</span>')
+            else:
+                result.append('<span class="alg-major-break">//</span><br>')
+        cursor = match.end()
+    result.append(render_text(english[cursor:]))
     return ''.join(result)
 
 

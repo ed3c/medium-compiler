@@ -42,7 +42,13 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
             article=desktop.locator("article.alg-four-source")
             assert article.is_visible()
             assert "Group Anagrams" in article.inner_text()
-            assert "Loop invariant" in article.inner_text()
+            assert "loop invariant" in article.inner_text().lower()
+            source_response=desktop.request.get(url+"source.json")
+            assert source_response.status==200, "source manifest is not served"
+            source=source_response.json()
+            paragraph_count=source["alignment"]["paragraph_count"]
+            scroll_index=paragraph_count//2
+            click_index=source["active_items"][0]["paragraph_index"]
             assert article.locator("figure.article-figure img").count()==7
             images=article.locator("figure.article-figure img")
             for img in images.all():
@@ -52,15 +58,15 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
                     "src=>{const e=[...document.images].find(i=>i.src===src);return e.complete && e.naturalWidth>0}",
                     arg=img.evaluate("e=>e.src"))
                 assert img.evaluate("e=>new URL(e.src).origin===location.origin"), "Figure escaped deployed origin"
-            assert desktop.locator("[data-outline-index]").count()==36
-            assert article.locator("[data-alg-four-index]").count()==36
-            assert desktop.locator(".alg-four-annotation").count()==36
+            assert desktop.locator("[data-outline-index]").count()==paragraph_count
+            assert article.locator("[data-alg-four-index]").count()==paragraph_count
+            assert desktop.locator(".alg-four-annotation").count()==paragraph_count
             assert desktop.locator(".alg-active-term").count()>=10
             assert desktop.locator(".alg-four-sidebar").bounding_box()["x"] > article.bounding_box()["x"]+article.bounding_box()["width"]-20
             assert desktop.locator(".alg-four-sidebar").evaluate("(e)=>getComputedStyle(e).position")=="sticky"
 
             # Real viewport scroll must pick the matching, detailed annotation.
-            paragraph=article.locator('[data-alg-four-index="22"]')
+            paragraph=article.locator(f'[data-alg-four-index="{scroll_index}"]')
             desktop.mouse.wheel(0, 600)
             desktop.wait_for_timeout(100)
             paragraph.evaluate("(el)=>el.scrollIntoView({block:'start',behavior:'auto'})")
@@ -70,18 +76,18 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
             assert desktop.locator(".alg-outline-paragraph[open]").count()==1
             assert desktop.locator(".alg-outline-section[open]").count()>=1
             current=int(active.get_attribute("data-outline-link"))
-            assert abs(current-22)<=2, f"scroll observer chose unrelated paragraph {current}"
+            assert abs(current-scroll_index)<=2, f"scroll observer chose unrelated paragraph {current}"
 
             # A real click changes hash and lands on its exact source paragraph.
             # Open the correct section via its actual outline hierarchy.
-            target=desktop.locator('[data-outline-index="15"]')
+            target=desktop.locator(f'[data-outline-index="{click_index}"]')
             target.evaluate("(e)=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true}")
             target.locator("summary[data-outline-link]").click()
             desktop.wait_for_timeout(400)
-            assert desktop.evaluate("location.hash")=="#alg-p-15"
-            assert article.locator("#alg-p-15").count()==1
-            assert desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text').count()==1
-            reading=desktop.locator('.alg-outline-paragraph[data-outline-index="15"] .alg-reading-text')
+            assert desktop.evaluate("location.hash")==f"#alg-p-{click_index}"
+            assert article.locator(f"#alg-p-{click_index}").count()==1
+            reading=desktop.locator(f'.alg-outline-paragraph[data-outline-index="{click_index}"] .alg-reading-text')
+            assert reading.count()==1
             try:
                 reading.wait_for(state="visible",timeout=3500)
             except Exception:
@@ -100,10 +106,11 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
                 "(e)=>getComputedStyle(e).backgroundColor")=="rgb(245, 216, 88)"
             assert not errors, f"browser page errors: {errors}"
 
+            desktop.screenshot(path=str(output/"desktop-viewport.png"))
             desktop.screenshot(path=str(output/"desktop.png"),full_page=True)
-            report["desktop"]={"paragraphs":36,"figures":7,"active_items":"at_least_10",
+            report["desktop"]={"paragraphs":paragraph_count,"figures":7,"active_items":"at_least_10",
                                "scroll_tracked_paragraph":current,
-                               "anchor_click":"alg-p-15","javascript_errors":errors}
+                               "anchor_click":f"alg-p-{click_index}","javascript_errors":errors}
 
             mobile=browser.new_page(viewport={"width":390,"height":844},is_mobile=True,has_touch=True)
             m=mobile.goto(url,wait_until="networkidle")
@@ -123,6 +130,11 @@ def run(site: Path | None, output: Path, base_url: str | None = None) -> dict:
             anchor.press("Enter")
             mobile.wait_for_timeout(200)
             assert mobile.evaluate("location.hash")=="#alg-p-0"
+            target_top=mobile.locator('#alg-p-0').bounding_box()['y']
+            header_bottom=mobile.locator('header').bounding_box()['y']+mobile.locator('header').bounding_box()['height']
+            assert header_bottom-8 <= target_top < 844, "keyboard link did not reveal its source paragraph"
+            assert mobile.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "mobile page overflows horizontally"
+            mobile.screenshot(path=str(output/"mobile-viewport.png"))
             mobile.screenshot(path=str(output/"mobile.png"),full_page=True)
             report["mobile"]={"viewport":"390x844","collapsible_outline":True,"keyboard_anchor":"alg-p-0"}
             browser.close()
