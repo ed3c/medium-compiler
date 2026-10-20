@@ -57,3 +57,28 @@ jobs:
           name: mechanical-writing-evidence
           path: /tmp/writing-evidence/
           retention-days: 7
+
+  browser-alg-four:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build pinned article and ALG Four site
+        run: python3 scripts/build_site.py --out /tmp/alg-four-browser-site > /tmp/alg-four-site-build.json
+      - name: Install pinned Playwright Chromium
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+      - name: Native desktop and mobile browser verification
+        run: |
+          python3 tests/browser_e2e_alg_four.py --site /tmp/alg-four-browser-site --out /tmp/alg-four-browser-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: alg-four-native-browser-evidence
+          path: |
+            /tmp/alg-four-browser-evidence/
+            /tmp/alg-four-site-build.json
+          retention-days: 7
