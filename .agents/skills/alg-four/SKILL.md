@@ -46,6 +46,14 @@ projects annotations **alongside**, never into, the article. It may continue to
 display the currently pinned original sample until an approved replacement article
 is available; a Skill change alone does not prove that a new article was authored.
 
+For the complete LeetCode article profile, require an approved English source
+that aligns **one-to-one with the current Traditional Chinese prose paragraphs**.
+Validate both original Git blobs, rendered heading and paragraph structure,
+protected code and all section/figure placements before emitting any annotations.
+A changed paragraph or edition requires source re-review and a newly pinned
+manifest; decision-level English summaries cannot silently replace paragraph
+English in Mode C.
+
 Build the outline from actual Markdown heading levels (H1/H2/H3/H4 as supported by
 the local renderer) and the exact paragraphs that follow them. Every paragraph
 has a stable anchor and one annotation; click a heading/paragraph to jump.
