@@ -47,7 +47,7 @@ def validate_import(out: Path) -> dict:
         checked=cli("check-receipt","--run-dir",str(run))
         original=ARTICLE.read_bytes()
         admitted=(run/"medium-canonical.md").read_bytes()
-        if original!=admitted or receipt.get("article_sha256")!=hashlib.sha256(original).hexdigest():
+        if original!=admitted or receipt.get("article_sha256")!="sha256:"+hashlib.sha256(original).hexdigest():
             first=next((i for i,(a,b) in enumerate(zip(original,admitted)) if a!=b),min(len(original),len(admitted)))
             raise RuntimeError("Canonical article bytes differ after compiler assembly: "
                                f"original={len(original)} assembled={len(admitted)} "
