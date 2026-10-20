@@ -42,10 +42,14 @@ jobs:
         run: |
           mkdir -p /tmp/writing-evidence
           python3 .agents/skills/sloptrim/scripts/detect.py articles/agent-handbook-zero-context.en.md > /tmp/writing-evidence/more-route-sloptrim.json
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/leetcode-49-group-anagrams.en.md > /tmp/writing-evidence/leetcode-part7-sloptrim.json
           python3 - <<'PY'
           import json
           from pathlib import Path
           result=json.loads(Path('/tmp/writing-evidence/more-route-sloptrim.json').read_text())
+          part7=json.loads(Path('/tmp/writing-evidence/leetcode-part7-sloptrim.json').read_text())
+          if not isinstance(part7,dict) or not part7:
+              raise SystemExit('Missing LeetCode Part 7 sloptrim diagnostic')
           if not isinstance(result,dict) or not result:
               raise SystemExit('Missing sloptrim diagnostic report')
           print('SLoptrim detector executed on the English More Route draft. Semantic fidelity still needs independent author/reader review.')
