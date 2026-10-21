@@ -29,7 +29,7 @@ def check_svg(svg: bytes) -> None:
             name = key.rsplit('}', 1)[-1].lower()
             if name.startswith('on') or name in ('href', 'src'):
                 raise ValueError('UNSAFE_SVG_ATTRIBUTE')
-            if re.search(r'url\s*\(\s*["\\']?\s*(https?:|data:|javascript:)', value, re.I):
+            if re.search(r'url\s*\([^)]*(?:https?:|data:|javascript:)', value, re.I):
                 raise ValueError('UNSAFE_SVG_URL')
         if tag == 'style' and re.search(r'@import|url\s*\(\s*["\\']?\s*(https?:|data:)', element.text or '', re.I):
             raise ValueError('UNSAFE_SVG_STYLE')
