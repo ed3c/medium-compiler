@@ -10,7 +10,9 @@ const browser=await chromium.launch({headless:true})
 try {
  const page=await browser.newPage({viewport:{width:1280,height:800},reducedMotion:'reduce'})
  const errors=[]
+ const outbound=[]
  page.on('pageerror',e=>errors.push(String(e)))
+ page.on('request',req=>{if(/^https?:/.test(req.url()))outbound.push(req.url())})
  await page.route('https?://**',request=>request.abort())
  await page.goto(pathToFileURL(html).href,{waitUntil:'domcontentloaded'})
  await page.getByText('Source to reviewed figure',{exact:false}).first().waitFor({timeout:12000})
@@ -24,6 +26,7 @@ try {
  await page.screenshot({path:'test-artifacts/seecode-editorial-desktop.png',fullPage:true})
  await page.setViewportSize({width:390,height:844})
  await page.screenshot({path:'test-artifacts/seecode-editorial-mobile.png',fullPage:true})
+ if(outbound.length)throw Error('EXTERNAL_NETWORK_REQUEST_REFUSED: '+outbound.join(' | '))
  if(errors.length)throw Error('DIAGRAM_PAGE_ERROR: '+errors.join(' | '))
  console.log(JSON.stringify({status:'SEECODE_ACTUAL_CHROMIUM_SMOKE',content:true,focus,
   source:'fixture only',native_agent_acceptance:'NOT_RUN',production:'NOT_DEPLOYED'}))
