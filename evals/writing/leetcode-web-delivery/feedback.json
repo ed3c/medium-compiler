@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "owner": "schema-manager.pclass-feedback",
+  "observation_scope": "consumer_report",
+  "evidence_validity": "VALID",
+  "behavior": {
+    "classification": "PASS",
+    "failed_checks": []
+  },
+  "authorizes_landing": false,
+  "effects": [],
+  "test_demand": null,
+  "selection_sha256": "6729b865c6785f55c4fc69ea7f8f5c4d68fa2eb3037b2453f9f27dbb09b56f90",
+  "field_measurement": {
+    "unit": "reported_output_field",
+    "scope": "selected_protocol",
+    "expected": 3,
+    "observed": 3,
+    "failed": 0,
+    "missing": 0,
+    "workflow_decisions": null,
+    "reason": "Output fields do not measure observable workflow choices or complete trace coverage."
+  },
+  "sources": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/initial/protocol.json",
+      "sha256": "cc5edd4f81105874b86f949f9c043e869a6dd48b3a300dcafffb6f85d4ce3943"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "8dc4a38a9a2d31e62126d0b31dfe389136ca68cd0ed8be37bb65c4d57ea8223a"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/medium-writing/SKILL.md",
+      "sha256": "68167b2bf0f625c0809bda840809132a8b2a2a00251254ec859c33dd3f29be43"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/docs/bilingual-articles.md",
+      "sha256": "42a9cc64b49dd89111d002f2a7841590830315f1a141428118f9c48828f75d62"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+      "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+      "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer/task.json",
+      "sha256": "b717f8addaba0a2e400b085927b86d4e31971f3d863b19edee376d0c2f058a77"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/requirements.json",
+      "sha256": "628786ffc9fbfd22a25aa9fa9ce5f458d13d9c4cf1b0031587e447023da7a363"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/criteria-review.json",
+      "sha256": "6e207022f19a18feece8f5ee506ebefb50b965a7a896936a17ff5d5bdf85091d"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed-reports/bilingual-index.json",
+      "sha256": "b92d6303ec8ee76d2365eea6ae71efe9866f565c5883116db52232a1c100016a"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/observer/web_index_owner-native-capture.json",
+      "sha256": "acc0d860c558ebbdd141d916437f2362f9903baab83967d509460bde63658087"
+    }
+  ],
+  "cases": [
+    {
+      "id": "bilingual-index",
+      "status": "passed",
+      "checks": {
+        "bodies_rewritten": true,
+        "index_data_provided": true,
+        "published": true
+      },
+      "observed": {
+        "bodies_rewritten": false,
+        "index_data_provided": true,
+        "published": false
+      }
+    }
+  ],
+  "dag": {
+    "instructions": {
+      "status": "ready",
+      "requires": []
+    },
+    "criteria": {
+      "status": "ready",
+      "requires": [
+        "requirements",
+        "criteria_review"
+      ]
+    },
+    "case:bilingual-index": {
+      "status": "passed",
+      "requires": [
+        "instructions",
+        "criteria"
+      ]
+    },
+    "feedback": {
+      "status": "ready",
+      "requires": [
+        "case:bilingual-index"
+      ]
+    }
+  },
+  "limits": [
+    "File digests bind bytes, not observer independence or complete capture.",
+    "Field equality checks reported behavior, not unobserved effects.",
+    "No formal writing compliance or comparative improvement is established."
+  ],
+  "subject": "Website-ready bilingual index handoff for two approved articles; reported actions only",
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/initial/protocol.json",
+    "sha256": "cc5edd4f81105874b86f949f9c043e869a6dd48b3a300dcafffb6f85d4ce3943"
+  },
+  "instructions": [
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+      "sha256": "8dc4a38a9a2d31e62126d0b31dfe389136ca68cd0ed8be37bb65c4d57ea8223a"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/medium-writing/SKILL.md",
+      "sha256": "68167b2bf0f625c0809bda840809132a8b2a2a00251254ec859c33dd3f29be43"
+    },
+    {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/docs/bilingual-articles.md",
+      "sha256": "42a9cc64b49dd89111d002f2a7841590830315f1a141428118f9c48828f75d62"
+    }
+  ],
+  "case_fingerprints": {
+    "bilingual-index": "c00fd648cc10a4c0d77c725f6d1084520a814716f6cb5610a86e908f1984504d"
+  },
+  "criteria": {
+    "status": "SUPPORTED",
+    "required": [],
+    "reviewer": "/root/web_index_criteria",
+    "source": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/criteria-review.json",
+      "sha256": "6e207022f19a18feece8f5ee506ebefb50b965a7a896936a17ff5d5bdf85091d"
+    },
+    "requirements": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/requirements.json",
+      "sha256": "628786ffc9fbfd22a25aa9fa9ce5f458d13d9c4cf1b0031587e447023da7a363"
+    },
+    "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness."
+  },
+  "requirements": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/requirements.json",
+    "sha256": "628786ffc9fbfd22a25aa9fa9ce5f458d13d9c4cf1b0031587e447023da7a363"
+  },
+  "next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "projection_ms": 0.020666979253292084,
+  "status": "passed",
+  "elapsed_ms": 0.825291033834219,
+  "materialization": {
+    "owner": "schema-manager.pclass-feedback",
+    "binding": {
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/reviewed/selection.json",
+        "sha256": "f599a451b5b124eca218d3553bd5a1e528b35ff4106989c442f8c1a86452a9af"
+      },
+      "criteria_review": null,
+      "observations": [
+        {
+          "case_id": "bilingual-index",
+          "report": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed-reports/bilingual-index.json",
+            "sha256": "b92d6303ec8ee76d2365eea6ae71efe9866f565c5883116db52232a1c100016a"
+          },
+          "trace": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/observer/web_index_owner-native-capture.json",
+            "sha256": "acc0d860c558ebbdd141d916437f2362f9903baab83967d509460bde63658087"
+          }
+        }
+      ],
+      "readback_entry": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback"
+      ],
+      "readback_environment": {},
+      "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed/selection.json",
+      "sha256": "6729b865c6785f55c4fc69ea7f8f5c4d68fa2eb3037b2453f9f27dbb09b56f90"
+    },
+    "next": {
+      "kind": "executable",
+      "owner": "schema-manager.pclass-feedback",
+      "actor": "Session",
+      "argv": [
+        "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+        "schema",
+        "pclass-feedback",
+        "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed/selection.json",
+        "6729b865c6785f55c4fc69ea7f8f5c4d68fa2eb3037b2453f9f27dbb09b56f90"
+      ],
+      "environment": {},
+      "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d"
+    },
+    "limits": [
+      "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+      "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+    ]
+  },
+  "readback": {
+    "tool": "soodles_schema_inspect",
+    "arguments": {
+      "kind": "pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed/selection.json",
+        "sha256": "6729b865c6785f55c4fc69ea7f8f5c4d68fa2eb3037b2453f9f27dbb09b56f90"
+      }
+    }
+  }
+}

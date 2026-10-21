@@ -90,6 +90,32 @@ A cover is optional; figure image generation is **not** mandatory. Generate imag
 
 Handoff to medium-writing contains the approved full English and zh-TW narratives, source/claim coverage and unresolved limits, complete reference code, ordered section plan, figure positions/captions/alt text/briefs, and the actual editorial/execution evidence status. This is a semantic handoff description **using existing article/coverage/CLI inputs**, not a new persistent schema, state machine or invented hash/digest. Deterministic byte IDs come only from the original CLI/producer.
 
+## Website-ready handoff when website delivery is selected
+
+Supply both complete approved Markdown editions and the article-list data in
+[the existing bilingual website contract](../../../../docs/bilingual-articles.md):
+one stable slug, each language's title and short source-faithful description,
+and the exact repository source paths. Titles must match their edition's H1;
+do not put registry metadata, review notes or generated HTML into the prose.
+The Content Owner approves both descriptions as well as the unchanged bodies.
+An already approved edition can be handed off without reauthoring it; retain
+its original draft, review and failure evidence separately.
+
+Use the site's explicit article registry. Do not publish by scanning evaluation
+directories or treating every generated draft as an accepted article.
+The formatter/build owner preserves the supplied Markdown, renders separate
+language routes and their own heading contents, and connects the article list,
+language links and source downloads. Missing titles, descriptions or a complete
+language edition return to the Content Owner; a build or navigation defect
+belongs to the site builder. Do not shorten prose to make a page fit.
+
+Verify the built article list and both complete pages through real desktop and
+mobile navigation, heading links, language switching and source downloads.
+Compare downloaded bytes and rendered code with the supplied editions.
+Keep content/reader evidence, website runtime, compiler admission and Provider
+publication distinct. Website-ready files and a successful CI do not authorize
+merge or deployment; preserve the task's selected host and explicit effect scope.
+
 ## Part delivery and Stage boundary
 
 The existing medium-compiler **Stage 0–7 remains unchanged**. Leetcode-mental supplies content needed for those stages; medium-writing sends it through the actual legal CLI steps and preserves source/code semantics. Stage 6 for this profile is a format-preserving pass over already approved wording (not a second editorial author); Stage 7 copies admitted bytes. Existing-article revisions follow the CLI's supported `init --draft` or authorized technical correction route; do not fabricate historical stages.

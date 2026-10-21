@@ -1,0 +1,37 @@
+{
+  "goal": "Using the selected website handoff, provide approved article-list entries for the two already approved complete bilingual articles. Read every listed instruction and both complete editions. Preserve bodies; this is index metadata approval, not reauthoring/translation, fresh blind article writing or publication. Supply exact H1 titles, source-faithful concise descriptions and existing registry fields to index-entries.json, and explain metadata support and remaining content limits in notes.md. Keep public descriptions free of evaluation/process or learner mastery claims. Do not rewrite original bodies or invent figures/statuses.",
+  "instructions": [
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/.agents/skills/medium-writing/SKILL.md",
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/instructions/docs/bilingual-articles.md"
+  ],
+  "articles": [
+    {
+      "slug": "leetcode-11-container-with-most-water",
+      "english": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer/container/article.en.md",
+      "traditional_chinese": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer/container/article.zh-TW.md",
+      "source": "articles/leetcode-11-container-with-most-water.md",
+      "english_source": "articles/leetcode-11-container-with-most-water.en.md"
+    },
+    {
+      "slug": "leetcode-207-course-schedule",
+      "english": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer/courses/article.en.md",
+      "traditional_chinese": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer/courses/article.zh-TW.md",
+      "source": "articles/leetcode-207-course-schedule.md",
+      "english_source": "articles/leetcode-207-course-schedule.en.md"
+    }
+  ],
+  "allowed_reads": "Only this task, listed instructions and the four supplied article files; no other repository, examples, histories, observer material or agents. No web needed.",
+  "output_directory": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/consumer",
+  "outputs": [
+    "index-entries.json",
+    "notes.md",
+    "output.json"
+  ],
+  "output_schema": {
+    "bodies_rewritten": "boolean: whether any supplied body was rewritten",
+    "index_data_provided": "boolean: whether complete explicit registry entries for both editions/articles were actually saved",
+    "published": "boolean: actual external publication"
+  },
+  "effects": "Write only outputs within assigned consumer directory; no source article/instruction edits, Git, provider, CI, model or other-agent actions. Stop after first completed handoff."
+}

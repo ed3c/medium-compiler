@@ -29,6 +29,12 @@ Complexity/Cost -> Implementation -> Interview -> Master Map.
 
 **When a complete LeetCode Medium article is selected**, consume the fully approved English/zh-TW content from [leetcode-mental's complete-article profile](../leetcode-mental/references/article-content-profile.md). That Skill is the sole semantic Content Owner; **this Skill is the format-only Medium-native Formatter/Assembler**, not a second article writer. Preserve all technical claims, exact English terms, code, proof, exceptions, figures and source identity. If coverage, translation or correctness fails, return it to the Content Owner before admission instead of summarizing or revising it here. The existing CLI Stage 0–7 and supported revision routes remain unchanged.
 
+When website delivery is selected, consume that profile's approved bilingual
+editions and index metadata through [the existing website handoff](../../../docs/bilingual-articles.md).
+Register only selected articles, preserve body bytes, and verify their list,
+language pages and heading navigation. Do not substitute evaluation reports
+for public prose or infer publication authority from an assembled site.
+
 These are teaching responsibilities, not a required number of headings. Count the actual
 reader decisions from question, alternatives, condition and consequence; five organizing
 questions or an older topic's decision count is not a universal quota. P-class interprets

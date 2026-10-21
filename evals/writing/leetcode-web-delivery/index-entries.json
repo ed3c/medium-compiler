@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "leetcode-11-container-with-most-water",
+    "source": "articles/leetcode-11-container-with-most-water.md",
+    "english_source": "articles/leetcode-11-container-with-most-water.en.md",
+    "title": "Container With Most Water：為什麼可以捨棄較短的牆",
+    "english_title": "Container With Most Water: why the shorter wall can be discarded",
+    "description": "從面積公式與逐步狀態追蹤，推導為何可捨棄較短牆，並說明 two pointers 的正確性、Python 實作、複雜度與不等間距座標的改版。",
+    "english_description": "Derive the shorter-wall discard rule from the area formula, then follow the two-pointer states, correctness proof, Python implementation, complexity and adaptation to unevenly spaced coordinates.",
+    "bilingual": true,
+    "download_markdown": true
+  },
+  {
+    "slug": "leetcode-207-course-schedule",
+    "source": "articles/leetcode-207-course-schedule.md",
+    "english_source": "articles/leetcode-207-course-schedule.en.md",
+    "title": "Course Schedule：計算尚未滿足的先修義務",
+    "english_title": "Course Schedule: count the obligations that remain",
+    "description": "以 adjacency list、indegree 與 deque 追蹤尚未完成的先修義務，說明 Kahn's topological sort 如何判斷課程能否全部完成，並推導容器成本、複雜度與替代方案。",
+    "english_description": "Track unfinished prerequisites with adjacency lists, indegree and a deque to explain how Kahn's topological sort decides whether all courses can finish, including container costs, complexity and alternatives.",
+    "bilingual": true,
+    "download_markdown": true
+  }
+]

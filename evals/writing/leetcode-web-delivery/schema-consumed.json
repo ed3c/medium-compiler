@@ -1,0 +1,28 @@
+{
+  "owner": "task-owner",
+  "operation": "consume_verified_behavior",
+  "selection": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16/feedback/observed/selection.json",
+    "sha256": "6729b865c6785f55c4fc69ea7f8f5c4d68fa2eb3037b2453f9f27dbb09b56f90"
+  },
+  "covered": {
+    "unit": "reported_output_field",
+    "scope": "selected_protocol",
+    "expected": 3,
+    "observed": 3,
+    "failed": 0,
+    "missing": 0,
+    "workflow_decisions": null,
+    "reason": "Output fields do not measure observable workflow choices or complete trace coverage."
+  },
+  "result": {
+    "validity": "VALID",
+    "criteria": "SUPPORTED",
+    "behavior": {
+      "classification": "PASS",
+      "failed_checks": []
+    }
+  },
+  "action": "Parent read index entries and descriptions against approved articles, consumed metadata into existing registry and copied bodies unchanged. Report-field PASS does not establish browser or Provider acceptance.",
+  "authorizes_landing": false
+}

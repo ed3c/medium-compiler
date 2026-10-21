@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "protocol_sha256": "cc5edd4f81105874b86f949f9c043e869a6dd48b3a300dcafffb6f85d4ce3943",
+  "reviewer": "/root/web_index_criteria",
+  "checks": {
+    "bilingual-index": {
+      "bodies_rewritten": {
+        "status": "supported",
+        "requirement_quote": "Do not rewrite those bodies.",
+        "reason": "原需求明文禁止改寫既有英繁正文，因此 expected=false 有直接依據。此欄只記錄是否曾改寫正文，不判定正文或 metadata 的語意品質。"
+      },
+      "index_data_provided": {
+        "status": "supported",
+        "requirement_quote": "Provide and approve complete explicit article-list data for both articles and languages in index-entries.json.",
+        "reason": "原需求明文要求將兩篇文章、兩種語言的完整顯式清單資料提供於 index-entries.json，因此 expected=true 有直接依據。consumer/task.json 將此欄定義為是否實際存下完整 registry entries；它僅證明交付動作，不證明描述忠於正文或審核正確。"
+      },
+      "published": {
+        "status": "supported",
+        "requirement_quote": "Do not publish externally.",
+        "reason": "原需求明文禁止對外發布，因此記錄實際對外發布動作的欄位 expected=false 有直接依據；這不等於已驗證網站建置或文章品質。"
+      }
+    }
+  }
+}
