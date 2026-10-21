@@ -20,6 +20,17 @@ try {
  for(const word of ['Source','Diagram Spec','Review','Preview']){
   if(!text.includes(word))throw Error('DIAGRAM_CONTENT_MISSING: '+word)
  }
+ const next=page.locator('[data-sc-action="next"]')
+ if(await next.count()){
+  await next.click()
+  const stepping=await page.locator('svg[data-sc-motion]').first().evaluate(el=>el.classList.contains('sc-stepping'))
+  if(!stepping)throw Error('STEPS_NOT_INTERACTIVE')
+ }
+ const firstNode=page.locator('[data-sc-node]').first()
+ if(await firstNode.count()){
+  await firstNode.click()
+  await page.getByText('Node passport',{exact:false}).first().waitFor({timeout:5000})
+ }
  await page.keyboard.press('Tab')
  const focus=await page.evaluate(()=>document.activeElement?.tagName||'UNKNOWN')
  await mkdir('test-artifacts',{recursive:true})
