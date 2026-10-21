@@ -31,7 +31,7 @@ def check_svg(svg: bytes) -> None:
                 raise ValueError('UNSAFE_SVG_ATTRIBUTE')
             if re.search(r'url\s*\([^)]*(?:https?:|data:|javascript:)', value, re.I):
                 raise ValueError('UNSAFE_SVG_URL')
-        if tag == 'style' and re.search(r'@import|url\s*\(\s*["\\']?\s*(https?:|data:)', element.text or '', re.I):
+        if tag == 'style' and re.search(r'@import|url\s*\([^)]*(?:https?:|data:)', element.text or '', re.I):
             raise ValueError('UNSAFE_SVG_STYLE')
 
 class DiagramProjection:
