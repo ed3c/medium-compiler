@@ -1,3 +1,5 @@
+> **Current routing index:** [Unified Visual Architecture](visual-architecture.md). ARC-01 A consolidates presentation/owner/acceptance references rather than introducing an executable graph model. ARC-02 A scopes the initial OMM analysis to medium-compiler. The sections below preserve the original VIZ decisions and history; consult the router for present-tense readback.
+
 # Visualization integration: Thinking × Ambitious decisions
 
 ## Frozen scope (2026-10-21)

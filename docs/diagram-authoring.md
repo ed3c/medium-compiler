@@ -31,3 +31,7 @@ A real standalone HTML output is inert with respect to the Soodles/Noodle Native
 The registry at design/diagram-candidates/manifest.json is empty initially. scripts/verify_diagram_candidates.py checks exact source/candidate hashes, loss report and asserted review identity when entries are proposed. Review metadata alone does not establish independent review or prove figure fidelity. The reviewed architecture output directory is docs/derived-architecture/, not .omm cloud state; no generated real architecture has been approved for this first slice.
 
 Published diagrams need exact original source references and a disclosure review by the current content Owner; Graph Viewer needs original v2 Event/Provider Owner readback. Browser PASS is not Native Runtime Acceptance. Main site and Cloudflare Production remain unchanged.
+
+## ARC-02 A — first codebase target
+
+The initial actual source-read target is medium-compiler at a chosen pinned revision. Only approved source paths in this repository may be analyzed for new OMM candidates; Soodles, Noodle and NeoWeaver are reference names, not authorized additional scan targets. The OMM skill installation/CI render of an unrelated SeeCode fixture does not prove an OMM scanner was invoked. No OMM-derived medium-compiler architecture diagram has passed independent review or been committed as an approved artifact. See [the unified routing map](visual-architecture.md) before extending source scope.

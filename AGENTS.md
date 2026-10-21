@@ -258,11 +258,8 @@ Environment 展示時，先讀
 TanStack Start Server Functions 取得 Host／Provider／Training Effect 權限。
 視覺造型、交互動畫、Fixture 與 Published Snapshot 都不能證明 Native 執行。
 
-## Visualization integration (VIZ-01–04)
+## Unified Visual Architecture (ARC-01 A / ARC-02 A)
 
-Use [the frozen visualization integration decision and acceptance report](docs/visualization-integration.md). The main article/Cloudflare contracts and ViewEnv Q1–Q36 remain unchanged. Noodle owns canonical graph display; the reviewed public artifact reader cannot retrieve Host-private source. Only registered, visually reviewed SVG assets may replace article Mermaid fences at build time. No duplicate Renderer authority, new P-class Gate or Production deployment follows from this pointer.
+Read [the single visual routing and acceptance map](docs/visual-architecture.md) before changing diagram/paper/code/learning/runtime visual interfaces. The frozen ViewEnv Q1–Q36, VIZ-01–04 and VIS-06–17 (DuckDB revised) remain authoritative. The original `docs/visualization-integration.md`, `docs/diagram-authoring.md`, `docs/article-diagrams.md` and `docs/learning-duckdb-architecture.md` preserve domain-level details.
 
-
-## Optional Diagram Authoring (VIS-15–17)
-
-Read [diagram authoring boundaries](docs/diagram-authoring.md) for SeeCode and oh-my-mermaid. They are pinned, design-time tools creating candidates from source, not Event/Graph Owners. Only externally reviewed, source-bound loss-disclosed outputs may be published. OMM Cloud Push is refused; no production deployment follows from installing skills or rendering an isolated fixture.
+Use [Loop Visual Design](.agents/skills/loop-visual-design/SKILL.md) only for matching visual tasks; it selects existing source-pinned tools and never executes or owns original effects. SeeCode generates editorial/teaching candidates only; OMM generates reviewed codebase-architecture knowledge only, initially scoped to medium-compiler. No cross-repository OMM scan, Cloud Push, new Graph Truth Owner or publication from an unreviewed candidate. Original Noodle Graph v2 remains the execution-evidence reference, approved article Markdown remains the Content Owner, DuckDB OPFS remains local untrusted learning state. Mechanical tests and Browser E2E cannot be promoted to Native Agent or Production acceptance. Keep PR #72 Draft; do not merge or deploy.

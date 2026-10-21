@@ -8,7 +8,7 @@ description: Design and review source-bound LoopManager/Noodle/medium-compiler v
 The canonical UI rendering and evidence validation live in Noodle/Soodles. This
 skill is not an Agent scheduler, data reducer, source author or deployment owner.
 
-Read design/visual-skills.lock.json and docs/loop-workbench-tanstack-start.md.
+Read [Unified Visual Architecture](../../../docs/visual-architecture.md), `design/visual-skills.lock.json` and `docs/loop-workbench-tanstack-start.md`.
 For repository-local installation, run:
 python3 scripts/install_loop_visual_skills.py --dry-run
 python3 scripts/install_loop_visual_skills.py
@@ -42,3 +42,7 @@ a declaration that the skill existed.
 ## VIS-15–17 selected SeeCode and OMM candidates
 
 Use [the diagram authoring contract](../../../docs/diagram-authoring.md) and the exact installed pinned SKILL files. SeeCode is only for Editorial/Teaching Diagrams (reviewed SVG and isolated interactive HTML); OMM scan/view builds Versioned Derived Architecture Knowledge only. Both are untrusted projections and never establish a Noodle Native Execution Graph edge or Owner readback. No omm-push, credential, cloud effect, or runtime install. A source review may admit a candidate, but only an actual selected renderer invocation plus browser evidence can claim it rendered.
+
+## Cross-domain visual routing (ARC-01 A / ARC-02 A)
+
+The unified matrix decides Owner → source-bound projection → actual browser/artifact consumer; this skill does not produce runtime truth. For paper/research methodology use the article Content Owner and reviewed static SVG, not PaperBanana as a deployed workflow. For interactive code/math, actual computation and its independent tests must precede any asserted result. For Evals/metrics, keep original experiment and grading authority. OMM first targets medium-compiler only, and cannot publish an inferred relationship until independently approved. Stop at missing source rights or independent evidence without blocking unrelated visual tasks. No new P-class conditions, Graph schema, cross-repo scan, Production deployment, or automatically invoked Skill chain.

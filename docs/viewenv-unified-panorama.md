@@ -31,9 +31,15 @@ Existing Noodle Workspace handles the detail layers:
    assessment using the original Soodles Schema, not a model-invented
    root-cause marker.
 
-The adapter's public `readArtifact` only returns already-reviewed
-inline public content in the same fetched snapshot. Missing/private
-originals refuse. No POST, no local Host, no native tool dispatch.
+The adapter's `readArtifact` calls `apps/loop-workbench/src/public-artifact.mjs`
+`readReviewedArtifact`. It accepts only the original disclosure-reviewed
+`content_urls` under the exact versioned same-origin `graph.json` path and
+verifies each returned static artifact's SHA-256 digest and byte length.
+Graph JSON contains **no inline public artifact body**; private, missing,
+stale or substituted content is refused. `scripts/loop_graph_site.py` remains
+the original reviewed public-package producer, not the preview renderer.
+No POST, local Host connection, native dispatch or effect authority exists.
+Refer to [the unified router](visual-architecture.md) for status ceilings.
 The test fixture, if used, may prove UI interaction but cannot be
 called a fresh original Run or a semantic behavior improvement.
 
@@ -41,7 +47,8 @@ called a fresh original Run or a semantic behavior improvement.
 (until exact pin refresh), actual owner-bound Run browser acceptance,
 native P-class behavior verification, complete whole-goal acceptance,
 cloud upload/deploy and production promotion. Prior cloud pause stands.
-\n## Session provenance correction (Q32–Q33)
+
+## Session provenance correction (Q32–Q33)
 
 The canonical Noodle source rail now distinguishes three independently
 meaningful facts: `intent_selection` represents **selected decision

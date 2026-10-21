@@ -10,6 +10,21 @@ on:
       - 'tests/test_install_loop_visual_skills.py'
       - 'apps/loop-workbench/**'
       - '.github/workflows/loop-workbench-contract.yml'
+      - 'docs/visual-architecture.md'
+      - 'docs/visualization-integration.md'
+      - 'docs/viewenv-unified-panorama.md'
+      - 'docs/diagram-authoring.md'
+      - 'docs/article-diagrams.md'
+      - 'docs/learning-duckdb-architecture.md'
+      - 'design/diagram-authoring.lock.json'
+      - 'design/diagram-candidates/**'
+      - 'references/article-diagrams.json'
+      - 'scripts/article_diagrams.py'
+      - 'scripts/verify_diagram_candidates.py'
+      - 'tests/test_visual_architecture.py'
+      - '.agents/skills/loop-visual-design/SKILL.md'
+      - '.agents/skills/medium-writing/SKILL.md'
+      - 'AGENTS.md'
   workflow_dispatch:
 permissions:
   contents: read
@@ -41,6 +56,8 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_learning_duckdb_agent.py' -v
       - name: Article source-to-SVG projection contract
         run: python3 -m unittest discover -s tests -p 'test_article_diagrams.py' -v
+      - name: Unified visual producer-consumer and stale contract controls
+        run: python3 -m unittest discover -s tests -p 'test_visual_architecture.py' -v
       - name: ViewEnv episode projection and digest controls
         run: node --test apps/loop-workbench/src/viewenv.test.mjs
       - name: Validate versioned skill manifest

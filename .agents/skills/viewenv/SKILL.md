@@ -124,7 +124,8 @@ rather than designing a second source of geometry or runtime facts.
 - The TanStack Start `/panorama` adapter is source-only and read-only.
   All cloud promotion remains paused. Passing browser and vendor-parity CI
   proves a viewer, not native Agent compliance or whole Goal acceptance.
-\n## Q32–Q33: factual judgment/tool boundary
+
+## Q32–Q33: factual judgment/tool boundary
 
 The native Soodles `soodles_loop_review_inspect` is **read-only**:
 it uses the existing original Host Review Selection and current Owner
@@ -149,3 +150,7 @@ When source is vendor-pinned, refresh the original Noodle version and
 the Git blob manifest together, test actual React/DOM Browser and
 preserve Source/Runtime separation. These are not real Agent-compliance
 Evals or production Cloud promotion.
+
+## Visual integration routing (ARC-01 A)
+
+For paper, editorial, interactive learning, code architecture and real runtime visualization, follow [the cross-domain source/renderer/acceptance table](../../../docs/visual-architecture.md). This entry retains original ViewEnv source and Owner authority; do not replace `/panorama` with SeeCode or OMM, reinterpret missing edges as true, or treat source-only Browser Smoke as fresh Native Agent execution. ARC-02 A limits the initial derived OMM scan to medium-compiler.
