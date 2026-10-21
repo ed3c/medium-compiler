@@ -6,6 +6,13 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 ROOT=Path(__file__).resolve().parents[1]
+
+import importlib.util
+_diagram_spec=importlib.util.spec_from_file_location('article_diagrams',ROOT/'scripts/article_diagrams.py')
+_diagram_module=importlib.util.module_from_spec(_diagram_spec)
+_diagram_spec.loader.exec_module(_diagram_module)
+DiagramRegistry=_diagram_module.DiagramRegistry
+
 MAIN_ORIGIN='https://medium-compiler.vercel.app'
 LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
@@ -125,8 +132,9 @@ def inline(text:str)->str:
     text=re.sub(r'\[([^\]]+)\]\((https?://[^)]+)\)',r'<a href="\2" target="_blank" rel="noreferrer">\1</a>',text)
     return text
 
-def markdown(text:str)->str:
+def markdown(text:str, diagrams=None)->str:
     out=[]; paragraph=[]; in_code=False; code=[]; list_kind=None
+    mermaid=False; diagram_index=0
     def flush_p():
         nonlocal paragraph
         if paragraph:
@@ -139,8 +147,8 @@ def markdown(text:str)->str:
         if line.startswith('```') or line.startswith('~~~'):
             flush_p();close_list()
             if in_code:
-                out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
-            else: in_code=True
+                out.append(diagrams.figure('\n'.join(code),diagram_index) if mermaid and diagrams else '<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');diagram_index+=int(mermaid);code=[];in_code=False;mermaid=False
+            else: in_code=True;mermaid=diagrams is not None and line[3:].strip().lower()=='mermaid'
             continue
         if in_code: code.append(line);continue
         if not line.strip(): flush_p();close_list();continue
@@ -166,7 +174,10 @@ def markdown(text:str)->str:
             flush_p();close_list();out.append('<blockquote>'+inline(line[2:])+'</blockquote>');continue
         paragraph.append(line)
     flush_p();close_list()
-    if in_code: out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
+    if in_code:
+        if mermaid: raise ValueError('INCOMPLETE_MERMAID_BLOCK')
+        out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
+    if diagrams: diagrams.check_complete()
     return '\n'.join(out)
 
 def youtube_article_embed(item:dict)->str:
@@ -454,6 +465,8 @@ def build(out:Path)->dict:
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
     (out/'assets').mkdir()
+    diagram_registry=DiagramRegistry(ROOT)
+    diagram_registry.install_assets(out)
     shutil.copytree(ROOT/'site/alg-four-figures',out/'assets/alg-four')
     shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
@@ -529,7 +542,7 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     article_provenance=[]
     for item in ARTICLES:
         source_bytes=(ROOT/item['source']).read_bytes()
-        content_html=markdown(source_bytes.decode('utf-8'))
+        content_html=markdown(source_bytes.decode('utf-8'),diagram_registry.for_article(item['source']))
         video_html=youtube_article_embed(item)
         if video_html:
             if '</p>' not in content_html:

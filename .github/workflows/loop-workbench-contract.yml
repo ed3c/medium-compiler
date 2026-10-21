@@ -28,6 +28,10 @@ jobs:
         run: node --test apps/loop-workbench/src/workbench.test.mjs
       - name: Source-level exact Git blob vendor parity
         run: node --test apps/loop-workbench/src/panorama-source.test.mjs
+      - name: Reviewed public artifact reader (positive and adversarial controls)
+        run: node --test apps/loop-workbench/src/public-artifact.test.mjs
+      - name: Article source-to-SVG projection contract
+        run: python3 -m unittest discover -s tests -p 'test_article_diagrams.py' -v
       - name: ViewEnv episode projection and digest controls
         run: node --test apps/loop-workbench/src/viewenv.test.mjs
       - name: Validate versioned skill manifest
