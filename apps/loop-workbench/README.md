@@ -34,3 +34,8 @@ public artifact's digest before exposing its text.
 ## Visualization extension, VIZ-01–04
 
 See ../../docs/visualization-integration.md. Noodle remains the canonical geometry/evidence graph producer. Public artifact payloads are resolved through the digest-bound `src/public-artifact.mjs` reader only. No live Host or production deployment is implied.
+
+
+## Local Learning Lab (VIS-12–14 A)
+
+The isolated preview route /learning uses a pinned DuckDB-Wasm OPFS file for local learning drafts, with export/import JSON and exported DuckDB snapshot for optional native CLI Agent Mode. Source: docs/learning-duckdb-architecture.md. Python Run is deliberately unavailable until a dedicated-origin, no-network, bounded Pyodide Sandbox passes its own acceptance. Local attempt records do not represent native task receipts, and this preview is not deployed on Production.

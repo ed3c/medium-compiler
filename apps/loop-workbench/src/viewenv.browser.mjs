@@ -1,6 +1,6 @@
 /** Bounded real Chromium smoke: preview only; no Run or Provider mutation. */
 import { chromium } from 'playwright'
-import { mkdir } from 'node:fs/promises'
+import { mkdir, readFile } from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 const url=process.env.VIEWENV_TEST_URL || 'http://127.0.0.1:3107/viewenv'
 const browser=await chromium.launch({headless:true})
@@ -80,6 +80,22 @@ try{
   await page.getByText('PERSISTENT · OPFS').waitFor({timeout:30000})
   await page.getByText(/1 drafts\/attempts/).waitFor()
   await page.getByRole('button',{name:'Export JSON'}).waitFor()
+  const [dbDownload]=await Promise.all([
+    page.waitForEvent('download',{timeout:20000}),
+    page.getByRole('button',{name:'Export DuckDB for Agent CLI'}).click()
+  ])
+  if(dbDownload.suggestedFilename()!=='medium_learning_v1.duckdb')
+    throw new Error('downloaded database filename drift')
+  const exportedBytes=await readFile(await dbDownload.path())
+  if(exportedBytes.length<4096)throw new Error('exported DuckDB file is unexpectedly empty')
+  const [jsonDownload]=await Promise.all([
+    page.waitForEvent('download',{timeout:20000}),
+    page.getByRole('button',{name:'Export JSON'}).click()
+  ])
+  const json=JSON.parse(await readFile(await jsonDownload.path(),'utf8'))
+  if(json.schema_version!=='medium-local-learning-v1'||json.attempts?.length!==1)
+    throw new Error('exported JSON record drift')
+
   await page.screenshot({path:'test-artifacts/learning-duckdb-desktop.png',fullPage:true})
   await page.setViewportSize({width:390,height:844})
   await page.screenshot({path:'test-artifacts/learning-duckdb-mobile.png',fullPage:true})

@@ -33,3 +33,7 @@ OPFS write/reopen and recover, actual Python worker and network-denial
 test, independent Browser tests, original Graph and ALG Four regression,
 and separate cloud Provider readback. None of these prove a native Agent
 task completed. PR #72 remains a Draft and Production untouched.
+
+## Implementation evidence boundary (VIS-12 A)
+
+The initial isolated Workbench preview uses DuckDB-Wasm package version 1.32.0, a version the upstream OPFS post explicitly tested. It creates medium_learning_v1.duckdb on OPFS, checks points at insert and reopens on a real Chromium reload. The same browser test now also exports a real .duckdb file and JSON; the CLI script requires a separately installed DuckDB CLI v2 and a user-exported file. Its source tests do not claim that an actual v2 CLI binary was exercised. Python arbitrary execution remains gated until genuine network-isolation and runtime-asset evidence exists.
