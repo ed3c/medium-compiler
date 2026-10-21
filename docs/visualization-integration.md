@@ -92,3 +92,8 @@ adversarial cases, actual renderer invocation, Browser interaction and
 separate Native/Provider outcomes. Stop only the dependent operation
 when a required source, authorization or independently verified effect
 is missing; preserve the rest as UNKNOWN/NOT_RUN.
+
+
+## VIS-15 A / VIS-16 A / VIS-17 A — 2026-10-21
+
+The two explicitly supplied MIT repositories are allowed as exceptions to the earlier OpenAI/Anthropic/Cursor-author-only search preference; do not misattribute their authors. SeeCode creates Editorial/Teaching interactive HTML only in an isolated preview and review-gated SVG candidates for articles, not Native Runtime Graph truth. OMM generates review-gated, versioned architecture .mmd knowledge without cloud push. Source pins, role separation and negative checks: docs/diagram-authoring.md and design/diagram-authoring.lock.json. The empty reviewed candidate manifest is intentionally not evidence of a real documented system; read actual independent receipts before accepting a generated diagram.

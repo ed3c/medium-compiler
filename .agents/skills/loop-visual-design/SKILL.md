@@ -37,3 +37,8 @@ For frontend changes, test graph/data projections independently of appearance,
 then run browser screenshots and keyboard/reduced-motion controls in the selected
 host. Record installed skill version, actual invocation and screenshots, not just
 a declaration that the skill existed.
+
+
+## VIS-15–17 selected SeeCode and OMM candidates
+
+Use [the diagram authoring contract](../../../docs/diagram-authoring.md) and the exact installed pinned SKILL files. SeeCode is only for Editorial/Teaching Diagrams (reviewed SVG and isolated interactive HTML); OMM scan/view builds Versioned Derived Architecture Knowledge only. Both are untrusted projections and never establish a Noodle Native Execution Graph edge or Owner readback. No omm-push, credential, cloud effect, or runtime install. A source review may admit a candidate, but only an actual selected renderer invocation plus browser evidence can claim it rendered.

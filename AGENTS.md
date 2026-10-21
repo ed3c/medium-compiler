@@ -261,3 +261,8 @@ TanStack Start Server Functions 取得 Host／Provider／Training Effect 權限�
 ## Visualization integration (VIZ-01–04)
 
 Use [the frozen visualization integration decision and acceptance report](docs/visualization-integration.md). The main article/Cloudflare contracts and ViewEnv Q1–Q36 remain unchanged. Noodle owns canonical graph display; the reviewed public artifact reader cannot retrieve Host-private source. Only registered, visually reviewed SVG assets may replace article Mermaid fences at build time. No duplicate Renderer authority, new P-class Gate or Production deployment follows from this pointer.
+
+
+## Optional Diagram Authoring (VIS-15–17)
+
+Read [diagram authoring boundaries](docs/diagram-authoring.md) for SeeCode and oh-my-mermaid. They are pinned, design-time tools creating candidates from source, not Event/Graph Owners. Only externally reviewed, source-bound loss-disclosed outputs may be published. OMM Cloud Push is refused; no production deployment follows from installing skills or rendering an isolated fixture.
