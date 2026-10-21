@@ -56,6 +56,30 @@ class VisualArchitectureTests(unittest.TestCase):
         self.assertEqual(json.loads(read('references/article-diagrams.json'))['items'],[])
         self.assertIn('no cloud push',read('docs/visual-architecture.md').lower())
         self.assertIn('Draft',read('docs/visual-architecture.md'))
+    def test_cloudflare_faithful_port_reference_is_source_bound_not_runtime_admission(self):
+        import json
+        research=read('docs/typescript-rust-port-integration.md')
+        handoff=read('docs/handoff.md')
+        architecture=read('docs/visual-architecture.md')
+        for fragment in ('blog.cloudflare.com/typescript-rust-port',
+                         'oxc-project/tsrs',
+                         'cloudflare/vinext',
+                         '0341578031c47ecf555a35492554b4d212d07459',
+                         '9fcbed8634be6ba3cadfb1383153963febb5456f',
+                         'NOT_RUN','NOT_IMPLEMENTED','NOTICE'):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment,research)
+                self.assertIn(fragment,handoff if fragment != 'NOTICE' else research)
+        self.assertIn('typescript-rust-port-integration.md',architecture)
+        self.assertIn('typescript-rust-port-integration.md',read('AGENTS.md'))
+        package=json.loads(read('apps/loop-workbench/package.json'))
+        self.assertTrue(package['devDependencies']['typescript'].startswith('^5.9.'))
+        self.assertNotIn('tsrs',package['dependencies'])
+        self.assertNotIn('tsrs',package['devDependencies'])
+        self.assertNotIn('@tsrs/wasm',package['dependencies'])
+        self.assertIn('same upstream TypeScript commit',research)
+        self.assertIn('No product dependency',research)
+
     def test_no_new_runtime_authority_from_visual_router(self):
         router=read('.agents/skills/loop-visual-design/SKILL.md')
         self.assertIn('No new P-class conditions, Graph schema, cross-repo scan, Production deployment',router)

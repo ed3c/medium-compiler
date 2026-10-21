@@ -11,6 +11,8 @@ on:
       - 'apps/loop-workbench/**'
       - '.github/workflows/loop-workbench-contract.yml'
       - 'docs/visual-architecture.md'
+      - 'docs/typescript-rust-port-integration.md'
+      - 'docs/handoff.md'
       - 'docs/aifs-modular-migration.md'
       - 'references/aifs-figure-vendor.json'
       - '.agents/skills/verify-learning-article/SKILL.md'
