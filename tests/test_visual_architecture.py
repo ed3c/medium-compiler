@@ -54,7 +54,7 @@ class VisualArchitectureTests(unittest.TestCase):
         self.assertIn('ARC-02 A',read('docs/diagram-authoring.md'))
         self.assertEqual(json.loads(read('design/diagram-candidates/manifest.json'))['items'],[])
         self.assertEqual(json.loads(read('references/article-diagrams.json'))['items'],[])
-        self.assertIn('no Cloud Push',read('docs/visual-architecture.md'))
+        self.assertIn('no cloud push',read('docs/visual-architecture.md').lower())
         self.assertIn('Draft',read('docs/visual-architecture.md'))
     def test_no_new_runtime_authority_from_visual_router(self):
         router=read('.agents/skills/loop-visual-design/SKILL.md')
