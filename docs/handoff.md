@@ -153,6 +153,22 @@ For every **actual new migration**, select source+target revisions, use the appr
 
 **Lock and default runtime:** medium-compiler Workbench now commits actual npm-generated `apps/loop-workbench/package-lock.json` and uses exact `npm ci` in CI. Bun 1.4.3 runs as a *secondary executable/checker*, not as an uncommitted Bun package-manager replacement; maintain exactly one source-owned lock per installation path. Rust `@tsrs/wasm` runs in-memory fixtures without Host tool invocation or a TypeScript 7.0 version-matched oracle. No merge or deployment is authorized.
 
+## 3C. Exact-HEAD five-repository verification readback (2026-10-22)
+
+The following were read from **GitHub PR Head and GitHub Actions provider**, not guessed from the prior historical Handoff or prompt text. These are original Consumer-specific checks, **not** joint production deployment, an installed Native Host or a fully equivalent Rust compiler.
+
+| Original repo / Draft PR | Exact observed PR Head | Exact-head CI readback | Scope of PASS |
+| --- | --- | --- | --- |
+| [Soodles #444](https://github.com/ed3c/soodles/pull/444) | `c45d566e69bb074da33b63a89060022c893ff7de` | [runtime 39590124507](https://github.com/ed3c/soodles/actions/runs/39590124507) **SUCCESS** | Python `migrate-class` integration Source-only; no TS runtime to install; Native Poteto eval **NOT_RUN** |
+| [Noodle #122](https://github.com/ed3c/noodle/pull/122) | `fee03884f2990eb3676ab74cc44e4b538aab6e23` | [Test 39591295224](https://github.com/ed3c/noodle/actions/runs/39591295224) **SUCCESS** | Microsoft native TS7.0.2 `tsc`, TS6 JS API, Bun **1.4.3** `bun check` (7.0.2, **81 files**), Bun-driven Vite build, TanStack **Router** UI, Docs and Go original tests; no Router→Start server rewrite |
+| [NeoWeaver #23](https://github.com/ed3c/NeoWeaver/pull/23) | `3bcdb11fddc64362f39fd45056001968cf1d7cf2` | [compiled-specification-consistency 39589724540](https://github.com/ed3c/NeoWeaver/actions/runs/39589724540) **SUCCESS** | Versioned source-only toolchain compatibility profile; no native JS/Bun package created |
+| [FactoryWeaver #32](https://github.com/ed3c/factoryweaver/pull/32) | `f38abc7ff458277bb25c4160378328d8527db743` | [verify-public-contract 39589772441](https://github.com/ed3c/factoryweaver/actions/runs/39589772441) **SUCCESS** | Versioned source-only card/toolchain profile; existing Python distribution validated; no native TS app created |
+| [medium-compiler #72](https://github.com/ed3c/medium-compiler/pull/72) | `2306e45f3c612bc4a24a519e1654571a6f6f2cca` **prior to this Handoff commit** | [Loop Workbench 39591806183](https://github.com/ed3c/medium-compiler/actions/runs/39591806183) **SUCCESS** and [Writing Verification 39591806149](https://github.com/ed3c/medium-compiler/actions/runs/39591806149) **SUCCESS** | Isolated TanStack **Start** Preview; Microsoft TS7.0.2, TS6 JS AST, Bun **1.4.3** `bun check` (7.0.2, **12 files**), Vite/Playwright, AIFS/SeeCode fixtures, `@tsrs/wasm` (TS7.1-dev) isolated type-error/valid-neighbor tests, original article/ALG Four regression |
+
+**Source-verified sample outputs** from Noodle and medium-compiler exact-head Actions jobs: `tsc Version 7.0.2`, `JS API: 6.0.3`, Bun `1.4.3`, Bun bundled TypeScript `7.0.2`. Although Bun and Microsoft native compiler identify the **same TS minor in these observed runs**, that is **not** a substitute for same-fixture diagnostic Differential Oracle. `tsrs` remains at `7.1.0-dev.20260929` and cannot participate in a TypeScript **7.0.2** same-revision comparison.
+
+**Open work / Stop:** all five PRs remain **Open Draft**, zero merged or deployed. No evidence of true Native Soodles↔Noodle Poteto Consumer acceptance, no accepted Paper/OMM architecture review, no arbitrary-code Browser execution security acceptance, no full Typed Code Explorer. To complete a real runtime promotion, original Owners must authorize that action, choose actual minimal tests and read back effects. The next Session should consult this source ledger and current PR HEAD rather than rerun completed tests or ask for already resolved migration scope. A changed HEAD requires new provider readback at that HEAD.
+
 ## 4. What is delivered vs. what is still missing
 
 | Domain | Verified/delivered subset | Next real gap / acceptance required |
