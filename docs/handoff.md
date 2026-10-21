@@ -43,6 +43,91 @@ The next Session may follow valid original Owner continuations without another p
 
 The **OpenAI, Anthropic, Cursor examples** provide design/test methods, not blanket approvals to install runtime packages. SeeCode/OMM and AIFS are explicitly selected and source-pinned. PaperBanana and distill-figure remain research/method references. Additional tools require specific AST/rights/runtime review before actual migration.
 
+## 3A. Resource Registry — websites, upstream code, Skills and migration methods
+
+**Scope of this registry:** All concrete websites and public source repositories discussed/selected in this conversation, rather than a vague "OpenAI/Anthropic/Cursor examples" label. Links point to the **original project or primary source**. Integration decisions, actual copied bytes and acceptance remain governed by the locked manifests and documents in section 3. The items below are **not automatically authorized dependencies**.
+
+**Status vocabulary:** `INTEGRATED/TESTED` = actual selected target source or Chromium evidence; `PINNED/DESIGN-TIME` = immutable original Skill/CLI sources available for controlled design use, not automatically a native invocation; `DESIGN REFERENCE` = useful specific upstream UI or method but not copied into the target; `RESEARCH/DEFERRED` = studied or proposed, not approved or installed for product runtime.
+
+### A. Website examples and concrete design patterns
+
+| Primary public site / source | Exact method/pattern wanted in medium-compiler | Status |
+| --- | --- | --- |
+| [AI Engineering from Scratch](https://aiengineeringfromscratch.com/) · [original MIT repository](https://github.com/rohitg00/ai-engineering-from-scratch) | Course lesson structure, re-computed Math/ML figures, reusable `window.LF` widget runtime, Build/quiz/progress examples. **Only three source-preserved JS figure modules** are currently imported; not the full website. | INTEGRATED/TESTED selected figures |
+| [Anthropic HTML Effectiveness](https://github.com/anthropics/html-effectiveness) — [04 Code Understanding](https://github.com/anthropics/html-effectiveness/blob/main/04-code-understanding.html), [10 SVG Illustrations](https://github.com/anthropics/html-effectiveness/blob/main/10-svg-illustrations.html), [12 Incident Report](https://github.com/anthropics/html-effectiveness/blob/main/12-incident-report.html), [13 Flowchart Diagram](https://github.com/anthropics/html-effectiveness/blob/main/13-flowchart-diagram.html), [14 Research Feature Explainer](https://github.com/anthropics/html-effectiveness/blob/main/14-research-feature-explainer.html), [15 Research Concept Explainer](https://github.com/anthropics/html-effectiveness/blob/main/15-research-concept-explainer.html) | HTML-first editorial hierarchy, code navigation, research explainer, readable graphics and incident timelines; **design reference, not a copied Anthropic UI runtime**. | DESIGN REFERENCE |
+| [Deep-ML problemset](https://www.deep-ml.com/problems) | Topic-based ML problemset, Python solutions, visible test feedback, progress. The original challenges are not source assets licensed for reuse by this record. | DESIGN REFERENCE |
+| [TrenTorch Problemset](https://trentorch.com/problemset) | ML/Math problem categories, real code execution and progression; compare UX and grader behavior, do not copy proprietary problem content. | DESIGN REFERENCE |
+| [David Blass technical site](https://ssalbdivad.com/) | Typed Code Explorer / TypeScript/validator explanation and code-navigation inspiration. | DESIGN REFERENCE |
+| [Rohit Ghumare — Evals and Benchmarks](https://rohitghumare.com/guides/evals/) | Evidence-first writing, evaluator calibration, failure analysis, Trace/Metric/Counterexample explanation. | DESIGN REFERENCE |
+| [Distill](https://distill.pub/) | Explorable Explanations, linked math/graphics, reader-operated recalculation and direct causal explanation. | DESIGN REFERENCE |
+
+### B. Selected implementation stack and exactly adopted upstream modules
+
+| Repository/primary source | Target role, binding and adoption limit |
+| --- | --- |
+| [TanStack Router / Start](https://github.com/TanStack/router) | Isolated React/TypeScript `apps/loop-workbench` app; not a replacement for the original static Cloudflare/Vercel article builder. `INTEGRATED/TESTED`. |
+| Soodles/Noodle canonical renderer — see `apps/loop-workbench/vendor/noodle/loop-panorama.mjs` and [Graph v2 public contract](public-loop-graph.md) | Actual Agent/Replay display only from owner-reviewed data; no second owner, graph edges, or Host API. `INTEGRATED` browser projection; fresh native Agent result `NOT_RUN`. |
+| [AIFS repository](https://github.com/rohitg00/ai-engineering-from-scratch) pinned `45fa4084de6ba2f88fa96a41e69efa2166f868b3` — [LF runtime](https://github.com/rohitg00/ai-engineering-from-scratch/blob/45fa4084de6ba2f88fa96a41e69efa2166f868b3/site/lesson-figures.js), [math providers](https://github.com/rohitg00/ai-engineering-from-scratch/blob/45fa4084de6ba2f88fa96a41e69efa2166f868b3/site/figures-math.js), [demo-token-bucket provider](https://github.com/rohitg00/ai-engineering-from-scratch/blob/45fa4084de6ba2f88fa96a41e69efa2166f868b3/site/figures-demo.js) | **Byte-identical vendor** in `apps/loop-workbench/public/aifs/` and thin sandboxed React `/figures`. Three visual examples tested; upstream MIT LICENSE preserved. `INTEGRATED/TESTED`. |
+| [SeeCode](https://github.com/Aryanutkarsh/SeeCode) pinned `067ca2594e8e8ec87e7bcd14e9dcf7549f0f9913` | JSON Spec → editorial standalone HTML, SVG candidate, step/node inspector; repo-local pinned Skill plus genuine CLI/Chromium and source-to-sandbox Figure differential. **Not** Native Graph Renderer. `PINNED/DESIGN-TIME + TESTED FIXTURE`. |
+| [oh-my-mermaid](https://github.com/oh-my-mermaid/oh-my-mermaid) pinned `38ccdb69298adec949177c92c88d6e3ddfb5bab7` | `omm-scan` and `omm-view` Skills only; inferred, versioned Codebase Architecture Knowledge. `omm-push` excluded. **Actual medium-compiler source scan and independent diagram review NOT_RUN**. `PINNED/DESIGN-TIME`. |
+| [beautiful-mermaid](https://github.com/lukilabs/beautiful-mermaid) | MIT renderer (selected authoring package 1.1.3) for source-bound, reviewed build-time Mermaid→SVG; not runtime authority. Source-to-SVG fixture tests exist, **zero newly promoted article figures**. `INTEGRATED authoring`. |
+| [DuckDB-Wasm](https://github.com/duckdb/duckdb-wasm) + [DuckDB CLI Agent Mode announcement, 2026-10-09](https://duckdb.org/2026/10/09/agent-mode) | DuckDB-Wasm 1.32.0 + OPFS = **local untrusted learner state**, with Chromium write/reopen/export evidence. **CLI Agent Mode is a separate optional read-only SQL-output interface**, not a browser autonomous Agent/grader; actual CLI v2 execution remains NOT_RUN. |
+| [Pyodide](https://github.com/pyodide/pyodide) | Selected real Browser Python Runner direction (VIS-07 B). Bounded sandbox, no network, grading semantics and security **NOT_ACCEPTED/NOT_IMPLEMENTED**; not an installed production grading system. |
+
+### C. Pinned design-Skill sources and OpenAI/Anthropic/Cursor sources
+
+| Public source | Intended responsibility, NOT an independent Owner |
+| --- | --- |
+| [Taste Skill](https://github.com/Leonxlnx/taste-skill), lock `f624f37a8c650b9cc550253104925efe4c8de246` (MIT) | Public editorial art direction, **PINNED/DESIGN-TIME** in `design/visual-skills.lock.json`. |
+| [Anatomy](https://github.com/wheresryan22/anatomy) / [demo](https://skills.wheresryan.sh/anatomy), lock `e9488296a44211c42701ff71705b7901470ec78f` (MIT) | Source-grounded machine anatomy and isometric illustration, **PINNED/DESIGN-TIME**. |
+| [Impeccable](https://github.com/pbakaus/impeccable), lock `9304afa97f89b30609e4c538584fb3e0cd4df013` (Apache-2.0) | Operations/dashboard UX, legibility and accessibility, **PINNED/DESIGN-TIME**. |
+| [Emil Kowalski Skills](https://github.com/emilkowalski/skills), lock `2d228630ba1446365f614a108cb8252f1feda202` (MIT) | Motion, animations and interaction audit, **PINNED/DESIGN-TIME**. |
+| [OpenAI build-web-data-visualization Skills](https://github.com/openai/plugins/tree/main/plugins/build-web-data-visualization/skills): [strategy and critique](https://github.com/openai/plugins/blob/main/plugins/build-web-data-visualization/skills/visualization-strategy-and-critique/SKILL.md), [node-link & diagram layout](https://github.com/openai/plugins/blob/main/plugins/build-web-data-visualization/skills/node-link-and-diagram-layout/SKILL.md), [testing data visualizations](https://github.com/openai/plugins/blob/main/plugins/build-web-data-visualization/skills/testing-data-visualizations/SKILL.md), [UML/software architecture](https://github.com/openai/plugins/tree/main/plugins/build-web-data-visualization/skills/uml-and-software-architecture-visualization) | Choosing chart/layout, Graph/DAG node-link readability and real visual regression/testing. **REFERENCE only; no global OpenAI visualization runtime installed**. |
+| [OpenAI Codex Mermaid renderer](https://github.com/openai/codex/tree/main/codex-rs/mermaid) | Rust Mermaid rendering reference, not selected as website build renderer. |
+| [Anthropic frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) / [web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) | Editorial typography, components and interactive web-Artifact method. **REFERENCE**, not target dependencies. |
+| [Cursor pstack / teach](https://github.com/cursor/plugins/blob/main/pstack/skills/teach/SKILL.md) / [docs-canvas](https://github.com/cursor/plugins/blob/main/docs-canvas/skills/docs-canvas/SKILL.md) | Progressive visual explanation and architecture documentation examples. Canvas SDK availability/license is **not** treated as a full open-source distributable renderer. **REFERENCE only**. |
+
+Source attribution boundary: OpenAI/Anthropic official repository links and Sasha Rush/Cursor-associated individual work below are different authorship categories. **AIFS, SeeCode and oh-my-mermaid are explicit later user-selected exceptions**; do not claim they were written by OpenAI/Anthropic/Cursor employees.
+
+### D. Research, figure and ML teaching sources evaluated
+
+| Source URL | Practical pattern | Status |
+| --- | --- | --- |
+| [distill-figure](https://github.com/unumbrela/distill-figure) | Linked Graph/Matrix, user-driven math re-computation and render/screenshot/probe workflow | RESEARCH/METHOD, not chosen as global runtime |
+| [PaperBanana](https://github.com/dwzhu-pku/PaperBanana) / [paper arXiv:2601.23265](https://arxiv.org/abs/2601.23265) | Multi-agent planning/critique of paper methodology and plots, source-bound figure candidate | RESEARCH ONLY; academic figure/asset rights checked separately |
+| [Sasha Rush / pydiagrams](https://github.com/srush/pydiagrams) | Chalk-style declarative Python geometry and research diagrams | DESIGN REFERENCE (individual author, MIT repo); not production engine |
+| [Sasha Rush / Tensor Puzzles](https://github.com/srush/Tensor-Puzzles) | True tensor operations and original explainable ML exercises | TEACHING REFERENCE |
+| [Sasha Rush / Transformer Puzzles](https://github.com/srush/transformer-puzzles) | Attention and Transformer operations as explorable puzzles | TEACHING REFERENCE |
+| [Annotated Transformer](https://github.com/harvardnlp/annotated-transformer) | Authoritative paper-to-Python-to-HTML engineering explanation | TEACHING REFERENCE |
+| [AIFS authoring sources: blueprint-figure](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/skills/blueprint-figure), [motion-figure](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/skills/motion-figure), [course-guide](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/skills/course-guide), [lesson template](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/LESSON_TEMPLATE.md), [site/build.js](https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/site/build.js) | Source-bound blueprint visuals, JS widgets, `figure` fence/registry, course metadata and lesson build. **Method/reference for selecting new modules**, not a full course copy. Existing old Skill curriculum count vs live website count is source drift; don't overwrite learner progress to "fix" it. |
+
+**Explicitly compared but NOT selected as whole-platform replacement:** [Observable Framework](https://github.com/observablehq/framework) (publication/build shell), [Mafs](https://github.com/stevenpetryk/mafs) (React math), [UW Mosaic](https://github.com/uwdata/mosaic) (DuckDB linked analytics), [AntV Infographic](https://github.com/antvis/Infographic) (infographics), [Evidence](https://github.com/evidence-dev/evidence) (Markdown+SQL), [Vega-Lite](https://github.com/vega/vega-lite) (stat charts), [Sandpack](https://github.com/codesandbox/sandpack) (JavaScript playground), [JupyterLite](https://github.com/jupyterlite/jupyterlite) (browser notebooks), [Idyll](https://github.com/idyll-lang/idyll) (interactive essays). Their useful methods can be reconsidered per Consumer after Code-intel/rights checks; do **not** install all packages or replace the existing TanStack/static site architecture.
+
+### E. The migration engineering method sources (not just visual libraries)
+
+| Original source | Selected, measurable responsibility |
+| --- | --- |
+| [Soodles migrate-class](https://github.com/ed3c/soodles/blob/codex/migrate-class-source-bound-parity/.agents/skills/migrate-class/SKILL.md) · [method](https://github.com/ed3c/soodles/blob/codex/migrate-class-source-bound-parity/.agents/skills/migrate-class/references/method.md) | **Primary method Owner as a Skill**: reuse target → immutable vendor → codemod → minimal adapter → required rewrite; **not** a new execution/acceptance Owner. |
+| [Soodles Thinking Router](https://github.com/ed3c/soodles/blob/main/.agents/skills/thinking-router/SKILL.md), [Ambitious Route](https://github.com/ed3c/soodles/blob/main/.agents/skills/ambitious-route/SKILL.md), [Code-intel](https://github.com/ed3c/soodles/blob/main/.agents/skills/code-intel/SKILL.md), [Test Manager](https://github.com/ed3c/soodles/blob/main/.agents/skills/test-manager/SKILL.md), [handoff](https://github.com/ed3c/soodles/blob/main/.agents/skills/handoff/SKILL.md) | Existing Outer cognitive selection, independently grounded Python structural index, authoritative test scope and manual transfer. Original Noodle Poteto remains the only selected Inner writer. |
+| [Martin Fowler / Refactoring](https://refactoring.com/) | Behavior-preserving restructuring and tests that distinguish externally observable changes. |
+| [Tree-sitter](https://github.com/tree-sitter/tree-sitter) | Incremental mixed-language syntax trees / structural navigation; **not** a proven semantic dependency graph. |
+| [ast-grep](https://github.com/ast-grep/ast-grep) | Structural search and bounded declarative rewriting. |
+| [jscodeshift](https://github.com/facebook/jscodeshift) / [Recast](https://github.com/benjamn/recast) | JavaScript/TypeScript codemod and source-format-preserving AST generation. |
+| [OpenRewrite](https://github.com/openrewrite/rewrite) | Typed recipe-based mass migration, especially for compatible Java/API ecosystems. |
+| [Comby](https://github.com/comby-tools/comby) | Structural text replacement when a language-specific AST recipe is not necessary. |
+| [ApprovalTests Python](https://github.com/approvals/ApprovalTests.Python) | Golden Master / observed output snapshot; reviewer must not silently adopt new output as truth. |
+| [Pact](https://docs.pact.io/) / [Pact JS](https://github.com/pact-foundation/pact-js) | Consumer-driven API/message contract tests. Review the chosen SDK's exact license and real provider verification separately. |
+
+For every **actual new migration**, select source+target revisions, use the appropriate AST/structural parser, locate real API callers and reachable dependency closure, preserve original implementation when possible, separately run original and candidate under matched inputs, compare **outputs, error types, ordered events, state, DOM, network/effects** with only original-Owner-authorized normalization, run planted false-equality controls, and obtain original scoped Test Manager and Owner receipts. Source code listings alone are NOT AST proof. A browser test for an illustration is not a native Agent execution.
+
+### F. Rights and adoption readback
+
+- **PINNED commit/identity ledgers (authoritative):** `design/visual-skills.lock.json`, `design/diagram-authoring.lock.json`, `references/aifs-figure-vendor.json`. This resource registry provides discovery links; it must not supersede those exact checkout bytes.
+- All GitHub-source Code/Skills/Assets must be checked for **their selected revision and license** before copying. Original MIT or Apache-2.0 permission never automatically licenses externally hosted lesson material, images, fonts, academic figures or brand assets. Preserve complete mandatory attribution and notices. Do not assume all web content is transferable.
+- The separate **employee-origin shortlist** was only a research filter at the beginning of this conversation. Later user decisions explicitly admitted AIFS, SeeCode and OMM; do not reject them for not being employee-authored, and do not pretend the list is a blanket license for every other project.
+- No automatic full-repository imports, migration to another writable repository, model-authored rewrites of original verified algorithms, OMM Cloud Push, Production dependency additions, Provider writes or public publication result from this list. Fresh Source and native Permission/Acceptance each have their own required proof.
+
+
 ## 4. What is delivered vs. what is still missing
 
 | Domain | Verified/delivered subset | Next real gap / acceptance required |
