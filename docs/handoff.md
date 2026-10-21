@@ -132,6 +132,23 @@ For every **actual new migration**, select source+target revisions, use the appr
 - No automatic full-repository imports, migration to another writable repository, model-authored rewrites of original verified algorithms, OMM Cloud Push, Production dependency additions, Provider writes or public publication result from this list. Fresh Source and native Permission/Acceptance each have their own required proof.
 
 
+## 3B. Soodles + Noodle TypeScript 7.0 Stable Toolchain Migration (2026-10-21)
+
+**Primary source:** [Microsoft's TypeScript 7.0 stable announcement, July 8 2026](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/), not [Cloudflare's Rust tsrs port](https://blog.cloudflare.com/typescript-rust-port/). The official native TypeScript 7 compiler is implemented in **Go** and drops the legacy JavaScript Compiler API. The TypeScript 7.1 Beta published October 20 is not the requested stable release.
+
+**Repository mapping (two separately authorized owners; not a global rewrite):**
+
+| Repository | Actual consumer and exact current continuation | Migration status / stop |
+| --- | --- | --- |
+| [Soodles migrate-class PR #444](https://github.com/ed3c/soodles/pull/444) | Python management/Code-intel only; no TypeScript project package/tsconfig in its main repository tree. [Source-bound ownership note](https://github.com/ed3c/soodles/blob/codex/migrate-class-source-bound-parity/.agents/skills/migrate-class/references/typescript-7-toolchain.md); current candidate head at this handoff update: `1b94201fea9c8511144372398099e216860888bc`. | **No TS compiler installed**, intentionally. Do not invent a TypeScript build environment in Soodles. |
+| [Noodle Native TS7 UI PR #122](https://github.com/ed3c/noodle/pull/122) | Original Go Host + `ui/` Vite/React TypeScript. Prior UI spec `typescript: ^5.9.3`. Chosen stable version `7.0.2` using Microsoft's side-by-side `@typescript/native: npm:typescript@7.0.2` for `tsc` and `typescript: npm:@typescript/typescript6@6.0.2` for tools importing the old JS Compiler API. | **Candidate/in verification**, Head at handoff update `9699d2f5fa2b868725aec784e14a73cebd7e916d`. TypeScript 7 CLI and TS6 API must have actual pnpm install and exact-head provider test readback. **Do not mark migration complete if lockfile is stale.** |
+
+The current Noodle UI `ui/tsconfig.json` had `baseUrl: "."`, an option removed by TypeScript 7; drop it only after checking all source-relative `paths` and Typecheck. Generated `pnpm-lock.yaml` is an original package-manager output, **never a model-calculated integrity digest**. CI should return to `pnpm install --frozen-lockfile` once real lockfile is committed and exact HEAD passes.
+
+**Role boundaries:** This new toolchain migration concerns Noodle's developer-facing TypeScript UI; it does not upgrade the Soodles Python runtime or change native Stage/Agent behavior. medium-compiler `apps/loop-workbench` independently stays on TypeScript 5.9.x unless its own Consumer and migration acceptance are separately authorized; AIFS §JS AST facts§ from TypeScript 5.x cannot automatically be replaced by TypeScript 7's Go CLI because it does not expose the same JavaScript API. TypeScript 7 (official Go) and tsrs (external Rust port targeting TS 7.1 development) are distinct products.
+
+**Next Session:** First inspect the live Noodle PR #122 exact Head, published pnpm lockfile, scoped UI typecheck/Build/React graph tests and Go Host regression, then Soodles PR #444 source-only status, then the independent medium-compiler PR #72. Preserve original admission, no fake Native/Python Evals and no merger/Production effect without authorization.
+
 ## 4. What is delivered vs. what is still missing
 
 | Domain | Verified/delivered subset | Next real gap / acceptance required |
