@@ -63,3 +63,7 @@ manifest binds each encoded file to exact input text and the pinned model.
 [Source handoff](../docs/more-route-handoff.md) records the selected AI Agent Handbook chapters and a commit-pinned external `system-design-notes` index. A Traditional Chinese article, its corresponding English source and a responsive decision explorer at `/more-route/` use the existing Vercel `dist/` builder. Provenance contains source-manifest SHA, seven case-specific Reader Decision Points and explicit `NOT_RUN` native experiment status.
 
 The JavaScript only filters seven already-rendered sections: all remain readable without JavaScript. A site build or successful Source-only CI is not a Medium Stage 7 completion, validated human understanding, permission for external effects or verified Vercel deployment.
+
+## AIFS source-preserved interactive figure preview
+
+The upstream AI Engineering from Scratch MIT lesson figure runtime and only two selected providers are vendored by immutable source blob into the **isolated** `apps/loop-workbench` preview, not this static `dist/` builder. See [AST-first migration](../docs/aifs-modular-migration.md). `/figures` uses a sandboxed iframe; source and native Agent evidence remain separate. The source-owned course site and existing learning articles are not rewritten or republished by this integration.

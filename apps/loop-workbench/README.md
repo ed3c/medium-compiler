@@ -42,3 +42,7 @@ See ../../docs/visualization-integration.md. Noodle remains the canonical geomet
 The isolated preview route /learning uses a pinned DuckDB-Wasm OPFS file for local learning drafts, with export/import JSON and exported DuckDB snapshot for optional native CLI Agent Mode. Source: docs/learning-duckdb-architecture.md. Python Run is deliberately unavailable until a dedicated-origin, no-network, bounded Pyodide Sandbox passes its own acceptance. Local attempt records do not represent native task receipts, and this preview is not deployed on Production.
 
 For the cross-domain source/renderer/consumer matrix and honest acceptance map, see [Unified Visual Architecture](../../docs/visual-architecture.md). ARC-02 A limits new OMM architecture analysis to medium-compiler; no actual reviewed repo scan has occurred in this slice.
+
+## AIFS module reuse and code-intel
+
+The isolated `/figures` route loads an exact copied MIT `lesson-figures.js` toolkit plus selected `figures-math.js` and `figures-demo.js` in a sandboxed iframe. The JS/TSX AST checker under `scripts/aifs-code-intel.mjs` verifies actual pinned blob bytes, lexical registrations and Consumer. From the app directory: `npm run aifs:intel` and `npm run test:aifs:intel`; Browser E2E: `npm run test:aifs:browser` after starting Vite. This does not migrate AIFS's whole website or claim Python/Native Agent execution. See [integration contract](../../docs/aifs-modular-migration.md).

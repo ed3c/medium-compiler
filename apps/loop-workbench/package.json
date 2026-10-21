@@ -7,7 +7,10 @@
     "build": "vite build",
     "test": "node --test src/workbench.test.mjs",
     "typecheck": "vite build && tsc --noEmit",
-    "test:browser": "node src/viewenv.browser.mjs"
+    "test:browser": "node src/viewenv.browser.mjs",
+    "aifs:intel": "node scripts/aifs-code-intel.mjs",
+    "test:aifs:intel": "node --test scripts/aifs-code-intel.test.mjs",
+    "test:aifs:browser": "node src/aifs.browser.mjs"
   },
   "dependencies": {
     "@tanstack/react-router": "1.170.45",

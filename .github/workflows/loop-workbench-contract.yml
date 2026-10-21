@@ -11,6 +11,9 @@ on:
       - 'apps/loop-workbench/**'
       - '.github/workflows/loop-workbench-contract.yml'
       - 'docs/visual-architecture.md'
+      - 'docs/aifs-modular-migration.md'
+      - 'references/aifs-figure-vendor.json'
+      - '.agents/skills/verify-learning-article/SKILL.md'
       - 'docs/visualization-integration.md'
       - 'docs/viewenv-unified-panorama.md'
       - 'docs/diagram-authoring.md'
@@ -47,6 +50,8 @@ jobs:
         run: node --test apps/loop-workbench/src/public-artifact.test.mjs
       - name: Local learning contract negative controls
         run: node --test apps/loop-workbench/src/learning-domain.test.mjs
+      - name: AIFS pinned upstream source and HTML security controls
+        run: python3 -m unittest discover -s tests -p 'test_aifs_module_migration.py' -v
       - name: Optional diagram authoring source and negative controls
         run: |
           python3 -m unittest discover -s tests -p 'test_diagram_authoring.py' -v
@@ -119,6 +124,12 @@ jobs:
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
           npm ci --ignore-scripts --no-audit --no-fund
         timeout-minutes: 5
+      - name: Source-pinned JavaScript/TSX AST code-intel and adversarial controls
+        run: |
+          npm run aifs:intel > /tmp/aifs-source-ast.json
+          npm run test:aifs:intel
+          node -e "const a=require('/tmp/aifs-source-ast.json');if(a.status!=='ready'||a.effects.length||a.authorizes_landing)process.exit(1);console.log('AIFS source AST READY; Native execution NOT_RUN')"
+        timeout-minutes: 3
       - name: Typecheck and build isolated TanStack Start app
         run: |
           npm run typecheck
@@ -136,6 +147,16 @@ jobs:
           done
           npm run test:browser
         timeout-minutes: 5
+      - name: AIFS source-preserved figure computation and Browser E2E
+        run: npm run test:aifs:browser
+        timeout-minutes: 5
+      - name: Save source-preserved AIFS figure desktop/mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aifs-figure-lab-screenshots
+          path: apps/loop-workbench/test-artifacts/aifs-figure-lab-*.png
+          if-no-files-found: ignore
       - name: Isolated standalone SeeCode browser verification
         run: |
           cd ../..
