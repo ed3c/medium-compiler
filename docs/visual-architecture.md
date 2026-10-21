@@ -8,6 +8,23 @@ Choose the presentation from **(1) source type and owner, (2) desired reader ope
 
 The original producer issues a source revision / exact content; the consumer verifies source references before projecting a diagram. Design-time skill selection is advisory and only records a candidate until it is actually invoked. Every visualization stays **derived**, with original source identity and omissions disclosed. A rendered green line is not a source observation.
 
+## Explanatory overview (not a native execution trace)
+
+This graph depicts documentation and renderer selection, **not observed task handoffs**. Line direction denotes a presentation/verification dependency only, and never grants a Native Event or CLI next.
+
+```mermaid
+flowchart TB
+    Original["Original Sources & Domain Owners"] --> Routing["Source-bound Visual Routing"]
+    Routing --> Paper["Papers & Editorial SVG"]
+    Routing --> Code["Derived Codebase Knowledge"]
+    Routing --> Learning["Explorable Code / Math"]
+    Routing --> Runtime["Canonical Noodle Runtime Viewer"]
+    Paper --> Checks["Separate Source / Browser / Owner Verification"]
+    Code --> Checks
+    Learning --> Checks
+    Runtime --> Checks
+```
+
 ## Domain routes — producer → projection → consumer
 
 | Reader intent | Source / truth owner | Presentation producer and owner | Consumer | Independent verification / current ceiling |
