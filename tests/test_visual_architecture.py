@@ -52,7 +52,9 @@ class VisualArchitectureTests(unittest.TestCase):
             with self.subTest(file=file):
                 self.assertIn('visual-architecture.md',read(file))
         self.assertIn('ARC-02 A',read('docs/diagram-authoring.md'))
-        self.assertEqual(json.loads(read('design/diagram-candidates/manifest.json'))['items'],[])
+        for item in json.loads(read('design/diagram-candidates/manifest.json'))['items']:
+            self.assertEqual(item['status'],'candidate')
+            self.assertIsNone(item['review_receipt'])
         self.assertEqual(json.loads(read('references/article-diagrams.json'))['items'],[])
         self.assertIn('no cloud push',read('docs/visual-architecture.md').lower())
         self.assertIn('Draft',read('docs/visual-architecture.md'))

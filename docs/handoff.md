@@ -189,6 +189,13 @@ Session 先讀 Python／TypeScript AST 與實際呼叫，再產生 7 個節點�
 Registry 是 **1 candidate、0 reviewed**；靜態語義審查沒有自動批准 promotion。
 完整 repository OMM 掃描、獨立 Browser 視覺驗收、Native Soodles／Noodle Acceptance、Merge 與 Production 仍未完成。
 
+首次保存候選的 commit `5b0f1f5a9bcaa6aa4d8ab7b85d54e3a25b212a33` 在
+[Workbench 39638146934](https://github.com/ed3c/medium-compiler/actions/runs/39638146934) 的 visual-architecture 測試失敗。
+舊斷言要求候選清單永遠為空，與本次新增合法候選的要求衝突。
+修正將該斷言改為逐項要求 `candidate` 與空 review receipt；文章圖 registry 的空清單限制保持原樣。
+原候選 checker 繼續核對來源與圖檔摘要，沒有停用任何測試。
+修正後必須讀回新 Head 的 CI；前一次失敗保留為歷史，不重標為成功。
+
 本次未重建工具鏈，也未改產品程式、已接受文章或 ALG Four。
 原 §4 backlog 與 §5 分階段契約保持有效；第一份局部候選不能關閉 Parent Goal。
 
