@@ -168,6 +168,14 @@ tool readback projections and screenshots are retained through the
 [portable evidence record](../evals/writing/article-inference/README.md).
 Native internal reasoning is excluded from published captures; visible tools,
 failures and outward reports are retained with their capture limits.
-The final matching-head CI readback is linked from PR #81 after it completes.
+The first matching-head CI (#213, 033c63e) passed Chromium but failed the full
+Python suite: a transport test assumed every Chinese source was `<slug>.md`.
+The new articles use explicitly registered `.zh-TW.md` paths. The original
+test now reads that registry while retaining byte equality; the failed log and
+readback remain in the evidence record. This exposed a missed local full-suite
+rerun after article registration. The corrected final local full suite passed
+297 tests with the same 14 scope skips; its exact log is retained. The final
+matching-head CI readback is linked
+from PR #81 after it completes.
 No first-draft stability, calibrated semantic judge, human learning effect,
 merge, deployment or Cloudflare runtime publication is claimed.

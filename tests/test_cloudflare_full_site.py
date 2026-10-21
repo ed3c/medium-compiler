@@ -11,6 +11,7 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from build_full_cloudflare_site import build
+from build_site import ARTICLES
 
 
 class FullCloudflareSiteTests(unittest.TestCase):
@@ -57,9 +58,10 @@ class FullCloudflareSiteTests(unittest.TestCase):
             for page in out.rglob('*.html'):
                 self.assertNotRegex(page.read_text(),r'(?:src|href)="https://medium-compiler\.vercel\.app/')
             self.assertIn('href="https://medium-compiler.ga874199.workers.dev/reliability/"',(out/'index.html').read_text())
+            article_sources={item['slug']: ROOT/item['source'] for item in ARTICLES}
             for path in out.rglob('article.md'):
                 slug=path.parent.name
-                expected=ROOT/source['source']['path'] if slug=='alg-four' else ROOT/'articles'/f'{slug}.md'
+                expected=ROOT/source['source']['path'] if slug=='alg-four' else article_sources[slug]
                 self.assertEqual(path.read_bytes(),expected.read_bytes())
             self.assertFalse((out/'deployment.json').exists())
             self.assertFalse(result['deployment_manifest'])
