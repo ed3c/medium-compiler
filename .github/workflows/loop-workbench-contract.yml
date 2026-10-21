@@ -120,11 +120,15 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - name: Install preview dependencies without lifecycle scripts
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - name: Resolve TS7 and tsrs candidate lockfile through npm (first CI readback)
         run: |
           node --version
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
           npm ci --ignore-scripts --no-audit --no-fund
+          echo '--- GENERATED_WORKBENCH_LOCK_DIFF_BEGIN ---'
+          git diff --no-ext-diff -- apps/loop-workbench/package-lock.json
+          echo '--- GENERATED_WORKBENCH_LOCK_DIFF_END ---'
         timeout-minutes: 5
       - name: Source-pinned JavaScript/TSX AST code-intel and adversarial controls
         run: |
@@ -132,10 +136,24 @@ jobs:
           npm run test:aifs:intel
           node -e "const a=require('/tmp/aifs-source-ast.json');if(a.status!=='ready'||a.effects.length||a.authorizes_landing)process.exit(1);console.log('AIFS source AST READY; Native execution NOT_RUN')"
         timeout-minutes: 3
-      - name: Typecheck and build isolated TanStack Start app
+      - name: TypeScript 7 stable native CLI and JS API separation
         run: |
+          npx tsc --version
+          node -e "const p=require('./package.json'), ts=require('typescript');if(p.devDependencies['@typescript/native']!=='npm:typescript@7.0.2'||!ts.version.startsWith('6.0.')) process.exit(1);console.log('JS API:',ts.version)"
           npm run typecheck
-          npm run build
+        timeout-minutes: 5
+      - name: Bun secondary runtime TypeScript checks
+        run: |
+          bun --version
+          bun -p process.versions.typescript
+          bun check --no-script
+          bun --bun run test
+        timeout-minutes: 5
+      - name: Real isolated tsrs Rust WASM in-memory diagnostics
+        run: npm run test:tsrs:wasm
+        timeout-minutes: 5
+      - name: Build isolated TanStack Start app
+        run: npm run build
         timeout-minutes: 5
       - name: Install sandbox Chromium for preview Browser verification
         run: npx playwright install chromium

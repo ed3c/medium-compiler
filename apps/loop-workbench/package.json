@@ -6,11 +6,14 @@
     "dev": "vite dev --port 3107",
     "build": "vite build",
     "test": "node --test src/workbench.test.mjs",
-    "typecheck": "vite build && tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "test:browser": "node src/viewenv.browser.mjs",
     "aifs:intel": "node scripts/aifs-code-intel.mjs",
     "test:aifs:intel": "node --test scripts/aifs-code-intel.test.mjs",
-    "test:aifs:browser": "node src/aifs.browser.mjs"
+    "test:aifs:browser": "node src/aifs.browser.mjs",
+    "typecheck:bun": "bun check --no-script",
+    "test:tsrs:wasm": "node --test src/tsrs-wasm.test.mjs",
+    "test:runtime:bun": "bun --bun run test"
   },
   "dependencies": {
     "@tanstack/react-router": "1.170.45",
@@ -22,10 +25,12 @@
   "devDependencies": {
     "@vitejs/plugin-react": "6.1.2",
     "vite": "8.3.4",
-    "typescript": "^5.9.0",
+    "typescript": "npm:@typescript/typescript6@6.0.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/node": "^22.0.0",
-    "playwright": "1.56.0"
+    "playwright": "1.56.0",
+    "@typescript/native": "npm:typescript@7.0.2",
+    "@tsrs/wasm": "0.18.0-ts7.1.0-dev.20260929"
   }
 }
