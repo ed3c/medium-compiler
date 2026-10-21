@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; form-action 'none'; object-src 'none'">
+  <title>AIFS Figure Laboratory — isolated source-preserved preview</title>
+  <style>
+    :root {--bg:#fafaf5;--rule-soft:#d9d8d2;--ink:#1a1a1a;--ink-soft:#4a4a4a;--ink-mute:#7a7a78;--blueprint:#3553ff;--warn:#b8870f;--font-mono:ui-monospace,monospace}
+    *,*:before,*:after{box-sizing:border-box}
+    html{background:var(--bg);color:var(--ink)}
+    body{margin:0;padding:18px;font:14px/1.6 system-ui,sans-serif}
+    .figure-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px;align-items:start}
+    h1{font:500 clamp(23px,4vw,38px)/1.2 Georgia,serif;margin:0 0 10px}
+    p{color:var(--ink-soft);max-width:920px}
+    .lesson-figure{min-width:0}
+    :focus-visible{outline:2px solid var(--blueprint);outline-offset:3px}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:0.01ms!important}}
+  </style>
+  <script src="./lesson-figures.js" defer></script>
+  <script src="./figures-math.js" defer></script>
+  <script src="./figures-demo.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded',function(){
+      if(typeof window.mountLessonFigures==='function') window.mountLessonFigures(document);
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <p>MODULE REUSE · AI ENGINEERING FROM SCRATCH · PINNED MIT SOURCE</p>
+    <h1>Interact with the actual calculation.</h1>
+    <p>Upstream JavaScript is byte-identical. This page is an isolated teaching preview, not a Python grading service or a native Agent trace.</p>
+    <div class="figure-wrap">
+      <section class="lesson-figure" data-figure="vector-projection" aria-label="Vector projection explorable figure"></section>
+      <section class="lesson-figure" data-figure="matrix-transform" aria-label="Matrix transformation explorable figure"></section>
+      <section class="lesson-figure" data-figure="demo-token-bucket" aria-label="Token bucket explorable figure"></section>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "@medium-compiler/aifs-code-intel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test aifs-code-intel.test.mjs",
+    "inspect": "node aifs-code-intel.mjs"
+  },
+  "dependencies": {
+    "typescript": "5.9.3"
+  }
+}
