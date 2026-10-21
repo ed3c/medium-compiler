@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import { safeManifest } from '../workbench.mjs'
+import { readReviewedArtifact } from '../public-artifact.mjs'
 import { mountPanorama } from '../../vendor/noodle/loop-panorama.mjs'
 import '../../vendor/noodle/loop-panorama.css'
 
@@ -60,17 +61,9 @@ function CanonicalPanorama() {
         onSelect: () => {}, onFocus: () => {}, onReset: () => {},
         // Only bytes already reviewed and included in this same-origin public
         // snapshot. Never resolve host paths, private capture, or invoke ports.
-        readArtifact: async (id: string) => {
-          const original = graph.artifacts.find((row: unknown) => {
-            return !!row && typeof row === 'object' && (row as {id?: unknown}).id === id
-          }) as { status?: string; public_content?: string; content?: string } | undefined
-          if (!original) throw new Error('Unregistered original artifact')
-          if (typeof original.public_content === 'string') return original.public_content
-          if (original.status === 'available' && typeof original.content === 'string') {
-            return original.content
-          }
-          throw new Error('NOT_PUBLIC or source bytes unavailable')
-        },
+        readArtifact: (id: string) => readReviewedArtifact(
+          source, manifest, id, window.location.origin
+        ),
       })
     } catch (cause) {
       root.replaceChildren()

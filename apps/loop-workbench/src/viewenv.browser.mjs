@@ -1,6 +1,7 @@
 /** Bounded real Chromium smoke: preview only; no Run or Provider mutation. */
 import { chromium } from 'playwright'
 import { mkdir } from 'node:fs/promises'
+import {createHash} from 'node:crypto'
 const url=process.env.VIEWENV_TEST_URL || 'http://127.0.0.1:3107/viewenv'
 const browser=await chromium.launch({headless:true})
 try{
@@ -28,6 +29,8 @@ try{
   // acceptance or any originally observed provider transfer.
   const fakeRun = 'local-browser-fixture'
   const originalRequest = JSON.stringify({goal:'Inspect a source-backed example'})
+  const artifactBytes=Buffer.from(originalRequest)
+  const artifactSha=createHash('sha256').update(artifactBytes).digest('hex')
   const graph = {
     objects:[{id:'loop-owner',namespace:'soodles.loop',label:'LoopManager',kind:'owner',scope:'shared',
       source_artifact_ids:[]}],
@@ -36,7 +39,7 @@ try{
       index_status:'unknown',tracked_files:[],selected_files:[],gaps:[]}],
     artifacts:[{id:'request-original',repository_id:'fixture-repo',role:'loop_request',
       format:'application/json',authority:'source',knowledge_role:'unknown',scope:fakeRun,
-      status:'available',content:originalRequest,source:null}],
+      status:'available',public_sha256:artifactSha,public_bytes:artifactBytes.length,source:null}],
     nodes:[{id:'source-occurrence',run_id:fakeRun,repository_id:'fixture-repo',
       object_id:'loop-owner',kind:'cli',label:'Original Goal (fixture)',stage_id:null,
       identity:{status:'unknown',invocation_id:null,attempt_id:null,session_id:null,locator:null},
@@ -44,12 +47,12 @@ try{
       input_artifact_ids:[],output_artifact_ids:['request-original'],evidence_artifact_ids:[]}],
     edges:[],findings:[],metrics:[]
   }
-  const snapshot={schema_version:2,runs:[{id:fakeRun,repository:'fixture/browser',
+  const snapshot={schema_version:2,snapshot_sha256:'a'.repeat(64),content_urls:{'request-original':'/assets/loop-data/'+'a'.repeat(64)+'/artifacts/'+artifactSha+'.txt'},runs:[{id:fakeRun,repository:'fixture/browser',
     mode:'outer-only',status:'unknown',stages:[],cards:[],notes:[],breakpoints:[],
     resources:[],next:null}],graph}
   const manifest='/assets/loop-data/'+'a'.repeat(64)+'/graph.json'
   await page.route('**/assets/loop-data/**',route=>route.fulfill({
-    status:200,contentType:'application/json',body:JSON.stringify(snapshot)
+    status:200,contentType:'application/json',body:route.request().url().endsWith('.txt') ? originalRequest : JSON.stringify(snapshot)
   }))
   const panoramaResponse=await page.goto('http://127.0.0.1:3107/panorama?manifest='+encodeURIComponent(manifest),
     {waitUntil:'networkidle'})
