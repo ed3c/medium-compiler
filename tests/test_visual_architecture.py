@@ -41,9 +41,9 @@ class VisualArchitectureTests(unittest.TestCase):
         self.assertIn('payload.byteLength !== ref.bytes',reader)
         self.assertIn('cryptoImpl.subtle.digest',reader)
         self.assertIn("artifact.pop('public_content', None)",publisher)
-        self.assertNotIn('already-reviewed\\ninline public content',doc)
+        self.assertNotIn('already-reviewed inline public content',doc.replace('\n',' '))
         self.assertIn('readReviewedArtifact',doc)
-        self.assertNotIn('The native renderer and its source\\nidentity must be integrated',read('apps/loop-workbench/README.md'))
+        self.assertNotIn('must be integrated and browser-verified before product acceptance',read('apps/loop-workbench/README.md'))
     def test_frozen_scope_and_public_promotion_are_not_fabricated(self):
         for file in ('AGENTS.md','.agents/skills/loop-visual-design/SKILL.md',
                      '.agents/skills/viewenv/SKILL.md',
@@ -58,7 +58,7 @@ class VisualArchitectureTests(unittest.TestCase):
         self.assertIn('Draft',read('docs/visual-architecture.md'))
     def test_no_new_runtime_authority_from_visual_router(self):
         router=read('.agents/skills/loop-visual-design/SKILL.md')
-        self.assertIn('no',router.lower())
+        self.assertIn('No new P-class conditions, Graph schema, cross-repo scan, Production deployment',router)
         self.assertIn('does not produce runtime truth',router)
         routes=read('apps/loop-workbench/src/routes/panorama.tsx')
         self.assertNotIn('fetch("http://localhost',routes)
