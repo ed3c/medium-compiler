@@ -67,6 +67,25 @@ try{
   await page.setViewportSize({width:390,height:844})
   await page.screenshot({path:'test-artifacts/canonical-panorama-mobile.png',fullPage:true})
 
+
+  // Real browser DuckDB-Wasm OPFS persistence smoke. This is local learning data,
+  // not a trusted Python grader or a Native Agent runtime claim.
+  await page.goto('http://127.0.0.1:3107/learning',{waitUntil:'domcontentloaded'})
+  await page.getByText('PERSISTENT · OPFS').waitFor({timeout:30000})
+  const codeText='def total(values):\n    return sum(values)'
+  await page.getByLabel('Python source').fill(codeText)
+  await page.getByRole('button',{name:'Save unverified draft'}).click()
+  await page.getByText('Draft saved to DuckDB OPFS. No Python test executed.').waitFor()
+  await page.reload({waitUntil:'domcontentloaded'})
+  await page.getByText('PERSISTENT · OPFS').waitFor({timeout:30000})
+  await page.getByText(/1 drafts\/attempts/).waitFor()
+  await page.getByRole('button',{name:'Export JSON'}).waitFor()
+  await page.screenshot({path:'test-artifacts/learning-duckdb-desktop.png',fullPage:true})
+  await page.setViewportSize({width:390,height:844})
+  await page.screenshot({path:'test-artifacts/learning-duckdb-mobile.png',fullPage:true})
+  const badLearningOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)
+  if(badLearningOverflow)throw new Error('learning mobile overflow')
+
   if(errors.length)throw new Error('browser uncaught errors: '+errors.join(','))
   console.log('ViewEnv browser smoke PASS: desktop/mobile, reduced motion, layers, keyboard')
 }finally{await browser.close()}

@@ -47,7 +47,7 @@ function LoopWorkbench() {
   return <main className="shell">
     <header className="masthead">
       <div className="mark"><span className="mark-icon">L<span className="mark-node">●</span></span><span>LOOP / WORKBENCH</span></div>
-      <div className="mast-actions"><a href="/viewenv">ViewEnv Studio ↗</a><a href="/panorama">Canonical panorama ↗</a><span className="mode">READ ONLY · SOURCE BOUND</span><a href="https://github.com/ed3c/medium-compiler" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></div>
+      <div className="mast-actions"><a href="/viewenv">ViewEnv Studio ↗</a><a href="/panorama">Canonical panorama ↗</a><a href="/learning">Learning Lab ↗</a><span className="mode">READ ONLY · SOURCE BOUND</span><a href="https://github.com/ed3c/medium-compiler" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></div>
     </header>
     <div className="intro"><div className="eyebrow">Agent systems / Evidence atlas · Preview architecture</div>
       <h1>Where a task becomes <em>observable.</em></h1>
