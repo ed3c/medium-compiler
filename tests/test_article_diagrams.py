@@ -4,7 +4,7 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('article_diagrams',ROOT/'scripts/article_diagrams.py')
 mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 site_spec=importlib.util.spec_from_file_location('article_site',ROOT/'scripts/build_site.py')
-site=importlib.util.module_from_spec(site_spec);site_spec.loader.exec_module(site_spec)
+site=importlib.util.module_from_spec(site_spec);site_spec.loader.exec_module(site)
 SAMPLE='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"><rect x="2" y="2" width="116" height="36" rx="8"/><text x="12" y="26">Goal</text></svg>'
 CODE='flowchart LR\n  Goal --> Verify'
 
