@@ -169,6 +169,29 @@ The following were read from **GitHub PR Head and GitHub Actions provider**, not
 
 **Open work / Stop:** all five PRs remain **Open Draft**, zero merged or deployed. No evidence of true Native Soodles↔Noodle Poteto Consumer acceptance, no accepted Paper/OMM architecture review, no arbitrary-code Browser execution security acceptance, no full Typed Code Explorer. To complete a real runtime promotion, original Owners must authorize that action, choose actual minimal tests and read back effects. The next Session should consult this source ledger and current PR HEAD rather than rerun completed tests or ask for already resolved migration scope. A changed HEAD requires new provider readback at that HEAD.
 
+## 3D. 續行讀回與第一份 OMM 候選 — 2026-10-22
+
+本次重新讀回五個 PR，Head 均與 §3C 的 Soodles／Noodle／NeoWeaver／FactoryWeaver 記錄一致。
+medium-compiler #72 的 Head 為 `5994e2b998f8baabf998c9a07e12211907ec67d3`。
+該 Head 的 [Loop Workbench 39635681178](https://github.com/ed3c/medium-compiler/actions/runs/39635681178) 與 [Writing verification 39635681181](https://github.com/ed3c/medium-compiler/actions/runs/39635681181) 現已全部 `completed / success`。
+這是原候選的 Provider 讀回，不是以下新增文件之後的 CI 結果。
+
+沿 §5 的第一項工作，已完成一份局部 OMM 原始碼分析與可審查候選：
+[公開 Snapshot／artifact 讀回](derived-architecture/public-artifact.md)、[Mermaid](derived-architecture/public-artifact.mmd) 與[八檔來源索引](derived-architecture/public-artifact-sources.json)。
+來源固定在上述 medium-compiler Head；沒有掃描其他 repository。
+固定版本 OMM CLI 已在任務暫存目錄建置並執行 `write`／`validate`。
+Session 先讀 Python／TypeScript AST 與實際呼叫，再產生 7 個節點、7 條關係。
+獨立來源 reviewer 指出一般「選取來源」不一定 fetch；候選已縮準到 mechanism principle／本次原要求讀回。
+虛構 Panorama 直接呼叫 `readReviewedArtifact` 的負向對照被拒絕。
+
+本次沿原 `loop-workbench-contract.yml` 使用 diagram-authoring 的 4 個測試、現有候選 checker，以及 artifact reader 的 4 個正反案例，均成功。
+另外核對八個來源 bytes／digest，並確認 source／candidate digest 漂移及無 receipt 的 reviewed 狀態均被原 checker 拒絕。
+Registry 是 **1 candidate、0 reviewed**；靜態語義審查沒有自動批准 promotion。
+完整 repository OMM 掃描、獨立 Browser 視覺驗收、Native Soodles／Noodle Acceptance、Merge 與 Production 仍未完成。
+
+本次未重建工具鏈，也未改產品程式、已接受文章或 ALG Four。
+原 §4 backlog 與 §5 分階段契約保持有效；第一份局部候選不能關閉 Parent Goal。
+
 ## 4. What is delivered vs. what is still missing
 
 | Domain | Verified/delivered subset | Next real gap / acceptance required |

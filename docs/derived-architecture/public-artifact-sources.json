@@ -1,0 +1,56 @@
+{
+  "repository": "ed3c/medium-compiler",
+  "revision": "5994e2b998f8baabf998c9a07e12211907ec67d3",
+  "scope": "public snapshot package and Panorama artifact readback; static source interpretation, not full-repository coverage or runtime evidence",
+  "omm_revision": "38ccdb69298adec949177c92c88d6e3ddfb5bab7",
+  "files": [
+    {
+      "path": "scripts/loop_site.py",
+      "git_blob": "fef9eafd00f321e05ae0558ef87a1c43c7fb1786",
+      "sha256": "2d1fb868315f804e87c6135e87049edafeee4dcb3dcc07961e8d6fdb27cbfebb",
+      "bytes": 11478
+    },
+    {
+      "path": "scripts/loop_graph_site.py",
+      "git_blob": "2a1997a90ee0d8be6cfe2cbc03462bdc2b05490b",
+      "sha256": "fb34a4945f549c105068592d967ec4e76caf4e6b5bb411010ac162cb9def9812",
+      "bytes": 5240
+    },
+    {
+      "path": "scripts/loop_graph_contract.py",
+      "git_blob": "2be08aaa44f5d0b5b17dec24f2532979a6053782",
+      "sha256": "8d8b4e983567b13cb6cdc954d689eb5e14acfd7473cccdbecd966219ea8e6ed4",
+      "bytes": 16585
+    },
+    {
+      "path": "apps/loop-workbench/src/routes/panorama.tsx",
+      "git_blob": "b53a36be916606d6a63f4f033673f28b70631a58",
+      "sha256": "84b09d6b13bd35a568d58912711f8036cca215b3a707e699c3b23b4f420b2b86",
+      "bytes": 4601
+    },
+    {
+      "path": "apps/loop-workbench/src/workbench.mjs",
+      "git_blob": "b1e53cd5dced50b9150fc83a512964d84cd19a0c",
+      "sha256": "96d8f8dfa5f07d4f759c5c54f4ca752193d3b695055151f728ae9d741fd836ab",
+      "bytes": 4423
+    },
+    {
+      "path": "apps/loop-workbench/vendor/noodle/loop-panorama.mjs",
+      "git_blob": "3ea7758843f24ed6eef60390f33ada8353306046",
+      "sha256": "0295141dbaf25d67ac33b5f55b0a679236b32569e185c89986aad8435383a66e",
+      "bytes": 38395
+    },
+    {
+      "path": "apps/loop-workbench/vendor/noodle/loop-isometric.mjs",
+      "git_blob": "c0f19d730b2a1b9d931ef9414bf5b32a85198d5a",
+      "sha256": "d67646137eae90a119a40b55d78459cb353344cc64e5a6f42f14512945329b24",
+      "bytes": 68331
+    },
+    {
+      "path": "apps/loop-workbench/src/public-artifact.mjs",
+      "git_blob": "18a2b41a9646893a7bd2ded97cfd02597b46d93b",
+      "sha256": "360eba0de30f86055d6a5724912214ca23f9d83c31006f30881afb98e740696e",
+      "bytes": 2643
+    }
+  ]
+}

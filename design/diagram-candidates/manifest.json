@@ -1,4 +1,20 @@
 {
   "schema_version": "derived-visual-knowledge@1",
-  "items": []
+  "items": [
+    {
+      "kind": "omm-architecture",
+      "source": "docs/derived-architecture/public-artifact-sources.json",
+      "source_sha256": "8fc582a147f5e9e1a1ee7bdf339ee21ba8d0703844dccc35fa9413e918a94a5d",
+      "candidate": "docs/derived-architecture/public-artifact.mmd",
+      "candidate_sha256": "9264f35210bc97fdf86695966a674512d2bd869447bba02ccca8a1bb04bf7239",
+      "status": "candidate",
+      "loss_report": [
+        "僅分析公開 Snapshot 套件與 Panorama artifact 讀回；不涵蓋完整 repository。",
+        "省略版面、快取、comparison consumer 與其他 UI 分支；箭頭是具名呼叫、callback 綁定或檔案存取。",
+        "靜態原碼關係不是原生事件；Snapshot 摘要和內容摘要不證明公開審查或 Native Acceptance。",
+        "此 manifest 綁定來源索引本身；每個來源檔的版本仍須另核對索引內的 Git blob、SHA-256 與 bytes。"
+      ],
+      "review_receipt": null
+    }
+  ]
 }
