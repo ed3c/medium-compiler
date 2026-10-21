@@ -30,6 +30,8 @@ jobs:
         run: node --test apps/loop-workbench/src/panorama-source.test.mjs
       - name: Reviewed public artifact reader (positive and adversarial controls)
         run: node --test apps/loop-workbench/src/public-artifact.test.mjs
+      - name: Local learning contract negative controls
+        run: node --test apps/loop-workbench/src/learning-domain.test.mjs
       - name: Article source-to-SVG projection contract
         run: python3 -m unittest discover -s tests -p 'test_article_diagrams.py' -v
       - name: ViewEnv episode projection and digest controls
