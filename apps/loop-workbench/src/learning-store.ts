@@ -26,9 +26,17 @@ function rowsFrom(table:any):Attempt[]{
   oracle:String(row.oracle)
  })) as Attempt[]
 }
+// One local DuckDB writer per module. In Vite/React dev mode, lifecycle effects
+// can overlap; serialize open/close instead of racing an OPFS Access Handle.
+let writerLease:Promise<void>=Promise.resolve()
 export async function openLearningStore(){
  if(typeof navigator==='undefined'||!navigator.storage?.getDirectory)
   throw Error('OPFS_UNSUPPORTED_NO_VOLATILE_FALLBACK')
+ const previous=writerLease
+ let releaseWriter!:()=>void
+ writerLease=new Promise<void>(resolve=>{releaseWriter=resolve})
+ await previous
+ try{
  const bundle=await duckdb.selectBundle(BUNDLES)
  if(!bundle.mainWorker)throw Error('DUCKDB_WORKER_UNAVAILABLE')
  const worker=new Worker(bundle.mainWorker)
@@ -83,11 +91,16 @@ export async function openLearningStore(){
   return handle.getFile()
  }
  async function close(){
-  await connection.query('CHECKPOINT')
-  await connection.close()
-  await db.terminate()
-  worker.terminate()
+  try{
+   await connection.query('CHECKPOINT')
+   await connection.close()
+   await db.terminate()
+  }finally{
+   worker.terminate()
+   releaseWriter()
+  }
  }
  return {list,add,importJson,exportJson:async()=>encodeExport(await list()),
   exportDbFile,close}
+ }catch(error){releaseWriter();throw error}
 }
