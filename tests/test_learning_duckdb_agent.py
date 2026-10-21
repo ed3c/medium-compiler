@@ -24,5 +24,5 @@ class LearningCliTests(unittest.TestCase):
             symlink=d/'alias.duckdb';symlink.symlink_to(file)
             with self.assertRaises(ValueError):cli.build_command(symlink)
             with self.assertRaises(ValueError):cli.build_command(file, 'duckdb;rm')
-            with self.assertRaises(ValueError):cli.build_command(d/'wrong.json')
+            with self.assertRaises(FileNotFoundError):cli.build_command(d/'wrong.json')
 if __name__=='__main__':unittest.main()
