@@ -5,7 +5,7 @@
 - Existing React/TanStack Start preview remains `apps/loop-workbench`, separate from medium-compiler's original Python static builder and its Cloudflare Workers routes.
 - **Official TypeScript stable 7.0.2** via `@typescript/native: npm:typescript@7.0.2`: the native **Go** compiler providing the project's `tsc --noEmit` Typecheck.
 - **Compatibility JS Compiler API** via `typescript: npm:@typescript/typescript6@6.0.2`: original `aifs-code-intel.mjs` imports TypeScript AST through this API; native TS7 provides no equivalent JavaScript API. Do not replace it without an independent parser/consumer migration.
-- **Bun** is installed on CI for an alternate runtime, `bun check --no-script`, and Bun-driven Node-compatible tests. npm `package-lock.json` remains the sole Workbench dependency lock; do not claim Bun lock reproducibility or replace source-approved installation without a reviewed `bun.lock`.
+- **Bun** is installed on CI for an alternate runtime, `bun check --no-script`, and Bun-driven Node-compatible tests. The first source-backed run generated npm `package-lock.json` as an untracked CI artifact, not yet a committed lock. A later exact-byte checkout and CI commit is necessary before asserting frozen installs. Bun itself is a secondary runner and is not the package manager.
 - **tsrs Rust/WebAssembly** `@tsrs/wasm@0.18.0-ts7.1.0-dev.20260929` has an isolated in-memory TypeScript 7.1-dev diagnostic smoke, NOT a drop-in TypeScript 7.0 stable compiler and not a browser Typed Code Explorer. WASI Preview 1, in-memory files and single-threaded; Node/Bun use different worker stack behavior. No Host, credential, provider or raw checkout exposed to arbitrary snippets.
 
 ## Verification and stop
