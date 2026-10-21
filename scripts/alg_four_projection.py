@@ -275,6 +275,10 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
         contents = ''.join(create_nav(child) for child in node['children'])
         if node['heading'] is None:
             return contents
+        if not contents:
+            contents = '<p class="alg-outline-empty">' + (
+                'No paragraph notes in this section; read the article content.' if language == 'en'
+                else '此節沒有段落註解，請直接閱讀正文。') + '</p>'
         return (
             '<details class="alg-outline-section" data-heading-id="' + node['heading'] + '">'
             '<summary data-target-id="' + node['heading'] + '">' + esc(node['title']) + '</summary>'

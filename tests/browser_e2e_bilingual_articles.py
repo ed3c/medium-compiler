@@ -2,6 +2,7 @@
 import argparse
 import functools
 import http.server
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -10,10 +11,10 @@ from playwright.sync_api import sync_playwright
 from reading_navigation import drive_reading_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = (
-    ("leetcode-11-container-with-most-water", 8),
-    ("leetcode-207-course-schedule", 7),
-)
+spec = importlib.util.spec_from_file_location("article_site", ROOT / "scripts/build_site.py")
+article_site = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(article_site)
+CASES = tuple(item for item in article_site.ARTICLES if item.get("bilingual"))
 
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -41,7 +42,8 @@ def run(site, output):
                     errors = []
                     page.on("pageerror", lambda error: errors.append(str(error)))
                     mode = "mobile" if mobile else "desktop"
-                    for slug, heading_count in CASES:
+                    for item in CASES:
+                        slug = item["slug"]
                         route = "/articles/" + slug + "/"
                         for lang in ("zh-TW", "en"):
                             target = route + ("en/" if lang == "en" else "")
@@ -55,7 +57,7 @@ def run(site, output):
                                 assert page.locator("article.bilingual-article").is_visible()
                             expected_lang = "en" if lang == "en" else "zh-Hant"
                             assert page.locator("html").get_attribute("lang") == expected_lang
-                            source = ROOT / "articles" / (slug + (".en.md" if lang == "en" else ".md"))
+                            source = ROOT / item["english_source" if lang == "en" else "source"]
                             text = source.read_text()
                             fence = chr(96) * 3
                             code = re.findall(r"(?ms)^" + fence + r"[^\n]*\n(.*?)^" + fence + r"\s*$", text)
@@ -74,7 +76,7 @@ def run(site, output):
                             assert page.locator("html").get_attribute("lang") == other
                             assert not errors, errors
                             report["pages"].append({"viewport": mode, "slug": slug, "language": lang,
-                                                    "headings": heading_count, "code_blocks": len(code),
+                                                    "headings": page.locator("article.bilingual-article h2").count(), "code_blocks": len(code),
                                                     "listing_clicks": 2, "keyboard_anchor": True,
                                                     "source_bytes_equal": True, "language_switch": True, "reading":reading})
                     context.close()

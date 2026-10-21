@@ -1,0 +1,77 @@
+{
+  "verdict": "PASS_BOUNDED",
+  "CODEX_THREAD_ID": "01a15ce9-12db-7083-9ee6-72984c330110",
+  "review_identity": "Same Reader reread of frozen v2, not a second independent Reader.",
+  "actual_read_paths": [
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/task.json",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/article.en.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/article.zh-TW.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/page.en.html",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/page.zh-TW.html",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-output/audit.json"
+  ],
+  "read_hashes": {
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/task.json": "fb2a1e47cfe7a042a514d76d4dbaf705d4a09a35b755071f2bb509a0428d6745",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/article.en.md": "6d29fe5539530fbd15793fd59c3155f1e90397b81ccd1656e3c8470e75ee4f74",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/article.zh-TW.md": "06718aeae08f1bed3df7adc0758c0410200ea9db6b92fa0dc253e71f056ea101",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/page.en.html": "952793865cd928b8c9ea94e13acbe5f9da8799c782bd58d8afb421bffaaa40c6",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input-v2/page.zh-TW.html": "cc3142d4b9a987b06c44ac819d152cb1eedbe83c9f026e9492065aa093d7497b",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-output/audit.json": "745b2566a66ddcca594dc1fc3986afbd39d69ef54f2461724440d5c9ae1b43b5"
+  },
+  "coverage": {
+    "reviewed_current_count": 35,
+    "paragraph_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "exactly_unchanged_annotation_judgments_reused": 33,
+    "complete_changed_annotations_newly_reviewed": [
+      10,
+      27
+    ],
+    "changed_field_count": 5,
+    "annotation_fields_same_across_pages": true,
+    "current_findings_count": 0,
+    "pass_count": 35
+  },
+  "outputs": [
+    "audit.json",
+    "audit.md",
+    "findings.json",
+    "verification.json"
+  ],
+  "quote_verification": "All current resolution quotes and corresponding body quotes verified as exact substrings; all 35 unique paragraph entries present."
+}

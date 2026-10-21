@@ -1,0 +1,18 @@
+{
+  "actual_read_paths": [
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/control-input/task.json",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/control-input/article.en.md"
+  ],
+  "directory_inventory_only": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/control-input",
+  "environment_keys_read": [
+    "CODEX_THREAD_ID"
+  ],
+  "CODEX_THREAD_ID": "01a15ce6-a8a6-7943-b21a-036cd8ae2146",
+  "external_browsing": false,
+  "other_article_editions_read": false,
+  "repository_or_source_documents_read": false,
+  "agents_spawned": false,
+  "calculation_method": "手動依公開正文公式重建，沒有執行 solution 或測試。",
+  "writes": "僅指定 control-reader-output 的 answers.json、answers.md、findings.json、verdict.json、provenance.json。",
+  "capture_limit": "這是 Reader 自己記錄的 read receipt；不宣稱獨立 observer 已證實隔離。"
+}

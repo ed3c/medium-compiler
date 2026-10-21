@@ -47,6 +47,8 @@ class BilingualArticleTests(unittest.TestCase):
         for slug, case, headings in (
             ("leetcode-11-container-with-most-water", "container", 8),
             ("leetcode-207-course-schedule", "courses", 7),
+            ("leetcode-875-koko-eating-bananas", "koko", 9),
+            ("leetcode-56-merge-intervals", "intervals", 10),
         ):
             route = "/articles/" + slug + "/"
             for listing in ("index.html", "articles/index.html"):
@@ -83,7 +85,9 @@ class BilingualArticleTests(unittest.TestCase):
                     self.assertEqual([i for i in page.ids if i.startswith("alg-p-")],[f"alg-p-{i}" for i in range(count)])
                     self.assertIn(route + download, page.links)
                     self.assertIn(route + ("en/" if lang == "zh-TW" else ""), page.links)
-                    approved = ROOT / "evals/writing/leetcode-cost-premises" / case / f"article.{lang}.md"
+                    approved = (ROOT / "evals/writing/article-inference" / case / "accepted" / f"article.{lang}.md"
+                                if case in ('koko','intervals') else
+                                ROOT / "evals/writing/leetcode-cost-premises" / case / f"article.{lang}.md")
                     self.assertEqual((self.out / "articles" / slug / download).read_bytes(), approved.read_bytes())
                     self.assertIn("class Solution:", text)
                     self.assertNotIn("evals/writing/", text)
@@ -139,7 +143,8 @@ class BilingualArticleTests(unittest.TestCase):
         data=json.loads((ROOT/item['annotations']).read_text())
         active=data['active_items'][0]
         note=data['paragraph_annotations'][active['paragraph_index']]
-        other=next(d['id'] for d in data['decisions'] if d['id'] not in note['decision_ids'])
+        other=next(d['id'] for d in data['decisions'] if d['id'] not in note['decision_ids']
+                   and d.get('active_cue') and d.get('oracle'))
         active['decision_id']=other
         with tempfile.TemporaryDirectory() as td:
             candidate=Path(td)/'manifest.json'

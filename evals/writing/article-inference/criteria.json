@@ -1,0 +1,17 @@
+{
+  "scope": "Two fresh task-local native writers followed by article-only readers and complete-annotation readers. No matched baseline; no instruction-only improvement or general stability claim.",
+  "audience": "Basic Python syntax, lists, arithmetic and loops; no prior knowledge of chosen algorithm or growing-structure costs.",
+  "questions": [
+    "Reconstruct input/result/constraints and mutation contract.",
+    "Derive each choice and the state meaning without external knowledge.",
+    "Reconstruct a new small legal input with before/after transitions and stopping condition.",
+    "Reconstruct correctness, branch boundaries and a failed plausible shortcut.",
+    "Reconstruct each stated main/alternative/changed-constraint cost, variables, operation frequencies, aggregate work, auxiliary/transient/output conventions. Quote actual explanatory bridges; flag recalled knowledge.",
+    "Map full runnable code to the transitions and actual Python behavior.",
+    "Challenge necessary/exclusive claims using a legal alternative mechanism; identify what is actually licensed.",
+    "Compare complete English/Traditional Chinese decision, exception, numerical/code and cost claims."
+  ],
+  "annotation_review": "Every visible factual assertion including summaries, premises/checkpoints, Active sentence/cue/oracle; explicit supporting quotes and missing entailment; article-only Reader first gets no annotations.",
+  "failure_policy": "Keep all first drafts, raw verdicts and revisions; at most three attempts for same problem, then reconsider premise.",
+  "capture_limit": "Shared filesystem, policy restricted reads; independent native readback required; no claim of enforced sandbox isolation."
+}

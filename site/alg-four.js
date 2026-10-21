@@ -14,6 +14,7 @@
   const headings = [...source.querySelectorAll("[data-alg-heading]")];
   if (!dialog || !rail || paragraphs.length !== entries.length) return;
   let active = -1;
+  let activeSection = null;
   let pinned = false;
   let hoverTimer;
   let scheduled = false;
@@ -41,19 +42,20 @@
     if (restore) rail.focus({preventScroll:true});
   }
   function revealEntry() {
-    if (!dialog.open || active < 0) return;
-    const entry = entries[active];
+    if (!dialog.open) return;
+    const entry = entries[active] || activeSection;
+    if (!entry) return;
     const top = entry.offsetTop;
     const bottom = top + entry.offsetHeight;
     if (top < dialog.scrollTop + 100 || bottom > dialog.scrollTop + dialog.clientHeight - 20) {
       dialog.scrollTop = Math.max(0, top - 130);
     }
   }
-  function activate(index) {
-    if (!entries[index]) return;
+  function activate(index, heading = null) {
     const changed = index !== active;
     active = index;
-    const entry = entries[index];
+    activeSection = heading && sidebar.querySelector(`[data-heading-id="${heading.id}"]`);
+    const entry = entries[index] || activeSection;
     const ancestry = new Set();
     for (let node = entry; node && node !== dialog; node = node.parentElement) {
       if (node.matches("details")) ancestry.add(node);
@@ -68,13 +70,22 @@
     });
     if (changed) revealEntry();
   }
+  function firstParagraph(heading) {
+    const level = Number(heading.tagName.slice(1));
+    for (let node = heading.nextElementSibling; node; node = node.nextElementSibling) {
+      if (/^H[1-4]$/.test(node.tagName) && Number(node.tagName.slice(1)) <= level) break;
+      if (node.hasAttribute("data-alg-four-index")) return Number(node.dataset.algFourIndex);
+    }
+    return -1;
+  }
   function follow() {
     scheduled = false;
     // A visible chapter heading takes precedence over the preceding paragraph.
     const line = headerBottom() + 28;
+    const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
     let chapter = 0;
     marks.forEach((mark, index) => {
-      if (document.getElementById(mark.dataset.chapterTarget).getBoundingClientRect().top <= line + 4) chapter = index;
+      if (document.getElementById(mark.dataset.chapterTarget).getBoundingClientRect().top <= (atEnd ? innerHeight : line + 4)) chapter = index;
     });
     marks.forEach((mark, index) => mark.toggleAttribute("data-current", chapter === index));
     sidebar.querySelector(".reading-rail-position").textContent = `${chapter + 1}/${marks.length}`;
@@ -83,12 +94,16 @@
       if (paragraphs[i].getBoundingClientRect().top <= line + 4) index = i;
       else break;
     }
-    const nextHeading = headings.findLast(node => node.getBoundingClientRect().top <= line + 4);
-    if (nextHeading && nextHeading.compareDocumentPosition(paragraphs[index]) & Node.DOCUMENT_POSITION_PRECEDING) {
-      const following = paragraphs.find(node => nextHeading.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING);
-      if (following) index = Number(following.dataset.algFourIndex);
+    let nextHeading = headings.findLast(node => node.getBoundingClientRect().top <= line + 4);
+    // A short final section may not have enough content below it to reach the reading line.
+    if (atEnd) {
+      const lastVisible = headings.findLast(node => node.getBoundingClientRect().top < innerHeight);
+      if (lastVisible && lastVisible.getBoundingClientRect().top > line + 4) nextHeading = lastVisible;
     }
-    activate(index);
+    if (nextHeading && nextHeading.compareDocumentPosition(paragraphs[index]) & Node.DOCUMENT_POSITION_PRECEDING) {
+      index = firstParagraph(nextHeading);
+    }
+    activate(index, nextHeading);
   }
   function schedule() {
     if (!scheduled) { scheduled = true; requestAnimationFrame(follow); }

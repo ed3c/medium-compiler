@@ -1,0 +1,25 @@
+{
+  "verdict": "NEEDS_REVISION",
+  "CODEX_THREAD_ID": "01a15ce9-12db-7083-9ee6-72984c330110",
+  "actual_read_paths": [
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/task.json",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/article.en.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/article.zh-TW.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/page.en.html",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/page.zh-TW.html"
+  ],
+  "read_hashes": {
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/task.json": "815b5c594d9a2ea9c98ea56c685c15b320d09b953bc4b977097da7fe8bf4acff",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/article.en.md": "6d29fe5539530fbd15793fd59c3155f1e90397b81ccd1656e3c8470e75ee4f74",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/article.zh-TW.md": "06718aeae08f1bed3df7adc0758c0410200ea9db6b92fa0dc253e71f056ea101",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/page.en.html": "59171e7589f128ffd617bb926cfa0c4d81ac331e6bb3ad89251c7d979f1c83f6",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/koko/annotation-reader-input/page.zh-TW.html": "b1eba1c90668c7dfb0d2c859226c17b555e4d914bf3b6d4a599084510f5a0bde"
+  },
+  "outputs": [
+    "audit.json",
+    "audit.md",
+    "findings.json",
+    "verification.json"
+  ],
+  "reviewed_count": 35
+}

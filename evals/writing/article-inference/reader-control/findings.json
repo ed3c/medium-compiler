@@ -1,0 +1,58 @@
+{
+  "scope": "僅指定公開英文正文與 task.json",
+  "findings": [
+    {
+      "id": "F1",
+      "classification": "UNEXPLAINED_NOT_FALSE",
+      "location": "Reconstruct the decision and explain it aloud / What is the cost?",
+      "claim": "一般 probe 次數與主時間界缺少 log 教學及折半次數推導。",
+      "evidence_quote_ids": [
+        "main_bound",
+        "progress"
+      ],
+      "evidence_exact": [
+        "Finding the maximum takes one scan. Each midpoint takes another scan, and halving the candidate range needs at most ceiling log base two of the largest pile. The total is O(n times (1 plus log M)), with constant auxiliary space under the bounded-integer model.",
+        "When `low < high`, the lower middle satisfies `low <= mid < high`. In the failure branch the lower endpoint strictly increases; in the success branch the upper endpoint strictly decreases. The interval stays nonempty and has fewer integer candidates, so it must eventually contain one candidate."
+      ],
+      "reason": "正文已說明區間一定縮小，能證明終止；但未定義 base-two log，未從候選數如何減少推導 ceiling log 的一般上界。對無 logarithm 背景讀者，一句 repeated halving 與公式不能取代這個橋接。",
+      "impact": "能逐步算具體 trace，但無法只靠明述教學完整解釋一般主時間界。",
+      "not_claimed": "不把該公式判為數學錯誤。"
+    },
+    {
+      "id": "F2",
+      "classification": "UNEXPLAINED_NOT_FALSE",
+      "location": "Count the scans and the stored values / alternatives / cost recap",
+      "claim": "Big-O 記號未定義。",
+      "evidence_quote_ids": [
+        "main_bound",
+        "space",
+        "ascending",
+        "pool_cost"
+      ],
+      "evidence_exact": [
+        "Finding the maximum takes one scan. Each midpoint takes another scan, and halving the candidate range needs at most ceiling log base two of the largest pile. The total is O(n times (1 plus log M)), with constant auxiliary space under the bounded-integer model.",
+        "Only a fixed number of scalars and a loop's traversal state remain live. Reassigning `hours` or an endpoint replaces its previous value; it does not retain one entry per pile or per iteration. Auxiliary space is therefore `O(1)` in the same bounded-integer model, excluding the supplied input list.",
+        "If the answer is `a`, it performs `a` scans of `n` elements, or `n * a` pile visits; since `a <= M`, its worst-case time is `O(nM)`.",
+        "A single pass adds each pile to `S`, followed by a fixed amount of arithmetic: `O(n)` time, `O(1)` auxiliary space, and one integer output under the same bounded model."
+      ],
+      "reason": "正文有 scan 次數、proportional to n、固定 scalar 數量等有效依據；但讀者沒有演算法背景時，O(1) 與 O(nM) 這些形式本身仍需定義。",
+      "impact": "可重建數值工作量與固定儲存項數，無法由正文確認這種記號的完整含義。"
+    },
+    {
+      "id": "F3",
+      "classification": "EXPLICIT_SCOPE_LIMIT_NOT_FALSE",
+      "location": "Count the scans and the stored values",
+      "claim": "任意長度 integer 的改限制成本未提供，正文有清楚承認。",
+      "evidence_quote_ids": [
+        "big_integer_caveat"
+      ],
+      "evidence_exact": [
+        "If arbitrary-length integer inputs replaced the stated limits, arithmetic and integer storage would need a separate bit-size analysis; the scalar model here does not claim otherwise."
+      ],
+      "reason": "不可替正文發明 bit complexity 界，也不應把這個明示範圍限制判為原 bounded 模型的錯誤。",
+      "impact": "此改限制只能報未分析。"
+    }
+  ],
+  "false_claims_identified": [],
+  "caution": "未識別 false claim 不等於對全文數學正確性作全面認證。"
+}

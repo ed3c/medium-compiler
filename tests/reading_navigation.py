@@ -57,10 +57,19 @@ def drive_reading_navigation(page, output, name, mobile, expected_paragraphs):
         header_bottom=page.locator('body > header').bounding_box()['height']
         assert header_bottom<=top<page.viewport_size['height'], (top,header_bottom)
         assert page.evaluate('document.activeElement.id')==target
-        # The active note must be the first paragraph AFTER this heading.
-        expected=page.locator('#'+target).evaluate('''(heading)=>[...document.querySelectorAll('article [data-alg-four-index]')].find(n=>heading.compareDocumentPosition(n)&Node.DOCUMENT_POSITION_FOLLOWING).dataset.algFourIndex''')
+        # The chapter's own navigation tree defines whether a paragraph note exists.
+        notes=page.locator(f'.alg-outline-section[data-heading-id="{target}"] [data-outline-index]')
+        expected=notes.first.get_attribute('data-outline-index') if notes.count() else None
         active=page.locator('summary[data-outline-link][aria-current="location"]')
-        assert active.get_attribute('data-outline-link')==expected
+        if expected is None:
+            assert active.count()==0, 'code-only section retained an unrelated paragraph note'
+            if mobile:
+                assert not dialog.is_visible(), 'mobile dialog covered the selected source'
+                rail.tap()
+            assert page.locator(f'.alg-outline-section[data-heading-id="{target}"] .alg-outline-empty').is_visible()
+            if mobile: page.locator('.reading-dialog-close').click()
+        else:
+            assert active.get_attribute('data-outline-link')==expected
         if mobile: assert not dialog.is_visible(), 'mobile dialog covered the selected source'
     # A real scroll updates the rail and selects a paragraph without changing URL.
     if dialog.is_visible(): page.locator('.reading-dialog-close').click()

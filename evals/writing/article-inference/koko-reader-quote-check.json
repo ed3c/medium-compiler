@@ -1,0 +1,261 @@
+{
+  "count": 51,
+  "all_exact": true,
+  "checks": [
+    {
+      "question": 1,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 1,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 1,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 1,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 1,
+      "language": "zh-TW",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 2,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 3,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 3,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 3,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 4,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 5,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 6,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 6,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 6,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 6,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 6,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 7,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 7,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 7,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 7,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 7,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "zh-TW",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "zh-TW",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "zh-TW",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "zh-TW",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "en",
+      "exact": true
+    },
+    {
+      "question": 8,
+      "language": "zh-TW",
+      "exact": true
+    }
+  ]
+}

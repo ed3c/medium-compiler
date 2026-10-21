@@ -1,0 +1,64 @@
+{
+  "verdict": "NEEDS_REVISION",
+  "CODEX_THREAD_ID": "01a15ce9-12db-7083-9ee6-72984c330110",
+  "findings": [
+    {
+      "id": "KOKO-ANNOTATION-01",
+      "paragraph_index": 10,
+      "paragraph_number": 11,
+      "severity": "medium",
+      "location": "alg-reading-context / 適用前提 (both generated pages)",
+      "visible_quote": "答案是正整數 speed，因此至少為 1，並在 M 前已有可行值。",
+      "body_quotes": [
+        {
+          "id": "alg-p-10",
+          "en": "No positive answer lies below 1, and an answer exists by M, so start with the inclusive interval [low, high] = [1, M].",
+          "zh-TW": "正整數答案不可能低於 1，而最遲在 M 就有答案，所以從 inclusive interval [low, high] = [1, M] 開始。"
+        },
+        {
+          "id": "alg-p-21",
+          "en": "If h = n, each pile must fit into its one hour, so the largest pile forces the answer to be M.",
+          "zh-TW": "若 h = n，每堆都必須在分配給自己的一小時內吃完，因此最大那堆迫使答案為 M。"
+        }
+      ],
+      "issue": "「M 前」通常是嚴格小於 M；正文只證明到 M 為止（含 M）存在可行值，且明給答案等於 M 的合法邊界。旁邊 inclusive/Active 正確並不能消除這個 premise 的端點歧義。",
+      "licensed_inference": "minimum <= M，M 可行。",
+      "illegal_inference": "存在可行 k < M。",
+      "suggested_revision": "答案是正整數 speed，因此至少為 1；M 本身可行，所以在不大於 M 的速度中已有可行值。"
+    },
+    {
+      "id": "KOKO-ANNOTATION-02",
+      "paragraph_index": 27,
+      "paragraph_number": 28,
+      "severity": "medium",
+      "location": "alg-four-zh / zh_note (both generated pages)",
+      "visible_quote": "只有改成一小時內可跨堆用滿容量，h * k >= S 才既必要又充分，答案為 ceiling(S / h)。",
+      "body_quotes": [
+        {
+          "id": "alg-p-27",
+          "en": "Suppose Koko could switch piles within an hour and use the entire capacity k across them.",
+          "zh-TW": "假設 Koko 能在一小時內切換香蕉堆，把完整容量 k 用在多堆之間。"
+        },
+        {
+          "id": "alg-p-27",
+          "en": "Therefore h * k >= S is sufficient as well as necessary, and the minimum integer speed is (S + h - 1) // h.",
+          "zh-TW": "因此，h * k >= S 既是必要條件，也是充分條件，最小整數速度便是 (S + h - 1) // h。"
+        },
+        {
+          "id": "alg-p-20",
+          "en": "For piles = [2], h = 1, the interval is [1, 2] and mid = 1 fails.",
+          "zh-TW": "對 piles = [2]、h = 1，interval 是 [1, 2]，而 mid = 1 失敗。"
+        },
+        {
+          "id": "alg-p-4",
+          "en": "If some bananas remain, they need another whole hour. This count is the ceiling of p / k: the smallest integer at least as large as that quotient.",
+          "zh-TW": "若還有剩餘香蕉，就需要額外一個完整小時。這個數量是 p / k 的 ceiling，也就是不小於該商的最小整數。"
+        }
+      ],
+      "issue": "正文提出一個足以確保容量可達的改題條件；「只有…才」卻把它變成總量判準成立的必要條件，未限定是在兩種一般題目規則之間比較。對正文的原題單堆 [2], h=1，沒有可換的第二堆；按正文 ceiling 定義，原題可行恰為 k>=2，也恰為 h*k>=S，完全不用改規則。",
+      "licensed_inference": "在允許同小時跨堆用滿容量的改題中，h*k>=S 對所有合法輸入是必要且充分；原題不能一般套用，正文 [4,4],h=3 是失敗例。",
+      "illegal_inference": "只要某個實例的 h*k>=S 是必要且充分，就一定已改成允許跨堆規則。",
+      "suggested_revision": "在這個改成一小時內可跨堆用滿容量的題目中，h * k >= S 既必要又充分，答案為 ceiling(S / h)；原題不能一般套用這個公式。"
+    }
+  ]
+}

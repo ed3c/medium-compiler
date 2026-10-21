@@ -1,0 +1,7 @@
+{
+  "verdict": "BOUNDED_RECONSTRUCTION_WITH_COST_EXPLANATION_GAPS",
+  "supported": "正文足以按新合法輸入重建答案 4、逐 pile 時數、狀態轉移、最小值證明；逐速替代與可跨 pile 改規則的實際工作量也可重建。",
+  "not_supported": "對指定無 logarithm/algorithm 背景的讀者，完整主時間界的 log 次數推導與 Big-O 意義未被說明；任意長度 integer 的成本也未分析且正文已明示。",
+  "false_vs_unexplained": "缺 log/Big-O 說明不等於公式為 false；本次沒有辨識出有證據可判為 false 的明述主張。",
+  "scope": "僅這一版公開英文正文、這個新例子及 task.json 的單次 Reader 重建。不是 semantic score，也不是人類理解或學習成效證據。"
+}

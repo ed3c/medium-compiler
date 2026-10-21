@@ -9,6 +9,29 @@ ROOT=Path(__file__).resolve().parents[1]
 MAIN_ORIGIN='https://medium-compiler.vercel.app'
 LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
+    {'slug': 'leetcode-875-koko-eating-bananas',
+     'title': 'Koko Eating Bananas：找出第一個足夠的速度',
+     'english_title': 'Koko Eating Bananas: find the first speed that works',
+     'description': '從逐堆計算小時數，推導 Koko 的 binary search、搜尋 invariant、完整 Python 解法與成本，並比較每小時可換堆時的不同答案。',
+     'english_description': 'Derive Koko’s binary search from per-pile hours, follow its interval invariant '
+                            'and Python solution, and compare the result when switching piles within an '
+                            'hour is allowed.',
+     'source': 'articles/leetcode-875-koko-eating-bananas.zh-TW.md',
+     'english_source': 'articles/leetcode-875-koko-eating-bananas.en.md',
+     'annotations': 'references/learning/alg-four-koko-eating-bananas.json',
+     'bilingual': True,
+     'download_markdown': True},
+    {'slug': 'leetcode-56-merge-intervals',
+     'title': 'Merge Intervals：為什麼排序後只剩最後一段尚未定案',
+     'english_title': 'Merge Intervals: why sorting leaves only one unfinished interval',
+     'description': '從 closed intervals 與排序保證推導最後一段合併規則，追蹤 Python 狀態、正確性、成本與已排序輸入的調整。',
+     'english_description': 'Derive the last-interval merge rule from closed intervals and ordered starts, '
+                            'then trace Python state, correctness, costs, and the sorted-input adaptation.',
+     'source': 'articles/leetcode-56-merge-intervals.zh-TW.md',
+     'english_source': 'articles/leetcode-56-merge-intervals.en.md',
+     'annotations': 'references/learning/alg-four-merge-intervals.json',
+     'bilingual': True,
+     'download_markdown': True},
     {'slug': 'leetcode-11-container-with-most-water',
      'annotations': 'references/learning/alg-four-container-with-most-water.json',
      'source': 'articles/leetcode-11-container-with-most-water.md',
