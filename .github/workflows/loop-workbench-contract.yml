@@ -157,6 +157,9 @@ jobs:
           name: aifs-figure-lab-screenshots
           path: apps/loop-workbench/test-artifacts/aifs-figure-lab-*.png
           if-no-files-found: ignore
+      - name: Fresh AIFS and SeeCode source-to-sandbox browser differential
+        run: node src/migrate-parity.browser.mjs /tmp/diagram-authoring/example.html
+        timeout-minutes: 5
       - name: Isolated standalone SeeCode browser verification
         run: |
           cd ../..
