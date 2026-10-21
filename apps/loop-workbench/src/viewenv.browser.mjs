@@ -6,7 +6,8 @@ const url=process.env.VIEWENV_TEST_URL || 'http://127.0.0.1:3107/viewenv'
 const browser=await chromium.launch({headless:true})
 try{
   await mkdir('test-artifacts',{recursive:true})
-  const page=await browser.newPage({viewport:{width:1440,height:900},reducedMotion:'reduce'})
+  const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce',acceptDownloads:true})
+  let page=await context.newPage()
   const errors=[]
   page.on('pageerror',e=>errors.push(e.message))
   const response=await page.goto(url,{waitUntil:'networkidle'})
@@ -80,7 +81,12 @@ try{
   await page.getByLabel('Python source').fill(codeText)
   await page.getByRole('button',{name:'Save unverified draft'}).click()
   await page.getByText('Draft saved to DuckDB OPFS. No Python test executed.').waitFor()
-  await page.reload({waitUntil:'domcontentloaded'})
+  // Release the previous page's Wasm worker and OPFS sync handle before
+  // reopening in the SAME browser context (not a fresh data profile).
+  await page.close()
+  page=await context.newPage()
+  page.on('pageerror',e=>errors.push(e.message))
+  await page.goto('http://127.0.0.1:3107/learning',{waitUntil:'domcontentloaded'})
   await page.getByText('PERSISTENT · OPFS').waitFor({timeout:12000}).catch(async()=>{
     const detail=await page.locator('.learn-state, [role=alert]').allTextContents()
     const status=detail.join(' | ')
