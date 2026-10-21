@@ -73,3 +73,8 @@ PASS_BOUNDED; the first FAIL and the initially unlisted Course ambiguity remain
 historical evidence. `final-reviewed/` is the actual final manifest pair, with
 bounded review metadata and explicit exceptions to legacy zh-note preservation.
 Human outcomes and general stability are unobserved.
+
+Three portable TSV/log text files have normalized line endings/terminal spaces
+for review. Exact pre-normalization bytes are preserved beside them as
+`*.original.gz` and in commit 6a97cb6; no judgments or source text were edited.
+`portable-text-normalization.json` records the recoverable transformation.
