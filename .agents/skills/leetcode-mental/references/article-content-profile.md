@@ -112,6 +112,16 @@ belongs to the site builder. Do not shorten prose to make a page fit.
 Verify the built article list and both complete pages through real desktop and
 mobile navigation, heading links, language switching and source downloads.
 Compare downloaded bytes and rendered code with the supplied editions.
+When the selected site includes ALG Four reading support, hand both approved
+editions to `speed-reading` for annotation content and the existing `alg-four`
+integration for source binding, admission validation and navigation. Include its source-bound
+per-paragraph notes in the website handoff, not just heading links. The site
+builder validates the paired editions, original Git blobs and full annotation
+coverage before rendering; it must refuse missing or stale notes. Active items
+require paragraph evidence and a faithful production sentence/cue/oracle, without
+per-article quotas. Plain English is the fallback when pronunciation or chunk
+annotation has not been verified. Keep annotations outside the complete body.
+
 Keep content/reader evidence, website runtime, compiler admission and Provider
 publication distinct. Website-ready files and a successful CI do not authorize
 merge or deployment; preserve the task's selected host and explicit effect scope.
@@ -131,3 +141,9 @@ Before handoff, check that an unfamiliar reader can reconstruct: goal and constr
 Acceptance claims must separate `CONTENT_REVIEWED`, `SLOPTRIM_RUN/NOT_RUN`, `TRANSLATION_REVIEWED`, `CLI_VALIDATED`, `RUNTIME_TESTED/NOT_RUN`, `INDEPENDENT_READER/NOT_RUN`, `IMAGES_RENDERED/NOT_RUN` and `PUBLISHED/NOT_RUN`. These are reporting labels, **not** new CLI statuses.
 
 Stop cognitive recursion once no new source-grounded, falsifiable issue could change scope, owner, behavior or verification. Do not re-run thinking methods as ceremony.
+
+For speed-reading-authored notes, the complete annotation is the acceptance unit:
+show source-bound premises and any state/order checkpoint before the short
+reading cue (閱讀提示，非獨立結論). A source citation alone does not explain why
+its premise matters. Follow the speed-reading Owner contract; the UI/validator
+checks presence and exact bindings, while Owner/Reader review completeness.

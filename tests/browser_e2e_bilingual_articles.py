@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import threading
 from playwright.sync_api import sync_playwright
+from reading_navigation import drive_reading_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = (
@@ -61,26 +62,9 @@ def run(site, output):
                             actual = page.locator("article.bilingual-article pre code").all_text_contents()
                             assert [value.rstrip("\n") for value in code] == actual
                             assert code, "empty source/code comparison"
-                            assert page.locator(".article-toc a").count() == heading_count
-                            page.screenshot(path=str(output / f"{mode}-{slug}-{lang}.png"))
-                            if mobile:
-                                page.locator(".article-toc > summary").click()
-                            first = page.locator('.article-toc a[href="#section-1"]')
-                            first.focus()
-                            first.press("Enter")
-                            page.wait_for_function("location.hash === '#section-1'")
-                            assert page.evaluate("document.activeElement.id") == "section-1"
-                            for index in (1, heading_count):
-                                if mobile and not page.locator(".article-toc").evaluate("(element) => element.open"):
-                                    page.locator(".article-toc > summary").click()
-                                page.locator(f'.article-toc a[href="#section-{index}"]').click()
-                                page.wait_for_function("(id) => location.hash === '#' + id", arg=f"section-{index}")
-                                heading = page.locator(f"#section-{index}").bounding_box()
-                                header = page.locator("body > header").bounding_box()
-                                assert heading["y"] >= header["height"] - 1, "heading hidden by sticky header"
-                                assert heading["y"] < page.viewport_size["height"], "heading outside viewport"
-                            page.screenshot(path=str(output / f"{mode}-{slug}-{lang}-heading.png"))
-                            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "document overflow"
+                            manifest=page.request.get(base+route+'source.json').json()
+                            reading=drive_reading_navigation(page,output,f"{mode}-{slug}-{lang}",mobile,
+                                                             manifest['alignment']['paragraph_count'])
                             download = page.locator(".article-download").get_attribute("href")
                             fetched = page.request.get(base + download)
                             assert fetched.status == 200 and fetched.body() == source.read_bytes()
@@ -92,7 +76,7 @@ def run(site, output):
                             report["pages"].append({"viewport": mode, "slug": slug, "language": lang,
                                                     "headings": heading_count, "code_blocks": len(code),
                                                     "listing_clicks": 2, "keyboard_anchor": True,
-                                                    "source_bytes_equal": True, "language_switch": True})
+                                                    "source_bytes_equal": True, "language_switch": True, "reading":reading})
                     context.close()
             except Exception:
                 if "page" in locals() and not page.is_closed():

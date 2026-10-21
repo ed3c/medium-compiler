@@ -1,0 +1,606 @@
+{
+  "binding": {
+    "criteria_review": null,
+    "observations": [
+      {
+        "case_id": "annotation-owner",
+        "report": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed-reports/annotation-owner.json",
+          "sha256": "d0997fd4a5d831beb84a9c2cd211a1de418c35e9437058562de4724cda7bf815"
+        },
+        "trace": {
+          "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/consumer/trace.jsonl",
+          "sha256": "00e0581a5b309c109d6120b10a2ea3f674439a0d7cf105fd2c8cdaf6e231d2c1"
+        }
+      }
+    ],
+    "owner": "schema-manager.pclass-feedback",
+    "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+    "readback_entry": [
+      "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+      "schema",
+      "pclass-feedback"
+    ],
+    "readback_environment": {},
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/reviewed/selection.json",
+      "sha256": "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375"
+    }
+  },
+  "files": {
+    "selection.json": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed/selection.json",
+      "sha256": "e403ee23e3e54062ab2e9cdc93022d875d8123aa107fc71b132506f07b27970b"
+    }
+  },
+  "result": {
+    "authorizes_landing": false,
+    "behavior": {
+      "classification": "PASS",
+      "failed_checks": []
+    },
+    "case_fingerprints": {
+      "annotation-owner": "3baaffde8acaddb334340d08f450511f547bf44fdbb12dff5c5c7bd777d04434"
+    },
+    "cases": [
+      {
+        "checks": {
+          "annotation_content_created": true,
+          "publication_performed": true,
+          "source_body_changed": true
+        },
+        "id": "annotation-owner",
+        "observed": {
+          "CODEX_THREAD_ID": "01a15cb0-b7e2-7530-937b-746f3a9d8f6f",
+          "annotation_content_created": true,
+          "annotations": [
+            {
+              "active": [
+                {
+                  "id": "rebind-local-name",
+                  "meaning_oracle": "答案須區分 local name `left` 與 `height` 內的 integer：運算得到 integer value，然後重綁 `left`；沒有把它說成修改 list item。請引用本段包含 “computes an integer value and rebinds `left`” 的句子。",
+                  "paragraph_index": 22,
+                  "production_sentences": [
+                    "In this implementation, `left += 1` rebinds `left` rather than changing an integer stored inside `height`."
+                  ],
+                  "self_expression_cue": "不用照抄原文，用英文說明本實作 `left += 1` 改變哪個 binding，以及它沒有改變 `height` 裡的什麼。指出支援答案的原文句。",
+                  "sense": "bind a local name to the computed integer value",
+                  "supporting_sources": [
+                    {
+                      "english_quote": "Python integers are immutable: `left += 1` computes an integer value and rebinds `left`, rather than changing an integer stored inside `height`.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 22,
+                      "source": "leetcode-11-container-with-most-water"
+                    },
+                    {
+                      "english_quote": "These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 10,
+                      "source": "leetcode-11-container-with-most-water"
+                    }
+                  ],
+                  "term": "rebind"
+                },
+                {
+                  "id": "item-assignment-write-example",
+                  "meaning_oracle": "可說指定 item 為 assignment target 會寫入該 item，而且本實作沒有這種 assignment；不能把這段當成只有 item assignment 才能寫入 list 的證明。依據是 “An assignment targeting an item such as `height[left]` would write that item; no such assignment occurs here.”；該句沒有排他性的 only 或必要條件。",
+                  "paragraph_index": 22,
+                  "production_sentences": [
+                    "An assignment targeting `height[left]` would write that item, but no such assignment occurs in this implementation."
+                  ],
+                  "self_expression_cue": "用英文說明原文對 item assignment 的正向敘述，並回答這句是否給出了所有 list 寫入方式的必要條件。請引用原文，勿補外部機制。",
+                  "sense": "an assignment whose target is a list item",
+                  "supporting_sources": [
+                    {
+                      "english_quote": "An assignment targeting an item such as `height[left]` would write that item; no such assignment occurs here.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 22,
+                      "source": "leetcode-11-container-with-most-water"
+                    }
+                  ],
+                  "term": "assignment targeting an item"
+                }
+              ],
+              "binding_consumer": "alg-four",
+              "concept_id": "integer-local-rebinding-and-input-preservation",
+              "content_owner": "speed-reading",
+              "explanation_zh_tw": "此處 two pointers 是 integer 位置：讀取 `height[left]` 不會移除元素，綁定 `left_height` 不會複製 list，而 `left += 1` 會重綁 local name。原文另說 item assignment 會寫入指定 item，且本實作沒有這類 assignment；這個例子沒有把 item assignment 說成所有 list 寫入的必要形式。",
+              "paragraph_index": 22,
+              "reading_context": {
+                "checkpoint": null,
+                "premises": [
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 10,
+                        "source": "leetcode-11-container-with-most-water"
+                      },
+                      {
+                        "english_quote": "Python integers are immutable: `left += 1` computes an integer value and rebinds `left`, rather than changing an integer stored inside `height`.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 22,
+                        "source": "leetcode-11-container-with-most-water"
+                      }
+                    ],
+                    "text": "討論對象是本解法的普通 integer indices `left`、`right`，不是 sublist 或 Python memory address；因此 index 的重綁定與輸入 list 的寫入要分開判讀。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "Reading `height[left]` retrieves an element without removing it. Assigning that value to `left_height` binds a local name; it does not copy the list.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 22,
+                        "source": "leetcode-11-container-with-most-water"
+                      },
+                      {
+                        "english_quote": "Python integers are immutable: `left += 1` computes an integer value and rebinds `left`, rather than changing an integer stored inside `height`.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 22,
+                        "source": "leetcode-11-container-with-most-water"
+                      }
+                    ],
+                    "text": "本段分開描述 element retrieval、local-name binding 與 item assignment：讀取不移除元素，local binding 不複製 list；`left += 1` 不會改寫 `height` 裡的 integer。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "An assignment targeting an item such as `height[left]` would write that item; no such assignment occurs here.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 22,
+                        "source": "leetcode-11-container-with-most-water"
+                      }
+                    ],
+                    "text": "item assignment 的敘述以「這樣的 target 會寫入該 item」為範圍，並明說本實作沒有這種 assignment；它沒有列出所有可能的 list 寫入方式，不能倒推成寫入必須使用 item assignment。"
+                  }
+                ]
+              },
+              "reading_cue": {
+                "label": "閱讀提示（非獨立結論）",
+                "text": "此處重綁的是哪個 local name，寫入 item 的敘述涵蓋什麼？"
+              },
+              "reading_projection": {
+                "added_markers": [],
+                "format": "faithful_plain_english",
+                "label": "【極速流暢標註文本】",
+                "text": "Reading `height[left]` retrieves an element without removing it. Assigning that value to `left_height` binds a local name; it does not copy the list. Python integers are immutable: `left += 1` computes an integer value and rebinds `left`, rather than changing an integer stored inside `height`. An assignment targeting an item such as `height[left]` would write that item; no such assignment occurs here. The input remains available to the caller. [Python assignments](https://docs.python.org/3.14/reference/simple_stmts.html#assignment-statements), [numeric types](https://docs.python.org/3.14/library/stdtypes.html#numeric-types-int-float-complex)."
+              },
+              "role": "PASSIVE_AND_ACTIVE",
+              "source": "leetcode-11-container-with-most-water",
+              "source_paragraph_zh_tw": "讀取 `height[left]` 會取出元素，但不會移除它。把值指派給 `left_height`，會綁定一個 local name，並不會複製 list。Python integer 是 immutable：`left += 1` 計算新的整數值，再將 `left` 綁定到它，不會改動 `height` 裡儲存的整數。若 assignment 的目標是 `height[left]` 這樣的 item，便會寫入該 item；這裡沒有這種 assignment。呼叫者仍能使用原始輸入。[Python assignments](https://docs.python.org/3.14/reference/simple_stmts.html#assignment-statements)、[numeric types](https://docs.python.org/3.14/library/stdtypes.html#numeric-types-int-float-complex)。",
+              "source_paths": {
+                "en": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                "zh_tw": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.md"
+              }
+            },
+            {
+              "active": [
+                {
+                  "id": "spare-capacity-single-item-growth",
+                  "meaning_oracle": "答案須保留 single-item growth、spare capacity 與 may copy old references。引用第 26 段 “A growth may copy the old references” 中的 may；不能改為 every growth copies 或 every append grows。",
+                  "paragraph_index": 26,
+                  "production_sentences": [
+                    "CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, but a growth may copy old references."
+                  ],
+                  "self_expression_cue": "用英文說明此 policy 預留什麼，以及擴容可能增加什麼工作；指出哪個原文字排除了「每次必定複製」的解讀。",
+                  "sense": "slots reserved beyond the currently requested items under the stated growth policy",
+                  "supporting_sources": [
+                    {
+                      "english_quote": "CPython v3.14.0's [list resize policy](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 26,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "A growth may copy the old references, so one append is not always constant work.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 26,
+                      "source": "leetcode-207-course-schedule"
+                    }
+                  ],
+                  "term": "spare capacity"
+                },
+                {
+                  "id": "amortized-constant-time-append",
+                  "meaning_oracle": "答案須說總工作與單次成本不同：可能與 `m` 成正比的 growth work，分攤到 spare room 容納的固定比例乘上 `m` 次 appends，每次 constant charge；再保留一般寫入與 bounded-scalar model，才能說整段 `O(d)`。須引用第 23 段的 copying cost 及第 27 段的 charging 與 append-only 限定。交替刪除或 bulk update 未被此推導涵蓋，不能由此宣稱該情況必定成立或必定失敗。",
+                  "paragraph_index": 26,
+                  "production_sentences": [
+                    "Although a growth may copy old references, the stated append-only sequence of `d` single-item appends takes `O(d)` total work under the article's cost model."
+                  ],
+                  "self_expression_cue": "連到第 27 段，以英文重建為何本段的可能複製成本能與 `d` 次 appends 的 `O(d)` 總工作並存。引用成本 model、分攤步驟與操作序列限制；若換成交替刪除或 bulk update，原文推導是否已涵蓋？",
+                  "sense": "aggregate linear work for the stated append-only sequence, not a uniform per-operation bound",
+                  "supporting_sources": [
+                    {
+                      "english_quote": "A growth may copy the old references, so one append is not always constant work.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 26,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 23,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "Allocating or copying `k` slots costs proportional to `k`.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 23,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "After growing a sufficiently large list of size `m`, proportional spare room allows at least a fixed fraction of `m` further single-item appends before another growth. Charge the cost proportional to `m` of that growth across those following appends; each receives only a constant charge.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 27,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "Final capacity is proportional to the final length, so `d` single-item appends, including their ordinary writes, take `O(d)` total work. This aggregate guarantee is called amortized constant time per append.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 27,
+                      "source": "leetcode-207-course-schedule"
+                    },
+                    {
+                      "english_quote": "It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument.",
+                      "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                      "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                      "paragraph_index": 27,
+                      "source": "leetcode-207-course-schedule"
+                    }
+                  ],
+                  "term": "amortized constant time"
+                }
+              ],
+              "binding_consumer": "alg-four",
+              "concept_id": "list-growth-possible-copying-versus-aggregate-append-cost",
+              "content_owner": "speed-reading",
+              "explanation_zh_tw": "本段針對 CPython v3.14.0 的 adjacency lists：單項成長會預留 spare capacity，擴容可能複製既有 references，因此不能保證每次 `list.append` 都是 constant work。這是可能成本，並非每次 append 或每次成長必然複製。接續第 27 段才藉 append-only sequence 的分攤推導 `O(d)` 總工作；amortized constant time 不代表每次操作都等量。",
+              "paragraph_index": 26,
+              "reading_context": {
+                "checkpoint": null,
+                "premises": [
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "CPython v3.14.0's [list resize policy](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 26,
+                        "source": "leetcode-207-course-schedule"
+                      }
+                    ],
+                    "text": "成本討論限定於這裡的 adjacency lists 與 CPython v3.14.0 單項成長 policy；spare capacity 約為要求大小的八分之一，另含 rounding、padding，不能把近似量讀成精確比例。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 23,
+                        "source": "leetcode-207-course-schedule"
+                      },
+                      {
+                        "english_quote": "Allocating or copying `k` slots costs proportional to `k`.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 23,
+                        "source": "leetcode-207-course-schedule"
+                      },
+                      {
+                        "english_quote": "A growth may copy the old references, so one append is not always constant work.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 26,
+                        "source": "leetcode-207-course-schedule"
+                      }
+                    ],
+                    "text": "operation-count model 把搬移一個 reference 視為固定大小工作，配置或複製 `k` slots 的成本則與 `k` 成正比；因此可能複製舊 references 的成長，不能一律當成單次固定工作。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "A growth may copy the old references, so one append is not always constant work.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 26,
+                        "source": "leetcode-207-course-schedule"
+                      },
+                      {
+                        "english_quote": "A list sometimes runs out of allocated slots.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 26,
+                        "source": "leetcode-207-course-schedule"
+                      }
+                    ],
+                    "text": "“may copy” 只指出成長可能帶來複製成本，沒有聲稱每次成長必定複製，也沒有聲稱每次 append 都會成長；要保留這個可能性才不會把 aggregate guarantee 誤讀成逐次保證。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "english_quote": "After growing a sufficiently large list of size `m`, proportional spare room allows at least a fixed fraction of `m` further single-item appends before another growth. Charge the cost proportional to `m` of that growth across those following appends; each receives only a constant charge.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 27,
+                        "source": "leetcode-207-course-schedule"
+                      },
+                      {
+                        "english_quote": "Final capacity is proportional to the final length, so `d` single-item appends, including their ordinary writes, take `O(d)` total work. This aggregate guarantee is called amortized constant time per append.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 27,
+                        "source": "leetcode-207-course-schedule"
+                      },
+                      {
+                        "english_quote": "It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument.",
+                        "english_source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                        "navigation_binding": "alg-four must resolve this source paragraph to its existing anchor",
+                        "paragraph_index": 27,
+                        "source": "leetcode-207-course-schedule"
+                      }
+                    ],
+                    "text": "若要接著談 amortized constant time，須連同第 27 段的 append-only 限定與推導：與 `m` 成正比的 spare room 容納固定比例乘上 `m` 次 appends，將與 `m` 成正比的成長成本分攤後，每次只分到 constant charge；包含一般寫入的 `d` 次 appends 總共為 `O(d)`。這個推導沒有涵蓋交替刪除或 bulk update。"
+                  }
+                ]
+              },
+              "reading_cue": {
+                "label": "閱讀提示（非獨立結論）",
+                "text": "本段的可能成本與第 27 段的整段保證有何不同？"
+              },
+              "reading_projection": {
+                "added_markers": [],
+                "format": "faithful_plain_english",
+                "label": "【極速流暢標註文本】",
+                "text": "Adjacency lists use `list.append`, which needs a different argument. A list sometimes runs out of allocated slots. CPython v3.14.0's [list resize policy](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding. A growth may copy the old references, so one append is not always constant work."
+              },
+              "role": "PASSIVE_AND_ACTIVE",
+              "source": "leetcode-207-course-schedule",
+              "source_paragraph_zh_tw": "adjacency lists 使用 `list.append`，需要另一個論證。list 有時會用完已配置的 slots。CPython v3.14.0 的 [list resize policy](https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c) 在單項增加時預留 spare capacity；預留部分約為所要求大小的八分之一，另有少量 rounding 與 padding。一次成長可能複製原有 references，所以單次 append 並不保證都是 constant work。",
+              "source_paths": {
+                "en": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                "zh_tw": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.md"
+              }
+            }
+          ],
+          "handoff_limits": [
+            "Only the two requested paragraph annotations were authored; this is not full-article annotation coverage.",
+            "No source Git blob or existing manifest was read under the input allowlist; the original feedback producer/alg-four must bind immutable source identity and paragraph anchors.",
+            "Pronunciation and display segmentation were not checked against external references; complete faithful plain English is used.",
+            "Human response, learning outcomes, independent reader outcomes, website integration and external publication were not observed."
+          ],
+          "publication_performed": false,
+          "source_body_changed": false
+        },
+        "status": "passed"
+      }
+    ],
+    "criteria": {
+      "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness.",
+      "required": [],
+      "requirements": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+        "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+      },
+      "reviewer": "/root/annotation_owner_criteria",
+      "source": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+        "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+      },
+      "status": "SUPPORTED"
+    },
+    "dag": {
+      "case:annotation-owner": {
+        "requires": [
+          "instructions",
+          "criteria"
+        ],
+        "status": "passed"
+      },
+      "criteria": {
+        "requires": [
+          "requirements",
+          "criteria_review"
+        ],
+        "status": "ready"
+      },
+      "feedback": {
+        "requires": [
+          "case:annotation-owner"
+        ],
+        "status": "ready"
+      },
+      "instructions": {
+        "requires": [],
+        "status": "ready"
+      }
+    },
+    "effects": [],
+    "elapsed_ms": 1.7531253397464752,
+    "evidence_validity": "VALID",
+    "field_measurement": {
+      "expected": 3,
+      "failed": 0,
+      "missing": 0,
+      "observed": 3,
+      "reason": "Output fields do not measure observable workflow choices or complete trace coverage.",
+      "scope": "selected_protocol",
+      "unit": "reported_output_field",
+      "workflow_decisions": null
+    },
+    "instructions": [
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      }
+    ],
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ],
+    "materialization": {
+      "binding": {
+        "criteria_review": null,
+        "observations": [
+          {
+            "case_id": "annotation-owner",
+            "report": {
+              "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed-reports/annotation-owner.json",
+              "sha256": "d0997fd4a5d831beb84a9c2cd211a1de418c35e9437058562de4724cda7bf815"
+            },
+            "trace": {
+              "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/consumer/trace.jsonl",
+              "sha256": "00e0581a5b309c109d6120b10a2ea3f674439a0d7cf105fd2c8cdaf6e231d2c1"
+            }
+          }
+        ],
+        "owner": "schema-manager.pclass-feedback",
+        "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "readback_entry": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback"
+        ],
+        "readback_environment": {},
+        "selection": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/reviewed/selection.json",
+          "sha256": "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375"
+        }
+      },
+      "limits": [
+        "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+        "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+      ],
+      "next": {
+        "actor": "Session",
+        "argv": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback",
+          "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed/selection.json",
+          "e403ee23e3e54062ab2e9cdc93022d875d8123aa107fc71b132506f07b27970b"
+        ],
+        "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "environment": {},
+        "kind": "executable",
+        "owner": "schema-manager.pclass-feedback"
+      },
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed/selection.json",
+        "sha256": "e403ee23e3e54062ab2e9cdc93022d875d8123aa107fc71b132506f07b27970b"
+      }
+    },
+    "next": {
+      "argv": null,
+      "input": null,
+      "operation": "consume_verified_behavior",
+      "owner": "task-owner",
+      "required": []
+    },
+    "observation_scope": "consumer_report",
+    "owner": "schema-manager.pclass-feedback",
+    "projection_ms": 0.029374845325946808,
+    "protocol": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+      "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+    },
+    "requirements": {
+      "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+      "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+    },
+    "schema": 1,
+    "selection_sha256": "e403ee23e3e54062ab2e9cdc93022d875d8123aa107fc71b132506f07b27970b",
+    "sources": [
+      {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+        "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+        "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+        "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/task.json",
+        "sha256": "0b174caba1785b3f4025c47d6410a8f6302053b21a10d904d66f3f179f82d2e7"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+        "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+        "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+      },
+      {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed-reports/annotation-owner.json",
+        "sha256": "d0997fd4a5d831beb84a9c2cd211a1de418c35e9437058562de4724cda7bf815"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/consumer/trace.jsonl",
+        "sha256": "00e0581a5b309c109d6120b10a2ea3f674439a0d7cf105fd2c8cdaf6e231d2c1"
+      }
+    ],
+    "status": "passed",
+    "subject": "Whole-annotation assertion direction after observed example-to-exclusivity failure; reported actions only",
+    "test_demand": null
+  },
+  "schema": 1
+}

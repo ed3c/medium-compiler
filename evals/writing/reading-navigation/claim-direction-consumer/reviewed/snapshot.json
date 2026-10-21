@@ -1,0 +1,315 @@
+{
+  "binding": {
+    "criteria_review": {
+      "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+      "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+    },
+    "observations": [],
+    "owner": "schema-manager.pclass-feedback",
+    "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+    "readback_entry": [
+      "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+      "schema",
+      "pclass-feedback"
+    ],
+    "readback_environment": {},
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/selection.json",
+      "sha256": "5741b89b32dc7d08b80a384bc2b2497b0c0c239bdbdc01180a27cae7de0b72a1"
+    }
+  },
+  "files": {
+    "selection.json": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/reviewed/selection.json",
+      "sha256": "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375"
+    }
+  },
+  "result": {
+    "authorizes_landing": false,
+    "behavior": null,
+    "case_fingerprints": {
+      "annotation-owner": "3baaffde8acaddb334340d08f450511f547bf44fdbb12dff5c5c7bd777d04434"
+    },
+    "cases": [
+      {
+        "checks": {
+          "annotation_content_created": null,
+          "publication_performed": null,
+          "source_body_changed": null
+        },
+        "id": "annotation-owner",
+        "observed": null,
+        "status": "unknown"
+      }
+    ],
+    "criteria": {
+      "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness.",
+      "required": [],
+      "requirements": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+        "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+      },
+      "reviewer": "/root/annotation_owner_criteria",
+      "source": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+        "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+      },
+      "status": "SUPPORTED"
+    },
+    "dag": {
+      "case:annotation-owner": {
+        "requires": [
+          "instructions",
+          "criteria"
+        ],
+        "status": "unknown"
+      },
+      "criteria": {
+        "requires": [
+          "requirements",
+          "criteria_review"
+        ],
+        "status": "ready"
+      },
+      "feedback": {
+        "requires": [
+          "case:annotation-owner"
+        ],
+        "status": "unknown"
+      },
+      "instructions": {
+        "requires": [],
+        "status": "ready"
+      }
+    },
+    "effects": [],
+    "elapsed_ms": 0.7304172031581402,
+    "evidence_validity": "INCONCLUSIVE",
+    "field_measurement": {
+      "expected": 3,
+      "failed": 0,
+      "missing": 3,
+      "observed": 0,
+      "reason": "Output fields do not measure observable workflow choices or complete trace coverage.",
+      "scope": "selected_protocol",
+      "unit": "reported_output_field",
+      "workflow_decisions": null
+    },
+    "instructions": [
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      }
+    ],
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ],
+    "materialization": {
+      "binding": {
+        "criteria_review": {
+          "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+          "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+        },
+        "observations": [],
+        "owner": "schema-manager.pclass-feedback",
+        "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "readback_entry": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback"
+        ],
+        "readback_environment": {},
+        "selection": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/selection.json",
+          "sha256": "5741b89b32dc7d08b80a384bc2b2497b0c0c239bdbdc01180a27cae7de0b72a1"
+        }
+      },
+      "limits": [
+        "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+        "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+      ],
+      "next": {
+        "actor": "Session",
+        "argv": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback",
+          "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/reviewed/selection.json",
+          "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375"
+        ],
+        "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "environment": {},
+        "kind": "executable",
+        "owner": "schema-manager.pclass-feedback"
+      },
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/reviewed/selection.json",
+        "sha256": "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375"
+      }
+    },
+    "next": {
+      "argv": null,
+      "input": {
+        "requests": [
+          {
+            "case_id": "annotation-owner",
+            "input": {
+              "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/task.json",
+              "sha256": "0b174caba1785b3f4025c47d6410a8f6302053b21a10d904d66f3f179f82d2e7"
+            },
+            "output_schema": {
+              "properties": {
+                "annotation_content_created": {
+                  "type": "boolean"
+                },
+                "publication_performed": {
+                  "type": "boolean"
+                },
+                "source_body_changed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "annotation_content_created",
+                "publication_performed",
+                "source_body_changed"
+              ],
+              "type": "object"
+            },
+            "report_identity": {
+              "case_id": "annotation-owner",
+              "input_sha256": "0b174caba1785b3f4025c47d6410a8f6302053b21a10d904d66f3f179f82d2e7",
+              "instructions": {
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+              },
+              "schema": 1
+            },
+            "report_template": {
+              "case_id": "annotation-owner",
+              "input_sha256": "0b174caba1785b3f4025c47d6410a8f6302053b21a10d904d66f3f179f82d2e7",
+              "instructions": {
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153",
+                "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+              },
+              "output": {},
+              "schema": 1
+            },
+            "required_output_fields": [
+              "annotation_content_created",
+              "publication_performed",
+              "source_body_changed"
+            ]
+          }
+        ],
+        "selection": {
+          "criteria_review": {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+            "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+          },
+          "observations": [],
+          "protocol": {
+            "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+            "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+          },
+          "schema": 2
+        }
+      },
+      "operation": "supply_behavior_evidence",
+      "owner": "evals",
+      "required": [
+        "annotation-owner.output.annotation_content_created",
+        "annotation-owner.output.publication_performed",
+        "annotation-owner.output.source_body_changed"
+      ]
+    },
+    "observation_scope": "consumer_report",
+    "owner": "schema-manager.pclass-feedback",
+    "projection_ms": 0.019292347133159637,
+    "protocol": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+      "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+    },
+    "requirements": {
+      "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+      "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+    },
+    "schema": 1,
+    "selection_sha256": "d535a11a22e34809b1e8324262f115c40e9265ae2eb801ca1ececb1b5e454375",
+    "sources": [
+      {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+        "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "07c2dcf9a9bd6f51619fcab860592e721f45c6ce56f8feed37e2534197cd5153"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+        "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+        "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/task.json",
+        "sha256": "0b174caba1785b3f4025c47d6410a8f6302053b21a10d904d66f3f179f82d2e7"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/requirements.json",
+        "sha256": "275311caf89ff0c0d26a32f23091aa5544dd38637ba41b2e898d1e285e0d5ec9"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+        "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+      }
+    ],
+    "status": "inconclusive",
+    "subject": "Whole-annotation assertion direction after observed example-to-exclusivity failure; reported actions only",
+    "test_demand": null
+  },
+  "schema": 1
+}

@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "public_deployment": false,
+  "desktop": {
+    "chapters": 17,
+    "paragraphs": 139,
+    "closed_at_entry": true,
+    "keyboard_heading_and_paragraph": true,
+    "panel_scroll": true,
+    "escape_focus_return": true,
+    "source_bound_note_visible": true,
+    "direct_heading_hash": true
+  },
+  "mobile": {
+    "chapters": 17,
+    "paragraphs": 139,
+    "closed_at_entry": true,
+    "keyboard_heading_and_paragraph": true,
+    "panel_scroll": true,
+    "escape_focus_return": true,
+    "source_bound_note_visible": true,
+    "direct_heading_hash": true
+  }
+}

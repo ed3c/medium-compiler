@@ -1,0 +1,62 @@
+[
+  {
+    "path": "articles",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "site/alg-four-figures",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "workers/site",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "examples/cloudflare-checkout-sandbox",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "wrangler.jsonc",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "wrangler.full-site.jsonc",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "site/_headers",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "package.json",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": "package-lock.json",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  },
+  {
+    "path": ".github/workflows/writing-verification.yml",
+    "unchanged_from_existing_PR_head": true,
+    "exit": 0,
+    "stderr": ""
+  }
+]

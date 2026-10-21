@@ -144,7 +144,7 @@
         "D7"
       ],
       "kind": "PASSIVE",
-      "english_source": "*One causal path connects the problem constraints to grouping and its expected O(M + N) cost.*",
+      "english_source": "One causal path connects the problem constraints to grouping and its expected O(M + N) cost.",
       "english_section_index": 0
     },
     {
@@ -267,7 +267,7 @@
         "D1"
       ],
       "kind": "PASSIVE_AND_ACTIVE",
-      "english_source": "A *canonical key* is one standard representation shared by every member of an equivalence class. Here, a class is one anagram group. We want:",
+      "english_source": "A canonical key is one standard representation shared by every member of an equivalence class. Here, a class is one anagram group. We want:",
       "english_section_index": 2,
       "passive_skeleton": "Canonical key → gives every member of one equivalence class the same representation"
     },
@@ -332,7 +332,7 @@
         "D2"
       ],
       "kind": "PASSIVE",
-      "english_source": "*Fixed letter positions preserve the anagram equivalence property in a canonical key.*",
+      "english_source": "Fixed letter positions preserve the anagram equivalence property in a canonical key.",
       "english_section_index": 2
     },
     {
@@ -353,7 +353,7 @@
         "D5"
       ],
       "kind": "PASSIVE_AND_ACTIVE",
-      "english_source": "count[0] will hold the number of a characters seen, count[1] the number of b characters, and so on. The list is *mutable*: assigning a new value to one of its positions changes that list.",
+      "english_source": "count[0] will hold the number of a characters seen, count[1] the number of b characters, and so on. The list is mutable: assigning a new value to one of its positions changes that list.",
       "english_section_index": 3
     },
     {
@@ -468,7 +468,7 @@
         "D4"
       ],
       "kind": "PASSIVE",
-      "english_source": "*One word moves from characters to counters to a tuple key. The first equal key is a MISS; later equal keys reuse the existing group.*",
+      "english_source": "One word moves from characters to counters to a tuple key. The first equal key is a MISS; later equal keys reuse the existing group.",
       "english_section_index": 3
     },
     {
@@ -489,7 +489,7 @@
         "D5"
       ],
       "kind": "PASSIVE_AND_ACTIVE",
-      "english_source": "Python calls an object *hashable* when it has a lifetime-stable hash and supports comparison, with equal objects required to have equal hashes. Built-in lists are unhashable; a tuple is hashable only when all its elements are hashable. These rules are stated in the Python hashable definition.",
+      "english_source": "Python calls an object hashable when it has a lifetime-stable hash and supports comparison, with equal objects required to have equal hashes. Built-in lists are unhashable; a tuple is hashable only when all its elements are hashable. These rules are stated in the Python hashable definition.",
       "english_section_index": 4
     },
     {
@@ -541,7 +541,7 @@
         "D5"
       ],
       "kind": "PASSIVE",
-      "english_source": "tuple(count) creates a new container with the current 26 values. It does not turn the original list into a tuple, and it does not make that list immutable. Changing count[0] later would leave key unchanged. Calling this a *freeze boundary* describes the snapshot used as the key.",
+      "english_source": "tuple(count) creates a new container with the current 26 values. It does not turn the original list into a tuple, and it does not make that list immutable. Changing count[0] later would leave key unchanged. Calling this a freeze boundary describes the snapshot used as the key.",
       "english_section_index": 4,
       "passive_skeleton": "Completed counts → form a separate tuple snapshot → leave the original list mutable"
     },
@@ -624,7 +624,7 @@
         "D4"
       ],
       "kind": "PASSIVE_AND_ACTIVE",
-      "english_source": "Two unequal keys can have the same hash. This is a *hash collision*. They can also initially compete for a table position even when their full hash values differ. In either case, a dictionary resolves the search rather than declaring the keys equal. Where a hash permits a possible match, equality distinguishes the actual keys.",
+      "english_source": "Two unequal keys can have the same hash. This is a hash collision. They can also initially compete for a table position even when their full hash values differ. In either case, a dictionary resolves the search rather than declaring the keys equal. Where a hash permits a possible match, equality distinguishes the actual keys.",
       "english_section_index": 5
     },
     {
@@ -749,7 +749,7 @@
         "D5"
       ],
       "kind": "PASSIVE",
-      "english_source": "*The completed tuple identifies the group. Hashing locates candidates; equality determines whether the key matches. The list remains mutable after its tuple snapshot is created.*",
+      "english_source": "The completed tuple identifies the group. Hashing locates candidates; equality determines whether the key matches. The list remains mutable after its tuple snapshot is created.",
       "english_section_index": 6
     },
     {
@@ -928,7 +928,7 @@
         "D8"
       ],
       "kind": "PASSIVE_AND_ACTIVE",
-      "english_source": "The fact that anagrams share counts describes the relationship between strings. A *loop invariant* describes what the program state means at a particular time. The outer-loop invariant is:",
+      "english_source": "The fact that anagrams share counts describes the relationship between strings. A loop invariant describes what the program state means at a particular time. The outer-loop invariant is:",
       "english_section_index": 9
     },
     {
@@ -1203,7 +1203,7 @@
         "D6"
       ],
       "kind": "PASSIVE",
-      "english_source": "*Counting and sorting are alternative canonicalizations. The balanced merge derivation above explains the logarithmic factor; this schematic compares the two choices.*",
+      "english_source": "Counting and sorting are alternative canonicalizations. The balanced merge derivation above explains the logarithmic factor; this schematic compares the two choices.",
       "english_section_index": 13
     },
     {
@@ -1339,7 +1339,7 @@
         "D7"
       ],
       "kind": "PASSIVE",
-      "english_source": "*Time and space measure the work and storage of one algorithm. Fixed per-string work remains even when there are no characters to scan.*",
+      "english_source": "Time and space measure the work and storage of one algorithm. Fixed per-string work remains even when there are no characters to scan.",
       "english_section_index": 14
     },
     {
@@ -1579,7 +1579,7 @@
         "D8"
       ],
       "kind": "PASSIVE",
-      "english_source": "*The map connects facts established in the article. Reconstruct the representation, runtime and cost from the same problem constraints.*",
+      "english_source": "The map connects facts established in the article. Reconstruct the representation, runtime and cost from the same problem constraints.",
       "english_section_index": 28
     }
   ],

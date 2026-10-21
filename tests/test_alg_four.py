@@ -102,6 +102,7 @@ class AlgFourSourceAndDeliveryTests(unittest.TestCase):
             self.assertTrue(result["source_article_unchanged"])
             self.assertEqual(result["learning_evidence"],"NOT_OBSERVED")
             self.assertEqual((out/"alg-four/source.json").read_bytes(),MANIFEST.read_bytes())
+            self.assertEqual((out/"alg-four/article.md").read_bytes(),source)
             article=re.search(r'<article class="article alg-four-source">(.*?)</article>',full,re.S)
             self.assertIsNotNone(article)
             self.assertNotIn('class="alg-four-annotation"',article.group(1))

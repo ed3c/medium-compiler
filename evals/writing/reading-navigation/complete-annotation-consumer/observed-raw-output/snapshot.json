@@ -1,0 +1,620 @@
+{
+  "binding": {
+    "criteria_review": null,
+    "observations": [
+      {
+        "case_id": "annotation-owner",
+        "report": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output-reports/annotation-owner.json",
+          "sha256": "8f42223024c075f5fc75d82190abd76807770ac449fb0d782e532918b703215e"
+        },
+        "trace": {
+          "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/consumer/trace.json",
+          "sha256": "0d19fa7f3ad4dc28f476a574c1debcdb0597a1554f2f64dfe2eaa6d184dbed2c"
+        }
+      }
+    ],
+    "owner": "schema-manager.pclass-feedback",
+    "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+    "readback_entry": [
+      "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+      "schema",
+      "pclass-feedback"
+    ],
+    "readback_environment": {},
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/reviewed/selection.json",
+      "sha256": "b7d45a12b61d6f79ffcf2aaad551215bd73dbb199b2741c75deab82b5aaa2af1"
+    }
+  },
+  "files": {
+    "selection.json": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output/selection.json",
+      "sha256": "50db21c1ed2db4ca43ea430ae04b6bab0a4b16b3f9b545b8c0402c3491025fc3"
+    }
+  },
+  "result": {
+    "authorizes_landing": false,
+    "behavior": {
+      "classification": "PASS",
+      "failed_checks": []
+    },
+    "case_fingerprints": {
+      "annotation-owner": "fee756b26e7c50ce000cbfa6d2c23e4607bc6147ef930b404ec87a0d3e8006a7"
+    },
+    "cases": [
+      {
+        "checks": {
+          "annotation_content_created": true,
+          "publication_performed": true,
+          "source_body_changed": true
+        },
+        "id": "annotation-owner",
+        "observed": {
+          "CODEX_THREAD_ID": "01a15c99-e7d1-70f2-b473-7a7dfdf5f9a3",
+          "annotation_content_created": true,
+          "annotations": [
+            {
+              "active_items": [
+                {
+                  "id": "endpoint-selected-boundary",
+                  "oracle": "必須保留 equal heights、either endpoint、先 evaluate 並 update best 後再 discard 的條件；指出較窄且水高受限的內側配對不超過已記錄面積。引用 paragraph 14 的 equal-height 規則，以及 paragraphs 11–12 和 25 的上界／更新。不得聲稱下一個面積必增。",
+                  "practice_status": "NOT_OBSERVED",
+                  "production_sentences": [
+                    "When the endpoint heights are equal, either endpoint can be discarded after the current pair has been evaluated and best has been updated; this implementation discards the left endpoint."
+                  ],
+                  "self_expression_cue": "用一句 English 說明等高時為何可捨棄任一 endpoint，並交代記錄與移動的先後。回答後引用支持此順序與上界的原文。",
+                  "sense": "one of the two selected boundary positions of the unresolved interval",
+                  "source_paragraph_index": 39,
+                  "supporting_sources": [
+                    {
+                      "anchor": "paragraph-11",
+                      "exact_english_quote": "Suppose `height[left] <= height[right]`. The pair just measured has area `(right - left) * height[left]`. Consider any pair that keeps `left` and replaces `right` with an inner position `k`. Its width `k - left` is smaller, and its water height cannot exceed `height[left]`, even if the new wall is much taller. Because heights are nonnegative,",
+                      "paragraph_index": 11,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-12",
+                      "exact_english_quote": "`area(left, k) <= (k - left) * height[left] <= (right - left) * height[left]`.",
+                      "paragraph_index": 12,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-14",
+                      "exact_english_quote": "When the right wall is shorter, the same argument applies with the sides reversed: keeping `right` while moving the left endpoint inward cannot improve the area just measured, so decrease `right`. If the heights are equal, either endpoint may be discarded by the same inequality. The code chooses to discard the left one. Zero-height ties remain safe because every pair keeping either zero-height wall has area zero.",
+                      "paragraph_index": 14,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-25",
+                      "exact_english_quote": "During an iteration, measuring the endpoints and updating `best` preserves the first claim. The discard inequality proves that every newly excluded pair has area at most the area just measured, which is at most the updated `best`. Previously excluded pairs remain covered because `best` never decreases. These facts reestablish the invariant for either branch, including equal heights.",
+                      "paragraph_index": 25,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-39",
+                      "exact_english_quote": "What happens on equal heights? Either endpoint can be removed safely. This implementation removes the left one.",
+                      "paragraph_index": 39,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    }
+                  ],
+                  "term": "endpoint"
+                }
+              ],
+              "decision_id": "equal-height-endpoint-discard",
+              "english_reading": {
+                "added_marks": [
+                  {
+                    "source_offset": 13,
+                    "text": "/ "
+                  },
+                  {
+                    "source_offset": 70,
+                    "text": "//\n"
+                  }
+                ],
+                "segmentation_review": "AUTHOR_REVIEW_ONLY; conservative phrase/clause boundaries, not reader or eye-movement evidence.",
+                "stress_evidence": "NOT_RUN; no pronunciation source consulted. All words remain unbolded.",
+                "stress_spans": [],
+                "text": "What happens / on equal heights? Either endpoint can be removed safely. //\nThis implementation removes the left one."
+              },
+              "explanation_zh_tw": "兩端等高時，先記錄當前配對面積，再捨棄任一 endpoint 都安全：保留那面牆的內側配對更窄，水高也不會超過它，因此不會超過已記錄值。此實作選左端；這不表示移動後的面積必定增加。",
+              "original_english": "What happens on equal heights? Either endpoint can be removed safely. This implementation removes the left one.",
+              "original_zh_tw": "What happens on equal heights? Either endpoint can be removed safely. This implementation removes the left one.",
+              "paragraph_index": 39,
+              "reading_context": {
+                "checkpoint": {
+                  "supporting_sources": [
+                    {
+                      "anchor": "paragraph-23",
+                      "exact_english_quote": "The area formula describes one pair. Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint. At the start of every `while` condition check: `best` is the maximum area among pairs already evaluated, or zero if none were evaluated; every pair with an endpoint outside the current interval has area at most `best`.",
+                      "paragraph_index": 23,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-25",
+                      "exact_english_quote": "During an iteration, measuring the endpoints and updating `best` preserves the first claim. The discard inequality proves that every newly excluded pair has area at most the area just measured, which is at most the updated `best`. Previously excluded pairs remain covered because `best` never decreases. These facts reestablish the invariant for either branch, including equal heights.",
+                      "paragraph_index": 25,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                    }
+                  ],
+                  "text": "先計算當前兩端面積並更新 best，才移動 endpoint。完成這次 iteration、再次檢查 while 條件時，所有區間外配對才由更新後的 best 涵蓋；不可把尚未記錄的當前配對省略。"
+                },
+                "premises": [
+                  {
+                    "supporting_sources": [
+                      {
+                        "anchor": "paragraph-1",
+                        "exact_english_quote": "The input `height` lists vertical wall heights at positions `0, 1, ..., n - 1`. Choose two distinct positions `i < j`; the ground and those two walls form an upright container. Return the largest capacity, as an integer, rather than the wall positions. The statement allows `2 <= n <= 100000` and `0 <= height[i] <= 10000`. It does not ask us to change the input, and the solutions below leave it unchanged. Empty and one-wall inputs are outside this contract. [LeetCode problem statement](https://leetcode.com/problems/container-with-most-water/).",
+                        "paragraph_index": 1,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-11",
+                        "exact_english_quote": "Suppose `height[left] <= height[right]`. The pair just measured has area `(right - left) * height[left]`. Consider any pair that keeps `left` and replaces `right` with an inner position `k`. Its width `k - left` is smaller, and its water height cannot exceed `height[left]`, even if the new wall is much taller. Because heights are nonnegative,",
+                        "paragraph_index": 11,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-12",
+                        "exact_english_quote": "`area(left, k) <= (k - left) * height[left] <= (right - left) * height[left]`.",
+                        "paragraph_index": 12,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-14",
+                        "exact_english_quote": "When the right wall is shorter, the same argument applies with the sides reversed: keeping `right` while moving the left endpoint inward cannot improve the area just measured, so decrease `right`. If the heights are equal, either endpoint may be discarded by the same inequality. The code chooses to discard the left one. Zero-height ties remain safe because every pair keeping either zero-height wall has area zero.",
+                        "paragraph_index": 14,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      }
+                    ],
+                    "text": "範圍是合法的非負 height 輸入，所選的是當前 left、right 兩端且兩者等高；任一端都受同一高度上界限制，所以左右可用相同的 discard inequality。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "anchor": "paragraph-11",
+                        "exact_english_quote": "Suppose `height[left] <= height[right]`. The pair just measured has area `(right - left) * height[left]`. Consider any pair that keeps `left` and replaces `right` with an inner position `k`. Its width `k - left` is smaller, and its water height cannot exceed `height[left]`, even if the new wall is much taller. Because heights are nonnegative,",
+                        "paragraph_index": 11,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-12",
+                        "exact_english_quote": "`area(left, k) <= (k - left) * height[left] <= (right - left) * height[left]`.",
+                        "paragraph_index": 12,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-13",
+                        "exact_english_quote": "So no such pair can beat the endpoint area we already recorded. Every remaining candidate involving `left` can be discarded together by increasing `left` by one. This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+                        "paragraph_index": 13,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md"
+                      }
+                    ],
+                    "text": "被排除的集合是保留待捨棄 endpoint、另一端位於區間內的所有配對；它們的較小寬度與不增的水高，讓已記錄的 endpoint 面積涵蓋整個集合。這不是下一個候選必定改善的預測。"
+                  }
+                ]
+              },
+              "reading_cue": {
+                "label": "閱讀提示（非獨立結論）",
+                "text": "等高時，哪個已記錄的上界允許捨棄任一 endpoint？"
+              },
+              "role": "PASSIVE_AND_ACTIVE",
+              "source": {
+                "english_git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+                "english_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+                "git_blob": "1f430ad463c5ad5950bc325f6e8e52994defeb43",
+                "identity_limit": "Observed allowed file bytes; no repository-tree or existing manifest inspection performed.",
+                "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.md"
+              }
+            },
+            {
+              "active_items": [
+                {
+                  "id": "unfinished-prerequisite-state",
+                  "oracle": "必須同時指出 after all updates／整份 dependent list 處理後、unfinished courses 非空、每門未完成課仍有 unfinished prerequisite、finite graph 追蹤重複才推出 cycle。引用 paragraph 18 的 checkpoint 與 paragraph 4 的有限回追。paragraph 16 中移除 2 後尚有 append(3)，所以中途空 queue 不具備相同 checkpoint。",
+                  "practice_status": "NOT_OBSERVED",
+                  "production_sentences": [
+                    "At the checkpoint after all updates for the preceding completion, an empty queue with unfinished courses means that each remaining course has an unfinished prerequisite; following these prerequisites in the finite graph reveals a cycle."
+                  ],
+                  "self_expression_cue": "用 English 解釋何時 empty queue 支持 cycle 結論；交代尚未完成的集合與 checkpoint，再引用原文。另說明為何移除課程 2 後 queue 暫時清空不構成失敗。",
+                  "sense": "a prerequisite course not yet completed at the specified checkpoint",
+                  "source_paragraph_index": 21,
+                  "supporting_sources": [
+                    {
+                      "anchor": "paragraph-4",
+                      "exact_english_quote": "The converse also holds for this finite graph. If every remaining course has a remaining prerequisite, start at any remaining course and repeatedly follow a prerequisite backward. There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle. Thus a nonempty remainder without a cycle must contain an available course. Repeatedly taking an available course can finish everything exactly when the graph has no directed cycle. This equivalence describes the task; a changing loop invariant will describe our implementation.",
+                      "paragraph_index": 4,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-18",
+                      "exact_english_quote": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion. At that point, `finished` counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+                      "paragraph_index": 18,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-20",
+                      "exact_english_quote": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing `finished` records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it.",
+                      "paragraph_index": 20,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-21",
+                      "exact_english_quote": "For termination, at most `numCourses` distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+                      "paragraph_index": 21,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    }
+                  ],
+                  "term": "unfinished prerequisite"
+                }
+              ],
+              "decision_id": "termination-checkpoint-and-cycle",
+              "english_reading": {
+                "added_marks": [
+                  {
+                    "source_offset": 17,
+                    "text": "/ "
+                  },
+                  {
+                    "source_offset": 71,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 132,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 161,
+                    "text": "/ "
+                  },
+                  {
+                    "source_offset": 191,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 266,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 364,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 416,
+                    "text": "//\n"
+                  },
+                  {
+                    "source_offset": 518,
+                    "text": "/ "
+                  }
+                ],
+                "segmentation_review": "AUTHOR_REVIEW_ONLY; conservative phrase/clause boundaries, not reader or eye-movement evidence.",
+                "stress_evidence": "NOT_RUN; no pronunciation source consulted. All words remain unbolded.",
+                "stress_spans": [],
+                "text": "For termination, / at most `numCourses` distinct courses can be removed. //\nIf all were removed, those legal steps establish a schedule. //\nOtherwise the queue is empty / with some courses unfinished. //\nThe checkpoint says each such course still has an unfinished prerequisite. //\nThe finite backward-following argument above then finds a cycle, so no full schedule is possible. //\nThe final comparison therefore covers both results. //\nThis algorithm is often called Kahn's topological sort; a topological order places every prerequisite / before its dependent."
+              },
+              "explanation_zh_tw": "在整份 dependent list 更新完成、準備再次判斷 while ready 的 checkpoint，若所有課都已合法完成，就存在 schedule；若 queue 空且仍有未完成課，則每門剩餘課都在等另一門剩餘 prerequisite。有限 graph 中反覆往回追必重遇節點，因而有 cycle；處理途中 queue 暫時為空不能套用此結論。",
+              "original_english": "For termination, at most `numCourses` distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+              "original_zh_tw": "對 termination 而言，最多只能移除 `numCourses` 門互不相同的課程。如果全部都被移除，這些合法步驟便構成 schedule。否則，queue 已空，但仍有課未完成。依 checkpoint，每門這樣的課都還有一門未完成的 prerequisite。前面的有限集合往回追蹤論證因此會找到 cycle，所以不可能存在完整 schedule。最後的比較因而涵蓋兩種結果。這個 algorithm 常稱為 Kahn's topological sort；topological order 會把每門 prerequisite 排在其 dependent 前面。",
+              "paragraph_index": 21,
+              "reading_context": {
+                "checkpoint": {
+                  "supporting_sources": [
+                    {
+                      "anchor": "paragraph-18",
+                      "exact_english_quote": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion. At that point, `finished` counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+                      "paragraph_index": 18,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-20",
+                      "exact_english_quote": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing `finished` records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it.",
+                      "paragraph_index": 20,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    },
+                    {
+                      "anchor": "paragraph-16",
+                      "exact_english_quote": "Removing 2 empties the queue and raises `finished` to 4. Course 3 changes from 1 to 0. Appending 3 gives `[3]`, with counts `[0, 0, 0, 0, 0]`. Finally, removing 3 gives an empty queue and `finished = 5`; its dependent list is empty. The loop stops and `5 == numCourses` returns `True`. The conceptual completion sequence is `[0, 4, 1, 2, 3]`; the Boolean implementation does not retain it.",
+                      "paragraph_index": 16,
+                      "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                    }
+                  ],
+                  "text": "觀察點是每次求值 while ready 之前，而且前一門完成課的整份 dependent list 已處理完、所有計數與入列更新皆已完成。不能在 popleft 之後、尚未更新並入列 dependents 的中途，僅因 queue 空就判失敗。"
+                },
+                "premises": [
+                  {
+                    "supporting_sources": [
+                      {
+                        "anchor": "paragraph-1",
+                        "exact_english_quote": "In [LeetCode 207](https://leetcode.com/problems/course-schedule/), course identifiers run from `0` through `numCourses - 1`. A pair `[a, b]` means that `b` must be finished before `a`. Return a Boolean indicating whether every course can be finished. A schedule itself is not required. There are 1 to 2000 courses and 0 to 5000 distinct prerequisite pairs; both identifiers belong to the course range. The statement does not exclude `[a, a]`, which makes that course impossible to start. The implementation below leaves the input unchanged.",
+                        "paragraph_index": 1,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-18",
+                        "exact_english_quote": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion. At that point, `finished` counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+                        "paragraph_index": 18,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-20",
+                        "exact_english_quote": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing `finished` records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it.",
+                        "paragraph_index": 20,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-21",
+                        "exact_english_quote": "For termination, at most `numCourses` distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+                        "paragraph_index": 21,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      }
+                    ],
+                    "text": "對有限的課程集合，每個 [a, b] 表示 b 必須先於 a 完成。finished 計算互不相同的合法完成；queue 保存所有且僅有目前可開始的未完成課程，恰各一次。這使 finished == numCourses 能代表全部合法完成。"
+                  },
+                  {
+                    "supporting_sources": [
+                      {
+                        "anchor": "paragraph-4",
+                        "exact_english_quote": "The converse also holds for this finite graph. If every remaining course has a remaining prerequisite, start at any remaining course and repeatedly follow a prerequisite backward. There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle. Thus a nonempty remainder without a cycle must contain an available course. Repeatedly taking an available course can finish everything exactly when the graph has no directed cycle. This equivalence describes the task; a changing loop invariant will describe our implementation.",
+                        "paragraph_index": 4,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-18",
+                        "exact_english_quote": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion. At that point, `finished` counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+                        "paragraph_index": 18,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      },
+                      {
+                        "anchor": "paragraph-21",
+                        "exact_english_quote": "For termination, at most `numCourses` distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+                        "paragraph_index": 21,
+                        "source_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md"
+                      }
+                    ],
+                    "text": "cycle 推論只處理非空的未完成課程集合：queue 在 checkpoint 為空，結合每門剩餘課的 remaining 精確代表未完成 prerequisites，才表示每門剩餘課都還在等待。有限集合反覆沿 prerequisite 回追會重遇識別碼；若剩餘集合為空，沒有這個 cycle 推論。"
+                  }
+                ]
+              },
+              "reading_cue": {
+                "label": "閱讀提示（非獨立結論）",
+                "text": "在哪個 checkpoint，空 queue 加上未完成課程才支持 cycle 推論？"
+              },
+              "role": "PASSIVE_AND_ACTIVE",
+              "source": {
+                "english_git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+                "english_path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+                "git_blob": "3d342b56e7d72cee38512b4797471df618ed9dc3",
+                "identity_limit": "Observed allowed file bytes; no repository-tree or existing manifest inspection performed.",
+                "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.md"
+              }
+            }
+          ],
+          "evidence_limits": {
+            "learner_response": "NOT_OBSERVED",
+            "pronunciation": "NOT_RUN; no dictionary/network use; all stress spans plain.",
+            "publication": "NOT_RUN",
+            "semantic_quality": "AUTHOR_REVIEW_ONLY; needs independent Reader/human judgment, not Boolean semantic proof.",
+            "website_runtime": "NOT_RUN"
+          },
+          "publication_performed": false,
+          "scope": "Only the two selected paragraph annotations; not full-article coverage or an admitted/published manifest.",
+          "source_body_changed": false
+        },
+        "status": "passed"
+      }
+    ],
+    "criteria": {
+      "limits": "Agent reasoning bound to requirements; not independent authority or universal correctness.",
+      "required": [],
+      "requirements": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/requirements.json",
+        "sha256": "b745607d170a479a46e71300636f3201f288498a84c18c2639cc9008370836c3"
+      },
+      "reviewer": "/root/annotation_owner_criteria",
+      "source": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/criteria-review.json",
+        "sha256": "ad3dd28109194d55272036578df26a97c7aa0706e18d7e2fad2f675bd1e2a261"
+      },
+      "status": "SUPPORTED"
+    },
+    "dag": {
+      "case:annotation-owner": {
+        "requires": [
+          "instructions",
+          "criteria"
+        ],
+        "status": "passed"
+      },
+      "criteria": {
+        "requires": [
+          "requirements",
+          "criteria_review"
+        ],
+        "status": "ready"
+      },
+      "feedback": {
+        "requires": [
+          "case:annotation-owner"
+        ],
+        "status": "ready"
+      },
+      "instructions": {
+        "requires": [],
+        "status": "ready"
+      }
+    },
+    "effects": [],
+    "elapsed_ms": 1.0253749787807465,
+    "evidence_validity": "VALID",
+    "field_measurement": {
+      "expected": 3,
+      "failed": 0,
+      "missing": 0,
+      "observed": 3,
+      "reason": "Output fields do not measure observable workflow choices or complete trace coverage.",
+      "scope": "selected_protocol",
+      "unit": "reported_output_field",
+      "workflow_decisions": null
+    },
+    "instructions": [
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "0f22fc86b23b1e7ef75e05c197dc7c1d6ee0bd7d74c3e32c789306aeaaa58c2d"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      }
+    ],
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ],
+    "materialization": {
+      "binding": {
+        "criteria_review": null,
+        "observations": [
+          {
+            "case_id": "annotation-owner",
+            "report": {
+              "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output-reports/annotation-owner.json",
+              "sha256": "8f42223024c075f5fc75d82190abd76807770ac449fb0d782e532918b703215e"
+            },
+            "trace": {
+              "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/consumer/trace.json",
+              "sha256": "0d19fa7f3ad4dc28f476a574c1debcdb0597a1554f2f64dfe2eaa6d184dbed2c"
+            }
+          }
+        ],
+        "owner": "schema-manager.pclass-feedback",
+        "readback_cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "readback_entry": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback"
+        ],
+        "readback_environment": {},
+        "selection": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/reviewed/selection.json",
+          "sha256": "b7d45a12b61d6f79ffcf2aaad551215bd73dbb199b2741c75deab82b5aaa2af1"
+        }
+      },
+      "limits": [
+        "Saved references do not prove capture provenance or authorize stage completion or delivery.",
+        "Original protocol, selected reviews and observations remain fixed; prior inputs retain failure history."
+      ],
+      "next": {
+        "actor": "Session",
+        "argv": [
+          "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d/soodles",
+          "schema",
+          "pclass-feedback",
+          "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output/selection.json",
+          "50db21c1ed2db4ca43ea430ae04b6bab0a4b16b3f9b545b8c0402c3491025fc3"
+        ],
+        "cwd": "/Users/neon/.local/share/soodles/releases.noindex/fbdd767e5cb44da9c9b2c22ce65ce5e248ba6a8d",
+        "environment": {},
+        "kind": "executable",
+        "owner": "schema-manager.pclass-feedback"
+      },
+      "owner": "schema-manager.pclass-feedback",
+      "selection": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output/selection.json",
+        "sha256": "50db21c1ed2db4ca43ea430ae04b6bab0a4b16b3f9b545b8c0402c3491025fc3"
+      }
+    },
+    "next": {
+      "argv": null,
+      "input": null,
+      "operation": "consume_verified_behavior",
+      "owner": "task-owner",
+      "required": []
+    },
+    "observation_scope": "consumer_report",
+    "owner": "schema-manager.pclass-feedback",
+    "projection_ms": 0.02295803278684616,
+    "protocol": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/protocol.json",
+      "sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0"
+    },
+    "requirements": {
+      "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/requirements.json",
+      "sha256": "b745607d170a479a46e71300636f3201f288498a84c18c2639cc9008370836c3"
+    },
+    "schema": 1,
+    "selection_sha256": "50db21c1ed2db4ca43ea430ae04b6bab0a4b16b3f9b545b8c0402c3491025fc3",
+    "sources": [
+      {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/protocol.json",
+        "sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/speed-reading/SKILL.md",
+        "sha256": "0f22fc86b23b1e7ef75e05c197dc7c1d6ee0bd7d74c3e32c789306aeaaa58c2d"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/SKILL.md",
+        "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+        "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+        "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/docs/bilingual-articles.md",
+        "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+        "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+      },
+      {
+        "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+        "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/task.json",
+        "sha256": "6a7b88e6625cc2fd58e3f2a9fb01dc89de0a82b200975afad5cbfb9bc2e6f63a"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/requirements.json",
+        "sha256": "b745607d170a479a46e71300636f3201f288498a84c18c2639cc9008370836c3"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/criteria-review.json",
+        "sha256": "ad3dd28109194d55272036578df26a97c7aa0706e18d7e2fad2f675bd1e2a261"
+      },
+      {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output-reports/annotation-owner.json",
+        "sha256": "8f42223024c075f5fc75d82190abd76807770ac449fb0d782e532918b703215e"
+      },
+      {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/consumer/trace.json",
+        "sha256": "0d19fa7f3ad4dc28f476a574c1debcdb0597a1554f2f64dfe2eaa6d184dbed2c"
+      }
+    ],
+    "status": "passed",
+    "subject": "Complete-annotation acceptance with explicit source-bound premises and checkpoints; reported actions only",
+    "test_demand": null
+  },
+  "schema": 1
+}

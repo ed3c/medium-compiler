@@ -1,0 +1,53 @@
+{
+  "skeleton_changes": [
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 10,
+      "second_skeleton": "Two integer indices → bound → unresolved positions; evaluate endpoints before discarding.",
+      "third_skeleton": "Two indices → delimit → unresolved positions; update best with endpoint areas before discarding."
+    },
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 11,
+      "second_skeleton": "Keeping the shorter left wall → bounds → every narrower pair's height.",
+      "third_skeleton": "The shorter left wall → caps → the height of inward pairs retaining left."
+    },
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 14,
+      "second_skeleton": "The discard bound → permits → shorter-endpoint removal, including equal-height and zero ties.",
+      "third_skeleton": "After saving endpoint area → discard → the shorter endpoint; equal heights allow either side."
+    },
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 26,
+      "second_skeleton": "Safe shorter-wall removals → leave → best equal to the maximum when pointers meet.",
+      "third_skeleton": "Coincident pointers → leave → no two distinct positions inside the remaining interval."
+    },
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 39,
+      "second_skeleton": "Equal heights → permit → either endpoint's safe removal; this code removes left.",
+      "third_skeleton": "After saving equal-height endpoint area → remove → either endpoint; this code removes left."
+    },
+    {
+      "article": "container-with-most-water",
+      "paragraph_index": 42,
+      "second_skeleton": "Shorter-wall bounds and best → cover → every legal pair when the interval collapses.",
+      "third_skeleton": "Maximum endpoint area, saved before shorter-wall removals → covers → every pair at interval collapse."
+    }
+  ],
+  "controls": [
+    {
+      "article": "container-with-most-water",
+      "entire_manifest_except_skeletons_unchanged": true,
+      "active_items_unchanged": true
+    },
+    {
+      "article": "course-schedule",
+      "entire_manifest_except_skeletons_unchanged": true,
+      "active_items_unchanged": true
+    }
+  ],
+  "skill_unchanged_since_second": true
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "R4",
+    "observer": "parent Session",
+    "source": "articles/leetcode-207-course-schedule.en.md",
+    "paragraph_index": 26,
+    "skeleton": "One list append → may require → resizing and copying despite spare capacity.",
+    "source_quote": "A list sometimes runs out of allocated slots.",
+    "finding": "despite spare capacity is ambiguous about the resize trigger; preserve the exhausted-slots condition rather than implying that remaining spare slots require a resize.",
+    "status": "NEEDS_REVISION"
+  }
+]

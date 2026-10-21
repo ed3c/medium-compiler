@@ -1,0 +1,15 @@
+{
+  "owner": "/root",
+  "operation": "consume_verified_behavior",
+  "original_next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "scope": "3 reported output fields only, semantic and human outcomes unproven",
+  "capture": "consumer-native-capture.json",
+  "format_failure": "observed/ saved INCONCLUSIVE after supervisor passed wrapped report to raw output_file; observed-raw-output/ binds actual unchanged output.json instead; old files retained",
+  "independence": "fresh no inherited conversation; shared filesystem; capture truncation limits"
+}

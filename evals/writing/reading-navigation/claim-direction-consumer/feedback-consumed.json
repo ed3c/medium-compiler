@@ -1,0 +1,13 @@
+{
+  "owner": "/root",
+  "original_next": {
+    "owner": "task-owner",
+    "operation": "consume_verified_behavior",
+    "required": [],
+    "argv": null,
+    "input": null
+  },
+  "operation_consumed": "consume_verified_behavior",
+  "scope": "Actual creation/no-source-write/no-publication reports only; original raw output/capture reviewed. No completeness, universal semantic or learning PASS.",
+  "independence": "fresh fork_turns none; shared filesystem; bounded App capture"
+}

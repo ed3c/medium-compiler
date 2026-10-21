@@ -1,0 +1,56 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "before": "Two integer indices → bound → unresolved positions; evaluate endpoints before discarding.",
+    "after": "Two indices → delimit → unresolved positions; update best with endpoint areas before discarding.",
+    "expanded_after": "Two indices delimit unresolved positions; update best with endpoint areas before discarding.",
+    "origin": "CONSUMER_STATE_RECHECK",
+    "countercheck_and_reason": "Measuring without saving the outer six in [3,3,3] loses it after a discard. The previous evaluate-before-discard cue did not explicitly save it."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "before": "Keeping the shorter left wall → bounds → every narrower pair's height.",
+    "after": "The shorter left wall → caps → the height of inward pairs retaining left.",
+    "expanded_after": "The shorter left wall caps the height of inward pairs retaining left.",
+    "origin": "SECOND_N1",
+    "countercheck_and_reason": "For [1,3,3], inward pair (1,2) has height three above shorter left height one, but does not retain left. The repaired object explicitly retains left."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "before": "The discard bound → permits → shorter-endpoint removal, including equal-height and zero ties.",
+    "after": "After saving endpoint area → discard → the shorter endpoint; equal heights allow either side.",
+    "expanded_after": "After saving endpoint area discard the shorter endpoint; equal heights allow either side.",
+    "origin": "CONSUMER_STATE_RECHECK",
+    "countercheck_and_reason": "On [3,3,3], even a valid tie/shorter-wall bound does not preserve the answer if the outer six was never saved. The saved-state condition now precedes both alternatives."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "before": "Safe shorter-wall removals → leave → best equal to the maximum when pointers meet.",
+    "after": "Coincident pointers → leave → no two distinct positions inside the remaining interval.",
+    "expanded_after": "Coincident pointers leave no two distinct positions inside the remaining interval.",
+    "origin": "CONSUMER_STATE_RECHECK",
+    "countercheck_and_reason": "The earlier safe-removals-to-maximum claim hid completed recording inside the adjective safe. Narrowed to the exact termination fact rather than squeezing the full invariant proof into 15 words."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "before": "Equal heights → permit → either endpoint's safe removal; this code removes left.",
+    "after": "After saving equal-height endpoint area → remove → either endpoint; this code removes left.",
+    "expanded_after": "After saving equal-height endpoint area remove either endpoint; this code removes left.",
+    "origin": "SECOND_N2",
+    "countercheck_and_reason": "For [3,3,3], deleting an endpoint before saving outer area six leaves only area three. Saved endpoint area now explicitly precedes removal."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "before": "Shorter-wall bounds and best → cover → every legal pair when the interval collapses.",
+    "after": "Maximum endpoint area, saved before shorter-wall removals → covers → every pair at interval collapse.",
+    "expanded_after": "Maximum endpoint area, saved before shorter-wall removals covers every pair at interval collapse.",
+    "origin": "CONSUMER_STATE_RECHECK",
+    "countercheck_and_reason": "On [3,3,3], a geometric shorter-wall bound plus a stale best zero is insufficient at collapse. The maximum endpoint area must have been saved before removals, and collapse rather than early stop remains explicit."
+  }
+]

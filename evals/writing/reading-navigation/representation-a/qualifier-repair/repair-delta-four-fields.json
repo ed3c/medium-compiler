@@ -1,0 +1,38 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "field": "zh_note",
+    "before": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+    "after": "此實作讀取 height[left]、綁定 locals，並以 left += 1 重新綁定 immutable integer，不修改 input list；item assignment 會寫入 item，但這裡沒有這種 assignment。",
+    "reason": "REPAIR: item assignment是會寫入的例子，並非所有list mutation的必要/唯一機制；local reads/bindings的作用限原程式。",
+    "origin": "FRESH_A_READER_F1"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "field": "premise0",
+    "before": "height[left] 是讀元素，left_height 是 local name；immutable integer 的 left+=1 重新綁定 local，不是寫進 height 的 item。只有 item assignment 才是另一種操作。",
+    "after": "這裡談的是原程式的操作：height[left] 讀元素，綁定 left_height 或重新綁定 integer left 不會寫入 input list。item assignment 是來源舉出的寫入例子，且原程式沒有這種 assignment；來源並未把它定義成所有 list mutation 的必要條件。",
+    "reason": "REPAIR: item assignment是會寫入的例子，並非所有list mutation的必要/唯一機制；local reads/bindings的作用限原程式。",
+    "origin": "FRESH_A_READER_F1"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "field": "zh_note",
+    "before": "每次求值 [] 才有獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+    "after": "此 comprehension 對每門課分別求值 []，會產生獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+    "reason": "REPAIR: separately evaluating [] makes independent lists是充分例示，不是唯一必要allocation機制；list()也可各造新list。",
+    "origin": "OWNER_QUALIFIER_REAUDIT"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "field": "premise0",
+    "before": "每次各自求值 [] 才得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。",
+    "after": "此 comprehension 對每門課分別求值 []，因此各自得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。這說明來源做法的效果，並非宣稱只有 [] 語法能建立獨立 lists。",
+    "reason": "REPAIR: separately evaluating [] makes independent lists是充分例示，不是唯一必要allocation機制；list()也可各造新list。",
+    "origin": "OWNER_QUALIFIER_REAUDIT"
+  }
+]

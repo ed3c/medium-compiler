@@ -1,15 +1,16 @@
 ---
 name: alg-four
-description: Add source-bound Passive/Active English reading projections in a right-hand article outline, with paragraph-accurate anchors, yellow Active terms and Mode C syntactic chunk/stress cues. Preserve complete original Medium content and four encounters without rewriting it.
+description: Integrate speed-reading annotations into a source-bound right-hand article index with paragraph anchors, admission validation and reading navigation. Preserve complete original Medium content and four encounters without rewriting it.
 ---
 
 # ALG Four — annotate original articles, never rewrite them
 
-## Three Owners
+## Owners
 
 - [leetcode-mental](../leetcode-mental/SKILL.md) owns the original coding problem and **complete article semantic content** under its [complete-article profile](../leetcode-mental/references/article-content-profile.md), including decisions, invariant, runtime, code, proof and constraints. Ordinary v4 teaching retains its original scope.
 - [medium-writing](../medium-writing/SKILL.md) owns **Medium layout and exact-edition assembly** for the selected complete-article profile; other writing routes retain their existing ownership. The accepted original article stays byte-identical when ALG Four projects its notes.
-- **alg-four** owns the separate **annotation projection**, English Passive/Active selection, semantic word-to-concept links, productive English sentences, practice cues and source oracles **only in a right-hand, paragraph-indexed reading outline, not inserted below the original paragraphs**. It does not own rewritten versions of the article, a new Writer, a new LMS, a new CLI stage, or a second Router.
+- [speed-reading](../speed-reading/SKILL.md) owns **article-index annotation content**: every paragraph's Traditional Chinese explanation, complete English chunk/stress reading, cognitive skeleton and source-supported Passive/Active production sentences, cues and oracles. It reviews semantic support across the complete paired article; the source body remains immutable.
+- **alg-four** owns the **source-bound annotation integration**: paired source identity, one-to-one coverage, admission validation, paragraph anchors, right-hand index navigation and rendering. It receives speed-reading's content in the existing sidecar rather than authoring another annotation set. It does not own a rewritten article, new Writer, LMS, CLI stage or second Router.
 
 [alg-vocab-encounter](../alg-vocab-encounter/SKILL.md) remains the passive lexical-practice leaf. Historical [cefr-alg-four-pass](../cefr-alg-four-pass/SKILL.md), its 12-file upstream Git Blob lock, frozen lessons and original CEFR session oracle gate remain unchanged.
 
@@ -36,7 +37,7 @@ The wider **Passive** inventory covers encounter and recognition. Classify each 
 
 These are **four operations over the same prose**, not `pass1/pass2/pass3` replacement texts or separate rewritten sections. A published site may expose a non-tracking expandable prompt/oracle in the **right-hand section/paragraph outline**, linked to the unmodified source paragraph. It is not a native CEFR Session. That older UI still requires an acknowledged attempt before reveal and a distinct reported comparison event.
 
-Every original prose paragraph/blockquote must have exactly one source-bound **sidecar entry** in the right-hand hierarchical outline, accessible by a stable paragraph anchor. Expand the current section/subsection and paragraph entry as reading position changes; clicking outline headings or paragraph entries navigates to the original article. Keep headings, paragraph sequence, code, technical semantics, original article facts and word choice **unchanged**. Annotation decisions come from the entire article, not a quota of exactly five; include the original engineering claims throughout. Notes must be concise Traditional Chinese with the canonical English terms intact and tied to an actual decision and the paragraph's subject.
+Every original prose paragraph/blockquote must have exactly one source-bound **sidecar entry** in the right-hand hierarchical outline, accessible by a stable paragraph anchor. Expand the current section/subsection and paragraph entry as reading position changes; clicking outline headings or paragraph entries navigates to the original article. Keep headings, paragraph sequence, code, technical semantics, original article facts and word choice **unchanged**. The speed-reading Owner makes annotation decisions from the entire article, not a quota of exactly five; include the original engineering claims throughout. Notes must be concise Traditional Chinese with the canonical English terms intact and tied to an actual decision and the paragraph's subject.
 
 ## Right-hand source-preserving reading projection
 
@@ -58,27 +59,29 @@ Build the outline from actual Markdown heading levels (H1/H2/H3/H4 as supported 
 the local renderer) and the exact paragraphs that follow them. Every paragraph
 has a stable anchor and one annotation; click a heading/paragraph to jump.
 Scrolling expands the active headline, subheadline and paragraph note and
-collapses unrelated branches. Wide screens put the sticky outline on the right;
-small screens provide an accessible collapsible outline above the article.
+collapses unrelated branches. Keep the complete article centered. At the middle
+right, a normally closed rail has one bar per top-level chapter (including the
+introduction), with bar length proportional to that chapter's rendered text and
+an explicit chapter/paragraph count in the expanded panel. The selected bar
+reflects reading position, not completion. Hover or button activation opens a
+scrollable contents-and-notes dialog; touch and keyboard must also work without
+hover. Escape/close restores the trigger's focus. Navigating to a heading must
+select its first following paragraph, rather than a note in the preceding chapter.
 Do not infer reading completion or record learning events from viewport tracking.
 
-**Active**: mark admitted lexical items yellow within the expanded annotation
+**Active**: render speed-reading’s admitted lexical items yellow within the expanded annotation
 entry, with the bound English production sentence and optional recall/oracle.
 Yellow is a visual training cue, not measured mastery.
 
-**Passive Mode C**: add a derived *English reading projection* inside the expanded
-entry, not a rewrite of the immutable article. Preserve every source-attested
-claim, lexical sequence, condition and negation. Use `/` for relevant syntax
-phrase boundaries, `//` plus line break at major clause boundaries, and
-`[ ]` around supported lexical bundles. Prefer chunks of three to five words
-when grammar allows; do not insert separators mechanically where they change
-syntax or meaning. Never insert syllable dots/hyphens. Bold **only** the primary
-stressed syllable of a content word when its pronunciation has been checked;
-unverified words stay unbolded. Function words are plain, with no fake acoustic
-emphasis or bionic initial-letter pattern. An annotation can additionally
-compress the sentence's subject-action-object relationship to 10–15 words,
-but that optional skeleton must be source-grounded and must not replace the
-article, original sentence or its nuance.
+**Passive Mode C**: consume the repository [speed-reading Owner](../speed-reading/SKILL.md)'s
+annotation for the complete aligned English paragraph. Its dual-layer result and short
+cognitive skeleton belong only in the expanded annotation, never the original
+body. Review syntax, scope and pronunciation separately from lossless identity.
+Store reviewed formatting with the existing paragraph sidecar; no model or
+dictionary requests run in the browser or CI. Without reviewed formatting or
+pronunciation, keep faithful plain English rather than generating mechanical
+chunks or initial-letter bolding. Preserve existing approved projections until
+a reviewed replacement is available.
 
 This Mode C projection is a reading layout hypothesis, not a proven speed,
 fixation, neurological or comprehension improvement. For text without verified
@@ -92,3 +95,9 @@ say `NOT_OBSERVED`.
 The [full annotation contract](references/lesson-contract.md) defines source identity, paragraph coverage and 2000-item admission; the [Thinking Route](references/thinking-route.md) chooses only necessary cognitive interventions and the [migration](references/migration.md) preserves legacy consumers. Freeze the source Git blob; refuse a changed original or missing paragraph. `RUNTIME_TESTED`, `ACTIVE_PRACTICED`, response latency and acquired vocabulary need real runtime/learner evidence; website build and 4 available passes establish none of these.
 
 The fourth encounter is an instructional procedure **not** a scientifically established neural consolidation threshold. No invented repetition schedule, credential, learning database, or mastery claim.
+
+For speed-reading-authored notes, the complete annotation is the acceptance unit:
+show source-bound premises and any state/order checkpoint before the short
+reading cue (閱讀提示，非獨立結論). A source citation alone does not explain why
+its premise matters. Follow the speed-reading Owner contract; the UI/validator
+checks presence and exact bindings, while Owner/Reader review completeness.

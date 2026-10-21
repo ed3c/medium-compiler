@@ -89,6 +89,11 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   Active lexicon and 2,000 linked source-grounded English sentences goal.
   No learner performance is inferred from an annotation or its reveal. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
   and 12-file dependency lock remain unchanged for historical Frozen lessons.
+- [Speed-reading annotation method](.agents/skills/speed-reading/SKILL.md): lossless
+  syntactic chunks, clause line breaks, checked primary-stress spelling spans and
+  a short SVO skeleton. This skill owns index annotation content; ALG Four owns
+  source binding, admission validation, navigation and rendering. Formatting is not a claim
+  of faster reading or learning. Unverified pronunciation stays plain.
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)
 - [Planning/continuation prompts](prompts/medium-article.md)

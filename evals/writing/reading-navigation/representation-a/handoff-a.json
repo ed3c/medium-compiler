@@ -1,0 +1,45 @@
+{
+  "representation": "A",
+  "prior_route": "STOPPED; three NEEDS_REVISION outcomes are history, not reset",
+  "paragraph_annotations": 83,
+  "premise_statements": 126,
+  "checkpoint_statements": 59,
+  "checkpoint_null": 24,
+  "exact_support_bindings": 464,
+  "cue_word_range": [
+    7,
+    13
+  ],
+  "all_cues_questions": true,
+  "self_review_changed_notes_between_A_v1_v2": 14,
+  "unchanged": "All four bodies, all 83 English token/stress sequences and zh_notes, all 31 Active entries/supports and all other preexisting manifest values except the authorized cue replacement. Three pending-representation metadata fields added.",
+  "source_identity": [
+    {
+      "path": "articles/leetcode-11-container-with-most-water.md",
+      "sha256": "19c123fa60fcc1b52928e9dd5f26c0047186eee41875bd79ed8456bc3e7aaf39",
+      "git_blob": "1f430ad463c5ad5950bc325f6e8e52994defeb43",
+      "frozen_byte_identity": true
+    },
+    {
+      "path": "articles/leetcode-11-container-with-most-water.en.md",
+      "sha256": "bef26d671d254df002821f6de25ec29e615d1b09e699275cb1685d09913e5e4f",
+      "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+      "frozen_byte_identity": true
+    },
+    {
+      "path": "articles/leetcode-207-course-schedule.md",
+      "sha256": "a701c98887b928ec908fe0bcabe2ee88666933322b3b9d35f2283eb19d29036f",
+      "git_blob": "3d342b56e7d72cee38512b4797471df618ed9dc3",
+      "frozen_byte_identity": true
+    },
+    {
+      "path": "articles/leetcode-207-course-schedule.en.md",
+      "sha256": "4886bca8368f4d6432c096fffd547f55da391eb4c0958c08752d2f9fc634a513",
+      "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+      "frozen_byte_identity": true
+    }
+  ],
+  "semantic_verification": "PENDING_INDEPENDENT_READER",
+  "learner": "NOT_OBSERVED",
+  "installed_utc": "2026-10-21T04:10:13.512240+00:00"
+}

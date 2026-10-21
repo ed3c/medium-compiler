@@ -1,5 +1,8 @@
 # 最新兩篇文章的雙語網站交付
 
+以下保留 `04cbab1` 網站接入輪的歷史範圍與觀察；後續使用者明確要求的收合目錄、
+逐段註解與 speed-reading Owner 交付見[閱讀介面審查](reading-interface-review.md)。
+
 使用者兩輪釐清均選 A：收錄 Container With Most Water 與 Course Schedule 的完整英繁稿；
 加入首頁／Articles 列表、各語言標題目錄與切換；同步修正未來產文交付契約。
 交付止於可部署產物、真實 browser、原 PR81／CI，不 merge、不部署。

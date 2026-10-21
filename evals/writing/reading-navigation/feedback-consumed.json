@@ -1,0 +1,47 @@
+[
+  {
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass/observed/selection.json",
+      "sha256": "efc4595269f553905a8fce823bb40db8a3b0b83f8394517029fadac548e7809b"
+    },
+    "next_operation": "consume_verified_behavior",
+    "action_taken": "Parent Session read the actual consumer outputs/captures and consumed the reported-action result. Annotation semantics are reviewed separately; no merge or deployment authorized.",
+    "observation_scope": "consumer_report",
+    "authorizes_landing": false,
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ]
+  },
+  {
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-owner/observed/selection.json",
+      "sha256": "afddbcdb67ad4fe1fdf466b7738e65db6c745ac040667651de5307caa1589bed"
+    },
+    "next_operation": "consume_verified_behavior",
+    "action_taken": "Parent Session read the actual consumer outputs/captures and consumed the reported-action result. Annotation semantics are reviewed separately; no merge or deployment authorized.",
+    "observation_scope": "consumer_report",
+    "authorizes_landing": false,
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ]
+  },
+  {
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-skeleton/observed/selection.json",
+      "sha256": "c6ea72c9cc744632e325e689563620ed1d1a7183d364791b03205df088318bea"
+    },
+    "next_operation": "consume_verified_behavior",
+    "action_taken": "Parent Session read the actual consumer outputs/captures and consumed the reported-action result. Annotation semantics are reviewed separately; no merge or deployment authorized.",
+    "observation_scope": "consumer_report",
+    "authorizes_landing": false,
+    "limits": [
+      "File digests bind bytes, not observer independence or complete capture.",
+      "Field equality checks reported behavior, not unobserved effects.",
+      "No formal writing compliance or comparative improvement is established."
+    ]
+  }
+]

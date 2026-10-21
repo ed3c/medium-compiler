@@ -1,0 +1,18 @@
+[
+  {
+    "id": "F1",
+    "severity": "bounded wording/source-scope failure",
+    "rows": [
+      "water:p22"
+    ],
+    "duplicate_surfaces": [
+      "water.zh.html",
+      "water.en.html"
+    ],
+    "note_quote": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+    "source_quote": "Reading height[left] retrieves an element without removing it. Assigning that value to left_height binds a local name; it does not copy the list. Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height. An assignment targeting an item such as height[left] would write that item; no such assignment occurs here. The input remains available to the caller. Python assignments, numeric types.",
+    "failure": "note「只有針對 height item 的 assignment 才會寫回」與context「只有 item assignment 才是另一種操作」帶排他性。來源僅說 item assignment 會寫入及展示程式沒有這種操作，沒有聲稱它是所有修改 list 的唯一機制。若限定為本程式 reads/bindings，保留輸入的重建成立；排他一般化不可接受。",
+    "counterexample": "合法起始height=[2,5]，height.append(1)也修改原list而沒有item assignment；排他措辭超出所鏈來源。",
+    "scope": "不否定展示程式的 input-preservation。不是執行到的程式 bug。"
+  }
+]

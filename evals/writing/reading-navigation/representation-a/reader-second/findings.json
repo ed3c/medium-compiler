@@ -1,0 +1,28 @@
+{
+  "review_round": 2,
+  "current_unresolved_findings": [],
+  "historical_findings": [
+    {
+      "id": "F1",
+      "row": "water:p22",
+      "first_round_status": "FAIL_SOURCE_SCOPE; RECONSTRUCTION_PASS_BOUNDED",
+      "second_round_status": "RESOLVED_IN_SECOND_FROZEN_CONTENT",
+      "original_note": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+      "original_failure": "note「只有針對 height item 的 assignment 才會寫回」與context「只有 item assignment 才是另一種操作」帶排他性。來源僅說 item assignment 會寫入及展示程式沒有這種操作，沒有聲稱它是所有修改 list 的唯一機制。若限定為本程式 reads/bindings，保留輸入的重建成立；排他一般化不可接受。",
+      "current_note": "此實作讀取 height[left]、綁定 locals，並以 left += 1 重新綁定 immutable integer，不修改 input list；item assignment 會寫入 item，但這裡沒有這種 assignment。",
+      "basis": "原F1的排他note及premise均已移除；新context明確否認把item assignment當所有mutation必要條件。完整新註解與所鏈source未見剩餘條件缺漏。",
+      "counterexample_retained": "height=[2,5]合法起始，height.append(1)無item assignment卻會修改list；新註解限定原程式且拒絕一般必要條件，已不推出這個錯誤。這不是原函式出現append的證據。",
+      "first_round_artifacts_preserved": true
+    },
+    {
+      "id": "H2",
+      "row": "course:p07",
+      "kind": "newly recognized historical wording-direction ambiguity, not a current candidate failure",
+      "first_round_recorded_status": "PASS_BOUNDED",
+      "second_round_status": "PASS_BOUNDED after actual wording change",
+      "original_note": "每次求值 [] 才有獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+      "current_note": "此 comprehension 對每門課分別求值 []，會產生獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+      "limit": "首次未將「才有」的必要方向歧義單列；不能宣稱第二輪只修一項或首次已發現此問題。此處如實記錄，首次原audit不改。"
+    }
+  ]
+}

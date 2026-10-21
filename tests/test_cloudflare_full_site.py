@@ -59,7 +59,8 @@ class FullCloudflareSiteTests(unittest.TestCase):
             self.assertIn('href="https://medium-compiler.ga874199.workers.dev/reliability/"',(out/'index.html').read_text())
             for path in out.rglob('article.md'):
                 slug=path.parent.name
-                self.assertEqual(path.read_bytes(),(ROOT/'articles'/f'{slug}.md').read_bytes())
+                expected=ROOT/source['source']['path'] if slug=='alg-four' else ROOT/'articles'/f'{slug}.md'
+                self.assertEqual(path.read_bytes(),expected.read_bytes())
             self.assertFalse((out/'deployment.json').exists())
             self.assertFalse(result['deployment_manifest'])
 

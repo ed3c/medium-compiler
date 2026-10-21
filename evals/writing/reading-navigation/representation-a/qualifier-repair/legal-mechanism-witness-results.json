@@ -1,0 +1,53 @@
+{
+  "water_legal_alternative": {
+    "code": "height=[2,5]; height.append(1)",
+    "before": [
+      2,
+      5
+    ],
+    "after": [
+      2,
+      5,
+      1
+    ],
+    "same_list_identity": true,
+    "contains_item_assignment": false
+  },
+  "displayed_function": {
+    "extracted_code": "class Solution:\n    def maxArea(self, height: list[int]) -> int:\n        left = 0\n        right = len(height) - 1\n        best = 0\n\n        while left < right:\n            left_height = height[left]\n            right_height = height[right]\n            area = (right - left) * min(left_height, right_height)\n            best = max(best, area)\n\n            if left_height <= right_height:\n                left += 1\n            else:\n                right -= 1\n\n        return best\n",
+    "input": [
+      2,
+      5
+    ],
+    "after": [
+      2,
+      5
+    ],
+    "answer": 2,
+    "preserves_input_for_this_case": true
+  },
+  "course_legal_alternative": {
+    "code": "after=[list() for _ in range(2)]; after[0].append(1)",
+    "result": [
+      [
+        1
+      ],
+      []
+    ],
+    "distinct_inner_lists": true,
+    "uses_empty_list_literal_allocation": false
+  },
+  "course_repetition_control": {
+    "code": "after=[[]]*2; after[0].append(1)",
+    "result": [
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "shared_inner_list": true
+  },
+  "limit": "These are concrete counterexamples to exclusive mechanism wording, not exhaustive function verification or learner evidence."
+}

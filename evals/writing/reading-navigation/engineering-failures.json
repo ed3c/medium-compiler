@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "loader-extraction",
+    "actual_error": "NameError: name items is not defined",
+    "repair": "Bind active_items from the validated manifest in render_alg_four; source and render semantics unchanged."
+  },
+  {
+    "kind": "stale-test-condition",
+    "actual_error": "assertNotIn class alg-stress failed for four language pages after reviewed stress was added",
+    "repair": "Assert displayed spans exactly match the reviewed source-bound token ranges; preserve unverified-word refusal controls."
+  },
+  {
+    "kind": "criteria-format",
+    "actual_error": "criteria_review expected fields: checks, protocol_sha256, reviewer, schema",
+    "repair": "Preserve the original review; materialize only its required four keys. The supported condition judgments were unchanged."
+  },
+  {
+    "kind": "mobile-hover-interception",
+    "actual_error": "Desktop mouse emulation opened the mobile modal on pointerenter before the tap/click, intercepting activation.",
+    "repair": "Limit hover opening to nonmobile viewports; keep real tap, no force click."
+  },
+  {
+    "kind": "raw-source-alias-test",
+    "actual_error": "FileNotFoundError: articles/alg-four.md after adding the exact /alg-four/article.md download.",
+    "repair": "Resolve this legacy route through the existing canonical manifest source, then compare the actual download bytes."
+  },
+  {
+    "kind": "inline-link-label",
+    "actual_error": "Code within a Markdown link label rendered backticks literally after tokenizer extraction.",
+    "repair": "Render the link label with the same existing inline parser; direct literal expected-output control added."
+  },
+  {
+    "kind": "schema-output-layer",
+    "actual_error": "INCONCLUSIVE: supervisor passed a report wrapper to output_file, so raw Boolean fields were not at the expected level.",
+    "repair": "Preserve that snapshot and bind the unchanged actual consumer output.json; no consumer answer overwritten."
+  },
+  {
+    "kind": "responsive-bar-clipping",
+    "actual_error": "Source audit: mobile and midwidth max-width caps could clip unequal longer chapter bars to the same displayed width.",
+    "repair": "Scale lengths as percentages of available rail width; verify actual bounding widths preserve unequal-length ordering in Chromium."
+  },
+  {
+    "kind": "bar-edit-guard",
+    "actual_error": "AssertionError: first edit search pattern did not match the full HTML string literal; no files were written.",
+    "repair": "Read actual producer line and match the complete unit prefix."
+  },
+  {
+    "kind": "macos-test-temp-alias",
+    "actual_error": "Full discovery: 8 failures and 12 errors all originate from symlinked source path in test_learning_handoff; macOS /var is a symlink to /private/var.",
+    "repair": "Resolve only the test fixture temporary root before writing its plan. Production symlink refusal is unchanged; rerun this file then full discovery."
+  }
+]

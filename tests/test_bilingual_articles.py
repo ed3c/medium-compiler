@@ -1,5 +1,8 @@
 """Reader-visible bilingual routes and source-preserving website delivery."""
 import importlib.util
+import json
+import re
+from unittest.mock import patch
 from html.parser import HTMLParser
 from pathlib import Path
 import tempfile
@@ -59,9 +62,25 @@ class BilingualArticleTests(unittest.TestCase):
                     page = Page(text)
                     self.assertEqual(page.language, "en" if lang == "en" else "zh-Hant")
                     expected_ids = [f"section-{i}" for i in range(1, headings + 1)]
-                    self.assertEqual(page.ids, expected_ids)
+                    self.assertEqual([i for i in page.ids if i.startswith("section-")], expected_ids)
                     self.assertEqual(len(page.ids), len(set(page.ids)))
-                    self.assertTrue(all("#" + target in page.links for target in expected_ids))
+                    self.assertTrue(all('data-target-id="'+target+'"' in text for target in expected_ids))
+                    manifest=json.loads((directory.parent / "source.json" if lang=="en" else directory / "source.json").read_text())
+                    count=manifest["alignment"]["paragraph_count"]
+                    self.assertEqual(text.count('class="alg-four-annotation"'),count)
+                    self.assertEqual(text.count('class="reading-rail-mark"'),headings+1)
+                    self.assertIn('aria-expanded="false"',text)
+                    reviewed_stress=sum(len(token.get('stress',[])) for note in manifest['paragraph_annotations']
+                                        for token in note['speed_reading']['tokens'])
+                    self.assertEqual(text.count('class="alg-stress"'),reviewed_stress)
+                    self.assertEqual(manifest['annotation_authority'],'speed-reading')
+                    self.assertEqual(text.count('class="alg-reading-context"'),count)
+                    self.assertEqual(text.count('閱讀提示（非獨立結論）'),count)
+                    for note in manifest['paragraph_annotations']:
+                        context=note['reading_context']
+                        self.assertTrue(context['premises'])
+                        self.assertIn('checkpoint',context)
+                    self.assertEqual([i for i in page.ids if i.startswith("alg-p-")],[f"alg-p-{i}" for i in range(count)])
                     self.assertIn(route + download, page.links)
                     self.assertIn(route + ("en/" if lang == "zh-TW" else ""), page.links)
                     approved = ROOT / "evals/writing/leetcode-cost-premises" / case / f"article.{lang}.md"
@@ -70,15 +89,45 @@ class BilingualArticleTests(unittest.TestCase):
                     self.assertNotIn("evals/writing/", text)
         self.assertFalse((self.out / "evals").exists())
 
-    def test_contents_ignore_fences_and_keep_duplicate_and_nested_headings_addressable(self):
-        fence = chr(96) * 3
-        source = "# Title\n\n## Same\n\n" + fence + "python\n## Hidden\n" + fence + "\n\n## Same\n\n### Nested"
-        rendered, contents = site.article_contents(site.markdown(source))
-        self.assertEqual(Page(rendered).ids, ["section-1", "section-2", "section-3"])
-        self.assertEqual(Page(contents).links, ["#section-1", "#section-2", "#section-3"])
-        self.assertNotIn("Hidden", contents)
-        self.assertIn("<pre><code>## Hidden</code></pre>", rendered)
-        self.assertIn('class="toc-level-3"', contents)
+    def test_duplicate_nested_headings_and_fenced_heading_have_unique_source_targets(self):
+        item=next(item for item in site.ARTICLES if item.get('bilingual'))
+        *_,projection=site.load_article_annotations(ROOT/item['annotations'])
+        fence=chr(96)*3
+        source='# Title\n\n## Same\n\n'+fence+'python\n## Hidden\n'+fence+'\n\n## Same\n\n### Nested'
+        rendered,outline,_,_=projection.render_outline(site.markdown(source),[],{}, {},heading_prefix='section-')
+        self.assertEqual(Page(rendered).ids,['article-title','section-1','section-2','section-3'])
+        self.assertNotIn('Hidden',outline)
+        self.assertIn('<pre><code>## Hidden</code></pre>',rendered)
+
+    def test_emphasis_is_rendered_but_code_stars_and_unsafe_text_stay_literal(self):
+        self.assertEqual(site.inline("A *mutable* list; `x * y` and `**a**`"),
+                         "A <em>mutable</em> list; <code>x * y</code> and <code>**a**</code>")
+        self.assertEqual(site.inline("<script>"),"&lt;script&gt;")
+        self.assertEqual(site.inline("[`ord`](https://docs.python.org/3.14/library/functions.html#ord)"),
+                         '<a href="https://docs.python.org/3.14/library/functions.html#ord" target="_blank" rel="noreferrer"><code>ord</code></a>')
+
+    def test_notes_refuse_missing_coverage_and_empty_active_quotes_without_extra_sha256(self):
+        item=next(item for item in site.ARTICLES if item.get("bilingual"))
+        manifest=ROOT/item['annotations']
+        original=json.loads(manifest.read_text())
+        for failure in ('omitted','empty_quote','bad_support','missing_layout','missing_context','empty_premises','missing_checkpoint','bad_context_quote'):
+            data=json.loads(manifest.read_text())
+            if failure=='omitted': data['paragraph_annotations'].pop()
+            elif failure=='empty_quote': data['active_items'][0]['source_quote']=''
+            elif failure=='missing_layout': del data['paragraph_annotations'][0]['speed_reading']
+            elif failure=='missing_context': del data['paragraph_annotations'][0]['reading_context']
+            elif failure=='empty_premises': data['paragraph_annotations'][0]['reading_context']['premises']=[]
+            elif failure=='missing_checkpoint': del data['paragraph_annotations'][0]['reading_context']['checkpoint']
+            elif failure=='bad_context_quote': data['paragraph_annotations'][0]['reading_context']['premises'][0]['supporting_sources'][0]['english_quote']='Absent prerequisite'
+            else: data['active_items'][0]['supporting_sources']=[{'paragraph_index':0,'english_quote':'Invented supporting premise'}]
+            with tempfile.TemporaryDirectory() as td:
+                candidate=Path(td)/'manifest.json'
+                candidate.write_text(json.dumps(data))
+                with self.assertRaisesRegex(ValueError,'every original prose paragraph|source paragraph, decision or sentence|supporting premise|complete reading view|requires premises|exact supporting source'):
+                    site.load_article_annotations(candidate)
+        with patch.object(site.hashlib,'sha256',side_effect=AssertionError('No report-only SHA-256')):
+            site.load_article_annotations(manifest)
+        self.assertEqual(json.loads(manifest.read_text()),original)
 
     def test_incomplete_metadata_is_refused_instead_of_rendering_a_language_fallback(self):
         with tempfile.TemporaryDirectory() as td:

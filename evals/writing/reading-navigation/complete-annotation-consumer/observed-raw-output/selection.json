@@ -1,0 +1,24 @@
+{
+  "criteria_review": {
+    "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/criteria-review.json",
+    "sha256": "ad3dd28109194d55272036578df26a97c7aa0706e18d7e2fad2f675bd1e2a261"
+  },
+  "observations": [
+    {
+      "case_id": "annotation-owner",
+      "report": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/observed-raw-output-reports/annotation-owner.json",
+        "sha256": "8f42223024c075f5fc75d82190abd76807770ac449fb0d782e532918b703215e"
+      },
+      "trace": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/consumer/trace.json",
+        "sha256": "0d19fa7f3ad4dc28f476a574c1debcdb0597a1554f2f64dfe2eaa6d184dbed2c"
+      }
+    }
+  ],
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/protocol.json",
+    "sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0"
+  },
+  "schema": 2
+}

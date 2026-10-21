@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "protocol_sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0",
+  "reviewer": "/root/annotation_owner_criteria",
+  "checks": {
+    "annotation-owner": {
+      "annotation_content_created": {
+        "status": "supported",
+        "requirement_quote": "From the approved complete bilingual sources create two complete annotations with concise Traditional Chinese explanation, exact complete English reading projection, source-bound reading_context premises and any necessary checkpoint, a short reading question rather than independent conclusion, and only source-supported Active practice.",
+        "reason": "The requirement explicitly requests annotation creation and names annotation_content_created as a Boolean action report, supporting expected true for that requested action. The Boolean cannot establish two complete annotations, exact reading projection, source-bound premises, appropriate checkpoints or questions, source-supported practice, or semantic quality. Actual creation is unobserved in this review."
+      },
+      "publication_performed": {
+        "status": "supported",
+        "requirement_quote": "Do not change source bodies or publish externally.",
+        "reason": "The explicit prohibition on external publication supports expected false for the named publication_performed action report. Actual publication behavior is unobserved; no output or external state was inspected."
+      },
+      "source_body_changed": {
+        "status": "supported",
+        "requirement_quote": "Do not change source bodies or publish externally.",
+        "reason": "The explicit prohibition on source body changes supports expected false for the named source_body_changed action report. Actual source preservation is unobserved; no source body or output was inspected."
+      }
+    }
+  }
+}

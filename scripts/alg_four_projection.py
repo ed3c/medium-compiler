@@ -96,20 +96,77 @@ def scan_reading(english: str, decision_id: str) -> str:
     return ''.join(result)
 
 
-def note_html(i: int, note: dict, decisions: dict, index_items: dict) -> str:
+def render_speed_reading(layout: dict, english: str) -> str:
+    tokens=layout.get('tokens',[])
+    if not tokens or ''.join(token.get('text','') for token in tokens)!=english:
+        raise ValueError('Speed-reading projection must preserve exact English source')
+    skeleton=layout.get('skeleton','')
+    if not skeleton or len(skeleton.split())>15:
+        raise ValueError('Speed-reading skeleton must contain at most 15 words')
+    out=[]
+    for token in tokens:
+        boundary=token.get('break_before')
+        if boundary not in (None,'minor','major'):
+            raise ValueError('Unknown speed-reading boundary')
+        if boundary:
+            out.append('<span class="alg-'+('major' if boundary=='major' else 'minor')+'-break">'+('//' if boundary=='major' else '/')+'</span>'+('<br>' if boundary=='major' else ''))
+        text=token['text']
+        cursor=0
+        body=[]
+        for stress in token.get('stress',[]):
+            start,end=stress.get('start'),stress.get('end')
+            if (not isinstance(start,int) or not isinstance(end,int) or not cursor<=start<end<=len(text)
+                    or not stress.get('source','').startswith('https://')
+                    or not stress.get('word') or not stress.get('pronunciation')):
+                raise ValueError('Speed-reading stress needs a valid range and pronunciation evidence')
+            word=next((match for match in re.finditer(r'[A-Za-z]+',text)
+                       if match.start()<=start<end<=match.end()),None)
+            if (not word or word.group().casefold()!=stress['word'].casefold()
+                    or word.group().casefold() in {'a','an','the','in','on','of','to','from','with','over','by','without','can','will','is','are','have','and','or','that','which'}):
+                raise ValueError('Speed-reading stress must stay inside a content-word spelling')
+            body.extend((html.escape(text[cursor:start]),'<strong class="alg-stress">'+html.escape(text[start:end])+'</strong>'))
+            cursor=end
+        body.append(html.escape(text[cursor:]))
+        rendered=''.join(body)
+        if token.get('bundle'):
+            rendered='<span class="alg-bundle"><span class="alg-reading-mark">[</span>'+rendered+'<span class="alg-reading-mark">]</span></span>'
+        out.append(rendered)
+    return ''.join(out)
+
+
+def note_html(i: int, note: dict, decisions: dict, index_items: dict, *, plain_reading=False) -> str:
     esc = html.escape
     kind = note['kind']
     decision_id = note['decision_ids'][0]
     decision = decisions[decision_id]
     label = "Passive + Active" if kind == "PASSIVE_AND_ACTIVE" else "Passive"
+    english = note.get('english_source', decision['passive'])
+    if note.get('speed_reading'):
+        reading=render_speed_reading(note['speed_reading'],english)
+        plain_reading=False
+    else:
+        reading = esc(english) if plain_reading else scan_reading(english, decision_id)
     out = [
         f'<div class="alg-four-annotation" data-alg-four-role="{kind}">',
-        f'<p class="alg-four-label">{label} · {esc(", ".join(note["decision_ids"]))}</p>',
+        f'<p class="alg-four-label">{label} · {esc(decision["title"])}</p>',
         f'<p class="alg-four-zh">{esc(note["zh_note"])}</p>',
-        '<p class="alg-reading-label">Passive · 模式 C 語塊閱讀</p>',
-        f'<p class="alg-reading-text" lang="en">{scan_reading(note.get("english_source", decision["passive"]), decision_id)}</p>',
-        '<p class="alg-source-explain">衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。</p>'
+        '<p class="alg-reading-label">Passive · '+('【極速流暢標註文本】' if note.get('speed_reading') else ('Source English' if plain_reading else '模式 C 語塊閱讀'))+'</p>',
+        f'<p class="alg-reading-text" lang="en">{reading}</p>',
+        '<p class="alg-source-explain">'+('忠實英文原段落；未加入未核對的重音或語塊標記。' if plain_reading else '衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。')+'</p>'
     ]
+    context=note.get('reading_context')
+    if context:
+        def context_statement(statement, label, class_name):
+            links=' · '.join(
+                '<a href="#alg-p-'+str(source['paragraph_index'])+'" data-target-id="alg-p-'+str(source['paragraph_index'])+'">第 '+str(source['paragraph_index']+1)+' 段</a>'
+                for source in statement['supporting_sources'])
+            return '<p class="'+class_name+'"><strong>'+label+'</strong>：'+esc(statement['text'])+' <span class="alg-context-sources">'+links+'</span></p>'
+        out.append('<div class="alg-reading-context">')
+        for premise in context['premises']:
+            out.append(context_statement(premise,'適用前提','alg-premise'))
+        if context['checkpoint']:
+            out.append(context_statement(context['checkpoint'],'判讀時點','alg-checkpoint'))
+        out.append('</div>')
     skeleton = note.get('passive_skeleton')
     if skeleton:
         # One decision-bound cognitive cue, not a replacement for the source.
@@ -117,11 +174,22 @@ def note_html(i: int, note: dict, decisions: dict, index_items: dict) -> str:
             raise ValueError('ALG Four Mode C skeleton must be concise and source-bound')
         out.append('<p class="alg-skeleton"><strong>極簡認知骨架</strong>：'
                    + esc(skeleton) + '</p>')
+    if note.get('speed_reading'):
+        out.append('<p class="alg-skeleton"><strong>閱讀提示（非獨立結論）</strong>：'+esc(note['speed_reading']['skeleton'])+'</p>')
     for item in index_items.get(i, []):
         out.append('<div class="alg-active-word">'
                    f'<span class="alg-active-term">{esc(item["term"])}</span>'
                    f'<span lang="en">{esc(item["english_sentence"])}</span></div>')
-    if kind == 'PASSIVE_AND_ACTIVE':
+        supports=item.get('supporting_sources',[])
+        if supports:
+            out.append('<p class="alg-supporting-sources">推導前提：'+ ' · '.join(
+                '<a href="#alg-p-'+str(support['paragraph_index'])+'" data-target-id="alg-p-'+str(support['paragraph_index'])+'">第 '+str(support['paragraph_index']+1)+' 段</a>'
+                for support in supports)+'</p>')
+        if item.get('active_cue') and item.get('oracle'):
+            out.append('<details class="alg-four-recall"><summary>Active · 自行表達後核對</summary>'
+                       '<p lang="en">'+esc(item['active_cue'])+'</p><details><summary>Oracle · 嘗試後展開</summary>'
+                       '<p lang="en">'+esc(item['oracle'])+'</p></details></details>')
+    if kind == 'PASSIVE_AND_ACTIVE' and not all(item.get('active_cue') and item.get('oracle') for item in index_items.get(i, [])):
         cues = ' '.join(decisions[x]['active_cue'] for x in note['decision_ids'])
         oracles = ' '.join(decisions[x]['oracle'] for x in note['decision_ids'])
         out.append('<details class="alg-four-recall"><summary>Active · 自行表達後核對</summary>'
@@ -132,7 +200,8 @@ def note_html(i: int, note: dict, decisions: dict, index_items: dict) -> str:
     return ''.join(out)
 
 
-def render_outline(source_html: str, notes: list[dict], decisions: dict, index_items: dict):
+def render_outline(source_html: str, notes: list[dict], decisions: dict, index_items: dict, *,
+                   language='zh-Hant', heading_prefix='alg-heading-', plain_reading=False):
     """Return DOM-anchored source HTML and hierarchical right-hand sidecar.
 
     A human-readable HTML source can be recovered by deleting only ID/data
@@ -151,7 +220,8 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
         start, end = token.span()
         if token.group(1):
             level = int(token.group(1))
-            heading_id = f'alg-heading-{heading_index}'
+            heading_id = ('article-title' if heading_prefix=='section-' and heading_index==0
+                          else f'{heading_prefix}{heading_index}')
             heading_index += 1
             replacements.append((start, end,
                                  f'<h{level} id="{heading_id}" data-alg-heading="{heading_index - 1}">'
@@ -199,7 +269,7 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
                 f'<details class="alg-outline-paragraph" data-outline-index="{i}">'
                 f'<summary data-outline-link="{i}" data-target-id="alg-p-{i}">'
                 f'<span class="alg-paragraph-num">{i+1:02}</span> {esc(node["title"])}</summary>'
-                + note_html(i, note, decisions, index_items)
+                + note_html(i, note, decisions, index_items, plain_reading=plain_reading)
                 + '</details>'
             )
         contents = ''.join(create_nav(child) for child in node['children'])
@@ -212,13 +282,37 @@ def render_outline(source_html: str, notes: list[dict], decisions: dict, index_i
             '</details>'
         )
 
+    # One rail mark per top-level chapter, including the introduction.
+    chapters = list(re.finditer(r'<h([12]) id="([^"]+)"[^>]*>(.*?)</h\1>', annotated, re.S))
+    sizes=[]
+    for j, chapter in enumerate(chapters):
+        end=chapters[j+1].start() if j+1<len(chapters) else len(annotated)
+        section=annotated[chapter.end():end]
+        sizes.append((chapter.group(2), plain_text(chapter.group(3)),
+                      len(plain_text(section)), section.count('data-alg-four-index=')))
+    largest=max((size[2] for size in sizes),default=1) or 1
+    bars=''.join(
+        '<span class="reading-rail-mark" data-chapter-target="'+esc(target)+'" '
+        'style="--chapter-length:'+str(round(35+65*length/largest,1))+'%"></span>'
+        for target,title,length,count in sizes)
+    en=language=='en'
+    title='Contents & notes' if en else '目錄與段落註解'
+    help_text=('Choose a chapter or paragraph. Yellow terms have source-bound speaking prompts.' if en else
+               '選擇章節或段落；黃色詞彙附有來源支持的自述核對。')
+    chapter_count=len(sizes)
     nav = (
-        '<aside class="alg-four-sidebar" aria-label="ALG Four 文章索引與英語註解">'
-        '<details class="alg-sidebar-shell" open>'
-        '<summary class="alg-sidebar-toggle">文章索引 · ALG Four <span>Active / Passive</span></summary>'
-        '<p class="alg-sidebar-help">點擊標題或段落定位；閱讀時自動展開所在章節。'
-        '黃色表示 Active 詞彙；Passive 語塊是衍生閱讀層，不改動正文。</p>'
-        '<nav class="alg-outline-nav" aria-label="文章大綱與段落連結">'
-        + create_nav(root) + '</nav></details></aside>'
+        '<aside class="alg-four-sidebar" aria-label="'+title+'">'
+        '<button class="reading-rail" type="button" aria-haspopup="dialog" '
+        'aria-controls="reading-contents" aria-expanded="false" aria-label="'+title+' · '
+        +str(chapter_count)+(' chapters · ' if en else ' 章 · ')+str(p_index)+(' paragraphs' if en else ' 段')+'">'
+        '<span class="reading-rail-bars" aria-hidden="true">'+bars+'</span>'
+        '<span class="reading-rail-position" aria-hidden="true">1/'+str(chapter_count)+'</span></button>'
+        '<dialog id="reading-contents" class="reading-dialog" aria-labelledby="reading-dialog-title">'
+        '<div class="reading-dialog-header"><h2 id="reading-dialog-title">'+title+'</h2>'
+        '<button class="reading-dialog-close" type="button" aria-label="'+('Close contents' if en else '關閉目錄')+'">×</button></div>'
+        '<p class="reading-count">'+str(chapter_count)+(' chapters · ' if en else ' 章 · ')+str(p_index)+(' paragraphs' if en else ' 段')+'</p>'
+        '<p class="alg-sidebar-help">'+help_text+'</p>'
+        '<nav class="alg-outline-nav" aria-label="'+title+'">'
+        + create_nav(root) + '</nav></dialog></aside>'
     )
     return annotated, nav, p_index, heading_index

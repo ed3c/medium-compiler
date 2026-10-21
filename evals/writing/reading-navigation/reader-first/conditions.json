@@ -1,0 +1,25 @@
+{
+  "role": "fresh independent Reader",
+  "scope": "83 speed_reading projections and Active oracle supporting_sources",
+  "allowed_inputs": [
+    ".agents/skills/speed-reading/SKILL.md",
+    "references/learning/alg-four-container-with-most-water.json",
+    "references/learning/alg-four-course-schedule.json",
+    "four full body files pointed to by the manifests",
+    "scripts/alg_four_projection.py render_speed_reading only if needed"
+  ],
+  "prohibited_inputs": [
+    "other agent self-reviews",
+    "old evidence",
+    "expected answers",
+    "other environment variables or tokens"
+  ],
+  "method": "Paragraph-by-paragraph semantic audit; lossless checks are supporting evidence only. No private technical knowledge fills source gaps.",
+  "writes": "this temporary evidence directory only; no manifest edits or publishing",
+  "human_reading": "NOT_OBSERVED",
+  "human_speed": "NOT_OBSERVED",
+  "learning_effect": "NOT_OBSERVED",
+  "carrier": {
+    "CODEX_THREAD_ID": "01a15c79-7344-7bd1-84bb-6817ee643567"
+  }
+}
