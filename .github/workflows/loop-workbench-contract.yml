@@ -146,7 +146,7 @@ jobs:
         run: |
           bun --version
           bun -p process.versions.typescript
-          bun check --no-script
+          bun check
           bun --bun run test
         timeout-minutes: 5
       - name: Real isolated tsrs Rust WASM in-memory diagnostics
