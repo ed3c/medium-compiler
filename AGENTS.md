@@ -257,3 +257,7 @@ Environment 展示時，先讀
 新 Preview 隔離於現有 Vercel Production／Cloudflare Lab；Viewer 不得透過
 TanStack Start Server Functions 取得 Host／Provider／Training Effect 權限。
 視覺造型、交互動畫、Fixture 與 Published Snapshot 都不能證明 Native 執行。
+
+## Visualization integration (VIZ-01–04)
+
+Use [the frozen visualization integration decision and acceptance report](docs/visualization-integration.md). The main article/Cloudflare contracts and ViewEnv Q1–Q36 remain unchanged. Noodle owns canonical graph display; the reviewed public artifact reader cannot retrieve Host-private source. Only registered, visually reviewed SVG assets may replace article Mermaid fences at build time. No duplicate Renderer authority, new P-class Gate or Production deployment follows from this pointer.

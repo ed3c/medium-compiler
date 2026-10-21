@@ -30,3 +30,7 @@ or dispatch original Owner effects. Do not assume the manifest itself
 certifies upstream artifact body digests; the eventual static importer
 remains authoritative and the browser content reader must verify each
 public artifact's digest before exposing its text.
+
+## Visualization extension, VIZ-01–04
+
+See ../../docs/visualization-integration.md. Noodle remains the canonical geometry/evidence graph producer. Public artifact payloads are resolved through the digest-bound `src/public-artifact.mjs` reader only. No live Host or production deployment is implied.
