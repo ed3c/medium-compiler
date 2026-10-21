@@ -35,6 +35,50 @@ This is a writing skill, not a generic summarizer. A reader should be able to ex
 the main design follows from the stated constraints and what happens to one concrete input
 at runtime.
 
+## Original article immutability under English annotations
+
+For the **ordinary v4 composition**, the `leetcode-mental` skill owns technical derivations and this `medium-writing` contract owns the article's prose and accepted bytes. For the separately selected **complete LeetCode Medium article profile**, `leetcode-mental` owns and approves the full English and zh-TW article content, while `medium-writing` owns **only Medium formatting and deterministic assembly** of that approved content. See [the canonical article-content profile](.agents/skills/leetcode-mental/references/article-content-profile.md); it is not a new CLI stage or another writer. `alg-four`
+projects zh-TW Passive/Active explanations and English source-bound production
+sentences in a **right-hand, source-paragraph-indexed outline**, not inside or below the original prose, never rewriting the article
+into four passes or creating alternative narrative text. A source change
+invalidates the pinned paragraph annotation. The 2,000 Active word/phrase
+and 2,000 linked-sentence goal is a deduplicated, source-linked corpus
+**across articles**, not a mandatory per-article length.
+
+## Selected complete LeetCode article profile — format-only consumer
+
+Only when the task is to publish or assemble a **complete LeetCode Medium article**, the specialized [leetcode-mental profile](.agents/skills/leetcode-mental/references/article-content-profile.md) is the **sole Content Owner**. It writes the complete English technical narrative, approves sloptrim changes (or honestly reports NOT_RUN), reviews source fidelity, translates into Traditional Chinese retaining exact English technical terms, checks translation and freezes one coherent article edition. Source-grounded decision questions, runtime data flow, language mechanisms, correctness, proof, alternatives, complexity, full code and interview answers all belong to that upstream content.
+
+In that selected route, medium-writing **does not create or edit substantive prose**. It checks the handoff, adapts Medium-native headings/flow, locations of dynamically necessary figures, readable code fences, captions/alt text and split delivery parts while preserving approved semantic content. Neither article sections nor figures have a fixed universal count. Reject or return a missing claim, repeated explanation, wrong runtime arrow, changed qualifier or a needed content rewrite to leetcode-mental **before** format admission. Image creation is optional and only occurs on explicit user request.
+
+The approved content goes through the **existing** Stage 0–7 CLI using existing accepted stage inputs and coverage. Stage 6 for this route is limited to presentation and nonsemantic normalization; Stage 7 remains exact assembly. No new CLI status, source digest guessed by the model, pass-specific rewriting, learner status, or publisher is implied. A delivery Part is a contiguous segment of **one approved edition**; do not concatenate earlier draft variants. `alg-four` consumes identical accepted article bytes as an independent downstream annotator.
+
+For other article domains, this writing contract remains the source of English-first authoring, sloptrim, translation and editorial review.
+
+## Invariant-centered Zero Context granularity
+
+For any technical article, make one meaningful constraint traceable through
+the **answer or architecture first**, governing invariant/contract, exact state
+representation, concrete input-to-output runtime, an applicable simpler
+alternative, the earliest falsifying failure case, an independent verification
+condition and a reader reconstruction cue. This is a **source-preserving prose
+standard**, not a fixed heading count. Explain a mechanism only where it
+changes a decision or runtime state. A model's or diagram's hypothetical
+steps cannot be relabeled as observed code/provider behavior.
+
+The user-specified ALG-LeetCode Mental Simulator v4.0 offers a more exact
+LeetCode-only [teaching contract](.agents/skills/leetcode-mental/references/v4-contract.md):
+five anchors, English invariant, truthful Program Movie, complete reference
+code, four single-turn cognitive passes, same-page reconstruction/Oracle Diff,
+proof, complexity, counterexample and English interview script. General
+architecture/database/Agent articles must keep their actual Domain questions,
+Owner/permission, and proof limits; do not invent code or append fourteen
+unnecessary sections to satisfy an algorithm-only format. The linked
+[Medium example reference](.agents/skills/leetcode-mental/references/medium-reference.md)
+is a style pointer whose full text was not independently retrievable; the
+user's supplied v4 specification defines the operational teaching requirements.
+Proof and mastery remain separate from layout and a successful compiler receipt.
+
 ## Authority split
 
 Do not decide stage order, completion, claim accounting, term identity, or final-byte
@@ -119,7 +163,7 @@ compression of the article, not a place to introduce new facts.
 
 ## English-first article and bilingual fidelity
 
-The semantic writing owner first completes the English prose for the entire
+On general routes, medium-writing is the semantic writing owner; on the complete LeetCode article route, the upstream leetcode-mental Content Owner completes and approves the same English/sloptrim/translation work before formatter handoff. The semantic writing owner first completes the English prose for the entire
 requested article, or the currently admitted incremental unit. Before making
 a Traditional Chinese translation, apply the upstream
 [sloptrim](.agents/skills/sloptrim/SKILL.md) skill to this English
@@ -149,7 +193,7 @@ its legal patch/submit. Neither process creates a new compiler stage.
 
 ## Stage 6 — Natural prose after semantic freeze
 
-Treat the Stage 1-5 semantic draft as frozen meaning. Rewrite expression, not technical
+Treat the Stage 1-5 semantic draft as frozen meaning. On the complete LeetCode profile, even expression-level rewriting must be sent back to the Content Owner for approval; medium-writing performs format-preserving adaptation only. On general routes, rewrite expression, not technical
 content.
 
 Prefer natural Traditional Chinese with exact English technical terms where they carry

@@ -4,6 +4,29 @@ Load ../SKILL.md first. These are reusable user-task inputs, not a copied system
 The runtime commands and fields are the ones documented in ../README.md. Uppercase
 fields below are task inputs only; they are not new CLI flags or a second state machine.
 
+## Complete LeetCode Medium article (selected profile)
+
+Use the [reusable invocation prompt](leetcode-medium-system.md) and the canonical
+[leetcode-mental content profile](../.agents/skills/leetcode-mental/references/article-content-profile.md)
+when the user explicitly requests a **complete LeetCode Medium article**.
+This is not the default for other topics or ordinary v4 Four-Pass exercises.
+
+```text
+PROFILE: COMPLETE_MEDIUM_ARTICLE
+TOPIC: <problem and full source contract>
+DELIVERY: complete | contiguous-parts
+LANGUAGE: English-first content review -> complete zh-TW with exact English technical terms
+FIGURES: dynamically derived source-grounded briefs, captions and alt text
+IMAGES: separate renders only on explicit request
+```
+
+`leetcode-mental` produces and approves the full English/zh-TW semantic article,
+its code/proof, Figure plan and source coverage **before** medium-writing consumes it.
+`medium-writing` only formats and assembles the approved content using the original
+CLI Stage 0–7, treating parts as slices of the same edition and Stage 7 as exact-byte
+assembly. If semantic deduplication or correction is needed, hand back to the
+Content Owner before reapproval. Do not add new CLI flags or invent prior stages.
+
 ## Draft or review a topic
 
 ```text

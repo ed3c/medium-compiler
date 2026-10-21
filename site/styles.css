@@ -26,3 +26,12 @@ body:has(nav a.active[href="/loops/"]) pre {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ALG Four annotates the original document instead of producing four replacement articles. */
+.alg-four-source .alg-four-annotation{border-left:3px solid #679f96;padding:.4rem .8rem .65rem;margin:.15rem 0 1.05rem;background:rgba(89,151,140,.06);font-size:.9rem}
+.alg-four-source .alg-four-annotation p{margin:.3rem 0;font-size:.9rem;line-height:1.6}
+.alg-four-source .alg-four-label{font-weight:700;color:#46766c}
+.alg-four-source .alg-four-word{margin:.3rem 0;line-height:1.5}
+.alg-four-source .alg-four-recall{margin-top:.35rem}
+.alg-four-source .alg-four-recall summary{cursor:pointer;font-weight:600}
+.alg-four-source .alg-four-recall details{margin:.45rem 0 .25rem .7rem}

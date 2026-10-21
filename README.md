@@ -61,6 +61,34 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   [Agent primitives article](articles/agent-primitives-product-differentiation.md), with the
   source/analysis boundary and Markdown download. No existing article is replaced.
 
+- [ALG-LeetCode Mental Simulator v4.0](.agents/skills/leetcode-mental/SKILL.md): LeetCode-specific
+  five anchors, English invariant, Program Movie, Answer-First, single-response
+  Four-Pass reconstruction and Oracle, proof, trade-offs and English interview.
+  [Full scoped contract](.agents/skills/leetcode-mental/references/v4-contract.md)
+  and [source/reference limitations](.agents/skills/leetcode-mental/references/medium-reference.md)
+  prevent overgeneralizing this format into all Zero Context articles.
+  [Independent LeetCode 49 example](examples/leetcode-49-group-anagrams-zero-context.md)
+  has [executable Python code](examples/leetcode-49-group-anagrams.py)
+  and focused tests; it is not the original linked Medium article.
+  For a **complete LeetCode Medium article**, select the
+  [article-content profile](.agents/skills/leetcode-mental/references/article-content-profile.md):
+  `leetcode-mental` owns full English/zh-TW article meaning, sloptrim review,
+  source fidelity, runnable code and dynamic figure briefs; `medium-writing`
+  only formats, partitions and uses the unchanged Stage 0–7 CLI. The
+  [reusable system/task prompt](prompts/leetcode-medium-system.md) is a thin
+  invocation adapter, not a second independently maintained source of truth.
+  The ordinary 14-block v4 teaching path remains available.
+- [ALG Four in-place article annotations](.agents/skills/alg-four/SKILL.md): new
+  article-wide, source-locked per-paragraph right-outline Passive/Active projection with
+  [Thinking V2/V3 routing](.agents/skills/alg-four/references/thinking-route.md),
+  overlapping Passive/Active roles in a **scroll-following right-side paragraph index**
+  instead of inline notes or four rewritten versions. Article headings are linked
+  with local anchors; expanded annotations provide yellow Active terms and a
+  conservative, source-bound Mode C Passive phrase/chunk/stress reading view.
+  The Markdown article and original rendered prose remain unchanged; includes the cumulative 2,000-item
+  Active lexicon and 2,000 linked source-grounded English sentences goal.
+  No learner performance is inferred from an annotation or its reveal. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
+  and 12-file dependency lock remain unchanged for historical Frozen lessons.
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)
 - [Planning/continuation prompts](prompts/medium-article.md)
@@ -76,6 +104,29 @@ preserved verbatim in writing-contract.md and explicitly loaded by the registere
 No user-global directory is modified. File registration is checked; actual Codex selection
 must still be verified in the user's Codex session. See [OpenAI's repository-skills example](https://developers.openai.com/zh-Hant/blog/skills-agents-sdk).
 
+## Canonical Part 7 and ALG Four reading projection
+
+The reviewed [Part 7 Traditional Chinese article](articles/leetcode-49-group-anagrams.md)
+has a complete [English-first source](articles/leetcode-49-group-anagrams.en.md),
+a Cover and six separate [SVG diagrams](site/alg-four-figures/), a runnable
+reference solution, runtime witness, proof and complexity assumptions.
+The [ALG Four bilingual manifest](references/learning/alg-four-group-anagrams.json)
+pins both sources by Git blob and binds **each actual source paragraph** to its
+English counterpart. The same full article is visible at `/alg-four/`; the
+older v4 75-paragraph case remains in `examples/` for regression teaching,
+not as this route's current source.
+
+The unchanged medium compiler can import an already-authored canonical article
+through the legal Stage 6 revision route and perform exact-byte Stage 7 assembly.
+This does **not** fabricate historical Stage 0–5 authoring or independently certify
+semantic quality. `scripts/verify_alg_four_article.py` executes that native route.
+
+The GitHub `browser-alg-four` job uses Chromium and Playwright on a built site
+for Desktop/Mobile viewport checks, paragraph anchors, scroll-following, yellow
+Active terms, keyboard access and screenshots. Mechanical CI, actual browser UI,
+source-bilingual review, learner performance and Vercel deployment are separate
+acceptance facts. A website build alone does not prove reading improvement.
+
 ## Current article
 
 [Continuous Medium article](articles/ai-engineer-learning-path.md),
@@ -87,6 +138,11 @@ explains why transaction IDs map to lists and why finding classification precede
 Its two runtime insertions and later learning-owner explanation are separately recorded; removing the three declared additions reconstructs the original article exactly.
 
 ## Writing routes
+
+For the complete LeetCode article route, semantic content is approved by `leetcode-mental`
+before `medium-writing` formats and submits the article stages. Stage 6 does not create
+new facts; Stage 7 copies exact admitted bytes. Other writing routes retain their
+original writer ownership.
 
 New articles use the existing CLI: Stage 0 contents/maps; Stage 1 problem/property/representation;
 Stage 2 witness/internals; Stage 3 alternative/cost; Stage 4 implementation/correctness;
@@ -235,14 +291,16 @@ Ops implementation remains in `ed3c/ops-reconciliation-copilot`; this repo consu
 pinned experiment snapshot for cards and explanation. Run `python3 scripts/build_site.py` to
 generate `dist/`. `vercel.json` is preview-ready.
 
-The total site stays on Vercel Hobby, owned by the ChatGPT cloud Vercel Connector
-route. Its Reliability Lab navigation opens the Cloudflare experiment subsite;
-Local Codex configures that subsite and the Access-protected payment Sandbox.
+The selected full-site host is Cloudflare Workers Static Assets, deployed locally
+with pinned Wrangler through `wrangler.full-site.jsonc`. `npm run build:cloudflare:full`
+produces the complete `dist/` and `npm run deploy:cloudflare:full` targets the separate
+`medium-compiler-full-site` Worker. Vercel remains a rollback reference.
+Reliability Lab navigation still opens its original Cloudflare origin to preserve OPFS;
+the Access-protected payment Sandbox remains separate. `npm run build:cloudflare` and
+`npm run deploy` continue to own only the existing Lab Worker.
 [Deployment, Free quotas and bounded load](docs/cloudflare-deployment.md) explains
-the cost boundary. `npm run build` produces the total site; `npm run build:cloudflare`
-produces only Lab assets for pinned Wrangler and Cloudflare native Git builds.
-The existing Vercel Lab remains readable for old-Origin OPFS evidence. Deployment and runtime
-evidence are recorded per source revision, not inferred from this configuration.
+account readback, matching-head CI, deployment and runtime acceptance. Configuration
+alone does not prove a public URL or deployed revision.
 
 The [Four-Pass technical lesson](https://medium-compiler.vercel.app/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance)
 can play a video from your device: choose **Choose local video**, select a video, then use

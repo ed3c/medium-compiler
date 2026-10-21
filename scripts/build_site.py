@@ -10,6 +10,15 @@ MAIN_ORIGIN='https://medium-compiler.vercel.app'
 LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
     {
+        "slug": "agent-handbook-zero-context",
+        "title": "Agent 不是一段 Prompt：安全修補背後的七個工程決策",
+        "description": "基於 AI Agent Handbook，透過安全修補案例追蹤 Model、Harness、Context、工具授權與完成驗證。",
+        "source": "articles/agent-handbook-zero-context.md",
+        "english_source": "articles/agent-handbook-zero-context.en.md",
+        "companion_route": "/more-route/",
+        "download_markdown": True,
+    },
+    {
         "slug": "agent-primitives-product-differentiation",
         "title": "每個人都在做 Agent，為什麼產品仍然可以不同？",
         "description": "從 Alex Atallah 的 Web 類比，思考交付條件、證據版本與每件完成工作的成本。",
@@ -127,7 +136,7 @@ def markdown(text:str)->str:
         if list_kind: out.append(f'</{list_kind}>');list_kind=None
     for raw in text.splitlines():
         line=raw.rstrip()
-        if line.startswith('```'):
+        if line.startswith('```') or line.startswith('~~~'):
             flush_p();close_list()
             if in_code:
                 out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
@@ -135,6 +144,11 @@ def markdown(text:str)->str:
             continue
         if in_code: code.append(line);continue
         if not line.strip(): flush_p();close_list();continue
+        img=re.fullmatch(r'!\[([^\]]*)\]\((https://medium-compiler\.vercel\.app/assets/alg-four/[a-z0-9-]+\.svg)\)',line)
+        if img:
+            flush_p();close_list()
+            out.append('<figure class="article-figure"><img loading="lazy" src="'+html.escape(img.group(2),quote=True)+'" alt="'+html.escape(img.group(1),quote=True)+'"></figure>')
+            continue
         m=re.match(r'^(#{1,4})\s+(.+)$',line)
         if m:
             flush_p();close_list();n=len(m.group(1));out.append(f'<h{n}>'+inline(m.group(2))+f'</h{n}>');continue
@@ -313,11 +327,134 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
                    'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
 
 
+
+def render_alg_four(out:Path)->dict:
+    """Render byte-pinned source with navigation anchors and a separate ALG Four sidecar."""
+    manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
+    raw=manifest_path.read_bytes()
+    data=json.loads(raw)
+    if (data.get('schema_version')!='alg-four-reading-projection@4'
+            or data.get('owner')!='alg-four'
+            or data.get('format')!='source_preserved_with_right_outline'):
+        raise ValueError('ALG Four requires source-preserving paragraph annotation schema')
+    source=data.get('source',{})
+    source_path=(ROOT/source.get('path','')).resolve()
+    if not source_path.is_relative_to(ROOT.resolve()) or not source_path.is_file():
+        raise ValueError('ALG Four source must resolve inside repository')
+    source_bytes=source_path.read_bytes()
+    git_blob=hashlib.sha1(f"blob {len(source_bytes)}\0".encode()+source_bytes).hexdigest()
+    if git_blob!=source.get('git_blob'):
+        raise ValueError('ALG Four pinned source blob changed without lesson revision')
+    original_html=markdown(source_bytes.decode('utf-8'))
+    english=data.get('english_source',{})
+    english_path=(ROOT/english.get('path','')).resolve()
+    if not english_path.is_relative_to(ROOT.resolve()) or not english_path.is_file():
+        raise ValueError('ALG Four aligned English source is missing')
+    english_bytes=english_path.read_bytes()
+    english_blob=hashlib.sha1(f"blob {len(english_bytes)}\0".encode()+english_bytes).hexdigest()
+    if english_blob!=english.get('git_blob'):
+        raise ValueError('ALG Four aligned English source blob changed')
+    english_html=markdown(english_bytes.decode('utf-8'))
+    def structure(markup):
+        return [
+            ('h'+a if a else b) for a,b in
+            re.findall(r'<h([1-4])>.*?</h\1>|<(p|blockquote)>.*?</\2>',markup,re.S)
+        ]
+    if structure(original_html)!=structure(english_html):
+        raise ValueError('ALG Four bilingual heading/paragraph structure drift')
+    if re.findall(r'<pre><code>.*?</code></pre>',original_html,re.S)!=re.findall(r'<pre><code>.*?</code></pre>',english_html,re.S):
+        raise ValueError('ALG Four bilingual source code diverged')
+    if original_html.count('<figure')!=7 or english_html.count('<figure')!=7:
+        raise ValueError('ALG Four canonical Cover + six Figure slots missing')
+    pattern=re.compile(r'<p>.*?</p>|<blockquote>.*?</blockquote>',re.S)
+    paragraphs=list(pattern.finditer(original_html))
+    notes=data.get('paragraph_annotations',[])
+    if not paragraphs or len(notes)!=len(paragraphs):
+        raise ValueError('ALG Four must annotate every original prose paragraph without omissions')
+    english_paragraphs=list(pattern.finditer(english_html))
+    if len(english_paragraphs)!=len(paragraphs):
+        raise ValueError('ALG Four bilingual paragraph count changed')
+    for i,(native,note) in enumerate(zip(english_paragraphs,notes)):
+        source_text=html.unescape(re.sub(r'<[^>]+>','',native.group(0)))
+        if note.get('paragraph_index')!=i or note.get('english_source')!=source_text:
+            raise ValueError('ALG Four aligned English paragraph drift')
+    decisions={d['id']:d for d in data.get('decisions',[])}
+    if not decisions or len(decisions)!=len(data.get('decisions',[])):
+        raise ValueError('ALG Four has duplicate or empty decision IDs')
+    items=data.get('active_items',[])
+    item_ids=[x.get('id') for x in items]
+    if len(item_ids)!=len(set(item_ids)):
+        raise ValueError('ALG Four Active item IDs must be unique')
+    index_items={}
+    for item in items:
+        i=item.get('paragraph_index')
+        if (not isinstance(i,int) or not 0<=i<len(paragraphs)
+                or item.get('decision_id') not in decisions
+                or not item.get('english_sentence') or not item.get('term')
+                or item.get('source_quote','').casefold() not in notes[i].get('english_source','').casefold()):
+            raise ValueError('ALG Four Active word has no exact source paragraph, decision or sentence')
+        index_items.setdefault(i,[]).append(item)
+    for i,note in enumerate(notes):
+        if (note.get('paragraph_index')!=i
+                or note.get('kind') not in ('PASSIVE','PASSIVE_AND_ACTIVE')
+                or not note.get('zh_note')
+                or not note.get('decision_ids')
+                or any(d not in decisions for d in note['decision_ids'])):
+            raise ValueError('ALG Four paragraph annotation index, role or decision coverage is invalid')
+    policy=data.get('learning_policy',{})
+    if (policy.get('goal_active_lexical_items')!=2000
+            or policy.get('goal_linked_english_sentences')!=2000
+            or policy.get('learner_evidence')!='NOT_OBSERVED'
+            or policy.get('scope')!='cumulative_across_source_articles_not_per_single_article'):
+        raise ValueError('ALG Four 2000-item cross-article selection policy or evidence status invalid')
+    import importlib.util
+    projection_path=ROOT/'scripts/alg_four_projection.py'
+    spec=importlib.util.spec_from_file_location('alg_four_projection',projection_path)
+    projection=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(projection)
+    body,outline,para_count,heading_count=projection.render_outline(original_html,notes,decisions,index_items)
+    if para_count!=len(notes):
+        raise ValueError('ALG Four rendering omitted original paragraphs')
+    esc=html.escape
+    instructions=(
+        '<section class="page-head alg-four-head">'
+        '<div class="eyebrow">ALG Four · Source-locked reading companion</div>'
+        '<h1>Group Anagrams · 文章段落索引與 Active／Passive</h1>'
+        '<p>先閱讀完整原文；右側依 Markdown 標題層級展開索引。'
+        '點擊任一段落就能跳轉，捲動時會自動顯示對應語塊與練習。'
+        '黃色詞彙為 Active；Passive 的句型折行與主重音只存在於註解視圖，不變更原始文章。</p>'
+        '<p>四次 cognitive encounters 使用同一份原文，不產生四份改寫文章。'
+        'Active 2,000 詞與 2,000 句是跨文章累積目標，本頁沒有學習結果觀察。</p>'
+        '<p><a href="/alg-four/source.json">Source / annotation manifest</a> · '
+        '<a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+
+        '">查看原始 Markdown</a></p></section>')
+    target=out/'alg-four'
+    target.mkdir()
+    for asset in ('alg-four.css','alg-four.js'):
+        shutil.copyfile(ROOT/'site'/asset,out/'assets'/asset)
+    full_body=(instructions+'<link rel="stylesheet" href="/assets/alg-four.css">'
+               '<div class="alg-four-reading-layout">'
+               '<article class="article alg-four-source">'+body+'</article>'+outline+'</div>'
+               '<script defer src="/assets/alg-four.js"></script>')
+    (target/'index.html').write_text(
+        page('ALG Four · Annotated Original',full_body,'learning'),encoding='utf-8')
+    (target/'source.json').write_bytes(raw)
+    return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
+            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'english_source_blob':english_blob,
+            'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
+            'active_items_collected':len(items),'active_vocabulary_goal':2000,
+            'source_article_unchanged':True,'learning_evidence':'NOT_OBSERVED',
+            'annotation_projection':'right_outline','heading_count':heading_count,
+            'native_runtime':'NOT_RUN'}
+
+
 def build(out:Path)->dict:
     out=out.resolve()
     if out.exists(): shutil.rmtree(out)
     out.mkdir(parents=True)
     (out/'assets').mkdir()
+    shutil.copytree(ROOT/'site/alg-four-figures',out/'assets/alg-four')
     shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
     snapshot=json.loads((ROOT/'references/ops-experiment-catalog.json').read_text())
@@ -346,14 +483,40 @@ def build(out:Path)->dict:
     scope_spec.loader.exec_module(scope_module)
     scope_provenance=scope_module.render_scopes(ROOT,out,page)
     eval_home='<section class="panel"><div class="eyebrow">Engineering judgment</div><h2>AI Evals · Soodles</h2><p>閱讀六份歷史 Agent reports 的工程評估，區分可支持的判斷與缺少的證據。</p><a href="/ai-evals/">查看 AI Evals 報告 →</a></section>'
-    (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+eval_home+alg+flow+exp+art,'home'),encoding='utf-8')
+    more_intro='<section class="panel"><h2>More Route · Seven Engineering Decisions</h2><p>閱讀 AI Agent Handbook 的 Zero Context 教學，追蹤七個工程決策、失敗反例與可觀察證據。</p><a href="/more-route/">Open decision explorer →</a></section>'
+    (out/'index.html').write_text(page('AI Engineer Lab',hero+stats+eval_home+alg+flow+exp+art+more_intro,'home'),encoding='utf-8')
     (out/'experiments').mkdir();(out/'experiments/index.html').write_text(page('Experiments · AI Engineer Lab',f'''<section class="page-head"><div class="eyebrow">Ops Reconciliation Copilot</div><h1>Experiment Templates</h1><p>這些卡片來自 Ops provider snapshot <code>{snapshot['provider_revision'][:12]}</code>。範本只定義實驗邊界，不代表實驗已執行，也不授權 production promotion。</p></section>{cards(snapshot)}''','experiments'),encoding='utf-8')
     learn_body=f'''<section class="page-head"><div class="eyebrow">AI Engineering from Scratch</div><h1>Learning Progress</h1><p>目前狀態：<strong>{state['status']}</strong></p></section><section class="panel"><h2>Source of truth</h2><p><code>LEARNING.md</code> 由 upstream <code>start-learning</code> / <code>learn</code> skills 管理。medium-compiler 不自行猜 placement，也不把文章進度當課程進度。</p><pre><code>Use start-learning to begin the course.
 Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state['entry_point'] or '尚未執行 placement'}</dd><dt>Pace</dt><dd>{state['pace'] or '尚未設定'}</dd><dt>Logged lessons</dt><dd>{state['progress_rows']}</dd><dt>Review items</dt><dd>{state['review_items']}</dd></dl></section>'''
     learn_body+='<section class="panel"><h2>從第一篇學習文章開始</h2><p>逐章理解開發環境，實作四語言與 Python 運算，再核對本機與 Colab 的替代範圍；閱讀或執行範例不會自動變更課程進度。</p><a href="/articles/application-engineering-colab/">開啟開發環境設定學習文章 →</a></section>'
+    learn_body+='<section class="panel"><h2>More Route · Agent Engineering</h2><p>從真實 Domain 問題建立理論、Runtime、反例及可重現驗證的關係。</p><a href="/more-route/">Explore seven engineering decisions →</a></section>'
+    learn_body+='<section class="panel"><h2>ALG Four · English from Engineering</h2><p>從完整演算法文章的所有 Decision 與 Runtime 出發，以四遍學習英文理解與主動生成。</p><a href="/alg-four/">Open English acquisition worksheet →</a></section>'
     (out/'learning').mkdir();(out/'learning/index.html').write_text(page('Learning · AI Engineer Lab',learn_body,'learning'),encoding='utf-8')
+    alg_four_provenance=render_alg_four(out)
     # Single-browser fault experiments are static and require no server credentials.
     build_reliability(out)
+    # More Route is a static, reviewed explanation. No tool, task or browser effects.
+    more_source=ROOT/'site/more-route'
+    more_dir=out/'more-route'
+    more_dir.mkdir()
+    more_manifest_bytes=(ROOT/'references/upstream/more-route-learning-sources.json').read_bytes()
+    more_manifest=json.loads(more_manifest_bytes)
+    if (more_manifest.get('schema_version')!='more-route-learning-sources@1'
+            or more_manifest.get('semantics',{}).get('decision_count')!=7
+            or len(more_manifest.get('sources',[]))!=2):
+        raise ValueError('More Route source registry is invalid for this selected case')
+    for asset in ('more-route.js','more-route.css'):
+        shutil.copyfile(more_source/asset,out/'assets'/asset)
+    more_fragment=(more_source/'fragment.html').read_text(encoding='utf-8')
+    if (len(re.findall(r'data-mr-choice="D[1-7]"',more_fragment))!=7
+            or len(re.findall(r'data-mr-panel="D[1-7]"',more_fragment))!=7):
+        raise ValueError('More Route needs seven matching decisions and source panels')
+    more_body='<link rel="stylesheet" href="/assets/more-route.css">'+more_fragment+'<script defer src="/assets/more-route.js"></script>'
+    (more_dir/'index.html').write_text(page('More Route · Agent Engineering',more_body,'learning'),encoding='utf-8')
+    (more_dir/'source.json').write_bytes(more_manifest_bytes)
+    more_provenance={'route':'/more-route/','decision_count':7,'source_manifest':'/more-route/source.json',
+                     'manifest_sha256':hashlib.sha256(more_manifest_bytes).hexdigest(),
+                     'native_experiment':'NOT_RUN'}
     article_root=out/'articles';article_root.mkdir()
     (article_root/'index.html').write_text(page('Articles · AI Engineer Lab','<section class="page-head"><h1>Learning Articles</h1><p>閱讀操作指南與來源說明，保存自己的練習成果。</p></section><div class="cards">'+article_links+'</div>','article'),encoding='utf-8')
     transcript_dir=out/'transcripts';transcript_dir.mkdir()
@@ -373,6 +536,9 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
                 raise ValueError('Video article must have an introductory paragraph')
             content_html=content_html.replace('</p>','</p>'+video_html,1)
         article_body='<article class="article"><div class="article-source">Built from <code>'+html.escape(item['source'])+'</code></div>'+content_html+lesson_navigation(item,course_route)+sequel_navigation(item)+'</article>'
+        if item.get('companion_route'):
+            route=html.escape(item['companion_route'],quote=True)
+            article_body+='<section class="panel"><h2>Interactive Decision Explorer</h2><p>Explore seven decisions, alternatives and counterexamples with the original source index.</p><a href="'+route+'">Open interactive lesson →</a></section>'
         article_dir=article_root/item['slug'];article_dir.mkdir()
         source_record={}
         if item.get('source_manifest'):
@@ -381,6 +547,11 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
         (article_dir/'index.html').write_text(page(item['title'],article_body,'article'),encoding='utf-8')
         if item.get('video_id') or item.get('download_markdown'):
             (article_dir/'article.md').write_bytes(source_bytes)
+        if item.get('english_source'):
+            english_bytes=(ROOT/item['english_source']).read_bytes()
+            (article_dir/'article.en.md').write_bytes(english_bytes)
+            source_record['english_source']=item['english_source']
+            source_record['english_sha256']=hashlib.sha256(english_bytes).hexdigest()
         if item.get('video_id'):
             source_record['video_id']=item['video_id']
             source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
@@ -389,6 +560,8 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['notebook'],destination)
     provenance={'schema_version':'ai-engineer-site-build@1','article':'articles/ai-engineer-learning-path.md','ops_provider_revision':snapshot['provider_revision'],'curriculum_revision':json.loads((ROOT/'references/upstream/ai-engineering-skills-lock.json').read_text())['revision'],'learning':state,'articles':article_provenance}
+    provenance['more_route']=more_provenance
+    provenance['alg_four']=alg_four_provenance
     provenance['ai_evals']=eval_provenance
     provenance['loops']=loop_provenance
     provenance['scopes']=scope_provenance

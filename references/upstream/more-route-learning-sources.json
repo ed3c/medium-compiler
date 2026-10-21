@@ -1,0 +1,95 @@
+{
+  "schema_version": "more-route-learning-sources@1",
+  "task": "Zero-context AI Agent engineering: handbook chapters 3–6, 22–23, with system-design-notes as optional conceptual index",
+  "scope": "source-explanation; no claim of a verified learner episode, actual patch or production deployment",
+  "sources": [
+    {
+      "id": "handbook",
+      "repository": "aliyun/ai-agent-handbook",
+      "revision": "a5028af381306fd0f65c11f56a18fcbbb814d4f8",
+      "license": "Apache-2.0",
+      "purpose": "Primary mechanism and engineering lifecycle reference",
+      "selected_sections": [
+        {
+          "id": "harness",
+          "path": "02-build/第 3 章 范式：Harness 的主流构建方式和责任边界.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/02-build/%E7%AC%AC%203%20%E7%AB%A0%20%E8%8C%83%E5%BC%8F%EF%BC%9AHarness%20%E7%9A%84%E4%B8%BB%E6%B5%81%E6%9E%84%E5%BB%BA%E6%96%B9%E5%BC%8F%E5%92%8C%E8%B4%A3%E4%BB%BB%E8%BE%B9%E7%95%8C.md",
+          "purpose": "Model versus Harness"
+        },
+        {
+          "id": "task",
+          "path": "02-build/第 4 章 任务：编排、长程推进与协作流转.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/02-build/%E7%AC%AC%204%20%E7%AB%A0%20%E4%BB%BB%E5%8A%A1%EF%BC%9A%E7%BC%96%E6%8E%92%E3%80%81%E9%95%BF%E7%A8%8B%E6%8E%A8%E8%BF%9B%E4%B8%8E%E5%8D%8F%E4%BD%9C%E6%B5%81%E8%BD%AC.md",
+          "purpose": "Task state and delegation"
+        },
+        {
+          "id": "context",
+          "path": "02-build/第 5 章 信息：上下文、状态与可复用能力资产.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/02-build/%E7%AC%AC%205%20%E7%AB%A0%20%E4%BF%A1%E6%81%AF%EF%BC%9A%E4%B8%8A%E4%B8%8B%E6%96%87%E3%80%81%E7%8A%B6%E6%80%81%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E8%83%BD%E5%8A%9B%E8%B5%84%E4%BA%A7.md",
+          "purpose": "Context and durable state"
+        },
+        {
+          "id": "action",
+          "path": "02-build/第 6 章 行动：受控执行、验证反馈与交付准备.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/02-build/%E7%AC%AC%206%20%E7%AB%A0%20%E8%A1%8C%E5%8A%A8%EF%BC%9A%E5%8F%97%E6%8E%A7%E6%89%A7%E8%A1%8C%E3%80%81%E9%AA%8C%E8%AF%81%E5%8F%8D%E9%A6%88%E4%B8%8E%E4%BA%A4%E4%BB%98%E5%87%86%E5%A4%87.md",
+          "purpose": "Action and verification"
+        },
+        {
+          "id": "badcase",
+          "path": "05-optimization/第 22 章　Agent 优化：Badcase.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/05-optimization/%E7%AC%AC%2022%20%E7%AB%A0%E3%80%80Agent%20%E4%BC%98%E5%8C%96%EF%BC%9ABadcase.md",
+          "purpose": "Badcase evaluations"
+        },
+        {
+          "id": "reuse",
+          "path": "05-optimization/第 23 章　受控自进化.md",
+          "url": "https://github.com/aliyun/ai-agent-handbook/blob/a5028af381306fd0f65c11f56a18fcbbb814d4f8/05-optimization/%E7%AC%AC%2023%20%E7%AB%A0%E3%80%80%E5%8F%97%E6%8E%A7%E8%87%AA%E8%BF%9B%E5%8C%96.md",
+          "purpose": "Validated reusable assets"
+        }
+      ]
+    },
+    {
+      "id": "system-design-notes",
+      "repository": "liquidslr/system-design-notes",
+      "revision": "9d8388721e7231442763ad37398b8d82224aa68f",
+      "license": "NOT_CONFIRMED",
+      "usage": "Read-only external index. Do not vendor, mirror, translate, or republish third-party content without rights review.",
+      "selected_sections": [
+        {
+          "id": "framework",
+          "path": "03. System Design Framework",
+          "url": "https://github.com/liquidslr/system-design-notes/tree/9d8388721e7231442763ad37398b8d82224aa68f/03.%20System%20Design%20Framework",
+          "purpose": "Framing constraints and alternatives"
+        },
+        {
+          "id": "limiter",
+          "path": "04. Rate Limiter",
+          "url": "https://github.com/liquidslr/system-design-notes/tree/9d8388721e7231442763ad37398b8d82224aa68f/04.%20Rate%20Limiter",
+          "purpose": "Tool/API throttling and queuing analogy"
+        },
+        {
+          "id": "queue",
+          "path": "19. Distributed Message Queue",
+          "url": "https://github.com/liquidslr/system-design-notes/tree/9d8388721e7231442763ad37398b8d82224aa68f/19.%20Distributed%20Message%20Queue",
+          "purpose": "Asynchronous task coordination analogy"
+        },
+        {
+          "id": "metrics",
+          "path": "20. Metrics Monitoring and Alerting System",
+          "url": "https://github.com/liquidslr/system-design-notes/tree/9d8388721e7231442763ad37398b8d82224aa68f/20.%20Metrics%20Monitoring%20and%20Alerting%20System",
+          "purpose": "Observability reference"
+        }
+      ]
+    }
+  ],
+  "semantics": {
+    "source_claim": "The pinned Handbook chapters describe design approaches, not observed performance of our hypothetical example.",
+    "decision_count": 7,
+    "decision_scope": "The single payment-service vulnerability and change-release illustration; NOT total handbook decisions or Soodles Session routing budget",
+    "execution_claim": "NOT_RUN",
+    "compiler_stage_7": "NOT_RUN",
+    "sloptrim": "NOT_RUN",
+    "bilingual_human_review": "NOT_RUN",
+    "reader_comprehension": "NOT_RUN"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: medium-writing
-description: Draft zero-context technical Medium articles in English, apply upstream sloptrim to completed English prose, then translate to Traditional Chinese with English technical terms. Supports staged and incremental source-grounded writing; not a publisher or semantic-truth oracle.
+description: Format and assemble approved complete LeetCode article content without semantic rewriting; for other topics, draft English technical Medium prose, apply sloptrim, and translate to Traditional Chinese. Not a publication or semantic-truth oracle.
 metadata:
   version: "1.4.0"
 ---
@@ -23,9 +23,11 @@ routing and incremental rules below replace any outdated backward-transition sug
 
 ## Product and responsibility
 
-Produce a complete article that a software engineer can understand without earlier chat:
+For general writing routes, produce a complete article that a software engineer can understand without earlier chat:
 Problem -> Decision -> Representation -> Runtime -> Internals -> Alternatives ->
 Complexity/Cost -> Implementation -> Interview -> Master Map.
+
+**When a complete LeetCode Medium article is selected**, consume the fully approved English/zh-TW content from [leetcode-mental's complete-article profile](../leetcode-mental/references/article-content-profile.md). That Skill is the sole semantic Content Owner; **this Skill is the format-only Medium-native Formatter/Assembler**, not a second article writer. Preserve all technical claims, exact English terms, code, proof, exceptions, figures and source identity. If coverage, translation or correctness fails, return it to the Content Owner before admission instead of summarizing or revising it here. The existing CLI Stage 0–7 and supported revision routes remain unchanged.
 
 These are teaching responsibilities, not a required number of headings. Count the actual
 reader decisions from question, alternatives, condition and consequence; five organizing
@@ -43,6 +45,58 @@ error belongs to that operation, not the article state machine. Preserve admitte
 article state and consume the compiler's actual next. Mechanical validation does
 not establish platform authorization, deployment or runtime correctness.
 
+## Select the granularity contract without replacing this writer
+
+When the original source is a LeetCode or algorithmic interview problem and
+the user selects the v4 learning profile, load
+[ALG-LeetCode Mental Simulator v4.0](../leetcode-mental/SKILL.md)
+and its [v4 operational contract](../leetcode-mental/references/v4-contract.md).
+Read the [Medium reference provenance](../leetcode-mental/references/medium-reference.md)
+before claiming an editorial comparison. Use the correct task-specific
+input contract, algorithm invariant, Python semantics and smallest
+counterexample. Exactly five anchors and the fourteen teaching sections
+apply to **that LeetCode profile**, not to arbitrary Medium articles.
+
+Keep this Skill as the sole writer for the **ordinary v4 composed teaching route**, not the separate complete-article content profile. The v4 printable same-turn
+reconstruction/Oracle is content in a complete article, not permission to
+override [alg-four](../alg-four/SKILL.md)'s independent
+English-learning lesson handoff, nor [legacy CEFR runtime](../cefr-alg-four-pass/SKILL.md)'s
+attempt-before-reveal behavior for already Frozen lessons. Keep English source
+draft/sloptrim review, source-verified Traditional Chinese translation,
+legal Stage 0–7 article admission and external site/provider verification.
+A solved mental trace is `MENTAL_TRACE`, not a record of executed tests.
+A supplied reconstruction exercise never proves learner mastery.
+
+For other Zero Context subjects, inherit only the meaningful *mechanisms*:
+whole before parts, reader-relevant invariant/contract, honest runtime
+movie, state/owner semantics, earliest falsifier, alternative cost, and
+reconstruction. Do not substitute fixed LeetCode headings for the actual
+reader decision graph or source-grounded claims.
+
+## ALG Four only annotates, never rewrites this author's work
+
+Once Medium prose is admitted, `alg-four` consumes the identical source
+Git blob and displays the exact accepted article beside a right-hand paragraph index containing source-bound zh-TW notes
+preserving technical English, source decisions, and Passive/Active targets.
+Its four encounters act on the **same original prose**. It must not
+produce `pass1/pass2/pass3` replacement scripts, a rewritten essay,
+a new authoring Stage or a parallel publisher.
+The cumulative 2,000 Active lexical items + 2,000 linked engineering
+sentences are accepted only when linked to actual paragraph, decision
+and runtime facts; they are not a one-article quota.
+
+## Downstream English acquisition is a separate owner
+
+For general technical topics and ordinary v4 composed teaching, this Skill continues to own Medium prose, reader-facing format, sloptrim/editorial handling and source-fidelity review; actual publication still requires external owner/provider readback. In the **complete LeetCode article profile**, leetcode-mental instead owns the complete English technical prose, English sloptrim change approval, full zh-TW translation and semantic/source review. This Skill only transforms approved content into Medium layout, checks byte/coverage fidelity and uses the original CLI for assembly; it does not claim runtime tests, independent semantic review or external publication. If the task also asks the learner
+to acquire English while understanding an entire engineering article, pass the
+**accepted, source-bound article and the original technical claims** to
+[alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
+decisions, builds receptive/passive + productive/active English lesson content,
+and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
+Four-Pass route selection, learner receipt or adaptive learning state is written
+into the Medium article. The old upstream CEFR Compiler is historical,
+as described in the [migration](../alg-four/references/migration.md).
+
 ## Language and style owner
 
 This is a reader-facing article workflow, not the engineering-instruction
@@ -50,7 +104,7 @@ This is a reader-facing article workflow, not the engineering-instruction
 checking technical causality and acceptance boundaries. Do not replace these
 semantic checks with a style score.
 
-Complete the English prose for the selected article before translating it.
+For routes where medium-writing remains the semantic writer, complete the English prose for the selected article before translating it. For the complete LeetCode article profile, require those exact steps and their actual evidence **upstream from leetcode-mental**, before this formatter changes any layout; an absent sloptrim run is `NOT_RUN` and must not be relabeled as checked.
 For an authorized incremental patch, finish that English unit before
 translation; preserve the existing queue and immutable prior units. Run the
 project-local [sloptrim](../sloptrim/SKILL.md) skill on the
@@ -68,7 +122,7 @@ Record a real check and the reviewed English version in private task
 evidence, or mark `sloptrim=NOT_RUN` with the missing capability. Do not
 report its style score as correctness, authorship, or formal compliance.
 
-After approving that English version, translate it to natural Traditional
+For routes owned by medium-writing, after approving that English version, translate it to natural Traditional
 Chinese. Retain canonical English technical terms and recheck both versions
 against the pinned source, including conditions, exceptions, attribution and
 failure branches. New articles still submit the translated material through
@@ -79,7 +133,7 @@ canonical articles merely to obtain a lower detector score.
 
 ## First output
 
-Show the article contents first. Then explain the scope and terms needed to read:
+For the complete LeetCode article profile, show the **Content Owner's approved** table of contents, derived decisions and runtime/data-flow maps; do not regenerate or invent them. For other article routes, show the article contents first. Then explain the scope and terms needed to read:
 - the reader-decision mind map;
 - the subject's actual directory or symbol tree, labeled observed/proposed/embedded;
 - one concrete input-to-output runtime map, including relevant failure branches.
@@ -110,7 +164,7 @@ or companion indexes alone. Source evidence and a teaching resource are differen
 Run the current CLI help and the matching verify-medium feature recipe. Do not infer that
 `reopen` exists from a past Issue or PR. Do not manually edit accepted state or receipts.
 
-New articles use existing Stage 0-7 admission. Existing prose-only revisions use
+New articles use existing Stage 0-7 admission, consuming already approved semantic content in the complete LeetCode profile. In that profile Stage 6 may normalize presentation but must not silently copyedit semantic claims; Stage 7 remains exact-byte assembly. Existing prose-only revisions use
 `medium_compiler.py init --draft`; they have no fictional Stages 0-5. A technical replacement
 is not copyedit. Use an explicitly supported correction route or report the missing route.
 

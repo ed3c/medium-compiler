@@ -12,21 +12,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Tests and real article drives
         shell: bash
         run: |
           mkdir -p /tmp/writing-evidence
           git rev-parse HEAD > /tmp/writing-evidence/checkout.txt
-          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1
+          python3 -m unittest discover -s tests -v > /tmp/writing-evidence/tests.txt 2>&1 || { tail -n 130 /tmp/writing-evidence/tests.txt; exit 1; }
           node --experimental-sqlite --test tests/reliability_logic.test.mjs tests/cloudflare_interface.test.mjs > /tmp/writing-evidence/browser-cloudflare-contracts.txt 2>&1
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
+          node --check site/more-route/more-route.js
+          node --test tests/more_route_interactions.test.mjs
           npm ci --ignore-scripts
           node --test tests/scoped_readback_runtime.test.mjs tests/outbox_runtime.test.mjs > /tmp/writing-evidence/scoped-readback-runtime.txt 2>&1
           npm run build > /tmp/writing-evidence/cloudflare-site-build.txt
           npm run build:cloudflare > /tmp/writing-evidence/cloudflare-lab-build.txt
           npm run test:site > /tmp/writing-evidence/cloudflare-site-runtime.txt 2>&1
+          npm run build:cloudflare:full > /tmp/writing-evidence/cloudflare-full-build.json
+          npm run test:site:full > /tmp/writing-evidence/cloudflare-full-api-runtime.txt 2>&1
+          npx --no-install wrangler deploy --dry-run --config wrangler.full-site.jsonc > /tmp/writing-evidence/cloudflare-full-dry-run.txt
           python3 .agents/skills/verify-medium/scripts/verify.py --feature mechanical --out /tmp/writing-evidence/mechanical
           set +e
           python3 .agents/skills/verify-medium/scripts/verify.py --feature behavior-evals --out /tmp/writing-evidence/behavior
@@ -35,9 +41,58 @@ jobs:
           test "$status" = 3
           printf 'BLOCKED: no fresh writer/reader experiment performed by this job\n' > /tmp/writing-evidence/behavior-status.txt
           git archive HEAD > /tmp/writing-evidence/checkout.tar
+      - name: Run pinned sloptrim detector on English More Route draft
+        shell: bash
+        run: |
+          mkdir -p /tmp/writing-evidence
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/agent-handbook-zero-context.en.md > /tmp/writing-evidence/more-route-sloptrim.json
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/leetcode-49-group-anagrams.en.md > /tmp/writing-evidence/leetcode-part7-sloptrim.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/writing-evidence/more-route-sloptrim.json').read_text())
+          part7=json.loads(Path('/tmp/writing-evidence/leetcode-part7-sloptrim.json').read_text())
+          if not isinstance(part7,dict) or not part7:
+              raise SystemExit('Missing LeetCode Part 7 sloptrim diagnostic')
+          if not isinstance(result,dict) or not result:
+              raise SystemExit('Missing sloptrim diagnostic report')
+          print('SLoptrim detector executed on the English More Route draft. Semantic fidelity still needs independent author/reader review.')
+          print('Diagnostic report keys:', ', '.join(sorted(result.keys())))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: mechanical-writing-evidence
           path: /tmp/writing-evidence/
+          retention-days: 7
+
+  browser-alg-four:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Build pinned article and ALG Four site
+        run: python3 scripts/build_full_cloudflare_site.py --out /tmp/alg-four-browser-site > /tmp/alg-four-site-build.json
+      - name: Verify canonical Part 7 with original compiler and English detector
+        run: |
+          mkdir -p /tmp/alg-four-browser-evidence
+          python3 scripts/verify_alg_four_article.py --out /tmp/alg-four-browser-evidence
+          python3 .agents/skills/sloptrim/scripts/detect.py articles/leetcode-49-group-anagrams.en.md > /tmp/alg-four-browser-evidence/sloptrim-diagnostic.json
+      - name: Install pinned Playwright Chromium
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+      - name: Native desktop and mobile browser verification
+        run: |
+          python3 tests/browser_e2e_alg_four.py --site /tmp/alg-four-browser-site --out /tmp/alg-four-browser-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: alg-four-native-browser-evidence
+          path: |
+            /tmp/alg-four-browser-evidence/
+            /tmp/alg-four-site-build.json
           retention-days: 7
