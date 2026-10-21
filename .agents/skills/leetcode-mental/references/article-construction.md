@@ -121,6 +121,35 @@ the explanation.
 
 ## Reconstruct, then edit and translate
 
+### Test the claim, not the existence of its supporting passage
+
+Reconstruct from the finished public artifact, including alternatives, captions,
+interview answers and retained text. For a decision-bearing assertion, identify
+what is quantified, its input domain and observation checkpoint, then distinguish
+what the cited premise permits from what the assertion requires. An example of
+one sufficient mechanism does not establish necessity or exclusivity; a correct
+bound does not explain the operations that make it hold. Try a legal different
+mechanism or boundary input that preserves the premise but defeats the conclusion.
+For a cost claim, connect operation frequency, size-dependent or aggregate work,
+and the size/sequence assumptions in an actual calculation. A source may establish
+truth while the article still lacks the explanation this audience needs.
+
+In the existing private review, show the reconstruction and exact body support,
+and identify any step supplied from memory. Do not approve by marking a quotation
+present or by repeating the claimed bound. When a premise is absent, repair its
+earliest explanation and check the dependent conclusions. Review both languages:
+agreement can preserve the same error. If inherited prose or downstream notes
+make new assertions, review those assertions too; unchanged bytes do not inherit
+semantic approval from an unrelated check. A questioned claim remains unresolved
+until its actual argument or qualification is repaired, not until its label changes.
+
+Downstream annotations may compress an established argument but cannot repair an
+absent body premise. Return a body defect to this Content Owner before freezing a
+new edition. The formatter preserves approved content; speed-reading reviews its
+own added claims; ALG Four checks their source binding. Keep these responsibilities
+separate from compiler admission and website runtime results. None of their
+mechanical receipts establishes explanatory completeness.
+
 After a complete English draft exists, read it without the planning notes or
 reference example. Identify the proposed approaches and conditional adaptations actually
 introduced anywhere in that draft, including prose after the main cost section

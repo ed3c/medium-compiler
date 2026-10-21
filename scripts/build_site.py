@@ -524,6 +524,8 @@ def load_article_annotations(manifest_path:Path, *, canonical_figures:bool=False
                 or any(d not in decisions for d in note['decision_ids'])
                 or (note.get('kind')=='PASSIVE_AND_ACTIVE') != bool(index_items.get(i))):
             raise ValueError('ALG Four paragraph annotation index, role or decision coverage is invalid')
+        if any(item['decision_id'] not in note['decision_ids'] for item in index_items.get(i,[])):
+            raise ValueError('ALG Four Active decision is not linked to its source paragraph annotation')
     policy=data.get('learning_policy',{})
     if (policy.get('goal_active_lexical_items')!=2000
             or policy.get('goal_linked_english_sentences')!=2000

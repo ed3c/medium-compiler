@@ -8,7 +8,7 @@ For this profile, **leetcode-mental is the sole semantic Content Owner**: it pro
 
 **medium-writing is the Medium formatter and assembler** for an already approved article edition. It owns Medium-native headings, readable code and figure placement, captions/alt text placement, contiguous delivery parts, and the existing CLI's legal Stage 0–7 admission/assembly. It may not invent facts, delete qualifications, paraphrase protected code, shorten the article as a summary, or editorially rewrite accepted content. A content defect goes back to leetcode-mental for a new approved edition; do not use Stage 7 as a repair step. For non-LeetCode routes, medium-writing's existing writer ownership is unchanged.
 
-The `alg-four` annotation owner is downstream only: it reads the accepted article bytes and adds Passive/Active notes without rewriting the base article. Neither this profile nor the formatting stage creates a Four-Pass learner session, runtime mastery evidence, new CLI stage, or publication authority.
+The downstream `speed-reading` annotation Content Owner reads the accepted article bytes and adds Passive/Active notes; `alg-four` binds and renders them without rewriting the base article. Neither this profile nor the formatting stage creates a Four-Pass learner session, runtime mastery evidence, new CLI stage, or publication authority.
 
 ## Construct the reasoning, then check coverage
 

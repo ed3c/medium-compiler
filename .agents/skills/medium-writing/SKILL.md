@@ -80,7 +80,7 @@ reader decision graph or source-grounded claims.
 
 ## ALG Four only annotates, never rewrites this author's work
 
-Once Medium prose is admitted, `alg-four` consumes the identical source
+Once Medium prose is admitted, `speed-reading` authors annotations from the identical source; `alg-four` binds that source
 Git blob and displays the exact accepted article beside a right-hand paragraph index containing source-bound zh-TW notes
 preserving technical English, source decisions, and Passive/Active targets.
 Its four encounters act on the **same original prose**. It must not
@@ -95,9 +95,8 @@ and runtime facts; they are not a one-article quota.
 For general technical topics and ordinary v4 composed teaching, this Skill continues to own Medium prose, reader-facing format, sloptrim/editorial handling and source-fidelity review; actual publication still requires external owner/provider readback. In the **complete LeetCode article profile**, leetcode-mental instead owns the complete English technical prose, English sloptrim change approval, full zh-TW translation and semantic/source review. This Skill only transforms approved content into Medium layout, checks byte/coverage fidelity and uses the original CLI for assembly; it does not claim runtime tests, independent semantic review or external publication. If the task also asks the learner
 to acquire English while understanding an entire engineering article, pass the
 **accepted, source-bound article and the original technical claims** to
-[alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
-decisions, builds receptive/passive + productive/active English lesson content,
-and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
+[alg-four](../alg-four/SKILL.md). speed-reading authors the source-bound receptive/passive and productive/active
+annotations, while ALG Four validates and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
 Four-Pass route selection, learner receipt or adaptive learning state is written
 into the Medium article. The old upstream CEFR Compiler is historical,
 as described in the [migration](../alg-four/references/migration.md).

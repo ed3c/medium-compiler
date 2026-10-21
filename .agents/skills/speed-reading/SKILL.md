@@ -120,6 +120,7 @@ show the conditions/checkpoint before the cue. A reader follows the linked sourc
 when a note depends on a derivation elsewhere. An absent source argument remains
 an article-Owner issue; adding a note cannot invent it.
 
+Apply the article Content Owner’s [claim reconstruction method](../leetcode-mental/references/article-construction.md#test-the-claim-not-the-existence-of-its-supporting-passage) to the claims this annotation adds.
 Review the *whole annotation*, including retained notes and Active text, rather
 than only paraphrasing its main topic. Compare its factual assertions with the
 source in both directions: an example or sufficient mechanism does not establish

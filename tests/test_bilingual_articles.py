@@ -134,6 +134,22 @@ class BilingualArticleTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "complete titles"):
                 site.render_bilingual_article({"slug": "incomplete", "title": "Title"}, Path(td))
 
+    def test_active_decision_must_belong_to_its_paragraph_but_may_share_other_decisions(self):
+        item=next(item for item in site.ARTICLES if item.get('bilingual'))
+        data=json.loads((ROOT/item['annotations']).read_text())
+        active=data['active_items'][0]
+        note=data['paragraph_annotations'][active['paragraph_index']]
+        other=next(d['id'] for d in data['decisions'] if d['id'] not in note['decision_ids'])
+        active['decision_id']=other
+        with tempfile.TemporaryDirectory() as td:
+            candidate=Path(td)/'manifest.json'
+            candidate.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError,'Active decision is not linked'):
+                site.load_article_annotations(candidate)
+            note['decision_ids'].append(other)
+            candidate.write_text(json.dumps(data))
+            site.load_article_annotations(candidate)
+
     def test_private_evaluation_paths_cannot_be_used_as_public_article_sources(self):
         item=dict(next(item for item in site.ARTICLES if item.get("bilingual")))
         item["source"]="evals/writing/leetcode-cost-premises/container/article.zh-TW.md"
