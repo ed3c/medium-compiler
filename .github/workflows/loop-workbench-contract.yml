@@ -126,7 +126,7 @@ jobs:
         timeout-minutes: 5
       - name: Source-pinned JavaScript/TSX AST code-intel and adversarial controls
         run: |
-          npm run aifs:intel > /tmp/aifs-source-ast.json
+          node scripts/aifs-code-intel.mjs > /tmp/aifs-source-ast.json
           npm run test:aifs:intel
           node -e "const a=require('/tmp/aifs-source-ast.json');if(a.status!=='ready'||a.effects.length||a.authorizes_landing)process.exit(1);console.log('AIFS source AST READY; Native execution NOT_RUN')"
         timeout-minutes: 3
