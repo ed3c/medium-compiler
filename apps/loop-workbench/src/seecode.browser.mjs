@@ -13,7 +13,7 @@ try {
  const outbound=[]
  page.on('pageerror',e=>errors.push(String(e)))
  page.on('request',req=>{if(/^https?:/.test(req.url()))outbound.push(req.url())})
- await page.route('https?://**',request=>request.abort())
+ await page.route(/^https?:\/\//,request=>request.abort())
  await page.goto(pathToFileURL(html).href,{waitUntil:'domcontentloaded'})
  await page.getByText('Source to reviewed figure',{exact:false}).first().waitFor({timeout:12000})
  const text=await page.locator('body').innerText()
