@@ -84,3 +84,19 @@ jobs:
         timeout-minutes: 5
       # Generated lockfile is ephemeral until an exact dependency review.
       # This preview is not wired into the production Vercel build.
+
+  candidate-mermaid-renderer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/article-diagrams
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install isolated, pinned authoring renderer
+        run: npm install --ignore-scripts --no-package-lock --no-audit --no-fund
+        timeout-minutes: 5
+      - name: Generate and measure real SVG fixture
+        run: npm test
+        timeout-minutes: 2

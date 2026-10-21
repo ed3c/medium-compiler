@@ -15,7 +15,7 @@ class ArticleDiagramTests(unittest.TestCase):
         (root/'site/article-diagrams'/f'{sha}.svg').write_text(SAMPLE)
         rows=[{'source':'articles/flow.md','ordinal':0,
                'mermaid_sha256':hashlib.sha256(CODE.encode()).hexdigest(),
-               'svg_sha256':sha,'alt':'Evidence flow'}]
+               'svg_sha256':sha,'alt':'Evidence flow','reviewed':True}]
         (root/'references/article-diagrams.json').write_text(
           json.dumps({'schema_version':'article-diagram-registry@1','items':rows}))
         return root,sha

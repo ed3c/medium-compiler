@@ -83,6 +83,8 @@ class DiagramRegistry:
                 raise ValueError('ARTICLE_DIAGRAM_DIGEST_INVALID')
             if not isinstance(item.get('alt'), str) or not item['alt'].strip():
                 raise ValueError('ARTICLE_DIAGRAM_ALT_MISSING')
+            if item.get('reviewed') is not True:
+                raise ValueError('ARTICLE_DIAGRAM_NOT_REVIEWED')
 
     def for_article(self, source: str):
         rows = [r for r in self.items if r['source'] == source]

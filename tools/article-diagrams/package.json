@@ -1,0 +1,11 @@
+{
+  "name": "@medium-compiler/article-diagram-author",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test smoke.test.mjs"
+  },
+  "dependencies": {
+    "beautiful-mermaid": "1.1.3"
+  }
+}
