@@ -17,7 +17,7 @@ function Learning(){
  const [store,setStore]=useState<Store|null>(null)
  const [attempts,setAttempts]=useState<Attempt[]>([])
  const [selected,setSelected]=useState(PROBLEMS[0].id)
- const [code,setCode]=useState(PROBLEMS[0].starter)
+ const [code,setCode]=useState<string>(PROBLEMS[0].starter)
  const [busy,setBusy]=useState(false)
  const [error,setError]=useState('')
  const [last,setLast]=useState('')

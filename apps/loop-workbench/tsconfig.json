@@ -14,7 +14,8 @@
     "checkJs": false,
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "vite/client"
     ],
     "noEmit": true
   },
