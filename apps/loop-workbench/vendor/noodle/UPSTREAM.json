@@ -1,0 +1,67 @@
+{
+  "repository": "ed3c/noodle",
+  "commit": "7c7df50cfec1a1cd081ba640b78362bbc50cb093",
+  "description": "Exact source-only Noodle canonical panorama closure. Source update requires manifest refresh and independent interface CI. Not a runtime effect or deployment.",
+  "files": [
+    {
+      "path": "loop-anatomy.mjs",
+      "upstream": "ui/src/client/loop-anatomy.mjs",
+      "git_blob": "af0aa8cd80b4e5edae29287ad067b01193c71c87"
+    },
+    {
+      "path": "loop-graph-layout.mjs",
+      "upstream": "ui/src/client/loop-graph-layout.mjs",
+      "git_blob": "856ef4357f81ecb4d2d30368ebe011951f0a63c1"
+    },
+    {
+      "path": "loop-repository.mjs",
+      "upstream": "ui/src/client/loop-repository.mjs",
+      "git_blob": "33d2cff6be96de48a33462056dc87e37ec40bb6c"
+    },
+    {
+      "path": "loop-comparison.mjs",
+      "upstream": "ui/src/client/loop-comparison.mjs",
+      "git_blob": "31e889ff24bd7e35993273f389a646fc35eb23aa"
+    },
+    {
+      "path": "loop-contract.mjs",
+      "upstream": "ui/src/client/loop-contract.mjs",
+      "git_blob": "464775ceaa2b9ed8be615b867bd227aae971526f"
+    },
+    {
+      "path": "loop-panorama.mjs",
+      "upstream": "ui/src/client/loop-panorama.mjs",
+      "git_blob": "3ea7758843f24ed6eef60390f33ada8353306046"
+    },
+    {
+      "path": "loop-isometric.mjs",
+      "upstream": "ui/src/client/loop-isometric.mjs",
+      "git_blob": "c0f19d730b2a1b9d931ef9414bf5b32a85198d5a"
+    },
+    {
+      "path": "loop-scene-focus.mjs",
+      "upstream": "ui/src/client/loop-scene-focus.mjs",
+      "git_blob": "18ecd00922129dd5a533eb3ad0aa0c56fb631a75"
+    },
+    {
+      "path": "loop-intent-rail.mjs",
+      "upstream": "ui/src/client/loop-intent-rail.mjs",
+      "git_blob": "37e2852ec6531de2f41d59efe6beb6b5fe81792d"
+    },
+    {
+      "path": "anatomy/geometry-orders.mjs",
+      "upstream": "ui/src/client/anatomy/geometry-orders.mjs",
+      "git_blob": "d6d38d335b660920f4dc71b78e5ef31fc8a9fb01"
+    },
+    {
+      "path": "anatomy/iso-kit.mjs",
+      "upstream": "ui/src/client/anatomy/iso-kit.mjs",
+      "git_blob": "248ee01cc00dfaeee9d693f49f63e32913f03115"
+    },
+    {
+      "path": "loop-panorama.css",
+      "upstream": "ui/src/components/loop-panorama.css",
+      "git_blob": "5b9906b3fd92ec04859811f594aaf6a94d5c93cc"
+    }
+  ]
+}

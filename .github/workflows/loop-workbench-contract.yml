@@ -1,0 +1,215 @@
+name: Loop Workbench Contract
+on:
+  pull_request:
+    paths:
+      - 'design/visual-skills.lock.json'
+      - 'scripts/install_loop_visual_skills.py'
+      - 'scripts/viewenv_design.py'
+      - 'tests/test_viewenv_design.py'
+      - '.agents/skills/viewenv/SKILL.md'
+      - 'tests/test_install_loop_visual_skills.py'
+      - 'apps/loop-workbench/**'
+      - '.github/workflows/loop-workbench-contract.yml'
+      - 'docs/visual-architecture.md'
+      - 'docs/typescript-rust-port-integration.md'
+      - 'docs/handoff.md'
+      - 'docs/aifs-modular-migration.md'
+      - 'references/aifs-figure-vendor.json'
+      - '.agents/skills/verify-learning-article/SKILL.md'
+      - 'docs/visualization-integration.md'
+      - 'docs/viewenv-unified-panorama.md'
+      - 'docs/diagram-authoring.md'
+      - 'docs/article-diagrams.md'
+      - 'docs/learning-duckdb-architecture.md'
+      - 'design/diagram-authoring.lock.json'
+      - 'design/diagram-candidates/**'
+      - 'references/article-diagrams.json'
+      - 'scripts/article_diagrams.py'
+      - 'scripts/verify_diagram_candidates.py'
+      - 'tests/test_visual_architecture.py'
+      - '.agents/skills/loop-visual-design/SKILL.md'
+      - '.agents/skills/medium-writing/SKILL.md'
+      - 'AGENTS.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-bound-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Installer negative controls and license pins
+        run: python3 -m unittest discover -s tests -p 'test_install_loop_visual_skills.py' -v
+      - name: ViewEnv design router and source binding controls
+        run: python3 -m unittest discover -s tests -p 'test_viewenv_design.py' -v
+      - name: Evidence projection node controls
+        run: node --test apps/loop-workbench/src/workbench.test.mjs
+      - name: Source-level exact Git blob vendor parity
+        run: node --test apps/loop-workbench/src/panorama-source.test.mjs
+      - name: Reviewed public artifact reader (positive and adversarial controls)
+        run: node --test apps/loop-workbench/src/public-artifact.test.mjs
+      - name: Local learning contract negative controls
+        run: node --test apps/loop-workbench/src/learning-domain.test.mjs
+      - name: AIFS pinned upstream source and HTML security controls
+        run: python3 -m unittest discover -s tests -p 'test_aifs_module_migration.py' -v
+      - name: Optional diagram authoring source and negative controls
+        run: |
+          python3 -m unittest discover -s tests -p 'test_diagram_authoring.py' -v
+          python3 scripts/verify_diagram_candidates.py
+          python3 -m json.tool design/diagram-authoring.lock.json > /dev/null
+      - name: Read-only DuckDB CLI Agent Mode source contract
+        run: python3 -m unittest discover -s tests -p 'test_learning_duckdb_agent.py' -v
+      - name: Article source-to-SVG projection contract
+        run: python3 -m unittest discover -s tests -p 'test_article_diagrams.py' -v
+      - name: Unified visual producer-consumer and stale contract controls
+        run: python3 -m unittest discover -s tests -p 'test_visual_architecture.py' -v
+      - name: ViewEnv episode projection and digest controls
+        run: node --test apps/loop-workbench/src/viewenv.test.mjs
+      - name: Validate versioned skill manifest
+        run: python3 -m json.tool design/visual-skills.lock.json > /dev/null
+      - name: Install pinned upstream source packages in isolated CI checkout
+        run: |
+          python3 scripts/install_loop_visual_skills.py --dry-run
+          python3 scripts/install_loop_visual_skills.py
+          python3 scripts/install_loop_visual_skills.py
+          test -f .agents/skills/taste-skill/SKILL.md
+          test -f .agents/skills/anatomy/SKILL.md
+          test -f .agents/skills/impeccable/SKILL.md
+          test -f .agents/skills/emil-design-eng/SKILL.md
+        timeout-minutes: 5
+      - name: Install pinned SeeCode/OMM Skills; verify exact bytes and no cloud push
+        run: |
+          python3 scripts/install_diagram_authoring.py --dry-run
+          python3 scripts/install_diagram_authoring.py
+          python3 scripts/install_diagram_authoring.py
+          test -f .agents/skills/seecode/SKILL.md
+          test -f .agents/skills/omm-scan/SKILL.md
+          test -f .agents/skills/omm-view/SKILL.md
+          test ! -e .agents/skills/omm-push/SKILL.md
+        timeout-minutes: 5
+      - name: Real SeeCode renderer source-only candidate
+        run: |
+          mkdir -p /tmp/diagram-authoring
+          node .agents/skills/seecode/scripts/seecode.mjs render tests/fixtures/visual-authoring/flowchart.json --out /tmp/diagram-authoring/example.html | tee /tmp/diagram-authoring/report.json
+          test -s /tmp/diagram-authoring/example.html
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          response=json.loads(Path('/tmp/diagram-authoring/report.json').read_text())
+          assert response['ok'] is True,response
+          html=Path('/tmp/diagram-authoring/example.html').read_text()
+          # Generated JS can contain a dormant fonts.googleapis.com literal.
+          # Actual network requests are verified in the isolated Chromium run.
+          assert '<html' in html.lower()
+          assert '<html' in html.lower()
+          print('Actual SeeCode HTML produced; no native graph or published asset.')
+          PY
+        timeout-minutes: 3
+      # The independent TanStack Start app is not bundled into existing
+      # production. npm dependency audit / lockfile / build + browser checks
+      # are required before considering a cutover.
+
+  tanstack-start-preview:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/loop-workbench
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: '1.4.3'
+      - name: Install exact committed TS7, Bun and tsrs toolchain dependencies
+        run: |
+          node --version
+          npm ci --ignore-scripts --no-audit --no-fund
+        timeout-minutes: 5
+      - name: Source-pinned JavaScript/TSX AST code-intel and adversarial controls
+        run: |
+          node scripts/aifs-code-intel.mjs > /tmp/aifs-source-ast.json
+          npm run test:aifs:intel
+          node -e "const a=require('/tmp/aifs-source-ast.json');if(a.status!=='ready'||a.effects.length||a.authorizes_landing)process.exit(1);console.log('AIFS source AST READY; Native execution NOT_RUN')"
+        timeout-minutes: 3
+      - name: TypeScript 7 stable native CLI and JS API separation
+        run: |
+          npx tsc --version
+          node -e "const p=require('./package.json'), ts=require('typescript');if(p.devDependencies['@typescript/native']!=='npm:typescript@7.0.2'||!ts.version.startsWith('6.0.')) process.exit(1);console.log('JS API:',ts.version)"
+          npm run typecheck
+        timeout-minutes: 5
+      - name: Bun secondary runtime TypeScript checks
+        run: |
+          bun --version
+          bun -p process.versions.typescript
+          bun check
+          bun test src/workbench.test.mjs
+          bun --bun run build
+        timeout-minutes: 5
+      - name: Real isolated tsrs Rust WASM in-memory diagnostics
+        run: npm run test:tsrs:wasm
+        timeout-minutes: 5
+      - name: Build isolated TanStack Start app
+        run: npm run build
+        timeout-minutes: 5
+      - name: Install sandbox Chromium for preview Browser verification
+        run: npx playwright install chromium
+        timeout-minutes: 5
+      - name: Browser smoke desktop/mobile and three layers
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/viewenv-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3107/viewenv >/dev/null; then break; fi
+            sleep 1
+          done
+          npm run test:browser
+        timeout-minutes: 5
+      - name: AIFS source-preserved figure computation and Browser E2E
+        run: npm run test:aifs:browser
+        timeout-minutes: 5
+      - name: Save source-preserved AIFS figure desktop/mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aifs-figure-lab-screenshots
+          path: apps/loop-workbench/test-artifacts/aifs-figure-lab-*.png
+          if-no-files-found: ignore
+      - name: Isolated standalone SeeCode browser verification
+        run: |
+          cd ../..
+          python3 scripts/install_diagram_authoring.py
+          mkdir -p /tmp/diagram-authoring
+          node .agents/skills/seecode/scripts/seecode.mjs render tests/fixtures/visual-authoring/flowchart.json --out /tmp/diagram-authoring/example.html
+          cd apps/loop-workbench
+          node src/seecode.browser.mjs /tmp/diagram-authoring/example.html
+        timeout-minutes: 5
+      - name: Fresh AIFS and SeeCode source-to-sandbox browser differential
+        run: node src/migrate-parity.browser.mjs /tmp/diagram-authoring/example.html
+        timeout-minutes: 5
+      - name: Preserve isolated SeeCode desktop/mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seecode-browser-smoke
+          path: apps/loop-workbench/test-artifacts/seecode-editorial-*.png
+          if-no-files-found: ignore
+      # Generated lockfile is ephemeral until an exact dependency review.
+      # This preview is not wired into the production Vercel build.
+
+  candidate-mermaid-renderer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/article-diagrams
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install isolated, pinned authoring renderer
+        run: npm install --ignore-scripts --no-package-lock --no-audit --no-fund
+        timeout-minutes: 5
+      - name: Generate and measure real SVG fixture
+        run: npm test
+        timeout-minutes: 2

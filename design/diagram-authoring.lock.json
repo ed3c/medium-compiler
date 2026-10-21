@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "install_scope": "repo-local, design-time, no cloud push, no native Graph authority",
+  "sources": [
+    {
+      "id": "seecode",
+      "repo": "Aryanutkarsh/SeeCode",
+      "sha": "067ca2594e8e8ec87e7bcd14e9dcf7549f0f9913",
+      "license": "MIT",
+      "subtrees": [
+        "skills/seecode"
+      ],
+      "targets": [
+        "seecode"
+      ]
+    },
+    {
+      "id": "omm",
+      "repo": "oh-my-mermaid/oh-my-mermaid",
+      "sha": "38ccdb69298adec949177c92c88d6e3ddfb5bab7",
+      "license": "MIT",
+      "subtrees": [
+        "skills/omm-scan",
+        "skills/omm-view"
+      ],
+      "targets": [
+        "omm-scan",
+        "omm-view"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+graph LR
+    loop-site["Snapshot 驗證與建置入口\nscripts/loop_site.py"]
+    graph-site["公開圖套件建置器\nscripts/loop_graph_site.py"]
+    static-package["靜態 JSON 與文字檔\nassets/loop-data/SNAPSHOT_SHA/"]
+    panorama-route["TanStack Panorama route\napps/loop-workbench/src/routes/panorama.tsx"]
+    panorama-renderer["保留原碼的 Panorama\napps/loop-workbench/vendor/noodle/loop-panorama.mjs"]
+    isometric-renderer["Artifact callback 消費端\napps/loop-workbench/vendor/noodle/loop-isometric.mjs"]
+    artifact-reader["Artifact 來源與內容核對\napps/loop-workbench/src/public-artifact.mjs"]
+    loop-site -->|"先 validate_public_graph；再 build_graph_package"| graph-site
+    graph-site -->|"分離 public_content；寫入 graph.json 與 artifacts"| static-package
+    panorama-route -->|"同源 manifest fetch；解析 JSON"| static-package
+    panorama-route -->|"mountPanorama；注入 readArtifact callback"| panorama-renderer
+    panorama-renderer -->|"mountIsometric；傳遞同一 callback"| isometric-renderer
+    isometric-renderer -->|"mechanism principle／本次原要求讀回"| artifact-reader
+    artifact-reader -->|"僅取綁定文字檔；核對 bytes、SHA-256、UTF-8"| static-package

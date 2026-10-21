@@ -1,0 +1,41 @@
+{
+  "schema_version": "aifs-figure-vendor@1",
+  "upstream": "rohitg00/ai-engineering-from-scratch",
+  "revision": "45fa4084de6ba2f88fa96a41e69efa2166f868b3",
+  "license": "MIT",
+  "mode": "byte-identical selected module files; author-approved generated HTML separately",
+  "source_files": [
+    {
+      "source_path": "site/lesson-figures.js",
+      "vendor_path": "apps/loop-workbench/public/aifs/lesson-figures.js",
+      "git_blob_sha1": "e90e743c4f4b3e282e46c1a27a6602faa9745973"
+    },
+    {
+      "source_path": "site/figures-math.js",
+      "vendor_path": "apps/loop-workbench/public/aifs/figures-math.js",
+      "git_blob_sha1": "9d6752ade1cf1dfbc8513c5fa6996e8b811c0ed6"
+    },
+    {
+      "source_path": "site/figures-demo.js",
+      "vendor_path": "apps/loop-workbench/public/aifs/figures-demo.js",
+      "git_blob_sha1": "7e455afb5ac994f38c9b737d61fe83cd1ad12ba2"
+    },
+    {
+      "source_path": "LICENSE",
+      "vendor_path": "apps/loop-workbench/public/aifs/LICENSE",
+      "git_blob_sha1": "61442168db9acb554e944f3f8c006e4ac1e91310"
+    }
+  ],
+  "ordered_scripts": [
+    "lesson-figures.js",
+    "figures-math.js",
+    "figures-demo.js"
+  ],
+  "selected_figures": [
+    "vector-projection",
+    "matrix-transform",
+    "demo-token-bucket"
+  ],
+  "truth_ceiling": "source-only explorable lesson figures; not actual Native Agent or Python runner",
+  "deployment": "isolated TanStack Start preview; not full-site Cloudflare production"
+}

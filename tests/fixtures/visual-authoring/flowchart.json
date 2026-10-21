@@ -1,0 +1,71 @@
+{
+  "type": "flowchart",
+  "title": "Source to reviewed figure",
+  "subtitle": "Teaching illustration, not Native execution",
+  "eyebrow": "Diagram authoring candidate",
+  "skin": "light",
+  "dir": "LR",
+  "size": "wide",
+  "fonts": "system",
+  "motion": "step",
+  "budget": "faithful",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Source",
+      "sub": "Approved prose",
+      "row": 0,
+      "col": 0,
+      "kind": "input"
+    },
+    {
+      "id": "spec",
+      "label": "Diagram Spec",
+      "sub": "Source-bound",
+      "row": 0,
+      "col": 1,
+      "kind": "backend"
+    },
+    {
+      "id": "review",
+      "label": "Review",
+      "sub": "Verify fidelity",
+      "row": 0,
+      "col": 2,
+      "kind": "focal"
+    },
+    {
+      "id": "display",
+      "label": "Preview",
+      "sub": "Isolated HTML",
+      "row": 0,
+      "col": 3,
+      "kind": "store"
+    }
+  ],
+  "edges": [
+    [
+      "source",
+      "spec",
+      "derive"
+    ],
+    [
+      "spec",
+      "review",
+      "verify"
+    ],
+    [
+      "review",
+      "display",
+      "after approval"
+    ]
+  ],
+  "evidence": [
+    {
+      "id": "source",
+      "file": "docs/visualization-integration.md",
+      "line": 1
+    }
+  ],
+  "watermark": true
+}

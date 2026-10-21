@@ -163,3 +163,7 @@ target 僅為本 skill 目錄：核對 index → 每 feature 一位唯讀 source
 缺陷另報，不改正文或產品程式來掩飾。建立標準見
 [pstack creation](../verify-medium/references/create-verification.md)；`.cursor` 放置慣例在本 repo
 適配為 `.agents`。這是工作方法，不自行授權部署或證明人的學習成效。
+
+## Reuse accepted AIFS figure source (MIG-01/02/03 A)
+
+For newly selected interactive mathematical figures, read [the AST-first migration contract](../../../docs/aifs-modular-migration.md) and use the pinned AIFS lesson-figure provider with its original LF toolkit. Use the actual source-bindings and Consumer event behavior before adapting; do not redraw formulas or blindly copy the AIFS entire Course/Build/Learning State. The isolated `/figures` preview demonstrates source-preserved behavior; an approved article still needs its own content Owner/diagram review and should not automatically embed this preview. Soodles Thinking Outer and Noodle Poteto Inner do not automatically run from this writing skill.

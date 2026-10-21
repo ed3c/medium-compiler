@@ -271,3 +271,9 @@ Use `$verify-medium` for affected features, `$maintain-medium-verification` for 
 upkeep and `$medium-behavior-evals` for real writer/reader experiments. Report mechanical
 checks, author review, independent review, fresh writer A/B and publication separately.
 Neither a digest nor a keyword/style score guarantees non-degraded meaning.
+
+## Optional source-bound article diagrams
+
+Only after the existing content owner has accepted canonical Markdown, a registered Mermaid fence may be rendered as a reviewed build-time SVG; see [Article Diagram Contract](../../../docs/article-diagrams.md). Figure rendering is presentation-only and cannot rewrite accepted prose, alter ALG Four paragraph binding, create a Stage 8 or claim native runtime correctness. Unsupported/unreviewed diagrams remain unpromoted; use the exact original Source and renderer-specific tests.
+
+For paper and teaching figures, see [Unified Visual Architecture](../../../docs/visual-architecture.md): the accepted article prose remains the source, figures are derived and review-gated, and interactive lesson execution has a separate computation oracle. Never let a generated diagram change an ALG Four source paragraph or certify a Native Agent run.
