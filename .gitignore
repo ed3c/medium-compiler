@@ -35,3 +35,8 @@ __pycache__/
 /apps/loop-workbench/dist/
 /apps/loop-workbench/.tanstack/
 /apps/loop-workbench/src/routeTree.gen.ts
+
+# Optional design-time repository-local SeeCode/OMM packages
+/.agents/skills/seecode/
+/.agents/skills/omm-scan/
+/.agents/skills/omm-view/
