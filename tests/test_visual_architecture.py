@@ -80,7 +80,7 @@ class VisualArchitectureTests(unittest.TestCase):
         self.assertNotIn('@tsrs/wasm',package['dependencies'])
         self.assertIn('typescript-rust-port-integration.md',read('docs/visual-architecture.md'))
         self.assertIn('same upstream TypeScript commit',research)
-        self.assertIn('No product dependency',research)
+        self.assertIn('isolated dev-only tsrs WASM smoke',research)
 
     def test_no_new_runtime_authority_from_visual_router(self):
         router=read('.agents/skills/loop-visual-design/SKILL.md')
