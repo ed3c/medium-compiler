@@ -43,5 +43,10 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "codex/leetcode-article-depth": false
+    }
+  }
 }
