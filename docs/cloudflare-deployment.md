@@ -153,9 +153,12 @@ PITR Bookmark 不等於 Restore。既有 DR 演練的版本與單一 RTO observa
 
 官方 Cloudflare Workers and Pages GitHub App 只選 `ed3c/medium-compiler`。
 兩個既有 Worker 都選 production `main`、repository root `/`、Preview builds 關閉。
-Public Lab build command 為 `npm run build:cloudflare`，deploy 為 `npx wrangler deploy`。
+為保留「合併文章但不發布」的範圍，兩個 trigger 的 deploy command 使用 `--dry-run`；
+main 更新仍可建置檢查，但不 upload、建立新版本或改動 active deployment。
+Public Lab build command 為 `npm run build:cloudflare`，deploy 為 `npx wrangler deploy --dry-run`。
 Remote build command 為 `node --experimental-sqlite --test tests/cloudflare_interface.test.mjs`，
-deploy 為 `npx wrangler deploy --config examples/cloudflare-checkout-sandbox/wrangler.jsonc`。
+deploy 為 `npx wrangler deploy --config examples/cloudflare-checkout-sandbox/wrangler.jsonc --dry-run`。
+授權正式發布時另走原 Provider 路徑；不要因合併完成就自動移除 dry-run 防護。
 沿用既有 Queue、DO migration 和 Access Policy，不建立 preview bindings 或第二個 Scheduler。
 沿用單一 `medium-compiler Git Builds` user token，限定目前帳號的 Workers Scripts
 Edit、Queues Edit、Account Settings Read；不使用預設 R2／Containers 等廣泛權限。
