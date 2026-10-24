@@ -125,6 +125,9 @@ annotation has not been verified. Keep annotations outside the complete body.
 Keep content/reader evidence, website runtime, compiler admission and Provider
 publication distinct. Website-ready files and a successful CI do not authorize
 merge or deployment; preserve the task's selected host and explicit effect scope.
+For each article update, first deliver the actual localhost browser preview under
+[the shared local-review contract](../../../../writing-contract.md#article-updates-local-preview-before-deployment).
+Website-ready means ready for that review; it does not request a remote release.
 
 ## Part delivery and Stage boundary
 

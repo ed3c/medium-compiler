@@ -55,6 +55,39 @@ The approved content goes through the **existing** Stage 0–7 CLI using existin
 
 For other article domains, this writing contract remains the source of English-first authoring, sloptrim, translation and editorial review.
 
+## Article updates: local preview before deployment
+
+An article or reading-interface update defaults to a reviewable local website,
+including its article-list entry. Build the selected version, serve it through
+localhost and actually open the affected pages in a browser. Inspect the changed
+content, layout, index/navigation and any affected language switch, notes or code
+on the relevant desktop/mobile viewports. Retain the source revision/working-tree
+state, actual local URL and observed results outside public prose. Provide that
+URL for the user's review; opening it yourself does not mean the user has seen it.
+An HTTP response, generated HTML, CI browser run or deployed Preview URL does not
+substitute for this local review. If it cannot be performed, report the missing
+step and retain the local work instead of deploying to obtain a preview.
+
+After local review, deploy to the selected Vercel or Cloudflare target only when
+the current update's scope explicitly includes deployment. A previous release,
+configured host, publishable article, CLI VALIDATED result or green CI does not
+authorize every later update. When no release is requested, stop at the local
+preview and checks. If the user asked to review before release, wait for that
+review; otherwise an existing explicit end-to-end deployment request remains
+valid after local review without another ceremonial permission question.
+
+Treat Git pushes/merges that trigger Vercel Preview/Production or Cloudflare
+Workers Builds as remote deployment effects too. Read the current trigger before
+such a write; do not use a push as a preview shortcut or assume a PR is local-only.
+If trigger behavior is unknown during a local-only task, retain local commits and
+block that remote write. Do not silently disable integrations or change Provider
+settings. Source or presentation changes after review require rebuilding and
+rechecking the affected local pages before release.
+
+Keep local review, user review, compiler/CI checks, release authorization and
+Provider/runtime readback distinct in the task report. These are observations
+and scope boundaries, not new compiler stages or a new approval service.
+
 ## Invariant-centered Zero Context granularity
 
 For any technical article, make one meaningful constraint traceable through

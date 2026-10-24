@@ -42,7 +42,11 @@ sources, selects the main question/property/representation/witness/alternative a
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
 
 Website delivery follows the selected host and ownership in repository AGENTS.md
-and docs/cloudflare-deployment.md. Article admission does not authorize publication.
+and docs/cloudflare-deployment.md. Apply the retained contract's
+[local review before deployment](../../../writing-contract.md#article-updates-local-preview-before-deployment):
+article updates stop at an inspected localhost preview by default. Publication
+requires the current update's explicit scope, including any Git-triggered release.
+Article admission does not authorize publication.
 Cloudflare executes configured Git builds; this is not a Local
 Codex or ChatGPT runtime. App installation, build trigger, active deployment,
 and Browser/Queue/DO acceptance require separate readbacks. A hosting authentication or scope

@@ -53,6 +53,11 @@ paragraph alignment or claim a corresponding scroll position.
 
 ## Verification and effect boundary
 
+Each article update follows [local review before deployment](../writing-contract.md#article-updates-local-preview-before-deployment).
+Serve the current build on localhost, inspect the affected language pages and
+article list, and provide the actual preview URL. Website-ready handoff and CI
+do not request a release; stop locally unless this update includes deployment.
+
 Build through `npm run build:cloudflare:full -- --no-deployment-manifest` for
 content/browser verification. The complete-site config remains
 `wrangler.full-site.jsonc`; `npm run deploy` still targets only Reliability Lab.

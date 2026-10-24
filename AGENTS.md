@@ -41,6 +41,13 @@ Proceed without asking again when the selected route's actual requirements are m
 
 ## Selected full-site Cloudflare route and external state
 
+Article updates default to a local browser preview, not an automatic release.
+Follow [local review before deployment](writing-contract.md#article-updates-local-preview-before-deployment)
+before Vercel/Cloudflare effects, including Git writes that trigger remote builds.
+Report the local URL and checks; a configured host, old release authorization or
+green CI does not authorize each later update. Preserve an explicit current
+deployment request after local review; do not invent an extra approval loop.
+
 The user selected Local Codex + pinned Wrangler for the complete Cloudflare site.
 Use `wrangler.full-site.jsonc` and `npm run build:cloudflare:full` for the independent
 `medium-compiler-full-site` Worker serving full `dist/`. `npm run deploy` still owns

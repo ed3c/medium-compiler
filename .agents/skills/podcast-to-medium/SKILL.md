@@ -9,8 +9,11 @@ Work from the selected medium-compiler checkout. Read its AGENTS.md and README e
 Keep the user's input, question and requested publishing scope. Use this skill as the
 orchestrator; [medium-writing](../medium-writing/SKILL.md) owns prose and Stage 0–7.
 Do not create another writer, model API, scheduler, approval loop or publishing service.
-An end-to-end writing/deployment request authorizes its ordinary steps; do not repeatedly
-ask to proceed. Skill availability itself does not authorize a new deployment.
+Apply [local review before deployment](../../../writing-contract.md#article-updates-local-preview-before-deployment).
+Writing/update requests default to an inspected localhost preview. An explicit
+current end-to-end deployment request continues after local review without
+repeated permission questions; earlier releases and skill selection do not
+authorize publishing each later article update.
 
 ## 1. Resolve the source with the existing CLI
 
@@ -87,10 +90,14 @@ Run the affected checks, `verify-medium` and the site build. Inspect article ren
 source links, Markdown download and navigation. Confirm neither private transcript packets
 nor raw source files were copied into public output. Keep existing article bytes unchanged.
 
-When deployment is requested, use the existing GitHub PR/Actions and Git-linked Vercel route.
-Read matching-head checks; merge/publish within the user's scope, then read back the actual
+Serve the build on localhost, open and inspect the affected article and index,
+and provide the actual preview URL and observations. If the user requested a
+review before release, wait for that review. When deployment is explicitly in
+this update's scope, follow the selected host in AGENTS.md and its original
+deployment contract; do not default to Vercel or use a Git-triggered build as
+the local preview. Read matching-head checks; merge/publish within scope, then read back the actual
 production article, download and provenance bytes. A successful build or HTTP 200 alone is
-not full delivery. If deployment is not requested, stop at the reviewable article/build.
+not full delivery. If deployment is not requested, stop at the local preview and checks.
 
 Report the article URL, source passages used, actual checks and remaining limitations.
 Distinguish source acquisition, author review, mechanical checks and deployment. Do not

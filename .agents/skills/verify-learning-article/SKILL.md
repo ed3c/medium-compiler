@@ -118,7 +118,9 @@ mechanical drive。不改防護或停用測試，也不全域修改使用者環�
    再依 Four-Pass recipe freeze 本次 lesson；影片需求交給既有 renderer。新文章走既有
    Stage 0–7，既有文章用實際支援的修訂路徑，不能倒填虛構的寫作階段。
 3. [導航與網站交付](features/website-delivery.md)：build、點擊前後課、核對文章雜湊，
-   在現有授權範圍內提交與發布，最後讀回精確 commit 的 deployment 及公開頁面。
+   先實際開啟本機頁面並提供預覽網址；預設停在本機交付。依
+   [共用本機預覽契約](../../../writing-contract.md#article-updates-local-preview-before-deployment)，
+   本次更新明確包含發布才提交會觸發部署的變更，最後讀回精確 commit 的 deployment 及公開頁面。
 
 使用者要的是「代為實作、研究並寫出教學」時，記錄為 agent 操作與 source-explanation；
 不等待附加考題答案，也不宣稱學員已掌握。若使用者另要求已接受的 learning-episode，
