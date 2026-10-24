@@ -1,0 +1,4579 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 0,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "容量必須同時比較 height 與 distance：兩牆很高，若靠得太近，乘積仍可能較小。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Two tall walls can make a poor container if they stand too close together. In LeetCode 11, the decision is about a pair's height and distance together.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "How do wall height and distance jointly affect capacity?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "比較的是同一對牆的 height 與 distance；高牆若相隔很近仍可能容量小，因此不能只按最高牆選答案。",
+        "qualifiers": [
+          "不能",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須比較height/distance指此容量函數的兩個因素；未宣稱必須採唯一資料結構或某個搜尋法。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 1,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "contract 指定 i < j 的兩個不同位置、回傳 integer 最大容量並保留輸入；空輸入與單牆不在證明範圍內。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "The input height lists vertical wall heights at positions 0, 1, ..., n - 1. Choose two distinct positions i < j; the ground and those two walls form an upright container. Return the largest capacity, as an integer, rather than the wall positions. The statement allows 2 <= n <= 100000 and 0 <= height[i] <= 10000. It does not ask us to change the input, and the solutions below leave it unchanged. Empty and one-wall inputs are outside this contract. LeetCode problem statement.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which inputs and output belong to this contract?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這份 contract 要求至少兩面非負高度牆，位置必須 i < j；只有在這個範圍內才有合法配對，空輸入／單牆不能沿用後面的證明。",
+        "qualifiers": [
+          "必須",
+          "只有",
+          "才",
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "輸出是最大 capacity 的 integer，不是位置或一份修改後的 list；原解法不修改輸入，因此不能把回傳型別與輸入變動混為一談。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "i<j、至少兩牆與非負是題目contract；不把選定contract升成所有容器問題的唯一設定。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 2,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "較短牆限制 water height，j - i 計 gaps；兩個量相乘才得到 rectangular cross-sectional area。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The water cannot rise above the shorter wall: it would spill over that side. The horizontal distance is j - i, counting gaps rather than walls. Thus a pair's capacity is its rectangular cross-sectional area:",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which wall limits water height, and what does width count?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "選定的是兩個不同邊界；水高受其中較短牆限制，寬度 j - i 計間隔而非牆數，兩者相乘才是該配對的 area。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0001.term",
+        "text": "capacity",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0001.english_sentence",
+        "text": "The water cannot rise above the shorter wall: it would spill over that side.",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0001.active_cue",
+        "text": "Why does the shorter wall limit capacity?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0001.oracle",
+        "text": "Water above that wall would spill over; width alone does not determine capacity.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "cannot rise的上界針對選定邊界的短高；width不是唯一因素，Active也明說width alone不足。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 3,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "area 公式用 index 差乘上兩端的 min height；寬度與可承受水高必須來自同一個配對。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "area(i, j) = (j - i) * min(height[i], height[j]).",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which width and height enter the area formula?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "公式中的兩個 index 必須是同一配對的 i < j；min(height[i],height[j]) 是那兩面邊界的較短高度，不能拿其他牆的高度配上這個寬度。",
+        "qualifiers": [
+          "必須",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "同一個pair限制兩個量的來源，沒有聲稱某一算式寫法是唯一實作機制。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 4,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "(1, 3) 的 2 × 4 勝過更寬的 (0, 3) 的 3 × 2；intermediate walls 不扣面積，這不是逐處累加 trapped rainwater。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "For the constructed input [2, 5, 1, 4], walls at positions 1 and 3 give width 2, water height 4, and area 8. Positions 0 and 3 are farther apart, but give only 3 * 2 = 6. The tallest wall alone does not determine the answer. Intermediate walls do not subtract their height from this rectangle; this problem chooses two boundaries, rather than adding pockets of trapped rainwater.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why can a farther or taller choice have less area?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "本段數字固定來自 [2,5,1,4]；(1,3) 的 area 八與 (0,3) 的六只描述這個 witness，不是所有四面牆輸入的固定答案。",
+        "qualifiers": [
+          "只",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "題目只選兩個邊界形成矩形，intermediate walls 不扣面積；若改成累加 trapped rainwater，便換了計分規則。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "指定數字是witness；不扣intermediate heights是問題定義，不是對所有蓄水題的排他斷言。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 5,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "非負面積允許 best 從零開始；全零輸入的真正最大值也是零，初始化不會虛構更大的答案。",
+        "qualifiers": [
+          "不會"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "If both chosen heights are zero, their area is zero. When all heights are zero, zero is the correct maximum. This makes best = 0 a valid initial value for every legal input.",
+        "qualifiers": [
+          "all",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why can best start at zero for legal inputs?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "合法 heights 非負，所以每個 area 都非負；全零輸入的真正 maximum 也是零，這讓零不會先排除一個合法最佳答案。",
+        "qualifiers": [
+          "每",
+          "不會"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "best = 0 是尚未評估任何配對時的初值；評估之後要取已算 area 的 maximum，而不是永久固定回傳零。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "允許best=0是充分合法初值；文字沒有把zero說成唯一可能sentinel或永遠回傳值。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 6,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "固定左端再列舉所有右端保證看過每個 candidate；下一次只比較 best，無須保留舊面積列表。",
+        "qualifiers": [
+          "所有",
+          "每",
+          "只",
+          "無須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "A direct solution fixes the left position and tries every position to its right. best retains the largest area evaluated so far; keeping the areas of old pairs would add storage without helping the next comparison.",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What does enumeration retain, and what need not be stored?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "直接解法對每個左端嘗試其右側位置；完整 pair coverage 配合 best 保存已評估 maximum，才足以支撐最後答案。單獨一個內層 range 不涵蓋其他左端的配對。",
+        "qualifiers": [
+          "每",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "每次算完 candidate 後更新 best；下一次只需要這個 maximum，不需要保留所有舊 area。",
+        "qualifiers": [
+          "每",
+          "只",
+          "所有"
+        ]
+      }
+    ],
+    "direction_strength_review": "每個candidate的coverage來自全體outer/inner enumeration；只留maximum是此實作的足夠狀態，不是必須存所有歷史。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 7,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "range 排除 n 且從 i + 1 開始，維持合法且不重複的配對；雙 argument min／max 只選值，不修改 list。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "range(i + 1, n) produces positions from i + 1 through n - 1. It excludes n, so every lookup is valid, every pair has distinct walls, and a pair is not repeated in reverse. min(a, b) returns the smaller argument; max(best, area) returns the larger. Neither call changes the list. These are the two-argument forms of the documented Python built-in functions.",
+        "qualifiers": [
+          "every",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How do range bounds avoid invalid or reversed pairs?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "固定左端 i 後，j 只取 i+1 到 n-1：這同時排除相同位置、反向重算與 n 的越界值；仍須外層遍歷各 i 才有完整 coverage。",
+        "qualifiers": [
+          "只",
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "min／max 使用兩個 argument，只回傳其中較小／較大值，不修改 list；這是選值操作，不是就地排序。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "雙argument min/max及range都限定來源的普通有界integer/list操作；不擴成任意自訂comparison的side effects。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 8,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "六個 area 都被計算，但 best 只在出現更大值時上升；完整列舉最後讓 best 停在 8。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "For [2, 5, 1, 4], the six pairs in execution order have areas 2, 2, 6, 1, 8, 1. The corresponding best values are 2, 2, 6, 6, 8, 8; returning 8 therefore follows from examining every candidate.",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does best evolve across the six example pairs?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "六個 area 與 best 序列只對應 [2,5,1,4]；外層及內層完整列舉每個合法 pair，best 又保存已算 maximum，所以此例最後得到八。",
+        "qualifiers": [
+          "只",
+          "每"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "讀取 best 序列時觀察每次比較之後的值；area 一或六可以不改變先前已保存的較大值，不能直接以當前 area 代替 best。",
+        "qualifiers": [
+          "每",
+          "不能"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0002.term",
+        "text": "candidate",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0002.english_sentence",
+        "text": "The corresponding best values are 2, 2, 6, 6, 8, 8; returning 8 therefore follows from examining every candidate.",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0002.active_cue",
+        "text": "Why does the all-pairs result equal the maximum?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0002.oracle",
+        "text": "Every legal pair is examined, and best retains the largest evaluated area.",
+        "qualifiers": [
+          "Every"
+        ]
+      }
+    ],
+    "direction_strength_review": "best只在較大area才上升，是max accumulator的值行為；不表示程式只有該branch才可能做一次binding。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 9,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "配對數正反相加後除二，得到 n(n - 1)/2；上限輸入需數十億次計算，跳過 candidate 必須另有正確性理由。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The number of candidates matters at the upper input limit. To count them, position 0 has n - 1 partners, position 1 has n - 2, and the last useful left position has 1. Add these counts forward and backward: each matched sum is n, and there are n - 1 such sums. That double-counts the candidates, giving n * (n - 1) / 2 pairs. At n = 100000, that is 4,999,950,000 area evaluations. We need a reason to skip candidates without losing the maximum.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "How many legal pairs require evaluation at the input limit?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "計數對象是每個 i < j 的不同配對，搭檔數依序 n-1 到一；正反相加除二是因為每個 candidate 被計了兩次。",
+        "qualifiers": [
+          "每",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "跳過這些 candidate 不能僅靠輸入很大；要另外證明被省略的配對不會超過已記錄值，否則省工作可能漏掉 maximum。",
+        "qualifiers": [
+          "不能",
+          "不會"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須另有正確性理由是省略candidate時的proof義務；不宣稱所有解法都必須列舉數十億次。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "two pointers 是兩個 integer indices；含端點的 interval 表示未解決範圍，丟棄位置前必須先量端點配對。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Keep two indices, left and right, initially at opposite ends. These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses. The inclusive interval from left to right contains the positions still available for unresolved pairs. Evaluate its endpoint pair before discarding anything.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What do the pointers delimit before a wall is discarded?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "left/right 是普通 integer indices，含端點的 interval 表示未解決位置；它們不是複製的 sublist 或 Python memory addresses。",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[1].text",
+        "text": "較短牆上界只涵蓋仍保留那面牆的內縮配對；刪較高牆沒有相同保證，因此不能把 interval 的存在當成任意刪端點的理由。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先評估兩端 area 並讓 best 記住目前 maximum，再移除有上界支持的端點；若尚未保存就刪除，[3,3,3] 的外側六可能只剩三可看。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0003.term",
+        "text": "two pointers",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0003.english_sentence",
+        "text": "These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses.",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0003.active_cue",
+        "text": "What are the two pointers in this Python implementation?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0003.oracle",
+        "text": "They are integer indices delimiting unresolved positions, without copying a sublist.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "先量並保存再discard限定所展示的maximum-preserving discard；不把integer index說成所有two-pointer算法的唯一表示。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "在 left 較短的前提下，保留 left 的內縮配對既不能提高 water height，又縮小 width；非負 height 允許推導面積上界。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Suppose height[left] <= height[right]. The pair just measured has area (right - left) * height[left]. Consider any pair that keeps left and replaces right with an inner position k. Its width k - left is smaller, and its water height cannot exceed height[left], even if the new wall is much taller. Because heights are nonnegative,",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which retained-wall pairs does the height bound concern?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "本分支假設 0≤height[left]≤height[right]，而且只選保留 left、把另一端換成內部 k 的配對；water height 不能超過 height[left]，寬度也比原端點對更小。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "不是所有較窄配對都受這面 left 牆限制：例如 [1,3,3] 的 (1,2) 沒保留 left，可有水高三。selected object 必須明確是 retained-left pairs。",
+        "qualifiers": [
+          "所有",
+          "必須"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能提高height限retained-left inward set，非所有較窄pair；明示0≤height[left]≤height[right]。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "第一個不等式限制 water height，第二個利用內縮 width 與非負 height；整條鏈把所有保留 left 的內部配對界在已量面積內。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "area(left, k) <= (k - left) * height[left] <= (right - left) * height[left].",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What conditions license each inequality in this chain?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這條式子承接非負 heights 與 left 不高於 right，並只比較 left<k<right 的 retained-left pairs；第一步由水高≤height[left]，第二步由寬度縮小且 height[left] 非負。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "最後一項等於原兩端的 area，須依賴 left 是較短或等高端點；若 left 較高，已量 area 改由較短的 right 決定，不能把乘上 height[left] 的量當成同一個 endpoint area。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "量詞限同分支retained-left pairs；最後項等endpoint area依短左端條件，不是所有單調式均可作同一bound。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "增加 left 丟棄的是一整組已受上界涵蓋的 candidates；推論沒有保證下一牆較高或下一個 area 更大。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "So no such pair can beat the endpoint area we already recorded. Every remaining candidate involving left can be discarded together by increasing left by one. This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+        "qualifiers": [
+          "no",
+          "Every",
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why can all remaining partners of left be discarded together?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "本段的 such pair 只指前段 0≤height[left]≤height[right] 下的 inward retained-left candidates；它們都不超過剛測量的端點 area，並非所有內部配對都被排除。",
+        "qualifiers": [
+          "只",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "上界比較的是已存在的 candidate area，不預測下一牆更高或下一 area 更好；因此 best 必須保留歷史而不是依賴 area 單調成長。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "此處端點 area 已被記錄，才把 left 增一；若還沒保存就移除，等高 witness 的最大外側 area 也可能消失。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0004.term",
+        "text": "bound",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0004.english_sentence",
+        "text": "This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0004.active_cue",
+        "text": "Does the bound predict a better next area?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0004.oracle",
+        "text": "No; it covers all inward partners of the discarded shorter wall using an area already measured.",
+        "qualifiers": [
+          "No",
+          "all"
+        ]
+      }
+    ],
+    "direction_strength_review": "沒有保證下一area改善是對bound可推出內容的限制；不否定有些witness確實改善。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "right 較短時對稱地減一；等高可刪任一端，程式選左側；零高 tie 的所有相關面積皆零，仍安全。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "When the right wall is shorter, the same argument applies with the sides reversed: keeping right while moving the left endpoint inward cannot improve the area just measured, so decrease right. If the heights are equal, either endpoint may be discarded by the same inequality. The code chooses to discard the left one. Zero-height ties remain safe because every pair keeping either zero-height wall has area zero.",
+        "qualifiers": [
+          "cannot",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How do right-shorter and equal-height branches differ?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "沿用非負 heights，縮小寬度才不會提高保留較短牆的 area 上界；right 較短時只界住 retained-right inward pairs，等高時才允許兩側各作支點，零高 ties 的相關 area 全為零。",
+        "qualifiers": [
+          "才",
+          "不會",
+          "只",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "任一 branch 都先量並保存目前 endpoint area，再丟棄該側所有尚未解決 partners；對 [3,3,3]，先保存六再移動才能保留答案。",
+        "qualifiers": [
+          "所有",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "任一端可刪只有equal-height且已保存area時；不能把either跨到非等高分支。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 15,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "[1, 3, 3] 中移動較高右牆會漏掉面積 3；最小性的範圍是牆數，兩牆時唯一 candidate 已在移動前量過。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "This rule deliberately gives up width. It removes a wall only after proving that the lost pairs are already covered by a recorded value. Always moving the taller wall lacks that proof. On [1, 3, 3], the outer pair gives area 2. Moving the taller right wall inward then gives area 1, and the process returns 2; it misses positions 1 and 2, whose area is 3. This is a smallest counterexample by number of walls: with two walls, the only candidate is evaluated before any move.",
+        "qualifiers": [
+          "only",
+          "Always",
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Where does moving the taller wall first lose the optimum?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "錯誤規則是每次移動較高牆；它沒有 retained-shorter-wall 上界，因此 [1,3,3] 中 area 三的 (1,2) 會被跳過。最小性只按牆數衡量。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "正確規則只有在 lost pairs 已被記錄值涵蓋後才移牆；即使兩面牆，也先量唯一 candidate，再進行任何移動。",
+        "qualifiers": [
+          "只有",
+          "才"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0005.term",
+        "text": "counterexample",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0005.english_sentence",
+        "text": "This is a smallest counterexample by number of walls: with two walls, the only candidate is evaluated before any move.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0005.active_cue",
+        "text": "What does smallest mean for the taller-wall counterexample?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0005.oracle",
+        "text": "It means the number of walls; three are needed because two walls have only one candidate, evaluated before moving.",
+        "qualifiers": [
+          "only"
+        ]
+      }
+    ],
+    "direction_strength_review": "最小只按牆數且source候選移動前已評估；can miss不是宣稱所有taller-wall run都失敗。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 16,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "trace 從 (0, 3, 0) 開始：兩個端點涵蓋全部四面牆，尚未量任何配對，因此 best 為零。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "On [2, 5, 1, 4], begin with (left, right, best) = (0, 3, 0).",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What is initialized before this trace measures any pair?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "trace 固定使用 [2,5,1,4] 的四個位置；left=0、right=3 是兩個端點，並不是任意長度輸入都讓 right 等於三。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "這是第一次量 area 前的狀態，best 為初始零；後續各步要先更新 maximum 再動 index。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "初始零/右端三只屬指定四牆witness；不是所有長度或中途狀態的必要數字。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 17,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "先以 width 3 與 height 2 算得 6 並更新 best，再把較短 left 移到 1；保留舊位置 0 的候選受 6 涵蓋。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Read height[0] = 2 and height[3] = 4. Width is 3, water height is 2, and area is 6. Replace best with 6 before moving. Since 2 <= 4, increase left: the new state is (1, 3, 6). The skipped pairs keeping position 0 cannot exceed the measured 6.",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When is area six saved relative to the left update?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "此步讀到位置零與三，高度二與四、寬三；left 是較短端，因此被跳過的 retained-position-zero candidates 受剛算的六涵蓋。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先計 area 六、把 best 更新為六，再把 left 增至一，才得到 (1,3,6)；六的記錄不能留到該端點已消失後才補。",
+        "qualifiers": [
+          "才",
+          "不能",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "順序與數字屬該witness；不從area六倒推所有輸入都必移left。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 18,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "(1, 3) 算得 8，更新 best 後減 right；被排除的 (2, 3) 寬僅 1，水高又受原右牆 4 限制。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Now read heights 5 and 4. Width is 2, so area is 8. best becomes 8. The left wall is taller, so decrease right, giving (1, 2, 8). In particular, pair (2, 3) is safely discarded: its width is 1, and its height cannot exceed the discarded right wall's height 4.",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why is right removed after the area-eight comparison?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "本步在前一步 (1,3,6) 之後，端點高度五與四、寬二；right 較短，所以被排除的 (2,3) 高度至多四且寬一。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先讓 best 從六變八，再減 right 到二；這裡 area 八確實改善 best，並不表示任何輸入的八都比先前 maximum 大。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "area八更新best是前值六的特定trace；不宣稱八永遠比舊best大。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 19,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "當前 area 降到 1 不會覆蓋 best = 8；right 減到 left 後條件失敗，剩一個位置無法再組配對。",
+        "qualifiers": [
+          "不會"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Read heights 5 and 1. Width is 1, giving area 1. The comparison leaves best at 8. Decrease right again, reaching (1, 1, 8). The condition left < right is now false: one position cannot supply two distinct walls. Return 8.",
+        "qualifiers": [
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why does the trace return eight after measuring area one?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "此步沿用前面的 best 八與位置 (1,2)，目前高度五與一的 area 只有一；best 保存 maximum，不能被較小 current area 覆蓋。",
+        "qualifiers": [
+          "只有",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "比較後 best 仍八，right 再減一到 left；while 條件失敗時只剩一個位置，無法選兩個不同端點，所以回傳已保存的八。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能形成兩個端點取決於left==right；saved八仍是選定trace，不是停止條件固定回傳八。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 20,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "等高 trace 先算出 6、後算出 3；可安全移動端點不代表當前 area 單調增加，必須保存 earlier maximum。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "A separate tie witness, [3, 3, 3], starts with area 6, moves left, measures area 3, moves left again and returns 6. A move can reduce the current area; the saved maximum prevents losing the earlier answer.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What does the equal-height witness reveal about saved best?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "指定 witness 為 [3,3,3]；ties 允許選任一側，但不承諾下一個 area 變大，實際數值依序六與三。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "外側六必須在移除前保存；後面即使只看見三，saved maximum 仍保住先前六，這也是 ties 可安全移動的必要記錄狀態。",
+        "qualifiers": [
+          "必須",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須保存earlier maximum是此discard程序的資訊需求；不是宣稱只能用某個特定變數名稱或容器存它。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 21,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "while 先檢查條件，if 每輪只選一個 branch，因此恰好一個 index 改變；這支持距離每輪減一的計數。",
+        "qualifiers": [
+          "每",
+          "只",
+          "恰",
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The while statement tests its condition before each execution of the body; if selects exactly one branch. Thus exactly one index changes per iteration. Python compound statements.",
+        "qualifiers": [
+          "exactly",
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does the selected loop change exactly one index?",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這是在原程式中每個 if／else branch 各只有一個 index update 的事實；while／if 語法本身不保證任意程式都只改一次 index。",
+        "qualifiers": [
+          "每",
+          "只有",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "while 在進 body 前檢查；條件成功後 if 只選一側，完成該 iteration 才有恰好一個 index 變動。",
+        "qualifiers": [
+          "只",
+          "才",
+          "恰"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0006.term",
+        "text": "branch",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0006.english_sentence",
+        "text": "Thus exactly one index changes per iteration.",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0006.active_cue",
+        "text": "How many index updates occur in one iteration?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0006.oracle",
+        "text": "Exactly one, because if chooses one branch after the while condition succeeds.",
+        "qualifiers": [
+          "Exactly"
+        ]
+      }
+    ],
+    "direction_strength_review": "exactly one update由這份程式每branch一個index assignment支撐；context未把if語法本身當唯一充分理由。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "此實作讀取 height[left]、綁定 locals，並以 left += 1 重新綁定 immutable integer，不修改 input list；item assignment 會寫入 item，但這裡沒有這種 assignment。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Reading height[left] retrieves an element without removing it. Assigning that value to left_height binds a local name; it does not copy the list. Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height. An assignment targeting an item such as height[left] would write that item; no such assignment occurs here. The input remains available to the caller. Python assignments, numeric types.",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which reads and bindings leave the input list intact?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這裡談的是原程式的操作：height[left] 讀元素，綁定 left_height 或重新綁定 integer left 不會寫入 input list。item assignment 是來源舉出的寫入例子，且原程式沒有這種 assignment；來源並未把它定義成所有 list mutation 的必要條件。",
+        "qualifiers": [
+          "不會",
+          "所有"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0007.term",
+        "text": "immutable",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0007.english_sentence",
+        "text": "Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height.",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0007.active_cue",
+        "text": "Does left += 1 mutate an integer inside the input list?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0007.oracle",
+        "text": "No; it computes an integer value and rebinds the local name left.",
+        "qualifiers": [
+          "No"
+        ]
+      }
+    ],
+    "direction_strength_review": "REPAIR: item assignment是會寫入的例子，並非所有list mutation的必要/唯一機制；local reads/bindings的作用限原程式。",
+    "review_result": "REPAIRED_OWNER_PENDING_READER",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 23,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "loop invariant 的 checkpoint 是每次 while 條件檢查前：best 管已量配對，且所有至少一端已出 interval 的配對都不超過 best。",
+        "qualifiers": [
+          "每",
+          "所有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The area formula describes one pair. Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint. At the start of every while condition check: best is the maximum area among pairs already evaluated, or zero if none were evaluated; every pair with an endpoint outside the current interval has area at most best.",
+        "qualifiers": [
+          "every",
+          "every",
+          "at most"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which pairs must best cover at the while checkpoint?",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "area formula 只說單一 pair；whole-search invariant 同時要求 best 是已評估 maximum，並涵蓋至少一端已在當前 interval 外的每個 pair。",
+        "qualifiers": [
+          "只",
+          "每"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "觀察點在每次 while 條件檢查開始；前一輪 measurement、best update 與安全 discard 已完成，不能拿半輪尚未更新的 best 檢查這個 invariant。",
+        "qualifiers": [
+          "每",
+          "不能"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0008.term",
+        "text": "loop invariant",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0008.english_sentence",
+        "text": "Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint.",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0008.active_cue",
+        "text": "What does the invariant add beyond the area formula?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0008.oracle",
+        "text": "It connects best with evaluated and excluded pairs at each while condition check, across the whole search.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "invariant中所有excluded/evaluated pairs受while-check範圍與已完成更新限制；不把半輪狀態也納入。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 24,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "初始化時沒有 interval 外的位置，排除條件無對象可違反；best = 0 與非負合法面積也符合第一項 invariant。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Initially there are no positions outside [0, n - 1], so the second claim has no excluded pairs to check. The first claim holds because best is zero and all legal areas are nonnegative.",
+        "qualifiers": [
+          "no",
+          "no",
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why do both invariant clauses hold before the first iteration?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "初始 interval 為完整 [0,n-1]，所以沒有 excluded pairs；合法 areas 非負，best 零也符合尚未評估任何 pair 的最大值初始約定。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "此處只在第一次 iteration 前檢查：full interval 與初值仍原封不動；後面排除位置後必須改用 maintenance 證明，不能再說沒有 excluded pairs。",
+        "qualifiers": [
+          "只",
+          "必須",
+          "不能"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0009.term",
+        "text": "nonnegative",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0009.english_sentence",
+        "text": "The first claim holds because best is zero and all legal areas are nonnegative.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0009.active_cue",
+        "text": "Why may best begin at zero?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0009.oracle",
+        "text": "Every legal area is nonnegative, and zero also correctly handles all-zero heights.",
+        "qualifiers": [
+          "Every",
+          "all"
+        ]
+      }
+    ],
+    "direction_strength_review": "沒有excluded pairs只在full初始interval；初始best convention不宣稱所有後續時點仍零。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 25,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "更新 best 保留已量最大值，discard bound 涵蓋新排除配對；best 不減則保住舊排除配對，兩個 branch 都能恢復 invariant。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "During an iteration, measuring the endpoints and updating best preserves the first claim. The discard inequality proves that every newly excluded pair has area at most the area just measured, which is at most the updated best. Previously excluded pairs remain covered because best never decreases. These facts reestablish the invariant for either branch, including equal heights.",
+        "qualifiers": [
+          "every",
+          "at most",
+          "at most",
+          "never"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which completed updates reestablish the invariant after a discard?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "在合法非負 heights 下，discard 依 shorter-wall 分支與 retained-wall inward-pair 不等式；它只界住新排除的 candidates，舊排除對則靠 best 永不減少繼續被涵蓋。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "每輪先量端點並以 maximum 更新 best，再移除有上界的側；兩部分都完成後才恢復 invariant。只測量而未保存 area，不能維護已評估 maximum。",
+        "qualifiers": [
+          "每",
+          "才",
+          "只",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "兩branch都維持coverage依已保存maximum及短端bound；不推area單調或省略best update。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "distance 恰減 n - 1 次後為零，所有合法 pair 已量或被界住；best 又來自真實 candidates，因此不只是上界而是最大值本身。",
+        "qualifiers": [
+          "恰",
+          "所有",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The distance right - left starts at n - 1 and decreases by exactly one each time. It reaches zero after n - 1 iterations. At that point no pair has both endpoints in the remaining interval, so every legal pair has been evaluated or covered by the invariant. Since best also comes from actual candidates, except for the harmless initial zero, it equals the required maximum.",
+        "qualifiers": [
+          "exactly",
+          "no",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What changes when the remaining interval collapses to one position?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "n≥2 的兩個 indices 從兩端開始，每輪只移一個位置；距離由 n-1 逐次減一，並不是任意移動 n-1 次就能得到正確 maximum。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "最終正確性還依賴 invariant：先保存端點 maximum，再讓每次短牆 discard 的 lost pairs 受該值涵蓋；best 來自實際 candidates，初始零不會超過非負 maximum。",
+        "qualifiers": [
+          "每",
+          "不會"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "觀察點是 left==right、沒有一對不同 endpoints 能完全留在 interval；此時每個合法 pair 都已評估或被 invariant 涵蓋，才能把 best 識別為答案。",
+        "qualifiers": [
+          "每",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "每個合法pair被覆蓋是在interval collapse且invariant成立之後；n-1移動單獨不是正確性的充分條件。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 27,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "unit-cost model 依有界 index、height、area 計固定大小運算與儲存；它不宣稱 Python expression 等耗時，無界大整數需重作成本模型。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Let n be the number of walls. We compare growth using a bounded-integer, unit-cost model: one integer comparison, addition, subtraction, multiplication, local binding, or indexed list access costs a bounded amount; storing one such scalar or reference uses one unit. For this statement, indices are below 100000, heights are at most 10000, and an area is at most 99999 * 10000 = 999,990,000. These values fit within a fixed number of machine-sized integer pieces. This model counts work, not equal physical time for all Python expressions. Python can represent larger integers, but an unbounded increase in their digit count would require a different arithmetic cost model.",
+        "qualifiers": [
+          "at most",
+          "at most",
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which bounded quantities justify the elementary cost model?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "模型只對題目有界的 indices、heights、areas 計固定大小 arithmetic／comparison／binding／slot access；這是 operation-count 約定，不是 Python expressions 的實際耗時相同。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "若 integer 的 digit count 無界，單次 arithmetic 成本會改變，所以不能只保留「Python 支援 integer」就沿用 unit-cost 結論。",
+        "qualifiers": [
+          "不能",
+          "只"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0010.term",
+        "text": "unit-cost model",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0010.english_sentence",
+        "text": "This model counts work, not equal physical time for all Python expressions.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0010.active_cue",
+        "text": "Does the unit-cost model claim identical elapsed time for Python expressions?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0010.oracle",
+        "text": "No; it counts bounded elementary work under the stated integer limits.",
+        "qualifiers": [
+          "No"
+        ]
+      }
+    ],
+    "direction_strength_review": "不相同physical time與無界digit例外是模型範圍；不把bounded primitive當整個程式的時間證明。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 28,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "CPython list 的 indexed slots 與已存 length 支持 bounded access／len；這依普通 list、無 concurrent mutation 的前提，非逐項走訪。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "The list-access assumption has a concrete implementation basis. In CPython v3.14.0, a list stores element references in indexed slots; fetching slot i accesses that slot rather than walking through the preceding i elements. Its length is stored, so len(height) does not count the walls one by one. These properties support bounded work for this access pattern, with an ordinary list and no concurrent mutation. CPython list implementation, list structure and access macros.",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What implementation facts support bounded list access?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "來源限定 CPython v3.14.0 的 ordinary list：element references 在 indexed slots，length 也已儲存，所以 lookup／len 不必先走過前面的牆。",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[1].text",
+        "text": "這個 access bound 依 ordinary list 且沒有 concurrent mutation；換成自訂逐項搜尋容器，不能僅因仍使用 index 語法就沿用。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0011.term",
+        "text": "indexed slots",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0011.english_sentence",
+        "text": "In CPython v3.14.0, a list stores element references in indexed slots; fetching slot i accesses that slot rather than walking through the preceding i elements.",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0011.active_cue",
+        "text": "Why is a list lookup not a walk through preceding walls?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0011.oracle",
+        "text": "The list stores references in indexed slots and accesses the selected slot directly under the stated implementation assumption.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "不逐項走訪依普通CPython list/無concurrent mutation；不排除其他容器也可能有bounded access。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 29,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "每輪兩次讀取、固定算術與一次 index 更新，配上 n - 1 輪及 n 次條件檢查，導出 linear time；Big O 忽略固定乘數。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Each two-pointer iteration makes two list reads, a fixed number of bounded arithmetic and comparison operations, and one index update. min and max each receive two scalar values, so their comparison work does not grow with n. There are exactly n - 1 iterations and n loop-condition checks; setup and return add fixed work. Thus total work is bounded by a constant times n plus a constant. We write this as O(n) time. Big O expresses an upper growth bound, ignoring fixed multipliers; here the exact iteration count also gives linear growth, not just an upper limit.",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How do iteration count and per-iteration work combine?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "在 bounded scalar model 與 ordinary list、無 concurrent mutation 的 indexed-slot access 前提下，每輪只有兩次 reads、固定數量 arithmetic／comparisons 與一個 index update；min/max 各只接兩個 scalar，不能藏隨 n 增長的掃描。",
+        "qualifiers": [
+          "每",
+          "只有",
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "總量還要乘上恰好 n-1 iterations，並加上 n 次 condition checks 與固定 setup／return；線性 iterations 單獨不能證明線性 total work。",
+        "qualifiers": [
+          "恰",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "計數涵蓋初始化到 return 的整次執行；逐輪 fixed work 與全部 loop checks 一起計，而不是只挑一次 body 作時間結論。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "fixed per-iteration work與linear count同時明示；未由一次index更新獨自推出linear total work。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 30,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "空間看同時存活的 locals 與 temporaries，而非歷次建立總數；沒有成長容器，auxiliary 與 integer output 各 O(1)，原 input 另計。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Only a fixed number of local names and temporary integer results are live at once. Later iterations replace earlier values rather than retaining a history. There is no recursion, growing collection or copied input. Auxiliary space, meaning storage added beyond the supplied input and returned result, is O(1). Transient arithmetic values also occupy only a fixed number of bounded units at once. The returned single integer is O(1) output space; the caller's original list already occupies O(n) units and is excluded from auxiliary space.",
+        "qualifiers": [
+          "Only",
+          "no",
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which live storage belongs to auxiliary and output space?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "函式只保留固定數量 bounded scalar locals／temporaries，沒有歷史 collection、recursion 或 input copy；caller input 與單一 integer output 分別另計。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "space 觀察同一時間的 peak live values，後一輪取代前一輪；不能把歷次建立的所有 temporaries 累加，也不能把 caller 已有 O(n) list 算成函式新增 auxiliary。",
+        "qualifiers": [
+          "不能",
+          "所有",
+          "不能"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0012.term",
+        "text": "Auxiliary space",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0012.english_sentence",
+        "text": "Auxiliary space, meaning storage added beyond the supplied input and returned result, is O(1).",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0012.active_cue",
+        "text": "What storage is excluded from auxiliary space here?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0012.oracle",
+        "text": "The supplied input and the returned result; only fixed live locals and temporaries are added.",
+        "qualifiers": [
+          "only"
+        ]
+      }
+    ],
+    "direction_strength_review": "fixed live locals/no growing collection是展示程式事實，auxiliary排除input是明說的計算慣例。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 31,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "all-pairs 有平方數 candidates，但 range 只存 start／stop／step，舊 inner range 不留存；固定 peak state 使 auxiliary 仍為 O(1)。",
+        "qualifiers": [
+          "all",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The all-pairs solution uses the same bounded reads, arithmetic and two-argument comparisons for each candidate. Its n * (n - 1) / 2 evaluations therefore give O(n²) time: for growing n, the squared term dominates. Its space is still O(1) auxiliary and O(1) output. A Python range retains its start, stop and step rather than materializing all indices. The outer loop keeps one range and its current position; each inner range replaces the previous one, and no pair list or area history survives. Even though many inner ranges are created over time, only a fixed number are live simultaneously. The n - 1 inner-range setups store only these fixed fields, and each step advances a bounded integer index. Under the stated elementary model, those setups add linear work and each step adds fixed work per candidate; neither exceeds the quadratic total. Python range objects.",
+        "qualifiers": [
+          "all",
+          "all",
+          "no",
+          "only",
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why do quadratic pair evaluations still use constant auxiliary storage?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "沿用有界 scalar、ordinary list 且無 concurrent mutation 的 access model，all-pairs 完整列舉 n(n-1)/2 candidates，每次做固定 bounded reads／arithmetic／雙 argument comparisons；quadratic 來自次數而不是單次比較變貴。",
+        "qualifiers": [
+          "all",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "constant auxiliary 依這份 scalar-only implementation：range 只保存 start/stop/step，舊 inner range 被取代，沒有把全部 indices、pairs 或 areas 實體化成歷史 list。",
+        "qualifiers": [
+          "only",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "time 計完整 enumeration 與 n-1 次 inner-range setups；space 計同時存活的 range／scalar，不能把不同時刻建立過的 ranges 全部加總。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "constant space限scalar-only all-pairs/range representation，未說所有all-pairs實作都不能保存歷史。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 32,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "小輸入可用 all-pairs 直接核對合法候選；計分規則若改到破壞 discard bound，必須重做證明，不能沿用 two-pointer 結論。",
+        "qualifiers": [
+          "all",
+          "必須",
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "For tiny inputs, all-pairs is useful as a checking oracle: it is easy to inspect because it directly enumerates the contract's candidates. It also remains a starting point if a new scoring rule destroys the shorter-wall bound; that changed rule would need its own costs and proof. Under the present contract and large input limit, the two-pointer solution avoids billions of evaluations with no extra growing storage.",
+        "qualifiers": [
+          "all",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When is all-pairs useful as a checking oracle?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "all-pairs 的 oracle 用途依合法 pair 全部列舉與 best 保留 maximum，適合 tiny inputs；不是把 large-input 的 billions 次計算忽略不計。",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "若新 scoring rule 破壞 shorter-wall bound，就不能沿用 two-pointer proof；all-pairs 仍可作起點，但新規則也要自己的成本與正確性分析。",
+        "qualifiers": [
+          "不能",
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0013.term",
+        "text": "oracle",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0013.english_sentence",
+        "text": "For tiny inputs, all-pairs is useful as a checking oracle: it is easy to inspect because it directly enumerates the contract's candidates.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0013.active_cue",
+        "text": "Why use all-pairs as an oracle on tiny inputs?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0013.oracle",
+        "text": "It directly enumerates every contract candidate, making the expected maximum easy to inspect.",
+        "qualifiers": [
+          "every"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能沿用broken scoring bound是原proof適用範圍；沒有否定其他新規則仍可能另有two-pointer proof。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 33,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "不等間距 contract 改由排序且與 height 對應的 x 提供實際位置；index 差只計 gaps，已不能代表 physical width。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Suppose the input supplies strictly increasing integer coordinates x, in the same order as height, with 0 <= x[i] <= 1000000000. Keep the original height and length limits. Walls no longer stand one unit apart. Reusing right - left would calculate the number of gaps, rather than their total width.",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What input change makes index gaps insufficient for width?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "新增 x 是與 height 同序、strictly increasing 的有界 integer coordinates；兩牆之間不再每格一單位，因此 index 差只數 gaps，不能代表 physical width。",
+        "qualifiers": [
+          "每",
+          "只",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須有physical width的資訊是非單位間距model，沒有說只有x-list一種資料表示能提供座標。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 34,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "用 x[right] - x[left] 算實寬後，例中從面積 100 走到 198；沿用 index width 只得 2，直接暴露舊公式失效。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Replace the width by x[right] - x[left]. On x = [0, 1, 100] and height = [1, 3, 2], the outer pair has area 100; moving the shorter left wall reveals area 99 * 2 = 198. The answer is 198. The original index-width calculation would instead return 2.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "How does the coordinate witness expose the old width formula?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "指定 witness 是 x=[0,1,100]、height=[1,3,2]，且已排序並與 height 配對；area 要用同一對牆的 coordinate difference，才有外側一百與內側一百九十八。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先量／保存外側 area，再移較短 left 量內側；discard 程序仍沿用原本先量再移的順序，只把寬度計算替換為座標差。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "一百九十八/二是指定coordinate witness，不從此例推所有coordinate輸入固定結果。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 35,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "strictly increasing 保證往內移會縮實寬，height bound 未變，故 discard proof／invariant 可沿用；座標值很大不增加移動次數。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Strictly increasing coordinates ensure that moving either endpoint inward decreases physical width. The shorter-wall height bound is unchanged, so the discard inequality and invariant still hold with coordinate differences replacing index differences. The pointers still move by one position per iteration: the numerical size of a coordinate gap does not add iterations.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which coordinate condition preserves the shorter-wall argument?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "x 必須 strictly increasing 且與 heights 對應，高度仍沿原本非負 contract；因此 inward movement 縮小 physical width，不會提高 retained-shorter-wall area 上界，這才保留原不等式的理由。",
+        "qualifiers": [
+          "必須",
+          "不會",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "仍是先評估／保存端點 area，再排除保留較短牆的 inward candidates；座標差只改 area 的寬度，並不放寬先保存再 discard 的狀態要求。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "container-with-most-water-A0014.term",
+        "text": "strictly increasing",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0014.english_sentence",
+        "text": "Strictly increasing coordinates ensure that moving either endpoint inward decreases physical width.",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0014.active_cue",
+        "text": "What coordinate premise preserves the discard proof?",
+        "qualifiers": []
+      },
+      {
+        "field": "container-with-most-water-A0014.oracle",
+        "text": "Strictly increasing coordinates, ordered and matched to the heights, ensure inward movement decreases physical width.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "strictly increasing保證此proof的寬度單調；不宣稱它是任意改寫算法能正確的唯一方式。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 36,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "改版每輪只多兩次座標讀取且 area 仍有界，時間 O(n)、新增固定狀態 O(1)；x 是已供輸入，排序與配對前提不由函式驗證。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The adaptation adds two coordinate-slot reads per iteration; subtracting their values replaces the old index subtraction. It adds no growing loop or collection. Coordinates and areas remain bounded, with area at most 1000000000 * 10000 = 10¹³, fitting a fixed number of scalar units under the same model. Consequently the n - 1 iterations still give O(n) time and fixed live state gives O(1) auxiliary and output space. The additional coordinate list is supplied input, using another O(n) units, rather than a list allocated by the function. This argument assumes coordinates arrive ordered and matched to heights; the function neither sorts nor verifies that different contract.",
+        "qualifiers": [
+          "no",
+          "at most"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What stays fixed in the coordinate adaptation cost account?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "座標已排序且與 heights 配對，函式不排序／驗證；每輪只新增兩個 coordinate reads，數值與 area 仍有界，所以可沿用 bounded scalar model。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "額外 x list 是 caller 提供的 input，而不是函式配置的 growing collection；必須保持這個 ownership／storage convention 才能說新增 auxiliary 固定。",
+        "qualifiers": [
+          "必須",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "整次執行仍有 n-1 iterations，space 則看固定 live state；coordinate gap 的數值大小不會多產生 iterations。",
+        "qualifiers": [
+          "不會"
+        ]
+      }
+    ],
+    "direction_strength_review": "不排序/驗證是本函式行為；若另加preprocessing要重算成本，未說所有正確方法一概不能排序。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 37,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "口述 discard 理由要連結兩件事：保留較短牆限制高度，另一端內移縮寬；所得所有 pair 均受已量 endpoint area 約束。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Why move the shorter wall? Keeping it caps the water height while moving the other endpoint inward reduces width. All such pairs are bounded by the endpoint area already measured.",
+        "qualifiers": [
+          "All"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which pairs are bounded when the shorter wall is retained?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "合法非負 heights 下，selected set 只含保留目前較短牆、另一端往內移的 pairs；該牆限制水高，縮小寬度不會提高 area 上界。沒有保留該短牆的其他 inward pairs 不屬這個集合。",
+        "qualifiers": [
+          "只",
+          "不會"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "這個 bound 比較的是已測量／記錄的 endpoint area，先保存後才 discard；只有幾何上可界住而未記錄，仍可能漏掉答案。",
+        "qualifiers": [
+          "才",
+          "只有"
+        ]
+      }
+    ],
+    "direction_strength_review": "所有pair只指retaining-shorter-wall子集合；recorded state與非負height明示。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 38,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "口述時明說 current area 可以下降；best 保留 earlier candidates，才不會因移動而失去先前答案。",
+        "qualifiers": [
+          "才",
+          "不會"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Does the next pair have to improve? No. best remembers earlier candidates, so the current area may decrease.",
+        "qualifiers": [
+          "No"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Must the next pair improve on earlier candidates?",
+        "qualifiers": [
+          "Must"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "current area 與 saved best 是不同值；移動後只保證被排除 partners 不勝已記錄 area，不保證下一對更大。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "best 已保留 earlier candidates 的 maximum，較小的新 area 不覆蓋它；這是在正確 maximum update 後比較歷史，不是只看最後一對。",
+        "qualifiers": [
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須保存earlier候選是此最大化流程避免失憶的需求，未指定唯一representation或說下一area不能改善。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "equal heights 的安全性允許刪任一 endpoint；左側只是這份 implementation 的明確選擇。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "What happens on equal heights? Either endpoint can be removed safely. This implementation removes the left one.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What must be recorded before either equal-height endpoint is removed?",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "沿用合法非負 heights，此處目前 endpoints 等高，因此兩側各自都能作 retained-shorter-wall bound 的支點；程式固定選 left，不是所有非等高情況也能任選。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "必須先計算並保存當前 endpoint area，再移除任一端點；[3,3,3] 若未保存外側六就移動，只剩三，等高本身不保證未記錄的答案仍在。",
+        "qualifiers": [
+          "必須",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "either endpoint允許性依ties+先保存，left只是這份implementation選擇，不是所有ties都必須選left。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 40,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "線性時間的口述理由是 distance 從 n - 1 每輪減一到零，且每輪工作有界；不能只憑有一個 while 判斷。",
+        "qualifiers": [
+          "每",
+          "每",
+          "不能",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Why is the time linear? The index distance decreases from n - 1 to zero, once per constant-work iteration.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which loop facts make the time argument linear?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這份程式每輪只更新一個 index，距離從 n-1 減至零；同時每輪 bounded reads／arithmetic 的數量固定，兩條件一起才推出 linear time。",
+        "qualifiers": [
+          "每",
+          "只",
+          "每",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "iteration 次數以整次 loop 從初始化到兩 index 相遇計算；單看有一個 while，不能判斷總工作量。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能僅看一個while是證明資訊不足，不是說任何while都非linear。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 41,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "constant space 排除 caller input；函式額外保留固定 scalar locals，並回傳單一 integer。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "What does constant space exclude? It excludes the caller's input list. The function adds a fixed set of scalar locals and returns one integer.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What does the constant-space statement include and exclude?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "口述範圍是供應 input 之外新增的 scalar locals 及單一 integer result；caller 原本的 list 仍存在，但不屬 auxiliary。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "比較同一時刻的 fixed live state，而非過去每輪所有建立值；若保存歷史或複製 input，便是另一種 storage 情況。",
+        "qualifiers": [
+          "每",
+          "所有"
+        ]
+      }
+    ],
+    "direction_strength_review": "排除caller input是本篇auxiliary定義；不把既有input說成沒有storage成本。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "master map 依序連起 width、height、candidate area、discard bound 與 best；interval 無法容納兩牆時，涵蓋關係才推出全域答案。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The master map is a chain of reasons: two wall positions determine width; the shorter wall determines water height; their product evaluates a candidate. An evaluated candidate bounds every inward pair retaining its shorter wall. Removing that wall shrinks the unresolved interval while best covers excluded pairs. When the interval cannot contain two walls, best covers every legal choice.",
+        "qualifiers": [
+          "every",
+          "cannot",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does the master map connect recording, exclusion, and termination?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "在合法非負 heights 下，從同一對邊界的 width／shorter height 算 area，再只界住 inward pairs retaining that shorter wall；這個 selected set 才能合法排除，不能擴成所有內部配對。",
+        "qualifiers": [
+          "只",
+          "才",
+          "不能",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "全域結論還要 invariant 把已評估與先前排除 pairs 都接到 best，並保證 best 來自合法 candidates；單一 pair 的公式或 bound 不等於整個 maximum 證明。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "每次先保存 endpoint maximum 再做有上界的 discard；只有 interval 無法容納兩個位置時，coverage 才遍及每個合法選擇，不能把 early stop 當成完成。",
+        "qualifiers": [
+          "每",
+          "只有",
+          "才",
+          "每",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "全域結論在coverage+collapse後才可推出；不把單一候選bound當全部pair結論。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 0,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "課程 3 有兩項 prerequisites，完成其中一項仍不可開始；remaining count 要保留「還有幾項」並識別降到零的時刻。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Suppose course 3 requires both course 1 and course 2. Finishing course 1 helps, but course 3 is still unavailable. A solution must remember how many requirements remain, then notice the moment that number becomes zero.",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why is one completed prerequisite insufficient for course three?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這個引例讓 course 3 同時等待 1 與 2；count 表示還剩幾項要求，不能只用 Boolean 記「曾有一項完成」。",
+        "qualifiers": [
+          "不能",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "只完成 course 1 時仍有一項未完成，必須等剩餘 count 真正為零才釋放 course 3；不能把完成第一項的時刻當成 available。",
+        "qualifiers": [
+          "只",
+          "必須",
+          "才",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能只用Boolean記曾有一項完成，限定該二義務資訊；不否定追蹤每個done flag或重掃pair的另一算法。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 1,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "[a, b] 指 b 先於 a，輸出只問 Boolean 可完成性；distinct pairs、識別碼範圍與 self-loop 都屬 contract，實作保留輸入。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "In LeetCode 207, course identifiers run from 0 through numCourses - 1. A pair [a, b] means that b must be finished before a. Return a Boolean indicating whether every course can be finished. A schedule itself is not required. There are 1 to 2000 courses and 0 to 5000 distinct prerequisite pairs; both identifiers belong to the course range. The statement does not exclude [a, a], which makes that course impossible to start. The implementation below leaves the input unchanged.",
+        "qualifiers": [
+          "must",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What do prerequisite pairs and the Boolean result mean?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "每個 [a,b] 表示先完成 b 再修 a，對應 b→a；course IDs 都在合法範圍，所有 course 都要能完成才回傳 True，而不是只找某個可開始點。",
+        "qualifiers": [
+          "每",
+          "所有",
+          "才",
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "contract 包含可能的 [a,a]，輸入保持不變且不要求回傳 schedule；self-loop 不能被當作不存在的 pair 略過。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0001.term",
+        "text": "prerequisite",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0001.english_sentence",
+        "text": "A pair [a, b] means that b must be finished before a.",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "course-schedule-A0001.active_cue",
+        "text": "For [a, b], which course must finish first?",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "course-schedule-A0001.oracle",
+        "text": "b is the prerequisite of a, so the edge is b -> a.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "only Boolean是輸出contract，不否定另需求可以回傳schedule；must-finish-before是該pair的prerequisite定義。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 2,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "不在任何 pair 中的課仍須計入完成數；相互等待的 0、1 找不到合法第一門，不能把沒有 outgoing 資料當成不存在。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "A course with no requirements may be taken immediately. A course absent from every pair still exists and must count toward the result. Conversely, [[1, 0], [0, 1]] makes courses 0 and 1 wait for each other. No choice of first course can satisfy those requirements.",
+        "qualifiers": [
+          "no",
+          "every",
+          "must",
+          "No"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why must isolated courses and mutually waiting courses both count?",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "沒有出現在 pairs 的 course 仍是合法 course，零 prerequisites 使它可開始；相互等待的 0、1 則沒有合法第一門，這是不同結構。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "仍須計入存在的isolated course；cannot first-complete限mutual wait，非圖外的所有courses。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 3,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "edge 必須畫成 b -> a；directed cycle 上每門都等待同圈另一門，沒有第一個完成者，self-loop 是一節點版本。",
+        "qualifiers": [
+          "必須",
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Draw a directed edge b -> a for [a, b]. A directed graph is simply the collection of course nodes and these one-way prerequisite edges. A directed cycle follows one or more edges back to its starting node. Each course on that cycle must wait for another course on the same cycle, so there can be no first completion there. A self-loop is a cycle containing one node.",
+        "qualifiers": [
+          "must",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why can a directed cycle have no first completion?",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "edge 是 prerequisite→dependent；cycle 中每門都等同一 cycle 的另一門，所以否定的是該 cycle 的第一個完成者，不是 cycle 外所有 course。",
+        "qualifiers": [
+          "每",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "self-loop 是一節點 cycle，合法 [a,a] 會讓該 course 等自己；不能把至少兩節點當成所有 cycle 的必要條件。",
+        "qualifiers": [
+          "不能",
+          "所有"
+        ]
+      },
+      {
+        "field": "course-schedule-A0002.term",
+        "text": "directed cycle",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0002.english_sentence",
+        "text": "A directed cycle follows one or more edges back to its starting node.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0002.active_cue",
+        "text": "Why does a directed cycle prevent full completion?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0002.oracle",
+        "text": "Every course on it waits for another course on it, so none can finish first.",
+        "qualifiers": [
+          "Every"
+        ]
+      },
+      {
+        "field": "course-schedule-A0003.term",
+        "text": "self-loop",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0003.english_sentence",
+        "text": "A self-loop is a cycle containing one node.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0003.active_cue",
+        "text": "How does [a, a] affect availability?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0003.oracle",
+        "text": "The course waits for itself, forming a one-node cycle with no first completion.",
+        "qualifiers": [
+          "no"
+        ]
+      }
+    ],
+    "direction_strength_review": "must wait指cycle內prerequisite；同一annotation另明示self-loop等自己，沒有把另一門硬解成排除self-loop。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 4,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "有限節點反覆往回追 unfinished prerequisite 必重遇節點，因此無 cycle 的非空剩餘圖有可開始課；這是 task equivalence，尚非程式 checkpoint。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "The converse also holds for this finite graph. If every remaining course has a remaining prerequisite, start at any remaining course and repeatedly follow a prerequisite backward. There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle. Thus a nonempty remainder without a cycle must contain an available course. Repeatedly taking an available course can finish everything exactly when the graph has no directed cycle. This equivalence describes the task; a changing loop invariant will describe our implementation.",
+        "qualifiers": [
+          "every",
+          "must",
+          "must",
+          "exactly",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does finiteness connect unavailable remainders with cycles?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "圖有限；若非空剩餘圖每門都仍等另一門 remaining prerequisite，反向追蹤必重遇 ID，才得到 cycle。若有 available course，這個「每門仍等」前提就不成立。",
+        "qualifiers": [
+          "每",
+          "才",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "反覆選 available course 才能對應合法完成；本段是 task equivalence，不是把任意 loop 中途的 queue 狀態當成已證成的 invariant。",
+        "qualifiers": [
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "必重遇依finite+每個remaining course有remaining predecessor；不是任意empty queue即可推出。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 5,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "after[b] 保存 b 的 outgoing destinations；完成 b 時可直接找到受影響課程，避免重新掃描全部 pairs。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Scanning every pair after every completion would rediscover which courses depend on the completed one. Instead, build after[b], a list of courses directly waiting for b. Store a in that list for each pair [a, b]. This is an adjacency list: each node owns the list of destinations of its outgoing edges.",
+        "qualifiers": [
+          "every",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which obligations does each outgoing adjacency list locate?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "after[b] 保存直接依賴 b 的 a，每個 [a,b] 存一次；完成 b 才沿其 outgoing destinations 更新，這避免每次重新掃描所有 pairs。",
+        "qualifiers": [
+          "每",
+          "才",
+          "每",
+          "所有"
+        ]
+      },
+      {
+        "field": "course-schedule-A0004.term",
+        "text": "adjacency list",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0004.english_sentence",
+        "text": "This is an adjacency list: each node owns the list of destinations of its outgoing edges.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0004.active_cue",
+        "text": "What does after[b] store?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0004.oracle",
+        "text": "It stores courses directly depending on b, the destinations of outgoing edges from b.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "after[b] direct dependents是選定representation；未說只有adjacency list才能找dependents或完成此題。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 6,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "indegree 初值數 incoming edges，執行時則數 unfinished prerequisites；整數二在完成一項後還能留下義務一，Boolean 無法保存這個資訊。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Also build remaining[a], initially the number of incoming prerequisite edges for a. This incoming-edge count is often called indegree. After some completions, its useful meaning changes to the number of prerequisites of a that have not yet been completed. A count of two means that two distinct obligations remain; knowing only whether the course has any prerequisites would lose the information needed after the first completion.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What does remaining count after some courses have finished?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "remaining[a] 起初是 incoming-edge count，執行時要讀成 a 尚未完成的 prerequisites 數量；保留整數二才能在完成一項後仍留下一項義務。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "這個執行中意義在前一次 completion 的整份 dependent list 更新完、下一次 while 檢查前成立；半輪 counts 尚未全更新時不能套同一個 checkpoint。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0005.term",
+        "text": "indegree",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0005.english_sentence",
+        "text": "This incoming-edge count is often called indegree.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0005.active_cue",
+        "text": "What does remaining[a] count after processing has begun?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0005.oracle",
+        "text": "The prerequisites of a that have not yet completed, starting from its incoming-edge count.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "Boolean不足指只記有無prerequisites，不能承載還有兩項/一項的資訊；未否定其他多個Boolean encoding。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "此 comprehension 對每門課分別求值 []，會產生獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Use after = [[] for _ in range(numCourses)]. Evaluating [] separately for each course makes independent inner lists. Writing [[]] * numCourses would repeat references to one shared list: adding a dependent for course 0 would also appear to add it for every other course. In contrast, [0] * numCourses is safe here. Integers are immutable, and remaining[a] += 1 replaces the value in slot a; it does not mutate a shared zero. Python's sequence operations distinguish repetition of references from copying their objects.",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why do repeated list references differ from repeated integer zeros?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "此 comprehension 對每門課分別求值 []，因此各自得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。這說明來源做法的效果，並非宣稱只有 [] 語法能建立獨立 lists。",
+        "qualifiers": [
+          "每",
+          "只",
+          "只有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "[0]*V 的零是 immutable，remaining[a]+=1 替換的是單一 slot；因此不能用「list repetition 一律安全／一律不安全」取代對 object 與 mutation 的區別。",
+        "qualifiers": [
+          "不能",
+          "一律",
+          "一律"
+        ]
+      },
+      {
+        "field": "course-schedule-A0006.term",
+        "text": "shared list",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0006.english_sentence",
+        "text": "Evaluating [] separately for each course makes independent inner lists.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0006.active_cue",
+        "text": "Why does [[]] * numCourses break adjacency storage?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0006.oracle",
+        "text": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+        "qualifiers": [
+          "every"
+        ]
+      }
+    ],
+    "direction_strength_review": "REPAIR: separately evaluating [] makes independent lists是充分例示，不是唯一必要allocation機制；list()也可各造新list。",
+    "review_result": "REPAIRED_OWNER_PENDING_READER",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 8,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "ready 只放 prerequisites 已滿足的課，任選其中一門都合法；FIFO 固定 trace，沒有最小課號優先的保證。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Keep available courses in ready, a queue. The queue holds entries waiting to be processed; removing the oldest entry and adding new entries at the other end gives first-in, first-out behavior. The choice among available courses cannot invalidate a requirement: each chosen course already has no unfinished prerequisite. FIFO supplies a definite trace without searching for the smallest course number.",
+        "qualifiers": [
+          "cannot",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What does FIFO choose, and what does it not guarantee?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "ready 只保存可開始、尚未完成的 courses；其中任選一門都合法，FIFO 只是按先入先出固定 trace，不施加最小 course ID 優先規則。",
+        "qualifiers": [
+          "只",
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "本解法選用 unbounded queue，避開 maxlen 滿載時丟掉待處理 available course 的行為；FIFO 只決定順序，不能自行補回已被丟棄的 entry。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "取下一門前，前一門的全部 counts／newly-zero enqueue 已更新完成；queue 此時才恰含所有 available unfinished courses 各一次，不能用半輪內容判斷可用集合。",
+        "qualifiers": [
+          "才",
+          "恰",
+          "所有",
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0007.term",
+        "text": "first-in, first-out",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0007.english_sentence",
+        "text": "The queue holds entries waiting to be processed; removing the oldest entry and adding new entries at the other end gives first-in, first-out behavior.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0007.active_cue",
+        "text": "Does FIFO choose the smallest available course number?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0007.oracle",
+        "text": "No; it processes the oldest queued entry, and any already available course is legal.",
+        "qualifiers": [
+          "No"
+        ]
+      }
+    ],
+    "direction_strength_review": "只放available指queue invariant，任選合法依prerequisites已滿足；no smallest-first guarantee不等於永不巧合升序。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 9,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "unbounded deque 的 append 只修改並回傳 None，popleft 移除且回傳左端；把 append 結果寫回 ready 會失去 queue，maxlen 滿時還可能丟 entries。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Use an unbounded collections.deque. deque() creates the queue, append(x) adds x on the right and returns None, and popleft() removes and returns the leftmost entry. Assigning the result of append back to ready would therefore replace the queue with None. A bounded deque can discard entries when full, so no maxlen belongs here. These behaviors are specified by the Python 3.14 deque documentation.",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What do deque operations mutate and return?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "unbounded deque 的 append 加在右端並回傳 None，popleft 才移除並回傳左端 entry；把 append 的回傳值寫回 ready 會失去 queue object。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "本解法不設定 maxlen，是為了不引入滿載丟 entry 的行為；若換成 bounded deque，不能不處理該行為就直接沿用原有 lossless queue 論證。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0008.term",
+        "text": "unbounded",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0008.english_sentence",
+        "text": "Use an unbounded collections.deque.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0008.active_cue",
+        "text": "Why should ready have no maxlen?",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "course-schedule-A0008.oracle",
+        "text": "A bounded deque can discard entries when full, losing courses that must still be processed.",
+        "qualifiers": [
+          "must"
+        ]
+      }
+    ],
+    "direction_strength_review": "append回傳None與可能丟entries是指定deque API；沒有說所有bounded容量一定在此input丟資料。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 10,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "每完成一課只減其 dependents 的一項義務；只在正計數降到零時入列，初始零另由初始化入列，故各課最多一次且不需 visited set。",
+        "qualifiers": [
+          "每",
+          "只",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Whenever a course is removed from ready, mark one more completion in finished. Visit only its dependents in after[course]. Each loses exactly one outstanding obligation, so subtract one from its count. Append a dependent precisely when its count becomes zero. Counts never increase during this phase. A positive count crosses zero only once, and initially zero courses enter during initialization, so each course enters the queue at most once. No additional visited set is needed.",
+        "qualifiers": [
+          "only",
+          "exactly",
+          "never",
+          "only",
+          "at most",
+          "No"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When does one completion release a dependent exactly once?",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "每次 completion 只沿 after[course] 的 outgoing edges 去除一項 obligation；count 必須降到零才 append dependent，仍為正就不 available。",
+        "qualifiers": [
+          "每",
+          "只",
+          "必須",
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "processing 時 count 只減不增；原正值只跨零一次，初始零則在初始化入列，因此各 course 至多入列一次，不另靠 visited set 去遮住重複處理。",
+        "qualifiers": [
+          "只",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "一門 course 移除後先記 finished，再完成其整份 dependent updates；初始化的零值掃描與 processing 的正值跨零是兩個不同時點，兩者都需納入 queue。",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0009.term",
+        "text": "outstanding obligation",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0009.english_sentence",
+        "text": "Each loses exactly one outstanding obligation, so subtract one from its count.",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "course-schedule-A0009.active_cue",
+        "text": "How much should finishing one prerequisite change each dependent count?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0009.oracle",
+        "text": "Exactly one obligation is removed for each outgoing edge, so subtract one.",
+        "qualifiers": [
+          "Exactly"
+        ]
+      }
+    ],
+    "direction_strength_review": "只在正值新達零的processing branch，另明示initial-zero scan；at-most-once由counts只減的selected loop支撐。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 11,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "這段引入後接的 constructed input，供 trace 對照；課程數與 prerequisite pairs 的具體值由原始 code block 給出。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Consider this constructed input:",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What should be inspected in the constructed input below?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "本段只是引入下方原始 code block 的 constructed input，尚未宣告任何 queue 轉移；鄰段才解釋 course 4 獨立與 0、1、2、3 的依賴關係。",
+        "qualifiers": [
+          "只",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "引介句不宣告runtime結果；沒有以單一例子推出一般count或queue規則。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 12,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "初始化狀態須保留獨立課程 4；0 可釋放 1、2，3 則同時等待兩者，pairs 順序決定 after 的列序。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Course 4 is independent. Course 0 releases 1 and 2; both must finish before 3. Reading the pairs in their listed order produces:",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which courses wait for both predecessors in this witness?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這個特定 witness 中，course 4 獨立；0 釋放 1、2，而兩者都完成後 3 才能開始。這些 course-ID 關係不是一般輸入的固定規則。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "isolated course 仍須計入，建圖按列出 pairs 的順序保留 dependents 次序；不能因 4 沒出現在 pairs 就把它從初始化掃描排除。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "本段後接的是建圖與 zero-count 初始化完成、尚未開始 completion loop 的表示；下一段才依 ID 掃描順序讓 0 先於 4 入列。",
+        "qualifiers": [
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "ID關係與4的獨立性限定指定witness，並非所有course ID三都恆等於等待一/二。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 13,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "先移除 0 並計一次完成，再把 1、2 各自的 count 從 1 減到 0 入列；既有 4 保持隊首，3 的 count 仍是 2。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Initialization checks course identifiers in increasing order, so 0 enters before 4. Now popleft() returns 0 and mutates ready to [4]. Incrementing finished gives 1. The first dependent is 1: its count changes from 1 to 0, so append(1) makes the queue [4, 1]. The second dependent is 2: its count also changes from 1 to 0, producing [4, 1, 2]. Counts are now [0, 0, 0, 2, 0].",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "What changes after course zero and all its dependents are processed?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這一步承接指定 witness 的 ready=[0,4]；0 的 direct dependents 是 1、2，各從 count 一降為零，3 則仍有兩項義務。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先 popleft 取得 0 並留下 4，再增 finished、依序處理 1、2，全部完成才有 queue [4,1,2] 與 counts [0,0,0,2,0]；中途狀態不等於完成後 checkpoint。",
+        "qualifiers": [
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "先移0及數字是特定initialized trace；不是由某個course ID本身決定其universal依賴。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 14,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "移除 isolated course 4 仍使 finished 增一；它沒有 dependents，只表示沒有要更新的 count，並非不計完成。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The next removal returns 4, leaving [1, 2]; finished becomes 2. Its dependent list is empty, so no count changes. An isolated course contributes a completion even though it releases nothing.",
+        "qualifiers": [
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why does an isolated course still increase finished?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這裡的 course 4 是 witness 中的 isolated course；沒有 dependents 只表示不釋放其他課，不表示它不存在或不能貢獻一次 completion。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "承接 queue [4,1,2] 與 finished 一，移除 4 後變 [1,2]、finished 二；它的空 dependent list 不會改任何 count。",
+        "qualifiers": [
+          "不會"
+        ]
+      },
+      {
+        "field": "course-schedule-A0010.term",
+        "text": "isolated course",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0010.english_sentence",
+        "text": "An isolated course contributes a completion even though it releases nothing.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0010.active_cue",
+        "text": "Should an isolated course count toward finished?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0010.oracle",
+        "text": "Yes; it exists in the contract and is a completed course even with no dependents.",
+        "qualifiers": [
+          "no"
+        ]
+      }
+    ],
+    "direction_strength_review": "只表示沒有更新counts是空dependent list的來源效果，不表示isolated course沒有completion。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 15,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "移除 1 只把課程 3 從二項義務減到一項，零測試失敗；3 不入列，因為 2 尚未完成。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Removing 1 leaves [2] and raises finished to 3. Course 3 changes from 2 to 1. The zero test fails: 3 stays out of the queue because course 2 is still unfinished. This is the branch a Boolean notion of readiness would mishandle.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Why does course three remain outside the queue after course one?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "course 3 同時等待 1 與 2；remaining 表示未完成義務而非 Boolean，完成 1 只把 count 從二降為一，2 仍未完成。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "在移除 1 並處理其更新後檢查零值，結果不為零，所以 3 不 append；不能把「已完成一個 prerequisite」當作全數完成。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "只減二到一仍unfinished是該witness；新零才release不是完成任何一項即release。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 16,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "移除 2 釋放 3，最後移除 3 使 finished 達 5；比較回傳 True，而 conceptual completion order 不由 Boolean 版本保存。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Removing 2 empties the queue and raises finished to 4. Course 3 changes from 1 to 0. Appending 3 gives [3], with counts [0, 0, 0, 0, 0]. Finally, removing 3 gives an empty queue and finished = 5; its dependent list is empty. The loop stops and 5 == numCourses returns True. The conceptual completion sequence is [0, 4, 1, 2, 3]; the Boolean implementation does not retain it.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "When does this trace satisfy the all-course completion comparison?",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "這段仍是同一個五門課 witness；回傳 True 是全部課程都合法完成後的 5==numCourses，不是任何圖只要完成五次就算成功。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "Boolean implementation 沒保存 conceptual completion sequence；看到 [0,4,1,2,3] 是說明 trace，不是函式的回傳 list。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "先移除 2、將 3 的 count 降到零並入列，再完成 3 才有空 queue 與 finished 五；空 queue 必須和全課程比較一同解讀。",
+        "qualifiers": [
+          "才",
+          "必須"
+        ]
+      }
+    ],
+    "direction_strength_review": "True依全部五門witness完成與總數比較，非所有圖完成五次即成功；conceptual順序不在Boolean output。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 17,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "拒絕例只完成獨立課 2；queue 雖已清空，finished 只有 1，另一 component 的 cycle 仍阻擋全圖完成。",
+        "qualifiers": [
+          "只",
+          "只有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "For a rejection, use numCourses = 3 and [[1, 0], [0, 1]]. Initial counts are [1, 1, 0], and only course 2 enters the queue. It finishes without releasing anything. The empty queue now accompanies finished = 1, so the comparison with 3 returns False. Having one available course was insufficient: a different component still contains a cycle.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Why does one isolated completion not resolve a different component cycle?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "拒絕 witness 固定為三門課與 [[1,0],[0,1]]；0、1 cycle 在另一 component，只有 2 是 initial zero-count course，所以存在起點並不代表全圖可完成。",
+        "qualifiers": [
+          "只有"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "合法移除 2 後沒有新 release，完成更新後 queue 空、finished 只有一，與總數三比較才回傳 False；不是把任意空 queue 都當成失敗。",
+        "qualifiers": [
+          "只有",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "一可用起點不足以全圖成功，not enough不是斷言isolated course本身非法或不完成。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 18,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "checkpoint 在 while ready 求值前且前次 dependent 更新全完成：計數對應未完成義務，queue 恰含全部可開始未完成課各一次，finished 計 distinct completions。",
+        "qualifiers": [
+          "恰"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion. At that point, finished counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+        "qualifiers": [
+          "all",
+          "every",
+          "every",
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which updates must finish before the queue invariant is checked?",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "invariant 同時約束三個物件：finished 數 distinct completions、每個未完成 course 的 count 等於未完成 prerequisites 數、queue 恰含全部 available unfinished courses 各一次。",
+        "qualifiers": [
+          "每",
+          "恰"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "queue 內部順序只是實作選擇，並不屬「恰含全部可開始課」的條件；FIFO 也不必最小 ID first。",
+        "qualifiers": [
+          "只",
+          "恰"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "checkpoint 位於 while ready 求值前，且前一 completion 的整份 dependent list 已處理完；尚在中途時可能 count 或 queue 尚未反映所有 release，不能提前宣告 invariant。",
+        "qualifiers": [
+          "所有",
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0011.term",
+        "text": "checkpoint",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0011.english_sentence",
+        "text": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "course-schedule-A0011.active_cue",
+        "text": "When may the checkpoint invariant be asserted?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0011.oracle",
+        "text": "Before while ready, after the previous course’s entire dependent list has been processed, not midway through it.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "exactly all available unfinished once是完成後checkpoint invariant，不把FIFO排序列為該條件。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 19,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "初始未完成任何課，從所有 pairs 建的 counts 正確；完整掃描零值課建立 ready，連初始空 queue 也滿足 checkpoint。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Initially nothing is completed, so the counts built from all pairs have the required meaning. The initialization scan includes exactly the zero-count courses. Thus the checkpoint holds before the first iteration, including when the queue is initially empty.",
+        "qualifiers": [
+          "all",
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What establishes the checkpoint even when ready is initially empty?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "所有 pairs 都已建入 counts，且掃描全部 course IDs，只把 zero-count courses 入列；因此 isolated courses 不會因沒出現在 pairs 而遺失。",
+        "qualifiers": [
+          "所有",
+          "只",
+          "不會"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "第一次 iteration 前尚無 completed courses，initial counts 正好等於全部 unfinished prerequisites；完整 zero-count scan 完成後，空 queue 也可能是合法初始狀態。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "完整掃描所有IDs避免遺漏isolated courses；initial-empty指初始化已完整做完。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 20,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "合法完成只滿足 outgoing destinations 的義務；逐一減計數與新零入列後，整份 dependent list 處理完才恢復 checkpoint，不能套在半輪狀態。",
+        "qualifiers": [
+          "只",
+          "才",
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing finished records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it.",
+        "qualifiers": [
+          "all",
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How is the checkpoint restored after one legal completion?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "移除的 course 本來 available，故其全部 prerequisites 已完成；只有它 outgoing destinations 各少一項義務，無關 count 不變。",
+        "qualifiers": [
+          "只有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "newly-zero destinations 入列一次，舊 available courses 繼續排隊，finished 再記一項 distinct completion；不是只更新其中一份狀態就算維護完成。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "整份 dependent list 與新零值 enqueue 都處理完，才回到下一個 while checkpoint；中途僅處理第一個 edge 的狀態不能套用完成後的三項 invariant。",
+        "qualifiers": [
+          "才",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "只更新direct outgoing obligations依selected edges；不含間接reachable descendants，checkpoint要整份list完成。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 21,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "最多完成 V 個 distinct courses；若 queue 空且仍未完成，checkpoint 導出每門仍等 unfinished prerequisite，有限追溯必有 cycle，故 Boolean 比較涵蓋成功與失敗。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "For termination, at most numCourses distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+        "qualifiers": [
+          "at most",
+          "all",
+          "no",
+          "every"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does the completion count distinguish schedule from cyclic remainder?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "每門課至多入列一次，因此最多完成 numCourses 個 distinct courses；若全部合法完成，就建立 schedule；topological order 要求 prerequisite 在 dependent 前，不要求最小 ID。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "若仍有 unfinished courses，只有在 queue 確實含全部 available unfinished courses 的 invariant 下，queue 空才表示每門仍等未完成 prerequisite；有限反向追蹤才推出 cycle。",
+        "qualifiers": [
+          "只有",
+          "才",
+          "每",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "讀取的是 loop 結束且全部前次 updates 完成後的 finished==numCourses；空 queue 與未完成課程共同決定失敗，不能略過比較或拿任意未初始化 queue 套用。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0012.term",
+        "text": "Kahn's topological sort",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0012.english_sentence",
+        "text": "This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "course-schedule-A0012.active_cue",
+        "text": "What ordering condition does topological order preserve?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0012.oracle",
+        "text": "Every prerequisite appears before its dependent; it does not require smallest identifiers first.",
+        "qualifiers": [
+          "Every"
+        ]
+      }
+    ],
+    "direction_strength_review": "最多V distinct與no-full-schedule推論依once-enqueue/full-invariant；不是任意空queue即可失敗。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 22,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "初始 ready 非空只證明有起點，不證明全圖可完成；三課最小性有 two-course cycle 前提，允許 self-loop 時兩課即可反駁。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "A tempting wrong return is True whenever the initial queue is nonempty. The three-course rejection above refutes it. It is smallest by number of courses if a two-course cycle and a separate available course are required: two course identifiers form the cycle and a third supplies the misleading start. Without that requirement, the smaller numCourses = 2, prerequisites = [[0, 0]] already refutes the shortcut: course 1 is available while course 0 waits for itself.",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which assumption makes the three-course counterexample smallest?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "若要求 two-course cycle 加另一門 available course，三門才足夠；若允許合法 self-loop 作 cycle，兩門就能反駁初始非空即成功。最小性必須帶著這個範圍。",
+        "qualifiers": [
+          "才",
+          "必須"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "錯誤捷徑只檢查 initial ready 非空；正確成功條件要等全部合法 completion 後比較總數，不能把存在第一步換成全圖完成。",
+        "qualifiers": [
+          "只",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "三課最小限two-course cycle+separate available；self-loop另一合法最小例明示。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 23,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "O(V + E) 依 bounded scalars 與 reference／slot elementary operations 計工作量；配置或複製 k slots 仍要 O(k)，不把全部 Python instructions 當等耗時。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Let V = numCourses and E = len(prerequisites). Big O describes an upper bound on growth, ignoring fixed multipliers; O(V + E) means work grows no faster than a constant times the number of courses plus pairs, under the following model. Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations. Course identifiers fit within 0 to 1999 and counts within 0 to 5000; treating these scalars as bounded units is appropriate for this contract. This is an operation-count model, not a statement that all Python instructions take identical physical time. Allocating or copying k slots costs proportional to k.",
+        "qualifiers": [
+          "no",
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What does the operation-count model charge for slots and copying?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "V 是 course 數、E 是 pairs 數；bounded scalar／單一 reference 或 slot 操作是 elementary units，不能把一次複製 k slots 也當成一個 constant-size 操作。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "O(V+E) 的模型說明不是所有 Python instructions 同物理耗時，也不是單靠 bounded primitive 就已證明程式只做 V+E 次操作；實際次數還需後段分析。",
+        "qualifiers": [
+          "所有",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "not all instructions equal是cost model說明，O(k) copying不是一個高階呼叫就算constant。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 24,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "list.pop(0) 每次搬移後續 references；V 門一開始都 ready 時，搬移數加總成 V(V - 1)/2，即使 E = 0 仍是 quadratic。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The queue choice affects this count. A Python list stores references in consecutive indexed slots. Removing its first item must shift the later references left so indexing still starts at zero. With V initially available courses, draining a list through pop(0) moves (V - 1) + (V - 2) + ... + 1 references. Pairing the terms gives V(V - 1)/2, quadratic growth even with no prerequisite edges. The Python tutorial describes the shifting cost.",
+        "qualifiers": [
+          "must",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What is counted while a V-entry list queue is completely drained?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "反例讓 V 門課一開始都 available；每次 list.pop(0) 為維持 indexed slots 要搬移後續 references，所以成本不能只算移除的一個 item。",
+        "qualifiers": [
+          "每",
+          "不能",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "必須把整個 V-entry list 取空才得到 (V-1)+...+1=V(V-1)/2；若只做固定兩次 pop，並不是相同的 quadratic 總量聲明。E=0 也不消除此搬移。",
+        "qualifiers": [
+          "必須",
+          "才",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "even E=0的quadratic限draining初始V-entry list；沒把固定兩次pop說成quadratic。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 25,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "deque 的 fixed-length linked blocks 只更新端點或固定 block 連接，不搬整個 queue；constant endpoint cost 依固定 block allocation 有界的模型。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "CPython v3.14.0's deque implementation uses fixed-length blocks joined by links. An endpoint operation changes an endpoint position and, at a block boundary, a fixed-size block connection; it does not shift all queued references. With fixed-size block allocation treated as bounded work, each queue endpoint operation has constant cost in this model, matching the documented approximately O(1) behavior. Queue size can grow, but the work of a single endpoint update does not grow with it.",
+        "qualifiers": [
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which block-allocation assumption supports constant deque endpoint cost?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "CPython deque 使用 fixed-length linked blocks；endpoint update 只改位置或固定大小 block connection，不會搬移全部 queued references。",
+        "qualifiers": [
+          "只",
+          "不會"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "每次 endpoint operation 的 constant cost 依 fixed-size block allocation 被視為 bounded work 的模型；queue 可增大不代表單次 update 需要走過整條 queue，也不代表 wall-clock 時間完全相同。",
+        "qualifiers": [
+          "每"
+        ]
+      }
+    ],
+    "direction_strength_review": "只動fixed endpoint/block connection是CPython deque模型，constant cost依fixed block allocation，不推唯一queue implementation。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "list.append 可能因 slots 用盡而 resize 並複製 references；spare capacity 支持整段分析，卻不保證單次 append 都 constant work。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "Adjacency lists use list.append, which needs a different argument. A list sometimes runs out of allocated slots. CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding. A growth may copy the old references, so one append is not always constant work.",
+        "qualifiers": [
+          "always"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When can one append resize, and how does spare capacity help later appends?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "list 有時會用盡 allocated slots，這樣的 growth 可能 resize／複製；spare capacity 是按政策預留給後續 appends 的空間，不能讀成尚有空 slot 也必定 resize，亦不保證每次 append 都是 constant work。",
+        "qualifiers": [
+          "不能",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "spare room 隨大小成比例，讓一次成長後可再做一批 single-item appends；昂貴 copy 因而能分攤到整段 append-only sequence，但不是把那次 copy 本身抹掉。",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "談單次 append 時要保留 slot 是否已用盡；談 amortized 結論則觀察整段 single-item append-only sequence，不能拿單次 resize 的成本當成每次都一樣。",
+        "qualifiers": [
+          "only",
+          "不能",
+          "每"
+        ]
+      },
+      {
+        "field": "course-schedule-A0013.term",
+        "text": "spare capacity",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0013.english_sentence",
+        "text": "CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0013.active_cue",
+        "text": "Why does spare capacity matter without guaranteeing every append is constant?",
+        "qualifiers": [
+          "every"
+        ]
+      },
+      {
+        "field": "course-schedule-A0013.oracle",
+        "text": "It spreads occasional resize-and-copy work over an append-only sequence; one growth can still copy old references.",
+        "qualifiers": [
+          "only"
+        ]
+      }
+    ],
+    "direction_strength_review": "may resize/copy非每次必resize，也非只有一種growth policy才可做append；aggregate與單次成本分開。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 27,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "append-only sequence 的 proportional spare room 分攤 resize，或以幾何級數界住複製總量，才得到 amortized constant time；此論證不含交替 deletion／bulk updates。",
+        "qualifiers": [
+          "only",
+          "才"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Here is why a whole append-only sequence is still linear. After growing a sufficiently large list of size m, proportional spare room allows at least a fixed fraction of m further single-item appends before another growth. Charge the cost proportional to m of that growth across those following appends; each receives only a constant charge. Equivalently, look backward from final capacity C: successive earlier growth sizes shrink by a fixed factor below one, apart from small sizes. Their copying work is bounded by C + rC + r²C + ... = C/(1-r) for some fixed r < 1. To see the bound, multiplying the sum by r leaves the original sum minus its first term; subtraction gives (1-r)S = C. Small initial capacities add fixed work. Final capacity is proportional to the final length, so d single-item appends, including their ordinary writes, take O(d) total work. This aggregate guarantee is called amortized constant time per append. It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument.",
+        "qualifiers": [
+          "only",
+          "only",
+          "only",
+          "no"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How is occasional copying charged across the whole append-only sequence?",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "premises[0].text",
+        "text": "論證限定只靠 single-item append 成長；比例 spare room 讓 size m 的 growth 後還有固定比例 m 次 appends 可承擔其 copy cost，不含交替 deletion 或 bulk update。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "等價的幾何級數把歷次 growth copies 界在 final capacity 的常數倍；final capacity 又與 final length 成比例，才從 ordinary writes 加 copying 得到 d 次 appends 的 O(d) work。",
+        "qualifiers": [
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "amortized constant time 是對整段 d 次操作的 aggregate upper bound；單次用盡 slots 的 append 仍可能 resize/copy，不能把整段的分攤保證套成每個時刻的實際耗時。",
+        "qualifiers": [
+          "不能",
+          "每"
+        ]
+      },
+      {
+        "field": "course-schedule-A0014.term",
+        "text": "amortized constant time",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0014.english_sentence",
+        "text": "This aggregate guarantee is called amortized constant time per append.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0014.active_cue",
+        "text": "What is guaranteed by amortized constant time in this source?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0014.oracle",
+        "text": "d single-item appends take O(d) total work for the append-only sequence, while an individual append may resize.",
+        "qualifiers": [
+          "only"
+        ]
+      }
+    ],
+    "direction_strength_review": "才得到amortized指這份proof的比例growth/charging或幾何級數推導，context限定source append-only sequence，不宣稱所有constant-amortized容器都唯一採該政策。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 28,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "V 個容器與 counts 加 E 次更新／appends；各 adjacency list 的 d_b 合計恰為 E，連小 list overhead 後 construction 為 O(V + E)。",
+        "qualifiers": [
+          "恰"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Building the V independent lists and V counts costs O(V). Reading E pairs does E counter updates and E appends. If course b has d_b dependents, its append sequence costs O(d_b); summing d_b across all courses gives exactly E. Small-list overhead contributes at most another O(V). Building the representation therefore costs O(V + E).",
+        "qualifiers": [
+          "all",
+          "exactly",
+          "at most"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How do per-list append costs combine into construction work?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "建 V 個 independent lists／counts 需 O(V)，讀 E pairs 做 E 次 updates／appends；operation count 之外，還要每個 list 的 append-only sequence 成本 O(d_b)，且各 d_b 合計恰為 E。",
+        "qualifiers": [
+          "每",
+          "only",
+          "恰"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "小 list 的固定 overhead 合計至多 O(V)；所以是把 per-list aggregate cost 與初始化一起加總成 O(V+E)，不是把 E 個高階 append 呼叫自動當成 E 個 primitive。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "此處統計完整建圖階段：所有 E pairs 已處理；即使後續 cycle 使 processing 提早停，也已支付初始建圖／讀 pairs 的工作。",
+        "qualifiers": [
+          "所有"
+        ]
+      }
+    ],
+    "direction_strength_review": "總d_b=E是edge accounting；O(V+E)另有per-list amortized前提，沒有以高階呼叫次數代替成本。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 29,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "每課最多入列／出列一次，每 edge 的 dependent list 最多走訪一次，所以 nested inner loop 總量至多 E；提早遇 cycle 仍已付建圖讀 pairs 成本。",
+        "qualifiers": [
+          "每",
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The readiness scan checks V slots and enqueues at most V courses. During processing, each course is enqueued and removed at most once. Each edge appears in exactly one dependent list, and that list is visited at most once. Hence all executions of the inner loop total at most E, even though the code nests that loop inside a while. Setup, queue operations and edge updates sum to worst-case O(V + E) time, with list construction analyzed over its append sequences. A cycle may stop processing early, but cannot avoid the initial pair-reading work.",
+        "qualifiers": [
+          "at most",
+          "at most",
+          "exactly",
+          "at most",
+          "all",
+          "at most",
+          "cannot"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which counts and container bounds jointly yield total processing time?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "initial scan 看 V slots；各 course 至多 enqueue/remove 一次，各 edge 只在一份 dependent list，該 list 至多處理一次，因此所有 inner-loop executions 合計至多 E。",
+        "qualifiers": [
+          "只",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "還須 elementary bounded scalar cost、deque bounded endpoint work，以及 adjacency append-only aggregate bound；連同 O(V+E) 建圖，才能把 visit counts 換成整體 O(V+E) time。",
+        "qualifiers": [
+          "only",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "總量包含建圖、readiness scan、queue operations 與全部 edge updates；cycle 可少處理一些 course，卻不能省掉一開始讀取全部 pairs 的成本。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "每課/edge至多一次限來源queue/count算法；沒有說重掃算法也不能多次visit。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 30,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "peak auxiliary 包含 adjacency headers、E references 與 spare capacity、counts、queue blocks；resize 暫存兩份仍同階，總 O(V + E)，輸入排除且 Boolean output O(1)。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "For auxiliary space, the outer adjacency list and its inner-list headers use O(V) slots or fixed-size records. The inner lists retain E references plus spare capacity proportional to V + E, by the same growth policy. Counts use V scalar slots, and the queue holds at most V entries plus fixed-size block overhead proportional to that capacity. Scalar loop variables need constant space. A resize can temporarily keep old and new storage alive, but both have size proportional to the list being grown; this leaves the peak bound O(V + E). The existing input is excluded from auxiliary space, and the returned Boolean is O(1) output space. No recursion stack is used.",
+        "qualifiers": [
+          "at most",
+          "No"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "Which simultaneously live records determine peak auxiliary space?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "outer／inner-list headers 與 counts、queue 都至多隨 V；E references 及 spare capacity 依同一 growth policy 合計 O(V+E)，不能把 spare capacity 當成不占空間。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "input pairs 不算新 auxiliary；Boolean output 是 O(1)，並沒有 recursion stack。這個排除慣例不表示 input 已不存在或沒有儲存成本。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "觀察 peak live storage，resize 時舊與新 buffer 可同時存在，但各與該 list 大小成比例；不能只看 resize 結束後，也不能把所有歷史 buffers 累加。",
+        "qualifiers": [
+          "不能",
+          "只",
+          "不能",
+          "所有"
+        ]
+      },
+      {
+        "field": "course-schedule-A0015.term",
+        "text": "auxiliary space",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0015.english_sentence",
+        "text": "The existing input is excluded from auxiliary space, and the returned Boolean is O(1) output space.",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0015.active_cue",
+        "text": "How are input and Boolean output counted?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0015.oracle",
+        "text": "The existing pair input is excluded from auxiliary space; the returned Boolean occupies constant output space.",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "峰值O(V+E)與excluded input是定義/representation範圍；未把temporary雙buffer漏掉或把output也全算auxiliary。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 31,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "替代法只留 done／blocked，反覆掃原 pairs 判斷本輪可完成群組；必須等 scan 結束才整組標 done，沒有新完成就失敗停止。",
+        "qualifiers": [
+          "只",
+          "必須",
+          "才"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "If storing another E references is unacceptable but the original pair list can be scanned repeatedly, there is a slower alternative. Keep done[V] Booleans. In each round, allocate a fresh blocked[V] array of false values. Scan every pair [a, b]; if both a and b are unfinished, set blocked[a] to true. Then identify all unfinished, unblocked courses and mark that whole group done only after the scan has finished. These are exactly the courses with no unfinished prerequisite at the start of that round. Stop successfully when all are done, or unsuccessfully when a round adds none.",
+        "qualifiers": [
+          "every",
+          "all",
+          "only",
+          "exactly",
+          "no",
+          "all"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When may a repeated-scan round mark its available group done?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "此替代法不另存 E adjacency references，但原 pair list 仍存在且可反覆掃描；done[V] 與每輪新的 blocked[V] 只是額外狀態，不是消除了 input。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "本輪只看起始時兩端都 unfinished 的 pair，標出 blocked destination；因此最後未完成且 unblocked 的一組才是該輪沒有 unfinished prerequisite 的 courses。",
+        "qualifiers": [
+          "只",
+          "才"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "必須完成整次 pair scan 後，才把那整組標成 done；若掃描到一半就更新 done，後面 pairs 會讀到不同輪的狀態，便不是這個 group 論證。",
+        "qualifiers": [
+          "必須",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "必須scan完才整組done屬此round-start snapshot算法的proof；不是所有topological算法都須round barrier。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 32,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "同組不可能互相依賴，否則會 blocked；最多 V 個成功 rounds 各掃 V + E，時間 O(V(V + E))，以 O(V) peak flags 換取重複掃描成本。",
+        "qualifiers": []
+      },
+      {
+        "field": "complete_english",
+        "text": "The same legality and finite-cycle argument applies to these groups. Group members cannot require one another, since any such edge would have marked its destination blocked. Each successful round completes at least one new course, so there are at most V successful rounds and at most one final failed round. Initializing flags and inspecting courses costs O(V) per round; checking every pair costs O(E). The resulting bound is O(V(V + E)). A length-V prerequisite chain releases only one course per round, showing why the repeated work can persist as size grows. done, blocked and an optional group buffer each hold at most V entries, so peak auxiliary storage is O(V); old round buffers are released before the next round. The Boolean output stays O(1). The input's E pairs remain live and are excluded under the same convention. Prefer this trade-off only when the extra adjacency storage matters more than repeated scans.",
+        "qualifiers": [
+          "cannot",
+          "at most",
+          "at most",
+          "every",
+          "only",
+          "at most",
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What work and peak storage are traded by repeated scans?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "群組內不能有 prerequisite edge，否則其 destination 早被 blocked；每個 successful round 至少完成一門，所以至多 V 個成功 round 加一個最後失敗 round。",
+        "qualifiers": [
+          "不能",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "在 bounded elementary model 下，每輪 flags／course scan O(V)、pair scan O(E)；原 input 不另算 auxiliary，額外 V-sized buffers 才形成 O(V) peak，不能只憑少存 edges 就忽略 repeated work。",
+        "qualifiers": [
+          "每",
+          "才",
+          "不能",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "時間計整個 rounds sequence，chain 可能每輪只釋放一門；space 計同時 alive 的 round buffers，舊 buffers 在下一輪前釋放，不是永久保存每輪歷史。",
+        "qualifiers": [
+          "每",
+          "只",
+          "每"
+        ]
+      },
+      {
+        "field": "course-schedule-A0016.term",
+        "text": "trade-off",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0016.english_sentence",
+        "text": "Prefer this trade-off only when the extra adjacency storage matters more than repeated scans.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "course-schedule-A0016.active_cue",
+        "text": "What does the repeated-scan alternative trade?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0016.oracle",
+        "text": "It reduces peak auxiliary storage to O(V) by avoiding extra E adjacency references, but raises the time bound to O(V(V + E)).",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "同組不能互相require限此group的未完成prerequisite邊；成本是選定repeated-scan trade，不否定其他省memory方法。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "若改為回傳 order，每次合法移除後 append course，再以長度 V 判成功；FIFO 只保先修順序，trace 的 4 仍在 1 前面。",
+        "qualifiers": [
+          "每",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "A different requirement changes what the main solution must retain: return one valid course order, or [] if impossible. Start an empty order list and append course immediately after each removal. Return order if its length equals V, otherwise return []. Each retained entry records a legal completion, so the earlier proof establishes the returned ordering. No smallest-first guarantee follows from FIFO; for the movie, 4 appears before 1.",
+        "qualifiers": [
+          "must",
+          "No"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "When is a retained legal prefix a returnable full course order?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "order 只 append 每次合法移除的 course；legal completion 要在其 prerequisites 已完成之後，因此先前 invariant／termination proof 才能支持這份 ordering。",
+        "qualifiers": [
+          "只",
+          "每",
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "FIFO 只定先入先出，不強制 smallest-first；回傳的要求是一個合法順序，不是排序好的 course IDs。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "每次 removal 後立即 append；loop 結束時必須 length==V 才回傳 order，否則回傳 []。只完成 isolated 2 的拒絕 witness 會留下 partial prefix，不能當作三門課的完整 order。",
+        "qualifiers": [
+          "每",
+          "必須",
+          "才",
+          "只",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "FIFO只保先修順序在此合法available-course選擇流程中讀，不是FIFO本身可讓任意blocked entry變合法；context先有legal completion proof。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 34,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "新增至多 V 次 append 不改 O(V + E) time；成功 order 算 O(V) output，失敗 partial order 算 temporary auxiliary，不能混用兩種空間歸屬。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "This adaptation adds at most V single-item appends to one growing list. The append-only argument still applies, so the added work is O(V) and the whole algorithm remains O(V + E). The adjacency representation, counts and queue remain, so auxiliary storage excluding a successful returned order stays O(V + E). Successful output contains exactly V references and takes O(V) output space. On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size. Keeping an order changes storage accounting, not the cost of visiting each edge.",
+        "qualifiers": [
+          "at most",
+          "only",
+          "exactly",
+          "at most"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does keeping an order change time and storage accounting?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "新增的是同一 growing list 的至多 V 次 single-item appends；append-only amortized 論證使新增 work O(V)，再加到既有 O(V+E) 建圖／processing，才維持整體上界。",
+        "qualifiers": [
+          "only",
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "adjacency、counts、queue 仍存在；successful returned order 算 O(V) output，而 failure 時 partial order 不是成功輸出，必須算 temporary auxiliary。",
+        "qualifiers": [
+          "必須"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "在最終成功／失敗比較後判斷 output 歸屬；同一 partial list 在失敗路徑不能因「原本打算回傳」就排除於 auxiliary。",
+        "qualifiers": [
+          "不能"
+        ]
+      },
+      {
+        "field": "course-schedule-A0017.term",
+        "text": "partial order",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0017.english_sentence",
+        "text": "On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size.",
+        "qualifiers": [
+          "at most"
+        ]
+      },
+      {
+        "field": "course-schedule-A0017.active_cue",
+        "text": "On failure, is partial order successful output?",
+        "qualifiers": []
+      },
+      {
+        "field": "course-schedule-A0017.oracle",
+        "text": "No; it is temporary auxiliary storage, while the returned empty list has constant size.",
+        "qualifiers": [
+          "No"
+        ]
+      }
+    ],
+    "direction_strength_review": "不能混用output/auxiliary歸屬依最終成功/失敗API；不是所有可能API都必須失敗回空list。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 35,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "口述 indegree 必須使用執行中的意義：unfinished prerequisites；course 恰在 remaining count 歸零時 available。",
+        "qualifiers": [
+          "必須",
+          "恰"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Why use indegree? \"It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero.\"",
+        "qualifiers": [
+          "exactly"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What count makes a course available during processing?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "indegree 初值記 incoming edges，執行中 remaining 指 unfinished prerequisites；「available exactly when zero」不能被換成完成任意一個 prerequisite。",
+        "qualifiers": [
+          "exactly",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "初始化零值直接由完整 scan 入列；processing 則在 decrement 後新達零才 append。前一 completion 的所有 updates 結束後，這個 meaning 才和下一次 queue checkpoint 一致。",
+        "qualifiers": [
+          "才",
+          "所有",
+          "才"
+        ]
+      }
+    ],
+    "direction_strength_review": "exactly-zero availability限unfinished courses及init/new-zero checkpoints；completed course不再是available unfinished集合成員。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 36,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "口述一次 edge 工作要交代儲存方向：dependent 放在 prerequisite 下；每個 prerequisite 只完成一次，對應 edge 只移除一項義務一次。",
+        "qualifiers": [
+          "每",
+          "只",
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Why can each edge be handled once? \"I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation.\"",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Why is each stored edge handled once for one prerequisite completion?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "每個 dependent 存在它 prerequisite 的 outgoing list 下，只有該 prerequisite 的 completion 才去除那條 edge 表示的一項 obligation；不是更新所有 reachable descendants。",
+        "qualifiers": [
+          "每",
+          "只有",
+          "才",
+          "所有"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "各 course 至多入列／移除一次，所以相同 prerequisite list 不會重新處理，才有一次 edge visit 的計數；這只計 visits，尚未單獨證明整體 time bound。",
+        "qualifiers": [
+          "不會",
+          "才",
+          "只"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "該 prerequisite 被合法移除後只走其整份 dependent list；下一 checkpoint 前，該 list 內每條 edge 的 count update 都完成，不能重複減同一 obligation。",
+        "qualifiers": [
+          "只",
+          "每",
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "一次edge visit是每個prerequisite completion觸發自己outgoing list的selected loop，不是所有遍歷必然只看一次。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 37,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "empty queue 只有搭配仍有 unfinished courses 才推出失敗；每門仍等待未完成先修，有限追蹤必成 cycle。",
+        "qualifiers": [
+          "只有",
+          "才",
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "Why does an empty queue sometimes mean failure? \"If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle.\"",
+        "qualifiers": [
+          "must"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "What makes an empty queue evidence of a cyclic remainder?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "必須仍有 unfinished courses，且 queue 依 invariant 恰含所有 available unfinished courses；只有這時 empty 才表示每個剩餘 course 都等 unfinished prerequisite。",
+        "qualifiers": [
+          "必須",
+          "恰",
+          "所有",
+          "只有",
+          "才",
+          "每"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "有限剩餘圖反向追那些 prerequisites 必重遇節點，這是 cycle 推論的來源；不是任意 empty deque 的資料形狀就證明 graph 有 cycle。",
+        "qualifiers": []
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "讀取的是前次 dependent updates 全完成、loop 無法再取 course 的狀態；若初始化 scan 未做完或 queue 丟失 entries，不能使用這個 failure oracle。",
+        "qualifiers": [
+          "不能"
+        ]
+      }
+    ],
+    "direction_strength_review": "only unfinished+empty仍需完整availability invariant；不是任何未初始化空deque都推出cycle。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 38,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "口述 bounds 保留 bounded-scalar／container cost 前提，區分 O(V + E) 工作與 auxiliary，並指出結果只是 Boolean。",
+        "qualifiers": [
+          "只"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "What are the bounds? \"Construction and traversal take O(V + E) time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use O(V + E) auxiliary space. The result is one Boolean.\"",
+        "qualifiers": []
+      },
+      {
+        "field": "cue",
+        "text": "Which operation counts and cost assumptions support the stated bounds?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "construction 包含 V 個 containers／counts 與 E pairs，traversal 包含至多 V 次 course 處理與 E 次 edge updates；operation counts 要加上 bounded scalars、deque endpoint 及 append-only aggregate costs，才可讀 O(V+E) time。",
+        "qualifiers": [
+          "only",
+          "才"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "auxiliary 包含 adjacency／counts／queue 的 peak live storage 與 spare capacity，排除既有 input；單一 Boolean 是另計的 O(1) output，不是把所有 storage 都說 constant。",
+        "qualifiers": [
+          "所有"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "time 觀察整次 construction 和 traversal，space 觀察同時 live 的 peak；若只觀察某個 early-exit branch，或只看最終空 queue，都不是本段總量。",
+        "qualifiers": [
+          "只",
+          "只"
+        ]
+      }
+    ],
+    "direction_strength_review": "只是Boolean指選定API；work/space bounds另保留操作數、container價格與peak convention，不從單一例子泛化。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 39,
+    "visible_assertions_inspected": [
+      {
+        "field": "zh_note",
+        "text": "master map 從 edge direction 走到 outgoing updates、remaining availability、queue 與 checkpoint；要先證明 queue／append costs，單憑每 edge 一次仍不足以推出 time bound。",
+        "qualifiers": [
+          "每"
+        ]
+      },
+      {
+        "field": "complete_english",
+        "text": "The master map connects the argument: [a, b] creates b -> a; outgoing lists locate the obligations a completion removes; remaining counts decide availability; a queue retains that availability until processing; the checkpoint keeps counts aligned with unfinished prerequisites; and the completed-course count distinguishes a finished graph from a blocked remainder. Counting one visit per course and edge gives the time bound only after the queue and append-sequence costs have been explained.",
+        "qualifiers": [
+          "only"
+        ]
+      },
+      {
+        "field": "cue",
+        "text": "How does the master map connect obligations, availability, and final comparison?",
+        "qualifiers": []
+      },
+      {
+        "field": "premises[0].text",
+        "text": "edge 方向決定 outgoing list 更新哪個 obligation，remaining 決定 availability，而 queue 保存這個未完成可用集合；每個 actor 的表示責任不同，不能把 counts 當 Boolean 或把 queue 順序當合法性。",
+        "qualifiers": [
+          "每",
+          "不能"
+        ]
+      },
+      {
+        "field": "premises[1].text",
+        "text": "一次 visit 的計數只有配上 scalar／queue／append-sequence costs 才支持 time bound；因此 master map 的最後一步不能跳過 deque 與 amortized derivation。",
+        "qualifiers": [
+          "只有",
+          "才",
+          "不能"
+        ]
+      },
+      {
+        "field": "checkpoint.text",
+        "text": "在完整 dependent updates 後的 while checkpoint 檢查 counts／queue，再於 loop 結束比 finished 和全部 course 數；這同時排除半輪 stale state 與有起點即成功的推論。",
+        "qualifiers": []
+      }
+    ],
+    "direction_strength_review": "要先說明queue/append成本是此proof從visit count到total work的缺件辨識；未聲稱只有某種特定證明寫法才合法。",
+    "review_result": "NO_ADDITIONAL_SOURCE_STRENGTH_UPGRADE_IDENTIFIED",
+    "review_unit": "Complete annotation with displayed context and all linked supporting paragraphs; retained zh/Active are included.",
+    "learner": "NOT_OBSERVED"
+  }
+]

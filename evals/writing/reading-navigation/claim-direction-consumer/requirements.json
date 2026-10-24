@@ -1,0 +1,4 @@
+{
+  "task": "Use complete-annotation acceptance. Preserve source meaning and conditions; a source example does not establish exclusivity or necessity. Keep body immutable and do not publish.",
+  "contract": "Use speed-reading as annotation content Owner and alg-four as binding/rendering Owner. From the approved complete bilingual sources create two complete annotations with concise Traditional Chinese explanation, exact complete English reading projection, source-bound reading_context premises and any necessary checkpoint, a short reading question rather than independent conclusion, and only source-supported Active practice. Follow the supplied final speed-reading contract. Do not change source bodies or publish externally. Report Boolean annotation_content_created, source_body_changed, publication_performed; these actions do not establish semantic quality."
+}

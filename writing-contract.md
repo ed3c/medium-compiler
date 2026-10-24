@@ -51,9 +51,42 @@ Only when the task is to publish or assemble a **complete LeetCode Medium articl
 
 In that selected route, medium-writing **does not create or edit substantive prose**. It checks the handoff, adapts Medium-native headings/flow, locations of dynamically necessary figures, readable code fences, captions/alt text and split delivery parts while preserving approved semantic content. Neither article sections nor figures have a fixed universal count. Reject or return a missing claim, repeated explanation, wrong runtime arrow, changed qualifier or a needed content rewrite to leetcode-mental **before** format admission. Image creation is optional and only occurs on explicit user request.
 
-The approved content goes through the **existing** Stage 0–7 CLI using existing accepted stage inputs and coverage. Stage 6 for this route is limited to presentation and nonsemantic normalization; Stage 7 remains exact assembly. No new CLI status, source digest guessed by the model, pass-specific rewriting, learner status, or publisher is implied. A delivery Part is a contiguous segment of **one approved edition**; do not concatenate earlier draft variants. `alg-four` consumes identical accepted article bytes as an independent downstream annotator.
+The approved content goes through the **existing** Stage 0–7 CLI using existing accepted stage inputs and coverage. Stage 6 for this route is limited to presentation and nonsemantic normalization; Stage 7 remains exact assembly. No new CLI status, source digest guessed by the model, pass-specific rewriting, learner status, or publisher is implied. A delivery Part is a contiguous segment of **one approved edition**; do not concatenate earlier draft variants. `speed-reading` authors downstream annotations from identical accepted article bytes; `alg-four` binds and renders them.
 
 For other article domains, this writing contract remains the source of English-first authoring, sloptrim, translation and editorial review.
+
+## Article updates: local preview before deployment
+
+An article or reading-interface update defaults to a reviewable local website,
+including its article-list entry. Build the selected version, serve it through
+localhost and actually open the affected pages in a browser. Inspect the changed
+content, layout, index/navigation and any affected language switch, notes or code
+on the relevant desktop/mobile viewports. Retain the source revision/working-tree
+state, actual local URL and observed results outside public prose. Provide that
+URL for the user's review; opening it yourself does not mean the user has seen it.
+An HTTP response, generated HTML, CI browser run or deployed Preview URL does not
+substitute for this local review. If it cannot be performed, report the missing
+step and retain the local work instead of deploying to obtain a preview.
+
+After local review, deploy to the selected Vercel or Cloudflare target only when
+the current update's scope explicitly includes deployment. A previous release,
+configured host, publishable article, CLI VALIDATED result or green CI does not
+authorize every later update. When no release is requested, stop at the local
+preview and checks. If the user asked to review before release, wait for that
+review; otherwise an existing explicit end-to-end deployment request remains
+valid after local review without another ceremonial permission question.
+
+Treat Git pushes/merges that trigger Vercel Preview/Production or Cloudflare
+Workers Builds as remote deployment effects too. Read the current trigger before
+such a write; do not use a push as a preview shortcut or assume a PR is local-only.
+If trigger behavior is unknown during a local-only task, retain local commits and
+block that remote write. Do not silently disable integrations or change Provider
+settings. Source or presentation changes after review require rebuilding and
+rechecking the affected local pages before release.
+
+Keep local review, user review, compiler/CI checks, release authorization and
+Provider/runtime readback distinct in the task report. These are observations
+and scope boundaries, not new compiler stages or a new approval service.
 
 ## Invariant-centered Zero Context granularity
 
@@ -77,6 +110,8 @@ unnecessary sections to satisfy an algorithm-only format. The linked
 [Medium example reference](.agents/skills/leetcode-mental/references/medium-reference.md)
 is a style pointer whose full text was not independently retrievable; the
 user's supplied v4 specification defines the operational teaching requirements.
+The complete Group Anagrams comparison text was subsequently supplied by the user;
+its current provenance and case-specific applicability are in that reference file.
 Proof and mastery remain separate from layout and a successful compiler receipt.
 
 ## Authority split

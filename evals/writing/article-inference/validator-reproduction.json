@@ -1,0 +1,8 @@
+{
+  "before_head": "78155df7f32479831e3036b032d6447252726290",
+  "mutation": "Change a valid Active item decision_id to an existing decision absent from its paragraph note decision_ids; keep all source bytes and other bindings.",
+  "before_observed": "load_article_annotations returned without error",
+  "after_observed": "ValueError: ALG Four Active decision is not linked to its source paragraph annotation",
+  "legal_neighbor": "Add the decision to the paragraph decision_ids as well: load accepted",
+  "semantic_truth": "NOT_ASSESSED"
+}

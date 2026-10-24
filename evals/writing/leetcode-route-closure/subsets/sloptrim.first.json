@@ -1,0 +1,48 @@
+{
+  "51_copula_avoidance": {
+    "label": "Copula avoidance",
+    "count": 2,
+    "samples": [
+      ". Position 0 refers to 2. Its exclude call",
+      "; position 1 refers to 5.  That call first"
+    ]
+  },
+  "56_boldface": {
+    "label": "Boldface overuse",
+    "count": 5,
+    "samples": [
+      "and the master map  **Why are there no duplicate subsets?** Each distinct input",
+      "hip of some value.  **Why copy the path?** The working list is",
+      "integer elements.  **What does backtracking restore?** Every            le"
+    ]
+  },
+  "_metrics": {
+    "scanned_chars": 18341,
+    "truncated": false,
+    "sentences": 229,
+    "length_cv": 0.529,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.629,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.001,
+    "semicolons_per_1k": 9.3,
+    "parentheticals_per_1k": 2.96,
+    "passive_voice_ratio": 0.07,
+    "readability_fk_stdev": 1.69,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.67,
+    "homoglyphs": 0,
+    "ai_tell_score": 15,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 2,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}

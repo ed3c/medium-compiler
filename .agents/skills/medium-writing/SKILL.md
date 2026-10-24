@@ -29,16 +29,25 @@ Complexity/Cost -> Implementation -> Interview -> Master Map.
 
 **When a complete LeetCode Medium article is selected**, consume the fully approved English/zh-TW content from [leetcode-mental's complete-article profile](../leetcode-mental/references/article-content-profile.md). That Skill is the sole semantic Content Owner; **this Skill is the format-only Medium-native Formatter/Assembler**, not a second article writer. Preserve all technical claims, exact English terms, code, proof, exceptions, figures and source identity. If coverage, translation or correctness fails, return it to the Content Owner before admission instead of summarizing or revising it here. The existing CLI Stage 0–7 and supported revision routes remain unchanged.
 
+When website delivery is selected, consume that profile's approved bilingual
+editions and index metadata through [the existing website handoff](../../../docs/bilingual-articles.md).
+Register only selected articles, preserve body bytes, and verify their list,
+language pages and heading navigation. Do not substitute evaluation reports
+for public prose or infer publication authority from an assembled site.
+
 These are teaching responsibilities, not a required number of headings. Count the actual
 reader decisions from question, alternatives, condition and consequence; five organizing
 questions or an older topic's decision count is not a universal quota. P-class interprets
 sources, selects the main question/property/representation/witness/alternative and explains
 causality. CLI owns legal stage order, admitted bytes and mechanical completion, not truth.
 
-Website delivery follows repository AGENTS.md: ChatGPT cloud owns the Vercel total
-site through its Connector; Local Codex owns the Cloudflare experiment subsite
-and sandbox through project Wrangler. An explicitly selected Local Vercel task
-uses Vercel CLI. Cloudflare executes configured Git builds; this is not a Local
+Website delivery follows the selected host and ownership in repository AGENTS.md
+and docs/cloudflare-deployment.md. Apply the retained contract's
+[local review before deployment](../../../writing-contract.md#article-updates-local-preview-before-deployment):
+article updates stop at an inspected localhost preview by default. Publication
+requires the current update's explicit scope, including any Git-triggered release.
+Article admission does not authorize publication.
+Cloudflare executes configured Git builds; this is not a Local
 Codex or ChatGPT runtime. App installation, build trigger, active deployment,
 and Browser/Queue/DO acceptance require separate readbacks. A hosting authentication or scope
 error belongs to that operation, not the article state machine. Preserve admitted
@@ -75,7 +84,7 @@ reader decision graph or source-grounded claims.
 
 ## ALG Four only annotates, never rewrites this author's work
 
-Once Medium prose is admitted, `alg-four` consumes the identical source
+Once Medium prose is admitted, `speed-reading` authors annotations from the identical source; `alg-four` binds that source
 Git blob and displays the exact accepted article beside a right-hand paragraph index containing source-bound zh-TW notes
 preserving technical English, source decisions, and Passive/Active targets.
 Its four encounters act on the **same original prose**. It must not
@@ -90,9 +99,8 @@ and runtime facts; they are not a one-article quota.
 For general technical topics and ordinary v4 composed teaching, this Skill continues to own Medium prose, reader-facing format, sloptrim/editorial handling and source-fidelity review; actual publication still requires external owner/provider readback. In the **complete LeetCode article profile**, leetcode-mental instead owns the complete English technical prose, English sloptrim change approval, full zh-TW translation and semantic/source review. This Skill only transforms approved content into Medium layout, checks byte/coverage fidelity and uses the original CLI for assembly; it does not claim runtime tests, independent semantic review or external publication. If the task also asks the learner
 to acquire English while understanding an entire engineering article, pass the
 **accepted, source-bound article and the original technical claims** to
-[alg-four](../alg-four/SKILL.md). ALG Four inventories all article engineering
-decisions, builds receptive/passive + productive/active English lesson content,
-and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
+[alg-four](../alg-four/SKILL.md). speed-reading authors the source-bound receptive/passive and productive/active
+annotations, while ALG Four validates and projects source-preserving, non-tracking paragraph annotations in a right-hand heading/paragraph index, leaving the article body unchanged. No vocabulary classification,
 Four-Pass route selection, learner receipt or adaptive learning state is written
 into the Medium article. The old upstream CEFR Compiler is historical,
 as described in the [migration](../alg-four/references/migration.md).

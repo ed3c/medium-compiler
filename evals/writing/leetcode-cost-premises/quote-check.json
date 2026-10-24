@@ -1,0 +1,22 @@
+{
+  "container": {
+    "quotes_checked": 58,
+    "unmatched": [],
+    "missing_ids": [],
+    "bilingual_mismatches": []
+  },
+  "courses": {
+    "quotes_checked": 74,
+    "unmatched": [],
+    "missing_ids": [],
+    "bilingual_mismatches": []
+  },
+  "review-d": {
+    "quotes_checked": 15,
+    "unmatched": [],
+    "missing_ids": [
+      "cost"
+    ],
+    "bilingual_mismatches": []
+  }
+}

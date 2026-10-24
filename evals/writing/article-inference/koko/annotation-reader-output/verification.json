@@ -1,0 +1,21 @@
+{
+  "en": {
+    "source_paragraphs_equal_generated_body": true,
+    "reading_text_equals_complete_English_body_ignoring_visual_markers": true,
+    "source_code_trace_mastermap_equal_generated_pre_blocks": true,
+    "paragraph_count": 35,
+    "pre_block_count": 3
+  },
+  "zh-TW": {
+    "source_paragraphs_equal_generated_body": true,
+    "reading_text_equals_complete_English_body_ignoring_visual_markers": true,
+    "source_code_trace_mastermap_equal_generated_pre_blocks": true,
+    "paragraph_count": 35,
+    "pre_block_count": 3
+  },
+  "report": {
+    "all_35_unique_indices": true,
+    "finding_quotes_exact_visible_substrings": true,
+    "finding_body_quotes_exact_substrings": true
+  }
+}

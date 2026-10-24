@@ -1,0 +1,219 @@
+[
+  {
+    "page": "water.en.html",
+    "p": "2",
+    "term": "capacity",
+    "sentence": "The water cannot rise above the shorter wall: it would spill over that side.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "8",
+    "term": "candidate",
+    "sentence": "The corresponding best values are 2, 2, 6, 6, 8, 8; returning 8 therefore follows from examining every candidate.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "10",
+    "term": "two pointers",
+    "sentence": "These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "13",
+    "term": "bound",
+    "sentence": "This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "15",
+    "term": "counterexample",
+    "sentence": "This is a smallest counterexample by number of walls: with two walls, the only candidate is evaluated before any move.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "21",
+    "term": "branch",
+    "sentence": "Thus exactly one index changes per iteration.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "22",
+    "term": "immutable",
+    "sentence": "Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "23",
+    "term": "loop invariant",
+    "sentence": "Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "24",
+    "term": "nonnegative",
+    "sentence": "The first claim holds because best is zero and all legal areas are nonnegative.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "27",
+    "term": "unit-cost model",
+    "sentence": "This model counts work, not equal physical time for all Python expressions.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "28",
+    "term": "indexed slots",
+    "sentence": "In CPython v3.14.0, a list stores element references in indexed slots; fetching slot i accesses that slot rather than walking through the preceding i elements.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "30",
+    "term": "Auxiliary space",
+    "sentence": "Auxiliary space, meaning storage added beyond the supplied input and returned result, is O(1).",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "32",
+    "term": "oracle",
+    "sentence": "For tiny inputs, all-pairs is useful as a checking oracle: it is easy to inspect because it directly enumerates the contract's candidates.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "water.en.html",
+    "p": "35",
+    "term": "strictly increasing",
+    "sentence": "Strictly increasing coordinates ensure that moving either endpoint inward decreases physical width.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "1",
+    "term": "prerequisite",
+    "sentence": "A pair [a, b] means that b must be finished before a.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "3",
+    "term": "directed cycle",
+    "sentence": "A directed cycle follows one or more edges back to its starting node.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "3",
+    "term": "self-loop",
+    "sentence": "A self-loop is a cycle containing one node.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "5",
+    "term": "adjacency list",
+    "sentence": "This is an adjacency list: each node owns the list of destinations of its outgoing edges.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "6",
+    "term": "indegree",
+    "sentence": "This incoming-edge count is often called indegree.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "7",
+    "term": "shared list",
+    "sentence": "Evaluating [] separately for each course makes independent inner lists.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "8",
+    "term": "first-in, first-out",
+    "sentence": "The queue holds entries waiting to be processed; removing the oldest entry and adding new entries at the other end gives first-in, first-out behavior.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "9",
+    "term": "unbounded",
+    "sentence": "Use an unbounded collections.deque.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "10",
+    "term": "outstanding obligation",
+    "sentence": "Each loses exactly one outstanding obligation, so subtract one from its count.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "14",
+    "term": "isolated course",
+    "sentence": "An isolated course contributes a completion even though it releases nothing.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "18",
+    "term": "checkpoint",
+    "sentence": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "21",
+    "term": "Kahn's topological sort",
+    "sentence": "This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "26",
+    "term": "spare capacity",
+    "sentence": "CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "27",
+    "term": "amortized constant time",
+    "sentence": "This aggregate guarantee is called amortized constant time per append.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "30",
+    "term": "auxiliary space",
+    "sentence": "The existing input is excluded from auxiliary space, and the returned Boolean is O(1) output space.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "32",
+    "term": "trade-off",
+    "sentence": "Prefer this trade-off only when the extra adjacency storage matters more than repeated scans.",
+    "literal_substring_of_attached_source": true
+  },
+  {
+    "page": "course.en.html",
+    "p": "34",
+    "term": "partial order",
+    "sentence": "On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size.",
+    "literal_substring_of_attached_source": true
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "CODEX_THREAD_ID": "01a15ca8-1d91-77a3-b89a-d1fe2c75e710",
+  "inputs_read": [
+    "request.json",
+    "water.zh.html",
+    "water.en.html",
+    "course.zh.html",
+    "course.en.html",
+    "leetcode-11-container-with-most-water.md",
+    "leetcode-11-container-with-most-water.en.md",
+    "leetcode-207-course-schedule.md",
+    "leetcode-207-course-schedule.en.md"
+  ],
+  "method": "All input bytes read with pathlib; full four Markdown source bodies displayed. Four HTML parsed; annotation fields read in ranges; cross-language duplicated fields compared. No outside sources opened.",
+  "limits": "Reading frozen HTML text and structure, not a browser rendering or interaction test.",
+  "completed_review": {
+    "all_complete_annotations_read": 83,
+    "duplicated_language_instances": 166,
+    "ranges_displayed": [
+      "water notes/context/cue/Active p0..21",
+      "water notes/context/cue/Active p22..42",
+      "course notes/context/cue/Active p0..19",
+      "course notes/context/cue/Active p20..39",
+      "water reading p0..20,p21..42",
+      "course reading p0..20,p21..39",
+      "all bundle/stress terms from both unique pages",
+      "course p21,p34 raw stress markup"
+    ],
+    "source_support": "All explicitly linked source paragraphs read in complete source bodies; all links and full source quotations included in audit.json.",
+    "no_input_edits": true,
+    "no_external_reads": true,
+    "not_observed": [
+      "browser rendered UI",
+      "interactive state",
+      "runtime tests",
+      "audio/pronunciation source verification",
+      "human learning outcomes"
+    ]
+  }
+}

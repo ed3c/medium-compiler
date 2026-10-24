@@ -1,0 +1,37 @@
+[
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/leetcode-207-course-schedule.en.md",
+    "bytes": 18894,
+    "sha256": "4886bca8368f4d6432c096fffd547f55da391eb4c0958c08752d2f9fc634a513"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/alg-four-course-schedule.json",
+    "bytes": 153422,
+    "sha256": "1dc5f0aed71814e902c8e633c65f6ddefa5538eec0c1130a45f06f9dbde0c2ff"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/leetcode-11-container-with-most-water.md",
+    "bytes": 15442,
+    "sha256": "19c123fa60fcc1b52928e9dd5f26c0047186eee41875bd79ed8456bc3e7aaf39"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/speed-reading-SKILL.md",
+    "bytes": 7633,
+    "sha256": "bbf91f0b9127bb4fb1abf438b3539af62562ee9a44672fbe74f120d2771a37d1"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/leetcode-207-course-schedule.md",
+    "bytes": 18961,
+    "sha256": "a701c98887b928ec908fe0bcabe2ee88666933322b3b9d35f2283eb19d29036f"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/leetcode-11-container-with-most-water.en.md",
+    "bytes": 16268,
+    "sha256": "bef26d671d254df002821f6de25ec29e615d1b09e699275cb1685d09913e5e4f"
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-third-k24_sv84/alg-four-container-with-most-water.json",
+    "bytes": 124023,
+    "sha256": "2aca5c60c35fc063a8f2bec2cadcebbf39ae7838913640663678ff7abcd6e503"
+  }
+]

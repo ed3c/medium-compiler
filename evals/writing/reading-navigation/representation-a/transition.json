@@ -1,0 +1,14 @@
+{
+  "representation": "A",
+  "old_route": "STOPPED_AFTER_THREE_READER_FAILURES",
+  "history_root": "/tmp/speed-reading-consumer-q1g_3oyz",
+  "scope": "Complete paragraph annotation, not standalone short theorem",
+  "CODEX_THREAD_ID": "01a15c6d-4226-7933-bb98-04856e3817ce",
+  "reads": [
+    "speed-reading SKILL.md current",
+    "alg-four lesson-contract.md current",
+    "two current manifests",
+    "their four approved body files"
+  ],
+  "learner": "NOT_OBSERVED"
+}

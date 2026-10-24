@@ -1,0 +1,6 @@
+{
+  "status": "literal_controls_pass",
+  "islands": 2,
+  "intervals": 3,
+  "scope": "oracle fixture sanity, not Writer or Reader observations"
+}

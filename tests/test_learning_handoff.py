@@ -20,7 +20,7 @@ class LearningHandoffTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.root = Path(self.tmp.name)
+        self.root = Path(self.tmp.name).resolve()
         shutil.copytree(EV / 'inputs', self.root / 'inputs')
         self.article = EV / 'before.md'
         self.plan = json.loads((EV / 'plan.json').read_text())

@@ -1,0 +1,21 @@
+{
+  "failures": [
+    {
+      "kind": "tool_output_truncation",
+      "observation": "Combined instruction read exceeded output budget.",
+      "repair": "Reread lesson-contract and article-content-profile individually in full.",
+      "semantic_failure_claim": false
+    }
+  ],
+  "gaps": [
+    {
+      "kind": "pronunciation_evidence_absent",
+      "handling": "All words plain; no unsupported stress bolding."
+    },
+    {
+      "kind": "independent_reader_absent",
+      "handling": "Source-bound scope/checkpoint review remains author judgment."
+    }
+  ],
+  "draft_revisions": 0
+}

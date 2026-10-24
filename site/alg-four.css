@@ -1,79 +1,87 @@
-/* Source-locked article on the left, navigable ALG Four teaching projection on right. */
-.alg-four-head{padding-bottom:12px;max-width:920px}
-.alg-four-head h1{font-size:clamp(2.4rem,5vw,4.7rem);line-height:1.04}
-.alg-four-head p{font-size:1.06rem;line-height:1.65}
-.alg-four-reading-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,390px);align-items:start;gap:clamp(22px,3vw,44px);position:relative}
-.alg-four-reading-layout .alg-four-source{margin:0;min-width:0;max-width:none;padding:0 0 8rem}
-.alg-four-source h1{font-size:clamp(2.15rem,4vw,3.25rem)}
-.alg-four-source h2{font-size:clamp(1.6rem,2.8vw,2.15rem)}
-.alg-four-source [id^="alg-p-"],.alg-four-source [id^="alg-heading-"]{scroll-margin-top:125px}
-.alg-four-source [data-alg-four-index].alg-current-source{outline:2px solid rgba(190,154,21,.45);outline-offset:7px;border-radius:4px}
-.alg-four-source pre{max-width:100%;overflow:auto}
-.alg-four-sidebar{position:sticky;top:112px;max-height:calc(100vh - 130px);overflow-y:auto;overscroll-behavior:contain;background:var(--card);border:1px solid var(--line);border-radius:16px;min-width:0;padding:14px 15px}
-.alg-sidebar-shell>summary{font-weight:800;letter-spacing:-.025em;font-size:1.02rem;cursor:pointer}
-.alg-sidebar-shell>summary span{display:block;font-size:.77rem;font-weight:500;letter-spacing:0;color:var(--muted)}
-.alg-sidebar-help{color:var(--muted);font-size:.8rem;line-height:1.55;margin:12px 0}
+/* Source-bound notes stay outside the centered article. */
+.alg-four-head{max-width:720px;margin:28px auto 36px}
+.reading-about>summary{font-size:14px;color:var(--muted);cursor:pointer}
+.alg-four-head h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15}
+.alg-four-head p{font-size:.94rem;line-height:1.7}
+.alg-four-reading-layout{position:relative;max-width:720px;margin:0 auto}
+.alg-four-reading-layout .alg-four-source{margin:0;min-width:0;max-width:none;padding:0 0 6rem}
+.alg-four-source h1{font-size:clamp(2.1rem,4vw,2.8rem);line-height:1.18;letter-spacing:-.035em}
+.alg-four-source h2{font-size:clamp(1.6rem,3vw,2rem);line-height:1.35;margin-top:2.2em}
+.alg-four-source h3{font-size:1.35rem;line-height:1.45;margin-top:2em}
+.alg-four-source p,.alg-four-source li{font-size:19px;line-height:1.85}
+.alg-four-source :is(h1,h2,h3,h4){overflow-wrap:anywhere;text-wrap:pretty}
+.alg-four-source [data-alg-four-index],.alg-four-source [data-alg-heading]{scroll-margin-top:var(--alg-scroll-offset,125px)}
+.alg-four-source pre{max-width:100%;overflow:auto;line-height:1.75}
+.alg-four-source .article-figure{margin:36px 0 16px;overflow:hidden;border-radius:10px;background:#FAF9F5}
+.alg-four-source .article-figure img{display:block;width:100%;height:auto;object-fit:contain}
+.alg-four-sidebar{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:6}
+.reading-rail{width:48px;min-height:64px;padding:10px 8px;border:1px solid transparent;border-radius:12px;background:var(--bg,#f7f5ef);color:var(--muted);cursor:pointer;box-shadow:0 1px 12px #00000008}
+.reading-rail-bars{display:flex;flex-direction:column;align-items:flex-end;gap:5px;max-height:52vh;overflow:hidden}
+.reading-rail-mark{display:block;flex:none;width:var(--chapter-length);height:3px;border-radius:3px;background:#bcbab2;transition:background .15s}
+.reading-rail-mark[data-current]{background:#294e44;height:4px}
+.reading-rail-position{display:block;font-size:10px;font-variant-numeric:tabular-nums;margin-top:9px}
+.reading-rail:hover,.reading-rail[aria-expanded="true"]{border-color:var(--line);background:var(--card)}
+.reading-dialog:not([open]){display:none}
+.reading-dialog{position:fixed;inset:auto 82px auto auto;top:50%;transform:translateY(-50%);margin:0;width:400px;max-width:calc(100vw - 112px);max-height:74vh;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card,#fff);color:var(--ink);box-shadow:0 14px 60px #0002}
+.reading-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.reading-dialog-header h2{font-size:18px;line-height:1.5;margin:0}
+.reading-dialog-close{font-size:26px;line-height:1;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--muted);cursor:pointer}
+.reading-dialog-close:hover{background:#00000008}
+.reading-count{font-size:12px;color:var(--muted);margin:2px 0 10px}
+.alg-sidebar-help{color:var(--muted);font-size:12px;line-height:1.65;margin:8px 0 16px}
 .alg-outline-nav{display:block;margin:0;padding:0}
-.alg-outline-section{border-top:1px solid var(--line);padding:6px 0}
-.alg-outline-section>summary{list-style:none;font-weight:720;font-size:.91rem;line-height:1.4;cursor:pointer;padding:8px 4px;position:relative}
-.alg-outline-section>summary::-webkit-details-marker{display:none}
-.alg-outline-section>summary::before{content:'▸';font-size:.75rem;margin-right:6px;color:var(--muted)}
-.alg-outline-section[open]>summary::before{content:'▾'}
-.alg-outline-section summary a{color:var(--ink);text-decoration:none}
-.alg-outline-section summary a:hover,.alg-outline-paragraph summary a:hover{text-decoration:underline}
-.alg-outline-children{padding-left:12px;border-left:1px solid var(--line);margin-left:6px}
+.alg-outline-section{border-top:1px solid var(--line);padding:5px 0}
+.alg-outline-children{padding-left:12px;border-left:1px solid var(--line);margin-left:5px}
 .alg-outline-section .alg-outline-section{border-top:0}
 .alg-outline-paragraph{border-radius:8px}
-.alg-outline-paragraph>summary{list-style:none;cursor:pointer;padding:8px 7px;font-size:.81rem;line-height:1.4;color:var(--muted);border-radius:8px}
-.alg-outline-paragraph>summary::-webkit-details-marker{display:none}
-.alg-outline-paragraph>summary a{color:inherit;text-decoration:none;display:block;overflow-wrap:anywhere}
-.alg-outline-paragraph[open]{background:rgba(212,180,43,.07);border:1px solid rgba(212,180,43,.25);margin:3px 0}
-.alg-outline-paragraph[open]>summary{font-weight:700;color:var(--ink)}
-.alg-paragraph-num{display:inline-block;min-width:1.7em;color:#746b51;font-variant-numeric:tabular-nums;font-size:.76rem}
-.alg-four-annotation{padding:10px 10px 14px;overflow-wrap:anywhere}
-.alg-four-annotation p{font-size:.83rem;line-height:1.63;margin:5px 0 9px}
-.alg-four-label,.alg-reading-label{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:750;color:#5c6559}
-.alg-four-zh{color:#383730}
-.alg-reading-text{font-family:ui-sans-serif,system-ui,sans-serif!important;color:#222;white-space:normal;line-height:1.9!important}
-.alg-bundle{background:rgba(83,112,104,.09);border-radius:3px}
-.alg-minor-break,.alg-major-break{color:#887d5c;white-space:nowrap;padding:0 2px;font-weight:600}
-.alg-stress{font-weight:850;color:inherit}
-.alg-source-explain{font-size:.7rem!important;color:var(--muted)}
-.alg-active-word{border-top:1px solid var(--line);padding-top:9px;margin-top:10px;font-size:.82rem;line-height:1.6}
-.alg-active-term{display:inline-block;background:#f5d858;color:#24200d;border-radius:4px;padding:1px 5px;margin:0 5px 2px 0;font-weight:850}
-.alg-four-recall{margin:9px 0 0;font-size:.81rem;border-top:1px solid var(--line);padding-top:9px}
-.alg-four-recall summary{cursor:pointer;font-weight:750}
-.alg-four-recall details{margin:8px 0;padding-left:8px;border-left:2px solid var(--line)}
-.alg-four-recall p{font-size:.79rem!important}
-.alg-outline-nav a:focus-visible,.alg-four-sidebar summary:focus-visible{outline:2px solid #9b7621;outline-offset:3px}
-@media (max-width:950px){
-  .alg-four-reading-layout{grid-template-columns:minmax(0,1fr)}
-  .alg-four-sidebar{position:relative;top:auto;max-height:420px;grid-row:1;overflow-y:auto;margin-bottom:18px}
-  .alg-four-source{grid-row:2}
-  .alg-sidebar-shell:not([open]) .alg-outline-nav{display:none}
-}
-@media(prefers-reduced-motion:reduce){.alg-four-reading-layout *{scroll-behavior:auto!important}}
-
-/* The disclosure toggle and navigation link are siblings. Avoid nested
-   interactive anchors inside <summary>, whose native click toggling used to
-   close the active lesson immediately after navigation. */
-.alg-outline-section>summary,.alg-outline-paragraph>summary{display:inline-block;vertical-align:top;width:25px;min-height:36px;padding:8px 2px;text-align:center;cursor:pointer}
-.alg-outline-section>summary{font-size:0;color:transparent}
-.alg-outline-paragraph>summary{font-size:0;color:transparent}
-.alg-outline-section>summary::before,.alg-outline-paragraph>summary::before{content:'▸';font-size:14px;color:var(--muted)}
-.alg-outline-section[open]>summary::before,.alg-outline-paragraph[open]>summary::before{content:'▾'}
-.alg-outline-heading-link,.alg-outline-jump{display:inline-block;vertical-align:top;width:calc(100% - 29px);color:inherit;text-decoration:none;padding:8px 4px;line-height:1.45}
-.alg-outline-heading-link{font-size:.91rem;font-weight:720;color:var(--ink)}
-.alg-outline-jump{font-size:.81rem;overflow-wrap:anywhere}
-.alg-outline-jump[aria-current="location"]{font-weight:750;color:var(--ink)}
-.alg-four-source .article-figure{margin:28px 0 12px;overflow:hidden;border-radius:14px;background:#FAF9F5}
-.alg-four-source .article-figure img{display:block;width:100%;height:auto;object-fit:contain}
-
-/* The summary itself is the jump target, so it remains visible while closed.
-   Its click is consumed by JS, preventing the native toggle from hiding the note. */
-.alg-outline-section>summary,.alg-outline-paragraph>summary{display:block;width:auto;min-height:36px;text-align:left;padding:8px 7px;line-height:1.5;color:var(--ink);font-size:.91rem}
-.alg-outline-paragraph>summary{font-size:.81rem;font-weight:500;color:var(--muted)}
-.alg-outline-paragraph[open]>summary,.alg-outline-paragraph>summary[aria-current="location"]{font-weight:750;color:var(--ink)}
-.alg-outline-section>summary::before,.alg-outline-paragraph>summary::before{content:'▸';color:var(--muted);font-size:13px;margin-right:7px}
+.alg-outline-section>summary,.alg-outline-paragraph>summary{display:block;list-style:none;cursor:pointer;padding:9px 7px;line-height:1.6;font-size:14px;color:var(--ink)}
+.alg-outline-paragraph>summary{font-size:13px;color:var(--muted)}
+.alg-outline-section>summary::-webkit-details-marker,.alg-outline-paragraph>summary::-webkit-details-marker{display:none}
+.alg-outline-section>summary::before,.alg-outline-paragraph>summary::before{content:'▸';font-size:12px;color:var(--muted);margin-right:7px}
 .alg-outline-section[open]>summary::before,.alg-outline-paragraph[open]>summary::before{content:'▾'}
 .alg-outline-section>summary:hover,.alg-outline-paragraph>summary:hover{text-decoration:underline}
+.alg-outline-paragraph[open]{background:#f7f3df;border:1px solid #d4b42b44;margin:4px 0}
+.alg-outline-paragraph>summary[aria-current="location"]{font-weight:750;color:var(--ink)}
+.alg-paragraph-num{display:inline-block;min-width:1.8em;font-size:11px;font-variant-numeric:tabular-nums}
+.alg-four-annotation{padding:4px 12px 14px;overflow-wrap:anywhere}
+.alg-four-annotation p{font-size:14px;line-height:1.8;margin:8px 0}
+.alg-four-label,.alg-reading-label{font-weight:750;color:#526459}
+.alg-reading-text{font-family:ui-sans-serif,system-ui,sans-serif;color:#222;line-height:1.9!important}
+.alg-bundle{background:#53706817;border-radius:3px}
+.alg-minor-break,.alg-major-break{color:#887d5c;white-space:nowrap;padding:0 2px;font-weight:600}
+.alg-stress{font-weight:850;color:inherit}
+.alg-source-explain{font-size:11px!important;color:var(--muted)}
+.alg-active-word{border-top:1px solid var(--line);padding-top:10px;margin-top:12px;font-size:14px;line-height:1.8}
+.alg-active-term{display:inline-block;background:#f5d858;color:#24200d;border-radius:4px;padding:1px 5px;margin:0 5px 2px 0;font-weight:750}
+.alg-four-recall{margin:12px 0 0;font-size:13px;border-top:1px solid var(--line);padding-top:10px}
+.alg-four-recall summary{cursor:pointer;font-weight:700}
+.alg-four-recall details{margin:10px 0;padding-left:8px;border-left:2px solid var(--line)}
+.alg-four-sidebar :is(button,summary):focus-visible,.alg-four-source [tabindex="-1"]:focus-visible{outline:2px solid #527a68;outline-offset:3px}
+@media(max-width:950px){
+ .alg-four-reading-layout{max-width:680px;margin-right:38px}
+ .alg-four-sidebar{right:4px}
+ .reading-rail{width:36px;padding:10px 5px}
+ .reading-dialog{right:48px;max-width:calc(100vw - 64px)}
+}
+@media(max-width:600px){
+ .alg-four-reading-layout{margin-right:20px}
+ .alg-four-source p,.alg-four-source li{font-size:18px;line-height:1.85}
+ .alg-four-source h1{font-size:32px}
+ .alg-four-source h2{font-size:26px}
+ .alg-four-sidebar{right:0}
+ .reading-rail{width:28px;padding:10px 4px}
+ .reading-dialog{inset:auto 12px 5vh 12px;top:auto;transform:none;width:auto;max-width:none;max-height:78vh;padding:18px}
+ .reading-dialog::backdrop{background:#0004}
+}
+@media(prefers-reduced-motion:reduce){.alg-four-reading-layout *{scroll-behavior:auto!important;transition:none!important}}
+/* Keep dismissal reachable while the notes themselves scroll. */
+.reading-dialog-header{position:sticky;top:-20px;background:var(--card,#fff);z-index:1;padding:10px 0}
+@media(max-width:600px){
+ .reading-dialog-header{top:-18px}
+ body:has(.alg-four-reading-layout)>header{padding:12px 20px;gap:10px}
+ body:has(.alg-four-reading-layout)>header nav{flex-wrap:nowrap;overflow-x:auto;max-width:100%;white-space:nowrap;padding-bottom:4px}
+}
+
+.alg-reading-context{border-left:2px solid var(--line,#ddd);padding-left:12px;margin:14px 0}
+.alg-reading-context p{margin:8px 0}
+.alg-context-sources{font-size:.85em;white-space:normal}

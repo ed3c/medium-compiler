@@ -1,0 +1,4 @@
+{
+  "task": "繼續用 Thinking Route 與 Ambitious Route 找出作者為何把「有支持段落」誤判成「成本前提已解釋完整」，依 soodles 狀態機修改契約修正通用方法，不只補這兩篇。再用兩個全新不同題型盲寫完整英繁文章，讓 fresh Reader 只憑正文驗證；保留所有首稿與失敗，CI 不計算非必要 SHA-256，更新原 PR，不 merge、不部署。",
+  "contract": "The selected complete-article profile requires complete English content, actual sloptrim and semantic source review before each translated edition, complete faithful Traditional Chinese with exact English technical terms, actual article-code controls and preservation of first drafts and all failures. Both tasks prohibit exemplars, editorials, solution outlines, other articles and publication. Record final-body reconstruction and its supporting passages with the connecting cost inference in private author notes. final_body_review_recorded reports that action, not semantic validity or reader comprehension. Update PR81 and matching-head CI only; no merge/deploy or nonessential SHA-256 in CI."
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/speed-reading-SKILL.md",
+    "sha256": "bbf91f0b9127bb4fb1abf438b3539af62562ee9a44672fbe74f120d2771a37d1",
+    "bytes": 7633
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/alg-four-container-with-most-water.json",
+    "sha256": "1d2bf0135295b3f82bdb87c6b860b70137d6e98a7d0fac767115eece0e66d4d9",
+    "bytes": 123981
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/alg-four-course-schedule.json",
+    "sha256": "1dc5f0aed71814e902c8e633c65f6ddefa5538eec0c1130a45f06f9dbde0c2ff",
+    "bytes": 153422
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/leetcode-11-container-with-most-water.en.md",
+    "sha256": "bef26d671d254df002821f6de25ec29e615d1b09e699275cb1685d09913e5e4f",
+    "bytes": 16268
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/leetcode-11-container-with-most-water.md",
+    "sha256": "19c123fa60fcc1b52928e9dd5f26c0047186eee41875bd79ed8456bc3e7aaf39",
+    "bytes": 15442
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/leetcode-207-course-schedule.en.md",
+    "sha256": "4886bca8368f4d6432c096fffd547f55da391eb4c0958c08752d2f9fc634a513",
+    "bytes": 18894
+  },
+  {
+    "snapshot": "/tmp/speed-layout-reader-second-t753q3cx/leetcode-207-course-schedule.md",
+    "sha256": "a701c98887b928ec908fe0bcabe2ee88666933322b3b9d35f2283eb19d29036f",
+    "bytes": 18961
+  }
+]

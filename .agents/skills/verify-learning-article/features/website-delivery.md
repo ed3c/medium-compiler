@@ -6,20 +6,22 @@
 
 - 導航：依已選路線排序；已發表下一篇連本站，未發表則明示並連原課，最後一課明示終點。
 - 建置：沿用 repository build、靜態路徑、provenance 與原有測試。
-- 發布：辨識現有 Project、scope、Git / commit / 環境，讀取真實公開頁面與連結。
+- 本機預覽：每次文章更新先開啟 localhost 頁面，提供使用者檢視的網址與結果。
+- 發布：僅限本次明確授權；辨識既有 Provider、scope、Git / commit / 環境並讀回公開頁面。
 - 成果取得：文章的 examples 連結可公開讀取，實際程式／lock 與交付記錄的 ref 一致。
 
 ## How to get to it (user POV)
 
 網站 `/learning/` → `/articles/application-engineering-colab/` →「下一課」。
 文章清單在 `/articles/`；來源讀回在 `/provenance.json`。
-目前 Project 是 `noodles8/medium-compiler`，公開網域為
-`https://medium-compiler.vercel.app`。每次先確認當前設定，這些名稱不是硬編碼寫入許可。
+遵循 [本機預覽先於發布](../../../../writing-contract.md#article-updates-local-preview-before-deployment)。
+Provider 沿 AGENTS.md 的本次所選路線；歷史 Vercel Project `noodles8/medium-compiler`
+及 `https://medium-compiler.vercel.app` 只作既有來源參考，不強制重選 Vercel。
 
 ## Driving it with the site builder, HTTP and Chrome
 
 Preconditions: skill doctor 成功；具備當前文章/context、`scripts/build_site.py`、
-路線 manifest、`vercel.json`、Ops snapshot 及 curriculum lock。要發布才需要現有 GitHub / Vercel
+路線 manifest、所選 Provider config、Ops snapshot 及 curriculum lock。要發布才需要現有 GitHub / Provider
 權限；有 URL 或 Preview build 成功不等於 Production 已更新。
 
 - **接入**：新課沿用 ARTICLES 項目的 source、slug、title、description、lesson、
@@ -50,9 +52,13 @@ Preconditions: skill doctor 成功；具備當前文章/context、`scripts/build
   取得成果驗收。本站目前不把 examples 複製成下載路由，不虛構 `/examples/` 網站功能。
   網站 200、deployment Ready 或 provenance 的文章 hash，只證明各自項目；
   本機持久能力與 replay 必須另消費 lesson-practice 的實跑結果。
-- **交付**：在既有授權內建立／更新同一 PR，讀回當前 head、diff、CI 與部署結果；head
-  改變就檢查變更及其證據。先查現有獨立 medium-compiler Project，避免重複建立或連到 Ops。
-  Project provider readback 核對 Root Directory 為 repo 根目錄；`vercel.json` 核對
+- **本機交付**：提供以上實際開啟的 localhost URL、檢查結果與來源版本。沒有本次發布要求就
+  停在此處；使用者要求先看再上線時等其檢視。Agent 開啟不代表使用者已看過。
+- **授權發布**：本機預覽完成後，依本次授權建立／更新同一 PR，讀回當前 head、diff、CI。
+  先查 Git push／merge 是否觸發 Vercel Preview 或 Workers Builds；不以遠端 Preview 取代本機。
+  未知 trigger 時保留本機成果，不逕行推送。head 改變就檢查變更及其證據。
+  沿 AGENTS.md 所選 Provider；Vercel 路線先查現有獨立 Project，避免重複建立或連到 Ops。
+  Vercel provider readback 核對 Root Directory 為 repo 根目錄；`vercel.json` 核對
   `python3 scripts/build_site.py`、`dist`、cleanUrls。
   靜態站不複製資料庫、Google OAuth 或模型 secrets。維持使用者指定 Preview / Production；
   合併與 Production 需有本任務授權，skill 自己不授權。

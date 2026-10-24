@@ -1,0 +1,20 @@
+[
+  {
+    "file": "a-all-unit.log",
+    "exact_original": "a-all-unit.log.original.gz",
+    "transformation": "CRLF to LF; log-only trailing ASCII spaces stripped",
+    "raw_gzip_recovery_exact": true
+  },
+  {
+    "file": "representation-a/reader-first/audit.tsv",
+    "exact_original": "representation-a/reader-first/audit.tsv.original.gz",
+    "transformation": "CRLF to LF; log-only trailing ASCII spaces stripped",
+    "raw_gzip_recovery_exact": true
+  },
+  {
+    "file": "representation-a/reader-second/audit.tsv",
+    "exact_original": "representation-a/reader-second/audit.tsv.original.gz",
+    "transformation": "CRLF to LF; log-only trailing ASCII spaces stripped",
+    "raw_gzip_recovery_exact": true
+  }
+]

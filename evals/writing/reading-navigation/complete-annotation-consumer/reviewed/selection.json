@@ -1,0 +1,12 @@
+{
+  "criteria_review": {
+    "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/criteria-review.json",
+    "sha256": "ad3dd28109194d55272036578df26a97c7aa0706e18d7e2fad2f675bd1e2a261"
+  },
+  "observations": [],
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/protocol.json",
+    "sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0"
+  },
+  "schema": 2
+}

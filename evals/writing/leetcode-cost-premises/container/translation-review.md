@@ -1,0 +1,15 @@
+# Author bilingual review
+
+First complete translation preserved as article.first.zh-TW.md. Final is article.zh-TW.md. Every translated edition followed an actual English source/semantic author review. Runtime later uncovered a hand-calculation defect despite that review; renewed English approvals and subsequent translated repairs are explicitly retained in english-review.md and repair.md. Initial uncorrected translation is preserved, not relabeled correct.
+
+Full final language comparison: same eight section roles, three byte-identical Python blocks, source URLs, numeric constraints, geometric relation, operation ordering, checkpoint, both branches, equality and zero handling, failure witness and minimality, all three method costs, input/auxiliary/transient/output distinctions, fixed scalar model and its arbitrary-digit limit, coordinate ordering assumption, original-height contract and English interview pack. Natural prose translated into Traditional Chinese; English technical terms and identifiers retained.
+
+Decision passages: English “area(left, k) <= (k - left) * height[left] <= (right - left) * height[left]” is identical Chinese mathematics. Chinese “由於牆高非負” preserves the multiplication condition. “先把 `best` 改成 `6`，再移動” preserves record-before-discard. “每次開始檢查 `while` 條件時” retains the exact invariant checkpoint. “一個位置無法提供兩面不同的牆” retains termination reason.
+
+Two-pointer cost: Chinese “距離 `right - left` 從 `n - 1` 開始，每次恰好減一” plus “每次 two-pointer iteration 讀取 list 兩次、執行固定數量的有界算術與比較，並更新一個 index” reconstructs n-1 fixed-work iterations plus n condition checks. “取得 slot `i` 會存取該 slot，而不是逐一走過前面 `i` 個元素” and saved length explain the data-structure dependency under actual declared model. “同一時間，只有固定數量的 local name 與暫時 integer result 存活” closes transient/live-state bound; caller input and one-integer result counted separately.
+
+All-pairs: Chinese “把這些數量正序、倒序各寫一次後相加，每組對應數的和都是 `n`，共有 `n - 1` 組” explains triangular count by double counting. “`n - 1` 次內層 range 初始化只儲存這些固定欄位，每次前進則遞增一個有界 integer index” explicitly provides range setup and per-step premises; O(n) setup plus O(n²) candidate evaluations gives claimed bound. Range does not materialize indices and only fixed number alive; retaining many allocations over time is not asserted.
+
+Coordinate adaptation: Chinese “Strictly increasing 座標保證，任一端點往內移都會縮小實際寬度” preserves the proof premise; “這項改版每次 iteration 多讀取兩個座標 slot；對座標值做減法，取代原本對 index 的減法” reconstructs changed operations. 10¹³ area bound retains scalar model; index progress still n-1; supplied second list excluded from auxiliary as in English. “函式不會排序，也不會驗證那個不同的 contract” preserves precondition instead of inventing free validation/sorting.
+
+Final repaired numerical passages: counterexample [1,3,3] wrong return2 versus required3, coordinate example [0,1,100]/[1,3,2] correct198 versus original index-width2. Both match direct arithmetic and runtime. No language-specific unresolved gap identified by this author review; this is not independent Reader or human-learning evidence.

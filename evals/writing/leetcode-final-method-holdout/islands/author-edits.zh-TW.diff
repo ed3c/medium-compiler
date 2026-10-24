@@ -1,0 +1,8 @@
+--- article.first.zh-TW.md
++++ article.zh-TW.md
+@@ -9 +9 @@
+-在 [LeetCode 200](https://leetcode.com/problems/number-of-islands/) 中，`grid` 是由多個 row 組成的長方形地圖。每個格子包含字串 `"1"`，代表陸地，或字串 `"0"`，代表水。row 數與 column 數都介於 1 到 300。答案是一個整數：地圖上有幾座分離的島。陸地格子必須共用水平或垂直的邊才會相連；只在角落接觸不算相連。長方形外面都視為水。
++在 [LeetCode 200](https://leetcode.com/problems/number-of-islands/) 中，`grid` 是由多個 row 組成的長方形地圖。每個 cell（格子）包含字串 `"1"`，代表陸地，或字串 `"0"`，代表水。row 數與 column 數都介於 1 到 300。答案是一個整數：地圖上有幾座分離的島。陸地格子必須共用水平或垂直的邊才會相連；只在角落接觸不算相連。長方形外面都視為水。
+@@ -154 +154 @@
+-若題目改成尋找從一個陸地格子到另一個陸地格子，最少需要沿著邊移動幾次，BFS 就更合適。把起點以 distance zero 放入 queue。它的鄰居得到 distance one，這些鄰居再新發現的鄰居得到 distance two，依此類推。優先處理最早等待的格子，會讓每個 distance layer 都在下一層之前處理完，因此第一次發現終點時，move count 就是最小值。我們的 DFS stack 不維持這個順序，所以第一條找到的 route 不一定最短。這項調整也需要保存 distance 或 queue-layer counter；只回傳島數，無法回答這個問題。
++若題目改成尋找從一個陸地格子到另一個陸地格子，最少需要沿著邊移動幾次，BFS 就更合適。把起點以 distance zero 放入 queue。它的鄰居得到 distance one，這些鄰居再新發現的鄰居得到 distance two，依此類推。優先處理最早等待的格子，會讓每個 distance layer 都在下一層之前處理完，因此第一次發現終點時，move count 就是最小值。我們的 DFS stack 不維持這個順序，所以第一條找到的 route 不一定最短。這項調整也需要保存 distance 或記錄 queue 目前處於哪一層的 counter；只回傳島數，無法回答這個問題。

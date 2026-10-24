@@ -41,6 +41,13 @@ Proceed without asking again when the selected route's actual requirements are m
 
 ## Selected full-site Cloudflare route and external state
 
+Article updates default to a local browser preview, not an automatic release.
+Follow [local review before deployment](writing-contract.md#article-updates-local-preview-before-deployment)
+before Vercel/Cloudflare effects, including Git writes that trigger remote builds.
+Report the local URL and checks; a configured host, old release authorization or
+green CI does not authorize each later update. Preserve an explicit current
+deployment request after local review; do not invent an extra approval loop.
+
 The user selected Local Codex + pinned Wrangler for the complete Cloudflare site.
 Use `wrangler.full-site.jsonc` and `npm run build:cloudflare:full` for the independent
 `medium-compiler-full-site` Worker serving full `dist/`. `npm run deploy` still owns
@@ -110,10 +117,11 @@ Its Five Anchors, English Invariant, Program Movie, Answer-First reference,
 Single-Turn Four-Pass with same-response Oracle and English Interview Pack are
 LeetCode-specific. Adapt causal mechanisms, runtime witness, first divergence
 and proof honesty to other Zero Context articles **without** forcing a
-five-anchor count, Python solution or fourteen headings. The current
-[Medium Group Anagrams reference](.agents/skills/leetcode-mental/references/medium-reference.md)
-was not independently readable in full; do not claim that its original prose was
-analyzed or reproduced. The user-supplied v4 specification is the task source.
+five-anchor count, Python solution or fourteen headings. The linked original Medium page was not independently retrieved in full. The later
+user-supplied complete Group Anagrams comparison is available through
+[its provenance reference](.agents/skills/leetcode-mental/references/medium-reference.md);
+review that supplied text when comparison is requested, without claiming retrieval
+of the original publication. The user-supplied v4 specification remains the teaching source.
 Do not replace the pinned CEFR Four-Pass learner-session oracle gate: its
 attempt-before-reveal runtime remains distinct from the printable same-turn
 LeetCode exercise. This adds no new compiler stages, native learner receipts,
@@ -177,6 +185,16 @@ verdict. A missing execution or unreadable detector result does not justify inve
 evidence or a new compiler stage.
 
 ## P-class, CLI, and article inference corrections
+
+For the complete LeetCode-to-website route, use the content Owner's
+[claim reconstruction method](.agents/skills/leetcode-mental/references/article-construction.md#test-the-claim-not-the-existence-of-its-supporting-passage)
+when reviewing substantive claims in prose, translations, summaries and notes.
+Source presence, bilingual agreement, author checkmarks and CLI success cannot
+establish inference completeness. `leetcode-mental` corrects article meaning;
+`medium-writing` preserves and assembles approved content; `speed-reading`
+authors and reviews annotations; `alg-four` binds and renders them. Correct a
+deterministic fault in its original CLI/validator only when actual input data
+can decide it; do not turn semantic judgment into keyword or citation-count gates.
 
 When a writing or verification result disagrees with the original task, name
 the claim, premise, pinned source, and observed counterevidence. Correct the

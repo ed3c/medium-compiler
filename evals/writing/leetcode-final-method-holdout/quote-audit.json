@@ -1,0 +1,38 @@
+[
+  {
+    "case": "islands",
+    "answer_id": "contract",
+    "quote_index": 0,
+    "raw_quote": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300. The answer is one integer: how many separate islands the map contains. Movement joins land through a shared horizontal or vertical edge; touching at a corner does not join it. Outside the rectangle is water.",
+    "exact_article_passage": "A cell contains the string `\"1\"` for land or `\"0\"` for water. Rows and columns each number from 1 to 300. The answer is one integer: how many separate islands the map contains. Movement joins land through a shared horizontal or vertical edge; touching at a corner does not join it. Outside the rectangle is water.",
+    "classification": "READER_QUOTE_FORMAT_LOSS",
+    "observer_action": "Restore omitted inline-code backticks in this separate audit only; raw Reader output and article unchanged."
+  },
+  {
+    "case": "islands",
+    "answer_id": "trace",
+    "quote_index": 0,
+    "raw_quote": "A cell contains the string \"1\" for land or \"0\" for water. Rows and columns each number from 1 to 300.",
+    "exact_article_passage": "A cell contains the string `\"1\"` for land or `\"0\"` for water. Rows and columns each number from 1 to 300.",
+    "classification": "READER_QUOTE_FORMAT_LOSS",
+    "observer_action": "Restore omitted inline-code backticks in this separate audit only; raw Reader output and article unchanged."
+  },
+  {
+    "case": "islands",
+    "answer_id": "transfer",
+    "quote_index": 2,
+    "raw_quote": "If memory matters and the caller explicitly allows overwriting the map, land can be changed from \"1\" to \"0\" when discovered. Later checks then treat claimed land like water, replacing the separate `seen` matrix. The stack can still require `O(mn)` space, and callers lose the original map. Copying first to preserve it restores `O(mn)` copy storage; copying only the outer list shares the original row lists and does not protect their entries.",
+    "exact_article_passage": "If memory matters and the caller explicitly allows overwriting the map, land can be changed from `\"1\"` to `\"0\"` when discovered. Later checks then treat claimed land like water, replacing the separate `seen` matrix. The stack can still require `O(mn)` space, and callers lose the original map. Copying first to preserve it restores `O(mn)` copy storage; copying only the outer list shares the original row lists and does not protect their entries.",
+    "classification": "READER_QUOTE_FORMAT_LOSS",
+    "observer_action": "Restore omitted inline-code backticks in this separate audit only; raw Reader output and article unchanged."
+  },
+  {
+    "case": "islands",
+    "answer_id": "bilingual",
+    "quote_index": 15,
+    "raw_quote": "若記憶體是考量，而且呼叫端明確允許覆寫地圖，可以在發現陸地時，把它從 \"1\" 改成 \"0\"。稍後的檢查就會把已標記陸地當作水，不再需要獨立的 `seen` matrix。",
+    "exact_article_passage": "若記憶體是考量，而且呼叫端明確允許覆寫地圖，可以在發現陸地時，把它從 `\"1\"` 改成 `\"0\"`。稍後的檢查就會把已標記陸地當作水，不再需要獨立的 `seen` matrix。",
+    "classification": "READER_QUOTE_FORMAT_LOSS",
+    "observer_action": "Restore omitted inline-code backticks in this separate audit only; raw Reader output and article unchanged."
+  }
+]

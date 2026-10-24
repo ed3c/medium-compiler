@@ -1,0 +1,23 @@
+{
+  "reviewed_at_utc": "2026-10-20T17:48:50.859826+00:00",
+  "author_review_only": true,
+  "english_sha256": "8b1a532a3324a1db795786f4a8831038be9d562df9de81fe9c9a116130ffdf76",
+  "first_translation_sha256": "b101ece1b33a3e1203c151e20149593410490d3b5809a7e562bd957e00f80348",
+  "final_translation_sha256": "ea27acf6731343103c31ad69ee119ac4e749dd9116bcb20a12ebf4871d225b21",
+  "code_and_trace_blocks_identical": true,
+  "source_urls_identical_in_order": true,
+  "english_interview_identical": true,
+  "reviewed_passages": [
+    "Problem contract: integer bounds, closed continuous intervals, singletons, exact union, unspecified input order, no caller mutation, extra empty behavior outside statement.",
+    "Decisions: sort before finalizing, max not latest end, overlap nontransitivity versus chain connection, only-last-component reasoning.",
+    "Python mechanisms: key once, lambda operands, stable equal starts, new outer list with source pair references, fresh output pair, integer slot replacement, short-circuit, None return of mutators.",
+    "All movie states and tested operands copied verbatim; no final flush for retained output; stream variant does require final emission.",
+    "Invariant: checkpoint, empty initialization, both maintenance branches, future-start finality and termination, distinct from equal-union property.",
+    "Costs: n,k, bounded integer primitive costs, amortized sequence versus individual append, geometric progression, conceptual logarithmic rounds versus implementation merge schedule, worst-case and ordered-run caveat, output versus auxiliary and peak space.",
+    "Already-sorted contract, streaming consumer storage qualification and unsorted-bridge failure retained.",
+    "English interview retained; Master Map only recalls established causal relationships."
+  ],
+  "translation_repair": "One lexical ambiguity repaired: 終於 a -> 結束於 a for ends at a; first translation preserved.",
+  "independent_reader": "NOT_RUN",
+  "human_learning": "UNOBSERVED"
+}

@@ -1,0 +1,68 @@
+{
+  "answers": [
+    {
+      "id": "cost",
+      "answer": "正文可重建的計數與配置如下。\n\n直接搜尋：n 是天數；全同溫輸入讓各次內層檢查 n−1、n−2、…、0 個候選，因此總比較數為 n(n−1)/2，100,000 天為 4,999,950,000。正文以 Big O 省略固定倍數及低次項，並指定 list 讀取、有界整數比較與 index 更新為固定時間，據此宣告 worst-case O(n²)。answer 是另配的 n 個位置；除了它，只保留 n、i、j；range 不建立 index list，因此正文給出 auxiliary O(1)、output O(n)。正文沒有另一份重建或答案拼接器；兩種解法都預先配置零值答案並回傳該 list。\n\n主方法：每個 index 只 append 一次，移除後不再加入，故共有 n 次 append、至多 n 次 pop。每次成功的溫度比較對應一個 pop；每個外層日最多一次失敗的溫度比較，或因 pending 為空停止。總檢查次數與 n 成正比；每個已解位置只寫一次；初始化需要 n 個 output 位置。enumerate 逐組產生資料，沒有 n 組資料的額外 list。pending 在全同溫時可保留 n 個 index；正文聲稱 list 預留空間及 resize 暫存的新舊 array 只增加固定倍數；當前 pair 與 index 變數只保留固定數量值。因此按正文給定的儲存模型，auxiliary worst-case O(n)，output O(n)，合計 additional O(n)，不算 input，不承諾實際 byte 數。\n\n但完整時間推導在「Combining the counts with those costs」處為 NOT_STATED：前面只有部分原語的固定成本假設，沒有交代 append/pop 的具體成本模型、何時 resize、複製多少項目，以及如何把可能昂貴的單次操作攤到整趟 n 次操作。最後 Interview English 才提出「amortized constant-time end operations」作為條件，沒有定義 amortized 或說明其成立機制；不能由操作次數自行補出這個必要前提。正文所稱 CPython-style model 沒有定義，且正文中沒有它宣稱已引用的 CPython source 或對應成本說明。讀取 list entry／比較有界整數／更新 index 的假設有明說，但 answer 單點寫入、day−previous 的 index 減法、len／enumerate／truth check 的成本，以及把 n 個初始化位置轉成 O(n) 時間的單位成本，沒有完整明說。30–100 只限定溫度；正文沒有說明它如何涵蓋隨 n 變化的 index 與日距算術。因此只能重建正文「若採所需但未充分解釋的成本假設，則 O(n)」的宣告，不能用讀者既有 runtime 知識補齊。resize 額外空間固定倍數也只有斷言，沒有配置規則來推導該界線。\n\n>= 改題版本：正文說沒有增加集合、pass 或 output entry，沿用每 index 一次 append、至多一次 pop、每天固定次數失敗檢查，所以同一個未完整交代的 primitive-cost 前提仍是 NOT_STATED。正文宣告時間 O(n)。pending 溫度改為 strictly decreasing；固定整數範圍 30–100 下最多 71 個，故正文給 auxiliary O(1)，n 個 output 使 output 與 total additional 仍 O(n)。範圍可成長時，遞減輸入可保留全部 n 個 index，auxiliary 回到 O(n)。這個 71 上限不能套回允許同溫累積的原題。\n\n符號／新成本概念：n、Big O、O(n) 的成長意義與 O(n²) 的來源已解釋；O(1) 以固定變數數量和固定 71 上限對應，雖未另列正式定義，正文已有具體關係。未解釋的關鍵新概念是 amortized constant-time end operations、CPython-style model，以及 capacity／resize／新舊 array 為何只有固定倍數的儲存成本。這些缺口英繁兩版皆有；未找到英繁之間的實質成本結論不一致。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Big O describes how an upper bound grows with input size, suppressing fixed factors and lower-order terms. The sum above has a quadratic leading term, so the worst-case time is `O(n²)`. This assumes reading a list entry, comparing these bounded integers, and updating an index cost constant time. The method retains only `n`, `i`, and `j` beyond its answer, so it uses `O(1)` auxiliary space and `O(n)` output space. A `range` describes the progression of indices without building a list of them."
+        },
+        {
+          "language": "en",
+          "text": "The cost becomes troublesome when nothing ever gets warmer. On an all-equal list of length `n`, the searches inspect `n - 1`, then `n - 2`, down to `0` candidates. Pairing the ends of that sum gives `n(n - 1)/2` comparisons. At 100,000 days, that is 4,999,950,000 comparisons. The temperature range does not prevent this input: repeated 70s are legal."
+        },
+        {
+          "language": "en",
+          "text": "The statement asks for a returned answer; the solutions below leave the supplied list unchanged and allocate a separate result."
+        },
+        {
+          "language": "en",
+          "text": "The complete solution uses `enumerate` to obtain each index and temperature together. Its default count begins at zero, so the first pair is `(0, 70)` for our example. It yields pairs as the loop advances rather than creating a separate list of all pairs."
+        },
+        {
+          "language": "en",
+          "text": "`answer = [0] * len(temperatures)` creates the output positions in advance. The entries initially refer to the immutable integer zero. Assigning `answer[previous]` replaces one position; it does not change all zero entries. `pending.append(day)` mutates the existing list and returns `None`, so the code does not assign its return value to `pending`. The two mutable lists have separate purposes: `pending` tracks unfinished work, while `answer` receives completed distances. Neither operation modifies `temperatures`."
+        },
+        {
+          "language": "en",
+          "text": "Let `n` be the number of days. `O(n)` time means total work grows at most in proportion to `n`, apart from fixed overhead under the cost assumptions. A nested loop does not by itself establish quadratic work; count what its body can consume."
+        },
+        {
+          "language": "en",
+          "text": "Each index enters `pending` exactly once. It leaves at most once because a removed index is never added again. There are therefore `n` appends and at most `n` pops over the whole run. Each successful temperature comparison causes a pop. For each outer iteration, at most one failed temperature comparison stops the inner loop; an empty pending list can also stop it without a temperature comparison. The total number of loop checks is consequently proportional to `n`, even when one day triggers many pops. Each answered position is written once, and initializing the output takes `n` positions."
+        },
+        {
+          "language": "en",
+          "text": "Combining the counts with those costs gives `O(n)` total time under this CPython-style model. The algorithm does not depend on temperatures staying within 30–100 for correctness; that bound makes the arithmetic cost assumption immediate. Python's language documentation specifies behavior, while the cited CPython source supplies these implementation details."
+        },
+        {
+          "language": "en",
+          "text": "At most `n` pending indices remain live. An all-equal input reaches that maximum even with only one distinct temperature. Spare list capacity and temporary old/new arrays during a resize add only a constant multiple of that storage. The loop's current pair and index variables retain only a fixed number of values. Auxiliary space is thus `O(n)` in the worst case. The separately returned answer has `n` entries, so output space is also `O(n)`, and combined additional space is `O(n)`. The supplied input is excluded from additional space; exact byte counts depend on the Python build and are not claimed here."
+        },
+        {
+          "language": "en",
+          "text": "This adaptation adds no collection, pass, or output entry. It still appends each index once, pops it at most once, and performs only a constant number of failed checks per day. The same arithmetic and list-cost assumptions therefore give `O(n)` time. Pending storage remains bounded by `n`, with fixed temporary state and `n` output entries. In fact, with the original 30–100 temperature bound, the strictly decreasing pending temperatures allow at most 71 entries. Thus auxiliary space for this changed contract is `O(1)` when that range is fixed, while output and total additional space remain `O(n)`. If the temperature range is allowed to grow, a decreasing input can retain all `n` indices, restoring `O(n)` worst-case auxiliary space. None of that smaller bound applies to the original solution, where equal temperatures accumulate."
+        },
+        {
+          "language": "en",
+          "text": "Why is the nested loop linear? \"Every index is pushed once and popped at most once. The total stack work is linear, assuming amortized constant-time end operations.\""
+        },
+        {
+          "language": "zh-TW",
+          "text": "將操作次數與這些成本結合，在這種 CPython-style model 下，總時間為 `O(n)`。演算法的正確性不依賴氣溫維持在 30–100；這個界線讓算術成本假設直接成立。Python 語言文件規定行為，上述 CPython source 則提供實作細節。"
+        },
+        {
+          "language": "zh-TW",
+          "text": "每個 index 恰好進入 `pending` 一次。它最多離開一次，因為移除後不會再次加入。因此，整趟執行共有 `n` 次 append、最多 `n` 次 pop。每次成功的氣溫比較都會帶來一次 pop。每次外層迭代，最多有一次失敗的氣溫比較讓內層停止；待解 list 為空，也可能在沒有比較氣溫的情況下讓它停止。因此，即使某天觸發很多次 pop，總迴圈檢查次數仍然與 `n` 成正比。每個已解位置只寫入一次，初始化 output 則需要建立 `n` 個位置。"
+        }
+      ],
+      "missing": true
+    }
+  ],
+  "unanswered_question_ids": [
+    "cost"
+  ],
+  "bilingual_mismatches": [],
+  "limits": "僅讀 task.json 與指定英繁正文；未開啟正文連結、來源、repository、skill、報告或其他 agents；未執行文章程式。引文是正文的逐字連續片段。這是依正文重建與必要前提缺口紀錄，沒有品質評分、獨立原語成本驗證或人類學習效果觀察。"
+}

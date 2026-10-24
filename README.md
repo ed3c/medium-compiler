@@ -10,7 +10,11 @@ scheduler or image-generation pipeline is added.
 Issue #8 / PR #9 deliver the registered writing skills, mechanically verified lossless
 continuation and the source-bound article. Issue #10 / PR #11 deliver the static learning
 site. Acceptance requires the exact-head test suite and four mechanical drives, preserved
-article/source identities, and (for the site) build plus deployed route/provenance readback.
+article/source identities, and a site build with actual local browser review.
+For an explicitly selected release, also require deployed route/provenance readback.
+Article updates default to the localhost preview and checks; see
+[local review before deployment](writing-contract.md#article-updates-local-preview-before-deployment).
+Neither a writing request nor green CI automatically publishes to Vercel/Cloudflare.
 
 The owner separated writer A/B, independent reader/semantic assessment, the real accepted
 learning-episode positive path and measured human benefit into [Issue #12](https://github.com/ed3c/medium-compiler/issues/12).
@@ -89,6 +93,11 @@ The erroneous cloud CLI workflow/probe were removed; the original writing CI is 
   Active lexicon and 2,000 linked source-grounded English sentences goal.
   No learner performance is inferred from an annotation or its reveal. The legacy [CEFR Four-Pass](.agents/skills/cefr-alg-four-pass/SKILL.md)
   and 12-file dependency lock remain unchanged for historical Frozen lessons.
+- [Speed-reading annotation method](.agents/skills/speed-reading/SKILL.md): lossless
+  syntactic chunks, clause line breaks, checked primary-stress spelling spans and
+  a short SVO skeleton. This skill owns index annotation content; ALG Four owns
+  source binding, admission validation, navigation and rendering. Formatting is not a claim
+  of faster reading or learning. Unverified pronunciation stays plain.
 - [Canonical registered writer](.agents/skills/medium-writing/SKILL.md)
 - [Retained complete writing contract](writing-contract.md)
 - [Planning/continuation prompts](prompts/medium-article.md)

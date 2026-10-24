@@ -11,6 +11,14 @@ Select this Skill when the original task requests **a LeetCode problem, an algor
 
 Read the [full operational v4 contract](references/v4-contract.md) for ordinary v4 teaching, or the [complete-article content profile](references/article-content-profile.md) for a publishable Medium narrative. Read the [article style/source boundary](references/medium-reference.md) when a Medium-style example or granular explanation is requested. To see one complete adapted output, read [LeetCode 49 Group Anagrams example](../../../examples/leetcode-49-group-anagrams-zero-context.md) and its [replayable Python reference](../../../examples/leetcode-49-group-anagrams.py). The example is a *reference*; do not copy its state, invariant, number of loops or complexities into different problems.
 
+For the complete article, first use its [article construction method](references/article-construction.md)
+to derive the explanation from the selected problem, even without an exemplar.
+Then apply the profile's [reader prerequisites and explanatory
+steps](references/article-content-profile.md#reader-prerequisites-and-explanatory-steps).
+Coverage of topic names is not coverage of the steps a novice reader needs to reconstruct
+the mechanism. Preserve user-requested explanations when selecting equivalent code and
+when reviewing sloptrim deletions.
+
 ## Keep writing routes separate
 
 - **LeetCode algorithmic reasoning:** validate contract, select actual decisions and an equivalence property distinct from the loop invariant, produce five concise algorithm-memory anchors for the v4 profile, runtime movie, Python reference code, proof, complexity, first counterexample and transfer. Do not create lexical plans or learner pass progression here.

@@ -1,0 +1,1429 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 0,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 1,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "The input height lists vertical wall heights ",
+        "start": 32,
+        "end": 36,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "rather than the wall positions. ",
+        "start": 16,
+        "end": 20,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 2,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "above the shorter wall: ",
+        "start": 18,
+        "end": 22,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 3,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 4,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "walls at positions 1 and 3 give width 2, ",
+        "start": 32,
+        "end": 37,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "The tallest wall alone does not determine the answer. ",
+        "start": 12,
+        "end": 16,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 5,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 6,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 7,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 8,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 9,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Its width k - left is smaller, ",
+        "start": 4,
+        "end": 9,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "even if the new wall is much taller. ",
+        "start": 16,
+        "end": 20,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "not a prediction that the next wall is taller or that the next area will improve.",
+        "start": 31,
+        "end": 35,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "When the right wall is shorter, ",
+        "start": 15,
+        "end": 19,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "either zero-height wall",
+        "start": 19,
+        "end": 23,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 15,
+    "lossless": true,
+    "stress": [
+      {
+        "text": " width. ",
+        "start": 1,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "It removes a wall ",
+        "start": 13,
+        "end": 17,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "Always moving the taller wall lacks that proof. ",
+        "start": 25,
+        "end": 29,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "Moving the taller right wall inward then gives area 1, ",
+        "start": 24,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 16,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 17,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Width is 3, ",
+        "start": 0,
+        "end": 5,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "Width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 18,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Width is 2, ",
+        "start": 0,
+        "end": 5,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "Width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "The left wall is taller, ",
+        "start": 9,
+        "end": 13,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "its width is 1, ",
+        "start": 4,
+        "end": 9,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 19,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Width is 1, ",
+        "start": 0,
+        "end": 5,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "Width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 20,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 21,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 23,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 24,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 25,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 27,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 28,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 29,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 30,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 31,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 32,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 33,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "rather than their total width.",
+        "start": 24,
+        "end": 29,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 34,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Replace the width ",
+        "start": 12,
+        "end": 17,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "moving the shorter left wall reveals area 99 * 2 = 198. ",
+        "start": 24,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 35,
+    "lossless": true,
+    "stress": [
+      {
+        "text": " ensure that moving either endpoint inward decreases physical width. ",
+        "start": 62,
+        "end": 67,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 36,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 37,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Why move the shorter wall? ",
+        "start": 21,
+        "end": 25,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "while moving the other endpoint inward reduces width. ",
+        "start": 47,
+        "end": 52,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      }
+    ]
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 38,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 40,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 41,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "two wall positions determine width; ",
+        "start": 4,
+        "end": 8,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "two wall positions determine width; ",
+        "start": 29,
+        "end": 34,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/width",
+        "word": "width",
+        "pronunciation": "/wɪtθ/"
+      },
+      {
+        "text": "the shorter wall determines water height; ",
+        "start": 12,
+        "end": 16,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "retaining its shorter wall. ",
+        "start": 22,
+        "end": 26,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      },
+      {
+        "text": "Removing that wall shrinks the ",
+        "start": 14,
+        "end": 18,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/wall",
+        "word": "wall",
+        "pronunciation": "/wɑːl/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 0,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Suppose course 3 requires both course 1 and course 2. ",
+        "start": 8,
+        "end": 14,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Suppose course 3 requires both course 1 and course 2. ",
+        "start": 31,
+        "end": 37,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Suppose course 3 requires both course 1 and course 2. ",
+        "start": 44,
+        "end": 50,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Finishing course 1 helps, ",
+        "start": 10,
+        "end": 16,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "but course 3 is still unavailable. ",
+        "start": 4,
+        "end": 10,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 1,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "In LeetCode 207, course identifiers run ",
+        "start": 17,
+        "end": 23,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "indicating whether every course can be finished. ",
+        "start": 25,
+        "end": 31,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "to the course range. ",
+        "start": 7,
+        "end": 13,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "which makes that course impossible to start. ",
+        "start": 17,
+        "end": 23,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 2,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "A course ",
+        "start": 2,
+        "end": 8,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "A course absent ",
+        "start": 2,
+        "end": 8,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "No choice of first course can satisfy those requirements.",
+        "start": 19,
+        "end": 25,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 3,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "A directed graph is simply the collection of course nodes and these ",
+        "start": 45,
+        "end": 51,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Each course ",
+        "start": 5,
+        "end": 11,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "for another course ",
+        "start": 12,
+        "end": 18,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 4,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "If every remaining course has a remaining prerequisite, ",
+        "start": 19,
+        "end": 25,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "start at any remaining course ",
+        "start": 23,
+        "end": 29,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "There are finitely many course identifiers. ",
+        "start": 24,
+        "end": 30,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "without a cycle must contain an available course. ",
+        "start": 42,
+        "end": 48,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Repeatedly taking an available course can finish everything ",
+        "start": 31,
+        "end": 37,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 5,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 6,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "knowing only whether the course has any prerequisites would lose the information needed ",
+        "start": 25,
+        "end": 31,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "separately for each course makes ",
+        "start": 20,
+        "end": 26,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "for course 0 would also appear to add it ",
+        "start": 4,
+        "end": 10,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "for every other course. ",
+        "start": 16,
+        "end": 22,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 8,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "in ready, a queue. ",
+        "start": 12,
+        "end": 17,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "The queue holds entries ",
+        "start": 4,
+        "end": 9,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "each chosen course already has no unfinished prerequisite. ",
+        "start": 12,
+        "end": 18,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "smallest course number",
+        "start": 9,
+        "end": 15,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 9,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "deque() creates the queue, ",
+        "start": 20,
+        "end": 25,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "Assigning the result of append back to ready would therefore replace the queue with None. ",
+        "start": 73,
+        "end": 78,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 10,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Whenever a course is removed ",
+        "start": 11,
+        "end": 17,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "so each course enters the queue ",
+        "start": 8,
+        "end": 14,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "so each course enters the queue ",
+        "start": 26,
+        "end": 31,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 11,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 12,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Course 4 is independent. ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "Course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Course 0 releases 1 and 2; ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "Course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 13,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Initialization checks course identifiers ",
+        "start": 22,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "so append(1) makes the queue [4, 1]. ",
+        "start": 23,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 14,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "An isolated course contributes a completion ",
+        "start": 12,
+        "end": 18,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 15,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Course 3 changes from 2 to 1. ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "Course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "out of the queue ",
+        "start": 11,
+        "end": 16,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "because course 2 is still unfinished. ",
+        "start": 8,
+        "end": 14,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 16,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Removing 2 empties the queue ",
+        "start": 23,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "Course 3 changes from 1 to 0. ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "Course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "removing 3 gives an empty queue ",
+        "start": 26,
+        "end": 31,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 17,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "and only course 2 enters the queue. ",
+        "start": 9,
+        "end": 15,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "and only course 2 enters the queue. ",
+        "start": 29,
+        "end": 34,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "The empty queue now accompanies finished = 1, ",
+        "start": 10,
+        "end": 15,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "Having one available course was insufficient: ",
+        "start": 21,
+        "end": 27,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 18,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "and the queue contains every ",
+        "start": 8,
+        "end": 13,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "available unfinished course",
+        "start": 21,
+        "end": 27,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Completed courses are outside the queue. ",
+        "start": 34,
+        "end": 39,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 19,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "including when the queue is initially empty.",
+        "start": 19,
+        "end": 24,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 20,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "removing an available course is legal ",
+        "start": 22,
+        "end": 28,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 21,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Otherwise the queue is empty ",
+        "start": 14,
+        "end": 19,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "The checkpoint says each such course still has an unfinished prerequisite. ",
+        "start": 30,
+        "end": 36,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "This algorithm is often called ",
+        "start": 5,
+        "end": 7,
+        "source": "https://dictionary.cambridge.org/dictionary/english/algorithm?q=Algorithm",
+        "word": "algorithm",
+        "pronunciation": "/ˈæl·ɡəˌrɪð·əm/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 22,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "whenever the initial queue is nonempty. ",
+        "start": 21,
+        "end": 26,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "separate available course",
+        "start": 19,
+        "end": 25,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "two course identifiers form the cycle ",
+        "start": 4,
+        "end": 10,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "course 1 is available ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "while course 0 waits for itself.",
+        "start": 6,
+        "end": 12,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 23,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Course identifiers fit ",
+        "start": 0,
+        "end": 6,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "Course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 24,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "The queue choice affects this count. ",
+        "start": 4,
+        "end": 9,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 25,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "each queue endpoint operation has constant cost ",
+        "start": 5,
+        "end": 10,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "Queue size can grow, ",
+        "start": 0,
+        "end": 5,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "Queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 27,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 28,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "If course b has d_b dependents, ",
+        "start": 3,
+        "end": 9,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 29,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "During processing, each course is enqueued and removed ",
+        "start": 24,
+        "end": 30,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "Setup, queue operations and edge updates sum to ",
+        "start": 7,
+        "end": 12,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 30,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "and the queue holds at most V entries ",
+        "start": 8,
+        "end": 13,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 31,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 32,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Each successful round completes at least one new course, ",
+        "start": 49,
+        "end": 55,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "A length-V prerequisite chain releases only one course per round, ",
+        "start": 48,
+        "end": 54,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "return one valid course order, ",
+        "start": 17,
+        "end": 23,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 34,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "and the whole algorithm remains O(V + E). ",
+        "start": 14,
+        "end": 16,
+        "source": "https://dictionary.cambridge.org/dictionary/english/algorithm?q=Algorithm",
+        "word": "algorithm",
+        "pronunciation": "/ˈæl·ɡəˌrɪð·əm/"
+      },
+      {
+        "text": "The adjacency representation, counts and queue remain, ",
+        "start": 41,
+        "end": 46,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 35,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "A course becomes available ",
+        "start": 2,
+        "end": 8,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 36,
+    "lossless": true,
+    "stress": []
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 37,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "empty queue",
+        "start": 6,
+        "end": 11,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 38,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "Adjacency storage, counts and the queue use ",
+        "start": 34,
+        "end": 39,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 39,
+    "lossless": true,
+    "stress": [
+      {
+        "text": "a queue retains that availability ",
+        "start": 2,
+        "end": 7,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      },
+      {
+        "text": "per course and edge gives the time bound ",
+        "start": 4,
+        "end": 10,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+        "word": "course",
+        "pronunciation": "/kɔːrs/"
+      },
+      {
+        "text": "only after the queue and append-sequence costs have been explained.",
+        "start": 15,
+        "end": 20,
+        "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+        "word": "queue",
+        "pronunciation": "/kjuː/"
+      }
+    ]
+  }
+]

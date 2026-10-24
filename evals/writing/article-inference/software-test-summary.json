@@ -1,0 +1,15 @@
+{
+  "head_at_method_commit": "d90752109e7d5d1f987127a981c3d304a8bd9109",
+  "python_tests": 297,
+  "result": "OK",
+  "skipped": 14,
+  "skip_scope": "Existing explicit SCOPE_* upstream checkout inputs absent",
+  "staged_drive": "PASS scripted CLI controls, not writer authorship",
+  "validator_control": "Wrong existing Active decision not linked to paragraph refused; multi-decision paragraph accepted",
+  "runtime_oracles": {
+    "koko_oracle_comparisons": 6640,
+    "interval_overlap_graph_comparisons": 4615,
+    "semantics": "small-domain runtime observations; complexity and explanation reviewed separately"
+  },
+  "ci_sha256": "No workflow changes; original necessary locks/receipts retained"
+}

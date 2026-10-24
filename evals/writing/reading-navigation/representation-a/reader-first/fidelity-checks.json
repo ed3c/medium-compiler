@@ -1,0 +1,34 @@
+{
+  "water.zh.html": {
+    "source_blocks_html": 55,
+    "source_blocks_md": 55,
+    "block_differences": [],
+    "external_links_exact": true,
+    "reading_plaintext_differences": [],
+    "code_text_exact_including_internal_whitespace": true
+  },
+  "water.en.html": {
+    "source_blocks_html": 55,
+    "source_blocks_md": 55,
+    "block_differences": [],
+    "external_links_exact": true,
+    "reading_plaintext_differences": [],
+    "code_text_exact_including_internal_whitespace": true
+  },
+  "course.zh.html": {
+    "source_blocks_html": 51,
+    "source_blocks_md": 51,
+    "block_differences": [],
+    "external_links_exact": true,
+    "reading_plaintext_differences": [],
+    "code_text_exact_including_internal_whitespace": true
+  },
+  "course.en.html": {
+    "source_blocks_html": 51,
+    "source_blocks_md": 51,
+    "block_differences": [],
+    "external_links_exact": true,
+    "reading_plaintext_differences": [],
+    "code_text_exact_including_internal_whitespace": true
+  }
+}

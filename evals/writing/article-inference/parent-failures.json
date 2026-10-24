@@ -1,0 +1,44 @@
+[
+  {
+    "operation": "atomic apply_patch",
+    "error": "Failed to find expected lines in article-content-profile.md",
+    "effect": "No files changed; corrected exact-line patch applied once."
+  },
+  {
+    "operation": "criteria feedback first",
+    "error": "supported condition needs an exact requirement quote",
+    "effect": "Refusal preserved; independent review marked field unsupported, new pre-observation protocol selects only three supported actions."
+  },
+  {
+    "operation": "resume completed writer while four slots active",
+    "error": "agent thread limit reached",
+    "effect": "No child turn launched; resumed only after another assigned task completed."
+  },
+  {
+    "operation": "parent research cat",
+    "error": "cat: /tmp/current-article-entailmentment-path: No such file or directory; cat: /none: No such file or directory",
+    "effect": "Read-only typo, no product mutation; actual needed review content came from separate successful rg."
+  },
+  {
+    "operation": "first expanded bilingual unittest run",
+    "error": "Expected unlinked-decision refusal, received missing active cue/oracle refusal",
+    "effect": "Test fixture picked a PASSIVE-only decision after registry expanded. Select Active-ready legal neighbor to isolate target binding guard; refusal requirements unchanged."
+  },
+  {
+    "operation": "first expanded Chromium run",
+    "error": "Locator.evaluate: TypeError: Cannot read properties of undefined (reading 'dataset')",
+    "effect": "Code-only final heading has no own paragraph. UI and browser oracle now handle zero-note chapters without selecting an unrelated note; original article bytes unchanged."
+  },
+  {
+    "operation": "second expanded Chromium run",
+    "error": "AssertionError: empty-section hint is_visible while mobile dialog is correctly closed after heading navigation",
+    "effect": "Test now checks automatic close first, reopens the rail, verifies the actual empty hint, and closes again. Third run PASS over all 16 page/viewport observations."
+  },
+  {
+    "operation": "Matching-head CI #213 mechanical-writing",
+    "head": "033c63e21f3000c157031dd36cff60e95d0444c6",
+    "run": "https://github.com/ed3c/medium-compiler/actions/runs/39552329460",
+    "error": "test_full_assets_and_immutable_sources assumed <slug>.md; Koko uses the explicitly registered .zh-TW.md source, causing FileNotFoundError. 297 tests, errors=1, skipped=14.",
+    "effect": "Original full-site transport test now resolves article sources from the existing explicit registry and retains exact byte equality. No product/article/workflow changes. First CI log retained. Final local full-suite rerun passed: 297 tests, 14 existing scope skips. Exact log retained."
+  }
+]

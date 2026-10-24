@@ -1,0 +1,48 @@
+{
+  "status": "OWNER_REPAIR_INSTALLED_PENDING_INDEPENDENT_READER",
+  "prior_result": "First A Reader FAIL; original full pair and report retained, no history reset.",
+  "repaired_notes": 2,
+  "changed_fields": 4,
+  "reviewed_annotations": 83,
+  "visible_fields": 558,
+  "active_entries_unchanged": 31,
+  "exact_quote_bindings_unchanged": 464,
+  "files": [
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/references/learning/alg-four-container-with-most-water.json",
+      "candidate": "/tmp/speed-reading-a-qualifiers-49d7u1dd/repaired-candidate/alg-four-container-with-most-water.json",
+      "before_sha256": "d0c7dc621ec99a4f8b3a624af05e3f152228f004a455b13600e1c13f6c0a8f77",
+      "installed_sha256": "42f35d011c4a4a098037a85d3312e7774455c5b369c4a2fe4f69d53a58ff68ea",
+      "readback_exact": true
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/references/learning/alg-four-course-schedule.json",
+      "candidate": "/tmp/speed-reading-a-qualifiers-49d7u1dd/repaired-candidate/alg-four-course-schedule.json",
+      "before_sha256": "681f7b6787255802b466480b75820a8e02b6198dd46a8a028d8dc4aea093ed16",
+      "installed_sha256": "c95eb9a409298073878c019c2ee8e3e61334cdeda4df165afdb02c2c85b91c5e",
+      "readback_exact": true
+    }
+  ],
+  "source_files": [
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.md",
+      "sha256": "19c123fa60fcc1b52928e9dd5f26c0047186eee41875bd79ed8456bc3e7aaf39",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+      "sha256": "bef26d671d254df002821f6de25ec29e615d1b09e699275cb1685d09913e5e4f",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.md",
+      "sha256": "a701c98887b928ec908fe0bcabe2ee88666933322b3b9d35f2283eb19d29036f",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+      "sha256": "4886bca8368f4d6432c096fffd547f55da391eb4c0958c08752d2f9fc634a513",
+      "unchanged": true
+    }
+  ]
+}

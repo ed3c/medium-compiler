@@ -1,0 +1,359 @@
+{
+  "answers": [
+    {
+      "id": "contract",
+      "answer": "正確結果是一個 Boolean：當且僅當每門課都能在所有先修課完成後修讀才為 True，不要求輸出順序。課程數為 1–2000、互異 pairs 數為 0–5000，識別碼在範圍內；獨立課仍要計入，自我先修不被排除，主實作不修改輸入。每組 [a,b] 的方向是 b→a。after[b] 保留完成 b 時應解除義務的目的地；remaining[a] 保留尚未完成先修的數量，足以區分剩一項與剩兩項；ready 保存可修但尚未處理者，finished 足以判斷是否完成全部，故 Boolean 任務不必保留完整 schedule。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "A pair `[a, b]` means that `b` must be finished before `a`. Return a Boolean indicating whether every course can be finished. A schedule itself is not required. There are 1 to 2000 courses and 0 to 5000 distinct prerequisite pairs; both identifiers belong to the course range. The statement does not exclude `[a, a]`, which makes that course impossible to start. The implementation below leaves the input unchanged."
+        },
+        {
+          "language": "en",
+          "text": "A course absent from every pair still exists and must count toward the result."
+        },
+        {
+          "language": "en",
+          "text": "Draw a directed edge `b -> a` for `[a, b]`."
+        },
+        {
+          "language": "en",
+          "text": "Instead, build `after[b]`, a list of courses directly waiting for `b`. Store `a` in that list for each pair `[a, b]`."
+        },
+        {
+          "language": "en",
+          "text": "After some completions, its useful meaning changes to the number of prerequisites of `a` that have not yet been completed. A count of two means that two distinct obligations remain; knowing only whether the course has any prerequisites would lose the information needed after the first completion."
+        },
+        {
+          "language": "en",
+          "text": "The master map connects the argument: `[a, b]` creates `b -> a`; outgoing lists locate the obligations a completion removes; remaining counts decide availability; a queue retains that availability until processing; the checkpoint keeps counts aligned with unfinished prerequisites; and the completed-course count distinguishes a finished graph from a blocked remainder."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "state",
+      "answer": "checkpoint 在每次判斷 while ready 前，前次完成的整份 dependent list 已處理完。after 是不變的直接依賴清單；未完成課程的 remaining 是其未完成先修數；ready 恰好保存所有可開始的未完成課程各一次，不含已完成者；finished 是互異已完成課程數。queue 排列不屬於 invariant。起初 finished=0，從 pairs 加總 incoming edges 正好就是尚未完成的先修數，掃描全部課程把零值者放入 queue，因此即使起始 queue 空也成立。各 after inner list 分別建立避免共享別名，零值 slots 因 integer immutable 且更新替換 slot 而安全。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Also build `remaining[a]`, initially the number of incoming prerequisite edges for `a`."
+        },
+        {
+          "language": "en",
+          "text": "Use `after = [[] for _ in range(numCourses)]`. Evaluating `[]` separately for each course makes independent inner lists."
+        },
+        {
+          "language": "en",
+          "text": "In contrast, `[0] * numCourses` is safe here. Integers are immutable, and `remaining[a] += 1` replaces the value in slot `a`; it does not mutate a shared zero."
+        },
+        {
+          "language": "en",
+          "text": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion. At that point, `finished` counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions."
+        },
+        {
+          "language": "en",
+          "text": "Initially nothing is completed, so the counts built from all pairs have the required meaning. The initialization scan includes exactly the zero-count courses. Thus the checkpoint holds before the first iteration, including when the queue is initially empty."
+        },
+        {
+          "language": "en",
+          "text": "        finished = 0\n        while ready:"
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "trace",
+      "answer": "選新合法輸入 numCourses=4，prerequisites=[[2,0],[2,1],[3,2]]，不同於正文五課主例。按 pairs 建立 after=[[2],[2],[3],[]]、remaining=[0,0,2,1]；初始 ready=[0,1]、finished=0。取出 0：queue=[1]，finished=1；2 的 count 2→1，非零，不入列。取出 1：queue=[]，finished=2；2 的 count 1→0，入列後 queue=[2]。取出 2：finished=3；3 的 count 1→0，queue=[3]，remaining=[0,0,0,0]。取出 3：finished=4，空 dependent list 不改 count，queue=[]。下次 while 停止，4==numCourses，回傳 True。上述依正文 edge 建立、遞增初始化、FIFO、減一與僅零值入列規則重建，未執行程式。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Instead, build `after[b]`, a list of courses directly waiting for `b`. Store `a` in that list for each pair `[a, b]`."
+        },
+        {
+          "language": "en",
+          "text": "        for course, prerequisite in prerequisites:\n            after[prerequisite].append(course)\n            remaining[course] += 1"
+        },
+        {
+          "language": "en",
+          "text": "Initialization checks course identifiers in increasing order, so 0 enters before 4."
+        },
+        {
+          "language": "en",
+          "text": "        ready = deque()\n        for course in range(numCourses):\n            if remaining[course] == 0:\n                ready.append(course)"
+        },
+        {
+          "language": "en",
+          "text": "`deque()` creates the queue, `append(x)` adds `x` on the right and returns `None`, and `popleft()` removes and returns the leftmost entry."
+        },
+        {
+          "language": "en",
+          "text": "Whenever a course is removed from `ready`, mark one more completion in `finished`. Visit only its dependents in `after[course]`. Each loses exactly one outstanding obligation, so subtract one from its count. Append a dependent precisely when its count becomes zero."
+        },
+        {
+          "language": "en",
+          "text": "Its dependent list is empty, so no count changes."
+        },
+        {
+          "language": "en",
+          "text": "        return finished == numCourses"
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "failure",
+      "answer": "正文的錯法是初始 ready 非空立即回傳 True。取正文拒絕例 numCourses=3、[[1,0],[0,1]]：remaining=[1,1,0]、ready=[2]、finished=0 尚都正確；第一個錯誤狀態是由這個非空 queue 直接產生 True 回傳值，因為 0、1 互等不能完成。選定實作取出 2，得到 finished=1、queue=[]，以 finished==3 回傳 False，故防止失敗的判斷是完成總數比較，不是初始是否有可開始者。正文還提供 self-loop 的更小邊界：n=2、[[0,0]]，1 可修卻不能解除 0 等自己的義務。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "For a rejection, use `numCourses = 3` and `[[1, 0], [0, 1]]`. Initial counts are `[1, 1, 0]`, and only course 2 enters the queue. It finishes without releasing anything. The empty queue now accompanies `finished = 1`, so the comparison with 3 returns `False`. Having one available course was insufficient: a different component still contains a cycle."
+        },
+        {
+          "language": "en",
+          "text": "A tempting wrong return is `True` whenever the initial queue is nonempty. The three-course rejection above refutes it."
+        },
+        {
+          "language": "en",
+          "text": "Without that requirement, the smaller `numCourses = 2, prerequisites = [[0, 0]]` already refutes the shortcut: course 1 is available while course 0 waits for itself."
+        },
+        {
+          "language": "en",
+          "text": "        return finished == numCourses"
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "proof",
+      "answer": "queue 取出者沒有未完成先修，完成合法；after 只列它直接滿足的義務，所以僅對這些目的地減一，不影響其他 count。剛降零者才能加入，正 count 在此階段單調下降，最多跨零一次，原先零值只初始化一次，故沒有重複完成，不需 visited。任選可修者都已滿足條件，FIFO 僅決定次序。每次完成一門新的課，最多 V 次，確保進展與停止。finished==V 時合法完成形成 schedule；否則 queue 空而 remainder 非空，invariant 表示每門剩餘課都還等剩餘先修。沿先修反向追蹤，在有限識別碼中必重複形成 cycle，cycle 無第一門能完成，故 False。替代 round 法凍結一輪的可修群組，群組內若有依賴就會被 blocked 排除，因此可一起標 done，且每成功輪至少完成一門。輸出 order 的擴充只記錄每次已證合法的完成。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "The choice among available courses cannot invalidate a requirement: each chosen course already has no unfinished prerequisite."
+        },
+        {
+          "language": "en",
+          "text": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing `finished` records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it."
+        },
+        {
+          "language": "en",
+          "text": "Counts never increase during this phase. A positive count crosses zero only once, and initially zero courses enter during initialization, so each course enters the queue at most once. No additional visited set is needed."
+        },
+        {
+          "language": "en",
+          "text": "For termination, at most `numCourses` distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible."
+        },
+        {
+          "language": "en",
+          "text": "There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle."
+        },
+        {
+          "language": "en",
+          "text": "Each course on that cycle must wait for another course on the same cycle, so there can be no first completion there."
+        },
+        {
+          "language": "en",
+          "text": "Group members cannot require one another, since any such edge would have marked its destination blocked. Each successful round completes at least one new course, so there are at most `V` successful rounds and at most one final failed round."
+        },
+        {
+          "language": "en",
+          "text": "Each retained entry records a legal completion, so the earlier proof establishes the returned ordering."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "cost",
+      "answer": "V 是課程數，E 是 pairs 數。正文定義 Big O 為忽略固定倍數的成長上界；此 contract 把有界識別碼、counts、單 slot 讀寫、比較、counter 與 reference 操作視為固定工作，配置或複製 k slots 則與 k 成正比。deque 端點操作以固定 block 配置為有界工作的模型得到常數成本。list.append 有 resize，不能逐次無條件當 O(1)；正文以比例 spare room 與歷次容量的幾何和說明 d 次單項 append 合計 O(d)，稱 amortized constant。m 是成長時的 list size，C 為最終 capacity，r<1 為往回縮小的固定比例，S 是該段的幾何總和；d_b 是 b 的 dependents 數。建 V lists/counts O(V)，E pairs 造成 E 次計數更新與 append，各串 append 的 d_b 總和 E；scan V slots；每課至多一次入列/移除，每 edge 的 dependent list 至多訪一次，故主法 worst-case O(V+E)，cycle 提早停止也仍讀完初始 pairs。空間：外層 adjacency 與 V inner headers O(V)，E refs 加比例 spare capacity O(V+E)，counts V、deque≤V 加 block overhead、scalar variables O(1)；resize 新舊暫存仍同階，所以 peak auxiliary O(V+E)，排除輸入、無 recursion，Boolean output O(1)。若 queue 換 list.pop(0)，V 個初始可修者會移動 V(V−1)/2 refs，即平方成長。反覆掃描替代法每輪初始化/查課 O(V)，掃 E pairs O(E)，至多 V 個成功輪加一失敗輪，得到 O(V(V+E))；chain 每輪只放行一門，可維持重複工作。done、blocked、optional group≤V，前輪 buffer 釋放，peak auxiliary O(V)、Boolean O(1)，輸入 E pairs 排除。若輸出順序，至多 V 次 order append，追加 O(V) 時間，總時仍 O(V+E)；成功輸出 V refs 為 O(V)，排除該輸出的 auxiliary 仍 O(V+E)。失敗的 partial order≤V 屬暫存，回傳 [] 為常數。以上新成本概念與符號在正文內可由相鄰句與公式還原，未發現必需卻無法從正文還原的成本前提。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Let `V = numCourses` and `E = len(prerequisites)`. Big O describes an upper bound on growth, ignoring fixed multipliers; `O(V + E)` means work grows no faster than a constant times the number of courses plus pairs, under the following model. Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations. Course identifiers fit within 0 to 1999 and counts within 0 to 5000; treating these scalars as bounded units is appropriate for this contract. This is an operation-count model, not a statement that all Python instructions take identical physical time. Allocating or copying `k` slots costs proportional to `k`."
+        },
+        {
+          "language": "en",
+          "text": "With `V` initially available courses, draining a list through `pop(0)` moves `(V - 1) + (V - 2) + ... + 1` references. Pairing the terms gives `V(V - 1)/2`, quadratic growth even with no prerequisite edges."
+        },
+        {
+          "language": "en",
+          "text": "An endpoint operation changes an endpoint position and, at a block boundary, a fixed-size block connection; it does not shift all queued references. With fixed-size block allocation treated as bounded work, each queue endpoint operation has constant cost in this model, matching the documented approximately `O(1)` behavior."
+        },
+        {
+          "language": "en",
+          "text": "A growth may copy the old references, so one append is not always constant work."
+        },
+        {
+          "language": "en",
+          "text": "After growing a sufficiently large list of size `m`, proportional spare room allows at least a fixed fraction of `m` further single-item appends before another growth. Charge the cost proportional to `m` of that growth across those following appends; each receives only a constant charge. Equivalently, look backward from final capacity `C`: successive earlier growth sizes shrink by a fixed factor below one, apart from small sizes. Their copying work is bounded by `C + rC + r²C + ... = C/(1-r)` for some fixed `r < 1`. To see the bound, multiplying the sum by `r` leaves the original sum minus its first term; subtraction gives `(1-r)S = C`. Small initial capacities add fixed work. Final capacity is proportional to the final length, so `d` single-item appends, including their ordinary writes, take `O(d)` total work. This aggregate guarantee is called amortized constant time per append. It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument."
+        },
+        {
+          "language": "en",
+          "text": "Building the `V` independent lists and `V` counts costs `O(V)`. Reading `E` pairs does `E` counter updates and `E` appends. If course `b` has `d_b` dependents, its append sequence costs `O(d_b)`; summing `d_b` across all courses gives exactly `E`. Small-list overhead contributes at most another `O(V)`. Building the representation therefore costs `O(V + E)`."
+        },
+        {
+          "language": "en",
+          "text": "The readiness scan checks `V` slots and enqueues at most `V` courses. During processing, each course is enqueued and removed at most once. Each edge appears in exactly one dependent list, and that list is visited at most once. Hence all executions of the inner loop total at most `E`, even though the code nests that loop inside a `while`. Setup, queue operations and edge updates sum to worst-case `O(V + E)` time, with list construction analyzed over its append sequences. A cycle may stop processing early, but cannot avoid the initial pair-reading work."
+        },
+        {
+          "language": "en",
+          "text": "For auxiliary space, the outer adjacency list and its inner-list headers use `O(V)` slots or fixed-size records. The inner lists retain `E` references plus spare capacity proportional to `V + E`, by the same growth policy. Counts use `V` scalar slots, and the queue holds at most `V` entries plus fixed-size block overhead proportional to that capacity. Scalar loop variables need constant space. A resize can temporarily keep old and new storage alive, but both have size proportional to the list being grown; this leaves the peak bound `O(V + E)`. The existing input is excluded from auxiliary space, and the returned Boolean is `O(1)` output space. No recursion stack is used."
+        },
+        {
+          "language": "en",
+          "text": "Each successful round completes at least one new course, so there are at most `V` successful rounds and at most one final failed round. Initializing flags and inspecting courses costs `O(V)` per round; checking every pair costs `O(E)`. The resulting bound is `O(V(V + E))`. A length-`V` prerequisite chain releases only one course per round, showing why the repeated work can persist as size grows. `done`, `blocked` and an optional group buffer each hold at most `V` entries, so peak auxiliary storage is `O(V)`; old round buffers are released before the next round. The Boolean output stays `O(1)`. The input's `E` pairs remain live and are excluded under the same convention."
+        },
+        {
+          "language": "en",
+          "text": "This adaptation adds at most `V` single-item appends to one growing list. The append-only argument still applies, so the added work is `O(V)` and the whole algorithm remains `O(V + E)`. The adjacency representation, counts and queue remain, so auxiliary storage excluding a successful returned order stays `O(V + E)`. Successful output contains exactly `V` references and takes `O(V)` output space. On failure, the partial order is temporary auxiliary storage of at most `V` entries and the returned empty list has constant size."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "transfer",
+      "answer": "改成需要輸出合法順序時，原先只數 finished 而捨棄順序的前提失效：建立 order，每次取出課程後 append，長度 V 就回傳，否則 []。既有合法完成的 proof 直接保證順序，FIFO 並不保證最小編號優先。另一個改變是無法承擔額外 E refs、但可重掃輸入：改存 done 與每輪 fresh blocked，掃所有 [a,b] 把仍互相未完成的 a 標 blocked，掃完後整組完成 unblocked 的未完成課；每輪至少完成一課或失敗，改用 O(V) auxiliary 換 O(V(V+E)) 時間。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "A different requirement changes what the main solution must retain: return one valid course order, or `[]` if impossible. Start an empty `order` list and append `course` immediately after each removal. Return `order` if its length equals `V`, otherwise return `[]`. Each retained entry records a legal completion, so the earlier proof establishes the returned ordering. No smallest-first guarantee follows from FIFO; for the movie, 4 appears before 1."
+        },
+        {
+          "language": "en",
+          "text": "If storing another `E` references is unacceptable but the original pair list can be scanned repeatedly, there is a slower alternative. Keep `done[V]` Booleans. In each round, allocate a fresh `blocked[V]` array of false values. Scan every pair `[a, b]`; if both `a` and `b` are unfinished, set `blocked[a]` to true. Then identify all unfinished, unblocked courses and mark that whole group done only after the scan has finished. These are exactly the courses with no unfinished prerequisite at the start of that round. Stop successfully when all are done, or unsuccessfully when a round adds none."
+        },
+        {
+          "language": "en",
+          "text": "The resulting bound is `O(V(V + E))`."
+        },
+        {
+          "language": "en",
+          "text": "`done`, `blocked` and an optional group buffer each hold at most `V` entries, so peak auxiliary storage is `O(V)`; old round buffers are released before the next round."
+        }
+      ],
+      "missing": false
+    },
+    {
+      "id": "bilingual",
+      "answer": "比較兩份正文後，未找到 representation、updates、proof、cost 或 changed constraints 的實質省略／矛盾。中文保留 after 的方向、remaining 的數量意義、零值入列、完整 dependent list 後的 checkpoint、有限反向追蹤與 cycle 的結論。成本也保留 bounded-scalar model、deque fixed-block 假設、list append 幾何和與 amortization、所有 V/E 次數、resize peak、輸入排除、替代掃描與 order output 成本。兩份完整 Python code 逐字相同，四組 Interview English 問答也逐字保留。這是正文重建與對照，沒有由標題對應推論讀者理解。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "Instead, build `after[b]`, a list of courses directly waiting for `b`. Store `a` in that list for each pair `[a, b]`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "改為建立 `after[b]`，保存直接等待 `b` 的課程清單。對每組 `[a, b]`，把 `a` 存入這個 list。"
+        },
+        {
+          "language": "en",
+          "text": "Each loses exactly one outstanding obligation, so subtract one from its count. Append a dependent precisely when its count becomes zero."
+        },
+        {
+          "language": "zh-TW",
+          "text": "每門 dependent 都恰好少了一項未滿足的義務，所以把其計數減一。恰好在某門 dependent 的計數變成零時，將它 append 進 queue。"
+        },
+        {
+          "language": "en",
+          "text": "The checkpoint holds again after the whole dependent list is processed, rather than midway through it."
+        },
+        {
+          "language": "zh-TW",
+          "text": "checkpoint 會在整份 dependent list 處理結束後再次成立，而不是處理到一半時就成立。"
+        },
+        {
+          "language": "en",
+          "text": "The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible."
+        },
+        {
+          "language": "zh-TW",
+          "text": "依 checkpoint，每門這樣的課都還有一門未完成的 prerequisite。前面的有限集合往回追蹤論證因此會找到 cycle，所以不可能存在完整 schedule。"
+        },
+        {
+          "language": "en",
+          "text": "Course identifiers fit within 0 to 1999 and counts within 0 to 5000; treating these scalars as bounded units is appropriate for this contract."
+        },
+        {
+          "language": "zh-TW",
+          "text": "課程識別碼介於 0 到 1999，計數介於 0 到 5000；在這個 contract 下，把這些 scalars 當成有界的單位是適當的。"
+        },
+        {
+          "language": "en",
+          "text": "With fixed-size block allocation treated as bounded work, each queue endpoint operation has constant cost in this model, matching the documented approximately `O(1)` behavior."
+        },
+        {
+          "language": "zh-TW",
+          "text": "如果把固定大小的 block allocation 視為有界工作，那麼在此模型中，每次 queue endpoint operation 都有 constant cost，與文件所述約為 `O(1)` 的行為相符。"
+        },
+        {
+          "language": "en",
+          "text": "Their copying work is bounded by `C + rC + r²C + ... = C/(1-r)` for some fixed `r < 1`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "其複製工作有 upper bound：`C + rC + r²C + ... = C/(1-r)`，其中 `r < 1` 是某個固定值。"
+        },
+        {
+          "language": "en",
+          "text": "This aggregate guarantee is called amortized constant time per append."
+        },
+        {
+          "language": "zh-TW",
+          "text": "這個 aggregate guarantee 稱為每次 append 的 amortized constant time。"
+        },
+        {
+          "language": "en",
+          "text": "A resize can temporarily keep old and new storage alive, but both have size proportional to the list being grown; this leaves the peak bound `O(V + E)`. The existing input is excluded from auxiliary space, and the returned Boolean is `O(1)` output space. No recursion stack is used."
+        },
+        {
+          "language": "zh-TW",
+          "text": "resize 期間，舊 storage 與新 storage 可能暫時同時存在，但兩者大小都與正在成長的 list 成正比，因此 peak bound 仍是 `O(V + E)`。auxiliary space 不計既有輸入，回傳的 Boolean 則是 `O(1)` output space。此實作沒有 recursion stack。"
+        },
+        {
+          "language": "en",
+          "text": "Initializing flags and inspecting courses costs `O(V)` per round; checking every pair costs `O(E)`. The resulting bound is `O(V(V + E))`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "每輪初始化 flags 與檢查課程花費 `O(V)`；檢查每組 pair 花費 `O(E)`。因此 bound 為 `O(V(V + E))`。"
+        },
+        {
+          "language": "en",
+          "text": "Successful output contains exactly `V` references and takes `O(V)` output space. On failure, the partial order is temporary auxiliary storage of at most `V` entries and the returned empty list has constant size."
+        },
+        {
+          "language": "zh-TW",
+          "text": "成功時的 output 恰好含有 `V` 個 references，需要 `O(V)` output space。失敗時，partial order 是最多含有 `V` 個 entries 的暫時 auxiliary storage，回傳的 empty list 則是 constant size。"
+        },
+        {
+          "language": "en",
+          "text": "Start an empty `order` list and append `course` immediately after each removal. Return `order` if its length equals `V`, otherwise return `[]`."
+        },
+        {
+          "language": "zh-TW",
+          "text": "先建立空的 `order` list，每次移除課程後立即 append `course`。如果長度等於 `V` 就回傳 `order`，否則回傳 `[]`。"
+        },
+        {
+          "language": "en",
+          "text": "from collections import deque\n\n\nclass Solution:\n    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:\n        after = [[] for _ in range(numCourses)]\n        remaining = [0] * numCourses\n\n        for course, prerequisite in prerequisites:\n            after[prerequisite].append(course)\n            remaining[course] += 1\n\n        ready = deque()\n        for course in range(numCourses):\n            if remaining[course] == 0:\n                ready.append(course)\n\n        finished = 0\n        while ready:\n            course = ready.popleft()\n            finished += 1\n            for dependent in after[course]:\n                remaining[dependent] -= 1\n                if remaining[dependent] == 0:\n                    ready.append(dependent)\n\n        return finished == numCourses"
+        },
+        {
+          "language": "zh-TW",
+          "text": "from collections import deque\n\n\nclass Solution:\n    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:\n        after = [[] for _ in range(numCourses)]\n        remaining = [0] * numCourses\n\n        for course, prerequisite in prerequisites:\n            after[prerequisite].append(course)\n            remaining[course] += 1\n\n        ready = deque()\n        for course in range(numCourses):\n            if remaining[course] == 0:\n                ready.append(course)\n\n        finished = 0\n        while ready:\n            course = ready.popleft()\n            finished += 1\n            for dependent in after[course]:\n                remaining[dependent] -= 1\n                if remaining[dependent] == 0:\n                    ready.append(dependent)\n\n        return finished == numCourses"
+        },
+        {
+          "language": "en",
+          "text": "Why use indegree? \"It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero.\"\n\nWhy can each edge be handled once? \"I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation.\"\n\nWhy does an empty queue sometimes mean failure? \"If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle.\"\n\nWhat are the bounds? \"Construction and traversal take `O(V + E)` time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use `O(V + E)` auxiliary space. The result is one Boolean.\""
+        },
+        {
+          "language": "zh-TW",
+          "text": "Why use indegree? \"It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero.\"\n\nWhy can each edge be handled once? \"I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation.\"\n\nWhy does an empty queue sometimes mean failure? \"If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle.\"\n\nWhat are the bounds? \"Construction and traversal take `O(V + E)` time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use `O(V + E)` auxiliary space. The result is one Boolean.\""
+        }
+      ],
+      "missing": false
+    }
+  ],
+  "unanswered_question_ids": [],
+  "bilingual_mismatches": [],
+  "limits": "僅閱讀 task 指定兩份正文，未開來源連結、未使用外部知識、未執行文章程式。新 trace 是依正文規則手動重建；成本重建沿用正文限定的 bounded-scalar、CPython container 及 reference/slot 模型，沒有測量實際效能，也未外查其實作宣稱。替代 round 法只給文字規則，沒有完整 Python code；done 的初始 Boolean 值未直接寫明，但本題 checkpoint 針對完整主實作，成本與選擇條件仍可從正文還原。這不是品質評分、真人理解或學習效果證據。"
+}

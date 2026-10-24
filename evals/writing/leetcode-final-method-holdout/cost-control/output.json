@@ -1,0 +1,86 @@
+{
+  "answers": [
+    {
+      "id": "cost",
+      "answer": "NOT_STATED（完整成本推導所需前提缺失）。正文足以重建以下工作與配置：sorting 在 scan 前完成；每個輸入 pair 呼叫 key function 一次；scan 逐一走訪每個排序後的元素一次；每次只比較最後一個輸出 pair，不重新掃描整份輸出。遇到新 component，merged.append([start, end]) 配置一個新的雙元素 list；merge branch 只替換既有 pair 的 end。sorted 配置新的外層 list，但其 entry 仍參照輸入 pair，輸出則有自己的外層 list 和每個 component 的新 pair。這些是操作次數與物件關係，尚不足以推出 time 或 auxiliary/output space 的成本界線：正文未定義輸入大小的成本變數、time/space cost 或 asymptotic notation；也未給 sorted 的比較次數、排序時間或內部暫存需求。key 索引、pair 解構、最後一項索引、比較、max、賦值、建立雙元素 list 與 append 的 primitive cost 均為 NOT_STATED，append 的攤銷或最壞情況資格也未交代。局部變數如何計入額外空間、list entry 與整數物件的計量方式，以及 input/output/auxiliary space 的界線，都是 NOT_STATED。因此不能把一次 scan 直接換成特定時間界線，也不能把新外層 list 與新 pair 的配置直接換成正式空間界線。正文另外提供已排序輸入的變體：可移除 sorting，直接掃描；streaming 只保留一個 pending pair，遇 gap 即交給 consumer，最後再 emit pending pair。然而此變體的逐步成本、emit 的成本、consumer 是否保留輸出、consumer 空間是否納入計算，以及累積輸出所需的空間，都為 NOT_STATED。沒有另一個可另行推導成本的 reconstruction algorithm；primary output builder 是 scan 中的 merged，正文只說不需 final flush。未發現正文或 caveat 引入 O、log、amortized 等未解釋的成本符號；實際缺失是整套成本概念與推導未被陳述。",
+      "quotes": [
+        {
+          "language": "en",
+          "text": "The sorting call finishes before the loop begins."
+        },
+        {
+          "language": "en",
+          "text": "In Python, `sorted(intervals, key=lambda pair: pair[0])` returns a new outer list. The small function `lambda pair: pair[0]` takes one pair and returns its start; starts are the values used to order the pairs. The key function runs once per input pair."
+        },
+        {
+          "language": "zh-TW",
+          "text": "在 Python 中，`sorted(intervals, key=lambda pair: pair[0])` 會回傳一個新的外層 list。小函式 `lambda pair: pair[0]` 接收一個 pair，回傳它的 start；排序時用來決定先後的值就是這些 start。每個輸入 pair 只會呼叫一次 key function。"
+        },
+        {
+          "language": "en",
+          "text": "If it reaches any saved component, only the last one is a candidate. This removes the need to rescan the whole output after each interval."
+        },
+        {
+          "language": "zh-TW",
+          "text": "新 interval 若能碰到任何已存的 component，就只可能是最後一個。因此，不必在每讀一個 interval 後，重新掃描整份輸出。"
+        },
+        {
+          "language": "en",
+          "text": "A new outer list does not mean new inner pairs. Its entries still refer to the input pair objects. If the program saved one of those pairs directly and changed its end, the caller would see the change. Instead, `merged.append([start, end])` creates a fresh two-item list for each new component. The integers can be shared safely because the program never changes an integer object; it replaces an entry in an output pair. The input pairs are only read."
+        },
+        {
+          "language": "zh-TW",
+          "text": "外層 list 是新的，不代表內層 pair 也是新的。新 list 的 entry 仍指向輸入的 pair object。若程式直接保存其中一個 pair，再修改它的 end，呼叫端也會看見變更。因此，`merged.append([start, end])` 會為每個新 component 建立全新的雙元素 list。整數可以安全共享，因為程式不會修改 integer object，而是替換輸出 pair 中的一個 entry。輸入 pair 全程只被讀取。"
+        },
+        {
+          "language": "en",
+          "text": "`for start, end in ordered` reads a pair and binds its two values to the local names `start` and `end`. `merged[-1]` selects the last output pair; the following `[1]` selects that pair's end. Assigning to `merged[-1][1]` replaces that slot in the existing pair. It neither appends another component nor replaces the entire output list."
+        },
+        {
+          "language": "en",
+          "text": "The loop has consumed every pair. `return merged` returns `[[1,10],[12,14]]`; no final flush is required because the frontier has already lived in the output throughout the scan. The return value shares neither its outer list nor its inner pairs with the input."
+        },
+        {
+          "language": "zh-TW",
+          "text": "loop 已讀完所有 pair。`return merged` 回傳 `[[1,10],[12,14]]`；不需要最後再做一次 flush，因為掃描全程中，frontier 一直就在輸出裡。return value 的外層 list 與內層 pair 都不與輸入共享。"
+        },
+        {
+          "language": "en",
+          "text": "The loop terminates because it visits each element of a finite sorted list once."
+        },
+        {
+          "language": "zh-TW",
+          "text": "loop 會結束，因為它只會逐一走訪有限 sorted list 中的每個元素一次。"
+        },
+        {
+          "language": "en",
+          "text": "If a changed contract guarantees nondecreasing starts, remove the sorting call and scan that order directly. The same proof applies because its required ordering premise is now supplied by the caller."
+        },
+        {
+          "language": "zh-TW",
+          "text": "若改變後的 contract 保證 start 不遞減，就可以移除 sorting call，直接依該順序掃描。同一份 proof 仍成立，因為所需的順序前提現在由呼叫端提供。"
+        },
+        {
+          "language": "en",
+          "text": "This also permits streaming: keep just one pending `[left,right]` pair, extend it when intervals meet, and emit it when a strict gap appears. Emit the last pending pair when input ends. Emission means passing a completed pair to a consumer instead of keeping all completed pairs in a list."
+        },
+        {
+          "language": "zh-TW",
+          "text": "這也允許 streaming：只保留一個 pending `[left,right]` pair，相接時延伸它，出現嚴格 gap 時就 emit。輸入結束時，再 emit 最後一個 pending pair。emit 是把已完成的 pair 交給 consumer，而不是將全部已完成 pair 保存在 list 裡。"
+        },
+        {
+          "language": "en",
+          "text": "For arbitrary input under the original contract, sorting is the chosen alternative to repeatedly revisiting previously saved components. The cost of arranging intervals buys the ability to finish each component once."
+        },
+        {
+          "language": "zh-TW",
+          "text": "原始 contract 允許任意輸入順序，因此這裡選擇先 sorting，以免反覆回頭檢查已保存的 component。排列 interval 的成本，換來的是每個 component 只需定案一次。"
+        }
+      ],
+      "missing": true
+    }
+  ],
+  "unanswered_question_ids": ["cost"],
+  "bilingual_mismatches": [],
+  "limits": "僅閱讀指定 task.json 與兩份文章正文，未開連結、未讀來源或 repository、未使用外部成本知識、未執行文章程式。引文證明已陳述的操作與配置關係；缺失判斷限於這兩份完整正文。沒有獨立量測、學習效果觀察或文章品質評分。"
+}

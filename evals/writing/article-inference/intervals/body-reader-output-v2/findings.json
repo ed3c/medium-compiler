@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "role": "same body reader, complete v2 recheck",
+    "actual_CODEX_THREAD_ID": "01a15ce1-3e75-7a61-9b82-997618be952e",
+    "read_paths": [
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input-v2/task.json",
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input-v2/article.en.md",
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input-v2/article.zh-TW.md"
+    ],
+    "input_sha256": {
+      "task.json": "e2fdc85dae38b56355b4c680f58ddde072c5dec8fd3fca0f9159a4a4d610afb1",
+      "article.en.md": "db4f05d1d6bdd138dcd720bb1e88cc63c2343788f76fd68d810adb81ddd52e61",
+      "article.zh-TW.md": "dcd738c3b1fec9322249bd3a86c964ced76da4d59f9e1f895010e4bd97fda9e1"
+    },
+    "verdict": "PASS_BOUNDED",
+    "bounded_meaning": "在基本Python/list/arithmetic受眾與本文給定CPython實作性前提內，八題均能由公開正文重建，未留需修訂的語意/推導缺口。不是對外部CPython源碼的獨立真實性驗證，也不是人類理解或學習效果結論。",
+    "same_reader_not_second_independent_reader": true,
+    "original_evidence_preserved": "Original reader-input and body-reader-output were neither reread nor modified. First NEEDS_REVISION remains historical evidence.",
+    "reuse_policy": "Only judgments anchored by evidence objects marked judgment_reused_from_first_read=true were reused from first-read transcript for exactly unchanged public quotations. No old output files, source docs, author repair notes or expected answers read. All v2 bodies reread; changed memory and representation passages reconstructed anew.",
+    "scope": "Read only task.json and two complete v2 public bodies; an initial combined output was truncated, so missing English tail and Chinese opening were explicitly read again. No browsing, repository, other cases, old outputs, author review or answer-key reads. Exact v2 public code executed on a new legal input. Writes only body-reader-output-v2.",
+    "no_semantic_score": true,
+    "no_human_comprehension_claim": true
+  },
+  "findings": [],
+  "recheck_observations": [
+    {
+      "topic": "representation necessity",
+      "classification": "no_current_necessary_claim_failure",
+      "evidence": [
+        {
+          "article": "article.en.md",
+          "quote": "This adaptation keeps the shown implementation's fresh answer pairs, so its in-place endpoint updates cannot change the caller's pairs.",
+          "judgment_reused_from_first_read": false
+        }
+      ],
+      "reason": "Legal share-and-replace alternative remains possible, but current sentence correctly limits its causal claim to shown in-place-update implementation."
+    },
+    {
+      "topic": "sorting workspace bridge",
+      "classification": "body_entails_bounded_peak_accounting",
+      "evidence": [
+        {
+          "article": "article.en.md",
+          "quote": "Peak scratch storage therefore follows the largest individual merge, not the sum of all merges.",
+          "judgment_reused_from_first_read": false
+        },
+        {
+          "article": "article.en.md",
+          "quote": "The sort releases its dynamic key-reference array and merge buffer before the interval scan begins.",
+          "judgment_reused_from_first_read": false
+        }
+      ],
+      "reason": "n keys, <=n scratch, O(log n) fixed-size records, one-at-a-time buffer reuse and phase release now make the O(n) workspace and O(n+k) extra-peak argument reconstructible from body. Specific CPython mechanisms are article premises, not externally verified here."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "task": "最新兩篇完整英繁文章可直接建置網站，包含首頁與全站文章索引、各語言文內目錄、獨立網址與英繁切換；同步修正通用交付契約。更新原 PR 與 CI，不 merge、不部署，CI 不計算非必要 SHA-256。",
+  "contract": "Use the existing bilingual website handoff with the two supplied approved English and Traditional Chinese bodies. Do not rewrite those bodies. Provide and approve complete explicit article-list data for both articles and languages in index-entries.json. Public descriptions must follow body claims, not private review/learning assertions. Do not publish externally. The report fields record actual actions only, not semantic correctness."
+}

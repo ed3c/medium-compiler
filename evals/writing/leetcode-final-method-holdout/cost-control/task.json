@@ -1,0 +1,42 @@
+{
+  "audience": "Basic Python syntax, no prior data structures, algorithms, runtime internals or asymptotic complexity.",
+  "questions": [
+    {
+      "id": "cost",
+      "question": "Derive time and auxiliary/output space from actual operation frequencies, variables, allocations and qualified primitive costs. Cover the primary method and any alternative/reconstruction/output builder. Identify unexplained notation or new cost concepts in caveats as well as the main argument."
+    }
+  ],
+  "answer_rule": "Use only the supplied article text, not external sources, instructions, author reports, tests or prior knowledge. Every necessary relation needs exact supporting quotations, with language. Mark NOT_STATED at a missing premise/transition rather than inventing an explanation. Reconstruction is not a quality grade or human-learning observation.",
+  "output_schema": {
+    "answers": [
+      {
+        "id": "question id",
+        "answer": "article-grounded reconstruction or NOT_STATED",
+        "quotes": [
+          {
+            "language": "en or zh-TW",
+            "text": "exact contiguous source passage"
+          }
+        ],
+        "missing": "boolean"
+      }
+    ],
+    "unanswered_question_ids": [
+      "ids with missing=true"
+    ],
+    "bilingual_mismatches": [
+      {
+        "claim": "material mismatch",
+        "en_quote": "exact passage or empty for omission",
+        "zh_quote": "exact passage or empty for omission",
+        "reason": "specific discrepancy"
+      }
+    ],
+    "limits": "actual limitations"
+  },
+  "articles": [
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-final-holdout-m22zvsha/reader-cost-control/article.en.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-final-holdout-m22zvsha/reader-cost-control/article.zh-TW.md"
+  ],
+  "output_file": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-final-holdout-m22zvsha/reader-cost-control/output.json"
+}

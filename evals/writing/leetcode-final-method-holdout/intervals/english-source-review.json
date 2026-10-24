@@ -1,0 +1,26 @@
+{
+  "reviewed_at_utc": "2026-10-20T17:46:09.003423+00:00",
+  "edition": "article.en.md",
+  "sha256": "8b1a532a3324a1db795786f4a8831038be9d562df9de81fe9c9a116130ffdf76",
+  "translation_started": false,
+  "source_review": "AUTHOR_REVIEWED",
+  "checks": [
+    "LeetCode: 1..10000 pairs, exactly 2 endpoints, 0 <= start <= end <= 10000; touching intervals overlap; original order unrestricted.",
+    "Sorted frontier proof reviewed: prefix union, strict gaps, no future start can bridge a completed gap; max handles nesting.",
+    "Python 3.14 docs: sorted returns new list, key once per input, stable equal-key order; list append mutates and returns None; sort mutates and returns None; empty list false and or short-circuits.",
+    "CPython v3.14.0: list_resize proportional spare capacity and amortized sequence; list_sort_impl key allocation; listsort adaptive mergesort and temporary storage. Implementation explanation distinguished from conceptual rounds.",
+    "Code, all Program Movie operands, final output, strict > test, preservation of input and fresh output pairs checked against each other.",
+    "Worst-case time and peak space derivation reviewed; bounded endpoints justify primitive-cost assumption; already-sorted streaming condition and final flush reviewed.",
+    "Reader supplement applied sentence by sentence: preserved operation-to-state bridges, derivations, counterexample, proof, and distinct interview recall. No unsupported writer narration, invented provenance or process receipts in article.",
+    "Detector clean: targeted additionally -> also; removed question boldface. Retained represents as accurate technical state meaning rather than changing its claim to satisfy a copula heuristic."
+  ],
+  "source_urls": [
+    "https://leetcode.com/problems/merge-intervals/",
+    "https://docs.python.org/3.14/library/functions.html#sorted",
+    "https://docs.python.org/3.14/howto/sorting.html#key-functions",
+    "https://docs.python.org/3.14/tutorial/datastructures.html#more-on-lists",
+    "https://docs.python.org/3.14/library/stdtypes.html#boolean-operations-and-or-not",
+    "https://github.com/python/cpython/blob/v3.14.0/Objects/listobject.c",
+    "https://github.com/python/cpython/blob/v3.14.0/Objects/listsort.txt"
+  ]
+}

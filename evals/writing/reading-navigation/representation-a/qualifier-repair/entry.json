@@ -1,0 +1,12 @@
+{
+  "acceptance_unit": "complete A paragraph annotation",
+  "prior_A_result": "FAIL: Water p22 example promoted to exclusivity",
+  "old_history": "/tmp/speed-reading-consumer-q1g_3oyz",
+  "first_A_history": "/tmp/speed-reading-representation-a-nry0uv4b",
+  "CODEX_THREAD_ID": "01a15c6d-4226-7933-bb98-04856e3817ce",
+  "actual_reads": [
+    "current speed-reading SKILL.md",
+    "full first-A Reader report.md and findings.json"
+  ],
+  "learner": "NOT_OBSERVED"
+}

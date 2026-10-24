@@ -1,0 +1,7 @@
+{
+  "verdict": "PASS_BOUNDED",
+  "CODEX_THREAD_ID": "01a15cf2-b81e-7323-81ac-2a924a125df0",
+  "finding_count": 0,
+  "findings": [],
+  "boundary": "No material missing condition, unsupported stronger inference, wrong merge mechanism, or unclosed cost premise found in the 46 complete annotations against the supplied body arguments. External-source truth and user learning are outside this bounded review."
+}

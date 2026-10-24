@@ -1,0 +1,16 @@
+{
+  "temperatures": {
+    "all_fenced_blocks_identical": true,
+    "fenced_blocks": 2,
+    "source_url_sequence_identical": true,
+    "source_link_occurrences": 5,
+    "english_interview_preserved_exactly": true
+  },
+  "subsets": {
+    "all_fenced_blocks_identical": true,
+    "fenced_blocks": 3,
+    "source_url_sequence_identical": true,
+    "source_link_occurrences": 7,
+    "english_interview_preserved_exactly": true
+  }
+}

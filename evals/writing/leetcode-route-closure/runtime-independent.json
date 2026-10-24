@@ -1,0 +1,46 @@
+{
+  "temperatures": [
+    {
+      "code_index": 0,
+      "entry": "daily_temperatures_scan",
+      "checks": 3285,
+      "passed": 3285,
+      "failures": [],
+      "bilingual_solution_identical": true
+    },
+    {
+      "code_index": 1,
+      "entry": "Solution",
+      "checks": 3288,
+      "passed": 3288,
+      "failures": [],
+      "bilingual_solution_identical": true
+    }
+  ],
+  "subsets": [
+    {
+      "code_index": 0,
+      "entry": "Solution",
+      "checks": 330,
+      "passed": 330,
+      "failures": [],
+      "bilingual_solution_identical": true
+    },
+    {
+      "code_index": 1,
+      "entry": "subsets_iterative",
+      "checks": 330,
+      "passed": 330,
+      "failures": [],
+      "bilingual_solution_identical": true
+    },
+    {
+      "code_index": 2,
+      "entry": "subsets_of_size",
+      "checks": 1647,
+      "passed": 1647,
+      "failures": [],
+      "bilingual_solution_identical": true
+    }
+  ]
+}

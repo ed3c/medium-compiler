@@ -1,0 +1,50 @@
+{
+  "literal_checks": [
+    {
+      "source": "leetcode-11-container-with-most-water",
+      "paragraph_index": 22,
+      "complete_english_equal_to_source": true,
+      "complete_zh_equal_to_source": true,
+      "all_support_quotes_found_in_bound_paragraph": true,
+      "checkpoint_null_reason": "Descriptive language/container behavior and sequence-cost analysis; no loop-state observation is asserted."
+    },
+    {
+      "source": "leetcode-207-course-schedule",
+      "paragraph_index": 26,
+      "complete_english_equal_to_source": true,
+      "complete_zh_equal_to_source": true,
+      "all_support_quotes_found_in_bound_paragraph": true,
+      "checkpoint_null_reason": "Descriptive language/container behavior and sequence-cost analysis; no loop-state observation is asserted."
+    }
+  ],
+  "source_bodies_equal_initial_reads": true,
+  "semantic_quality_claim": null,
+  "pronunciation_evidence": "NOT_AVAILABLE_WITHIN_ALLOWLIST; plain-word fallback",
+  "chunk_evidence": "NOT_CHECKED; plain-English fallback",
+  "missing_source_identity": "Git blob and manifest deliberately not accessed; binding remains for original producer/alg-four",
+  "scope_review_notes": [
+    {
+      "source": "leetcode-11-container-with-most-water",
+      "paragraph_index": 22,
+      "risk_considered": "Turning the stated item-assignment mechanism into an exclusive or necessary list-write mechanism.",
+      "draft_choice": "Keep the positive item-target statement and explicitly avoid its unsupported converse. No claim that all mutations require item assignment.",
+      "checkpoint_choice": "No temporal invariant is being projected."
+    },
+    {
+      "source": "leetcode-207-course-schedule",
+      "paragraph_index": 26,
+      "risk_considered": "Changing may-copy growth into always-copy growth, or treating amortized constant time as constant work for every append.",
+      "draft_choice": "Retain may, bind cost model p23 and full charging argument plus append-only restriction p27 for the aggregate statement. Changed operation mix is outside this argument, not automatically a counterexample.",
+      "checkpoint_choice": "No live loop state is claimed; append-only operation restriction is a premise rather than an invented observation checkpoint."
+    }
+  ],
+  "failures": [
+    {
+      "stage": "instruction tool display",
+      "description": "Combined instruction display was truncated. The lesson-contract and article-content-profile were reread individually in full."
+    }
+  ],
+  "learner_response": "NOT_OBSERVED",
+  "external_pronunciation_lookup": "NOT_RUN",
+  "external_publication": "NOT_RUN"
+}

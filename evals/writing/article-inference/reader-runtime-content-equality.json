@@ -1,0 +1,30 @@
+[
+  {
+    "case": "koko",
+    "language": "en",
+    "body_html_equal": true,
+    "complete_annotations_equal": true,
+    "annotation_count": 35
+  },
+  {
+    "case": "koko",
+    "language": "zh-TW",
+    "body_html_equal": true,
+    "complete_annotations_equal": true,
+    "annotation_count": 35
+  },
+  {
+    "case": "intervals",
+    "language": "en",
+    "body_html_equal": true,
+    "complete_annotations_equal": true,
+    "annotation_count": 46
+  },
+  {
+    "case": "intervals",
+    "language": "zh-TW",
+    "body_html_equal": true,
+    "complete_annotations_equal": true,
+    "annotation_count": 46
+  }
+]

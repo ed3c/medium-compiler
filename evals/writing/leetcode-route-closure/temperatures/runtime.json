@@ -1,0 +1,180 @@
+{
+  "runtime": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "implementation": "CPython",
+  "executed": true,
+  "unexpected_failures": [],
+  "negative_controls": [
+    {
+      "variant": "wrong-strictness",
+      "input": [
+        70,
+        70
+      ],
+      "expected_under_original_statement": [
+        0,
+        0
+      ],
+      "observed_wrong_output": [
+        1,
+        0
+      ],
+      "mismatch_expected": true
+    },
+    {
+      "variant": "wrong-single-if",
+      "input": [
+        71,
+        70,
+        72
+      ],
+      "expected_under_original_statement": [
+        2,
+        1,
+        0
+      ],
+      "observed_wrong_output": [
+        0,
+        1,
+        0
+      ],
+      "mismatch_expected": true
+    }
+  ],
+  "extraction": {
+    "complete_solutions": 2,
+    "pivot": "explicit prose-directed comparison substitution; not a third complete article code block"
+  },
+  "literal_cases": 12,
+  "exhaustive": {
+    "alphabet": [
+      30,
+      31,
+      32
+    ],
+    "lengths": [
+      1,
+      8
+    ],
+    "inputs": 9840,
+    "methods_checked": [
+      "scan",
+      "stack",
+      "warmer-or-equal adaptation"
+    ]
+  },
+  "boundaries": [
+    {
+      "case": "maximum-length equal minimum",
+      "n": 100000,
+      "passed": true,
+      "seconds": 0.006494916044175625
+    },
+    {
+      "case": "maximum-length equal maximum",
+      "n": 100000,
+      "passed": true,
+      "seconds": 0.0060276249423623085
+    },
+    {
+      "case": "maximum-length mass pop",
+      "n": 100000,
+      "passed": true,
+      "seconds": 0.011676041409373283
+    },
+    {
+      "case": "maximum-length alternating endpoints",
+      "n": 100000,
+      "passed": true,
+      "seconds": 0.007252000272274017
+    },
+    {
+      "case": "maximum-length bounded increasing cycles",
+      "n": 100000,
+      "passed": true,
+      "seconds": 0.008958624675869942
+    },
+    {
+      "case": "full-range descending",
+      "n": 71,
+      "passed": true,
+      "seconds": 8.041970431804657e-06
+    },
+    {
+      "case": "full-range ascending",
+      "n": 71,
+      "passed": true,
+      "seconds": 6.583984941244125e-06
+    }
+  ],
+  "program_movie_events": [
+    {
+      "action": "append",
+      "index": 0,
+      "after": [
+        0
+      ]
+    },
+    {
+      "action": "append",
+      "index": 1,
+      "after": [
+        0,
+        1
+      ]
+    },
+    {
+      "action": "append",
+      "index": 2,
+      "after": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "action": "pop",
+      "returned": 2,
+      "after": [
+        0,
+        1
+      ]
+    },
+    {
+      "action": "pop",
+      "returned": 1,
+      "after": [
+        0
+      ]
+    },
+    {
+      "action": "pop",
+      "returned": 0,
+      "after": []
+    },
+    {
+      "action": "append",
+      "index": 3,
+      "after": [
+        3
+      ]
+    },
+    {
+      "action": "append",
+      "index": 4,
+      "after": [
+        3,
+        4
+      ]
+    }
+  ],
+  "observed_mass_pop": {
+    "n": 100000,
+    "appends": 100000,
+    "pops": 99999,
+    "maximum_pending": 99999,
+    "qualification": "observer subclass substituted only for empty pending list; primary tests run exact extracted code"
+  },
+  "bilingual_code_identical": true,
+  "out_of_contract": "Empty input, temperatures outside 30..100, and n >100000 are not required and were not treated as statement cases.",
+  "elapsed_seconds": 0.1566292499192059
+}

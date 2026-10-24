@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l/writers/subsets/verify.py", line 131, in <module>
+    assert normalized(bad) == {(), (2,)}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

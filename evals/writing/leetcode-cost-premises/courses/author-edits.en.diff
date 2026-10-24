@@ -1,0 +1,29 @@
+--- first
++++ author-final
+@@ -3 +3 @@
+-Suppose course 3 requires both course 1 and course 2. Finishing course 1 helps, but course 3 is still unavailable. A solution must remember how many requirements remain, then notice the moment that number becomes zero. That observation leads to an algorithm that either constructs a legal completion sequence or explains why progress has stopped.
++Suppose course 3 requires both course 1 and course 2. Finishing course 1 helps, but course 3 is still unavailable. A solution must remember how many requirements remain, then notice the moment that number becomes zero.
+@@ -15 +15 @@
+-## Retain a count and the courses it can unlock
++## Retain a count and the courses it can release
+@@ -38 +38 @@
+-Course 4 is independent. Course 0 unlocks 1 and 2; both must finish before 3. Reading the pairs in their listed order produces:
++Course 4 is independent. Course 0 releases 1 and 2; both must finish before 3. Reading the pairs in their listed order produces:
+@@ -49 +49 @@
+-The next removal returns 4, leaving `[1, 2]`; `finished` becomes 2. Its dependent list is empty, so no count changes. An isolated course contributes a completion even though it unlocks nothing.
++The next removal returns 4, leaving `[1, 2]`; `finished` becomes 2. Its dependent list is empty, so no count changes. An isolated course contributes a completion even though it releases nothing.
+@@ -55 +55 @@
+-For a rejection, use `numCourses = 3` and `[[1, 0], [0, 1]]`. Initial counts are `[1, 1, 0]`, and only course 2 enters the queue. It finishes without unlocking anything. The empty queue now accompanies `finished = 1`, so the comparison with 3 returns `False`. Having one available course was insufficient: a different component still contains a cycle.
++For a rejection, use `numCourses = 3` and `[[1, 0], [0, 1]]`. Initial counts are `[1, 1, 0]`, and only course 2 enters the queue. It finishes without releasing anything. The empty queue now accompanies `finished = 1`, so the comparison with 3 returns `False`. Having one available course was insufficient: a different component still contains a cycle.
+@@ -129 +129 @@
+-**Why use indegree?** "It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero."
++Why use indegree? "It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero."
+@@ -131 +131 @@
+-**Why can each edge be handled once?** "I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation."
++Why can each edge be handled once? "I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation."
+@@ -133 +133 @@
+-**Why does an empty queue sometimes mean failure?** "If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle."
++Why does an empty queue sometimes mean failure? "If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle."
+@@ -135 +135 @@
+-**What are the bounds?** "Construction and traversal take `O(V + E)` time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use `O(V + E)` auxiliary space. The result is one Boolean."
++What are the bounds? "Construction and traversal take `O(V + E)` time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use `O(V + E)` auxiliary space. The result is one Boolean."

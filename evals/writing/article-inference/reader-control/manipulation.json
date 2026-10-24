@@ -1,0 +1,7 @@
+{
+  "kind": "planted omission control, not a natural writer failure",
+  "source": "koko/reader-input/article.en.md",
+  "removed_exact_paragraph": "The lower middle splits an interval into a lower group including `mid` and an upper group excluding it. With an even number `L` of candidates, each group has `L / 2` members; with an odd `L`, the lower group has one more member than the upper. Success keeps the lower group and failure keeps the upper, so either update leaves at most `ceil(L / 2)` candidates. For example, an initial `M = 11` gives worst-case size bounds `11 -> 6 -> 3 -> 2 -> 1`. After `t` halvings, at most `ceil(M / 2^t)` candidates remain. It suffices for `2^t` to reach `M`; `ceil(log2 M)` is the smallest such whole number of halvings. Thus the total work is at most a constant times `n + n * ceil(log2 M)`, written `O(n * (1 + log M))`. For `M >= 2`, the common shorthand is `O(n log M)`. Keeping the initial `n` term explains the `M = 1` case too. Since `2^30 > 10^9`, the stated limits need at most thirty proposed-speed scans.",
+  "expected_sensitivity": "Reader identifies absence of explained logarithmic scan-count bridge; no expected value or removal location supplied to Reader",
+  "scope": "English-only to prevent original Chinese edition supplying the deliberately omitted bridge"
+}

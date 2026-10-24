@@ -7,6 +7,9 @@
 帳號維持 Workers Free、
 Zero Trust Free；不新增 R2、Containers、付費 Load Balancer 或 Workers Paid。
 這是 US$0 約束下的實驗部署，不是持續大流量付款服務的容量承諾。
+這項 Host 選擇不代表每次文章更新都要發布；後續更新預設先交付本機預覽，依
+[共用本機預覽契約](../writing-contract.md#article-updates-local-preview-before-deployment)
+區分本機檢視、本次發布授權與遠端效果。
 
 | 方案 | 網站成本／限制 | 付款測試 | 選擇 |
 | --- | --- | --- | --- |
@@ -57,13 +60,31 @@ US$0.40/million operations。DO requests、duration、SQL、其他帳戶使用�
 
 ## 部署與來源
 
+### 先在本機預覽
+
 ```sh
 npm ci --ignore-scripts
-npm run build:cloudflare:full
+npm run build:cloudflare:full -- --no-deployment-manifest
 python3 -m unittest discover -s tests -p test_cloudflare_full_site.py -v
 npm run test:site:full
 npx --no-install wrangler deploy --dry-run --config wrangler.full-site.jsonc
-# 在帳號、Workers Free、現有用量與匹配 HEAD 的 PR／CI／main 均讀回後：
+python3 -m http.server 0 --bind 127.0.0.1 --directory dist
+```
+
+從 server 輸出讀取真實 port，開啟 localhost 的文章列表與本次文章，實際檢查正文、
+目錄、英繁切換及受影響註解／版面，提供使用者預覽 URL 與觀察。靜態 HTTP server
+不驗證 API；API 沿原 workerd controls。dry-run、CI 或遠端 Preview 也不代替本機畫面。
+沒有本次部署要求就停在此處；使用者要求先看時，不能把 Agent 已開啟當成其已確認。
+
+### 僅於本次明確授權後發布
+
+本機檢視完成，且本次更新包含發布後，才續行原 PR／matching-head CI／main 與 Provider
+流程。推送或合併前先讀回 Git trigger，因為它們可能直接建立遠端 deployment；不靠
+推送來取得本機預覽。帳號、Workers Free、用量與所選版本仍須依原要求讀回。
+
+```sh
+# 正式部署才產生遠端逐檔 readback 使用的 manifest。
+npm run build:cloudflare:full
 npm run deploy:cloudflare:full -- --message 'Source <verified main SHA>'
 npx --no-install wrangler deployments list --config wrangler.full-site.jsonc
 # URL 必須採用 Wrangler／Provider 實際回傳，不自行猜測 canonical origin。
@@ -75,6 +96,10 @@ python3 tests/browser_e2e_alg_four.py --url <provider URL> --out <external brows
 要求乾淨且 revision 相同的本機 build，再逐檔讀回 HTTP bytes、MIME、主要路由、
 Lab isolation headers 與 API 拒絕。Manifest 不包含自身 digest，也不是 Provider version
 證明；active version 仍由 Wrangler 另讀。部署前先確認 `git status --short` 為空。
+文章／Browser CI 使用 `npm run build:cloudflare:full -- --no-deployment-manifest`，
+不計算部署專用的全站資產 SHA-256。來源鎖定與 compiler receipt 保留原本實際消費的
+完整性檢查；品質驗收檢查文章推導與實際 Reader 回答，不以 digest 數量代替。
+本機正式部署仍使用預設 build，產生供遠端逐檔讀回使用的 manifest。
 相容日沿用共用 API 的 `2026-10-11`：pinned Wrangler 4.149.0 的本機 workerd
 最高支援 `2026-10-13`，不能將今天日期寫入後只用 dry-run 宣稱 runtime 可用。
 
@@ -123,11 +148,17 @@ PITR Bookmark 不等於 Restore。既有 DR 演練的版本與單一 RTO observa
 
 ## Native Git 自動部署契約
 
+以下是既有整合的配置邊界，不是每次文章更新的執行指令。先遵循上面的本機檢視與
+本次發布授權，再進行會觸發 Git builds 的 push／merge；不為一般文章預覽改動整合。
+
 官方 Cloudflare Workers and Pages GitHub App 只選 `ed3c/medium-compiler`。
 兩個既有 Worker 都選 production `main`、repository root `/`、Preview builds 關閉。
-Public Lab build command 為 `npm run build:cloudflare`，deploy 為 `npx wrangler deploy`。
+為保留「合併文章但不發布」的範圍，兩個 trigger 的 deploy command 使用 `--dry-run`；
+main 更新仍可建置檢查，但不 upload、建立新版本或改動 active deployment。
+Public Lab build command 為 `npm run build:cloudflare`，deploy 為 `npx wrangler deploy --dry-run`。
 Remote build command 為 `node --experimental-sqlite --test tests/cloudflare_interface.test.mjs`，
-deploy 為 `npx wrangler deploy --config examples/cloudflare-checkout-sandbox/wrangler.jsonc`。
+deploy 為 `npx wrangler deploy --config examples/cloudflare-checkout-sandbox/wrangler.jsonc --dry-run`。
+授權正式發布時另走原 Provider 路徑；不要因合併完成就自動移除 dry-run 防護。
 沿用既有 Queue、DO migration 和 Access Policy，不建立 preview bindings 或第二個 Scheduler。
 沿用單一 `medium-compiler Git Builds` user token，限定目前帳號的 Workers Scripts
 Edit、Queues Edit、Account Settings Read；不使用預設 R2／Containers 等廣泛權限。

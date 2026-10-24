@@ -1,0 +1,546 @@
+{
+  "files": [
+    {
+      "name": "water.zh.html",
+      "exact_bytes_unchanged": false,
+      "old_chars": 123925,
+      "new_chars": 123977
+    },
+    {
+      "name": "water.en.html",
+      "exact_bytes_unchanged": false,
+      "old_chars": 131991,
+      "new_chars": 132043
+    },
+    {
+      "name": "course.zh.html",
+      "exact_bytes_unchanged": false,
+      "old_chars": 136780,
+      "new_chars": 136857
+    },
+    {
+      "name": "course.en.html",
+      "exact_bytes_unchanged": false,
+      "old_chars": 144933,
+      "new_chars": 145010
+    },
+    {
+      "name": "leetcode-11-container-with-most-water.md",
+      "exact_bytes_unchanged": true,
+      "old_chars": 8827,
+      "new_chars": 8827
+    },
+    {
+      "name": "leetcode-11-container-with-most-water.en.md",
+      "exact_bytes_unchanged": true,
+      "old_chars": 16265,
+      "new_chars": 16265
+    },
+    {
+      "name": "leetcode-207-course-schedule.md",
+      "exact_bytes_unchanged": true,
+      "old_chars": 11208,
+      "new_chars": 11208
+    },
+    {
+      "name": "leetcode-207-course-schedule.en.md",
+      "exact_bytes_unchanged": true,
+      "old_chars": 18893,
+      "new_chars": 18893
+    }
+  ],
+  "annotation_changes": [
+    {
+      "page": "water.zh.html",
+      "index": 22,
+      "old": {
+        "index": 22,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Python reads and bindings preserve the input",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Reading height[left] retrieves an element /without removing it. //Assigning that value /to left_height binds a [local name]; //it does not copy the list. //Python integers are immutable: //left += 1 computes an integer value and rebinds left, /rather than changing an integer /stored inside height. //An assignment /targeting an item /such as height[left] would write that item; //no such assignment occurs here. //The input remains available /to the caller. //Python assignments, [numeric types].",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：height[left] 是讀元素，left_height 是 local name；immutable integer 的 left+=1 重新綁定 local，不是寫進 height 的 item。只有 item assignment 才是另一種操作。 第 23 段",
+            "links": [
+              "#alg-p-22"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Which reads and bindings leave the input list intact?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Does left += 1 mutate an integer inside the input list?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "No; it computes an integer value and rebinds the local name left.",
+            "links": []
+          }
+        ],
+        "active": [
+          "immutablePython integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height."
+        ]
+      },
+      "new": {
+        "index": 22,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Python reads and bindings preserve the input",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "此實作讀取 height[left]、綁定 locals，並以 left += 1 重新綁定 immutable integer，不修改 input list；item assignment 會寫入 item，但這裡沒有這種 assignment。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Reading height[left] retrieves an element /without removing it. //Assigning that value /to left_height binds a [local name]; //it does not copy the list. //Python integers are immutable: //left += 1 computes an integer value and rebinds left, /rather than changing an integer /stored inside height. //An assignment /targeting an item /such as height[left] would write that item; //no such assignment occurs here. //The input remains available /to the caller. //Python assignments, [numeric types].",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：這裡談的是原程式的操作：height[left] 讀元素，綁定 left_height 或重新綁定 integer left 不會寫入 input list。item assignment 是來源舉出的寫入例子，且原程式沒有這種 assignment；來源並未把它定義成所有 list mutation 的必要條件。 第 23 段",
+            "links": [
+              "#alg-p-22"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Which reads and bindings leave the input list intact?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Does left += 1 mutate an integer inside the input list?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "No; it computes an integer value and rebinds the local name left.",
+            "links": []
+          }
+        ],
+        "active": [
+          "immutablePython integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height."
+        ]
+      }
+    },
+    {
+      "page": "water.en.html",
+      "index": 22,
+      "old": {
+        "index": 22,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Python reads and bindings preserve the input",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Reading height[left] retrieves an element /without removing it. //Assigning that value /to left_height binds a [local name]; //it does not copy the list. //Python integers are immutable: //left += 1 computes an integer value and rebinds left, /rather than changing an integer /stored inside height. //An assignment /targeting an item /such as height[left] would write that item; //no such assignment occurs here. //The input remains available /to the caller. //Python assignments, [numeric types].",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：height[left] 是讀元素，left_height 是 local name；immutable integer 的 left+=1 重新綁定 local，不是寫進 height 的 item。只有 item assignment 才是另一種操作。 第 23 段",
+            "links": [
+              "#alg-p-22"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Which reads and bindings leave the input list intact?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Does left += 1 mutate an integer inside the input list?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "No; it computes an integer value and rebinds the local name left.",
+            "links": []
+          }
+        ],
+        "active": [
+          "immutablePython integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height."
+        ]
+      },
+      "new": {
+        "index": 22,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Python reads and bindings preserve the input",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "此實作讀取 height[left]、綁定 locals，並以 left += 1 重新綁定 immutable integer，不修改 input list；item assignment 會寫入 item，但這裡沒有這種 assignment。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Reading height[left] retrieves an element /without removing it. //Assigning that value /to left_height binds a [local name]; //it does not copy the list. //Python integers are immutable: //left += 1 computes an integer value and rebinds left, /rather than changing an integer /stored inside height. //An assignment /targeting an item /such as height[left] would write that item; //no such assignment occurs here. //The input remains available /to the caller. //Python assignments, [numeric types].",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：這裡談的是原程式的操作：height[left] 讀元素，綁定 left_height 或重新綁定 integer left 不會寫入 input list。item assignment 是來源舉出的寫入例子，且原程式沒有這種 assignment；來源並未把它定義成所有 list mutation 的必要條件。 第 23 段",
+            "links": [
+              "#alg-p-22"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Which reads and bindings leave the input list intact?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Does left += 1 mutate an integer inside the input list?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "No; it computes an integer value and rebinds the local name left.",
+            "links": []
+          }
+        ],
+        "active": [
+          "immutablePython integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height."
+        ]
+      }
+    },
+    {
+      "page": "course.zh.html",
+      "index": 7,
+      "old": {
+        "index": 7,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Independent mutable lists and immutable counters",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "每次求值 [] 才有獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Use after = [[] for _ in range(numCourses)]. //Evaluating [] /separately for each course makes [independent inner lists]. //Writing [[]] * numCourses would repeat references /to one shared list: //adding a dependent /for course 0 would also appear to add it /for every other course. //In contrast, [0] * numCourses is safe here. //Integers are immutable, //and remaining[a] += 1 replaces the value /in slot a; //it does not mutate a shared zero. //Python's [sequence operations] distinguish [repetition of references] /from copying their objects.",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：每次各自求值 [] 才得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：[0]*V 的零是 immutable，remaining[a]+=1 替換的是單一 slot；因此不能用「list repetition 一律安全／一律不安全」取代對 object 與 mutation 的區別。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Why do repeated list references differ from repeated integer zeros?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Why does [[]] * numCourses break adjacency storage?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+            "links": []
+          }
+        ],
+        "active": [
+          "shared listEvaluating [] separately for each course makes independent inner lists."
+        ]
+      },
+      "new": {
+        "index": 7,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Independent mutable lists and immutable counters",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "此 comprehension 對每門課分別求值 []，會產生獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Use after = [[] for _ in range(numCourses)]. //Evaluating [] /separately for each course makes [independent inner lists]. //Writing [[]] * numCourses would repeat references /to one shared list: //adding a dependent /for course 0 would also appear to add it /for every other course. //In contrast, [0] * numCourses is safe here. //Integers are immutable, //and remaining[a] += 1 replaces the value /in slot a; //it does not mutate a shared zero. //Python's [sequence operations] distinguish [repetition of references] /from copying their objects.",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：此 comprehension 對每門課分別求值 []，因此各自得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。這說明來源做法的效果，並非宣稱只有 [] 語法能建立獨立 lists。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：[0]*V 的零是 immutable，remaining[a]+=1 替換的是單一 slot；因此不能用「list repetition 一律安全／一律不安全」取代對 object 與 mutation 的區別。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Why do repeated list references differ from repeated integer zeros?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Why does [[]] * numCourses break adjacency storage?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+            "links": []
+          }
+        ],
+        "active": [
+          "shared listEvaluating [] separately for each course makes independent inner lists."
+        ]
+      }
+    },
+    {
+      "page": "course.en.html",
+      "index": 7,
+      "old": {
+        "index": 7,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Independent mutable lists and immutable counters",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "每次求值 [] 才有獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Use after = [[] for _ in range(numCourses)]. //Evaluating [] /separately for each course makes [independent inner lists]. //Writing [[]] * numCourses would repeat references /to one shared list: //adding a dependent /for course 0 would also appear to add it /for every other course. //In contrast, [0] * numCourses is safe here. //Integers are immutable, //and remaining[a] += 1 replaces the value /in slot a; //it does not mutate a shared zero. //Python's [sequence operations] distinguish [repetition of references] /from copying their objects.",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：每次各自求值 [] 才得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：[0]*V 的零是 immutable，remaining[a]+=1 替換的是單一 slot；因此不能用「list repetition 一律安全／一律不安全」取代對 object 與 mutation 的區別。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Why do repeated list references differ from repeated integer zeros?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Why does [[]] * numCourses break adjacency storage?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+            "links": []
+          }
+        ],
+        "active": [
+          "shared listEvaluating [] separately for each course makes independent inner lists."
+        ]
+      },
+      "new": {
+        "index": 7,
+        "role": "PASSIVE_AND_ACTIVE",
+        "rows": [
+          {
+            "class": "alg-four-label",
+            "text": "Passive + Active · Independent mutable lists and immutable counters",
+            "links": []
+          },
+          {
+            "class": "alg-four-zh",
+            "text": "此 comprehension 對每門課分別求值 []，會產生獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+            "links": []
+          },
+          {
+            "class": "alg-reading-label",
+            "text": "Passive · 【極速流暢標註文本】",
+            "links": []
+          },
+          {
+            "class": "alg-reading-text",
+            "text": "Use after = [[] for _ in range(numCourses)]. //Evaluating [] /separately for each course makes [independent inner lists]. //Writing [[]] * numCourses would repeat references /to one shared list: //adding a dependent /for course 0 would also appear to add it /for every other course. //In contrast, [0] * numCourses is safe here. //Integers are immutable, //and remaining[a] += 1 replaces the value /in slot a; //it does not mutate a shared zero. //Python's [sequence operations] distinguish [repetition of references] /from copying their objects.",
+            "links": []
+          },
+          {
+            "class": "alg-source-explain",
+            "text": "衍生閱讀示例，並非改寫左側原文；重音只標記已核對的字詞。",
+            "links": []
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：此 comprehension 對每門課分別求值 []，因此各自得到 independent inner lists；list repetition 只重複 references，共用 list 的 mutation 會讓其他 course 也看似多一門 dependent。這說明來源做法的效果，並非宣稱只有 [] 語法能建立獨立 lists。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-premise",
+            "text": "適用前提：[0]*V 的零是 immutable，remaining[a]+=1 替換的是單一 slot；因此不能用「list repetition 一律安全／一律不安全」取代對 object 與 mutation 的區別。 第 8 段",
+            "links": [
+              "#alg-p-7"
+            ]
+          },
+          {
+            "class": "alg-skeleton",
+            "text": "閱讀提示（非獨立結論）：Why do repeated list references differ from repeated integer zeros?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "Why does [[]] * numCourses break adjacency storage?",
+            "links": []
+          },
+          {
+            "class": "",
+            "text": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+            "links": []
+          }
+        ],
+        "active": [
+          "shared listEvaluating [] separately for each course makes independent inner lists."
+        ]
+      }
+    }
+  ]
+}

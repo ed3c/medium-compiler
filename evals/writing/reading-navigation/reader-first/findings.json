@@ -1,0 +1,75 @@
+[
+  {
+    "id": "R1",
+    "status": "INCOMPLETE",
+    "source": "articles/leetcode-11-container-with-most-water.en.md",
+    "paragraph_index": 12,
+    "original_skeleton": "Nonnegative heights and smaller width → bound → every retained-left candidate.",
+    "source_quotes": [
+      {
+        "paragraph_index": 11,
+        "quote": "Suppose height[left] <= height[right]."
+      },
+      {
+        "paragraph_index": 11,
+        "quote": "Its width k - left is smaller, and its water height cannot exceed height[left], even if the new wall is much taller. Because heights are nonnegative,"
+      },
+      {
+        "paragraph_index": 12,
+        "quote": "area(left, k) <= (k - left) * height[left] <= (right - left) * height[left]."
+      }
+    ],
+    "finding": "骨架留下 nonnegative 與 smaller width，卻沒有保留這是 shorter-left 分支。原式最後一項之所以是已量到的 endpoint area，依賴 height[left] <= height[right]。省略它後，骨架只說 retained-left candidate 受界，沒有交代是以哪個已記錄值作界；若按章節用途反向展開為「每個較窄的 retained-left pair 都不超過剛量的 endpoint area」，條件就不足。",
+    "source_bound_countercheck": "P14 明寫 right 較短時要保留 right 作同一個界並減少 right；P15 的 taller-wall 反例證明不能把任一端點當成可排除端點。這裡不以正文前段默補被骨架省去的必要條件。"
+  },
+  {
+    "id": "R2",
+    "status": "FAIL",
+    "source": "articles/leetcode-11-container-with-most-water.en.md",
+    "paragraph_index": 13,
+    "original_skeleton": "The recorded endpoint area → bounds → every remaining candidate involving left.",
+    "source_quotes": [
+      {
+        "paragraph_index": 11,
+        "quote": "Suppose height[left] <= height[right]."
+      },
+      {
+        "paragraph_index": 13,
+        "quote": "So no such pair can beat the endpoint area we already recorded."
+      },
+      {
+        "paragraph_index": 13,
+        "quote": "Every remaining candidate involving left can be discarded together by increasing left by one."
+      },
+      {
+        "paragraph_index": 15,
+        "quote": "Always moving the taller wall lacks that proof."
+      }
+    ],
+    "finding": "骨架把帶有 such pair 前文限定的結論，改成 recorded endpoint area 對所有 remaining candidate involving left 的無條件界。left 必須是較短或等高端點才有這個結論。正文與 Active A0004 保留 P11/P12 的條件，無法替這筆骨架消除條件遺失。",
+    "source_bound_countercheck": "只把 left 從 shorter 改成 taller，就離開 P11 證明分支；P14 指定此時要反向處理，P15 另給 taller-wall 路徑漏掉 optimum 的完整反例。"
+  },
+  {
+    "id": "R3",
+    "status": "FAIL",
+    "source": "articles/leetcode-207-course-schedule.en.md",
+    "paragraph_index": 33,
+    "original_skeleton": "Retaining legal completions → produces → one valid order without a smallest-first guarantee.",
+    "source_quotes": [
+      {
+        "paragraph_index": 33,
+        "quote": "Return order if its length equals V, otherwise return []."
+      },
+      {
+        "paragraph_index": 33,
+        "quote": "Each retained entry records a legal completion, so the earlier proof establishes the returned ordering."
+      },
+      {
+        "paragraph_index": 34,
+        "quote": "On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size."
+      }
+    ],
+    "finding": "保留每一次合法完成，只能保證保留下來的 entries 各自合法；產生可回傳的完整 course order 還需要 length == V。骨架省略成功條件與失敗分支，因此把可能只有 partial order 的狀態寫成會產生 one valid order。",
+    "source_bound_countercheck": "P17 本文拒絕案例只完成 course 2，finished = 1，與 3 比較後回傳 False；依 P33 的改版，所保留的單一合法完成不能成為三門課的完整 order。P34 明確把 failure 的 partial order 記作 temporary auxiliary storage。"
+  }
+]

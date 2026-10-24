@@ -1,0 +1,63 @@
+[
+  {
+    "id": "R1",
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "first_status": "INCOMPLETE",
+    "current_status": "RESOLVED_IN_CURRENT_CANDIDATE",
+    "current_skeleton": "With 0≤height[left]≤height[right], endpoint area → bounds → inward pairs retaining left.",
+    "basis": "explicit 0≤height[left]≤height[right] plus inward retained-left selection",
+    "third_skeleton": "With 0≤height[left]≤height[right], endpoint area → bounds → inward pairs retaining left.",
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE"
+  },
+  {
+    "id": "R2",
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "first_status": "FAIL",
+    "current_status": "RESOLVED_IN_CURRENT_CANDIDATE",
+    "current_skeleton": "With 0≤height[left]≤height[right], recorded endpoint area → bounds → inward retained-left pairs.",
+    "basis": "explicit nonnegative shorter-left premise, recorded endpoint area and inward retained-left selection",
+    "third_skeleton": "With 0≤height[left]≤height[right], recorded endpoint area → bounds → inward retained-left pairs.",
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE"
+  },
+  {
+    "id": "R3",
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "first_status": "FAIL",
+    "current_status": "RESOLVED_IN_CURRENT_CANDIDATE",
+    "current_skeleton": "All courses completed legally once → form → a valid order without smallest-first guarantees.",
+    "basis": "all courses completed legally once",
+    "third_skeleton": "All courses completed legally once → form → a valid order without smallest-first guarantees.",
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE"
+  },
+  {
+    "id": "PARENT-R4",
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "first_status": "PARENT_DESIGNATED_AMBIGUITY",
+    "current_status": "RESOLVED_IN_CURRENT_CANDIDATE",
+    "first_skeleton": "One list append → may require → resizing and copying despite spare capacity.",
+    "current_skeleton": "When allocated slots run out, an append → may require → resizing and copying.",
+    "basis": "capacity-exhaustion condition and may resize/copy are explicit",
+    "third_skeleton": "When allocated slots run out, an append → may require → resizing and copying.",
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE"
+  },
+  {
+    "id": "SECOND-N1",
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE",
+    "third_skeleton": "The shorter left wall → caps → the height of inward pairs retaining left.",
+    "basis": "retaining left is now an explicit selected-object restriction"
+  },
+  {
+    "id": "SECOND-N2",
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "third_status": "RESOLVED_IN_THIRD_CANDIDATE",
+    "third_skeleton": "After saving equal-height endpoint area → remove → either endpoint; this code removes left.",
+    "basis": "After saving equal-height endpoint area explicitly precedes removal"
+  }
+]

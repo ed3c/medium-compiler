@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "protocol_sha256": "42f7cf46604735e2cf64858c9218a63cf0152aa6b76a64827bfcaf5f0d113d47",
+  "reviewer": "independent-p-class-criteria-reviewer",
+  "checks": {
+    "container": {
+      "english_reviewed_before_translation": {
+        "status": "supported",
+        "requirement_quote": "actual sloptrim and semantic source review before each translated edition",
+        "reason": "原始契約明確要求每一翻譯版本開始前完成語意來源審查；兩題任務將此欄定義為實際翻譯之完整英文版在翻譯前對 primary sources 完成審查。因此合規時預期 true；此判定只確認預期動作值，未驗證作者是否執行或文章品質。"
+      },
+      "final_body_review_recorded": {
+        "status": "supported",
+        "requirement_quote": "Record final-body reconstruction and its supporting passages with the connecting cost inference in private author notes. final_body_review_recorded reports that action, not semantic validity or reader comprehension.",
+        "reason": "原始契約直接要求在私有作者筆記記錄最終正文重建、支持段落與連接成本推論，並明定此欄只回報記錄動作。兩題任務的欄位語意一致，因此預期 true 有據；不應由此推論成本說明正確或 Reader 理解成功。"
+      },
+      "published": {
+        "status": "supported",
+        "requirement_quote": "Both tasks prohibit exemplars, editorials, solution outlines, other articles and publication.",
+        "reason": "兩題均明確禁止 publication，任務亦將此欄定義為是否實際向外發表，因此合規的預期動作值為 false。"
+      },
+      "reference_article_read": {
+        "status": "supported",
+        "requirement_quote": "Both tasks prohibit exemplars, editorials, solution outlines, other articles and publication.",
+        "reason": "原始契約明確禁止 exemplar 與其他文章；兩題欄位將任何 exemplar／其他文章閱讀（含意外未授權閱讀）計入。因此合規預期為 false，而非僅表示沒有提供範例。"
+      },
+      "runtime_test_executed": {
+        "status": "supported",
+        "requirement_quote": "actual article-code controls",
+        "reason": "原始契約要求實際 article-code controls；兩題 execution 具體要求執行從最終英文抽出的完整解答，涵蓋 literal cases、獨立小輸入檢查及實際 statement-boundary controls，且欄位語意為實際執行這些 controls。因此預期 true 有據；這不等於每個測試必然通過。"
+      }
+    },
+    "courses": {
+      "english_reviewed_before_translation": {
+        "status": "supported",
+        "requirement_quote": "actual sloptrim and semantic source review before each translated edition",
+        "reason": "原始契約明確要求每一翻譯版本開始前完成語意來源審查；兩題任務將此欄定義為實際翻譯之完整英文版在翻譯前對 primary sources 完成審查。因此合規時預期 true；此判定只確認預期動作值，未驗證作者是否執行或文章品質。"
+      },
+      "final_body_review_recorded": {
+        "status": "supported",
+        "requirement_quote": "Record final-body reconstruction and its supporting passages with the connecting cost inference in private author notes. final_body_review_recorded reports that action, not semantic validity or reader comprehension.",
+        "reason": "原始契約直接要求在私有作者筆記記錄最終正文重建、支持段落與連接成本推論，並明定此欄只回報記錄動作。兩題任務的欄位語意一致，因此預期 true 有據；不應由此推論成本說明正確或 Reader 理解成功。"
+      },
+      "published": {
+        "status": "supported",
+        "requirement_quote": "Both tasks prohibit exemplars, editorials, solution outlines, other articles and publication.",
+        "reason": "兩題均明確禁止 publication，任務亦將此欄定義為是否實際向外發表，因此合規的預期動作值為 false。"
+      },
+      "reference_article_read": {
+        "status": "supported",
+        "requirement_quote": "Both tasks prohibit exemplars, editorials, solution outlines, other articles and publication.",
+        "reason": "原始契約明確禁止 exemplar 與其他文章；兩題欄位將任何 exemplar／其他文章閱讀（含意外未授權閱讀）計入。因此合規預期為 false，而非僅表示沒有提供範例。"
+      },
+      "runtime_test_executed": {
+        "status": "supported",
+        "requirement_quote": "actual article-code controls",
+        "reason": "原始契約要求實際 article-code controls；兩題 execution 具體要求執行從最終英文抽出的完整解答，涵蓋 literal cases、獨立小輸入檢查及實際 statement-boundary controls，且欄位語意為實際執行這些 controls。因此預期 true 有據；這不等於每個測試必然通過。"
+      }
+    }
+  }
+}

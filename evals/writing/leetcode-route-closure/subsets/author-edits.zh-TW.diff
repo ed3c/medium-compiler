@@ -1,0 +1,8 @@
+--- article.first.zh-TW.md
++++ article.zh-TW.md
+@@ -5 +5 @@
+-[LeetCode 78](https://leetcode.com/problems/subsets/) 要求找出一個由互異整數組成的 array 的所有 subset，而且不能有重複的 subset。結果順序不限。輸入有 1 到 10 個元素，每個值介於 -10 與 10 之間。負數也只是一般候選值；正負號與數值大小都不影響它能否被選入。
++[LeetCode 78](https://leetcode.com/problems/subsets/) 要求找出一個由互異整數組成的 array 的所有 subset，而且不能有重複的 subset。所有 subset 的集合稱為 power set。結果順序不限。輸入有 1 到 10 個元素，每個值介於 -10 與 10 之間。負數也只是一般候選值；正負號與數值大小都不影響它能否被選入。
+@@ -154 +154 @@
+-令 `C(n, k)` 表示從 `n` 個互異位置中選出 `k` 個的方法數，每個不分順序的選擇只計一次。這就是這裡儲存的 leaf 數量。所有呼叫都是原本 binary search tree 的一部分，因此最多有 `2**(n + 1) - 1` 次。Copy 寫入 `k * C(n, k)` 個 entry，建立 list 本身另需 `C(n, k)` 個成本單位。一個合法的 upper bound 是 `O(2**n + (k + 1) * C(n, k))`；這裡刻意不把它稱為對所有 `k` 都 tight 的 bound。計入 active call、path 與 temporary snapshot，auxiliary space 仍是 `O(n)`。Output space 為 `Theta((k + 1) * C(n, k))`，即使 row 為空，也要計入一個 object 與一個外層 reference。當 `k = 0`，第一次呼叫就儲存 `[]` 並停下，只需 constant work。當 `k = n`，唯一能繼續的 route 是 include 每個值；被 exclude 的 sibling 會立刻失敗，因此只有 `O(n)` 次呼叫，以及一次長度為 `n` 的 copy。這些 boundary 說明了提前拒絕 partial path 為什麼可能有用。
++令 `C(n, k)` 表示從 `n` 個互異位置中選出 `k` 個的方法數，每個不分順序的選擇只計一次。這就是這裡儲存的 leaf 數量。只有在原本 include/exclude 搜尋也會呼叫 `visit` 的地方，才會發生這裡的呼叫，因此最多有 `2**(n + 1) - 1` 次。Copy 寫入 `k * C(n, k)` 個 entry，建立 list 本身另需 `C(n, k)` 個成本單位。一個合法的 upper bound 是 `O(2**n + (k + 1) * C(n, k))`；這裡刻意不把它稱為對所有 `k` 都 tight 的 bound。計入 active call、path 與 temporary snapshot，auxiliary space 仍是 `O(n)`。Output space 為 `Theta((k + 1) * C(n, k))`，即使 row 為空，也要計入一個 object 與一個外層 reference。當 `k = 0`，第一次呼叫就儲存 `[]` 並停下，只需 constant work。當 `k = n`，唯一能繼續的 route 是 include 每個值；被 exclude 的 sibling 會立刻失敗，因此只有 `O(n)` 次呼叫，以及一次長度為 `n` 的 copy。這些 boundary 說明了提前拒絕 partial path 為什麼可能有用。

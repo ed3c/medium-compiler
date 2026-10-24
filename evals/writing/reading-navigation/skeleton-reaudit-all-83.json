@@ -1,0 +1,1683 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 0,
+    "before": "Wall height and distance → jointly determine → a pair's capacity.",
+    "expanded_before_claim": "Wall height and distance jointly determine a pair's capacity.",
+    "premises": {
+      "condition": "One chosen wall pair; distance is part of capacity.",
+      "selected_object": "A pair of walls",
+      "quantifier": "One pair",
+      "completion_state": "Static geometry"
+    },
+    "one_premise_change": "Keep heights [2,2] but change gap from one to two; area changes from two to four.",
+    "result": "Distance is explicit; no stronger height-only claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Wall height and distance → jointly determine → a pair's capacity.",
+    "expanded_after_claim": "Wall height and distance jointly determine a pair's capacity.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 1,
+    "before": "Legal inputs → require → at least two nonnegative walls; solutions preserve input.",
+    "expanded_before_claim": "Legal inputs require at least two nonnegative walls; solutions preserve input.",
+    "premises": {
+      "condition": "Legal contract: at least two nonnegative walls.",
+      "selected_object": "Legal inputs and supplied list",
+      "quantifier": "Every legal input",
+      "completion_state": "Before call and after return"
+    },
+    "one_premise_change": "Empty input would lack a pair; it is explicitly outside legal inputs.",
+    "result": "At-least-two/nonnegative distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Legal inputs → require → at least two nonnegative walls; solutions preserve input.",
+    "expanded_after_claim": "Legal inputs require at least two nonnegative walls; solutions preserve input.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 2,
+    "before": "The shorter wall and gap distance → determine → a pair's rectangular area.",
+    "expanded_before_claim": "The shorter wall and gap distance determine a pair's rectangular area.",
+    "premises": {
+      "condition": "Pair width is its gap, water level is the shorter height.",
+      "selected_object": "One chosen pair",
+      "quantifier": "One pair",
+      "completion_state": "Static geometry"
+    },
+    "one_premise_change": "Use [5,1] instead of [5,5]; the shorter wall still fixes height.",
+    "result": "Shorter wall and gap are both explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The shorter wall and gap distance → determine → a pair's rectangular area.",
+    "expanded_after_claim": "The shorter wall and gap distance determine a pair's rectangular area.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 3,
+    "before": "Gap width times shorter height → gives → the pair area.",
+    "expanded_before_claim": "Gap width times shorter height gives the pair area.",
+    "premises": {
+      "condition": "Shorter height times gap width.",
+      "selected_object": "Pair area",
+      "quantifier": "One pair",
+      "completion_state": "Static formula"
+    },
+    "one_premise_change": "For endpoints heights 1 and 3, using taller height gives three instead of one.",
+    "result": "Shorter height is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Gap width times shorter height → gives → the pair area.",
+    "expanded_after_claim": "Gap width times shorter height gives the pair area.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 4,
+    "before": "The chosen boundaries → determine → area; tallest height alone does not.",
+    "expanded_before_claim": "The chosen boundaries determine area; tallest height alone does not.",
+    "premises": {
+      "condition": "Area belongs to the selected two boundaries.",
+      "selected_object": "Chosen pair",
+      "quantifier": "One selected pair; tallest alone insufficient",
+      "completion_state": "Static geometry"
+    },
+    "one_premise_change": "In [2,5,1,4], the farthest pair has six, selected (1,3) has eight.",
+    "result": "Selected boundaries are explicit; no tallest-only rule.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The chosen boundaries → determine → area; tallest height alone does not.",
+    "expanded_after_claim": "The chosen boundaries determine area; tallest height alone does not.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 5,
+    "before": "Nonnegative legal areas → make → zero a valid initial best.",
+    "expanded_before_claim": "Nonnegative legal areas make zero a valid initial best.",
+    "premises": {
+      "condition": "All legal areas are nonnegative; best is a maximum accumulator.",
+      "selected_object": "Initial best",
+      "quantifier": "Every legal area",
+      "completion_state": "Initialization"
+    },
+    "one_premise_change": "All-zero input still has maximum zero; nonnegative values do not require a positive sentinel.",
+    "result": "Nonnegative/legal and initial state are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Nonnegative legal areas → make → zero a valid initial best.",
+    "expanded_after_claim": "Nonnegative legal areas make zero a valid initial best.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 6,
+    "before": "The direct solution → evaluates → every pair, retaining only the maximum.",
+    "expanded_before_claim": "The direct solution evaluates every pair, retaining only the maximum.",
+    "premises": {
+      "condition": "Direct all-pairs enumeration retains only the running maximum.",
+      "selected_object": "The direct solution",
+      "quantifier": "Every pair",
+      "completion_state": "Complete enumeration"
+    },
+    "one_premise_change": "If one pair were skipped, [1,3,3] could lose area three.",
+    "result": "Every pair is explicit; altered enumeration violates that premise.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The direct solution → evaluates → every pair, retaining only the maximum.",
+    "expanded_after_claim": "The direct solution evaluates every pair, retaining only the maximum.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 7,
+    "before": "The bounded range → enumerates → each distinct pair once without modifying input.",
+    "expanded_before_claim": "The bounded range enumerates each distinct pair once without modifying input.",
+    "premises": {
+      "condition": "Each outer i must run; inner j ranges only over larger indices.",
+      "selected_object": "One bounded inner range versus complete pair enumeration",
+      "quantifier": "Each distinct pair",
+      "completion_state": "One inner range versus all outer iterations"
+    },
+    "one_premise_change": "For n=3 and only i=0, range(1,3) visits (0,1),(0,2), omitting (1,2), despite remaining a bounded range.",
+    "result": "FAIL: bounded-range wording assigns complete coverage to a local range; narrow to the actual j>i exclusion.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Choosing j>i → excludes → same-wall pairs and reverse duplicates.",
+    "expanded_after_claim": "Choosing j>i excludes same-wall pairs and reverse duplicates.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 9,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 8,
+    "before": "Examining every candidate → yields → maximum eight for the example.",
+    "expanded_before_claim": "Examining every candidate yields maximum eight for the example.",
+    "premises": {
+      "condition": "The named example is [2,5,1,4]; exhaustive examination and maximum retention.",
+      "selected_object": "The example already named as a particular instance",
+      "quantifier": "Every candidate",
+      "completion_state": "After all candidates"
+    },
+    "one_premise_change": "Replace the selected input with [1,1]; its maximum is one.",
+    "result": "This changes the selected example, not the claim about its named instance; retain.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Examining every candidate → yields → maximum eight for the example.",
+    "expanded_after_claim": "Examining every candidate yields maximum eight for the example.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 9,
+    "before": "All-pairs enumeration → requires → n(n−1)/2 evaluations, motivating safe candidate removal.",
+    "expanded_before_claim": "All-pairs enumeration requires n(n−1)/2 evaluations, motivating safe candidate removal.",
+    "premises": {
+      "condition": "All distinct wall pairs are enumerated.",
+      "selected_object": "All-pairs enumeration",
+      "quantifier": "n(n−1)/2 pairs",
+      "completion_state": "Complete enumeration"
+    },
+    "one_premise_change": "For n=2 there is one pair; n(n−1)/2 still gives one.",
+    "result": "All-pairs selection carries the pair-count distinction.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "All-pairs enumeration → requires → n(n−1)/2 evaluations, motivating safe candidate removal.",
+    "expanded_after_claim": "All-pairs enumeration requires n(n−1)/2 evaluations, motivating safe candidate removal.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "before": "Two integer indices → bound → unresolved positions; evaluate endpoints before discarding.",
+    "expanded_before_claim": "Two integer indices bound unresolved positions; evaluate endpoints before discarding.",
+    "premises": {
+      "condition": "Indices initially delimit unresolved positions; endpoints measured before removal.",
+      "selected_object": "Two integer indices",
+      "quantifier": "Unresolved positions",
+      "completion_state": "Before each discard"
+    },
+    "one_premise_change": "Moving an endpoint before measuring [2,5,1,4] could skip a candidate.",
+    "result": "Before-discard evaluation is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Two integer indices → bound → unresolved positions; evaluate endpoints before discarding.",
+    "expanded_after_claim": "Two integer indices bound unresolved positions; evaluate endpoints before discarding.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "before": "Keeping the shorter left wall → bounds → every narrower pair's height.",
+    "expanded_before_claim": "Keeping the shorter left wall bounds every narrower pair's height.",
+    "premises": {
+      "condition": "Left is the shorter wall and kept in the narrower pair.",
+      "selected_object": "Pairs keeping the shorter left wall",
+      "quantifier": "Every narrower retained-left pair",
+      "completion_state": "Static comparison"
+    },
+    "one_premise_change": "With [3,3,1], keeping the taller left wall can improve area from two to three.",
+    "result": "The shorter-left distinction is already explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Keeping the shorter left wall → bounds → every narrower pair's height.",
+    "expanded_after_claim": "Keeping the shorter left wall bounds every narrower pair's height.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "before": "Nonnegative heights and smaller width → bound → every retained-left candidate.",
+    "expanded_before_claim": "Nonnegative heights and smaller width bound every retained-left candidate.",
+    "premises": {
+      "condition": "0≤height[left]≤height[right] and k is inward.",
+      "selected_object": "Inward pair retaining left, bounded by the endpoint area",
+      "quantifier": "Every such inward pair",
+      "completion_state": "After endpoint measurement"
+    },
+    "one_premise_change": "With [3,3,1], endpoint area is two but inward retained-left area is three. Heights are nonnegative and width shrinks.",
+    "result": "INCOMPLETE: shorter-left condition and identity of the bound were missing.",
+    "origin": "FRESH_READER_R1",
+    "after": "With 0≤height[left]≤height[right], endpoint area → bounds → inward pairs retaining left.",
+    "expanded_after_claim": "With 0≤height[left]≤height[right], endpoint area bounds inward pairs retaining left.",
+    "changed": true,
+    "word_count_before": 9,
+    "word_count_after": 13,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "before": "The recorded endpoint area → bounds → every remaining candidate involving left.",
+    "expanded_before_claim": "The recorded endpoint area bounds every remaining candidate involving left.",
+    "premises": {
+      "condition": "0≤height[left]≤height[right]; recorded pair is current endpoints.",
+      "selected_object": "Inward pairs retaining left",
+      "quantifier": "Every such remaining pair",
+      "completion_state": "Endpoint has already been recorded"
+    },
+    "one_premise_change": "[3,3,1] has endpoint area two and retained-left area three; merely recording the endpoint is insufficient.",
+    "result": "FAIL: an unconditional bound included the taller-left branch.",
+    "origin": "FRESH_READER_R2",
+    "after": "With 0≤height[left]≤height[right], recorded endpoint area → bounds → inward retained-left pairs.",
+    "expanded_after_claim": "With 0≤height[left]≤height[right], recorded endpoint area bounds inward retained-left pairs.",
+    "changed": true,
+    "word_count_before": 10,
+    "word_count_after": 13,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "before": "The discard bound → permits → shorter-endpoint removal, including equal-height and zero ties.",
+    "expanded_before_claim": "The discard bound permits shorter-endpoint removal, including equal-height and zero ties.",
+    "premises": {
+      "condition": "Remove a shorter endpoint; ties permit either endpoint.",
+      "selected_object": "The discard bound",
+      "quantifier": "Shorter endpoint, including equal and zero ties",
+      "completion_state": "After measuring endpoints"
+    },
+    "one_premise_change": "For [3,3,1], deleting taller left is unsafe; deleting shorter right satisfies the explicit condition.",
+    "result": "Shorter-endpoint and tie scope are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The discard bound → permits → shorter-endpoint removal, including equal-height and zero ties.",
+    "expanded_after_claim": "The discard bound permits shorter-endpoint removal, including equal-height and zero ties.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 15,
+    "before": "Moving the taller wall → can miss → the optimum in a three-wall counterexample.",
+    "expanded_before_claim": "Moving the taller wall can miss the optimum in a three-wall counterexample.",
+    "premises": {
+      "condition": "Taller-wall movement is only claimed to be capable of failing.",
+      "selected_object": "A three-wall counterexample",
+      "quantifier": "Can miss, not always misses",
+      "completion_state": "Complete wrong-rule run"
+    },
+    "one_premise_change": "For [1,1], either move follows the only candidate and cannot miss anything.",
+    "result": "Can and three-wall counterexample scope are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Moving the taller wall → can miss → the optimum in a three-wall counterexample.",
+    "expanded_after_claim": "Moving the taller wall can miss the optimum in a three-wall counterexample.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 16,
+    "before": "The example → initializes → left zero, right three, and best zero.",
+    "expanded_before_claim": "The example initializes left zero, right three, and best zero.",
+    "premises": {
+      "condition": "The named witness has four heights and best starts at zero.",
+      "selected_object": "The particular example",
+      "quantifier": "One initial state",
+      "completion_state": "Initialization"
+    },
+    "one_premise_change": "A three-height witness would start right at two.",
+    "result": "The source claim is one named example, not a universal right=3 rule.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The example → initializes → left zero, right three, and best zero.",
+    "expanded_after_claim": "The example initializes left zero, right three, and best zero.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 17,
+    "before": "Measuring area six → precedes → saving best and moving left inward.",
+    "expanded_before_claim": "Measuring area six precedes saving best and moving left inward.",
+    "premises": {
+      "condition": "Trace endpoint heights two and four with gap three.",
+      "selected_object": "The particular area-six trace step",
+      "quantifier": "One recorded step",
+      "completion_state": "Measure then save then move"
+    },
+    "one_premise_change": "On [3,2,2], area is also six but right is shorter; that is a different trace step.",
+    "result": "The sentence records temporal order in the selected witness; no universal area-six branch rule is asserted.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Measuring area six → precedes → saving best and moving left inward.",
+    "expanded_after_claim": "Measuring area six precedes saving best and moving left inward.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 18,
+    "before": "Area eight → updates → best before right moves; discarded pairs remain bounded.",
+    "expanded_before_claim": "Area eight updates best before right moves; discarded pairs remain bounded.",
+    "premises": {
+      "condition": "Trace left five, right four, current area eight improves the saved six.",
+      "selected_object": "The particular area-eight trace step",
+      "quantifier": "One step",
+      "completion_state": "Save before right update"
+    },
+    "one_premise_change": "If saved best were already nine, area eight would not update it.",
+    "result": "Different prior state is a different named trace; retain instance claim, not a general eight-improves rule.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Area eight → updates → best before right moves; discarded pairs remain bounded.",
+    "expanded_after_claim": "Area eight updates best before right moves; discarded pairs remain bounded.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 19,
+    "before": "Coincident endpoints → end → the search with saved maximum eight.",
+    "expanded_before_claim": "Coincident endpoints end the search with saved maximum eight.",
+    "premises": {
+      "condition": "Trace has saved eight when pointers coincide.",
+      "selected_object": "The selected terminating witness",
+      "quantifier": "One terminal state",
+      "completion_state": "Pointers coincide"
+    },
+    "one_premise_change": "For [1,1], coincident endpoints return one, not eight.",
+    "result": "Eight is the selected saved maximum; coincidence is explicitly the stopping condition.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Coincident endpoints → end → the search with saved maximum eight.",
+    "expanded_after_claim": "Coincident endpoints end the search with saved maximum eight.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 20,
+    "before": "The saved maximum → preserves → the answer when later areas decrease.",
+    "expanded_before_claim": "The saved maximum preserves the answer when later areas decrease.",
+    "premises": {
+      "condition": "The maximum accumulator retains earlier candidates.",
+      "selected_object": "Saved maximum",
+      "quantifier": "Any later decrease",
+      "completion_state": "During later evaluations"
+    },
+    "one_premise_change": "The equal-height [3,3,3] witness decreases from six to three.",
+    "result": "The decreasing case is exactly the stated scope.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The saved maximum → preserves → the answer when later areas decrease.",
+    "expanded_after_claim": "The saved maximum preserves the answer when later areas decrease.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 21,
+    "before": "The while and if statements → enforce → one index change per iteration.",
+    "expanded_before_claim": "The while and if statements enforce one index change per iteration.",
+    "premises": {
+      "condition": "This loop has one index assignment in each mutually exclusive branch.",
+      "selected_object": "The while/if statements of the selected implementation",
+      "quantifier": "Exactly one index per iteration",
+      "completion_state": "Completed loop body"
+    },
+    "one_premise_change": "A different body updating both indices could move twice.",
+    "result": "Changing the selected implementation is not a data counterexample; no global claim about every while/if program.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The while and if statements → enforce → one index change per iteration.",
+    "expanded_after_claim": "The while and if statements enforce one index change per iteration.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "before": "Element reads and local integer rebinding → preserve → the caller's input list.",
+    "expanded_before_claim": "Element reads and local integer rebinding preserve the caller's input list.",
+    "premises": {
+      "condition": "Reads and local integer rebinding have no input-item assignment.",
+      "selected_object": "Input list and scalar locals",
+      "quantifier": "Each of these reads/rebindings",
+      "completion_state": "After operations"
+    },
+    "one_premise_change": "Assigning height[left]=7 would mutate the list, but is neither an element read nor local integer rebinding.",
+    "result": "Read/local-binding distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Element reads and local integer rebinding → preserve → the caller's input list.",
+    "expanded_after_claim": "Element reads and local integer rebinding preserve the caller's input list.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 23,
+    "before": "At each while check, best → covers → evaluated and excluded pairs.",
+    "expanded_before_claim": "At each while check, best covers evaluated and excluded pairs.",
+    "premises": {
+      "condition": "Selected two-pointer invariant holds at the while check.",
+      "selected_object": "best and evaluated/excluded pairs",
+      "quantifier": "All evaluated and excluded pairs",
+      "completion_state": "At each while check"
+    },
+    "one_premise_change": "Mid-body before max update best may be stale.",
+    "result": "At-check completion state is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "At each while check, best → covers → evaluated and excluded pairs.",
+    "expanded_after_claim": "At each while check, best covers evaluated and excluded pairs.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 24,
+    "before": "Initial zero and the full interval → establish → both invariant claims.",
+    "expanded_before_claim": "Initial zero and the full interval establish both invariant claims.",
+    "premises": {
+      "condition": "Full initial interval; best zero; legal nonnegative areas.",
+      "selected_object": "Both invariant clauses",
+      "quantifier": "No initially excluded pairs",
+      "completion_state": "Initialization"
+    },
+    "one_premise_change": "A non-full interval would have excluded candidates before measuring.",
+    "result": "Full interval is explicit; negative heights are outside legal inputs.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Initial zero and the full interval → establish → both invariant claims.",
+    "expanded_after_claim": "Initial zero and the full interval establish both invariant claims.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 25,
+    "before": "Endpoint measurement and the discard bound → preserve → both invariant claims.",
+    "expanded_before_claim": "Endpoint measurement and the discard bound preserve both invariant claims.",
+    "premises": {
+      "condition": "Both measuring and maximum update must precede the discard-bound maintenance.",
+      "selected_object": "best and excluded pairs",
+      "quantifier": "Both invariant claims",
+      "completion_state": "After complete iteration updates"
+    },
+    "one_premise_change": "For [1,1], merely measure area one and discard while leaving best zero: invariant fails.",
+    "result": "FAIL: measurement plus a discard bound does not update best.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Measuring endpoints, updating best, and the discard bound → preserve → both invariant claims.",
+    "expanded_after_claim": "Measuring endpoints, updating best, and the discard bound preserve both invariant claims.",
+    "changed": true,
+    "word_count_before": 10,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "before": "After n−1 moves, best → equals → the maximum over every legal pair.",
+    "expanded_before_claim": "After n−1 moves, best equals the maximum over every legal pair.",
+    "premises": {
+      "condition": "Discarded pairs are bounded through the shorter-wall branch; pointers must meet.",
+      "selected_object": "best over all legal pairs",
+      "quantifier": "Every legal pair",
+      "completion_state": "No pair remains at pointer collapse"
+    },
+    "one_premise_change": "For [1,3,3], n−1 taller-wall moves return two although maximum is three.",
+    "result": "FAIL: a move count alone does not distinguish safe from unsafe discards.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Safe shorter-wall removals → leave → best equal to the maximum when pointers meet.",
+    "expanded_after_claim": "Safe shorter-wall removals leave best equal to the maximum when pointers meet.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 27,
+    "before": "Bounded input scalars → justify → the stated unit-cost model, within its limits.",
+    "expanded_before_claim": "Bounded input scalars justify the stated unit-cost model, within its limits.",
+    "premises": {
+      "condition": "The stated elementary model uses bounded scalar sizes.",
+      "selected_object": "The stated unit-cost model",
+      "quantifier": "Those elementary operations, not all instructions",
+      "completion_state": "Cost comparison"
+    },
+    "one_premise_change": "Unbounded digit counts would change arithmetic cost; explicitly outside limits.",
+    "result": "Bounded-input and model-limit distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Bounded input scalars → justify → the stated unit-cost model, within its limits.",
+    "expanded_after_claim": "Bounded input scalars justify the stated unit-cost model, within its limits.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 28,
+    "before": "CPython list slots and stored length → support → bounded ordinary-list reads without mutation.",
+    "expanded_before_claim": "CPython list slots and stored length support bounded ordinary-list reads without mutation.",
+    "premises": {
+      "condition": "Ordinary CPython lists, indexed slots and stored length, no concurrent mutation.",
+      "selected_object": "Ordinary-list reads and len",
+      "quantifier": "Selected access operations",
+      "completion_state": "No concurrent mutation"
+    },
+    "one_premise_change": "A user-defined __getitem__ that scans is not an ordinary list.",
+    "result": "Ordinary-list/no-mutation restriction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "CPython list slots and stored length → support → bounded ordinary-list reads without mutation.",
+    "expanded_after_claim": "CPython list slots and stored length support bounded ordinary-list reads without mutation.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 29,
+    "before": "A linear iteration count → gives → linear work under bounded operation costs.",
+    "expanded_before_claim": "A linear iteration count gives linear work under bounded operation costs.",
+    "premises": {
+      "condition": "Each iteration has a fixed number of bounded operations.",
+      "selected_object": "Total work across a linear number of iterations",
+      "quantifier": "All iterations",
+      "completion_state": "Complete work sum"
+    },
+    "one_premise_change": "Use n iterations each scanning all n walls; each operation remains bounded but total becomes quadratic.",
+    "result": "FAIL: bounded operation costs do not bound operation count per iteration.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Linear iterations with fixed bounded work each → yield → linear total work.",
+    "expanded_after_claim": "Linear iterations with fixed bounded work each yield linear total work.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 11,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 30,
+    "before": "Fixed live state → uses → constant auxiliary and output space, excluding input.",
+    "expanded_before_claim": "Fixed live state uses constant auxiliary and output space, excluding input.",
+    "premises": {
+      "condition": "Fixed number of simultaneously live bounded values; input excluded.",
+      "selected_object": "Auxiliary and output storage",
+      "quantifier": "Peak live state",
+      "completion_state": "At any one time"
+    },
+    "one_premise_change": "Keeping every prior area would grow state and violate the explicit fixed-live-state premise.",
+    "result": "Peak/fixed/excluding-input distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Fixed live state → uses → constant auxiliary and output space, excluding input.",
+    "expanded_after_claim": "Fixed live state uses constant auxiliary and output space, excluding input.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 31,
+    "before": "All-pairs → requires → quadratic work but constant auxiliary and output space.",
+    "expanded_before_claim": "All-pairs requires quadratic work but constant auxiliary and output space.",
+    "premises": {
+      "condition": "Source all-pairs implementation retains only scalar locals, not every area.",
+      "selected_object": "Scalar-only all-pairs implementation",
+      "quantifier": "All pairs, fixed live state",
+      "completion_state": "Peak storage during complete enumeration"
+    },
+    "one_premise_change": "The same pair enumeration can append every area to a list, using quadratic storage.",
+    "result": "FAIL: all-pairs enumeration alone does not imply constant storage.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Scalar-only all-pairs enumeration → uses → quadratic time and constant auxiliary space.",
+    "expanded_after_claim": "Scalar-only all-pairs enumeration uses quadratic time and constant auxiliary space.",
+    "changed": true,
+    "word_count_before": 10,
+    "word_count_after": 10,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 32,
+    "before": "All-pairs → provides → a tiny-input oracle; two pointers avoid billions under this contract.",
+    "expanded_before_claim": "All-pairs provides a tiny-input oracle; two pointers avoid billions under this contract.",
+    "premises": {
+      "condition": "Tiny-input oracle and present large-limit optimized path.",
+      "selected_object": "Checking oracle and selected two-pointer solution",
+      "quantifier": "Tiny oracle; billions at the limit",
+      "completion_state": "Result comparison"
+    },
+    "one_premise_change": "n=2 would not avoid billions; this is outside the stated large-limit comparison from the selected contract.",
+    "result": "No new failure claimed; oracle role and under-this-contract limitation remain source-bound.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "All-pairs → provides → a tiny-input oracle; two pointers avoid billions under this contract.",
+    "expanded_after_claim": "All-pairs provides a tiny-input oracle; two pointers avoid billions under this contract.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 33,
+    "before": "Nonuniform coordinates → require → physical width instead of index-gap count.",
+    "expanded_before_claim": "Nonuniform coordinates require physical width instead of index-gap count.",
+    "premises": {
+      "condition": "Nonuniform coordinates encode physical gaps.",
+      "selected_object": "Physical width",
+      "quantifier": "Chosen pair",
+      "completion_state": "Geometry"
+    },
+    "one_premise_change": "x=[0,1,100] gives index gap two but physical gap one hundred.",
+    "result": "Nonuniform/physical-versus-index distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Nonuniform coordinates → require → physical width instead of index-gap count.",
+    "expanded_after_claim": "Nonuniform coordinates require physical width instead of index-gap count.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 34,
+    "before": "Coordinate-based width → yields → 198 where index-based width incorrectly yields two.",
+    "expanded_before_claim": "Coordinate-based width yields 198 where index-based width incorrectly yields two.",
+    "premises": {
+      "condition": "The example is the supplied x and height arrays.",
+      "selected_object": "Selected coordinate example",
+      "quantifier": "One witness",
+      "completion_state": "After both candidate measurements"
+    },
+    "one_premise_change": "With x=[0,1,2], the number 198 is inapplicable.",
+    "result": "Changing the selected coordinate witness changes the object, not the existing instance assertion.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Coordinate-based width → yields → 198 where index-based width incorrectly yields two.",
+    "expanded_after_claim": "Coordinate-based width yields 198 where index-based width incorrectly yields two.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 35,
+    "before": "Strictly increasing coordinates → preserve → the discard proof and iteration count.",
+    "expanded_before_claim": "Strictly increasing coordinates preserve the discard proof and iteration count.",
+    "premises": {
+      "condition": "Increasing coordinates keep inward width decreasing.",
+      "selected_object": "Discard proof and iteration count",
+      "quantifier": "Each inward movement",
+      "completion_state": "Move one position"
+    },
+    "one_premise_change": "Non-increasing coordinates would lose monotonic width; excluded by explicitly increasing premise.",
+    "result": "The distinguishing coordinate condition is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Strictly increasing coordinates → preserve → the discard proof and iteration count.",
+    "expanded_after_claim": "Strictly increasing coordinates preserve the discard proof and iteration count.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 36,
+    "before": "Ordered matched coordinates → preserve → linear time and constant auxiliary space under bounded costs.",
+    "expanded_before_claim": "Ordered matched coordinates preserve linear time and constant auxiliary space under bounded costs.",
+    "premises": {
+      "condition": "Coordinates already ordered/matched; added fixed work; bounded scalar costs.",
+      "selected_object": "Selected coordinate adaptation",
+      "quantifier": "n−1 iterations; fixed live state",
+      "completion_state": "No sorting inside function"
+    },
+    "one_premise_change": "Sorting unordered input inside the function would add work; excluded by ordered input.",
+    "result": "Ordering/matching and bounded cost conditions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Ordered matched coordinates → preserve → linear time and constant auxiliary space under bounded costs.",
+    "expanded_after_claim": "Ordered matched coordinates preserve linear time and constant auxiliary space under bounded costs.",
+    "changed": false,
+    "word_count_before": 13,
+    "word_count_after": 13
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 37,
+    "before": "Keeping the shorter wall → bounds → inward pairs by the recorded endpoint area.",
+    "expanded_before_claim": "Keeping the shorter wall bounds inward pairs by the recorded endpoint area.",
+    "premises": {
+      "condition": "Every bounded inward pair must retain the shorter endpoint of the measured pair.",
+      "selected_object": "Retained-shorter-wall inward pairs",
+      "quantifier": "Every such pair",
+      "completion_state": "After endpoint measurement"
+    },
+    "one_premise_change": "For [1,3,3], the endpoint area two does not bound inward pair (1,2) of area three, which drops the shorter wall.",
+    "result": "INCOMPLETE: inward pairs could be read without retained-wall scope.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The recorded endpoint area → bounds → inward pairs retaining its shorter wall.",
+    "expanded_after_claim": "The recorded endpoint area bounds inward pairs retaining its shorter wall.",
+    "changed": true,
+    "word_count_before": 12,
+    "word_count_after": 11,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 38,
+    "before": "The saved best → permits → later candidate areas to decrease.",
+    "expanded_before_claim": "The saved best permits later candidate areas to decrease.",
+    "premises": {
+      "condition": "best retains earlier evaluated candidates.",
+      "selected_object": "Current versus saved area",
+      "quantifier": "Later current areas may decrease",
+      "completion_state": "Later iterations"
+    },
+    "one_premise_change": "[3,3,3] yields six then three; no contradiction to saved best.",
+    "result": "May-decrease and saved-best distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The saved best → permits → later candidate areas to decrease.",
+    "expanded_after_claim": "The saved best permits later candidate areas to decrease.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "before": "Equal heights → permit → either endpoint's safe removal; this code removes left.",
+    "expanded_before_claim": "Equal heights permit either endpoint's safe removal; this code removes left.",
+    "premises": {
+      "condition": "The chosen two endpoints have equal height.",
+      "selected_object": "Either endpoint",
+      "quantifier": "Either, not an arbitrary taller endpoint",
+      "completion_state": "After measuring pair"
+    },
+    "one_premise_change": "Unequal [3,3,1] does not permit deletion of taller left.",
+    "result": "Equal-height premise is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Equal heights → permit → either endpoint's safe removal; this code removes left.",
+    "expanded_after_claim": "Equal heights permit either endpoint's safe removal; this code removes left.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 40,
+    "before": "Constant-work iterations → reduce → index distance from n−1 to zero.",
+    "expanded_before_claim": "Constant-work iterations reduce index distance from n−1 to zero.",
+    "premises": {
+      "condition": "Selected source loop reduces one index distance per constant-work iteration.",
+      "selected_object": "The loop index distance",
+      "quantifier": "Once per iteration",
+      "completion_state": "From n−1 through zero"
+    },
+    "one_premise_change": "Updating both indices is a different loop and can decrease by two.",
+    "result": "No data counterexample within the selected loop; no general claim about every constant-work iteration.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Constant-work iterations → reduce → index distance from n−1 to zero.",
+    "expanded_after_claim": "Constant-work iterations reduce index distance from n−1 to zero.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 41,
+    "before": "The function → adds → fixed scalar locals and one integer, excluding input.",
+    "expanded_before_claim": "The function adds fixed scalar locals and one integer, excluding input.",
+    "premises": {
+      "condition": "Selected function adds scalar locals and integer result only; caller input excluded.",
+      "selected_object": "Selected two-pointer function",
+      "quantifier": "Fixed set",
+      "completion_state": "Peak auxiliary/output storage"
+    },
+    "one_premise_change": "An implementation copying input is a different selected function.",
+    "result": "Fixed added state and input exclusion are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The function → adds → fixed scalar locals and one integer, excluding input.",
+    "expanded_after_claim": "The function adds fixed scalar locals and one integer, excluding input.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "before": "Safe wall removal and best → cover → every legal pair at termination.",
+    "expanded_before_claim": "Safe wall removal and best cover every legal pair at termination.",
+    "premises": {
+      "condition": "Safe discards remain bounded and the interval has collapsed.",
+      "selected_object": "All legal pairs",
+      "quantifier": "Every legal pair",
+      "completion_state": "No two walls remain"
+    },
+    "one_premise_change": "Stopping after a single safe move on [2,5,1,4] could return six instead of eight.",
+    "result": "INCOMPLETE: termination alone could be read as an early stop rather than interval exhaustion.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Shorter-wall bounds and best → cover → every legal pair when the interval collapses.",
+    "expanded_after_claim": "Shorter-wall bounds and best cover every legal pair when the interval collapses.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 0,
+    "before": "The solution → counts → remaining prerequisites before releasing course three.",
+    "expanded_before_claim": "The solution counts remaining prerequisites before releasing course three.",
+    "premises": {
+      "condition": "Remaining prerequisite counts must become zero before release.",
+      "selected_object": "Source solution and course three",
+      "quantifier": "All prerequisites, not one",
+      "completion_state": "Before release"
+    },
+    "one_premise_change": "Finishing only course one leaves one prerequisite; the skeleton already says remaining prerequisites.",
+    "result": "No stronger single-prerequisite release claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The solution → counts → remaining prerequisites before releasing course three.",
+    "expanded_after_claim": "The solution counts remaining prerequisites before releasing course three.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 1,
+    "before": "Prerequisite pairs → constrain → whether every course can finish; input remains unchanged.",
+    "expanded_before_claim": "Prerequisite pairs constrain whether every course can finish; input remains unchanged.",
+    "premises": {
+      "condition": "Directed prerequisite contract applies to every course; input retained.",
+      "selected_object": "All-course feasibility and supplied input",
+      "quantifier": "Every course",
+      "completion_state": "Final Boolean"
+    },
+    "one_premise_change": "One isolated completion does not establish every course.",
+    "result": "Every-course quantifier is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Prerequisite pairs → constrain → whether every course can finish; input remains unchanged.",
+    "expanded_after_claim": "Prerequisite pairs constrain whether every course can finish; input remains unchanged.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 2,
+    "before": "Unconstrained courses → count → toward completion; mutually waiting courses cannot start.",
+    "expanded_before_claim": "Unconstrained courses count toward completion; mutually waiting courses cannot start.",
+    "premises": {
+      "condition": "Unconstrained courses still exist; mutually waiting courses cannot begin.",
+      "selected_object": "Isolated courses and mutual cycle",
+      "quantifier": "All existing courses",
+      "completion_state": "First completion"
+    },
+    "one_premise_change": "Removing the cycle makes the mutually-waiting premise false.",
+    "result": "Both distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Unconstrained courses → count → toward completion; mutually waiting courses cannot start.",
+    "expanded_after_claim": "Unconstrained courses count toward completion; mutually waiting courses cannot start.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 3,
+    "before": "A directed cycle → prevents → any first completion among its courses.",
+    "expanded_before_claim": "A directed cycle prevents any first completion among its courses.",
+    "premises": {
+      "condition": "A directed cycle links each course to another waiting requirement.",
+      "selected_object": "Courses in the cycle",
+      "quantifier": "Any first completion among cycle courses",
+      "completion_state": "Before any cycle completion"
+    },
+    "one_premise_change": "An isolated course outside the cycle can finish, but is outside among-its-courses scope.",
+    "result": "Cycle-local quantifier is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "A directed cycle → prevents → any first completion among its courses.",
+    "expanded_after_claim": "A directed cycle prevents any first completion among its courses.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 4,
+    "before": "Repeated available-course completion → finishes → everything exactly when no directed cycle exists.",
+    "expanded_before_claim": "Repeated available-course completion finishes everything exactly when no directed cycle exists.",
+    "premises": {
+      "condition": "Finite source graph; repeatedly choose only available courses.",
+      "selected_object": "Whole graph",
+      "quantifier": "Everything iff no cycle",
+      "completion_state": "Repeated until exhaustion"
+    },
+    "one_premise_change": "A cyclic graph retains a nonempty remainder; excluded by exactly-when-no-cycle condition.",
+    "result": "Available/exactly-when distinctions are explicit; finiteness is the article model.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Repeated available-course completion → finishes → everything exactly when no directed cycle exists.",
+    "expanded_after_claim": "Repeated available-course completion finishes everything exactly when no directed cycle exists.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 5,
+    "before": "Each prerequisite's adjacency list → locates → its dependent courses.",
+    "expanded_before_claim": "Each prerequisite's adjacency list locates its dependent courses.",
+    "premises": {
+      "condition": "Lists store outgoing prerequisite-to-dependent edges.",
+      "selected_object": "Each prerequisite adjacency list",
+      "quantifier": "Direct dependents",
+      "completion_state": "Static built representation"
+    },
+    "one_premise_change": "Reversing edges would store prerequisites, not the explicitly selected dependents.",
+    "result": "Stored object is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Each prerequisite's adjacency list → locates → its dependent courses.",
+    "expanded_after_claim": "Each prerequisite's adjacency list locates its dependent courses.",
+    "changed": false,
+    "word_count_before": 8,
+    "word_count_after": 8
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 6,
+    "before": "Remaining counts → track → unfinished obligations rather than Boolean readiness.",
+    "expanded_before_claim": "Remaining counts track unfinished obligations rather than Boolean readiness.",
+    "premises": {
+      "condition": "Remaining means unfinished incoming obligations.",
+      "selected_object": "Remaining integer counts",
+      "quantifier": "Each unfinished obligation",
+      "completion_state": "After any completions"
+    },
+    "one_premise_change": "Two prerequisites cannot be reduced to one Boolean; explicitly excluded.",
+    "result": "Unfinished/count-versus-Boolean distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Remaining counts → track → unfinished obligations rather than Boolean readiness.",
+    "expanded_after_claim": "Remaining counts track unfinished obligations rather than Boolean readiness.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "before": "Separate inner lists → prevent → shared mutations; immutable zero repetition remains safe.",
+    "expanded_before_claim": "Separate inner lists prevent shared mutations; immutable zero repetition remains safe.",
+    "premises": {
+      "condition": "Independent inner lists and immutable zero values.",
+      "selected_object": "Mutable adjacency lists and zero counters",
+      "quantifier": "Each course list",
+      "completion_state": "After a mutation"
+    },
+    "one_premise_change": "[[]]*V shares one list; contradicts explicit separate-inner-lists premise.",
+    "result": "Sharing/immutability distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Separate inner lists → prevent → shared mutations; immutable zero repetition remains safe.",
+    "expanded_after_claim": "Separate inner lists prevent shared mutations; immutable zero repetition remains safe.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 8,
+    "before": "The FIFO queue → retains → available courses without requiring smallest identifiers first.",
+    "expanded_before_claim": "The FIFO queue retains available courses without requiring smallest identifiers first.",
+    "premises": {
+      "condition": "The availability queue must retain every entry until processing; no maxlen.",
+      "selected_object": "Unbounded FIFO queue",
+      "quantifier": "All available entries",
+      "completion_state": "Until removal"
+    },
+    "one_premise_change": "For three isolated courses, deque(maxlen=1) drops two entries despite FIFO operations.",
+    "result": "FAIL: FIFO alone does not guarantee lossless retention.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "An unbounded FIFO queue → retains → available courses without smallest-first ordering.",
+    "expanded_after_claim": "An unbounded FIFO queue retains available courses without smallest-first ordering.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 10,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 9,
+    "before": "An unbounded deque → retains → available entries; append returns None.",
+    "expanded_before_claim": "An unbounded deque retains available entries; append returns None.",
+    "premises": {
+      "condition": "Deque has no length limit; append mutates and returns None.",
+      "selected_object": "Unbounded deque",
+      "quantifier": "Available entries",
+      "completion_state": "After append"
+    },
+    "one_premise_change": "Assigning append return to ready destroys queue; skeleton explicitly states None.",
+    "result": "Unbounded/return-None distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "An unbounded deque → retains → available entries; append returns None.",
+    "expanded_after_claim": "An unbounded deque retains available entries; append returns None.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 10,
+    "before": "Each completion → releases → newly zero-count dependents, with at most one enqueue each.",
+    "expanded_before_claim": "Each completion releases newly zero-count dependents, with at most one enqueue each.",
+    "premises": {
+      "condition": "Only newly-zero counts trigger dependent enqueue.",
+      "selected_object": "Each completion and its dependents",
+      "quantifier": "At most one enqueue each",
+      "completion_state": "After decrement"
+    },
+    "one_premise_change": "After one of two prerequisites, count remains one; not newly zero.",
+    "result": "Newly-zero/at-most-once distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Each completion → releases → newly zero-count dependents, with at most one enqueue each.",
+    "expanded_after_claim": "Each completion releases newly zero-count dependents, with at most one enqueue each.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 11,
+    "before": "The reader → considers → the constructed input.",
+    "expanded_before_claim": "The reader considers the constructed input.",
+    "premises": {
+      "condition": "This is an invitation to inspect the constructed input.",
+      "selected_object": "Reader and constructed input",
+      "quantifier": "One supplied input",
+      "completion_state": "Before trace"
+    },
+    "one_premise_change": "Changing numeric input does not falsify an invitation to consider it.",
+    "result": "Narrow reading cue makes no stronger technical claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The reader → considers → the constructed input.",
+    "expanded_after_claim": "The reader considers the constructed input.",
+    "changed": false,
+    "word_count_before": 6,
+    "word_count_after": 6
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 12,
+    "before": "Courses one and two → must precede → course three; course four remains independent.",
+    "expanded_before_claim": "Courses one and two must precede course three; course four remains independent.",
+    "premises": {
+      "condition": "The chosen five-course graph has edges into three from one and two; four isolated.",
+      "selected_object": "Named courses in selected constructed input",
+      "quantifier": "Both prerequisites",
+      "completion_state": "Before course three"
+    },
+    "one_premise_change": "Changing prerequisite pairs changes this selected constructed graph.",
+    "result": "No universal course-ID rule is asserted; retain the source-instance claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Courses one and two → must precede → course three; course four remains independent.",
+    "expanded_after_claim": "Courses one and two must precede course three; course four remains independent.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 13,
+    "before": "Completing course zero → enqueues → one and two while three retains two obligations.",
+    "expanded_before_claim": "Completing course zero enqueues one and two while three retains two obligations.",
+    "premises": {
+      "condition": "The selected initialization gives zero available before four and two obligations for three.",
+      "selected_object": "Selected course-zero trace step",
+      "quantifier": "One trace state",
+      "completion_state": "After course zero updates"
+    },
+    "one_premise_change": "Completing course one first would be a different trace state and is not initially legal.",
+    "result": "No stronger universal course-zero release rule is asserted.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Completing course zero → enqueues → one and two while three retains two obligations.",
+    "expanded_after_claim": "Completing course zero enqueues one and two while three retains two obligations.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 14,
+    "before": "Isolated course four → contributes → one completion without releasing another course.",
+    "expanded_before_claim": "Isolated course four contributes one completion without releasing another course.",
+    "premises": {
+      "condition": "Course four is explicitly isolated.",
+      "selected_object": "Course four",
+      "quantifier": "One completion",
+      "completion_state": "After its removal"
+    },
+    "one_premise_change": "Giving four a dependent negates isolated status.",
+    "result": "Isolated premise is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Isolated course four → contributes → one completion without releasing another course.",
+    "expanded_after_claim": "Isolated course four contributes one completion without releasing another course.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 15,
+    "before": "Finishing course one → leaves → course three blocked by unfinished course two.",
+    "expanded_before_claim": "Finishing course one leaves course three blocked by unfinished course two.",
+    "premises": {
+      "condition": "Course two is still unfinished and is one of course-three prerequisites in the selected witness.",
+      "selected_object": "Selected delayed-release step",
+      "quantifier": "Both prerequisites",
+      "completion_state": "After only course one finishes"
+    },
+    "one_premise_change": "Completing course two earlier changes the explicit unfinished condition.",
+    "result": "Unfinished course-two distinction is explicit in the instance claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Finishing course one → leaves → course three blocked by unfinished course two.",
+    "expanded_after_claim": "Finishing course one leaves course three blocked by unfinished course two.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 16,
+    "before": "All five completions → produce → True without retaining their conceptual order.",
+    "expanded_before_claim": "All five completions produce True without retaining their conceptual order.",
+    "premises": {
+      "condition": "The selected witness has five total courses and five legal completions.",
+      "selected_object": "Selected five-course completion trace",
+      "quantifier": "All five",
+      "completion_state": "Loop exit"
+    },
+    "one_premise_change": "For six courses, five completions are not all courses; different selected witness.",
+    "result": "All-five-completions assertion is a source-instance conclusion, not a universal five-means-True rule.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "All five completions → produce → True without retaining their conceptual order.",
+    "expanded_after_claim": "All five completions produce True without retaining their conceptual order.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 17,
+    "before": "A disconnected cycle → prevents → success despite one isolated course's completion.",
+    "expanded_before_claim": "A disconnected cycle prevents success despite one isolated course's completion.",
+    "premises": {
+      "condition": "A different component contains a cycle.",
+      "selected_object": "Whole graph including disconnected cycle",
+      "quantifier": "All courses needed for success",
+      "completion_state": "After isolated completion"
+    },
+    "one_premise_change": "Removing the cycle negates the explicit disconnected-cycle premise.",
+    "result": "Global success versus isolated completion distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "A disconnected cycle → prevents → success despite one isolated course's completion.",
+    "expanded_after_claim": "A disconnected cycle prevents success despite one isolated course's completion.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 18,
+    "before": "At completed-update checkpoints, counts and queue → represent → unfinished obligations and availability.",
+    "expanded_before_claim": "At completed-update checkpoints, counts and queue represent unfinished obligations and availability.",
+    "premises": {
+      "condition": "Prior completion updates are finished before the checkpoint.",
+      "selected_object": "Counts and queue",
+      "quantifier": "All unfinished obligations/availability",
+      "completion_state": "Completed-update checkpoint"
+    },
+    "one_premise_change": "Midway through a dependent list, some counts are stale; explicitly excluded.",
+    "result": "Completed-update state is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "At completed-update checkpoints, counts and queue → represent → unfinished obligations and availability.",
+    "expanded_after_claim": "At completed-update checkpoints, counts and queue represent unfinished obligations and availability.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 19,
+    "before": "Initial pair counts and zero-count scan → establish → the checkpoint, including empty queues.",
+    "expanded_before_claim": "Initial pair counts and zero-count scan establish the checkpoint, including empty queues.",
+    "premises": {
+      "condition": "Initial counts read all pairs and scan includes every zero-count course.",
+      "selected_object": "Initial representation and ready scan",
+      "quantifier": "All pair obligations and zero-count courses",
+      "completion_state": "Before first iteration"
+    },
+    "one_premise_change": "Skipping an isolated zero-count course violates the stated zero-count scan.",
+    "result": "Initialization scope is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Initial pair counts and zero-count scan → establish → the checkpoint, including empty queues.",
+    "expanded_after_claim": "Initial pair counts and zero-count scan establish the checkpoint, including empty queues.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 20,
+    "before": "Complete dependent updates → reestablish → the checkpoint after each legal completion.",
+    "expanded_before_claim": "Complete dependent updates reestablish the checkpoint after each legal completion.",
+    "premises": {
+      "condition": "Dependent updates are complete after a legal completion.",
+      "selected_object": "Checkpoint and complete dependent updates",
+      "quantifier": "Whole dependent list",
+      "completion_state": "After legal completion"
+    },
+    "one_premise_change": "Half-processing the list is not complete dependent updates.",
+    "result": "Completion/legal distinctions are explicit; no new failure claimed.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Complete dependent updates → reestablish → the checkpoint after each legal completion.",
+    "expanded_after_claim": "Complete dependent updates reestablish the checkpoint after each legal completion.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 21,
+    "before": "The empty queue plus completion count → distinguishes → a schedule from a cyclic remainder.",
+    "expanded_before_claim": "The empty queue plus completion count distinguishes a schedule from a cyclic remainder.",
+    "premises": {
+      "condition": "A finished schedule requires all courses, otherwise empty queue leaves a cyclic remainder.",
+      "selected_object": "Completed graph versus remainder",
+      "quantifier": "All courses",
+      "completion_state": "Empty queue at source algorithm checkpoint"
+    },
+    "one_premise_change": "A partial legal prefix is not a completed schedule; completion count distinguishes it.",
+    "result": "Count/empty-queue distinction is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "The empty queue plus completion count → distinguishes → a schedule from a cyclic remainder.",
+    "expanded_after_claim": "The empty queue plus completion count distinguishes a schedule from a cyclic remainder.",
+    "changed": false,
+    "word_count_before": 13,
+    "word_count_after": 13
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 22,
+    "before": "An initially nonempty queue → fails → to guarantee completion of the whole graph.",
+    "expanded_before_claim": "An initially nonempty queue fails to guarantee completion of the whole graph.",
+    "premises": {
+      "condition": "Only initial nonemptiness is assumed.",
+      "selected_object": "Whole-graph completion claim",
+      "quantifier": "All courses",
+      "completion_state": "Initialization"
+    },
+    "one_premise_change": "Source rejection with isolated course two and a separate two-course cycle refutes global success.",
+    "result": "The skeleton correctly states failure of that guarantee.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "An initially nonempty queue → fails → to guarantee completion of the whole graph.",
+    "expanded_after_claim": "An initially nonempty queue fails to guarantee completion of the whole graph.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 23,
+    "before": "Bounded scalar and container operations → define → the O(V+E) cost model.",
+    "expanded_before_claim": "Bounded scalar and container operations define the O(V+E) cost model.",
+    "premises": {
+      "condition": "Bounded elementary scalar and container operations define the cost model.",
+      "selected_object": "Cost model, not an algorithmic proof",
+      "quantifier": "Stated primitive operations",
+      "completion_state": "Cost definition"
+    },
+    "one_premise_change": "Copying k slots is not one primitive constant-size operation.",
+    "result": "Elementary-model distinction is explicit; no work bound inferred solely from bounded scalars.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Bounded scalar and container operations → define → the O(V+E) cost model.",
+    "expanded_after_claim": "Bounded scalar and container operations define the O(V+E) cost model.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 24,
+    "before": "Repeated list-front removal → causes → quadratic reference shifts even without edges.",
+    "expanded_before_claim": "Repeated list-front removal causes quadratic reference shifts even without edges.",
+    "premises": {
+      "condition": "The complete V-entry list must be drained with front removals.",
+      "selected_object": "All queued list entries",
+      "quantifier": "V removals and V(V−1)/2 shifts",
+      "completion_state": "Complete draining"
+    },
+    "one_premise_change": "Perform only two front removals in a V-entry list: work is linear in V, not quadratic.",
+    "result": "FAIL: repeated removal omitted full-draining scope and size parameter.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Draining a V-course list with pop(0) → shifts → V(V−1)/2 references.",
+    "expanded_after_claim": "Draining a V-course list with pop(0) shifts V(V−1)/2 references.",
+    "changed": true,
+    "word_count_before": 10,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 25,
+    "before": "Fixed-size deque blocks → support → bounded endpoint work under the stated allocation model.",
+    "expanded_before_claim": "Fixed-size deque blocks support bounded endpoint work under the stated allocation model.",
+    "premises": {
+      "condition": "Fixed block allocation has bounded cost in stated model.",
+      "selected_object": "Deque endpoint operations",
+      "quantifier": "Each endpoint operation",
+      "completion_state": "At a block boundary or within block"
+    },
+    "one_premise_change": "Unbounded-size block copying would break the explicit fixed-size allocation model.",
+    "result": "Fixed-size/model condition is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Fixed-size deque blocks → support → bounded endpoint work under the stated allocation model.",
+    "expanded_after_claim": "Fixed-size deque blocks support bounded endpoint work under the stated allocation model.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "before": "One list append → may require → resizing and copying despite spare capacity.",
+    "expanded_before_claim": "One list append may require resizing and copying despite spare capacity.",
+    "premises": {
+      "condition": "An append needs a new allocation when allocated slots are exhausted.",
+      "selected_object": "Single append and growth event",
+      "quantifier": "May resize/copy, not always",
+      "completion_state": "Allocated slots exhausted"
+    },
+    "one_premise_change": "If unused slots remain, the next append need not resize. The original despite clause blurs this trigger.",
+    "result": "AMBIGUOUS: original wording could imply resizing while spare slots remain.",
+    "origin": "PARENT_R4_NOT_FRESH_READER",
+    "after": "When allocated slots run out, an append → may require → resizing and copying.",
+    "expanded_after_claim": "When allocated slots run out, an append may require resizing and copying.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 27,
+    "before": "Append-only proportional growth → bounds → aggregate appends linearly, excluding deletion and bulk updates.",
+    "expanded_before_claim": "Append-only proportional growth bounds aggregate appends linearly, excluding deletion and bulk updates.",
+    "premises": {
+      "condition": "Append-only proportional capacity growth; no alternating deletion or bulk update.",
+      "selected_object": "Aggregate append sequence",
+      "quantifier": "Whole sequence",
+      "completion_state": "After all d appends"
+    },
+    "one_premise_change": "One resizing append may cost O(m); aggregate claim remains linear and is not a single-append promise.",
+    "result": "Append-only/aggregate/exclusion distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Append-only proportional growth → bounds → aggregate appends linearly, excluding deletion and bulk updates.",
+    "expanded_after_claim": "Append-only proportional growth bounds aggregate appends linearly, excluding deletion and bulk updates.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 28,
+    "before": "All adjacency append sequences → total → E, making construction O(V+E).",
+    "expanded_before_claim": "All adjacency append sequences total E, making construction O(V+E).",
+    "premises": {
+      "condition": "E append operations need amortized constant aggregate cost per append sequence.",
+      "selected_object": "Aggregate append work across adjacency lists",
+      "quantifier": "Sum of per-list costs",
+      "completion_state": "Across complete append sequences"
+    },
+    "one_premise_change": "E exact-growth appends with no spare capacity would copy 1+...+(E−1) references: E operations alone do not prove linear work.",
+    "result": "FAIL: operation count was compressed directly into a time-bound conclusion.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Summing per-list amortized append costs → gives → O(E) total append work.",
+    "expanded_after_claim": "Summing per-list amortized append costs gives O(E) total append work.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 11,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 29,
+    "before": "Once-per-course and edge processing → yields → O(V+E) under the established container bounds.",
+    "expanded_before_claim": "Once-per-course and edge processing yields O(V+E) under the established container bounds.",
+    "premises": {
+      "condition": "Established queue and append bounds price the once-per-course/edge visits.",
+      "selected_object": "Selected processing algorithm",
+      "quantifier": "At most once per course and edge",
+      "completion_state": "Complete processing or early cycle stop"
+    },
+    "one_premise_change": "Using list.pop(0) would violate established container bounds.",
+    "result": "Container-cost qualifier is explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Once-per-course and edge processing → yields → O(V+E) under the established container bounds.",
+    "expanded_after_claim": "Once-per-course and edge processing yields O(V+E) under the established container bounds.",
+    "changed": false,
+    "word_count_before": 13,
+    "word_count_after": 13
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 30,
+    "before": "Representation and queue → use → O(V+E) peak auxiliary space, excluding input.",
+    "expanded_before_claim": "Representation and queue use O(V+E) peak auxiliary space, excluding input.",
+    "premises": {
+      "condition": "Input excluded, auxiliary counts peak live records/references.",
+      "selected_object": "Adjacency representation and queue",
+      "quantifier": "Peak, not cumulative allocations",
+      "completion_state": "Including resize transient storage"
+    },
+    "one_premise_change": "Keeping every historical resize buffer would violate the selected representation memory policy.",
+    "result": "Peak/input-exclusion distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Representation and queue → use → O(V+E) peak auxiliary space, excluding input.",
+    "expanded_after_claim": "Representation and queue use O(V+E) peak auxiliary space, excluding input.",
+    "changed": false,
+    "word_count_before": 12,
+    "word_count_after": 12
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 31,
+    "before": "Repeated pair scans → release → whole zero-obligation groups without storing extra edges.",
+    "expanded_before_claim": "Repeated pair scans release whole zero-obligation groups without storing extra edges.",
+    "premises": {
+      "condition": "Whole group has no unfinished prerequisite; rescans use original pair input.",
+      "selected_object": "Repeated-scan alternative",
+      "quantifier": "Whole zero-obligation group",
+      "completion_state": "After entire pair scan"
+    },
+    "one_premise_change": "Marking courses done mid-scan may release another course prematurely; whole-group condition excludes this.",
+    "result": "Whole zero-obligation group distinguishes legality.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Repeated pair scans → release → whole zero-obligation groups without storing extra edges.",
+    "expanded_after_claim": "Repeated pair scans release whole zero-obligation groups without storing extra edges.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 32,
+    "before": "Repeated scans → trade → O(V(V+E)) time for O(V) peak auxiliary space.",
+    "expanded_before_claim": "Repeated scans trade O(V(V+E)) time for O(V) peak auxiliary space.",
+    "premises": {
+      "condition": "Selected repeated-scan alternative has V-sized flags and at most V productive rounds.",
+      "selected_object": "The repeated-scan alternative",
+      "quantifier": "At most V productive rounds",
+      "completion_state": "Complete rounds"
+    },
+    "one_premise_change": "One available course per chain round demonstrates persistent repeated work rather than faster general bound.",
+    "result": "Trade between stated time and peak memory is source-supported; no new failure claimed.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Repeated scans → trade → O(V(V+E)) time for O(V) peak auxiliary space.",
+    "expanded_after_claim": "Repeated scans trade O(V(V+E)) time for O(V) peak auxiliary space.",
+    "changed": false,
+    "word_count_before": 14,
+    "word_count_after": 14
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "before": "Retaining legal completions → produces → one valid order without a smallest-first guarantee.",
+    "expanded_before_claim": "Retaining legal completions produces one valid order without a smallest-first guarantee.",
+    "premises": {
+      "condition": "Every course must occur exactly once as a legal completion before returning a full order.",
+      "selected_object": "All-course order, not partial legal prefix",
+      "quantifier": "Every course once",
+      "completion_state": "Full completion"
+    },
+    "one_premise_change": "V=3 with pairs [[1,0],[0,1]] yields only legal prefix [2]; it is not a full three-course order.",
+    "result": "FAIL: complete-versus-partial condition was missing.",
+    "origin": "FRESH_READER_R3",
+    "after": "All courses completed legally once → form → a valid order without smallest-first guarantees.",
+    "expanded_after_claim": "All courses completed legally once form a valid order without smallest-first guarantees.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 12,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 34,
+    "before": "Retaining order → preserves → linear time while changing output and temporary-space accounting.",
+    "expanded_before_claim": "Retaining order preserves linear time while changing output and temporary-space accounting.",
+    "premises": {
+      "condition": "Selected adaptation appends once per course under the established aggregate append cost.",
+      "selected_object": "Appended course order",
+      "quantifier": "At most V appends",
+      "completion_state": "Whole append-only sequence"
+    },
+    "one_premise_change": "Keeping an order using front insertions shifts prior entries, adding quadratic work even if retained output is still an order.",
+    "result": "INCOMPLETE: retaining order alone does not preserve linear cost.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "At most V amortized order appends → preserve → the existing O(V+E) time bound.",
+    "expanded_after_claim": "At most V amortized order appends preserve the existing O(V+E) time bound.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 14,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source.",
+    "intermediate_candidate_v1": "Appending the order → preserves → O(V+E) time under the stated amortized append bound.",
+    "pre_handoff_refinement": "Retained the first repaired candidate. The final cue makes the selected algorithm/count premise explicit instead of relying on a deictic reference."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 35,
+    "before": "Remaining indegree → determines → availability exactly when its count reaches zero.",
+    "expanded_before_claim": "Remaining indegree determines availability exactly when its count reaches zero.",
+    "premises": {
+      "condition": "Count means unfinished prerequisites and must be zero.",
+      "selected_object": "Remaining indegree",
+      "quantifier": "Exactly when count zero",
+      "completion_state": "Availability decision"
+    },
+    "one_premise_change": "A count of one remains unavailable, not zero.",
+    "result": "Exact-zero/unfinished distinctions are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Remaining indegree → determines → availability exactly when its count reaches zero.",
+    "expanded_after_claim": "Remaining indegree determines availability exactly when its count reaches zero.",
+    "changed": false,
+    "word_count_before": 10,
+    "word_count_after": 10
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 36,
+    "before": "One prerequisite completion → removes → each stored outgoing obligation once.",
+    "expanded_before_claim": "One prerequisite completion removes each stored outgoing obligation once.",
+    "premises": {
+      "condition": "Stored edges describe direct dependents; prerequisite finishes once.",
+      "selected_object": "Stored outgoing obligations",
+      "quantifier": "Each once",
+      "completion_state": "One prerequisite completion"
+    },
+    "one_premise_change": "Finishing an unrelated course removes none of these obligations, outside its stored-outgoing scope.",
+    "result": "Prerequisite identity and once quantifier are explicit.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "One prerequisite completion → removes → each stored outgoing obligation once.",
+    "expanded_after_claim": "One prerequisite completion removes each stored outgoing obligation once.",
+    "changed": false,
+    "word_count_before": 9,
+    "word_count_after": 9
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 37,
+    "before": "A nonempty unfinished remainder with an empty queue → implies → a cycle.",
+    "expanded_before_claim": "A nonempty unfinished remainder with an empty queue implies a cycle.",
+    "premises": {
+      "condition": "No unfinished course is available; graph remainder nonempty.",
+      "selected_object": "Unfinished remainder, not arbitrary queue contents",
+      "quantifier": "Every remaining course has an unfinished prerequisite",
+      "completion_state": "No available unfinished course"
+    },
+    "one_premise_change": "With V=1 and no pairs, an uninitialized empty queue coexists with unfinished course zero but graph has no cycle.",
+    "result": "FAIL: an arbitrary empty queue does not establish absence of available courses.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "When no unfinished course is available → infer → a cycle in the nonempty remainder.",
+    "expanded_after_claim": "When no unfinished course is available infer a cycle in the nonempty remainder.",
+    "changed": true,
+    "word_count_before": 11,
+    "word_count_after": 13,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 38,
+    "before": "Established container and scalar costs → imply → O(V+E) work and auxiliary space.",
+    "expanded_before_claim": "Established container and scalar costs imply O(V+E) work and auxiliary space.",
+    "premises": {
+      "condition": "Costs apply to this construction/traversal; bounded costs alone do not establish operation count.",
+      "selected_object": "Selected construction and traversal",
+      "quantifier": "Whole algorithm",
+      "completion_state": "Final work/storage account"
+    },
+    "one_premise_change": "An unrelated pair-rescanning algorithm uses the same bounded primitives but takes more than O(V+E).",
+    "result": "INCOMPLETE: old skeleton made the cost assumptions the sole cause of the bound.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Kahn's adjacency-list implementation → uses → O(V+E) work and auxiliary space under stated costs.",
+    "expanded_after_claim": "Kahn's adjacency-list implementation uses O(V+E) work and auxiliary space under stated costs.",
+    "changed": true,
+    "word_count_before": 13,
+    "word_count_after": 14,
+    "repair_recheck": "The changed-premise witness now violates a condition explicitly stated by the repaired claim; the remaining narrower claim is entailed by the source.",
+    "intermediate_candidate_v1": "This construction and traversal → use → O(V+E) work and auxiliary space under stated costs.",
+    "pre_handoff_refinement": "Retained the first repaired candidate. The final cue makes the selected algorithm/count premise explicit instead of relying on a deictic reference."
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 39,
+    "before": "Counts, queue, and completed-course total → connect → dependencies, availability, invariant, and termination.",
+    "expanded_before_claim": "Counts, queue, and completed-course total connect dependencies, availability, invariant, and termination.",
+    "premises": {
+      "condition": "Counts, queue and completion counter have distinct roles.",
+      "selected_object": "Master-map relationships",
+      "quantifier": "The connected argument",
+      "completion_state": "Across representation and execution"
+    },
+    "one_premise_change": "Dropping a component breaks the described connection, rather than falsifying a stronger numerical guarantee.",
+    "result": "The skeleton is a narrow map cue, not an unconditional complexity or success claim.",
+    "origin": "CONSUMER_REAUDIT",
+    "after": "Counts, queue, and completed-course total → connect → dependencies, availability, invariant, and termination.",
+    "expanded_after_claim": "Counts, queue, and completed-course total connect dependencies, availability, invariant, and termination.",
+    "changed": false,
+    "word_count_before": 11,
+    "word_count_after": 11
+  }
+]

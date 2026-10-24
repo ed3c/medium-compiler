@@ -1,0 +1,39 @@
+{
+  "required_files": {
+    "article.first.en.md": {
+      "bytes": 17783,
+      "sha256": "15f080e7b51ba862939262e3ef6dead70454fe1645d134feb0b37cfb3917a2ce"
+    },
+    "article.en.md": {
+      "bytes": 17755,
+      "sha256": "8b1a532a3324a1db795786f4a8831038be9d562df9de81fe9c9a116130ffdf76"
+    },
+    "article.first.zh-TW.md": {
+      "bytes": 17762,
+      "sha256": "b101ece1b33a3e1203c151e20149593410490d3b5809a7e562bd957e00f80348"
+    },
+    "article.zh-TW.md": {
+      "bytes": 17765,
+      "sha256": "ea27acf6731343103c31ad69ee119ac4e749dd9116bcb20a12ebf4871d225b21"
+    },
+    "report.md": {
+      "bytes": 7336,
+      "sha256": "96b8bb56da4716a791f08e577e87ed3a389bba1413e605f84871b254082d35bd"
+    },
+    "verify.py": {
+      "bytes": 8067,
+      "sha256": "18210a4dc54824028a5a2336546f742c70abbd0e36fe62856b82dc317a504e46"
+    },
+    "runtime.json": {
+      "bytes": 6898,
+      "sha256": "7f0c7de81b731425a80c2da8a41e71a6f2e4b3427eb190949fd852444a02bf4d"
+    },
+    "output.json": {
+      "bytes": 140,
+      "sha256": "7206db24282714249f62f579c47e67583d3dd5dc0794ed2a4fedbd50a79afcb4"
+    }
+  },
+  "english_identity_matches_runtime_and_review": true,
+  "review_precedes_translation_start": true,
+  "unexpected_failures": 0
+}

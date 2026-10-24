@@ -1,0 +1,125 @@
+{
+  "answers": [
+    {
+      "id": "contract",
+      "answer": "正確結果須與輸入有完全相同的 union，且輸出 intervals 彼此不 overlap；closed endpoints 使相等邊界必須合併，整數 endpoints 不表示可以忽略兩整數間的 gap。合法輸入有 1 到 10^4 個雙整數 pair，0 <= start <= end <= 10^4，順序任意，單點合法。實作另外選擇保留呼叫端的順序與 inner pairs，也處理題目範圍外的空輸入。先按 start 排序後，未來 start 不會向左，因此 strict gap 可定案。merged 保存依 start 排序、有 strict gap 的 components；僅最後 pair 能再延伸，其 end 是整個 component 的最遠 reach。這些資訊足以決定下一 interval 是否連接，不需要原始成員、重複次數或原順序。",
+      "quotes": [
+        {"language":"en","text":"An interval `[start, end]` includes both endpoints and every point between them. Thus `[1,2]` and `[2,3]` share the point `2` and must become `[1,3]`. `[1,2]` and `[3,4]` have a gap and remain separate. Integer endpoints do not turn the intervals into sets of integers; the gap between `2` and `3` still matters. A single-point interval such as `[12,12]` is valid."},
+        {"language":"en","text":"LeetCode 56 accepts between `1` and `10^4` intervals. Each has exactly two integer endpoints satisfying `0 <= start <= end <= 10^4`. Input order is not promised. The result must have no overlapping intervals while covering exactly what the input covers. Adding points in a gap would be incorrect."},
+        {"language":"en","text":"Think of coverage as the collection of all points included by at least one interval; mathematicians call this the union. Two input lists are equivalent for this task when their unions are equal. Their original order and repeated copies do not affect the union."},
+        {"language":"en","text":"The statement does not promise that callers want their input rearranged or edited. The implementation below therefore preserves both the input list's order and its inner pairs. It returns new pairs. It also returns `[]` for an empty input, though empty input lies outside the stated constraints."},
+        {"language":"en","text":"Once starts move only to the right, a new interval beginning after the current stretch ends proves that all later intervals also begin too far right to reach that stretch."},
+        {"language":"en","text":"Use a list named `merged` for the components found so far. Its pairs are ordered by start and separated by strict gaps. The last pair is the frontier: it may grow when the next interval arrives. Earlier pairs are complete."},
+        {"language":"en","text":"Connections through a chain are what justify the single merged interval `[1,4]`. Keeping the component's furthest endpoint retains the information needed for the next connection, even after the original members have been forgotten."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "state",
+      "answer": "明示 checkpoint 是每次處理下一個 sorted pair 之前。intervals 是未被改動的原輸入；ordered 是按 start 排序的新外層 list，其 entries 仍參照原 input pairs。merged 是已處理 prefix 的精確、完全合併 union，starts 遞增，相鄰 pairs 有 strict gap；除了最後一個 frontier，其餘即使相對 unread input 也已定案。最後 pair 的起點固定、終點保存整段最遠 reach。start/end 由 for 將下一個 pair 的兩值綁到區域名稱。初始化 prefix 與 merged 同為空，coverage 都空，無順序或 gap 違反者。首次 not merged 為真，or 短路避免讀 nonexistent last pair，append 建立新的雙元素 output pair。",
+      "quotes": [
+        {"language":"en","text":"A loop invariant is a statement that remains true at the same checkpoint on every iteration. Here the checkpoint is immediately before processing the next sorted pair. At that point, `merged` is an exact, fully merged description of the processed prefix: it has the same union, starts increase, and every neighboring output pair has a strict gap. All pairs except possibly the last are final even with respect to unread input."},
+        {"language":"en","text":"Initially the processed prefix and `merged` are both empty. They cover no points, and there are no pairs whose ordering or gaps could violate the invariant."},
+        {"language":"en","text":"In Python, `sorted(intervals, key=lambda pair: pair[0])` returns a new outer list."},
+        {"language":"en","text":"A new outer list does not mean new inner pairs. Its entries still refer to the input pair objects."},
+        {"language":"en","text":"The right endpoint must mean the furthest reach of the entire current component. It cannot mean merely the previous input interval's end."},
+        {"language":"en","text":"`for start, end in ordered` reads a pair and binds its two values to the local names `start` and `end`. `merged[-1]` selects the last output pair; the following `[1]` selects that pair's end. Assigning to `merged[-1][1]` replaces that slot in the existing pair. It neither appends another component nor replaces the entire output list."},
+        {"language":"en","text":"For the first interval, `not merged` is true because `merged` is empty. Python's `or` stops after a true left operand, so the expression never tries to index the nonexistent last pair. On later iterations it tests the gap."},
+        {"language":"en","text":"Instead, `merged.append([start, end])` creates a fresh two-item list for each new component. The integers can be shared safely because the program never changes an integer object; it replaces an entry in an output pair. The input pairs are only read."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "trace",
+      "answer": "選未在主例使用的合法輸入 [[6,7],[2,4],[4,5],[3,3],[9,9]]。依 start 排序得到 ordered=[[2,4],[3,3],[4,5],[6,7],[9,9]]，merged=[]，原輸入不變。讀 [2,4]：not merged=true，不讀 last end，建立新 pair，merged=[[2,4]]。讀 [3,3]：3>4=false，max(4,3)=4，merged 維持 [[2,4]]。讀 [4,5]：4>4=false，共享 endpoint，max(4,5)=5，得到 [[2,5]]。讀 [6,7]：6>5=true，append 新 pair，得到 [[2,5],[6,7]]；第一段從此定案。讀 [9,9]：9>7=true，得到 [[2,5],[6,7],[9,9]]。所有 pair 讀完直接回傳此 merged；frontier 已在輸出，不必 flush。每次 merge 只改 output pair 的 end slot，不改 input pair。",
+      "quotes": [
+        {"language":"en","text":"Sort by increasing start instead."},
+        {"language":"en","text":"For the first interval, `not merged` is true because `merged` is empty. Python's `or` stops after a true left operand, so the expression never tries to index the nonexistent last pair."},
+        {"language":"en","text":"Let the current stretch be `[left, right]`, and the next sorted interval be `[start, end]`. Sorting gives `left <= start`. If `start <= right`, the intervals meet or overlap. Their union has no hole, begins at `left`, and ends at `max(right, end)`. If `start > right`, points between `right` and `start` are uncovered. Preserve the current stretch and start a new one."},
+        {"language":"en","text":"Instead, `merged.append([start, end])` creates a fresh two-item list for each new component."},
+        {"language":"en","text":"Assigning to `merged[-1][1]` replaces that slot in the existing pair. It neither appends another component nor replaces the entire output list."},
+        {"language":"en","text":"Every unread interval has a start at least as large as `start`; none can fill this newly established gap from the left. The old last component can now join the earlier final components."},
+        {"language":"en","text":"The loop has consumed every pair. `return merged` returns `[[1,10],[12,14]]`; no final flush is required because the frontier has already lived in the output throughout the scan. The return value shares neither its outer list nor its inner pairs with the input."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "failure",
+      "answer": "可具體重建兩種正文已給出的錯誤。第一種在 [[1,5],[2,3]] 首次 append 後為 [[1,5]]，若 merge 時直接以 incoming end=3 覆寫 right，第一個錯誤 state 為 [[1,3]]，丟失至 5 的 coverage；正確的 max(5,3)=5 保留 [[1,5]]。第二種在 [[1,2],[2,3]] 讀完第一 pair 為 [[1,2]]，錯把 start>=last_end 當 gap，第二次便 append 成 [[1,2],[2,3]]；這是首次違反輸出不 overlap 的 state，因兩個 closed intervals 共享 2。正確 strict > 在 2>2 為假時進 merge，得到 [[1,3]]。另外，任意順序下過早定案也有正文例 [[5,6],[1,2],[2,5]]：第三段會補上先前以為永久的 gap，排序使這個定案前提成立。",
+      "quotes": [
+        {"language":"en","text":"For `[[1,5],[2,3]]`, replacing `right` with `3` loses coverage from `3` to `5`. This counterexample is minimal in number of intervals for that error: a single interval cannot trigger a merge update. Taking the maximum keeps a contained interval from shrinking its container."},
+        {"language":"en","text":"On `[[1,2],[2,3]]`, treating `start >= last_end` as a gap would return two touching intervals. The required answer is `[[1,3]]`. The strict `>` in the code is the exact point where the closed-endpoint contract affects the branch."},
+        {"language":"en","text":"An interval `[start, end]` includes both endpoints and every point between them. Thus `[1,2]` and `[2,3]` share the point `2` and must become `[1,3]`."},
+        {"language":"en","text":"In the order `[[5,6],[1,2],[2,5]]`, the first two appear separate, but the third joins them into `[1,6]`. A gap observed in arbitrary input order is insufficient evidence to finish a component."},
+        {"language":"en","text":"Once starts move only to the right, a new interval beginning after the current stretch ends proves that all later intervals also begin too far right to reach that stretch."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "proof",
+      "answer": "空 prefix/空 merged 建立 invariant。下一 pair 若輸出空，新 copy 精確表示第一段；否則 sorted starts 保證 incoming start 不早於 frontier 起點。start<=last end 時存在交集，固定 left、取 max end 恰表示兩者 union，無洞、不丟點、不加未涵蓋點；left 未變故與更早段的 gap 不變。start>last end 時 append 精確保存新段和 strict gap，所有 unread starts 至少是這個 start，故不會補回 gap，舊 frontier 可永久定案。較早段終於 a、最後段始於 b 且 a<b，之後 start>=b，因此只需最後段比較；原成員可在最遠 endpoint 中被摘要，contained interval 也不能縮短它。新 output pair 避免修改 caller；相同 start 的先後不影響 max 合併。每步消耗有限 ordered list 一個 pair，終止後 processed prefix=全輸入；invariant 給出完整 union 與互不 overlap，frontier 一直已存在 output，無最後 flush。",
+      "quotes": [
+        {"language":"en","text":"Initially the processed prefix and `merged` are both empty. They cover no points, and there are no pairs whose ordering or gaps could violate the invariant."},
+        {"language":"en","text":"For maintenance, suppose a next pair `[start,end]` arrives. If the output is empty, a fresh copy represents exactly that first pair. Otherwise, sorting guarantees that `start` is no earlier than the start of the last component. If `start` is no greater than its end, the intervals intersect. Replacing that end by their maximum represents their exact union: it adds precisely the new covered points and leaves no hole. Its left endpoint stays fixed, so it cannot disturb the gap to an earlier component."},
+        {"language":"en","text":"If `start` is greater than the last end, appending preserves both exact coverage and a strict gap. Every unread interval has a start at least as large as `start`; none can fill this newly established gap from the left. The old last component can now join the earlier final components. These cases preserve the invariant."},
+        {"language":"en","text":"Suppose an earlier component ends at `a`, and the last component begins at `b`, with `a < b`. Every new start is at least `b`. It therefore cannot reach backward across that gap into the earlier component. If it reaches any saved component, only the last one is a candidate. This removes the need to rescan the whole output after each interval."},
+        {"language":"en","text":"Equal starts need no secondary endpoint order for this algorithm: either order will be combined by the maximum."},
+        {"language":"en","text":"Instead, `merged.append([start, end])` creates a fresh two-item list for each new component. The integers can be shared safely because the program never changes an integer object; it replaces an entry in an output pair. The input pairs are only read."},
+        {"language":"en","text":"At termination the processed prefix is the entire input. The invariant supplies exact coverage and strict gaps between output components. Thus no pair of output intervals overlaps, and no covered point has been lost or invented. The loop terminates because it visits each element of a finite sorted list once."},
+        {"language":"en","text":"no final flush is required because the frontier has already lived in the output throughout the scan."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "cost",
+      "answer": "正文定義 n 為 input intervals 數、k 為 output components 數且 k<=n；Big O 是忽略固定倍數等的成長上界，不是秒數。endpoint<=10^4 使其大小有界，comparison/indexing/entry replacement 視為 constant；key 每 pair 一次，共 O(n)；scan n 次、每次固定 tests/reads/max，總共有 k 次 append。append 單次可能搬移 references，但 CPython v3.14.0 按目前大小比例預留容量；正文以 geometric progression 與倒看固定比例遞減說明總搬移量受最終容量固定倍數限制，k 次合計 O(k)，亦解釋 amortized 是整段序列上界。排序以 runs 合併的概念模型說明：每輪倍增大小，約 log2(n) 輪，每輪線性工作，因此最壞 O(n log n)，並明說真實 CPython schedule 更複雜但保有此上界；log2(8)=3 的倍增例有解釋。加上 key/scan 得總最壞 O(n log n)，n=1 為 constant。output 有外層 list 和 k 個固定雙元素新 pair，O(k)；排除 input/output 的 auxiliary 仍 O(n)，因 ordered n references，加 sort keys/merge temporaries；scan 自己只持固定 local references。peak extra O(n+k)=O(n) 由 k<=n 得。in-place list.sort 只省 outer copy，並無 O(1) sorting auxiliary 保證；已排序版本移除 sorting 後 O(n)，streaming 用一 pending pair O(1) working state，但 consumer 或 returned list 的 k results 仍占 O(k)。正文的 caveats 對 runs、log2、geometric progression、amortized、working/output space 都有本地說明，未發現為重建上述成本所必需而缺少的概念定義。CPython 具體上界為正文所述，這裡不開來源獨立驗證實作。",
+      "quotes": [
+        {"language":"en","text":"Let `n` be the number of input intervals and `k` the number of output components, so `k <= n`. Big O gives a growth bound while ignoring fixed multipliers and small fixed overhead. `O(n)` means work bounded by a constant times the input size; `O(n log n)` includes an additional factor that grows as a logarithm. These are operation-count statements, not elapsed seconds."},
+        {"language":"en","text":"Treat endpoint comparison, indexing and replacing a list entry as constant work here. The statement bounds endpoints by `10^4`, so these integers have bounded size. The sorting key reads one endpoint per pair, contributing `O(n)` work. The scan visits `n` pairs; each visit makes a fixed number of tests, reads and maximum comparisons, plus at most one append."},
+        {"language":"en","text":"An append can occasionally require a larger storage area and copying existing references. It is not correct to claim that every individual append costs constant time. In CPython v3.14.0, list storage grows with spare capacity proportional to its current size. Across repeated growth, copied capacities form a geometric progression: viewed backward, earlier capacities decrease by a fixed fraction. Their sum is bounded by a fixed multiple of the final capacity. Thus all `k` appends together cost `O(k)`, called amortized constant cost per append. This is a bound over the sequence, not an assumption that an occasional expensive append never happens."},
+        {"language":"en","text":"CPython v3.14.0 uses an adaptive merge sort: it finds ordered stretches, called runs, and combines them. To see where the logarithm comes from, consider the conceptual case of combining equal-sized runs. A round doubles run size: `1, 2, 4, 8, ...`. Reaching `n` needs about `log2(n)` rounds; `log2(8) = 3` because three doublings turn `1` into `8`. Combining runs examines at most a linear number of items across each round, giving `O(n log n)` work. CPython uses a more elaborate merge schedule rather than those exact rounds, while retaining the worst-case `O(n log n)` bound. Existing ordered runs can reduce its work. This is a cost explanation, not a claim that the implementation literally splits every input into single items."},
+        {"language":"en","text":"Adding sorting and the scan gives worst-case `O(n log n)` time for growing `n` (with constant work at `n = 1`). The visible single loop does not make the entire function linear: `sorted` performs its own work before that loop."},
+        {"language":"en","text":"The returned result occupies `O(k)` space: one outer list and `k` fresh pairs, each of fixed size two. Excluding the input and returned result, auxiliary space is still `O(n)`. `ordered` contains `n` references, and sorting can keep keys and temporary merge storage proportional to `n`. Those temporary structures disappear after sorting, while `ordered` survives through the scan. The scan itself needs only a constant number of local references in addition to output. Peak extra space including the returned result is `O(n + k) = O(n)`. Using in-place `list.sort` would remove the copied outer list but would not justify a general `O(1)` auxiliary-space claim for CPython's sorting."},
+        {"language":"en","text":"If a changed contract guarantees nondecreasing starts, remove the sorting call and scan that order directly. The same proof applies because its required ordering premise is now supplied by the caller. Time becomes `O(n)` under the same primitive-cost assumptions."},
+        {"language":"en","text":"That version needs `O(1)` working state beyond its input stream and whatever the consumer stores. If the API still demands a returned list, storing the `k` results still needs `O(k)` space."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "transfer",
+      "answer": "明確改變的 contract 是 caller 保證 starts nondecreasing；原先必須由 sorted 建立的 proof premise 現成成立，因此刪除排序、直接掃描，時間成 O(n)。還可改用一個 pending [left,right]：相接時延伸，strict gap 時將完成 pair 交給 consumer，輸入結束再 emit 最後 pending pair。working state O(1)，但 consumer 儲存或 API 必須回傳 k 結果時仍有 O(k) output。不能把這個 stream 版本直接套到原始任意順序：bridging interval 可能在 component 已 emit 之後才來，正文 [[5,6],[1,2],[2,5]] 即示範此前提失效。",
+      "quotes": [
+        {"language":"en","text":"If a changed contract guarantees nondecreasing starts, remove the sorting call and scan that order directly. The same proof applies because its required ordering premise is now supplied by the caller. Time becomes `O(n)` under the same primitive-cost assumptions."},
+        {"language":"en","text":"This also permits streaming: keep just one pending `[left,right]` pair, extend it when intervals meet, and emit it when a strict gap appears. Emit the last pending pair when input ends. Emission means passing a completed pair to a consumer instead of keeping all completed pairs in a list. That version needs `O(1)` working state beyond its input stream and whatever the consumer stores. If the API still demands a returned list, storing the `k` results still needs `O(k)` space."},
+        {"language":"en","text":"The guarantee is essential. An unsorted stream might deliver a bridging interval after a component has been emitted; `[[5,6],[1,2],[2,5]]` already demonstrates the failure. For arbitrary input under the original contract, sorting is the chosen alternative to repeatedly revisiting previously saved components. The cost of arranging intervals buys the ability to finish each component once."}
+      ],
+      "missing": false
+    },
+    {
+      "id": "bilingual",
+      "answer": "兩份正文在被要求的物件與關係上相符：都是 sorted 新外層、input inner pairs 仍共享，output 每 component 建新 pair；同樣以 last pair frontier 保存最遠 end，以 strict > 區分 gap、max 保留 union，以 processed-prefix invariant 解釋初始化、兩分支與終止。兩者都有 bounded primitive、key/scan 次數、CPython append amortization、run/log2 成本概念、O(n) auxiliary 與 O(k) output 的區分，以及 already ordered 和 streaming 的 changed constraint。完整 Python code 字面相同，English interview rehearsal 五段問答字面相同。未發現實質 omissions/mismatches；此結論基於正文逐項對照，不由 matching headings 推定讀者理解。",
+      "quotes": [
+        {"language":"en","text":"A new outer list does not mean new inner pairs. Its entries still refer to the input pair objects."},
+        {"language":"zh-TW","text":"外層 list 是新的，不代表內層 pair 也是新的。新 list 的 entry 仍指向輸入的 pair object。"},
+        {"language":"en","text":"If `start <= right`, the intervals meet or overlap. Their union has no hole, begins at `left`, and ends at `max(right, end)`. If `start > right`, points between `right` and `start` are uncovered. Preserve the current stretch and start a new one."},
+        {"language":"zh-TW","text":"若 `start <= right`，兩者相接或 overlap，union 中沒有洞，起點是 `left`，終點是 `max(right, end)`。若 `start > right`，`right` 與 `start` 之間有未被涵蓋的點。此時應保留目前這段，再開啟新的一段。"},
+        {"language":"en","text":"At termination the processed prefix is the entire input. The invariant supplies exact coverage and strict gaps between output components. Thus no pair of output intervals overlaps, and no covered point has been lost or invented. The loop terminates because it visits each element of a finite sorted list once."},
+        {"language":"zh-TW","text":"termination 時，processed prefix 已是整份輸入。invariant 保證 coverage 完全相同，而且輸出 component 之間有嚴格 gap。因此，任兩個輸出 interval 都不會 overlap，也沒有任何 covered point 被遺失或憑空加入。loop 會結束，因為它只會逐一走訪有限 sorted list 中的每個元素一次。"},
+        {"language":"en","text":"Thus all `k` appends together cost `O(k)`, called amortized constant cost per append. This is a bound over the sequence, not an assumption that an occasional expensive append never happens."},
+        {"language":"zh-TW","text":"因此，全部 `k` 次 append 合計花費 `O(k)`，稱為每次 append 的 amortized constant cost。這是對整段操作序列的上界，並不是假設偶爾昂貴的 append 不會發生。"},
+        {"language":"en","text":"The returned result occupies `O(k)` space: one outer list and `k` fresh pairs, each of fixed size two. Excluding the input and returned result, auxiliary space is still `O(n)`."},
+        {"language":"zh-TW","text":"回傳結果占 `O(k)` space：一個外層 list，加上 `k` 個新 pair，每個 pair 都固定只有兩個元素。扣除輸入與回傳結果，auxiliary space 仍為 `O(n)`。"},
+        {"language":"en","text":"If a changed contract guarantees nondecreasing starts, remove the sorting call and scan that order directly. The same proof applies because its required ordering premise is now supplied by the caller. Time becomes `O(n)` under the same primitive-cost assumptions."},
+        {"language":"zh-TW","text":"若改變後的 contract 保證 start 不遞減，就可以移除 sorting call，直接依該順序掃描。同一份 proof 仍成立，因為所需的順序前提現在由呼叫端提供。在相同的 primitive-cost assumption 下，time 變成 `O(n)`。"},
+        {"language":"en","text":"class Solution:\n    def merge(self, intervals: list[list[int]]) -> list[list[int]]:\n        ordered = sorted(intervals, key=lambda pair: pair[0])\n        merged = []\n\n        for start, end in ordered:\n            if not merged or start > merged[-1][1]:\n                merged.append([start, end])\n            else:\n                merged[-1][1] = max(merged[-1][1], end)\n\n        return merged"},
+        {"language":"zh-TW","text":"class Solution:\n    def merge(self, intervals: list[list[int]]) -> list[list[int]]:\n        ordered = sorted(intervals, key=lambda pair: pair[0])\n        merged = []\n\n        for start, end in ordered:\n            if not merged or start > merged[-1][1]:\n                merged.append([start, end])\n            else:\n                merged[-1][1] = max(merged[-1][1], end)\n\n        return merged"},
+        {"language":"en","text":"Why sort by start? Sorting makes future starts nondecreasing. Once a new start exceeds the current end, no later interval can bridge the gap.\n\nWhy keep the maximum end? The last output pair represents a whole connected component. A contained interval must not shorten its furthest reach.\n\nWhy does equality merge? The intervals are closed. Two intervals with a shared endpoint intersect at that point.\n\nWhat is your invariant? Before each iteration, the output is the fully merged union of the processed prefix, ordered with strict gaps. Earlier components are final; only the last may grow.\n\nWhat are the costs and mutation effects? Worst-case time is `O(n log n)`, auxiliary space is `O(n)`, and returned output uses `O(k)` space. The implementation preserves the input and creates new output pairs."},
+        {"language":"zh-TW","text":"Why sort by start? Sorting makes future starts nondecreasing. Once a new start exceeds the current end, no later interval can bridge the gap.\n\nWhy keep the maximum end? The last output pair represents a whole connected component. A contained interval must not shorten its furthest reach.\n\nWhy does equality merge? The intervals are closed. Two intervals with a shared endpoint intersect at that point.\n\nWhat is your invariant? Before each iteration, the output is the fully merged union of the processed prefix, ordered with strict gaps. Earlier components are final; only the last may grow.\n\nWhat are the costs and mutation effects? Worst-case time is `O(n log n)`, auxiliary space is `O(n)`, and returned output uses `O(k)` space. The implementation preserves the input and creates new output pairs."}
+      ],
+      "missing": false
+    }
+  ],
+  "unanswered_question_ids": [],
+  "bilingual_mismatches": [],
+  "limits": "僅讀 task.json 指定的兩份文章並手動重建與對照；未讀來源連結、repository/history、作者報告、其他 agent 或網路，未執行文章程式。新 trace 為依正文規則所做的紙上推演；不代表 runtime test、品質評分、真實人類學習觀察或獨立驗證 CPython 實作。"
+}

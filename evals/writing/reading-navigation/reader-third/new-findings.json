@@ -1,0 +1,47 @@
+[
+  {
+    "id": "THIRD-N1",
+    "status": "FAIL_CHECKPOINT",
+    "source": "articles/leetcode-207-course-schedule.en.md",
+    "paragraph_index": 21,
+    "candidate_skeleton": "The empty queue plus completion count → distinguishes → a schedule from a cyclic remainder.",
+    "independent_expansion": "The empty queue plus completed-course count distinguishes a completed schedule from a cyclic remainder.",
+    "source_quotes": [
+      {
+        "paragraph_index": 16,
+        "quote": "Removing 2 empties the queue and raises finished to 4."
+      },
+      {
+        "paragraph_index": 16,
+        "quote": "Course 3 changes from 1 to 0. Appending 3 gives [3], with counts [0, 0, 0, 0, 0]."
+      },
+      {
+        "paragraph_index": 18,
+        "quote": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion."
+      },
+      {
+        "paragraph_index": 21,
+        "quote": "For termination, at most numCourses distinct courses can be removed."
+      },
+      {
+        "paragraph_index": 21,
+        "quote": "Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite."
+      }
+    ],
+    "finding": "骨架只有 empty queue 與 completion count，沒有最終／完成所有更新的 checkpoint。把同一合法執行的觀測時點改為迴圈內取出 course 2 後、更新 dependent 前，就得到 empty queue、finished=4、unfinished course 3，但 graph 仍無 cycle。不能由骨架目前保留的兩個條件直接區分 cyclic remainder。",
+    "countercheck": {
+      "kind": "source-bound symbolic state-order countercheck; not a new runtime test",
+      "input": "numCourses=5; prerequisites=[[1,0],[2,0],[3,1],[3,2]]",
+      "unchanged_input_and_implementation": true,
+      "changed_premise": "observation checkpoint only: immediately after course 2 removal and finished increment, before dependent updates",
+      "state": "ready=[], finished=4; course 3 has not been enqueued yet",
+      "source_continuation": "remaining[3] changes 1->0; append(3) yields ready=[3]; final finished=5 and True",
+      "conclusion": "empty queue plus incomplete completion count is compatible with this acyclic execution at an intermediate state"
+    },
+    "prior_review_miss": {
+      "second_expansion": "At termination the empty queue and completed count distinguish a full schedule from a cyclic remainder.",
+      "missing_words_silently_added": "At termination",
+      "explanation": "第三輪沿用相同標準時發現前輪展開加入骨架沒有的終止前提；未新增規則，也未重寫先前報告。"
+    }
+  }
+]

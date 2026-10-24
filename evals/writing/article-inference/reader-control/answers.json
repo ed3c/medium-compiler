@@ -1,0 +1,304 @@
+{
+  "role": "Fresh Zero Context Reader; bounded public-body reconstruction",
+  "language": "zh-Hant",
+  "question": "Reconstruct the result, concrete state transitions, proof and EVERY main/alternative/changed-constraint time/space bound from exact body quotations. Identify unexplained steps; distinguish formula, library bound or term name from explanation.",
+  "new_input": {
+    "piles": [
+      2,
+      7,
+      8
+    ],
+    "h": 6,
+    "n": 3,
+    "M": 8,
+    "legal_reason": "三個 pile 都是正整數，n = 3 <= h = 6，大小與期限都在正文的上限內。",
+    "quote_ids": [
+      "contract",
+      "rule"
+    ]
+  },
+  "original_result": {
+    "minimum_speed": 4,
+    "hours_at_answer": 5,
+    "hours_at_previous_speed": 7,
+    "reason": "k = 4 時逐 pile 所需時數為 1、2、2，總共 5 <= 6；k = 3 時為 1、3、3，總共 7 > 6。正文的單調性排除所有 <= 3 的速度，所以 4 最小。",
+    "quote_ids": [
+      "result",
+      "ceiling",
+      "sum",
+      "monotonic"
+    ]
+  },
+  "concrete_state": {
+    "initialization": {
+      "low": 1,
+      "high_initial": 1,
+      "largest_pile_scan": [
+        {
+          "pile": 2,
+          "high": 2
+        },
+        {
+          "pile": 7,
+          "high": 7
+        },
+        {
+          "pile": 8,
+          "high": 8
+        }
+      ],
+      "quote_ids": [
+        "bounds"
+      ]
+    },
+    "probes": [
+      {
+        "before": [
+          1,
+          8
+        ],
+        "mid": 4,
+        "pile_expressions": [
+          "(2 + 4 - 1) // 4 = 1",
+          "(7 + 4 - 1) // 4 = 2",
+          "(8 + 4 - 1) // 4 = 2"
+        ],
+        "hours_transitions": [
+          0,
+          1,
+          3,
+          5
+        ],
+        "test": "5 <= 6",
+        "update": "high = 4",
+        "after": [
+          1,
+          4
+        ]
+      },
+      {
+        "before": [
+          1,
+          4
+        ],
+        "mid": 2,
+        "pile_expressions": [
+          "(2 + 2 - 1) // 2 = 1",
+          "(7 + 2 - 1) // 2 = 4",
+          "(8 + 2 - 1) // 2 = 4"
+        ],
+        "hours_transitions": [
+          0,
+          1,
+          5,
+          9
+        ],
+        "test": "9 > 6",
+        "update": "low = 3",
+        "after": [
+          3,
+          4
+        ]
+      },
+      {
+        "before": [
+          3,
+          4
+        ],
+        "mid": 3,
+        "pile_expressions": [
+          "(2 + 3 - 1) // 3 = 1",
+          "(7 + 3 - 1) // 3 = 3",
+          "(8 + 3 - 1) // 3 = 3"
+        ],
+        "hours_transitions": [
+          0,
+          1,
+          4,
+          7
+        ],
+        "test": "7 > 6",
+        "update": "low = 4",
+        "after": [
+          4,
+          4
+        ]
+      }
+    ],
+    "exit": "low == high == 4，回傳 4。",
+    "quote_ids": [
+      "ceiling",
+      "update",
+      "progress",
+      "return_proof"
+    ],
+    "physical_schedule_at_4": "pile 2 用 1 小時；pile 7 用 4、3 共 2 小時；pile 8 用 4、4 共 2 小時。共 5 小時。每次換 pile 都到下一個小時，符合原規則。"
+  },
+  "proof_reconstruction": [
+    {
+      "claim": "逐 pile 向上取整恰好算出需求。",
+      "explanation": "整除時 q 個完整群足夠；餘數非零時多 1 小時。這不是只給 ceiling 公式：正文有 q、r 分解與兩種情形。",
+      "quote_ids": [
+        "ceiling",
+        "rounding_proof"
+      ]
+    },
+    {
+      "claim": "總時數條件是充要條件。",
+      "explanation": "每個 pile 都要自己的整數小時，所以下界是逐 pile 時數之和；依序吃完每個 pile 能達到這個和。",
+      "quote_ids": [
+        "sum"
+      ]
+    },
+    {
+      "claim": "可行速度是失敗後接成功的排列。",
+      "explanation": "加速不會使任何一個 pile 多花小時，加總也不會增加；所以失敗的 mid 排除 <= mid，而成功的 mid 保留下來。",
+      "quote_ids": [
+        "monotonic",
+        "update"
+      ]
+    },
+    {
+      "claim": "初始化、更新、終止一起證明最小值。",
+      "explanation": "M 用 n 小時，保證可行；起點涵蓋最小值。失敗移 low 到 mid + 1，成功移 high 到 mid，兩者都保留最小值與可行 high。端點嚴格移動、候選數減少且不空，最後唯一候選必是最小值。",
+      "quote_ids": [
+        "bounds",
+        "invariant",
+        "update",
+        "progress",
+        "return_proof"
+      ]
+    }
+  ],
+  "cost_inventory": [
+    {
+      "variant": "主程式：一般輸入",
+      "time_as_stated": "O(n * (1 + log M))；正文也聲稱至多 ceiling log base two of M 次 probe。",
+      "concrete_work": "新輸入先讀 3 個 pile 找 M，再做 3 次完整 probe，每次讀 3 個 pile；共 12 次 pile 訪問。這是讀取次數，不宣稱是全部 Python 指令數。",
+      "auxiliary_space": "O(1)，排除呼叫者供應的 piles；固定 scalars、迭代狀態與固定數量算術暫存。",
+      "output_space": "O(1)：一個 bounded integer。",
+      "explained": "每次 scan 的線性 pile 訪問數與固定活躍儲存值有因果說明；有區間變小的終止證明。",
+      "not_explained": "log base two、ceiling log 的意義與一般 probe 次數上界的推導；Big-O 記號的意義。不能把直接出現的公式當作已向目標讀者解釋。",
+      "quote_ids": [
+        "cost_model",
+        "numeric_range",
+        "scans",
+        "main_bound",
+        "space",
+        "output_space"
+      ]
+    },
+    {
+      "variant": "主程式：M = 1 邊界",
+      "time_as_reconstructed": "找最大值仍讀 n 個 pile；0 次 probe。由正文 scan 說明可寫成 O(n)，與它保留 1 + log M 的總公式相容；這裡的 O(n) 是 scan 數的直接歸納，沒有導入外部演算法。",
+      "auxiliary_space": "O(1)",
+      "output_space": "O(1)",
+      "quote_ids": [
+        "boundary",
+        "scans",
+        "space",
+        "output_space"
+      ]
+    },
+    {
+      "variant": "替代：逐一增加速度",
+      "time_as_stated": "答案 a 時 a 次 scan、n * a 次 pile 訪問；最壞 O(nM)。若另外先求 M，另加 n 次 pile 訪問，不改最壞階。",
+      "concrete_work": "k = 1 -> [2,7,8] 小時 -> 17；k = 2 -> [1,4,4] -> 9；k = 3 -> [1,3,3] -> 7；k = 4 -> [1,2,2] -> 5，首次通過。4 次 scan，共 12 次 pile 訪問；若先求最大 pile，合計 15 次。",
+      "auxiliary_space": "O(1)：重用 current speed、hours 與可選 M。",
+      "output_space": "O(1)",
+      "explained": "正文把 a scans 乘以每次 n visits，再用 a <= M 得最壞界，並給單 pile、h = 1 的達界情況；最小值由先前速度都明確失敗證成。",
+      "not_explained": "Big-O 記號本身仍未定義。",
+      "quote_ids": [
+        "ascending",
+        "ascending_worst",
+        "ascending_space",
+        "ascending_min"
+      ]
+    },
+    {
+      "variant": "改限制：M 是很小的固定常數，仍用逐一增加速度",
+      "time_as_reconstructed": "沿用 n * a <= n * M；若 M 固定，最多固定次 scan，所以工作隨 n 成正比，通常寫 O(n)。正文只稱這是合理的簡單選擇，沒有把固定 M 代入後明寫這個界。",
+      "concrete_work": "以本例 M = 8 若當作允許的固定上限，最壞最多 8 次 scan，至多 24 次 pile 訪問；實際答案 4，所以 12 次。選擇性最大值 scan 同上。",
+      "auxiliary_space": "O(1)，沿用相同 accumulator 模型。",
+      "output_space": "O(1)",
+      "quote_ids": [
+        "tiny_M",
+        "ascending",
+        "ascending_space"
+      ]
+    },
+    {
+      "variant": "改每小時規則：允許 pile 之間共用容量",
+      "time_as_stated": "O(n)：一次加總 S，之後固定次數算術。",
+      "concrete_work": "S 的變化 0 -> 2 -> 9 -> 17；3 次 pile 訪問；(17 + 6 - 1) // 6 = 22 // 6 = 3。速度 3 可在 6 小時的 18 容量內處理 17；速度 2 只有 12 容量。這個任務的答案 3 與原任務的 4 不同。",
+      "schedule": "每小時最多 3：第 1 小時 pile 2 的 2 加 pile 7 的 1；第 2、3 小時各吃 pile 7 的 3；第 4、5 小時各吃 pile 8 的 3；第 6 小時吃最後 2。",
+      "auxiliary_space": "O(1)：總和與固定 scalar。",
+      "output_space": "一個 bounded integer，即沿用模型的 O(1)。",
+      "explained": "正文解釋總容量的必要性，以及可跨邊界吃時能用滿容量而得到充分性。向上取整公式可接前面已給的 positive integer rounding 證明。",
+      "not_explained": "Big-O 記號本身仍未定義。",
+      "quote_ids": [
+        "pool_rule",
+        "pool_proof",
+        "pool_cost",
+        "ceiling",
+        "rounding_proof",
+        "output_space"
+      ]
+    },
+    {
+      "variant": "改輸入：任意長度整數",
+      "time_as_stated": "沒有給新的時間界；正文明說須另做 bit-size analysis。",
+      "auxiliary_space": "沒有給新的空間界；不能把固定 scalar 數量當成任意長度 integer 的固定儲存量。",
+      "output_space": "沒有給新的界；一個 integer 不保證固定 bit 數。",
+      "classification": "明確限制適用範圍，未提供此改限制的完整分析；不是錯誤宣稱。",
+      "quote_ids": [
+        "big_integer_caveat"
+      ]
+    }
+  ],
+  "library_and_terms": {
+    "library_bound": "沒有以現成 search/max/sort library 的複雜度作為主程式依據；最大值是明列的迴圈，probe 也是明列的迴圈。",
+    "division": "// 向下取整與向上取整變形有正文說明；其常數成本採正文明定的 bounded-integer cost model。",
+    "explained_terms": [
+      "ceiling of p / k：明定為 >= quotient 的最小整數，並給 q、r 證明。",
+      "monotone：說明隨 k 增加 hours 不會增加。",
+      "invariant：直接說出每輪保留的具體事實，並證明維持。"
+    ],
+    "named_without_sufficient_explanation": [
+      "ceiling log base two of the largest pile：未解釋 log 或該折半計數如何導出。",
+      "O(n * (1 + log M))、O(nM)、O(n)、O(1)：給出用途與部分工作量依據，但沒有定義 O 記號。"
+    ]
+  },
+  "limits": "只使用指定正文與 task.json；未讀取或查閱來源連結，未補入外部演算法知識。例子的數值計算是按文中公式手動推演，未執行正文 solution。沒有 semantic score、人類理解或學習成效宣稱。",
+  "exact_body_quotations": {
+    "contract": "The constraints are `1 <= n <= 10^4`, `n <= h <= 10^9`, and `1 <= piles[i] <= 10^9`, where `n` is the number of piles.",
+    "rule": "During each hour she eats from one pile. Finishing that pile early does not let her start another pile during the same hour.",
+    "result": "Return the smallest speed that finishes all piles in at most `h` hours.",
+    "ceiling": "For positive integers, `(p + k - 1) // k` instead gives the required upward rounding.",
+    "rounding_proof": "When `r = 0`, adding `k - 1` still leaves the quotient at `q`. When `r > 0`, `r + k - 1` lies between `k` and `2 * k - 2`, so the quotient becomes `q + 1`.",
+    "sum": "Each pile requires its own hours, so any valid schedule needs at least `T(k)` hours. Eating one pile to completion and then the next achieves exactly that total. Thus `T(k) <= h` is both necessary and sufficient for speed `k` to work.",
+    "monotonic": "Increasing `k` cannot increase the hours for any individual pile: a speed that clears it in a given number of hours can still clear it within those hours when increased. Adding the pile counts preserves that direction.",
+    "bounds": "Speed `M` clears every pile in one hour, using exactly `n` hours, which fits the guaranteed `h >= n`. No positive answer lies below `1`, and an answer exists by `M`, so start with the inclusive interval `[low, high] = [1, M]`.",
+    "invariant": "The minimum feasible speed lies in the inclusive interval [low, high], and high is feasible.",
+    "update": "Choose `mid = (low + high) // 2`, the lower middle integer. When `T(mid) > h`, set `low = mid + 1`: `mid` and every smaller speed have failed. Otherwise set `high = mid`: larger speeds are unnecessary, but the successful `mid` must remain a candidate.",
+    "progress": "When `low < high`, the lower middle satisfies `low <= mid < high`. In the failure branch the lower endpoint strictly increases; in the success branch the upper endpoint strictly decreases. The interval stays nonempty and has fewer integer candidates, so it must eventually contain one candidate.",
+    "return_proof": "The invariant then says that this sole candidate is the minimum feasible speed. Returning `low` is justified even if that exact speed was not separately tested after the final update.",
+    "cost_model": "Use a bounded-integer cost model: reading a list element, comparing these integers, and doing arithmetic on values within this problem's limits each count as constant work.",
+    "numeric_range": "Pile sizes and speeds are at most `10^9`, and an hours total is at most `n * M <= 10^13`, so their required numeric range is bounded.",
+    "scans": "The largest-pile loop visits `n` elements. A proposed speed also visits all `n` piles, performing a fixed number of arithmetic and update operations for each, so one test costs proportional to `n`. The code deliberately computes the complete total even when it already exceeds `h`.",
+    "main_bound": "Finding the maximum takes one scan. Each midpoint takes another scan, and halving the candidate range needs at most ceiling log base two of the largest pile. The total is O(n times (1 plus log M)), with constant auxiliary space under the bounded-integer model.",
+    "space": "Only a fixed number of scalars and a loop's traversal state remain live. Reassigning `hours` or an endpoint replaces its previous value; it does not retain one entry per pile or per iteration. Auxiliary space is therefore `O(1)` in the same bounded-integer model, excluding the supplied input list.",
+    "output_space": "The returned output is one integer, also `O(1)` space under this model.",
+    "big_integer_caveat": "If arbitrary-length integer inputs replaced the stated limits, arithmetic and integer storage would need a separate bit-size analysis; the scalar model here does not claim otherwise.",
+    "ascending": "If the answer is `a`, it performs `a` scans of `n` elements, or `n * a` pile visits; since `a <= M`, its worst-case time is `O(nM)`.",
+    "ascending_worst": "A single pile of size `M` with `h = 1` forces it to test every speed through `M`.",
+    "ascending_space": "Reusing the accumulator on each scan keeps auxiliary and output space `O(1)` under the same numeric model.",
+    "ascending_min": "All earlier speeds have been explicitly rejected, so its first success is minimal.",
+    "tiny_M": "If a changed task guaranteed that `M` was a tiny fixed value, ascending search would be a reasonable choice for its simpler control flow; it has no speed advantage promised here.",
+    "pool_rule": "Suppose Koko could switch piles within an hour and use the entire capacity `k` across them.",
+    "pool_proof": "In that changed task, `h` hours can consume at most `h * k` bananas, and continuously taking bananas across pile boundaries can achieve that capacity until the supply ends. Therefore `h * k >= S` is sufficient as well as necessary, and the minimum integer speed is `(S + h - 1) // h`.",
+    "pool_cost": "A single pass adds each pile to `S`, followed by a fixed amount of arithmetic: `O(n)` time, `O(1)` auxiliary space, and one integer output under the same bounded model.",
+    "boundary": "With all piles of size `1`, `M = 1` and the search loop never runs; speed `1` is already the answer.",
+    "no_sort": "These numbers are speeds, not indices into `piles`; no sorted pile list or stored list of candidates is needed."
+  }
+}

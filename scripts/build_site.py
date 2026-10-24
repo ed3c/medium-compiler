@@ -9,6 +9,54 @@ ROOT=Path(__file__).resolve().parents[1]
 MAIN_ORIGIN='https://medium-compiler.vercel.app'
 LAB_ORIGIN='https://medium-compiler.ga874199.workers.dev'
 ARTICLES=[
+    {'slug': 'leetcode-875-koko-eating-bananas',
+     'title': 'Koko Eating Bananas：找出第一個足夠的速度',
+     'english_title': 'Koko Eating Bananas: find the first speed that works',
+     'description': '從逐堆計算小時數，推導 Koko 的 binary search、搜尋 invariant、完整 Python 解法與成本，並比較每小時可換堆時的不同答案。',
+     'english_description': 'Derive Koko’s binary search from per-pile hours, follow its interval invariant '
+                            'and Python solution, and compare the result when switching piles within an '
+                            'hour is allowed.',
+     'source': 'articles/leetcode-875-koko-eating-bananas.zh-TW.md',
+     'english_source': 'articles/leetcode-875-koko-eating-bananas.en.md',
+     'annotations': 'references/learning/alg-four-koko-eating-bananas.json',
+     'bilingual': True,
+     'download_markdown': True},
+    {'slug': 'leetcode-56-merge-intervals',
+     'title': 'Merge Intervals：為什麼排序後只剩最後一段尚未定案',
+     'english_title': 'Merge Intervals: why sorting leaves only one unfinished interval',
+     'description': '從 closed intervals 與排序保證推導最後一段合併規則，追蹤 Python 狀態、正確性、成本與已排序輸入的調整。',
+     'english_description': 'Derive the last-interval merge rule from closed intervals and ordered starts, '
+                            'then trace Python state, correctness, costs, and the sorted-input adaptation.',
+     'source': 'articles/leetcode-56-merge-intervals.zh-TW.md',
+     'english_source': 'articles/leetcode-56-merge-intervals.en.md',
+     'annotations': 'references/learning/alg-four-merge-intervals.json',
+     'bilingual': True,
+     'download_markdown': True},
+    {'slug': 'leetcode-11-container-with-most-water',
+     'annotations': 'references/learning/alg-four-container-with-most-water.json',
+     'source': 'articles/leetcode-11-container-with-most-water.md',
+     'english_source': 'articles/leetcode-11-container-with-most-water.en.md',
+     'title': 'Container With Most Water：為什麼可以捨棄較短的牆',
+     'english_title': 'Container With Most Water: why the shorter wall can be discarded',
+     'description': '從面積公式與逐步狀態追蹤，推導為何可捨棄較短牆，並說明 two pointers 的正確性、Python 實作、複雜度與不等間距座標的改版。',
+     'english_description': 'Derive the shorter-wall discard rule from the area formula, then follow the '
+                            'two-pointer states, correctness proof, Python implementation, complexity and '
+                            'adaptation to unevenly spaced coordinates.',
+     'bilingual': True,
+     'download_markdown': True},
+    {'slug': 'leetcode-207-course-schedule',
+     'annotations': 'references/learning/alg-four-course-schedule.json',
+     'source': 'articles/leetcode-207-course-schedule.md',
+     'english_source': 'articles/leetcode-207-course-schedule.en.md',
+     'title': 'Course Schedule：計算尚未滿足的先修義務',
+     'english_title': 'Course Schedule: count the obligations that remain',
+     'description': "以 adjacency list、indegree 與 deque 追蹤尚未完成的先修義務，說明 Kahn's topological sort "
+                    '如何判斷課程能否全部完成，並推導容器成本、複雜度與替代方案。',
+     'english_description': 'Track unfinished prerequisites with adjacency lists, indegree and a deque to '
+                            "explain how Kahn's topological sort decides whether all courses can finish, "
+                            'including container costs, complexity and alternatives.',
+     'bilingual': True,
+     'download_markdown': True},
     {
         "slug": "agent-handbook-zero-context",
         "title": "Agent 不是一段 Prompt：安全修補背後的七個工程決策",
@@ -119,11 +167,24 @@ def sequel_navigation(item:dict)->str:
             f'{html.escape(target["title"])}</a></section>')
 
 def inline(text:str)->str:
-    text=html.escape(text,quote=False)
-    text=re.sub(r'`([^`]+)`',r'<code>\1</code>',text)
-    text=re.sub(r'\*\*([^*]+)\*\*',r'<strong>\1</strong>',text)
-    text=re.sub(r'\[([^\]]+)\]\((https?://[^)]+)\)',r'<a href="\2" target="_blank" rel="noreferrer">\1</a>',text)
-    return text
+    # Match Markdown tokens before escaping so code contents remain literal.
+    token=re.compile(r'`([^`]+)`|\*\*([^*]+)\*\*|(?<!\*)\*([^*\n]+)\*(?!\*)|\[([^\]]+)\]\((https?://[^)]+)\)')
+    out=[]
+    cursor=0
+    for match in token.finditer(text):
+        out.append(html.escape(text[cursor:match.start()],quote=False))
+        code,strong,em,label,url=match.groups()
+        if code is not None:
+            out.append('<code>'+html.escape(code,quote=False)+'</code>')
+        elif strong is not None:
+            out.append('<strong>'+html.escape(strong,quote=False)+'</strong>')
+        elif em is not None:
+            out.append('<em>'+html.escape(em,quote=False)+'</em>')
+        else:
+            out.append('<a href="'+html.escape(url,quote=True)+'" target="_blank" rel="noreferrer">'+inline(label)+'</a>')
+        cursor=match.end()
+    out.append(html.escape(text[cursor:],quote=False))
+    return ''.join(out)
 
 def markdown(text:str)->str:
     out=[]; paragraph=[]; in_code=False; code=[]; list_kind=None
@@ -188,10 +249,79 @@ def youtube_article_embed(item:dict)->str:
             f'rel="noopener noreferrer">Gregor Hohpe × Patrick Akil · Beyond Coding</a></p>'
             f'</section>')
 
-def page(title:str, body:str, active:str='', main_origin:str='')->str:
+def page(title:str, body:str, active:str='', main_origin:str='', *,
+         language:str='zh-Hant', description:str='Evidence-driven AI Engineer learning, experiments and articles.')->str:
     nav=[('home','/','首頁'),('learning','/learning/','Learning'),('alg','/cefr-alg-c2/','CEFR ALG C2+'),('experiments','/experiments/','Experiments'),('evals','/ai-evals/','AI Evals'),('loops','/loops/','Loops'),('scopes','/scopes/','Scopes'),('article','/articles/','Articles'),('reliability','/reliability/','Reliability Lab'),('transcripts','/transcripts/','逐字稿來源')]
     links=''.join(f'<a class="{"active" if key==active else ""}" href="{LAB_ORIGIN+href if key=="reliability" else main_origin+href}">{label}</a>' for key,href,label in nav)
-    return f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="Evidence-driven AI Engineer learning, experiments and articles."><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="{main_origin}/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+    return f'''<!doctype html><html lang="{html.escape(language,quote=True)}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><meta name="description" content="{html.escape(description,quote=True)}"><link rel="stylesheet" href="/assets/styles.css"></head><body><header><a class="brand" href="{main_origin}/">AI Engineer Lab</a><nav>{links}</nav></header><main>{body}</main><footer>Curriculum guides learning · Ops owns experiments · medium-compiler explains and publishes.</footer></body></html>'''
+
+def article_card(item:dict)->str:
+    route='/articles/'+item['slug']+'/'
+    links=f'<a href="{route}">閱讀文章 →</a>'
+    if item.get('bilingual'):
+        links=(f'<a href="{route}" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> · '
+               f'<a href="{route}en/" hreflang="en" lang="en">English</a>')
+    return ('<article class="card"><h3>'+html.escape(item['title'])+'</h3><p>'+
+            html.escape(item['description'])+'</p>'+links+'</article>')
+
+
+def render_bilingual_article(item:dict, article_root:Path)->dict:
+    required=('slug','title','description','english_title','english_description','source','english_source','annotations')
+    if any(not isinstance(item.get(key),str) or not item[key].strip() for key in required):
+        raise ValueError('Bilingual article requires complete titles, descriptions and source paths')
+    slug=item['slug']
+    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',slug):
+        raise ValueError('Invalid bilingual article slug')
+    root=article_root/slug
+    root.mkdir()
+    (root/'en').mkdir()
+    route='/articles/'+slug+'/'
+    for path in (item['source'],item['english_source']):
+        if not (ROOT/path).resolve().is_relative_to((ROOT/'articles').resolve()):
+            raise ValueError(f'Bilingual public source must be inside articles/: {path}')
+    manifest_path=(ROOT/item['annotations']).resolve()
+    if not manifest_path.is_relative_to((ROOT/'references/learning').resolve()):
+        raise ValueError('Public annotations must be inside references/learning/')
+    raw_notes,annotation_data,zh_html,en_html,index_items,projection=load_article_annotations(manifest_path)
+    if annotation_data.get('annotation_authority')!='speed-reading':
+        raise ValueError('Bilingual paragraph annotation content requires speed-reading Owner')
+    if annotation_data['source']['path']!=item['source'] or annotation_data['english_source']['path']!=item['english_source']:
+        raise ValueError('Bilingual annotation source does not match article registry')
+    (root/'source.json').write_bytes(raw_notes)
+    for english in (False,True):
+        title=item['english_title'] if english else item['title']
+        description=item['english_description'] if english else item['description']
+        source=item['english_source'] if english else item['source']
+        source_path=(ROOT/source).resolve()
+        if not source_path.is_relative_to((ROOT/'articles').resolve()):
+            raise ValueError(f'Bilingual public source must be inside articles/: {source}')
+        raw=source_path.read_bytes()
+        text=raw.decode('utf-8')
+        first=next((line for line in text.splitlines() if line.strip()),'')
+        if first!='# '+title:
+            raise ValueError(f'Bilingual article title must match its complete edition H1: {source}')
+        content,outline,_,_=projection.render_outline(
+            en_html if english else zh_html, annotation_data['paragraph_annotations'],
+            {d['id']:d for d in annotation_data['decisions']},index_items,
+            language='en' if english else 'zh-Hant', heading_prefix='section-', plain_reading=True)
+        lang='en' if english else 'zh-Hant'
+        download='Download Markdown' if english else '下載 Markdown'
+        zh_current='' if english else ' aria-current="page"'
+        en_current=' aria-current="page"' if english else ''
+        tools=(f'<div class="article-tools"><nav class="article-languages" aria-label="Article language">'
+               f'<a href="{route}" lang="zh-Hant" hreflang="zh-Hant"{zh_current}>繁體中文</a>'
+               f'<a href="{route}en/" lang="en" hreflang="en"{en_current}>English</a></nav>'
+               f'<a class="article-download" href="{route}{"article.en.md" if english else "article.md"}" download>{download}</a></div>')
+        body=('<link rel="stylesheet" href="/assets/alg-four.css">'
+              '<link rel="stylesheet" href="/assets/article-navigation.css">'+tools+
+              '<div class="alg-four-reading-layout bilingual-layout">'
+              '<article class="article bilingual-article alg-four-source">'+content+'</article>'+outline+'</div>'
+              '<script src="/assets/alg-four.js" defer></script>')
+        target=root/'en/index.html' if english else root/'index.html'
+        target.write_text(page(title,body,'article',language=lang,description=description),encoding='utf-8')
+        (root/('article.en.md' if english else 'article.md')).write_bytes(raw)
+    return {'english_source':item['english_source'],'english_route':route+'en/',
+            'languages':['zh-Hant','en'],'contents':'chapter_rail_and_source_bound_paragraph_notes'}
 
 def build_reliability(out:Path, main_origin:str='')->None:
     lab_dir=out/'reliability';lab_dir.mkdir(parents=True)
@@ -324,13 +454,13 @@ def transcript_source(item:dict, source_bytes:bytes, article_dir:Path)->tuple[st
     (article_dir/'source.json').write_bytes(manifest_bytes)
     (article_dir/'article.md').write_bytes(source_bytes)
     return panel, {'source_manifest':item['source_manifest'],'source_manifest_sha256':manifest_hash,
+                   'sha256':article_hash,
                    'source_route':'/articles/'+item['slug']+'/source.json','audio_verified':False}
 
 
 
-def render_alg_four(out:Path)->dict:
+def load_article_annotations(manifest_path:Path, *, canonical_figures:bool=False):
     """Render byte-pinned source with navigation anchors and a separate ALG Four sidecar."""
-    manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
     raw=manifest_path.read_bytes()
     data=json.loads(raw)
     if (data.get('schema_version')!='alg-four-reading-projection@4'
@@ -364,12 +494,20 @@ def render_alg_four(out:Path)->dict:
         raise ValueError('ALG Four bilingual heading/paragraph structure drift')
     if re.findall(r'<pre><code>.*?</code></pre>',original_html,re.S)!=re.findall(r'<pre><code>.*?</code></pre>',english_html,re.S):
         raise ValueError('ALG Four bilingual source code diverged')
-    if original_html.count('<figure')!=7 or english_html.count('<figure')!=7:
+    if canonical_figures and (original_html.count('<figure')!=7 or english_html.count('<figure')!=7):
         raise ValueError('ALG Four canonical Cover + six Figure slots missing')
+    alignment=data.get('alignment',{})
+    for key,actual in (('english_heading_count',len(re.findall(r'<h[1-4]>',english_html))),
+                       ('zh_heading_count',len(re.findall(r'<h[1-4]>',original_html))),
+                       ('image_count',original_html.count('<figure'))):
+        if alignment.get(key)!=actual:
+            raise ValueError('ALG Four declared alignment does not match rendered source')
+    if english_html.count('<figure')!=alignment['image_count']:
+        raise ValueError('ALG Four bilingual figure count diverged')
     pattern=re.compile(r'<p>.*?</p>|<blockquote>.*?</blockquote>',re.S)
     paragraphs=list(pattern.finditer(original_html))
     notes=data.get('paragraph_annotations',[])
-    if not paragraphs or len(notes)!=len(paragraphs):
+    if not paragraphs or len(notes)!=len(paragraphs) or alignment.get('paragraph_count')!=len(paragraphs):
         raise ValueError('ALG Four must annotate every original prose paragraph without omissions')
     english_paragraphs=list(pattern.finditer(english_html))
     if len(english_paragraphs)!=len(paragraphs):
@@ -390,17 +528,27 @@ def render_alg_four(out:Path)->dict:
         i=item.get('paragraph_index')
         if (not isinstance(i,int) or not 0<=i<len(paragraphs)
                 or item.get('decision_id') not in decisions
-                or not item.get('english_sentence') or not item.get('term')
+                or not item.get('english_sentence') or not item.get('term') or not item.get('source_quote')
                 or item.get('source_quote','').casefold() not in notes[i].get('english_source','').casefold()):
             raise ValueError('ALG Four Active word has no exact source paragraph, decision or sentence')
+        if not decisions[item['decision_id']].get('active_cue') or not decisions[item['decision_id']].get('oracle'):
+            raise ValueError('ALG Four Active decision requires a self-expression cue and oracle')
+        for support in item.get('supporting_sources',[]):
+            j=support.get('paragraph_index')
+            if (not isinstance(j,int) or not 0<=j<len(notes) or not support.get('english_quote')
+                    or support['english_quote'] not in notes[j]['english_source']):
+                raise ValueError('ALG Four supporting premise has no exact source paragraph')
         index_items.setdefault(i,[]).append(item)
     for i,note in enumerate(notes):
         if (note.get('paragraph_index')!=i
                 or note.get('kind') not in ('PASSIVE','PASSIVE_AND_ACTIVE')
                 or not note.get('zh_note')
                 or not note.get('decision_ids')
-                or any(d not in decisions for d in note['decision_ids'])):
+                or any(d not in decisions for d in note['decision_ids'])
+                or (note.get('kind')=='PASSIVE_AND_ACTIVE') != bool(index_items.get(i))):
             raise ValueError('ALG Four paragraph annotation index, role or decision coverage is invalid')
+        if any(item['decision_id'] not in note['decision_ids'] for item in index_items.get(i,[])):
+            raise ValueError('ALG Four Active decision is not linked to its source paragraph annotation')
     policy=data.get('learning_policy',{})
     if (policy.get('goal_active_lexical_items')!=2000
             or policy.get('goal_linked_english_sentences')!=2000
@@ -412,22 +560,49 @@ def render_alg_four(out:Path)->dict:
     spec=importlib.util.spec_from_file_location('alg_four_projection',projection_path)
     projection=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(projection)
+    if data.get('annotation_authority')=='speed-reading':
+        for note in notes:
+            if not note.get('speed_reading'):
+                raise ValueError('Speed-reading annotation Owner requires a complete reading view for every paragraph')
+            context=note.get('reading_context')
+            if (not isinstance(context,dict) or not isinstance(context.get('premises'),list)
+                    or not context['premises'] or 'checkpoint' not in context):
+                raise ValueError('Speed-reading complete annotation requires premises and an explicit checkpoint field')
+            statements=context['premises']+([context['checkpoint']] if context['checkpoint'] is not None else [])
+            for statement in statements:
+                if (not isinstance(statement,dict) or not isinstance(statement.get('text'),str)
+                        or not statement['text'].strip() or not statement.get('supporting_sources')):
+                    raise ValueError('Speed-reading context statement requires text and exact supporting sources')
+                for support in statement['supporting_sources']:
+                    j=support.get('paragraph_index')
+                    if (not isinstance(j,int) or not 0<=j<len(notes) or not support.get('english_quote')
+                            or support['english_quote'] not in notes[j]['english_source']):
+                        raise ValueError('Speed-reading context has no exact supporting source paragraph')
+    return raw,data,original_html,english_html,index_items,projection
+
+
+def render_alg_four(out:Path)->dict:
+    manifest_path=ROOT/'references/learning/alg-four-group-anagrams.json'
+    raw,data,original_html,english_html,index_items,projection=load_article_annotations(manifest_path,canonical_figures=True)
+    source=data['source']
+    git_blob=source['git_blob']
+    english_blob=data['english_source']['git_blob']
+    notes=data['paragraph_annotations']
+    items=data['active_items']
+    decisions={d['id']:d for d in data['decisions']}
     body,outline,para_count,heading_count=projection.render_outline(original_html,notes,decisions,index_items)
     if para_count!=len(notes):
         raise ValueError('ALG Four rendering omitted original paragraphs')
-    esc=html.escape
     instructions=(
         '<section class="page-head alg-four-head">'
-        '<div class="eyebrow">ALG Four · Source-locked reading companion</div>'
-        '<h1>Group Anagrams · 文章段落索引與 Active／Passive</h1>'
+        '<details class="reading-about"><summary>如何使用文章索引與閱讀註解</summary>'
         '<p>先閱讀完整原文；右側依 Markdown 標題層級展開索引。'
         '點擊任一段落就能跳轉，捲動時會自動顯示對應語塊與練習。'
         '黃色詞彙為 Active；Passive 的句型折行與主重音只存在於註解視圖，不變更原始文章。</p>'
         '<p>四次 cognitive encounters 使用同一份原文，不產生四份改寫文章。'
         'Active 2,000 詞與 2,000 句是跨文章累積目標，本頁沒有學習結果觀察。</p>'
         '<p><a href="/alg-four/source.json">Source / annotation manifest</a> · '
-        '<a href="https://github.com/ed3c/medium-compiler/blob/main/'+esc(source['path'],quote=True)+
-        '">查看原始 Markdown</a></p></section>')
+        '<a href="/alg-four/article.md" download>查看原始 Markdown</a></p></details></section>')
     target=out/'alg-four'
     target.mkdir()
     for asset in ('alg-four.css','alg-four.js'):
@@ -439,8 +614,9 @@ def render_alg_four(out:Path)->dict:
     (target/'index.html').write_text(
         page('ALG Four · Annotated Original',full_body,'learning'),encoding='utf-8')
     (target/'source.json').write_bytes(raw)
+    (target/'article.md').write_bytes((ROOT/source['path']).read_bytes())
     return {'route':'/alg-four/','source_manifest':'/alg-four/source.json',
-            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'source_blob':git_blob,
+            'source_blob':git_blob,
             'english_source_blob':english_blob,
             'annotated_paragraphs':len(notes),'active_paragraphs':sum(n['kind']=='PASSIVE_AND_ACTIVE' for n in notes),
             'active_items_collected':len(items),'active_vocabulary_goal':2000,
@@ -457,13 +633,15 @@ def build(out:Path)->dict:
     shutil.copytree(ROOT/'site/alg-four-figures',out/'assets/alg-four')
     shutil.copyfile(ROOT/'site/_headers',out/'_headers')
     css=(ROOT/'site/styles.css').read_text(encoding='utf-8');(out/'assets/styles.css').write_text(css,encoding='utf-8')
+    for name in ('article-navigation.css',):
+        shutil.copyfile(ROOT/'site'/name,out/'assets'/name)
     snapshot=json.loads((ROOT/'references/ops-experiment-catalog.json').read_text())
     state=learning_state()
     hero=f'''<section class="hero"><div class="eyebrow">Evidence-driven learning runtime</div><h1>AI Engineer<br>from Evidence</h1><p>課程決定現在研究哪種能力；Ops Reconciliation Copilot 負責真實實驗與 runtime evidence；medium-compiler 把已成立的理解編譯成文章與學習網站。</p><div class="actions"><a class="button" href="/learning/">開始 Learning</a><a class="button secondary" href="/experiments/">查看 Experiments</a></div></section>'''
     stats=f'''<section class="stats"><div><b>{len(snapshot['templates'])}</b><span>Experiment templates</span></div><div><b>{state['progress_rows']}</b><span>Lessons logged</span></div><div><b>{len(ARTICLES)}</b><span>Learning articles</span></div><div><b>{state['status']}</b><span>Learning state</span></div></section>'''
     flow='''<section><div class="section-title"><span>Runtime</span><h2>Learn → Experiment → Evidence → Explain → Ship</h2></div><div class="flow"><div>Curriculum<br><small>lesson / placement</small></div><i>→</i><div>Ops Lab<br><small>EXPERIMENT / NO_CHANGE</small></div><i>→</i><div>Evidence<br><small>tests / evals / runtime</small></div><i>→</i><div>Compiler<br><small>zero-context explanation</small></div><i>→</i><div>Site<br><small>article / checkpoint</small></div></div></section>'''
     exp=f'''<section><div class="section-title"><span>Experiment Library</span><h2>把 syllabus 變成可驗證實驗，而不是產品 backlog</h2></div>{cards(snapshot,3)}<p><a href="/experiments/">查看全部 {len(snapshot['templates'])} 個範本 →</a></p></section>'''
-    article_links=''.join(f'<article class="card"><h3>{html.escape(a["title"])}</h3><p>{html.escape(a["description"])}</p><a href="/articles/{a["slug"]}/">閱讀文章 →</a></article>' for a in ARTICLES)
+    article_links=''.join(article_card(item) for item in ARTICLES)
     art='<section><div class="section-title"><span>Learning Articles</span><h2>從環境到應用，逐步留下可驗證成果</h2></div><div class="cards">'+article_links+'</div></section>'
     alg='''<section id="cefr-alg" class="alg-section" aria-labelledby="alg-title"><div class="section-title"><span>English Studio · Listening first</span><h2 id="alg-title">CEFR ALG C2+</h2><p>從理解情境開始，聽懂想法，再選擇用自己的語言表達。以技術決策、工作對話與生活情境練習精準而自然的英文。</p></div><div class="cards"><article class="card"><div class="eyebrow">01 · Understand</div><h3>先聽懂，再開口</h3><p>4 個情境、12 個片段，提供直接與細膩兩種英文版本。預設 Parler TTS，可切換 Kokoro browser；按播放即可接續朗讀；字幕由你決定何時打開。</p><a href="/cefr-alg-c2/">進入 ALG 情境 →</a></article><article class="card"><div class="eyebrow">02 · Express</div><h3>保留意思，說得自然</h3><p>自由選擇口語錄音與寫作練習。從修改前後的例子，觀察如何保留條件、不確定性與證據。</p><a href="/cefr-alg-c2/">開啟 English Studio →</a></article><article class="card"><div class="eyebrow">03 · Compare</div><h3>找到想繼續聽的聲音</h3><p>用相同對話比較五組已生成的語音，隱藏模型名稱並記下感受。可在瀏覽器以 Kokoro 生成其他課程，無需 API key。</p><a href="/cefr-alg-c2/compare.html">試聽 Voice Lab →</a></article></div><p class="alg-note">C2+ 是學習目標與專案名稱；CEFR 最高正式等級為 C2。本站不提供能力認證。五組音檔可直接播放，首次瀏覽器生成需下載模型。<a href="/cefr-alg-c2/provenance.json">查看來源版本</a></p></section>'''
     alg=alg.replace('</section>','<p><a href="/cefr-alg-c2/technical?lesson=software-factory-sole-acceptance">Software Factory · 英文、圖解與 Four-Pass 練習 →</a></p></section>')
@@ -528,6 +706,10 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
     course_route=json.loads((ROOT/'references/upstream/software-engineering-fundamentals.json').read_text())
     article_provenance=[]
     for item in ARTICLES:
+        if item.get('bilingual'):
+            record=render_bilingual_article(item,article_root)
+            article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/',**record})
+            continue
         source_bytes=(ROOT/item['source']).read_bytes()
         content_html=markdown(source_bytes.decode('utf-8'))
         video_html=youtube_article_embed(item)
@@ -551,11 +733,12 @@ Use learn to continue one lesson.</code></pre><dl><dt>Entry point</dt><dd>{state
             english_bytes=(ROOT/item['english_source']).read_bytes()
             (article_dir/'article.en.md').write_bytes(english_bytes)
             source_record['english_source']=item['english_source']
-            source_record['english_sha256']=hashlib.sha256(english_bytes).hexdigest()
         if item.get('video_id'):
             source_record['video_id']=item['video_id']
             source_record['video_url']='https://www.youtube.com/watch?v='+item['video_id']
-        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/','sha256':hashlib.sha256(source_bytes).hexdigest(),**source_record})
+        if 'sha256' not in source_record:
+            source_record['sha256']=hashlib.sha256(source_bytes).hexdigest()
+        article_provenance.append({'source':item['source'],'route':'/articles/'+item['slug']+'/',**source_record})
         if item.get('notebook'):
             destination=out/item['notebook'];destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(ROOT/item['notebook'],destination)

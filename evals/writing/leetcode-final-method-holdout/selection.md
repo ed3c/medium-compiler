@@ -1,0 +1,13 @@
+# Frozen final-method holdout selection
+
+User asks two new different-problem-family complete English/Traditional Chinese articles, no exemplars/outlines, then fresh article-only reconstruction. Selected immutable method commit 4e5ee4dba71b33287be0fd720d35133a8247409a. No P-class edits or parent problem-specific repair prompts during this experiment. Problems 200 and 56 were not in the earlier development set (49,20,704,198). Problem statements and Python primary documentation only.
+
+This is two final-method holdout generations, not a baseline/treatment causal comparison or a general reliability estimate. Writer self-corrections/editorial/translation review are allowed by the method and retained separately from the first complete drafts. Freeze both first deliveries before Reader feedback; do not overwrite failures with later repairs. Actual code execution, bilingual preservation and exact quotations are mechanical controls, not semantic grades. Parent source review adjudicates concrete unsupported steps against audience and problem contract. No calibrated judge or human learner evidence is claimed.
+
+All eight reader questions saved before Writer launch. Independent Readers see only the completed article pair, audience and fixed questions, never the selected instructions, author sources/reports/tests, earlier development articles or expected answers. A separate omitted-cost-bridge control, if materialized from a completed copy, is planted sensitivity evidence only; it must not be counted as a natural Writer failure. Preserve the original and transformation outside real article editions.
+
+Near-finished for this scoped check: complete bilingual narratives and code, source/technical fidelity, executable reference correctness under declared contract, and article-supported reconstruction of material decisions/states/proof/cost/transfer without parent repairs. Any supported material omission prevents an unqualified near-finished result for that article. Word/section/figure counts, detector scores and CLI digests do not decide this. Two successful samples would support only these cases; failures remain visible.
+
+Native local consumers use fork_turns=none, no model override, explicit read/write allowlists, separate directories, independently captured native requests/commands/results. Shared filesystem is not enforced read isolation; capture truncation must remain explicit. No retained local six-run study, cloud isolation, publication or Issue12 closure is claimed.
+
+CI will not launch these models or calculate new report/article SHA256. Any repository continuation uses existing PR81 and matching-head workflow only; no merge/deploy. No changes to skill, existing Part7/SVGs/sidecar/API/Sandbox/CEFR.

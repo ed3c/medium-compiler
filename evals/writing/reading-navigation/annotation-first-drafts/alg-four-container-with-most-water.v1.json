@@ -1,0 +1,884 @@
+{
+  "schema_version": "alg-four-reading-projection@4",
+  "owner": "alg-four",
+  "format": "source_preserved_with_right_outline",
+  "learning_policy": {
+    "goal_active_lexical_items": 2000,
+    "goal_linked_english_sentences": 2000,
+    "scope": "cumulative_across_source_articles_not_per_single_article",
+    "selection": "Admit only useful source-attested English terms/phrases that enable independent explanation of an engineering/concept decision or actual runtime mechanism. Each Active item requires source paragraph, decision/concept link, precise zh-TW technical explanation, one faithful English productive sentence, and a source-bound self-comparison cue. Deduplicate by meaning and usage across articles; do not invent fillers to reach 2000.",
+    "sentence_requirement": "At least one complete, grammatically meaningful engineering English sentence for each Active item; broader multi-context encounters may reuse it, without claiming learning outcome.",
+    "receptive_policy": "Each prose paragraph receives a zh-TW note with canonical English terms. Active decisions remain visible passively too; tags are contextual roles, not mutually exclusive vocabulary bins.",
+    "four_encounters": "Revisit the same original paragraphs: (1) encounter form and meaning; (2) identify decision and runtime link; (3) read or listen in context; (4) reconstruct the exact concept in English without copying, then compare to the source oracle. These are practices on the original article, never four alternate article rewrites.",
+    "scientific_honesty": "Four-pass method is an instructional hypothesis, not a known neurological critical threshold.",
+    "learner_evidence": "NOT_OBSERVED"
+  },
+  "id": "leetcode-11-container-with-most-water-complete-reading-notes-2026-10-21",
+  "source": {
+    "repository": "ed3c/medium-compiler",
+    "path": "articles/leetcode-11-container-with-most-water.md",
+    "git_blob": "1f430ad463c5ad5950bc325f6e8e52994defeb43",
+    "technical_authority": "leetcode-mental",
+    "writing_authority": "medium-writing"
+  },
+  "english_source": {
+    "repository": "ed3c/medium-compiler",
+    "path": "articles/leetcode-11-container-with-most-water.en.md",
+    "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486"
+  },
+  "alignment": {
+    "method": "one-to-one-source-paragraph",
+    "english_heading_count": 9,
+    "zh_heading_count": 9,
+    "paragraph_count": 43,
+    "image_count": 0,
+    "source_edition": "Approved complete bilingual article, 2026-10-21"
+  },
+  "reading_projection": {
+    "mode": "plain_english",
+    "stress_verification": "NOT_RUN",
+    "chunk_verification": "NOT_RUN",
+    "reason": "Faithful complete aligned English plain_text; no new stress or chunk claims."
+  },
+  "decisions": [
+    {
+      "id": "D1",
+      "title": "Pair capacity and legal inputs",
+      "source_concept": "A pair uses distinct ordered positions, gap width and the shorter nonnegative height.",
+      "passive": "A pair uses distinct ordered positions, gap width and the shorter nonnegative height.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain in English how width and water height determine capacity, and why zero is a valid initial best.",
+      "oracle": "The width is j - i and the water height is min(height[i], height[j]). All legal areas are nonnegative, so best may start at zero; empty and one-wall inputs are outside the contract.",
+      "source_paragraph_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        24,
+        42
+      ]
+    },
+    {
+      "id": "D2",
+      "title": "Enumerate every legal pair before optimizing",
+      "source_concept": "All-pairs visits each distinct pair once and retains only the largest evaluated area.",
+      "passive": "All-pairs visits each distinct pair once and retains only the largest evaluated area.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain why the all-pairs enumeration covers each pair once and how its candidate count is derived.",
+      "oracle": "For each i, j ranges from i + 1 through n - 1. The partner counts sum to n(n - 1)/2. Recording only their maximum is sufficient for the integer result.",
+      "source_paragraph_indices": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        31,
+        32
+      ]
+    },
+    {
+      "id": "D3",
+      "title": "Discard a wall only under a bound",
+      "source_concept": "Keeping the shorter wall limits height while moving its partner inward reduces width.",
+      "passive": "Keeping the shorter wall limits height while moving its partner inward reduces width.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain why the shorter wall can be discarded, including ties, and whether the next area must improve.",
+      "oracle": "After evaluating the endpoints, every inward pair retaining the shorter wall is bounded by that recorded area. Equal heights allow either endpoint to be discarded. No claim says the next area is larger; moving the taller wall can miss the optimum.",
+      "source_paragraph_indices": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        20,
+        25,
+        32,
+        35,
+        37,
+        39,
+        42
+      ]
+    },
+    {
+      "id": "D4",
+      "title": "State updates precede pointer movement",
+      "source_concept": "Each iteration measures endpoints, updates best, then moves exactly one index.",
+      "passive": "Each iteration measures endpoints, updates best, then moves exactly one index.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Narrate the state changes on [2, 5, 1, 4] and explain the stopping condition.",
+      "oracle": "The states after moves are (1, 3, 6), (1, 2, 8) and (1, 1, 8). The last area is 1 but best stays 8. Once left equals right, no two distinct endpoints remain.",
+      "source_paragraph_indices": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        29,
+        38
+      ]
+    },
+    {
+      "id": "D5",
+      "title": "Python reads and bindings preserve the input",
+      "source_concept": "Index reads retrieve elements; local integer rebinding does not write a list item.",
+      "passive": "Index reads retrieve elements; local integer rebinding does not write a list item.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain which objects the implementation reads or rebinds and why height is unchanged.",
+      "oracle": "Reading height[left] does not remove or copy the list. left += 1 rebinds an immutable integer local. No assignment targets a height item, and min and max only return chosen values.",
+      "source_paragraph_indices": [
+        7,
+        21,
+        22,
+        28
+      ]
+    },
+    {
+      "id": "D6",
+      "title": "Checkpointed coverage proves the maximum",
+      "source_concept": "At each while check, evaluated and excluded pairs are covered by best.",
+      "passive": "At each while check, evaluated and excluded pairs are covered by best.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "State the checkpointed invariant and connect initialization, maintenance and termination.",
+      "oracle": "Before each while condition check, best is the evaluated maximum or initial zero, and every pair with an endpoint outside the interval has area at most best. The discard bound covers newly excluded pairs and best never decreases. At termination no pair remains entirely inside, and best is attained by an actual candidate unless all areas are zero.",
+      "source_paragraph_indices": [
+        23,
+        24,
+        25,
+        26,
+        42
+      ]
+    },
+    {
+      "id": "D7",
+      "title": "Bounded work and peak live storage",
+      "source_concept": "Bounded scalar operations and n - 1 iterations yield linear time and constant auxiliary space.",
+      "passive": "Bounded scalar operations and n - 1 iterations yield linear time and constant auxiliary space.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Derive the time and space bounds while naming the arithmetic model and input/output conventions.",
+      "oracle": "Under the bounded-integer unit-cost model, each iteration does fixed work and there are n - 1 iterations. Fixed live locals and temporaries give O(1) auxiliary and output space; the supplied O(n) input is excluded. All-pairs uses quadratic time but still fixed peak state.",
+      "source_paragraph_indices": [
+        9,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        36,
+        40,
+        41
+      ]
+    },
+    {
+      "id": "D8",
+      "title": "Coordinate width preserves the discard reason",
+      "source_concept": "Ordered matched coordinates replace index gaps with physical width without adding iterations.",
+      "passive": "Ordered matched coordinates replace index gaps with physical width without adding iterations.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain the width change for uneven spacing, the proof premise and the resulting costs.",
+      "oracle": "Use x[right] - x[left]. Strictly increasing coordinates ensure inward movement reduces physical width, so the shorter-height bound and invariant survive. There are still n - 1 constant-work iterations and fixed live state; the supplied coordinates must already be ordered and matched to heights.",
+      "source_paragraph_indices": [
+        33,
+        34,
+        35,
+        36
+      ]
+    }
+  ],
+  "paragraph_annotations": [
+    {
+      "paragraph_index": 0,
+      "zh_note": "容量必須同時比較 height 與 distance：兩牆很高，若靠得太近，乘積仍可能較小。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Two tall walls can make a poor container if they stand too close together. In LeetCode 11, the decision is about a pair's height and distance together.",
+      "english_section_index": 0
+    },
+    {
+      "paragraph_index": 1,
+      "zh_note": "contract 指定 i < j 的兩個不同位置、回傳 integer 最大容量並保留輸入；空輸入與單牆不在證明範圍內。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The input height lists vertical wall heights at positions 0, 1, ..., n - 1. Choose two distinct positions i < j; the ground and those two walls form an upright container. Return the largest capacity, as an integer, rather than the wall positions. The statement allows 2 <= n <= 100000 and 0 <= height[i] <= 10000. It does not ask us to change the input, and the solutions below leave it unchanged. Empty and one-wall inputs are outside this contract. LeetCode problem statement.",
+      "english_section_index": 1
+    },
+    {
+      "paragraph_index": 2,
+      "zh_note": "較短牆限制 water height，j - i 計 gaps；兩個量相乘才得到 rectangular cross-sectional area。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The water cannot rise above the shorter wall: it would spill over that side. The horizontal distance is j - i, counting gaps rather than walls. Thus a pair's capacity is its rectangular cross-sectional area:",
+      "english_section_index": 1
+    },
+    {
+      "paragraph_index": 3,
+      "zh_note": "area 公式用 index 差乘上兩端的 min height；寬度與可承受水高必須來自同一個配對。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "area(i, j) = (j - i) * min(height[i], height[j]).",
+      "english_section_index": 1
+    },
+    {
+      "paragraph_index": 4,
+      "zh_note": "(1, 3) 的 2 × 4 勝過更寬的 (0, 3) 的 3 × 2；intermediate walls 不扣面積，這不是逐處累加 trapped rainwater。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For the constructed input [2, 5, 1, 4], walls at positions 1 and 3 give width 2, water height 4, and area 8. Positions 0 and 3 are farther apart, but give only 3 * 2 = 6. The tallest wall alone does not determine the answer. Intermediate walls do not subtract their height from this rectangle; this problem chooses two boundaries, rather than adding pockets of trapped rainwater.",
+      "english_section_index": 1
+    },
+    {
+      "paragraph_index": 5,
+      "zh_note": "非負面積允許 best 從零開始；全零輸入的真正最大值也是零，初始化不會虛構更大的答案。",
+      "decision_ids": [
+        "D1",
+        "D2"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "If both chosen heights are zero, their area is zero. When all heights are zero, zero is the correct maximum. This makes best = 0 a valid initial value for every legal input.",
+      "english_section_index": 1
+    },
+    {
+      "paragraph_index": 6,
+      "zh_note": "固定左端再列舉所有右端保證看過每個 candidate；下一次只比較 best，無須保留舊面積列表。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A direct solution fixes the left position and tries every position to its right. best retains the largest area evaluated so far; keeping the areas of old pairs would add storage without helping the next comparison.",
+      "english_section_index": 2
+    },
+    {
+      "paragraph_index": 7,
+      "zh_note": "range 排除 n 且從 i + 1 開始，維持合法且不重複的配對；雙 argument min／max 只選值，不修改 list。",
+      "decision_ids": [
+        "D2",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "range(i + 1, n) produces positions from i + 1 through n - 1. It excludes n, so every lookup is valid, every pair has distinct walls, and a pair is not repeated in reverse. min(a, b) returns the smaller argument; max(best, area) returns the larger. Neither call changes the list. These are the two-argument forms of the documented Python built-in functions.",
+      "english_section_index": 2
+    },
+    {
+      "paragraph_index": 8,
+      "zh_note": "六個 area 都被計算，但 best 只在出現更大值時上升；完整列舉最後讓 best 停在 8。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For [2, 5, 1, 4], the six pairs in execution order have areas 2, 2, 6, 1, 8, 1. The corresponding best values are 2, 2, 6, 6, 8, 8; returning 8 therefore follows from examining every candidate.",
+      "english_section_index": 2
+    },
+    {
+      "paragraph_index": 9,
+      "zh_note": "配對數正反相加後除二，得到 n(n - 1)/2；上限輸入需數十億次計算，跳過 candidate 必須另有正確性理由。",
+      "decision_ids": [
+        "D2",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The number of candidates matters at the upper input limit. To count them, position 0 has n - 1 partners, position 1 has n - 2, and the last useful left position has 1. Add these counts forward and backward: each matched sum is n, and there are n - 1 such sums. That double-counts the candidates, giving n * (n - 1) / 2 pairs. At n = 100000, that is 4,999,950,000 area evaluations. We need a reason to skip candidates without losing the maximum.",
+      "english_section_index": 2
+    },
+    {
+      "paragraph_index": 10,
+      "zh_note": "two pointers 是兩個 integer indices；含端點的 interval 表示未解決範圍，丟棄位置前必須先量端點配對。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Keep two indices, left and right, initially at opposite ends. These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses. The inclusive interval from left to right contains the positions still available for unresolved pairs. Evaluate its endpoint pair before discarding anything.",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 11,
+      "zh_note": "在 left 較短的前提下，保留 left 的內縮配對既不能提高 water height，又縮小 width；非負 height 允許推導面積上界。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Suppose height[left] <= height[right]. The pair just measured has area (right - left) * height[left]. Consider any pair that keeps left and replaces right with an inner position k. Its width k - left is smaller, and its water height cannot exceed height[left], even if the new wall is much taller. Because heights are nonnegative,",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 12,
+      "zh_note": "第一個不等式限制 water height，第二個利用內縮 width 與非負 height；整條鏈把所有保留 left 的內部配對界在已量面積內。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "area(left, k) <= (k - left) * height[left] <= (right - left) * height[left].",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 13,
+      "zh_note": "增加 left 丟棄的是一整組已受上界涵蓋的 candidates；推論沒有保證下一牆較高或下一個 area 更大。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "So no such pair can beat the endpoint area we already recorded. Every remaining candidate involving left can be discarded together by increasing left by one. This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 14,
+      "zh_note": "right 較短時對稱地減一；等高可刪任一端，程式選左側；零高 tie 的所有相關面積皆零，仍安全。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "When the right wall is shorter, the same argument applies with the sides reversed: keeping right while moving the left endpoint inward cannot improve the area just measured, so decrease right. If the heights are equal, either endpoint may be discarded by the same inequality. The code chooses to discard the left one. Zero-height ties remain safe because every pair keeping either zero-height wall has area zero.",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 15,
+      "zh_note": "[1, 3, 3] 中移動較高右牆會漏掉面積 3；最小性的範圍是牆數，兩牆時唯一 candidate 已在移動前量過。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "This rule deliberately gives up width. It removes a wall only after proving that the lost pairs are already covered by a recorded value. Always moving the taller wall lacks that proof. On [1, 3, 3], the outer pair gives area 2. Moving the taller right wall inward then gives area 1, and the process returns 2; it misses positions 1 and 2, whose area is 3. This is a smallest counterexample by number of walls: with two walls, the only candidate is evaluated before any move.",
+      "english_section_index": 3
+    },
+    {
+      "paragraph_index": 16,
+      "zh_note": "trace 從 (0, 3, 0) 開始：兩個端點涵蓋全部四面牆，尚未量任何配對，因此 best 為零。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "On [2, 5, 1, 4], begin with (left, right, best) = (0, 3, 0).",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 17,
+      "zh_note": "先以 width 3 與 height 2 算得 6 並更新 best，再把較短 left 移到 1；保留舊位置 0 的候選受 6 涵蓋。",
+      "decision_ids": [
+        "D3",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Read height[0] = 2 and height[3] = 4. Width is 3, water height is 2, and area is 6. Replace best with 6 before moving. Since 2 <= 4, increase left: the new state is (1, 3, 6). The skipped pairs keeping position 0 cannot exceed the measured 6.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 18,
+      "zh_note": "(1, 3) 算得 8，更新 best 後減 right；被排除的 (2, 3) 寬僅 1，水高又受原右牆 4 限制。",
+      "decision_ids": [
+        "D3",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Now read heights 5 and 4. Width is 2, so area is 8. best becomes 8. The left wall is taller, so decrease right, giving (1, 2, 8). In particular, pair (2, 3) is safely discarded: its width is 1, and its height cannot exceed the discarded right wall's height 4.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 19,
+      "zh_note": "當前 area 降到 1 不會覆蓋 best = 8；right 減到 left 後條件失敗，剩一個位置無法再組配對。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Read heights 5 and 1. Width is 1, giving area 1. The comparison leaves best at 8. Decrease right again, reaching (1, 1, 8). The condition left < right is now false: one position cannot supply two distinct walls. Return 8.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 20,
+      "zh_note": "等高 trace 先算出 6、後算出 3；可安全移動端點不代表當前 area 單調增加，必須保存 earlier maximum。",
+      "decision_ids": [
+        "D3",
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A separate tie witness, [3, 3, 3], starts with area 6, moves left, measures area 3, moves left again and returns 6. A move can reduce the current area; the saved maximum prevents losing the earlier answer.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 21,
+      "zh_note": "while 先檢查條件，if 每輪只選一個 branch，因此恰好一個 index 改變；這支持距離每輪減一的計數。",
+      "decision_ids": [
+        "D4",
+        "D5"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The while statement tests its condition before each execution of the body; if selects exactly one branch. Thus exactly one index changes per iteration. Python compound statements.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 22,
+      "zh_note": "讀取 slot 與 local binding 都不複製或修改輸入；left += 1 重新綁定 immutable integer，只有針對 height item 的 assignment 才會寫回。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Reading height[left] retrieves an element without removing it. Assigning that value to left_height binds a local name; it does not copy the list. Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height. An assignment targeting an item such as height[left] would write that item; no such assignment occurs here. The input remains available to the caller. Python assignments, numeric types.",
+      "english_section_index": 4
+    },
+    {
+      "paragraph_index": 23,
+      "zh_note": "loop invariant 的 checkpoint 是每次 while 條件檢查前：best 管已量配對，且所有至少一端已出 interval 的配對都不超過 best。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The area formula describes one pair. Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint. At the start of every while condition check: best is the maximum area among pairs already evaluated, or zero if none were evaluated; every pair with an endpoint outside the current interval has area at most best.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 24,
+      "zh_note": "初始化時沒有 interval 外的位置，排除條件無對象可違反；best = 0 與非負合法面積也符合第一項 invariant。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Initially there are no positions outside [0, n - 1], so the second claim has no excluded pairs to check. The first claim holds because best is zero and all legal areas are nonnegative.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 25,
+      "zh_note": "更新 best 保留已量最大值，discard bound 涵蓋新排除配對；best 不減則保住舊排除配對，兩個 branch 都能恢復 invariant。",
+      "decision_ids": [
+        "D3",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "During an iteration, measuring the endpoints and updating best preserves the first claim. The discard inequality proves that every newly excluded pair has area at most the area just measured, which is at most the updated best. Previously excluded pairs remain covered because best never decreases. These facts reestablish the invariant for either branch, including equal heights.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 26,
+      "zh_note": "distance 恰減 n - 1 次後為零，所有合法 pair 已量或被界住；best 又來自真實 candidates，因此不只是上界而是最大值本身。",
+      "decision_ids": [
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The distance right - left starts at n - 1 and decreases by exactly one each time. It reaches zero after n - 1 iterations. At that point no pair has both endpoints in the remaining interval, so every legal pair has been evaluated or covered by the invariant. Since best also comes from actual candidates, except for the harmless initial zero, it equals the required maximum.",
+      "english_section_index": 5
+    },
+    {
+      "paragraph_index": 27,
+      "zh_note": "unit-cost model 依有界 index、height、area 計固定大小運算與儲存；它不宣稱 Python expression 等耗時，無界大整數需重作成本模型。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Let n be the number of walls. We compare growth using a bounded-integer, unit-cost model: one integer comparison, addition, subtraction, multiplication, local binding, or indexed list access costs a bounded amount; storing one such scalar or reference uses one unit. For this statement, indices are below 100000, heights are at most 10000, and an area is at most 99999 * 10000 = 999,990,000. These values fit within a fixed number of machine-sized integer pieces. This model counts work, not equal physical time for all Python expressions. Python can represent larger integers, but an unbounded increase in their digit count would require a different arithmetic cost model.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 28,
+      "zh_note": "CPython list 的 indexed slots 與已存 length 支持 bounded access／len；這依普通 list、無 concurrent mutation 的前提，非逐項走訪。",
+      "decision_ids": [
+        "D5",
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The list-access assumption has a concrete implementation basis. In CPython v3.14.0, a list stores element references in indexed slots; fetching slot i accesses that slot rather than walking through the preceding i elements. Its length is stored, so len(height) does not count the walls one by one. These properties support bounded work for this access pattern, with an ordinary list and no concurrent mutation. CPython list implementation, list structure and access macros.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 29,
+      "zh_note": "每輪兩次讀取、固定算術與一次 index 更新，配上 n - 1 輪及 n 次條件檢查，導出 linear time；Big O 忽略固定乘數。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Each two-pointer iteration makes two list reads, a fixed number of bounded arithmetic and comparison operations, and one index update. min and max each receive two scalar values, so their comparison work does not grow with n. There are exactly n - 1 iterations and n loop-condition checks; setup and return add fixed work. Thus total work is bounded by a constant times n plus a constant. We write this as O(n) time. Big O expresses an upper growth bound, ignoring fixed multipliers; here the exact iteration count also gives linear growth, not just an upper limit.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 30,
+      "zh_note": "空間看同時存活的 locals 與 temporaries，而非歷次建立總數；沒有成長容器，auxiliary 與 integer output 各 O(1)，原 input 另計。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Only a fixed number of local names and temporary integer results are live at once. Later iterations replace earlier values rather than retaining a history. There is no recursion, growing collection or copied input. Auxiliary space, meaning storage added beyond the supplied input and returned result, is O(1). Transient arithmetic values also occupy only a fixed number of bounded units at once. The returned single integer is O(1) output space; the caller's original list already occupies O(n) units and is excluded from auxiliary space.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 31,
+      "zh_note": "all-pairs 有平方數 candidates，但 range 只存 start／stop／step，舊 inner range 不留存；固定 peak state 使 auxiliary 仍為 O(1)。",
+      "decision_ids": [
+        "D2",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The all-pairs solution uses the same bounded reads, arithmetic and two-argument comparisons for each candidate. Its n * (n - 1) / 2 evaluations therefore give O(n²) time: for growing n, the squared term dominates. Its space is still O(1) auxiliary and O(1) output. A Python range retains its start, stop and step rather than materializing all indices. The outer loop keeps one range and its current position; each inner range replaces the previous one, and no pair list or area history survives. Even though many inner ranges are created over time, only a fixed number are live simultaneously. The n - 1 inner-range setups store only these fixed fields, and each step advances a bounded integer index. Under the stated elementary model, those setups add linear work and each step adds fixed work per candidate; neither exceeds the quadratic total. Python range objects.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 32,
+      "zh_note": "小輸入可用 all-pairs 直接核對合法候選；計分規則若改到破壞 discard bound，必須重做證明，不能沿用 two-pointer 結論。",
+      "decision_ids": [
+        "D2",
+        "D3"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For tiny inputs, all-pairs is useful as a checking oracle: it is easy to inspect because it directly enumerates the contract's candidates. It also remains a starting point if a new scoring rule destroys the shorter-wall bound; that changed rule would need its own costs and proof. Under the present contract and large input limit, the two-pointer solution avoids billions of evaluations with no extra growing storage.",
+      "english_section_index": 6
+    },
+    {
+      "paragraph_index": 33,
+      "zh_note": "不等間距 contract 改由排序且與 height 對應的 x 提供實際位置；index 差只計 gaps，已不能代表 physical width。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Suppose the input supplies strictly increasing integer coordinates x, in the same order as height, with 0 <= x[i] <= 1000000000. Keep the original height and length limits. Walls no longer stand one unit apart. Reusing right - left would calculate the number of gaps, rather than their total width.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 34,
+      "zh_note": "用 x[right] - x[left] 算實寬後，例中從面積 100 走到 198；沿用 index width 只得 2，直接暴露舊公式失效。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Replace the width by x[right] - x[left]. On x = [0, 1, 100] and height = [1, 3, 2], the outer pair has area 100; moving the shorter left wall reveals area 99 * 2 = 198. The answer is 198. The original index-width calculation would instead return 2.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 35,
+      "zh_note": "strictly increasing 保證往內移會縮實寬，height bound 未變，故 discard proof／invariant 可沿用；座標值很大不增加移動次數。",
+      "decision_ids": [
+        "D3",
+        "D8"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Strictly increasing coordinates ensure that moving either endpoint inward decreases physical width. The shorter-wall height bound is unchanged, so the discard inequality and invariant still hold with coordinate differences replacing index differences. The pointers still move by one position per iteration: the numerical size of a coordinate gap does not add iterations.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 36,
+      "zh_note": "改版每輪只多兩次座標讀取且 area 仍有界，時間 O(n)、新增固定狀態 O(1)；x 是已供輸入，排序與配對前提不由函式驗證。",
+      "decision_ids": [
+        "D7",
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The adaptation adds two coordinate-slot reads per iteration; subtracting their values replaces the old index subtraction. It adds no growing loop or collection. Coordinates and areas remain bounded, with area at most 1000000000 * 10000 = 10¹³, fitting a fixed number of scalar units under the same model. Consequently the n - 1 iterations still give O(n) time and fixed live state gives O(1) auxiliary and output space. The additional coordinate list is supplied input, using another O(n) units, rather than a list allocated by the function. This argument assumes coordinates arrive ordered and matched to heights; the function neither sorts nor verifies that different contract.",
+      "english_section_index": 7
+    },
+    {
+      "paragraph_index": 37,
+      "zh_note": "口述 discard 理由要連結兩件事：保留較短牆限制高度，另一端內移縮寬；所得所有 pair 均受已量 endpoint area 約束。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Why move the shorter wall? Keeping it caps the water height while moving the other endpoint inward reduces width. All such pairs are bounded by the endpoint area already measured.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 38,
+      "zh_note": "口述時明說 current area 可以下降；best 保留 earlier candidates，才不會因移動而失去先前答案。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Does the next pair have to improve? No. best remembers earlier candidates, so the current area may decrease.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 39,
+      "zh_note": "equal heights 的安全性允許刪任一 endpoint；左側只是這份 implementation 的明確選擇。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "What happens on equal heights? Either endpoint can be removed safely. This implementation removes the left one.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 40,
+      "zh_note": "線性時間的口述理由是 distance 從 n - 1 每輪減一到零，且每輪工作有界；不能只憑有一個 while 判斷。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Why is the time linear? The index distance decreases from n - 1 to zero, once per constant-work iteration.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 41,
+      "zh_note": "constant space 排除 caller input；函式額外保留固定 scalar locals，並回傳單一 integer。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "What does constant space exclude? It excludes the caller's input list. The function adds a fixed set of scalar locals and returns one integer.",
+      "english_section_index": 8
+    },
+    {
+      "paragraph_index": 42,
+      "zh_note": "master map 依序連起 width、height、candidate area、discard bound 與 best；interval 無法容納兩牆時，涵蓋關係才推出全域答案。",
+      "decision_ids": [
+        "D1",
+        "D3",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The master map is a chain of reasons: two wall positions determine width; the shorter wall determines water height; their product evaluates a candidate. An evaluated candidate bounds every inward pair retaining its shorter wall. Removing that wall shrinks the unresolved interval while best covers excluded pairs. When the interval cannot contain two walls, best covers every legal choice.",
+      "english_section_index": 8
+    }
+  ],
+  "active_items": [
+    {
+      "id": "container-with-most-water-A0001",
+      "corpus_key": "capacity",
+      "term": "capacity",
+      "decision_id": "D1",
+      "paragraph_index": 2,
+      "english_sentence": "The water cannot rise above the shorter wall: it would spill over that side.",
+      "source_quote": "capacity",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why does the shorter wall limit capacity?",
+      "oracle": "Water above that wall would spill over; width alone does not determine capacity.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 2
+      }
+    },
+    {
+      "id": "container-with-most-water-A0002",
+      "corpus_key": "candidate",
+      "term": "candidate",
+      "decision_id": "D2",
+      "paragraph_index": 8,
+      "english_sentence": "The corresponding best values are 2, 2, 6, 6, 8, 8; returning 8 therefore follows from examining every candidate.",
+      "source_quote": "candidate",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why does the all-pairs result equal the maximum?",
+      "oracle": "Every legal pair is examined, and best retains the largest evaluated area.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 8
+      }
+    },
+    {
+      "id": "container-with-most-water-A0003",
+      "corpus_key": "two-pointers",
+      "term": "two pointers",
+      "decision_id": "D3",
+      "paragraph_index": 10,
+      "english_sentence": "These indices are called two pointers here; they are ordinary integer positions, not copied sublists or Python memory addresses.",
+      "source_quote": "two pointers",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What are the two pointers in this Python implementation?",
+      "oracle": "They are integer indices delimiting unresolved positions, without copying a sublist.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 10
+      }
+    },
+    {
+      "id": "container-with-most-water-A0004",
+      "corpus_key": "bound",
+      "term": "bound",
+      "decision_id": "D3",
+      "paragraph_index": 13,
+      "english_sentence": "This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve.",
+      "source_quote": "bound",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Does the bound predict a better next area?",
+      "oracle": "No; it covers all inward partners of the discarded shorter wall using an area already measured.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 13
+      }
+    },
+    {
+      "id": "container-with-most-water-A0005",
+      "corpus_key": "counterexample",
+      "term": "counterexample",
+      "decision_id": "D3",
+      "paragraph_index": 15,
+      "english_sentence": "This is a smallest counterexample by number of walls: with two walls, the only candidate is evaluated before any move.",
+      "source_quote": "counterexample",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What does smallest mean for the taller-wall counterexample?",
+      "oracle": "It means the number of walls; three are needed because two walls have only one candidate, evaluated before moving.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 15
+      }
+    },
+    {
+      "id": "container-with-most-water-A0006",
+      "corpus_key": "branch",
+      "term": "branch",
+      "decision_id": "D4",
+      "paragraph_index": 21,
+      "english_sentence": "Thus exactly one index changes per iteration.",
+      "source_quote": "branch",
+      "admission": "decision_critical_reusable",
+      "active_cue": "How many index updates occur in one iteration?",
+      "oracle": "Exactly one, because if chooses one branch after the while condition succeeds.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 21
+      }
+    },
+    {
+      "id": "container-with-most-water-A0007",
+      "corpus_key": "immutable-value",
+      "term": "immutable",
+      "decision_id": "D5",
+      "paragraph_index": 22,
+      "english_sentence": "Python integers are immutable: left += 1 computes an integer value and rebinds left, rather than changing an integer stored inside height.",
+      "source_quote": "immutable",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Does left += 1 mutate an integer inside the input list?",
+      "oracle": "No; it computes an integer value and rebinds the local name left.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 22
+      }
+    },
+    {
+      "id": "container-with-most-water-A0008",
+      "corpus_key": "loop-invariant",
+      "term": "loop invariant",
+      "decision_id": "D6",
+      "paragraph_index": 23,
+      "english_sentence": "Correctness of the whole search needs a separate loop invariant, a statement that remains true at a chosen checkpoint.",
+      "source_quote": "loop invariant",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What does the invariant add beyond the area formula?",
+      "oracle": "It connects best with evaluated and excluded pairs at each while condition check, across the whole search.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 23
+      }
+    },
+    {
+      "id": "container-with-most-water-A0009",
+      "corpus_key": "nonnegative",
+      "term": "nonnegative",
+      "decision_id": "D1",
+      "paragraph_index": 24,
+      "english_sentence": "The first claim holds because best is zero and all legal areas are nonnegative.",
+      "source_quote": "nonnegative",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why may best begin at zero?",
+      "oracle": "Every legal area is nonnegative, and zero also correctly handles all-zero heights.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 24
+      }
+    },
+    {
+      "id": "container-with-most-water-A0010",
+      "corpus_key": "unit-cost-model",
+      "term": "unit-cost model",
+      "decision_id": "D7",
+      "paragraph_index": 27,
+      "english_sentence": "This model counts work, not equal physical time for all Python expressions.",
+      "source_quote": "unit-cost model",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Does the unit-cost model claim identical elapsed time for Python expressions?",
+      "oracle": "No; it counts bounded elementary work under the stated integer limits.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 27
+      }
+    },
+    {
+      "id": "container-with-most-water-A0011",
+      "corpus_key": "indexed-slots",
+      "term": "indexed slots",
+      "decision_id": "D5",
+      "paragraph_index": 28,
+      "english_sentence": "In CPython v3.14.0, a list stores element references in indexed slots; fetching slot i accesses that slot rather than walking through the preceding i elements.",
+      "source_quote": "indexed slots",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why is a list lookup not a walk through preceding walls?",
+      "oracle": "The list stores references in indexed slots and accesses the selected slot directly under the stated implementation assumption.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 28
+      }
+    },
+    {
+      "id": "container-with-most-water-A0012",
+      "corpus_key": "auxiliary-space",
+      "term": "Auxiliary space",
+      "decision_id": "D7",
+      "paragraph_index": 30,
+      "english_sentence": "Auxiliary space, meaning storage added beyond the supplied input and returned result, is O(1).",
+      "source_quote": "Auxiliary space",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What storage is excluded from auxiliary space here?",
+      "oracle": "The supplied input and the returned result; only fixed live locals and temporaries are added.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 30
+      }
+    },
+    {
+      "id": "container-with-most-water-A0013",
+      "corpus_key": "oracle",
+      "term": "oracle",
+      "decision_id": "D2",
+      "paragraph_index": 32,
+      "english_sentence": "For tiny inputs, all-pairs is useful as a checking oracle: it is easy to inspect because it directly enumerates the contract's candidates.",
+      "source_quote": "oracle",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why use all-pairs as an oracle on tiny inputs?",
+      "oracle": "It directly enumerates every contract candidate, making the expected maximum easy to inspect.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 32
+      }
+    },
+    {
+      "id": "container-with-most-water-A0014",
+      "corpus_key": "strictly-increasing",
+      "term": "strictly increasing",
+      "decision_id": "D8",
+      "paragraph_index": 35,
+      "english_sentence": "Strictly increasing coordinates ensure that moving either endpoint inward decreases physical width.",
+      "source_quote": "strictly increasing",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What coordinate premise preserves the discard proof?",
+      "oracle": "Strictly increasing coordinates, ordered and matched to the heights, ensure inward movement decreases physical width.",
+      "source_ref": {
+        "path": "articles/leetcode-11-container-with-most-water.en.md",
+        "git_blob": "1cd8ce92e02fa6ca9807efc5a5dc819e4449d486",
+        "paragraph_index": 35
+      }
+    }
+  ]
+}

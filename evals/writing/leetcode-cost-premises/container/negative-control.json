@@ -1,0 +1,18 @@
+{
+  "expected_incorrect_result": 2,
+  "required_result": 3,
+  "trace": [
+    {
+      "left": 0,
+      "right": 2,
+      "area": 2,
+      "best": 2
+    },
+    {
+      "left": 0,
+      "right": 1,
+      "area": 1,
+      "best": 2
+    }
+  ]
+}

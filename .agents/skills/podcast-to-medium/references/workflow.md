@@ -93,6 +93,10 @@ python3 scripts/build_site.py --out /tmp/podcast-site-NEW
 ``` Inspect generated article, `article.md`, `source.json`
 and `/provenance.json`. No local input packet belongs in these public outputs.
 
-For authorized deployment, use the existing PR workflow and Vercel Git integration. Keep
-exact-head Actions and production readback evidence in the PR. If a provider is unavailable,
+Serve and inspect this build on localhost before remote publication. Follow
+[the shared local-review contract](../../../../writing-contract.md#article-updates-local-preview-before-deployment),
+provide the local URL and stop there unless this update includes deployment.
+For authorized deployment, follow the selected host in AGENTS.md and its original
+Provider route, checking Git triggers before a push/merge. Keep exact-head Actions
+and production readback evidence in the PR. If a provider is unavailable,
 retain completed work and identify the actual blocker rather than declaring publication.

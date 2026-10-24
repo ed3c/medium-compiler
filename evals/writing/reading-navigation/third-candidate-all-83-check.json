@@ -1,0 +1,666 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 0,
+    "skeleton": "Wall height and distance → jointly determine → a pair's capacity.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Pair capacity, not a discard authorization.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 1,
+    "skeleton": "Legal inputs → require → at least two nonnegative walls; solutions preserve input.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Legal-domain restriction is explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 2,
+    "skeleton": "The shorter wall and gap distance → determine → a pair's rectangular area.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Geometric bound uses selected shorter wall and one pair.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 3,
+    "skeleton": "Gap width times shorter height → gives → the pair area.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Formula cue selects shorter height and gap width.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 4,
+    "skeleton": "The chosen boundaries → determine → area; tallest height alone does not.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Chosen boundaries restrict the claim.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 5,
+    "skeleton": "Nonnegative legal areas → make → zero a valid initial best.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Nonnegative legal areas justify the initial maximum sentinel.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 6,
+    "skeleton": "The direct solution → evaluates → every pair, retaining only the maximum.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Every-pair coverage and maximum retention explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 7,
+    "skeleton": "Choosing j>i → excludes → same-wall pairs and reverse duplicates.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "j>i only excludes same-wall/reverse pairs, not full coverage.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 8,
+    "skeleton": "Examining every candidate → yields → maximum eight for the example.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Selected numeric witness, not a general area-eight guarantee.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 9,
+    "skeleton": "All-pairs enumeration → requires → n(n−1)/2 evaluations, motivating safe candidate removal.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Pair count motivates safe removal but does not authorize removal.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "skeleton": "Two indices → delimit → unresolved positions; update best with endpoint areas before discarding.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Now saves endpoint areas into best before discarding.",
+    "changed": true
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "skeleton": "The shorter left wall → caps → the height of inward pairs retaining left.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Retained-left object now explicit.",
+    "changed": true
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "skeleton": "With 0≤height[left]≤height[right], endpoint area → bounds → inward pairs retaining left.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Pure area bound: explicit 0≤height[left]≤height[right] and inward retained-left object; no removal is authorized.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "skeleton": "With 0≤height[left]≤height[right], recorded endpoint area → bounds → inward retained-left pairs.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Recorded endpoint area plus explicit branch and retained-left object; recorded state already complete.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "skeleton": "After saving endpoint area → discard → the shorter endpoint; equal heights allow either side.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Saved endpoint area now precedes shorter/tie removal.",
+    "changed": true
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 15,
+    "skeleton": "Moving the taller wall → can miss → the optimum in a three-wall counterexample.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Can-miss counterexample claim, not a removal permission.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 16,
+    "skeleton": "The example → initializes → left zero, right three, and best zero.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Initial witness state, not a bound/removal permission.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 17,
+    "skeleton": "Measuring area six → precedes → saving best and moving left inward.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Selected trace explicitly saves before moving.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 18,
+    "skeleton": "Area eight → updates → best before right moves; discarded pairs remain bounded.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Selected trace explicitly updates best before moving right.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 19,
+    "skeleton": "Coincident endpoints → end → the search with saved maximum eight.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Selected trace has saved maximum at coincident endpoints.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 20,
+    "skeleton": "The saved maximum → preserves → the answer when later areas decrease.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Already-saved maximum survives later decreases.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 21,
+    "skeleton": "The while and if statements → enforce → one index change per iteration.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Selected implementation branch-count cue.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "skeleton": "Element reads and local integer rebinding → preserve → the caller's input list.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Reads/local bindings preserve input; no discard bound.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 23,
+    "skeleton": "At each while check, best → covers → evaluated and excluded pairs.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "While-check invariant includes evaluated/excluded scope.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 24,
+    "skeleton": "Initial zero and the full interval → establish → both invariant claims.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Full interval and legal zero initialization checkpoint.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 25,
+    "skeleton": "Measuring endpoints, updating best, and the discard bound → preserve → both invariant claims.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Measurement, best update and discard bound all explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "skeleton": "Coincident pointers → leave → no two distinct positions inside the remaining interval.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Narrowed to coincident-pointer termination fact; no implied safe-state permission.",
+    "changed": true
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 27,
+    "skeleton": "Bounded input scalars → justify → the stated unit-cost model, within its limits.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Bounded model and its limits explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 28,
+    "skeleton": "CPython list slots and stored length → support → bounded ordinary-list reads without mutation.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Ordinary-list/no-mutation access-model scope explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 29,
+    "skeleton": "Linear iterations with fixed bounded work each → yield → linear total work.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Fixed bounded work per iteration explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 30,
+    "skeleton": "Fixed live state → uses → constant auxiliary and output space, excluding input.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Peak fixed live state/input exclusion explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 31,
+    "skeleton": "Scalar-only all-pairs enumeration → uses → quadratic time and constant auxiliary space.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Scalar-only enumeration restricts storage claim.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 32,
+    "skeleton": "All-pairs → provides → a tiny-input oracle; two pointers avoid billions under this contract.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Tiny oracle and selected large-limit implementation comparison; no removal rule.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 33,
+    "skeleton": "Nonuniform coordinates → require → physical width instead of index-gap count.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Nonuniform physical-width scope explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 34,
+    "skeleton": "Coordinate-based width → yields → 198 where index-based width incorrectly yields two.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Selected coordinate witness, not a discard permission.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 35,
+    "skeleton": "Strictly increasing coordinates → preserve → the discard proof and iteration count.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Coordinate monotonicity preserves the already-stated proof; does not independently authorize an unrecorded discard.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 36,
+    "skeleton": "Ordered matched coordinates → preserve → linear time and constant auxiliary space under bounded costs.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Ordered matched coordinates and bounded costs explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 37,
+    "skeleton": "The recorded endpoint area → bounds → inward pairs retaining its shorter wall.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Recorded endpoint area and inward pairs retaining its shorter wall explicit.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 38,
+    "skeleton": "The saved best → permits → later candidate areas to decrease.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Saved best, not current area, carries history.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "skeleton": "After saving equal-height endpoint area → remove → either endpoint; this code removes left.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Equal height now requires saved endpoint area before removal.",
+    "changed": true
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 40,
+    "skeleton": "Constant-work iterations → reduce → index distance from n−1 to zero.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Selected constant-work source loop count; no removal permission.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 41,
+    "skeleton": "The function → adds → fixed scalar locals and one integer, excluding input.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Selected function/input exclusion scope.",
+    "changed": false
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "skeleton": "Maximum endpoint area, saved before shorter-wall removals → covers → every pair at interval collapse.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Saved maximum endpoint area before removals and interval collapse now explicit.",
+    "changed": true
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 0,
+    "skeleton": "The solution → counts → remaining prerequisites before releasing course three.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Remaining prerequisites, not single-prerequisite release.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 1,
+    "skeleton": "Prerequisite pairs → constrain → whether every course can finish; input remains unchanged.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Every-course quantifier.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 2,
+    "skeleton": "Unconstrained courses → count → toward completion; mutually waiting courses cannot start.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Cycle-local blocking versus unconstrained completion.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 3,
+    "skeleton": "A directed cycle → prevents → any first completion among its courses.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "First-completion impossibility restricted to cycle courses.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 4,
+    "skeleton": "Repeated available-course completion → finishes → everything exactly when no directed cycle exists.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Available-only choices and iff no directed cycle.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 5,
+    "skeleton": "Each prerequisite's adjacency list → locates → its dependent courses.",
+    "word_count": 8,
+    "scope_and_completed_state_recheck": "Direct dependents, not all reachable courses.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 6,
+    "skeleton": "Remaining counts → track → unfinished obligations rather than Boolean readiness.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Unfinished obligation counts.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "skeleton": "Separate inner lists → prevent → shared mutations; immutable zero repetition remains safe.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Separate mutable lists and immutable zero scope.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 8,
+    "skeleton": "An unbounded FIFO queue → retains → available courses without smallest-first ordering.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Unbounded FIFO retains entries; smallest-first rule not imposed.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 9,
+    "skeleton": "An unbounded deque → retains → available entries; append returns None.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "Unbounded queue and append return value explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 10,
+    "skeleton": "Each completion → releases → newly zero-count dependents, with at most one enqueue each.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Newly zero counts and at-most-one enqueue explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 11,
+    "skeleton": "The reader → considers → the constructed input.",
+    "word_count": 6,
+    "scope_and_completed_state_recheck": "Narrow reading invitation.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 12,
+    "skeleton": "Courses one and two → must precede → course three; course four remains independent.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Selected five-course witness.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 13,
+    "skeleton": "Completing course zero → enqueues → one and two while three retains two obligations.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Selected initialized trace state.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 14,
+    "skeleton": "Isolated course four → contributes → one completion without releasing another course.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Isolated-course qualification.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 15,
+    "skeleton": "Finishing course one → leaves → course three blocked by unfinished course two.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Selected delayed-release witness with course two unfinished.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 16,
+    "skeleton": "All five completions → produce → True without retaining their conceptual order.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "All five completions in selected five-course witness.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 17,
+    "skeleton": "A disconnected cycle → prevents → success despite one isolated course's completion.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Cycle in another component blocks full completion.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 18,
+    "skeleton": "At completed-update checkpoints, counts and queue → represent → unfinished obligations and availability.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "All prior updates complete at checkpoint.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 19,
+    "skeleton": "Initial pair counts and zero-count scan → establish → the checkpoint, including empty queues.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Full zero-count initialization scan.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 20,
+    "skeleton": "Complete dependent updates → reestablish → the checkpoint after each legal completion.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Whole dependent-update phase after legal completion.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 21,
+    "skeleton": "The empty queue plus completion count → distinguishes → a schedule from a cyclic remainder.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Source checkpoint and completion count distinguish full/partial.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 22,
+    "skeleton": "An initially nonempty queue → fails → to guarantee completion of the whole graph.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Initial nonemptiness explicitly insufficient.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 23,
+    "skeleton": "Bounded scalar and container operations → define → the O(V+E) cost model.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Defines cost model; does not infer a bound solely from scalar limits.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 24,
+    "skeleton": "Draining a V-course list with pop(0) → shifts → V(V−1)/2 references.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Full V-entry draining and exact shift count explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 25,
+    "skeleton": "Fixed-size deque blocks → support → bounded endpoint work under the stated allocation model.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Fixed block-size allocation cost model explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "skeleton": "When allocated slots run out, an append → may require → resizing and copying.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Allocated slots exhausted and may-resize condition explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 27,
+    "skeleton": "Append-only proportional growth → bounds → aggregate appends linearly, excluding deletion and bulk updates.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Append-only aggregate proportional-growth scope and excluded updates explicit.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 28,
+    "skeleton": "Summing per-list amortized append costs → gives → O(E) total append work.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Per-list amortized append work, not merely E operation count.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 29,
+    "skeleton": "Once-per-course and edge processing → yields → O(V+E) under the established container bounds.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Established container bounds accompany at-most-once visits.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 30,
+    "skeleton": "Representation and queue → use → O(V+E) peak auxiliary space, excluding input.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "Peak auxiliary and supplied-input exclusion.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 31,
+    "skeleton": "Repeated pair scans → release → whole zero-obligation groups without storing extra edges.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Whole zero-obligation group and original pair scans.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 32,
+    "skeleton": "Repeated scans → trade → O(V(V+E)) time for O(V) peak auxiliary space.",
+    "word_count": 14,
+    "scope_and_completed_state_recheck": "Selected repeated-scan time/peak-space trade.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "skeleton": "All courses completed legally once → form → a valid order without smallest-first guarantees.",
+    "word_count": 12,
+    "scope_and_completed_state_recheck": "All courses completed legally once, not a partial prefix.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 34,
+    "skeleton": "At most V amortized order appends → preserve → the existing O(V+E) time bound.",
+    "word_count": 14,
+    "scope_and_completed_state_recheck": "At most V amortized appends preserve an existing bound.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 35,
+    "skeleton": "Remaining indegree → determines → availability exactly when its count reaches zero.",
+    "word_count": 10,
+    "scope_and_completed_state_recheck": "Unfinished indegree reaches zero, including initial zero.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 36,
+    "skeleton": "One prerequisite completion → removes → each stored outgoing obligation once.",
+    "word_count": 9,
+    "scope_and_completed_state_recheck": "One prerequisite completion and its outgoing obligations.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 37,
+    "skeleton": "When no unfinished course is available → infer → a cycle in the nonempty remainder.",
+    "word_count": 13,
+    "scope_and_completed_state_recheck": "Actual lack of any available unfinished course, not arbitrary empty queue.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 38,
+    "skeleton": "Kahn's adjacency-list implementation → uses → O(V+E) work and auxiliary space under stated costs.",
+    "word_count": 14,
+    "scope_and_completed_state_recheck": "Named Kahn adjacency implementation under stated costs.",
+    "changed": false
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 39,
+    "skeleton": "Counts, queue, and completed-course total → connect → dependencies, availability, invariant, and termination.",
+    "word_count": 11,
+    "scope_and_completed_state_recheck": "Narrow map of mechanisms, not an unconditional result or upper bound.",
+    "changed": false
+  }
+]

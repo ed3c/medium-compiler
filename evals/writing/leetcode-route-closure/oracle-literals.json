@@ -1,0 +1,5 @@
+{
+  "literal_oracle_controls": 4,
+  "passed": 4,
+  "limits": "Oracle sanity only; Writer code not yet observed."
+}

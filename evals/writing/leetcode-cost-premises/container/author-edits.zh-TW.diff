@@ -1,0 +1,11 @@
+--- first
++++ author-final
+@@ -50 +50 @@
+-這項規則會主動放棄寬度，但只有先證明失去的配對已被記錄值涵蓋，才移除牆。每次都移動較高牆的規則沒有這個證明。對 `[1, 3, 2]`，外側配對面積為 `2`。若把較高的右牆往內移，接著得到面積 `1`，最後回傳 `2`，卻漏掉位置 `1` 與 `2` 的面積 `3`。以牆的數量衡量，這是最小 counterexample：只有兩面牆時，在任何移動前就已算過唯一候選。
++這項規則會主動放棄寬度，但只有先證明失去的配對已被記錄值涵蓋，才移除牆。每次都移動較高牆的規則沒有這個證明。對 `[1, 3, 3]`，外側配對面積為 `2`。若把較高的右牆往內移，接著得到面積 `1`，最後回傳 `2`，卻漏掉位置 `1` 與 `2` 的面積 `3`。以牆的數量衡量，這是最小 counterexample：只有兩面牆時，在任何移動前就已算過唯一候選。
+@@ -109 +109 @@
+-all-pairs 解法每個候選也使用相同的有界讀取、算術與雙 argument 比較。因此，`n * (n - 1) / 2` 次計算帶來 `O(n²)` time：隨著 `n` 增大，平方項主導成長。它仍然只需要 `O(1)` auxiliary space 與 `O(1)` output space。Python `range` 保留 start、stop、step，而不會把所有 index 都實體化。外層迴圈保留一個 range 與當前位置；每個內層 range 都取代前一個，不會留下配對 list 或面積歷史。即使執行期間建立過很多內層 range，同時存活的數量仍然固定。[Python range objects](https://docs.python.org/3.14/library/stdtypes.html#ranges)。
++all-pairs 解法每個候選也使用相同的有界讀取、算術與雙 argument 比較。因此，`n * (n - 1) / 2` 次計算帶來 `O(n²)` time：隨著 `n` 增大，平方項主導成長。它仍然只需要 `O(1)` auxiliary space 與 `O(1)` output space。Python `range` 保留 start、stop、step，而不會把所有 index 都實體化。外層迴圈保留一個 range 與當前位置；每個內層 range 都取代前一個，不會留下配對 list 或面積歷史。即使執行期間建立過很多內層 range，同時存活的數量仍然固定。`n - 1` 次內層 range 初始化只儲存這些固定欄位，每次前進則遞增一個有界 integer index。在前述 elementary model 下，這些初始化增加線性工作量，每個候選的前進增加固定工作量；兩者都不超過平方級總量。[Python range objects](https://docs.python.org/3.14/library/stdtypes.html#ranges)。
+@@ -117 +117 @@
+-將寬度改為 `x[right] - x[left]`。對 `x = [0, 1, 100]` 與 `height = [1, 3, 2]`，外側配對的面積是 `100`；移動較短的左牆後，得到 `99 * 2 = 198`。答案是 `198`。原本用 index 算寬度則會回傳 `3`。
++將寬度改為 `x[right] - x[left]`。對 `x = [0, 1, 100]` 與 `height = [1, 3, 2]`，外側配對的面積是 `100`；移動較短的左牆後，得到 `99 * 2 = 198`。答案是 `198`。原本用 index 算寬度則會回傳 `2`。

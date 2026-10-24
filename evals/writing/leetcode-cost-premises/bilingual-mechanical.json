@@ -1,0 +1,18 @@
+{
+  "container": {
+    "fenced_blocks_identical": true,
+    "fenced_blocks": 3,
+    "source_urls_identical": true,
+    "source_urls": 8,
+    "english_interview_identical": true,
+    "english_interview_paragraphs": 5
+  },
+  "courses": {
+    "fenced_blocks_identical": true,
+    "fenced_blocks": 3,
+    "source_urls_identical": true,
+    "source_urls": 6,
+    "english_interview_identical": true,
+    "english_interview_paragraphs": 4
+  }
+}

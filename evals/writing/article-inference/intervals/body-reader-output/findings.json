@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "role": "fresh zero-context body reader",
+    "read_paths": [
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input/task.json",
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input/article.en.md",
+      "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/article-entailment-2x13kv72/intervals/reader-input/article.zh-TW.md"
+    ],
+    "actual_CODEX_THREAD_ID": "01a15ce1-3e75-7a61-9b82-997618be952e",
+    "scope_compliance": "Read only the three allowlisted input files. Listed the reader-input directory. Did not read repository, source links, other cases, author notes, annotations, expected answers or test reports. Executed the exact public code block on one constructed legal input; wrote only this output directory.",
+    "external_browsing": false,
+    "no_semantic_score": true,
+    "no_human_comprehension_claim": true,
+    "verdict": "NEEDS_REVISION",
+    "verdict_reason": "Fresh-answer-pair necessity exceeds the mutation contract in both languages. Main algorithm and reconstructed legal trace remain correct within article premises; a separate sort-workspace premise is explicitly identified as unexplained rather than false."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "revision_required",
+      "kind": "unsupported_necessary_claim",
+      "location": "An alternative, and a constraint that changes the choice / 替代方案，以及會改變選擇的條件: already sorted input paragraph",
+      "claim_quotes": [
+        {
+          "article": "article.en.md",
+          "quote": "Preserving the caller's pairs still requires fresh answer pairs."
+        },
+        {
+          "article": "article.zh-TW.md",
+          "quote": "要保留呼叫端的端點組不變，仍然必須建立新的答案端點組。"
+        }
+      ],
+      "finding": "保留 caller pairs 並不必然要求所有答案 pair 新建。append original references + replace answer slot on extension 即可避免 input pair mutation。此 necessity 若按普遍要求讀取會被合法反例否定；較窄的目前實作機制正確。",
+      "legal_counterexample": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "why_not_main_algorithm_bug": "原程式新建 pair 並在其上修改，確實保留輸入；反例只否定必要性。",
+      "licensed_claim": "目前直接修改 merged[-1][1] 的實作，可藉新建答案 pair 保留輸入；若要主張必須，需明示額外 output/input independence 契約。"
+    },
+    {
+      "id": "F2",
+      "severity": "bounded_explanation_limit",
+      "kind": "unexplained_library_storage_bound",
+      "location": "Where do the time and memory costs come from? / 時間與記憶體成本從哪裡來？: auxiliary-space paragraph",
+      "claim_quotes": [
+        {
+          "article": "article.en.md",
+          "quote": "`ordered` holds `n` references, and sorting can retain keys and temporary reference storage proportional to `n`."
+        },
+        {
+          "article": "article.zh-TW.md",
+          "quote": "`ordered` 持有 `n` 個 references，排序還可能保留與 `n` 成比例的 keys 與暫存 reference 空間。"
+        }
+      ],
+      "finding": "ordered 的 n references 與一次 key per pair 可由正文追蹤；sort temporary storage 為何 proportional n 則僅給定結論，沒有同時存活或 buffer 配置的解釋。本 reader 只能把它列為正文給定的 library premise，不能從所讀正文獨立推導。",
+      "classification": "Unexplained premise; not established false. No external knowledge used to repair it.",
+      "effect": "O(n) auxiliary/peak bound 的接受依賴這個明示前提；主 scanning 和 append 推導仍可重建。"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "en": {
+    "source_paragraphs_equal_generated_body": true,
+    "complete_reading_text_equals_English_body_ignoring_visual_markers": true,
+    "source_trace_code_mastermap_equal_generated_pre_blocks": true,
+    "paragraph_count": 35,
+    "pre_block_count": 3
+  },
+  "zh-TW": {
+    "source_paragraphs_equal_generated_body": true,
+    "complete_reading_text_equals_English_body_ignoring_visual_markers": true,
+    "source_trace_code_mastermap_equal_generated_pre_blocks": true,
+    "paragraph_count": 35,
+    "pre_block_count": 3
+  },
+  "reread": {
+    "all_annotation_fields_equal_across_both_pages": true,
+    "current_bodies_equal_original_audit_body_quotes": true,
+    "changed_indices": [
+      10,
+      27
+    ],
+    "changed_field_count": 5
+  }
+}

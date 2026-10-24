@@ -1,0 +1,29 @@
+{
+  "actor": "current parent Session",
+  "owner": "task-owner",
+  "operation": "consume_verified_behavior",
+  "selection": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/feedback/observed/selection.json",
+    "sha256": "cd75ad5b9f37993c2f8ce94b0389c67201bdd68f27413c4638a75ab56c36e692"
+  },
+  "result": {
+    "evidence_validity": "VALID",
+    "criteria": "SUPPORTED",
+    "behavior": {
+      "classification": "PASS",
+      "failed_checks": []
+    },
+    "field_measurement": {
+      "unit": "reported_output_field",
+      "scope": "selected_protocol",
+      "expected": 10,
+      "observed": 10,
+      "failed": 0,
+      "missing": 0,
+      "workflow_decisions": null,
+      "reason": "Output fields do not measure observable workflow choices or complete trace coverage."
+    }
+  },
+  "consumed_scope": "Reported-action fields for two real first deliveries. Parent read final English and author cost reconstructions, inspected actual runtime/failure/capture. Does not accept semantic completeness, general reliability or human learning; separate Readers determine observable reconstruction gaps.",
+  "authorizes_landing": false
+}

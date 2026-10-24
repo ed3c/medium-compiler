@@ -1,0 +1,95 @@
+{
+  "binding": {
+    "kind": "pclass-feedback",
+    "owner": "schema-manager.tools.prepare",
+    "proposal": {
+      "criteria_review": null,
+      "observations": [],
+      "protocol": {
+        "cases": [
+          {
+            "expected": {
+              "annotation_content_created": true,
+              "publication_performed": false,
+              "source_body_changed": false
+            },
+            "id": "annotation-owner",
+            "input": {
+              "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/task.json",
+              "sha256": "6a7b88e6625cc2fd58e3f2a9fb01dc89de0a82b200975afad5cbfb9bc2e6f63a"
+            }
+          }
+        ],
+        "instructions": [
+          {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/speed-reading/SKILL.md",
+            "sha256": "0f22fc86b23b1e7ef75e05c197dc7c1d6ee0bd7d74c3e32c789306aeaaa58c2d"
+          },
+          {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/SKILL.md",
+            "sha256": "54d2832d2e881dcfd660a9218aaeb372c8968fd873a3b35128d03a02f214bafa"
+          },
+          {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+            "sha256": "72596d3dc2daa732022b28287b296d9da2f226fc801938c92e5d94fc77e94626"
+          },
+          {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+            "sha256": "1a7d778411588de02715b4151fd8f6461024b44ab069e2e8e4bda670a1e9b630"
+          },
+          {
+            "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/docs/bilingual-articles.md",
+            "sha256": "1216e3a5716c013ae1c3d34dba35597a2ea362342ea1384f808b302c28352fb4"
+          }
+        ],
+        "methods": [
+          {
+            "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/eval-audit/SKILL.md",
+            "sha256": "9f4b23dfe06f4c42a28d4bb054d75b5da1bff39ea57e0450689a4f699604bc63"
+          },
+          {
+            "path": "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/.agents/skills/medium-behavior-evals/SKILL.md",
+            "sha256": "2edd65dea0780d025d50d1ee5007b265bfcd41f365d90d8a3b14014c940eaf1d"
+          }
+        ],
+        "requirements": {
+          "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/requirements.json",
+          "sha256": "b745607d170a479a46e71300636f3201f288498a84c18c2639cc9008370836c3"
+        },
+        "schema": 2,
+        "subject": "Complete-annotation acceptance with explicit source-bound premises and checkpoints; reported actions only"
+      },
+      "schema": 2
+    }
+  },
+  "files": {
+    "protocol.json": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/protocol.json",
+      "sha256": "36abd0c3830fcde1ecd6151641f546df3cc8309235e584193168f7d74ad5dad0"
+    },
+    "selection.json": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/selection.json",
+      "sha256": "76d4e1629b2bde2f436181c72269bf0ba6e1abb096bf450d6226cd04fc9b2f92"
+    }
+  },
+  "result": {
+    "authorizes_landing": false,
+    "kind": "pclass-feedback",
+    "next": {
+      "arguments": {
+        "kind": "pclass-feedback",
+        "selection": {
+          "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/selection.json",
+          "sha256": "76d4e1629b2bde2f436181c72269bf0ba6e1abb096bf450d6226cd04fc9b2f92"
+        }
+      },
+      "tool": "soodles_schema_inspect"
+    },
+    "owner": "schema-manager.tools.prepare",
+    "selection": {
+      "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/initial/selection.json",
+      "sha256": "76d4e1629b2bde2f436181c72269bf0ba6e1abb096bf450d6226cd04fc9b2f92"
+    }
+  },
+  "schema": 1
+}

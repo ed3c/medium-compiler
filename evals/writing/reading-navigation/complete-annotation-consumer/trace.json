@@ -1,0 +1,90 @@
+{
+  "CODEX_THREAD_ID": "01a15c99-e7d1-70f2-b473-7a7dfdf5f9a3",
+  "input_reads": [
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/task.json",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/speed-reading/SKILL.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/SKILL.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/alg-four/references/lesson-contract.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/instructions/docs/bilingual-articles.md",
+    "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.md",
+    "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-11-container-with-most-water.en.md",
+    "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.md",
+    "/Users/neon/.codex/worktrees/leetcode-article-depth/medium-compiler/articles/leetcode-207-course-schedule.en.md",
+    "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-complete-annotation/report-template.json"
+  ],
+  "observations": [
+    "All five allowlisted frozen instructions and four complete approved source bodies read. First combined instruction tool output was truncated; lesson-contract and article-content-profile were reread individually in full.",
+    "Simple blank-line prose parser excludes fenced code and headings. Paired prose counts are 43 for LeetCode 11 and 40 for LeetCode 207. Selected paragraph 39 is equal-height Interview English; selected paragraph 21 is termination proof.",
+    "No prior manifest, evaluations, expected answers, other agent files or repository implementation read.",
+    "Source identity digests were computed once before the later instruction to preserve producer report identity without computing hashes. Report copies the original template unchanged except for its three output Booleans; no report hashes were recomputed. Earlier local digests remain diagnostic, not producer approval.",
+    "First draft saved before exact marker-recovery checks. No semantic rewrite was needed during this bounded author review. No source writes, publication, model or dictionary network requests occurred.",
+    "Final structural check found all 28 context/Active exact English quotes in their allowed source bodies, preserved report metadata, and confirmed two notes. These are mechanical observations only."
+  ],
+  "mechanical_checks": [
+    {
+      "article": "leetcode-11-container-with-most-water",
+      "paragraph_index": 39,
+      "complete_english_recovered_exactly": true,
+      "stress_span_count": 0
+    },
+    {
+      "article": "leetcode-207-course-schedule",
+      "paragraph_index": 21,
+      "complete_english_recovered_exactly": true,
+      "stress_span_count": 0
+    }
+  ],
+  "author_review": [
+    {
+      "annotation": "LeetCode 11 paragraph 39",
+      "licensed": "With nonnegative equal heights and the current endpoint area recorded in updated best, discard either endpoint.",
+      "nearby_illegal_inference": "Move before evaluating/updating, or claim the next area must improve.",
+      "explicit_support": [
+        {
+          "paragraph_index": 14,
+          "quote": "If the heights are equal, either endpoint may be discarded by the same inequality."
+        },
+        {
+          "paragraph_index": 25,
+          "quote": "The discard inequality proves that every newly excluded pair has area at most the area just measured, which is at most the updated `best`."
+        },
+        {
+          "paragraph_index": 13,
+          "quote": "This is a bound on all its possible partners, not a prediction that the next wall is taller or that the next area will improve."
+        }
+      ],
+      "judgment_limit": "Author assessment; independent Reader must quote relevant displayed context/source before accepting distinction."
+    },
+    {
+      "annotation": "LeetCode 207 paragraph 21",
+      "licensed": "At the completed-update checkpoint, empty ready plus a nonempty unfinished set implies a cycle.",
+      "nearby_illegal_inference": "An empty queue observed immediately after removing 2 proves failure, or empty queue after all courses completed proves a cycle.",
+      "explicit_support": [
+        {
+          "paragraph_index": 18,
+          "quote": "The checkpoint is just before each evaluation of `while ready`, after all updates for the preceding completion."
+        },
+        {
+          "paragraph_index": 4,
+          "quote": "There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle."
+        },
+        {
+          "paragraph_index": 16,
+          "quote": "Removing 2 empties the queue and raises `finished` to 4. Course 3 changes from 1 to 0. Appending 3 gives `[3]`, with counts `[0, 0, 0, 0, 0]`."
+        }
+      ],
+      "judgment_limit": "Author assessment; independent Reader must explain why the timing premise licenses the conclusion and quote the displayed checkpoint."
+    }
+  ],
+  "not_established": [
+    "semantic PASS",
+    "independent Reader result",
+    "human reading benefit",
+    "phonological verification",
+    "actual Active practice",
+    "full article annotation coverage",
+    "existing validator admission",
+    "website rendering"
+  ]
+}

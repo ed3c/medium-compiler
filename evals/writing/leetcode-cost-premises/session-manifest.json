@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "root_thread": "01a159c9-95a1-7b01-8761-900f308f739b",
+  "scope": "Native Local Codex standalone first-delivery demonstration; not matched six-run comparison or cloud evidence",
+  "method_commit": "1487e11f5347806ca4a1e218f0a1d61bb6c8e34e",
+  "before_commit": "063f8580f520873417eab672f6b1ad5ce0a87057",
+  "external_evidence": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf",
+  "starts": [
+    {
+      "type": "subAgentActivity",
+      "id": "call_6611d55275dc46d2a01aba9e6c5723ab",
+      "kind": "started",
+      "agentThreadId": "01a15ac9-c04e-70c3-b48f-b96e6f305135",
+      "agentPath": "/root/premise_criteria"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_42585c41f2444903957b9f6a13bc79f5",
+      "kind": "started",
+      "agentThreadId": "01a15ac9-da8a-7020-b646-5a6f970fc0c4",
+      "agentPath": "/root/premise_container_writer"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_e89307acf2c042deb1c984e688c843d7",
+      "kind": "started",
+      "agentThreadId": "01a15ac9-f315-7033-919d-d14c6f9dc71d",
+      "agentPath": "/root/premise_courses_writer"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_1f03c8668a3b4568b9435390db268d7a",
+      "kind": "started",
+      "agentThreadId": "01a15ad1-7629-7f03-a1fc-666a4f39f17f",
+      "agentPath": "/root/premise_container_reader"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_f43c802a9808404d82e06fe654c0d774",
+      "kind": "started",
+      "agentThreadId": "01a15ad1-8b44-7e21-9980-605e525fef6c",
+      "agentPath": "/root/premise_courses_reader"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_204c4c0173d5486fb4bd0f18550011b6",
+      "kind": "started",
+      "agentThreadId": "01a15ad2-7421-7340-9bd6-605a5ad492f8",
+      "agentPath": "/root/premise_review_d"
+    }
+  ],
+  "carrier": {
+    "fork_turns": "none",
+    "model_override": null,
+    "filesystem_isolation": "not enforced"
+  },
+  "inputs": "Fixed task/instruction snapshots; actual tasks and root start events preserved. Both complete first deliveries frozen before Readers. No exemplar/outline/prior failure/expected answers/Reader questions to Writers. Reader only pair, audience, eight fixed questions and output shape. No post-Reader repairs or resampling.",
+  "capture": "App read_thread actual responses, turnLimit=10, includeOutputs=true, maxOutputCharsPerItem=20000. Captured command outputs can be truncated; this does not identify all original consumer tool truncations or invisible web events. Self-reports and observer captures distinct; parent launch prompts remain in original chat, not a fabricated tool event stream.",
+  "semantic_results": {
+    "container": {
+      "reader_missing": [],
+      "bilingual_mismatches": []
+    },
+    "courses": {
+      "reader_missing": [],
+      "bilingual_mismatches": [],
+      "reader_limit": "Alternative round algorithm does not state done's initial Boolean value explicitly; checkpoint question covers main implementation."
+    },
+    "control": {
+      "reader_missing": [
+        "cost"
+      ],
+      "planted": true
+    }
+  },
+  "effect_boundary": "PR81 and normal matching-head CI only; no merge, deploy, Stage admission, publication or billing changes.",
+  "limits": "Two samples do not demonstrate general stability, instruction-only causal gain or human understanding. Cost reconstructions conditional on each body's declared model."
+}

@@ -1,0 +1,4139 @@
+{
+  "schema_version": "alg-four-reading-projection@4",
+  "owner": "alg-four",
+  "format": "source_preserved_with_right_outline",
+  "learning_policy": {
+    "goal_active_lexical_items": 2000,
+    "goal_linked_english_sentences": 2000,
+    "scope": "cumulative_across_source_articles_not_per_single_article",
+    "selection": "Admit only useful source-attested English terms/phrases that enable independent explanation of an engineering/concept decision or actual runtime mechanism. Each Active item requires source paragraph, decision/concept link, precise zh-TW technical explanation, one faithful English productive sentence, and a source-bound self-comparison cue. Deduplicate by meaning and usage across articles; do not invent fillers to reach 2000.",
+    "sentence_requirement": "At least one complete, grammatically meaningful engineering English sentence for each Active item; broader multi-context encounters may reuse it, without claiming learning outcome.",
+    "receptive_policy": "Each prose paragraph receives a zh-TW note with canonical English terms. Active decisions remain visible passively too; tags are contextual roles, not mutually exclusive vocabulary bins.",
+    "four_encounters": "Revisit the same original paragraphs: (1) encounter form and meaning; (2) identify decision and runtime link; (3) read or listen in context; (4) reconstruct the exact concept in English without copying, then compare to the source oracle. These are practices on the original article, never four alternate article rewrites.",
+    "scientific_honesty": "Four-pass method is an instructional hypothesis, not a known neurological critical threshold.",
+    "learner_evidence": "NOT_OBSERVED"
+  },
+  "id": "leetcode-207-course-schedule-complete-reading-notes-2026-10-21",
+  "source": {
+    "repository": "ed3c/medium-compiler",
+    "path": "articles/leetcode-207-course-schedule.md",
+    "git_blob": "3d342b56e7d72cee38512b4797471df618ed9dc3",
+    "technical_authority": "leetcode-mental",
+    "writing_authority": "medium-writing"
+  },
+  "english_source": {
+    "repository": "ed3c/medium-compiler",
+    "path": "articles/leetcode-207-course-schedule.en.md",
+    "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e"
+  },
+  "alignment": {
+    "method": "one-to-one-source-paragraph",
+    "english_heading_count": 8,
+    "zh_heading_count": 8,
+    "paragraph_count": 40,
+    "image_count": 0,
+    "source_edition": "Approved complete bilingual article, 2026-10-21"
+  },
+  "reading_projection": {
+    "mode": "reviewed_speed_reading",
+    "paragraph_count": 40,
+    "chunk_verification": "REVIEWED",
+    "stress_verification": "PARTIAL",
+    "syntax_review": "Agent reviewed each complete paragraph and explicitly selected syntactic phrase/clause boundaries; word counts did not determine splits.",
+    "stress_scope": "Cambridge-checked singular content words wall, width, queue, course, algorithm only; all other words remain plain. Identifier occurrences are excluded.",
+    "learner_evidence": "NOT_OBSERVED",
+    "reason": "Complete aligned English is retained in reviewed derived formatting. Pronunciation coverage is partial; no speed or comprehension outcome was observed."
+  },
+  "decisions": [
+    {
+      "id": "D1",
+      "title": "Edge direction, cycle and global feasibility",
+      "source_concept": "A pair [a, b] creates b -> a; all courses can finish exactly when the finite graph has no directed cycle.",
+      "passive": "A pair [a, b] creates b -> a; all courses can finish exactly when the finite graph has no directed cycle.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain edge direction and both directions of the cycle-feasibility claim, including isolated courses.",
+      "oracle": "Each prerequisite points to its dependent. A directed cycle has no first completion. Conversely, if every course in a nonempty remainder waits for another remaining prerequisite, finite backward following repeats a node and finds a cycle. Courses absent from pairs still exist and must count.",
+      "source_paragraph_indices": [
+        1,
+        2,
+        3,
+        4,
+        17,
+        21,
+        22,
+        32,
+        37,
+        39
+      ]
+    },
+    {
+      "id": "D2",
+      "title": "Retain outgoing dependents and remaining obligations",
+      "source_concept": "after locates dependents while remaining counts unfinished prerequisites rather than a Boolean.",
+      "passive": "after locates dependents while remaining counts unfinished prerequisites rather than a Boolean.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain why after and remaining store different information and when a dependent becomes available.",
+      "oracle": "after[b] stores destinations a for b -> a. remaining[a] starts as incoming-edge count and tracks unfinished prerequisites. Completing b removes one obligation from each stored dependent. A dependent is available exactly when its count becomes zero.",
+      "source_paragraph_indices": [
+        0,
+        5,
+        6,
+        10,
+        12,
+        15,
+        19,
+        20,
+        28,
+        35,
+        36,
+        39
+      ]
+    },
+    {
+      "id": "D3",
+      "title": "Independent mutable lists and immutable counters",
+      "source_concept": "Separate [] evaluations avoid sharing one mutable adjacency list across courses.",
+      "passive": "Separate [] evaluations avoid sharing one mutable adjacency list across courses.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain why [[]] * V is wrong here but [0] * V is safe, and distinguish one append from an append sequence.",
+      "oracle": "List repetition repeats references, so repeated inner lists share mutations. Separate [] evaluations make independent lists. Integer zero is immutable and a counter update replaces one slot. One append may resize and copy; its whole append-only sequence has an aggregate bound.",
+      "source_paragraph_indices": [
+        7,
+        26,
+        30
+      ]
+    },
+    {
+      "id": "D4",
+      "title": "A lossless available-course queue",
+      "source_concept": "An unbounded deque retains available unfinished courses and permits each to enter at most once.",
+      "passive": "An unbounded deque retains available unfinished courses and permits each to enter at most once.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain FIFO operations, why maxlen is absent, and why no visited set is required.",
+      "oracle": "popleft removes and returns the left entry, while append mutates the right end and returns None. A maxlen could discard needed entries. Initial zero-count courses enter once; each positive count only drops to zero once, so courses enter at most once. FIFO does not promise smallest identifiers first.",
+      "source_paragraph_indices": [
+        8,
+        9,
+        10,
+        13,
+        16,
+        24,
+        25,
+        29,
+        33
+      ]
+    },
+    {
+      "id": "D5",
+      "title": "Witness delayed release and disconnected rejection",
+      "source_concept": "The trace distinguishes one completed prerequisite from all completed prerequisites.",
+      "passive": "The trace distinguishes one completed prerequisite from all completed prerequisites.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Trace when course 3 becomes ready in the five-course witness, then explain the rejection witness.",
+      "oracle": "Course 3 stays out after course 1 because its count is still one. Course 2 reduces it to zero, after which it enters and finishes fifth. In the three-course rejection, only isolated course 2 finishes and the cycle remains; one available course does not imply global success.",
+      "source_paragraph_indices": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "id": "D6",
+      "title": "Complete updates before checking the invariant",
+      "source_concept": "The while checkpoint connects finished, remaining and exactly-once availability.",
+      "passive": "The while checkpoint connects finished, remaining and exactly-once availability.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "State the checkpoint and explain why an empty queue with unfinished courses proves failure.",
+      "oracle": "Just before while ready, finished counts distinct completions, every unfinished count equals unfinished prerequisites, and the queue contains all available unfinished courses once. This holds after the whole dependent list is processed. If the queue is empty with unfinished courses, each waits for an unfinished prerequisite, so finite backward following exposes a cycle.",
+      "source_paragraph_indices": [
+        4,
+        18,
+        19,
+        20,
+        21,
+        22,
+        37,
+        39
+      ]
+    },
+    {
+      "id": "D7",
+      "title": "Container costs justify V + E",
+      "source_concept": "Bounded scalar work, deque endpoints and aggregate append costs support O(V + E).",
+      "passive": "Bounded scalar work, deque endpoints and aggregate append costs support O(V + E).",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Derive time and peak auxiliary space, explaining pop(0), deque and amortized append.",
+      "oracle": "list.pop(0) shifts queued references and can total quadratic work. Bounded fixed-block deque endpoints cost constant work. Append-only adjacency construction costs O(V + E) in aggregate. Each course and edge is handled at most once after construction, giving worst-case O(V + E) time and O(V + E) peak auxiliary storage; the Boolean output is O(1).",
+      "source_paragraph_indices": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        34,
+        36,
+        38,
+        39
+      ]
+    },
+    {
+      "id": "D8",
+      "title": "Repeated scans trade time for adjacency storage",
+      "source_concept": "Fresh blocked flags identify each round’s group before marking it done.",
+      "passive": "Fresh blocked flags identify each round’s group before marking it done.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain the repeated-scan alternative, its round boundary and its time-space trade-off.",
+      "oracle": "Scan all original pairs into fresh blocked flags using the unfinished set at round start, then finish the whole unblocked group. Each successful round adds a course; at most V such rounds and one failed round cost O(V(V + E)). Flags and optional group storage have O(V) peak size, excluding the existing pair input.",
+      "source_paragraph_indices": [
+        31,
+        32
+      ]
+    },
+    {
+      "id": "D9",
+      "title": "Retaining an order changes output accounting",
+      "source_concept": "Appending each legal removal produces a valid order without changing edge traversal cost.",
+      "passive": "Appending each legal removal produces a valid order without changing edge traversal cost.",
+      "context": "Read the bound original paragraphs in this article.",
+      "active_cue": "Explain how to return an order and account separately for successful output and failed partial order.",
+      "oracle": "Append each removed course to order and return it only when its length is V, otherwise return []. The additional append-only work is O(V), preserving O(V + E) time. A successful order is O(V) output; a failed partial order is temporary auxiliary storage. FIFO does not imply smallest-first order.",
+      "source_paragraph_indices": [
+        33,
+        34
+      ]
+    }
+  ],
+  "paragraph_annotations": [
+    {
+      "paragraph_index": 0,
+      "zh_note": "課程 3 有兩項 prerequisites，完成其中一項仍不可開始；remaining count 要保留「還有幾項」並識別降到零的時刻。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Suppose course 3 requires both course 1 and course 2. Finishing course 1 helps, but course 3 is still unavailable. A solution must remember how many requirements remain, then notice the moment that number becomes zero.",
+      "english_section_index": 0,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Suppose course 3 requires both course 1 and course 2. ",
+            "stress": [
+              {
+                "start": 8,
+                "end": 14,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              },
+              {
+                "start": 31,
+                "end": 37,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              },
+              {
+                "start": 44,
+                "end": 50,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "Finishing course 1 helps, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 10,
+                "end": 16,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "but course 3 is still unavailable. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 4,
+                "end": 10,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "A solution must remember how many requirements remain, ",
+            "break_before": "major"
+          },
+          {
+            "text": "then notice the moment that number becomes zero.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "The solution → counts → remaining prerequisites before releasing course three.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 1,
+      "zh_note": "[a, b] 指 b 先於 a，輸出只問 Boolean 可完成性；distinct pairs、識別碼範圍與 self-loop 都屬 contract，實作保留輸入。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "In LeetCode 207, course identifiers run from 0 through numCourses - 1. A pair [a, b] means that b must be finished before a. Return a Boolean indicating whether every course can be finished. A schedule itself is not required. There are 1 to 2000 courses and 0 to 5000 distinct prerequisite pairs; both identifiers belong to the course range. The statement does not exclude [a, a], which makes that course impossible to start. The implementation below leaves the input unchanged.",
+      "english_section_index": 1,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "In LeetCode 207, course identifiers run ",
+            "stress": [
+              {
+                "start": 17,
+                "end": 23,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "from 0 through numCourses - 1. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A pair [a, b] means that b must be finished before a. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Return a Boolean ",
+            "break_before": "major"
+          },
+          {
+            "text": "indicating whether every course can be finished. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 25,
+                "end": 31,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "A schedule itself is not required. ",
+            "break_before": "major"
+          },
+          {
+            "text": "There are 1 to 2000 courses and 0 to 5000 distinct prerequisite pairs; ",
+            "break_before": "major"
+          },
+          {
+            "text": "both identifiers belong ",
+            "break_before": "major"
+          },
+          {
+            "text": "to the course range. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 7,
+                "end": 13,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "The statement does not exclude [a, a], ",
+            "break_before": "major"
+          },
+          {
+            "text": "which makes that course impossible to start. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 17,
+                "end": 23,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "The implementation below leaves the input unchanged.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Prerequisite pairs → constrain → whether every course can finish; input remains unchanged.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 2,
+      "zh_note": "不在任何 pair 中的課仍須計入完成數；相互等待的 0、1 找不到合法第一門，不能把沒有 outgoing 資料當成不存在。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A course with no requirements may be taken immediately. A course absent from every pair still exists and must count toward the result. Conversely, [[1, 0], [0, 1]] makes courses 0 and 1 wait for each other. No choice of first course can satisfy those requirements.",
+      "english_section_index": 1,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "A course ",
+            "stress": [
+              {
+                "start": 2,
+                "end": 8,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "with no requirements may be taken immediately. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A course absent ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 2,
+                "end": 8,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "from every pair still exists and must count ",
+            "break_before": "minor"
+          },
+          {
+            "text": "toward the result. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Conversely, [[1, 0], [0, 1]] makes courses 0 and 1 wait ",
+            "break_before": "major"
+          },
+          {
+            "text": "for each other. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "No choice of first course can satisfy those requirements.",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 19,
+                "end": 25,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          }
+        ],
+        "skeleton": "Unconstrained courses → count → toward completion; mutually waiting courses cannot start.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 3,
+      "zh_note": "edge 必須畫成 b -> a；directed cycle 上每門都等待同圈另一門，沒有第一個完成者，self-loop 是一節點版本。",
+      "decision_ids": [
+        "D1"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Draw a directed edge b -> a for [a, b]. A directed graph is simply the collection of course nodes and these one-way prerequisite edges. A directed cycle follows one or more edges back to its starting node. Each course on that cycle must wait for another course on the same cycle, so there can be no first completion there. A self-loop is a cycle containing one node.",
+      "english_section_index": 1,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Draw a directed edge b -> a "
+          },
+          {
+            "text": "for [a, b]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A directed graph is simply the collection of course nodes and these ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 45,
+                "end": 51,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "one-way prerequisite edges",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "A directed cycle follows one or more edges ",
+            "break_before": "major"
+          },
+          {
+            "text": "back to its starting node. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Each course ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 5,
+                "end": 11,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "on that cycle must wait ",
+            "break_before": "minor"
+          },
+          {
+            "text": "for another course ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 12,
+                "end": 18,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "on the same cycle, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "so there can be no first completion there. ",
+            "break_before": "major"
+          },
+          {
+            "text": "A self-loop is a cycle containing one node.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "A directed cycle → prevents → any first completion among its courses.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 4,
+      "zh_note": "有限節點反覆往回追 unfinished prerequisite 必重遇節點，因此無 cycle 的非空剩餘圖有可開始課；這是 task equivalence，尚非程式 checkpoint。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The converse also holds for this finite graph. If every remaining course has a remaining prerequisite, start at any remaining course and repeatedly follow a prerequisite backward. There are finitely many course identifiers. Some identifier must repeat, which exposes a cycle. Thus a nonempty remainder without a cycle must contain an available course. Repeatedly taking an available course can finish everything exactly when the graph has no directed cycle. This equivalence describes the task; a changing loop invariant will describe our implementation.",
+      "english_section_index": 1,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The converse also holds "
+          },
+          {
+            "text": "for this finite graph. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "If every remaining course has a remaining prerequisite, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 19,
+                "end": 25,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "start at any remaining course ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 23,
+                "end": 29,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "and repeatedly follow a prerequisite backward. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "There are finitely many course identifiers. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 24,
+                "end": 30,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "Some identifier must repeat, ",
+            "break_before": "major"
+          },
+          {
+            "text": "which exposes a cycle. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Thus a nonempty remainder ",
+            "break_before": "major"
+          },
+          {
+            "text": "without a cycle must contain an available course. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 42,
+                "end": 48,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "Repeatedly taking an available course can finish everything ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 31,
+                "end": 37,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "exactly when the graph has no directed cycle. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "This equivalence describes the task; ",
+            "break_before": "major"
+          },
+          {
+            "text": "a changing loop invariant will describe our implementation.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Repeated available-course completion → finishes → everything exactly when no directed cycle exists.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 5,
+      "zh_note": "after[b] 保存 b 的 outgoing destinations；完成 b 時可直接找到受影響課程，避免重新掃描全部 pairs。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Scanning every pair after every completion would rediscover which courses depend on the completed one. Instead, build after[b], a list of courses directly waiting for b. Store a in that list for each pair [a, b]. This is an adjacency list: each node owns the list of destinations of its outgoing edges.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Scanning every pair "
+          },
+          {
+            "text": "after every completion would rediscover which courses depend on the completed one. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Instead, build after[b], ",
+            "break_before": "major"
+          },
+          {
+            "text": "a list of courses ",
+            "break_before": "minor"
+          },
+          {
+            "text": "directly waiting for b. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Store a ",
+            "break_before": "major"
+          },
+          {
+            "text": "in that list ",
+            "break_before": "minor"
+          },
+          {
+            "text": "for each pair [a, b]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "This is an ",
+            "break_before": "major"
+          },
+          {
+            "text": "adjacency list",
+            "bundle": true
+          },
+          {
+            "text": ": "
+          },
+          {
+            "text": "each node owns the list ",
+            "break_before": "major"
+          },
+          {
+            "text": "of destinations ",
+            "break_before": "minor"
+          },
+          {
+            "text": "of its outgoing edges.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Each prerequisite's adjacency list → locates → its dependent courses.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 6,
+      "zh_note": "indegree 初值數 incoming edges，執行時則數 unfinished prerequisites；整數二在完成一項後還能留下義務一，Boolean 無法保存這個資訊。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Also build remaining[a], initially the number of incoming prerequisite edges for a. This incoming-edge count is often called indegree. After some completions, its useful meaning changes to the number of prerequisites of a that have not yet been completed. A count of two means that two distinct obligations remain; knowing only whether the course has any prerequisites would lose the information needed after the first completion.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Also build remaining[a], "
+          },
+          {
+            "text": "initially the number ",
+            "break_before": "minor"
+          },
+          {
+            "text": "of incoming prerequisite edges for a. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "This incoming-edge count is often called indegree. ",
+            "break_before": "major"
+          },
+          {
+            "text": "After some completions, its useful meaning changes ",
+            "break_before": "major"
+          },
+          {
+            "text": "to the number ",
+            "break_before": "minor"
+          },
+          {
+            "text": "of prerequisites of a ",
+            "break_before": "minor"
+          },
+          {
+            "text": "that have not yet been completed. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A count of two means that two distinct obligations remain; ",
+            "break_before": "major"
+          },
+          {
+            "text": "knowing only whether the course has any prerequisites would lose the information needed ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 25,
+                "end": 31,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "after the first completion.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Remaining counts → track → unfinished obligations rather than Boolean readiness.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 7,
+      "zh_note": "每次求值 [] 才有獨立 inner lists；list repetition 共享 references 會混入其他課的 dependents；重複零則因 integer immutable 與 slot replacement 而安全。",
+      "decision_ids": [
+        "D3"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Use after = [[] for _ in range(numCourses)]. Evaluating [] separately for each course makes independent inner lists. Writing [[]] * numCourses would repeat references to one shared list: adding a dependent for course 0 would also appear to add it for every other course. In contrast, [0] * numCourses is safe here. Integers are immutable, and remaining[a] += 1 replaces the value in slot a; it does not mutate a shared zero. Python's sequence operations distinguish repetition of references from copying their objects.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Use after = [[] for _ in range(numCourses)]. "
+          },
+          {
+            "text": "Evaluating [] ",
+            "break_before": "major"
+          },
+          {
+            "text": "separately for each course makes ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 20,
+                "end": 26,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "independent inner lists",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Writing [[]] * numCourses would repeat references ",
+            "break_before": "major"
+          },
+          {
+            "text": "to one shared list: ",
+            "break_before": "minor"
+          },
+          {
+            "text": "adding a dependent ",
+            "break_before": "major"
+          },
+          {
+            "text": "for course 0 would also appear to add it ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 4,
+                "end": 10,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "for every other course. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 16,
+                "end": 22,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "In contrast, [0] * numCourses is safe here. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Integers are immutable, ",
+            "break_before": "major"
+          },
+          {
+            "text": "and remaining[a] += 1 replaces the value ",
+            "break_before": "major"
+          },
+          {
+            "text": "in slot a; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "it does not mutate a shared zero. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Python's ",
+            "break_before": "major"
+          },
+          {
+            "text": "sequence operations",
+            "bundle": true
+          },
+          {
+            "text": " distinguish "
+          },
+          {
+            "text": "repetition of references",
+            "bundle": true
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "from copying their objects.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Separate inner lists → prevent → shared mutations; immutable zero repetition remains safe.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 8,
+      "zh_note": "ready 只放 prerequisites 已滿足的課，任選其中一門都合法；FIFO 固定 trace，沒有最小課號優先的保證。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Keep available courses in ready, a queue. The queue holds entries waiting to be processed; removing the oldest entry and adding new entries at the other end gives first-in, first-out behavior. The choice among available courses cannot invalidate a requirement: each chosen course already has no unfinished prerequisite. FIFO supplies a definite trace without searching for the smallest course number.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Keep available courses "
+          },
+          {
+            "text": "in ready, a queue. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 12,
+                "end": 17,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "The queue holds entries ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 4,
+                "end": 9,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "waiting to be processed; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "removing the oldest entry ",
+            "break_before": "major"
+          },
+          {
+            "text": "and adding new entries ",
+            "break_before": "minor"
+          },
+          {
+            "text": "at the other end gives ",
+            "break_before": "minor"
+          },
+          {
+            "text": "first-in, first-out behavior",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "The choice among available courses cannot invalidate a requirement: ",
+            "break_before": "major"
+          },
+          {
+            "text": "each chosen course already has no unfinished prerequisite. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 12,
+                "end": 18,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "FIFO supplies a definite trace ",
+            "break_before": "major"
+          },
+          {
+            "text": "without searching for the ",
+            "break_before": "minor"
+          },
+          {
+            "text": "smallest course number",
+            "bundle": true,
+            "stress": [
+              {
+                "start": 9,
+                "end": 15,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "."
+          }
+        ],
+        "skeleton": "The FIFO queue → retains → available courses without requiring smallest identifiers first.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 9,
+      "zh_note": "unbounded deque 的 append 只修改並回傳 None，popleft 移除且回傳左端；把 append 結果寫回 ready 會失去 queue，maxlen 滿時還可能丟 entries。",
+      "decision_ids": [
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Use an unbounded collections.deque. deque() creates the queue, append(x) adds x on the right and returns None, and popleft() removes and returns the leftmost entry. Assigning the result of append back to ready would therefore replace the queue with None. A bounded deque can discard entries when full, so no maxlen belongs here. These behaviors are specified by the Python 3.14 deque documentation.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Use an unbounded collections.deque. "
+          },
+          {
+            "text": "deque() creates the queue, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 20,
+                "end": 25,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "append(x) adds x ",
+            "break_before": "major"
+          },
+          {
+            "text": "on the right ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and returns None, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and popleft() removes and returns the ",
+            "break_before": "major"
+          },
+          {
+            "text": "leftmost entry",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Assigning the result of append back to ready would therefore replace the queue with None. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 73,
+                "end": 78,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "A bounded deque can discard entries ",
+            "break_before": "major"
+          },
+          {
+            "text": "when full, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "so no maxlen belongs here. ",
+            "break_before": "major"
+          },
+          {
+            "text": "These behaviors are specified ",
+            "break_before": "major"
+          },
+          {
+            "text": "by the Python 3.14 deque documentation.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "An unbounded deque → retains → available entries; append returns None.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 10,
+      "zh_note": "每完成一課只減其 dependents 的一項義務；只在正計數降到零時入列，初始零另由初始化入列，故各課最多一次且不需 visited set。",
+      "decision_ids": [
+        "D2",
+        "D4"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Whenever a course is removed from ready, mark one more completion in finished. Visit only its dependents in after[course]. Each loses exactly one outstanding obligation, so subtract one from its count. Append a dependent precisely when its count becomes zero. Counts never increase during this phase. A positive count crosses zero only once, and initially zero courses enter during initialization, so each course enters the queue at most once. No additional visited set is needed.",
+      "english_section_index": 2,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Whenever a course is removed ",
+            "stress": [
+              {
+                "start": 11,
+                "end": 17,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "from ready, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "mark one more completion ",
+            "break_before": "major"
+          },
+          {
+            "text": "in finished. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Visit only its dependents ",
+            "break_before": "major"
+          },
+          {
+            "text": "in after[course]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Each loses exactly one ",
+            "break_before": "major"
+          },
+          {
+            "text": "outstanding obligation",
+            "bundle": true
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "so subtract one ",
+            "break_before": "major"
+          },
+          {
+            "text": "from its count. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Append a dependent ",
+            "break_before": "major"
+          },
+          {
+            "text": "precisely when its count becomes zero. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Counts never increase ",
+            "break_before": "major"
+          },
+          {
+            "text": "during this phase. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A positive count crosses zero only once, ",
+            "break_before": "major"
+          },
+          {
+            "text": "and initially zero courses enter ",
+            "break_before": "major"
+          },
+          {
+            "text": "during initialization, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "so each course enters the queue ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 8,
+                "end": 14,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              },
+              {
+                "start": 26,
+                "end": 31,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "at most once",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "No additional ",
+            "break_before": "major"
+          },
+          {
+            "text": "visited set",
+            "bundle": true
+          },
+          {
+            "text": " is needed."
+          }
+        ],
+        "skeleton": "Each completion → releases → newly zero-count dependents, with at most one enqueue each.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 11,
+      "zh_note": "這段引入後接的 constructed input，供 trace 對照；課程數與 prerequisite pairs 的具體值由原始 code block 給出。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Consider this constructed input:",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Consider this constructed input:"
+          }
+        ],
+        "skeleton": "The reader → considers → the constructed input.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 12,
+      "zh_note": "初始化狀態須保留獨立課程 4；0 可釋放 1、2，3 則同時等待兩者，pairs 順序決定 after 的列序。",
+      "decision_ids": [
+        "D2",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Course 4 is independent. Course 0 releases 1 and 2; both must finish before 3. Reading the pairs in their listed order produces:",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Course 4 is independent. ",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "Course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "Course 0 releases 1 and 2; ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "Course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "both must finish before 3. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Reading the pairs ",
+            "break_before": "major"
+          },
+          {
+            "text": "in their listed order produces:",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Courses one and two → must precede → course three; course four remains independent.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 13,
+      "zh_note": "先移除 0 並計一次完成，再把 1、2 各自的 count 從 1 減到 0 入列；既有 4 保持隊首，3 的 count 仍是 2。",
+      "decision_ids": [
+        "D4",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Initialization checks course identifiers in increasing order, so 0 enters before 4. Now popleft() returns 0 and mutates ready to [4]. Incrementing finished gives 1. The first dependent is 1: its count changes from 1 to 0, so append(1) makes the queue [4, 1]. The second dependent is 2: its count also changes from 1 to 0, producing [4, 1, 2]. Counts are now [0, 0, 0, 2, 0].",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Initialization checks course identifiers ",
+            "stress": [
+              {
+                "start": 22,
+                "end": 28,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "in increasing order, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "so 0 enters before 4. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Now popleft() returns 0 ",
+            "break_before": "major"
+          },
+          {
+            "text": "and mutates ready to [4]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Incrementing finished gives 1. ",
+            "break_before": "major"
+          },
+          {
+            "text": "The first dependent is 1: ",
+            "break_before": "major"
+          },
+          {
+            "text": "its count changes ",
+            "break_before": "major"
+          },
+          {
+            "text": "from 1 to 0, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "so append(1) makes the queue [4, 1]. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 23,
+                "end": 28,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "The second dependent is 2: ",
+            "break_before": "major"
+          },
+          {
+            "text": "its count also changes ",
+            "break_before": "major"
+          },
+          {
+            "text": "from 1 to 0, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "producing [4, 1, 2]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Counts are now [0, 0, 0, 2, 0].",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Completing course zero → enqueues → one and two while three retains two obligations.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 14,
+      "zh_note": "移除 isolated course 4 仍使 finished 增一；它沒有 dependents，只表示沒有要更新的 count，並非不計完成。",
+      "decision_ids": [
+        "D5"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The next removal returns 4, leaving [1, 2]; finished becomes 2. Its dependent list is empty, so no count changes. An isolated course contributes a completion even though it releases nothing.",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The next removal returns 4, "
+          },
+          {
+            "text": "leaving [1, 2]; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "finished becomes 2. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Its ",
+            "break_before": "major"
+          },
+          {
+            "text": "dependent list",
+            "bundle": true
+          },
+          {
+            "text": " is empty, "
+          },
+          {
+            "text": "so no count changes. ",
+            "break_before": "major"
+          },
+          {
+            "text": "An isolated course contributes a completion ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 12,
+                "end": 18,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "even though it releases nothing.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Isolated course four → contributes → one completion without releasing another course.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 15,
+      "zh_note": "移除 1 只把課程 3 從二項義務減到一項，零測試失敗；3 不入列，因為 2 尚未完成。",
+      "decision_ids": [
+        "D2",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Removing 1 leaves [2] and raises finished to 3. Course 3 changes from 2 to 1. The zero test fails: 3 stays out of the queue because course 2 is still unfinished. This is the branch a Boolean notion of readiness would mishandle.",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Removing 1 leaves [2] "
+          },
+          {
+            "text": "and raises finished to 3. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Course 3 changes from 2 to 1. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "Course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "The zero test fails: ",
+            "break_before": "major"
+          },
+          {
+            "text": "3 stays ",
+            "break_before": "major"
+          },
+          {
+            "text": "out of the queue ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 11,
+                "end": 16,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "because course 2 is still unfinished. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 8,
+                "end": 14,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "This is the branch a ",
+            "break_before": "major"
+          },
+          {
+            "text": "Boolean notion of readiness",
+            "bundle": true
+          },
+          {
+            "text": " would mishandle."
+          }
+        ],
+        "skeleton": "Finishing course one → leaves → course three blocked by unfinished course two.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 16,
+      "zh_note": "移除 2 釋放 3，最後移除 3 使 finished 達 5；比較回傳 True，而 conceptual completion order 不由 Boolean 版本保存。",
+      "decision_ids": [
+        "D4",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Removing 2 empties the queue and raises finished to 4. Course 3 changes from 1 to 0. Appending 3 gives [3], with counts [0, 0, 0, 0, 0]. Finally, removing 3 gives an empty queue and finished = 5; its dependent list is empty. The loop stops and 5 == numCourses returns True. The conceptual completion sequence is [0, 4, 1, 2, 3]; the Boolean implementation does not retain it.",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Removing 2 empties the queue ",
+            "stress": [
+              {
+                "start": 23,
+                "end": 28,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "and raises finished to 4. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Course 3 changes from 1 to 0. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "Course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "Appending 3 gives [3], ",
+            "break_before": "major"
+          },
+          {
+            "text": "with counts [0, 0, 0, 0, 0]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Finally, ",
+            "break_before": "major"
+          },
+          {
+            "text": "removing 3 gives an empty queue ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 26,
+                "end": 31,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "and finished = 5; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "its dependent list is empty. ",
+            "break_before": "major"
+          },
+          {
+            "text": "The loop stops and 5 == numCourses returns True. ",
+            "break_before": "major"
+          },
+          {
+            "text": "The conceptual completion sequence is [0, 4, 1, 2, 3]; ",
+            "break_before": "major"
+          },
+          {
+            "text": "the Boolean implementation does not retain it.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "All five completions → produce → True without retaining their conceptual order.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 17,
+      "zh_note": "拒絕例只完成獨立課 2；queue 雖已清空，finished 只有 1，另一 component 的 cycle 仍阻擋全圖完成。",
+      "decision_ids": [
+        "D1",
+        "D5"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For a rejection, use numCourses = 3 and [[1, 0], [0, 1]]. Initial counts are [1, 1, 0], and only course 2 enters the queue. It finishes without releasing anything. The empty queue now accompanies finished = 1, so the comparison with 3 returns False. Having one available course was insufficient: a different component still contains a cycle.",
+      "english_section_index": 3,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "For a rejection, "
+          },
+          {
+            "text": "use numCourses = 3 and [[1, 0], [0, 1]]. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Initial counts are [1, 1, 0], ",
+            "break_before": "major"
+          },
+          {
+            "text": "and only course 2 enters the queue. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 9,
+                "end": 15,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              },
+              {
+                "start": 29,
+                "end": 34,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "It finishes ",
+            "break_before": "major"
+          },
+          {
+            "text": "without releasing anything. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The empty queue now accompanies finished = 1, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 10,
+                "end": 15,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "so the comparison ",
+            "break_before": "major"
+          },
+          {
+            "text": "with 3 returns False. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Having one available course was insufficient: ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 21,
+                "end": 27,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "a different component still contains a cycle.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "A disconnected cycle → prevents → success despite one isolated course's completion.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 18,
+      "zh_note": "checkpoint 在 while ready 求值前且前次 dependent 更新全完成：計數對應未完成義務，queue 恰含全部可開始未完成課各一次，finished 計 distinct completions。",
+      "decision_ids": [
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion. At that point, finished counts distinct completed courses; every unfinished course's count equals its number of unfinished prerequisites; and the queue contains every available unfinished course exactly once. Completed courses are outside the queue. The queue's internal order is an implementation choice, separate from these conditions.",
+      "english_section_index": 4,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The checkpoint is "
+          },
+          {
+            "text": "just before each evaluation ",
+            "break_before": "minor"
+          },
+          {
+            "text": "of while ready, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "after all updates ",
+            "break_before": "minor"
+          },
+          {
+            "text": "for the preceding completion. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "At that point, ",
+            "break_before": "major"
+          },
+          {
+            "text": "finished counts ",
+            "break_before": "major"
+          },
+          {
+            "text": "distinct completed courses",
+            "bundle": true
+          },
+          {
+            "text": "; "
+          },
+          {
+            "text": "every unfinished course's count equals its number of unfinished prerequisites; ",
+            "break_before": "major"
+          },
+          {
+            "text": "and the queue contains every ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 8,
+                "end": 13,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "available unfinished course",
+            "bundle": true,
+            "stress": [
+              {
+                "start": 21,
+                "end": 27,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "exactly once. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Completed courses are outside the queue. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 34,
+                "end": 39,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "The queue's internal order is an implementation choice, ",
+            "break_before": "major"
+          },
+          {
+            "text": "separate from these conditions.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "At completed-update checkpoints, counts and queue → represent → unfinished obligations and availability.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 19,
+      "zh_note": "初始未完成任何課，從所有 pairs 建的 counts 正確；完整掃描零值課建立 ready，連初始空 queue 也滿足 checkpoint。",
+      "decision_ids": [
+        "D2",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Initially nothing is completed, so the counts built from all pairs have the required meaning. The initialization scan includes exactly the zero-count courses. Thus the checkpoint holds before the first iteration, including when the queue is initially empty.",
+      "english_section_index": 4,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Initially nothing is completed, "
+          },
+          {
+            "text": "so the counts ",
+            "break_before": "major"
+          },
+          {
+            "text": "built from all pairs have the required meaning. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The initialization scan includes exactly the ",
+            "break_before": "major"
+          },
+          {
+            "text": "zero-count courses",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Thus the checkpoint holds ",
+            "break_before": "major"
+          },
+          {
+            "text": "before the first iteration, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "including when the queue is initially empty.",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 19,
+                "end": 24,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          }
+        ],
+        "skeleton": "Initial pair counts and zero-count scan → establish → the checkpoint, including empty queues.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 20,
+      "zh_note": "合法完成只滿足 outgoing destinations 的義務；逐一減計數與新零入列後，整份 dependent list 處理完才恢復 checkpoint，不能套在半輪狀態。",
+      "decision_ids": [
+        "D2",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "For maintenance, removing an available course is legal because all its prerequisites are completed. Its outgoing edges describe exactly the obligations that this completion satisfies. Decrementing those destinations updates the counts correctly, without changing any unrelated count. Each destination newly reaching zero enters once; other available courses remain queued. Increasing finished records this one new completion. The checkpoint holds again after the whole dependent list is processed, rather than midway through it.",
+      "english_section_index": 4,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "For maintenance, "
+          },
+          {
+            "text": "removing an available course is legal ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 22,
+                "end": 28,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "because all its prerequisites are completed. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Its outgoing edges describe exactly the obligations ",
+            "break_before": "major"
+          },
+          {
+            "text": "that this completion satisfies. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Decrementing those destinations updates the counts correctly, ",
+            "break_before": "major"
+          },
+          {
+            "text": "without changing any unrelated count. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Each destination ",
+            "break_before": "major"
+          },
+          {
+            "text": "newly reaching zero enters once; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "other available courses remain queued. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Increasing finished records this one new completion. ",
+            "break_before": "major"
+          },
+          {
+            "text": "The checkpoint holds again ",
+            "break_before": "major"
+          },
+          {
+            "text": "after the whole dependent list is processed, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "rather than midway through it.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Complete dependent updates → reestablish → the checkpoint after each legal completion.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 21,
+      "zh_note": "最多完成 V 個 distinct courses；若 queue 空且仍未完成，checkpoint 導出每門仍等 unfinished prerequisite，有限追溯必有 cycle，故 Boolean 比較涵蓋成功與失敗。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For termination, at most numCourses distinct courses can be removed. If all were removed, those legal steps establish a schedule. Otherwise the queue is empty with some courses unfinished. The checkpoint says each such course still has an unfinished prerequisite. The finite backward-following argument above then finds a cycle, so no full schedule is possible. The final comparison therefore covers both results. This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+      "english_section_index": 4,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "For termination, "
+          },
+          {
+            "text": "at most numCourses distinct courses can be removed. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "If all were removed, ",
+            "break_before": "major"
+          },
+          {
+            "text": "those legal steps establish a schedule. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Otherwise the queue is empty ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 14,
+                "end": 19,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "with some courses unfinished. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The checkpoint says each such course still has an unfinished prerequisite. ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 30,
+                "end": 36,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "The finite backward-following argument above then finds a cycle, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so no full schedule is possible. ",
+            "break_before": "major"
+          },
+          {
+            "text": "The final comparison therefore covers both results. ",
+            "break_before": "major"
+          },
+          {
+            "text": "This algorithm is often called ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 5,
+                "end": 7,
+                "source": "https://dictionary.cambridge.org/dictionary/english/algorithm?q=Algorithm",
+                "word": "algorithm",
+                "pronunciation": "/ˈæl·ɡəˌrɪð·əm/"
+              }
+            ]
+          },
+          {
+            "text": "Kahn's topological sort",
+            "bundle": true
+          },
+          {
+            "text": "; "
+          },
+          {
+            "text": "a topological order places every prerequisite ",
+            "break_before": "major"
+          },
+          {
+            "text": "before its dependent.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "The empty queue plus completion count → distinguishes → a schedule from a cyclic remainder.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 22,
+      "zh_note": "初始 ready 非空只證明有起點，不證明全圖可完成；三課最小性有 two-course cycle 前提，允許 self-loop 時兩課即可反駁。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A tempting wrong return is True whenever the initial queue is nonempty. The three-course rejection above refutes it. It is smallest by number of courses if a two-course cycle and a separate available course are required: two course identifiers form the cycle and a third supplies the misleading start. Without that requirement, the smaller numCourses = 2, prerequisites = [[0, 0]] already refutes the shortcut: course 1 is available while course 0 waits for itself.",
+      "english_section_index": 4,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "A tempting wrong return is True "
+          },
+          {
+            "text": "whenever the initial queue is nonempty. ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 21,
+                "end": 26,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "The three-course rejection above refutes it. ",
+            "break_before": "major"
+          },
+          {
+            "text": "It is smallest ",
+            "break_before": "major"
+          },
+          {
+            "text": "by number of courses ",
+            "break_before": "minor"
+          },
+          {
+            "text": "if a two-course cycle and a ",
+            "break_before": "major"
+          },
+          {
+            "text": "separate available course",
+            "bundle": true,
+            "stress": [
+              {
+                "start": 19,
+                "end": 25,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": " are required: "
+          },
+          {
+            "text": "two course identifiers form the cycle ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 4,
+                "end": 10,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "and a third supplies the misleading start. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Without that requirement, the smaller numCourses = 2, prerequisites = [[0, 0]] already refutes the shortcut: ",
+            "break_before": "major"
+          },
+          {
+            "text": "course 1 is available ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "while course 0 waits for itself.",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 6,
+                "end": 12,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          }
+        ],
+        "skeleton": "An initially nonempty queue → fails → to guarantee completion of the whole graph.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 23,
+      "zh_note": "O(V + E) 依 bounded scalars 與 reference／slot elementary operations 計工作量；配置或複製 k slots 仍要 O(k)，不把全部 Python instructions 當等耗時。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Let V = numCourses and E = len(prerequisites). Big O describes an upper bound on growth, ignoring fixed multipliers; O(V + E) means work grows no faster than a constant times the number of courses plus pairs, under the following model. Reading or writing one list slot, comparing bounded integers, incrementing a counter, and moving or retaining one object reference are elementary constant-size operations. Course identifiers fit within 0 to 1999 and counts within 0 to 5000; treating these scalars as bounded units is appropriate for this contract. This is an operation-count model, not a statement that all Python instructions take identical physical time. Allocating or copying k slots costs proportional to k.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Let V = numCourses and E = len(prerequisites). "
+          },
+          {
+            "text": "Big O describes an upper bound on growth, ",
+            "break_before": "major"
+          },
+          {
+            "text": "ignoring fixed multipliers; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "O(V + E) means work grows no faster than a constant times the number of courses plus pairs, ",
+            "break_before": "major"
+          },
+          {
+            "text": "under the following model. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Reading or writing one list slot, ",
+            "break_before": "major"
+          },
+          {
+            "text": "comparing bounded integers, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "incrementing a counter, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and moving or retaining one object reference are ",
+            "break_before": "minor"
+          },
+          {
+            "text": "elementary constant-size operations",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Course identifiers fit ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 6,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "Course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "within 0 to 1999 ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and counts within 0 to 5000; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "treating these scalars as bounded units is appropriate for this contract. ",
+            "break_before": "major"
+          },
+          {
+            "text": "This is an operation-count model, ",
+            "break_before": "major"
+          },
+          {
+            "text": "not a statement that all Python instructions take identical physical time. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Allocating or copying k slots costs proportional to k.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Bounded scalar and container operations → define → the O(V+E) cost model.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 24,
+      "zh_note": "list.pop(0) 每次搬移後續 references；V 門一開始都 ready 時，搬移數加總成 V(V - 1)/2，即使 E = 0 仍是 quadratic。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The queue choice affects this count. A Python list stores references in consecutive indexed slots. Removing its first item must shift the later references left so indexing still starts at zero. With V initially available courses, draining a list through pop(0) moves (V - 1) + (V - 2) + ... + 1 references. Pairing the terms gives V(V - 1)/2, quadratic growth even with no prerequisite edges. The Python tutorial describes the shifting cost.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The queue choice affects this count. ",
+            "stress": [
+              {
+                "start": 4,
+                "end": 9,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "A Python list stores references ",
+            "break_before": "major"
+          },
+          {
+            "text": "in consecutive indexed slots. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Removing its first item must shift the later references left ",
+            "break_before": "major"
+          },
+          {
+            "text": "so indexing still starts at zero. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "With V initially available courses, ",
+            "break_before": "major"
+          },
+          {
+            "text": "draining a list ",
+            "break_before": "major"
+          },
+          {
+            "text": "through pop(0) moves (V - 1) + (V - 2) + ... + 1 references. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Pairing the terms gives V(V - 1)/2, ",
+            "break_before": "major"
+          },
+          {
+            "text": "quadratic growth even with no prerequisite edges. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The Python tutorial describes the shifting cost.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Repeated list-front removal → causes → quadratic reference shifts even without edges.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 25,
+      "zh_note": "deque 的 fixed-length linked blocks 只更新端點或固定 block 連接，不搬整個 queue；constant endpoint cost 依固定 block allocation 有界的模型。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "CPython v3.14.0's deque implementation uses fixed-length blocks joined by links. An endpoint operation changes an endpoint position and, at a block boundary, a fixed-size block connection; it does not shift all queued references. With fixed-size block allocation treated as bounded work, each queue endpoint operation has constant cost in this model, matching the documented approximately O(1) behavior. Queue size can grow, but the work of a single endpoint update does not grow with it.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "CPython v3.14.0's deque implementation uses "
+          },
+          {
+            "text": "fixed-length blocks",
+            "bundle": true
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "joined by links. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "An endpoint operation changes an endpoint position ",
+            "break_before": "major"
+          },
+          {
+            "text": "and, at a block boundary, a ",
+            "break_before": "minor"
+          },
+          {
+            "text": "fixed-size block connection",
+            "bundle": true
+          },
+          {
+            "text": "; "
+          },
+          {
+            "text": "it does not shift all queued references. ",
+            "break_before": "major"
+          },
+          {
+            "text": "With fixed-size block allocation treated as bounded work, ",
+            "break_before": "major"
+          },
+          {
+            "text": "each queue endpoint operation has constant cost ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 5,
+                "end": 10,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "in this model, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "matching the documented approximately O(1) behavior. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Queue size can grow, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 0,
+                "end": 5,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "Queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "but the work ",
+            "break_before": "major"
+          },
+          {
+            "text": "of a single endpoint update does not grow with it.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Fixed-size deque blocks → support → bounded endpoint work under the stated allocation model.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 26,
+      "zh_note": "list.append 可能因 slots 用盡而 resize 並複製 references；spare capacity 支持整段分析，卻不保證單次 append 都 constant work。",
+      "decision_ids": [
+        "D3",
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Adjacency lists use list.append, which needs a different argument. A list sometimes runs out of allocated slots. CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding. A growth may copy the old references, so one append is not always constant work.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Adjacency lists use list.append, "
+          },
+          {
+            "text": "which needs a different argument. ",
+            "break_before": "major"
+          },
+          {
+            "text": "A list sometimes runs out of allocated slots. ",
+            "break_before": "major"
+          },
+          {
+            "text": "CPython v3.14.0's list resize policy reserves ",
+            "break_before": "major"
+          },
+          {
+            "text": "spare capacity",
+            "bundle": true
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "on single-item growth, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "roughly one eighth ",
+            "break_before": "minor"
+          },
+          {
+            "text": "of the requested size ",
+            "break_before": "minor"
+          },
+          {
+            "text": "beyond the items, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "with small rounding and padding. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A growth may copy the old references, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so one append is not always constant work.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "One list append → may require → resizing and copying despite spare capacity.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 27,
+      "zh_note": "append-only sequence 的 proportional spare room 分攤 resize，或以幾何級數界住複製總量，才得到 amortized constant time；此論證不含交替 deletion／bulk updates。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "Here is why a whole append-only sequence is still linear. After growing a sufficiently large list of size m, proportional spare room allows at least a fixed fraction of m further single-item appends before another growth. Charge the cost proportional to m of that growth across those following appends; each receives only a constant charge. Equivalently, look backward from final capacity C: successive earlier growth sizes shrink by a fixed factor below one, apart from small sizes. Their copying work is bounded by C + rC + r²C + ... = C/(1-r) for some fixed r < 1. To see the bound, multiplying the sum by r leaves the original sum minus its first term; subtraction gives (1-r)S = C. Small initial capacities add fixed work. Final capacity is proportional to the final length, so d single-item appends, including their ordinary writes, take O(d) total work. This aggregate guarantee is called amortized constant time per append. It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Here is why a whole "
+          },
+          {
+            "text": "append-only sequence",
+            "bundle": true
+          },
+          {
+            "text": " is still linear. "
+          },
+          {
+            "text": "After growing a sufficiently large list ",
+            "break_before": "major"
+          },
+          {
+            "text": "of size m, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "proportional spare room allows at least a fixed fraction of m further single-item appends ",
+            "break_before": "major"
+          },
+          {
+            "text": "before another growth. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Charge the cost proportional to m of that growth ",
+            "break_before": "major"
+          },
+          {
+            "text": "across those following appends; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "each receives only a constant charge. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Equivalently, look backward ",
+            "break_before": "major"
+          },
+          {
+            "text": "from final capacity C: ",
+            "break_before": "minor"
+          },
+          {
+            "text": "successive earlier growth sizes shrink ",
+            "break_before": "major"
+          },
+          {
+            "text": "by a fixed factor below one, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "apart from small sizes. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Their copying work is bounded by C + rC + r²C + ... = C/(1-r) ",
+            "break_before": "major"
+          },
+          {
+            "text": "for some fixed r < 1. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "To see the bound, ",
+            "break_before": "major"
+          },
+          {
+            "text": "multiplying the sum ",
+            "break_before": "major"
+          },
+          {
+            "text": "by r leaves the original sum minus its first term; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "subtraction gives (1-r)S = C. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Small initial capacities add fixed work. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Final capacity is proportional to the final length, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so d single-item appends, ",
+            "break_before": "major"
+          },
+          {
+            "text": "including their ordinary writes, take O(d) total work. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "This aggregate guarantee is called ",
+            "break_before": "major"
+          },
+          {
+            "text": "amortized constant time",
+            "bundle": true
+          },
+          {
+            "text": " per append. "
+          },
+          {
+            "text": "It applies here ",
+            "break_before": "major"
+          },
+          {
+            "text": "because each adjacency list only grows ",
+            "break_before": "minor"
+          },
+          {
+            "text": "by one appended item at a time; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "no alternating deletion or bulk update is being smuggled into the argument.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Append-only proportional growth → bounds → aggregate appends linearly, excluding deletion and bulk updates.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 28,
+      "zh_note": "V 個容器與 counts 加 E 次更新／appends；各 adjacency list 的 d_b 合計恰為 E，連小 list overhead 後 construction 為 O(V + E)。",
+      "decision_ids": [
+        "D2",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Building the V independent lists and V counts costs O(V). Reading E pairs does E counter updates and E appends. If course b has d_b dependents, its append sequence costs O(d_b); summing d_b across all courses gives exactly E. Small-list overhead contributes at most another O(V). Building the representation therefore costs O(V + E).",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Building the V independent lists and V counts costs O(V). "
+          },
+          {
+            "text": "Reading E pairs does E counter updates and E appends. ",
+            "break_before": "major"
+          },
+          {
+            "text": "If course b has d_b dependents, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 3,
+                "end": 9,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "its append sequence costs O(d_b); ",
+            "break_before": "major"
+          },
+          {
+            "text": "summing d_b ",
+            "break_before": "major"
+          },
+          {
+            "text": "across all courses gives exactly E. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Small-list overhead contributes at most another O(V). ",
+            "break_before": "major"
+          },
+          {
+            "text": "Building the representation therefore costs O(V + E).",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "All adjacency append sequences → total → E, making construction O(V+E).",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 29,
+      "zh_note": "每課最多入列／出列一次，每 edge 的 dependent list 最多走訪一次，所以 nested inner loop 總量至多 E；提早遇 cycle 仍已付建圖讀 pairs 成本。",
+      "decision_ids": [
+        "D4",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The readiness scan checks V slots and enqueues at most V courses. During processing, each course is enqueued and removed at most once. Each edge appears in exactly one dependent list, and that list is visited at most once. Hence all executions of the inner loop total at most E, even though the code nests that loop inside a while. Setup, queue operations and edge updates sum to worst-case O(V + E) time, with list construction analyzed over its append sequences. A cycle may stop processing early, but cannot avoid the initial pair-reading work.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The readiness scan checks V slots "
+          },
+          {
+            "text": "and enqueues at most V courses. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "During processing, each course is enqueued and removed ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 24,
+                "end": 30,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "at most once. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Each edge appears ",
+            "break_before": "major"
+          },
+          {
+            "text": "in exactly one dependent list, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and that list is visited at most once. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Hence all executions of the inner loop total at most E, ",
+            "break_before": "major"
+          },
+          {
+            "text": "even though the code nests that loop inside a while. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Setup, queue operations and edge updates sum to ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 7,
+                "end": 12,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "worst-case O(V + E) time",
+            "bundle": true
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "with list construction analyzed over its append sequences. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "A cycle may stop processing early, ",
+            "break_before": "major"
+          },
+          {
+            "text": "but cannot avoid the initial pair-reading work.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Once-per-course and edge processing → yields → O(V+E) under the established container bounds.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 30,
+      "zh_note": "peak auxiliary 包含 adjacency headers、E references 與 spare capacity、counts、queue blocks；resize 暫存兩份仍同階，總 O(V + E)，輸入排除且 Boolean output O(1)。",
+      "decision_ids": [
+        "D3",
+        "D7"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "For auxiliary space, the outer adjacency list and its inner-list headers use O(V) slots or fixed-size records. The inner lists retain E references plus spare capacity proportional to V + E, by the same growth policy. Counts use V scalar slots, and the queue holds at most V entries plus fixed-size block overhead proportional to that capacity. Scalar loop variables need constant space. A resize can temporarily keep old and new storage alive, but both have size proportional to the list being grown; this leaves the peak bound O(V + E). The existing input is excluded from auxiliary space, and the returned Boolean is O(1) output space. No recursion stack is used.",
+      "english_section_index": 5,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "For auxiliary space, "
+          },
+          {
+            "text": "the outer adjacency list ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and its inner-list headers use O(V) slots or fixed-size records. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The inner lists retain E references ",
+            "break_before": "major"
+          },
+          {
+            "text": "plus spare capacity proportional to V + E, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "by the same growth policy. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Counts use V scalar slots, ",
+            "break_before": "major"
+          },
+          {
+            "text": "and the queue holds at most V entries ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 8,
+                "end": 13,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "plus fixed-size block overhead proportional to that capacity. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Scalar loop variables need constant space. ",
+            "break_before": "major"
+          },
+          {
+            "text": "A resize can temporarily keep old and new storage alive, ",
+            "break_before": "major"
+          },
+          {
+            "text": "but both have size proportional to the list being grown; ",
+            "break_before": "major"
+          },
+          {
+            "text": "this leaves the peak bound O(V + E). ",
+            "break_before": "major"
+          },
+          {
+            "text": "The existing input is excluded ",
+            "break_before": "major"
+          },
+          {
+            "text": "from auxiliary space, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and the returned Boolean is ",
+            "break_before": "major"
+          },
+          {
+            "text": "O(1) output space",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "No recursion stack is used.",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Representation and queue → use → O(V+E) peak auxiliary space, excluding input.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 31,
+      "zh_note": "替代法只留 done／blocked，反覆掃原 pairs 判斷本輪可完成群組；必須等 scan 結束才整組標 done，沒有新完成就失敗停止。",
+      "decision_ids": [
+        "D8"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "If storing another E references is unacceptable but the original pair list can be scanned repeatedly, there is a slower alternative. Keep done[V] Booleans. In each round, allocate a fresh blocked[V] array of false values. Scan every pair [a, b]; if both a and b are unfinished, set blocked[a] to true. Then identify all unfinished, unblocked courses and mark that whole group done only after the scan has finished. These are exactly the courses with no unfinished prerequisite at the start of that round. Stop successfully when all are done, or unsuccessfully when a round adds none.",
+      "english_section_index": 6,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "If storing another E references is unacceptable "
+          },
+          {
+            "text": "but the original pair list can be scanned repeatedly, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "there is a slower alternative. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Keep done[V] Booleans. ",
+            "break_before": "major"
+          },
+          {
+            "text": "In each round, allocate a ",
+            "break_before": "major"
+          },
+          {
+            "text": "fresh blocked[V] array",
+            "bundle": true
+          },
+          {
+            "text": " of false values. "
+          },
+          {
+            "text": "Scan every pair [a, b]; ",
+            "break_before": "major"
+          },
+          {
+            "text": "if both a and b are unfinished, ",
+            "break_before": "major"
+          },
+          {
+            "text": "set blocked[a] to true. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Then identify all ",
+            "break_before": "major"
+          },
+          {
+            "text": "unfinished, unblocked courses",
+            "bundle": true
+          },
+          {
+            "text": " and mark that whole group done "
+          },
+          {
+            "text": "only after the scan has finished. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "These are exactly the courses with no unfinished prerequisite ",
+            "break_before": "major"
+          },
+          {
+            "text": "at the start of that round. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Stop successfully ",
+            "break_before": "major"
+          },
+          {
+            "text": "when all are done, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "or unsuccessfully when a round adds none.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Repeated pair scans → release → whole zero-obligation groups without storing extra edges.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 32,
+      "zh_note": "同組不可能互相依賴，否則會 blocked；最多 V 個成功 rounds 各掃 V + E，時間 O(V(V + E))，以 O(V) peak flags 換取重複掃描成本。",
+      "decision_ids": [
+        "D1",
+        "D8"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "The same legality and finite-cycle argument applies to these groups. Group members cannot require one another, since any such edge would have marked its destination blocked. Each successful round completes at least one new course, so there are at most V successful rounds and at most one final failed round. Initializing flags and inspecting courses costs O(V) per round; checking every pair costs O(E). The resulting bound is O(V(V + E)). A length-V prerequisite chain releases only one course per round, showing why the repeated work can persist as size grows. done, blocked and an optional group buffer each hold at most V entries, so peak auxiliary storage is O(V); old round buffers are released before the next round. The Boolean output stays O(1). The input's E pairs remain live and are excluded under the same convention. Prefer this trade-off only when the extra adjacency storage matters more than repeated scans.",
+      "english_section_index": 6,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The same legality and finite-cycle argument applies "
+          },
+          {
+            "text": "to these groups. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Group members cannot require one another, ",
+            "break_before": "major"
+          },
+          {
+            "text": "since any such edge would have marked its destination blocked. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Each successful round completes at least one new course, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 49,
+                "end": 55,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "so there are at most V successful rounds and at most one final failed round. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Initializing flags and inspecting courses costs O(V) per round; ",
+            "break_before": "major"
+          },
+          {
+            "text": "checking every pair costs O(E). ",
+            "break_before": "major"
+          },
+          {
+            "text": "The resulting bound is O(V(V + E)). ",
+            "break_before": "major"
+          },
+          {
+            "text": "A length-V prerequisite chain releases only one course per round, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 48,
+                "end": 54,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "showing why the repeated work can persist ",
+            "break_before": "minor"
+          },
+          {
+            "text": "as size grows. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "done, blocked and an optional group buffer each hold at most V entries, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so peak auxiliary storage is O(V); ",
+            "break_before": "major"
+          },
+          {
+            "text": "old round buffers are released ",
+            "break_before": "major"
+          },
+          {
+            "text": "before the next round. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The Boolean output stays O(1). ",
+            "break_before": "major"
+          },
+          {
+            "text": "The input's E pairs remain live and are excluded ",
+            "break_before": "major"
+          },
+          {
+            "text": "under the same convention. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Prefer this trade-off ",
+            "break_before": "major"
+          },
+          {
+            "text": "only when the extra adjacency storage matters more than repeated scans.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Repeated scans → trade → O(V(V+E)) time for O(V) peak auxiliary space.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 33,
+      "zh_note": "若改為回傳 order，每次合法移除後 append course，再以長度 V 判成功；FIFO 只保先修順序，trace 的 4 仍在 1 前面。",
+      "decision_ids": [
+        "D4",
+        "D9"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "A different requirement changes what the main solution must retain: return one valid course order, or [] if impossible. Start an empty order list and append course immediately after each removal. Return order if its length equals V, otherwise return []. Each retained entry records a legal completion, so the earlier proof establishes the returned ordering. No smallest-first guarantee follows from FIFO; for the movie, 4 appears before 1.",
+      "english_section_index": 6,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "A different requirement changes what the main solution must retain: "
+          },
+          {
+            "text": "return one valid course order, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 17,
+                "end": 23,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "or [] if impossible. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Start an empty order list ",
+            "break_before": "major"
+          },
+          {
+            "text": "and append course ",
+            "break_before": "minor"
+          },
+          {
+            "text": "immediately after each removal. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Return order ",
+            "break_before": "major"
+          },
+          {
+            "text": "if its length equals V, ",
+            "break_before": "minor"
+          },
+          {
+            "text": "otherwise return []. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Each retained entry records a legal completion, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so the earlier proof establishes the returned ordering. ",
+            "break_before": "major"
+          },
+          {
+            "text": "No smallest-first guarantee follows from FIFO; ",
+            "break_before": "major"
+          },
+          {
+            "text": "for the movie, 4 appears before 1.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Retaining legal completions → produces → one valid order without a smallest-first guarantee.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 34,
+      "zh_note": "新增至多 V 次 append 不改 O(V + E) time；成功 order 算 O(V) output，失敗 partial order 算 temporary auxiliary，不能混用兩種空間歸屬。",
+      "decision_ids": [
+        "D7",
+        "D9"
+      ],
+      "kind": "PASSIVE_AND_ACTIVE",
+      "english_source": "This adaptation adds at most V single-item appends to one growing list. The append-only argument still applies, so the added work is O(V) and the whole algorithm remains O(V + E). The adjacency representation, counts and queue remain, so auxiliary storage excluding a successful returned order stays O(V + E). Successful output contains exactly V references and takes O(V) output space. On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size. Keeping an order changes storage accounting, not the cost of visiting each edge.",
+      "english_section_index": 6,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "This adaptation adds at most V "
+          },
+          {
+            "text": "single-item appends",
+            "bundle": true
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "to one growing list. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "The append-only argument still applies, ",
+            "break_before": "major"
+          },
+          {
+            "text": "so the added work is O(V) ",
+            "break_before": "major"
+          },
+          {
+            "text": "and the whole algorithm remains O(V + E). ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 14,
+                "end": 16,
+                "source": "https://dictionary.cambridge.org/dictionary/english/algorithm?q=Algorithm",
+                "word": "algorithm",
+                "pronunciation": "/ˈæl·ɡəˌrɪð·əm/"
+              }
+            ]
+          },
+          {
+            "text": "The adjacency representation, counts and queue remain, ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 41,
+                "end": 46,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "so auxiliary storage ",
+            "break_before": "major"
+          },
+          {
+            "text": "excluding a successful returned order stays O(V + E). ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Successful output contains exactly V references and takes ",
+            "break_before": "major"
+          },
+          {
+            "text": "O(V) output space",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "On failure, the partial order is temporary auxiliary storage ",
+            "break_before": "major"
+          },
+          {
+            "text": "of at most V entries ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and the returned empty list has constant size. ",
+            "break_before": "major"
+          },
+          {
+            "text": "Keeping an order changes storage accounting, ",
+            "break_before": "major"
+          },
+          {
+            "text": "not the cost of visiting each edge.",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Retaining order → preserves → linear time while changing output and temporary-space accounting.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 35,
+      "zh_note": "口述 indegree 必須使用執行中的意義：unfinished prerequisites；course 恰在 remaining count 歸零時 available。",
+      "decision_ids": [
+        "D2"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Why use indegree? \"It counts unfinished prerequisites. A course becomes available exactly when its count reaches zero.\"",
+      "english_section_index": 7,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Why use indegree? "
+          },
+          {
+            "text": "\"It counts ",
+            "break_before": "major"
+          },
+          {
+            "text": "unfinished prerequisites",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "A course becomes available ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 2,
+                "end": 8,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "exactly when its count reaches zero.\"",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "Remaining indegree → determines → availability exactly when its count reaches zero.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 36,
+      "zh_note": "口述一次 edge 工作要交代儲存方向：dependent 放在 prerequisite 下；每個 prerequisite 只完成一次，對應 edge 只移除一項義務一次。",
+      "decision_ids": [
+        "D2",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Why can each edge be handled once? \"I store each dependent under its prerequisite. When that prerequisite finishes once, I visit that edge once and remove one obligation.\"",
+      "english_section_index": 7,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Why can each edge be handled once? "
+          },
+          {
+            "text": "\"I store each dependent ",
+            "break_before": "major"
+          },
+          {
+            "text": "under its prerequisite. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "When that prerequisite finishes once, ",
+            "break_before": "major"
+          },
+          {
+            "text": "I visit that edge once ",
+            "break_before": "major"
+          },
+          {
+            "text": "and remove one obligation.\"",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "One prerequisite completion → removes → each stored outgoing obligation once.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "NOT_RUN",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 37,
+      "zh_note": "empty queue 只有搭配仍有 unfinished courses 才推出失敗；每門仍等待未完成先修，有限追蹤必成 cycle。",
+      "decision_ids": [
+        "D1",
+        "D6"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "Why does an empty queue sometimes mean failure? \"If unfinished courses remain, each still waits for an unfinished prerequisite. Following those prerequisites in a finite graph must reach a cycle.\"",
+      "english_section_index": 7,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "Why does an "
+          },
+          {
+            "text": "empty queue",
+            "bundle": true,
+            "stress": [
+              {
+                "start": 6,
+                "end": 11,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": " sometimes mean failure? "
+          },
+          {
+            "text": "\"If unfinished courses remain, ",
+            "break_before": "major"
+          },
+          {
+            "text": "each still waits ",
+            "break_before": "major"
+          },
+          {
+            "text": "for an unfinished prerequisite. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Following those prerequisites ",
+            "break_before": "major"
+          },
+          {
+            "text": "in a finite graph must reach a cycle.\"",
+            "break_before": "minor"
+          }
+        ],
+        "skeleton": "A nonempty unfinished remainder with an empty queue → implies → a cycle.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 38,
+      "zh_note": "口述 bounds 保留 bounded-scalar／container cost 前提，區分 O(V + E) 工作與 auxiliary，並指出結果只是 Boolean。",
+      "decision_ids": [
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "What are the bounds? \"Construction and traversal take O(V + E) time under the stated bounded-scalar and container cost model. Adjacency storage, counts and the queue use O(V + E) auxiliary space. The result is one Boolean.\"",
+      "english_section_index": 7,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "What are the bounds? "
+          },
+          {
+            "text": "\"Construction and traversal take O(V + E) time ",
+            "break_before": "major"
+          },
+          {
+            "text": "under the stated bounded-scalar and container cost model. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Adjacency storage, counts and the queue use ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 34,
+                "end": 39,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "O(V + E) auxiliary space",
+            "bundle": true
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "The result is one Boolean.\"",
+            "break_before": "major"
+          }
+        ],
+        "skeleton": "Established container and scalar costs → imply → O(V+E) work and auxiliary space.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    },
+    {
+      "paragraph_index": 39,
+      "zh_note": "master map 從 edge direction 走到 outgoing updates、remaining availability、queue 與 checkpoint；要先證明 queue／append costs，單憑每 edge 一次仍不足以推出 time bound。",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D6",
+        "D7"
+      ],
+      "kind": "PASSIVE",
+      "english_source": "The master map connects the argument: [a, b] creates b -> a; outgoing lists locate the obligations a completion removes; remaining counts decide availability; a queue retains that availability until processing; the checkpoint keeps counts aligned with unfinished prerequisites; and the completed-course count distinguishes a finished graph from a blocked remainder. Counting one visit per course and edge gives the time bound only after the queue and append-sequence costs have been explained.",
+      "english_section_index": 7,
+      "speed_reading": {
+        "tokens": [
+          {
+            "text": "The master map connects the argument: "
+          },
+          {
+            "text": "[a, b] creates b -> a; ",
+            "break_before": "major"
+          },
+          {
+            "text": "outgoing lists locate the obligations a completion removes; ",
+            "break_before": "major"
+          },
+          {
+            "text": "remaining counts decide availability; ",
+            "break_before": "major"
+          },
+          {
+            "text": "a queue retains that availability ",
+            "break_before": "major",
+            "stress": [
+              {
+                "start": 2,
+                "end": 7,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          },
+          {
+            "text": "until processing; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "the checkpoint keeps counts aligned ",
+            "break_before": "major"
+          },
+          {
+            "text": "with unfinished prerequisites; ",
+            "break_before": "minor"
+          },
+          {
+            "text": "and the completed-course count distinguishes a finished graph ",
+            "break_before": "major"
+          },
+          {
+            "text": "from a blocked remainder. ",
+            "break_before": "minor"
+          },
+          {
+            "text": "Counting one visit ",
+            "break_before": "major"
+          },
+          {
+            "text": "per course and edge gives the time bound ",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 4,
+                "end": 10,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/course",
+                "word": "course",
+                "pronunciation": "/kɔːrs/"
+              }
+            ]
+          },
+          {
+            "text": "only after the queue and append-sequence costs have been explained.",
+            "break_before": "minor",
+            "stress": [
+              {
+                "start": 15,
+                "end": 20,
+                "source": "https://dictionary.cambridge.org/us/pronunciation/english/queue",
+                "word": "queue",
+                "pronunciation": "/kjuː/"
+              }
+            ]
+          }
+        ],
+        "skeleton": "Counts, queue, and completed-course total → connect → dependencies, availability, invariant, and termination.",
+        "review": {
+          "syntax": "REVIEWED",
+          "stress": "PARTIAL",
+          "learner": "NOT_OBSERVED"
+        }
+      }
+    }
+  ],
+  "active_items": [
+    {
+      "id": "course-schedule-A0001",
+      "corpus_key": "prerequisite",
+      "term": "prerequisite",
+      "decision_id": "D1",
+      "paragraph_index": 1,
+      "english_sentence": "A pair [a, b] means that b must be finished before a.",
+      "source_quote": "prerequisite",
+      "admission": "decision_critical_reusable",
+      "active_cue": "For [a, b], which course must finish first?",
+      "oracle": "b is the prerequisite of a, so the edge is b -> a.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 1
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 3,
+          "english_quote": "Draw a directed edge b -> a for [a, b]."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0002",
+      "corpus_key": "directed-cycle",
+      "term": "directed cycle",
+      "decision_id": "D1",
+      "paragraph_index": 3,
+      "english_sentence": "A directed cycle follows one or more edges back to its starting node.",
+      "source_quote": "directed cycle",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why does a directed cycle prevent full completion?",
+      "oracle": "Every course on it waits for another course on it, so none can finish first.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 3
+      }
+    },
+    {
+      "id": "course-schedule-A0003",
+      "corpus_key": "self-loop",
+      "term": "self-loop",
+      "decision_id": "D1",
+      "paragraph_index": 3,
+      "english_sentence": "A self-loop is a cycle containing one node.",
+      "source_quote": "self-loop",
+      "admission": "decision_critical_reusable",
+      "active_cue": "How does [a, a] affect availability?",
+      "oracle": "The course waits for itself, forming a one-node cycle with no first completion.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 3
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 1,
+          "english_quote": "The statement does not exclude [a, a], which makes that course impossible to start."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0004",
+      "corpus_key": "adjacency-list",
+      "term": "adjacency list",
+      "decision_id": "D2",
+      "paragraph_index": 5,
+      "english_sentence": "This is an adjacency list: each node owns the list of destinations of its outgoing edges.",
+      "source_quote": "adjacency list",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What does after[b] store?",
+      "oracle": "It stores courses directly depending on b, the destinations of outgoing edges from b.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 5
+      }
+    },
+    {
+      "id": "course-schedule-A0005",
+      "corpus_key": "indegree",
+      "term": "indegree",
+      "decision_id": "D2",
+      "paragraph_index": 6,
+      "english_sentence": "This incoming-edge count is often called indegree.",
+      "source_quote": "indegree",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What does remaining[a] count after processing has begun?",
+      "oracle": "The prerequisites of a that have not yet completed, starting from its incoming-edge count.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 6
+      }
+    },
+    {
+      "id": "course-schedule-A0006",
+      "corpus_key": "shared-list",
+      "term": "shared list",
+      "decision_id": "D3",
+      "paragraph_index": 7,
+      "english_sentence": "Evaluating [] separately for each course makes independent inner lists.",
+      "source_quote": "shared list",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why does [[]] * numCourses break adjacency storage?",
+      "oracle": "It repeats references to one shared mutable inner list, so adding one course’s dependent affects every entry.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 7
+      }
+    },
+    {
+      "id": "course-schedule-A0007",
+      "corpus_key": "first-in,-first-out",
+      "term": "first-in, first-out",
+      "decision_id": "D4",
+      "paragraph_index": 8,
+      "english_sentence": "The queue holds entries waiting to be processed; removing the oldest entry and adding new entries at the other end gives first-in, first-out behavior.",
+      "source_quote": "first-in, first-out",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Does FIFO choose the smallest available course number?",
+      "oracle": "No; it processes the oldest queued entry, and any already available course is legal.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 8
+      }
+    },
+    {
+      "id": "course-schedule-A0008",
+      "corpus_key": "unbounded",
+      "term": "unbounded",
+      "decision_id": "D4",
+      "paragraph_index": 9,
+      "english_sentence": "Use an unbounded collections.deque.",
+      "source_quote": "unbounded",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why should ready have no maxlen?",
+      "oracle": "A bounded deque can discard entries when full, losing courses that must still be processed.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 9
+      }
+    },
+    {
+      "id": "course-schedule-A0009",
+      "corpus_key": "outstanding-obligation",
+      "term": "outstanding obligation",
+      "decision_id": "D2",
+      "paragraph_index": 10,
+      "english_sentence": "Each loses exactly one outstanding obligation, so subtract one from its count.",
+      "source_quote": "outstanding obligation",
+      "admission": "decision_critical_reusable",
+      "active_cue": "How much should finishing one prerequisite change each dependent count?",
+      "oracle": "Exactly one obligation is removed for each outgoing edge, so subtract one.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 10
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 5,
+          "english_quote": "Store a in that list for each pair [a, b]. This is an adjacency list: each node owns the list of destinations of its outgoing edges."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0010",
+      "corpus_key": "isolated-course",
+      "term": "isolated course",
+      "decision_id": "D5",
+      "paragraph_index": 14,
+      "english_sentence": "An isolated course contributes a completion even though it releases nothing.",
+      "source_quote": "isolated course",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Should an isolated course count toward finished?",
+      "oracle": "Yes; it exists in the contract and is a completed course even with no dependents.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 14
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 2,
+          "english_quote": "A course absent from every pair still exists and must count toward the result."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0011",
+      "corpus_key": "checkpoint",
+      "term": "checkpoint",
+      "decision_id": "D6",
+      "paragraph_index": 18,
+      "english_sentence": "The checkpoint is just before each evaluation of while ready, after all updates for the preceding completion.",
+      "source_quote": "checkpoint",
+      "admission": "decision_critical_reusable",
+      "active_cue": "When may the checkpoint invariant be asserted?",
+      "oracle": "Before while ready, after the previous course’s entire dependent list has been processed, not midway through it.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 18
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 20,
+          "english_quote": "The checkpoint holds again after the whole dependent list is processed, rather than midway through it."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0012",
+      "corpus_key": "kahn's-topological-sort",
+      "term": "Kahn's topological sort",
+      "decision_id": "D6",
+      "paragraph_index": 21,
+      "english_sentence": "This algorithm is often called Kahn's topological sort; a topological order places every prerequisite before its dependent.",
+      "source_quote": "Kahn's topological sort",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What ordering condition does topological order preserve?",
+      "oracle": "Every prerequisite appears before its dependent; it does not require smallest identifiers first.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 21
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 8,
+          "english_quote": "FIFO supplies a definite trace without searching for the smallest course number."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0013",
+      "corpus_key": "spare-capacity",
+      "term": "spare capacity",
+      "decision_id": "D7",
+      "paragraph_index": 26,
+      "english_sentence": "CPython v3.14.0's list resize policy reserves spare capacity on single-item growth, roughly one eighth of the requested size beyond the items, with small rounding and padding.",
+      "source_quote": "spare capacity",
+      "admission": "decision_critical_reusable",
+      "active_cue": "Why does spare capacity matter without guaranteeing every append is constant?",
+      "oracle": "It spreads occasional resize-and-copy work over an append-only sequence; one growth can still copy old references.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 26
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 26,
+          "english_quote": "A growth may copy the old references, so one append is not always constant work."
+        },
+        {
+          "paragraph_index": 27,
+          "english_quote": "After growing a sufficiently large list of size m, proportional spare room allows at least a fixed fraction of m further single-item appends before another growth. Charge the cost proportional to m of that growth across those following appends; each receives only a constant charge."
+        },
+        {
+          "paragraph_index": 27,
+          "english_quote": "It applies here because each adjacency list only grows by one appended item at a time; no alternating deletion or bulk update is being smuggled into the argument."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0014",
+      "corpus_key": "amortized-constant-time",
+      "term": "amortized constant time",
+      "decision_id": "D7",
+      "paragraph_index": 27,
+      "english_sentence": "This aggregate guarantee is called amortized constant time per append.",
+      "source_quote": "amortized constant time",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What is guaranteed by amortized constant time in this source?",
+      "oracle": "d single-item appends take O(d) total work for the append-only sequence, while an individual append may resize.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 27
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 26,
+          "english_quote": "A growth may copy the old references, so one append is not always constant work."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0015",
+      "corpus_key": "auxiliary-space",
+      "term": "auxiliary space",
+      "decision_id": "D7",
+      "paragraph_index": 30,
+      "english_sentence": "The existing input is excluded from auxiliary space, and the returned Boolean is O(1) output space.",
+      "source_quote": "auxiliary space",
+      "admission": "decision_critical_reusable",
+      "active_cue": "How are input and Boolean output counted?",
+      "oracle": "The existing pair input is excluded from auxiliary space; the returned Boolean occupies constant output space.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 30
+      }
+    },
+    {
+      "id": "course-schedule-A0016",
+      "corpus_key": "trade-off",
+      "term": "trade-off",
+      "decision_id": "D8",
+      "paragraph_index": 32,
+      "english_sentence": "Prefer this trade-off only when the extra adjacency storage matters more than repeated scans.",
+      "source_quote": "trade-off",
+      "admission": "decision_critical_reusable",
+      "active_cue": "What does the repeated-scan alternative trade?",
+      "oracle": "It reduces peak auxiliary storage to O(V) by avoiding extra E adjacency references, but raises the time bound to O(V(V + E)).",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 32
+      },
+      "supporting_sources": [
+        {
+          "paragraph_index": 31,
+          "english_quote": "If storing another E references is unacceptable but the original pair list can be scanned repeatedly, there is a slower alternative. Keep done[V] Booleans. In each round, allocate a fresh blocked[V] array of false values. Scan every pair [a, b]; if both a and b are unfinished, set blocked[a] to true."
+        }
+      ]
+    },
+    {
+      "id": "course-schedule-A0017",
+      "corpus_key": "partial-order",
+      "term": "partial order",
+      "decision_id": "D9",
+      "paragraph_index": 34,
+      "english_sentence": "On failure, the partial order is temporary auxiliary storage of at most V entries and the returned empty list has constant size.",
+      "source_quote": "partial order",
+      "admission": "decision_critical_reusable",
+      "active_cue": "On failure, is partial order successful output?",
+      "oracle": "No; it is temporary auxiliary storage, while the returned empty list has constant size.",
+      "source_ref": {
+        "path": "articles/leetcode-207-course-schedule.en.md",
+        "git_blob": "49e850a8e9a5c678cd6fe70126789400dee0818e",
+        "paragraph_index": 34
+      }
+    }
+  ],
+  "annotation_authority": "speed-reading",
+  "annotation_provenance": {
+    "existing_content": "Existing zh-TW notes and Active terms/sentences/cues/oracles were retained as legacy inputs and read back for approval by the updated speed-reading Owner; they were not newly authored retroactively.",
+    "new_content": "speed_reading projections and skeletons were generated in this run; supporting_sources bind the cross-paragraph premises identified during the updated-Owner review.",
+    "semantic_review": "AGENT_REVIEWED",
+    "learner_evidence": "NOT_OBSERVED"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "before": "4bbbe3c9478642c4b7c9a3c14f933e09dedaaa26",
+  "scope": [
+    "latest 11 and 207 complete bilingual articles",
+    "home and article catalog",
+    "per-language TOC",
+    "separate language URLs",
+    "generic website handoff contract",
+    "original PR81 and CI only"
+  ],
+  "no_merge": true,
+  "no_deploy": true,
+  "body_rewrite": false,
+  "no_nonessential_sha256_in_ci": true,
+  "clarification": {
+    "round1": [
+      "latest two bilingual articles",
+      "home/catalog plus per-article contents and language switch",
+      "PR/CI without merge/deploy"
+    ],
+    "round2": [
+      "also update generic handoff contract",
+      "separate language URLs"
+    ]
+  }
+}

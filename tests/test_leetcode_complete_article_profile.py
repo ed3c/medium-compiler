@@ -4,19 +4,27 @@ These checks catch missing links and ownership regression; they do NOT
 claim that a model wrote an accurate article or that Medium was published.
 """
 import unittest
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LEET = ROOT / ".agents/skills/leetcode-mental"
 WRITER = ROOT / ".agents/skills/medium-writing/SKILL.md"
 PROFILE = LEET / "references/article-content-profile.md"
+CONSTRUCTION = LEET / "references/article-construction.md"
 PROMPT = ROOT / "prompts/leetcode-medium-system.md"
 
 
 class CompleteArticleRoutingTests(unittest.TestCase):
     def test_canonical_profile_and_invocation_are_reachable(self):
         self.assertTrue(PROFILE.is_file())
+        self.assertTrue(CONSTRUCTION.is_file())
         self.assertTrue(PROMPT.is_file())
+        # The selected profile must reach its method through a real relative link.
+        targets = re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", PROFILE.read_text())
+        self.assertIn(CONSTRUCTION.resolve(), [(PROFILE.parent / p).resolve() for p in targets])
+        for target in re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", CONSTRUCTION.read_text()):
+            self.assertTrue((CONSTRUCTION.parent / target).is_file(), target)
         for path in (
             LEET / "SKILL.md",
             LEET / "references/v4-contract.md",
@@ -47,6 +55,7 @@ class CompleteArticleRoutingTests(unittest.TestCase):
         for forbidden in ("Group Anagrams", "LeetCode 49", "count[26]", "exactly six figures", "six figures by default"):
             self.assertNotIn(forbidden, profile)
             self.assertNotIn(forbidden, prompt)
+            self.assertNotIn(forbidden, CONSTRUCTION.read_text())
         self.assertIn("number of sections", profile)
         self.assertIn("Figures are derived", profile)
         self.assertIn("another problem with different constraints", profile)

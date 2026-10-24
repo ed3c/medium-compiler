@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "scope": "Native Local Codex first-delivery demonstration; not retained six-run runner study or cloud evidence",
+  "root_thread": "01a159c9-95a1-7b01-8761-900f308f739b",
+  "method_commit": "589ee4332275f2d6042f1039331e12a33f0f9b56",
+  "source_refs": {
+    "medium_before": "ada0f01c6dfc6582b259318e46588b6db702ad5e",
+    "soodles_method": "1f5bfbe19d553304ca2f60138fe2c22519d655dd",
+    "contract_snapshot": "ef828ca0b236d980607299d727f13cda0c290765"
+  },
+  "external_evidence": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-route-closure-136buj7l",
+  "events": [
+    {
+      "type": "subAgentActivity",
+      "id": "call_1f85cdb46e944e55b42bdc6adb98e32d",
+      "kind": "started",
+      "agentThreadId": "01a15aa8-ba7f-7d52-bb13-30d0c82535e0",
+      "agentPath": "/root/closure_criteria"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_2cd00434b02b4b40b9c1164d65335b10",
+      "kind": "started",
+      "agentThreadId": "01a15aaa-810a-70e1-8470-ac6739edd927",
+      "agentPath": "/root/closure_temperatures_writer"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_86e6f93da7b9466784a0cdb9b5cbeb85",
+      "kind": "started",
+      "agentThreadId": "01a15aaa-98f5-7db2-b669-5a39ac72f17b",
+      "agentPath": "/root/closure_subsets_writer"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_cc3ad68833b146cebf79dfa1d4dff138",
+      "kind": "started",
+      "agentThreadId": "01a15ab4-3def-78b1-9443-2ab812226f18",
+      "agentPath": "/root/closure_temperatures_reader"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_21d176ac7594407b8dc73fdbf73fc9e7",
+      "kind": "started",
+      "agentThreadId": "01a15ab4-553f-71a3-ad28-d73a78ffb258",
+      "agentPath": "/root/closure_subsets_reader"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_1a908c5408124d11b26a36a33eb8bc99",
+      "kind": "started",
+      "agentThreadId": "01a15ab6-8313-7f93-afc3-804aaebc8f72",
+      "agentPath": "/root/closure_review_c"
+    }
+  ],
+  "inputs": "Tasks, instruction snapshots and fixed Reader questions preserved externally; portable task files and articles included. Writers received no exemplar/outline/Reader questions. Both first deliveries frozen before Reader starts; no post-Reader repairs.",
+  "capture": "App read_thread includeOutputs=true, turnLimit=10, maxOutputCharsPerItem=20000; original responses retained externally. Output capture truncation is not itself proof of consumer-tool truncation. Child self-report is separate from independent capture.",
+  "isolation": "fork_turns=none; default model, no overrides. Shared filesystem, not forced read isolation. Native capture does not expose every web event or prove absence of hidden reads.",
+  "effect_boundary": "No merge/deploy/publication/Stage admission. Normal PR CI only. Schema2 fields do not establish semantic quality.",
+  "outcomes": {
+    "temperatures": {
+      "reader_missing": [
+        "cost"
+      ],
+      "bilingual_mismatches": []
+    },
+    "subsets": {
+      "reader_missing": [
+        "cost"
+      ],
+      "bilingual_mismatches": []
+    },
+    "control": {
+      "reader_missing": [
+        "cost"
+      ],
+      "planted": true
+    }
+  }
+}

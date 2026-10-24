@@ -1,0 +1,50 @@
+{
+  "verdict": "PASS_BOUNDED",
+  "blocking_findings": [],
+  "nonblocking_observations": [
+    {
+      "id": "B1",
+      "type": "explicit_scope_limit",
+      "claim_status": "未分析，不是錯誤宣稱",
+      "detail": "任意長度整數成本明確留待 bit-size analysis；本文只證明 bounded-integer model。",
+      "evidence": {
+        "language": "en",
+        "quote": "If arbitrary-length integer inputs replaced the stated limits, arithmetic and integer storage would need a separate bit-size analysis; the scalar model here does not claim otherwise."
+      }
+    },
+    {
+      "id": "B2",
+      "type": "unsupported_stronger_inference",
+      "claim_status": "本文未宣稱",
+      "detail": "不可由主解推出 binary search 唯一，或完整掃描失敗 probe 是必要條件；ascending 替代與早停累加變體皆限制此強推論。",
+      "evidence": {
+        "language": "en",
+        "quote": "The code deliberately computes the complete total even when it already exceeds `h`."
+      }
+    },
+    {
+      "id": "B3",
+      "type": "minor_translation_scope",
+      "claim_status": "非演算法差異",
+      "detail": "中文重建節標題明確要求英文說明，英文標題只要求說出來；下方同為英文問答，不影響決策、例外、數值、程式或成本。",
+      "evidence": [
+        {
+          "language": "en",
+          "quote": "## Reconstruct the decision and explain it aloud"
+        },
+        {
+          "language": "zh-TW",
+          "quote": "## 重建選擇，並用英文說明"
+        }
+      ]
+    }
+  ],
+  "recalled_algorithm_knowledge_used_to_fill_gaps": false,
+  "new_input_reconstruction_only": true,
+  "missing_material_reasoning_in_bounded_contract": [],
+  "limitations": [
+    "沒有執行本文程式。",
+    "沒有讀連結來源，不能作來源驗真結論。",
+    "單一 fresh reader 的重建不能轉成讀者群體學習效果或 human comprehension 宣稱。"
+  ]
+}

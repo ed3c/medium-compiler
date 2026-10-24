@@ -1,0 +1,29 @@
+{
+  "root_thread": "01a159c9-95a1-7b01-8761-900f308f739b",
+  "external_evidence": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-web-delivery-kihz_m16",
+  "native_starts": [
+    {
+      "type": "subAgentActivity",
+      "id": "call_6d272928457b4b379f66eadd63699d11",
+      "kind": "started",
+      "agentThreadId": "01a15c44-0f8b-7cb1-bbd3-68ec5b741085",
+      "agentPath": "/root/web_index_owner"
+    },
+    {
+      "type": "subAgentActivity",
+      "id": "call_a86678c8f4ad433cb298227646f7e73c",
+      "kind": "started",
+      "agentThreadId": "01a15c44-2ef1-7e02-ba26-882855289f50",
+      "agentPath": "/root/web_index_criteria"
+    }
+  ],
+  "carrier": {
+    "fork_turns": "none",
+    "model_override": null,
+    "isolation": "shared filesystem; read allowlist is not forced isolation"
+  },
+  "capture": "App read_thread includeOutputs=true, turnLimit=10,maxOutputCharsPerItem=20000; actual raw results retained externally",
+  "consumer_scope": "Index metadata for four accepted article editions, not article rewriting or a fresh blind Writer experiment",
+  "authority": "Original PR81 and CI only; no merge/deploy",
+  "source_bytes_checked": 4
+}

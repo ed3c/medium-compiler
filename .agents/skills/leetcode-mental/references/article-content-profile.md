@@ -8,7 +8,19 @@ For this profile, **leetcode-mental is the sole semantic Content Owner**: it pro
 
 **medium-writing is the Medium formatter and assembler** for an already approved article edition. It owns Medium-native headings, readable code and figure placement, captions/alt text placement, contiguous delivery parts, and the existing CLI's legal Stage 0–7 admission/assembly. It may not invent facts, delete qualifications, paraphrase protected code, shorten the article as a summary, or editorially rewrite accepted content. A content defect goes back to leetcode-mental for a new approved edition; do not use Stage 7 as a repair step. For non-LeetCode routes, medium-writing's existing writer ownership is unchanged.
 
-The `alg-four` annotation owner is downstream only: it reads the accepted article bytes and adds Passive/Active notes without rewriting the base article. Neither this profile nor the formatting stage creates a Four-Pass learner session, runtime mastery evidence, new CLI stage, or publication authority.
+The downstream `speed-reading` annotation Content Owner reads the accepted article bytes and adds Passive/Active notes; `alg-four` binds and renders them without rewriting the base article. Neither this profile nor the formatting stage creates a Four-Pass learner session, runtime mastery evidence, new CLI stage, or publication authority.
+
+## Construct the reasoning, then check coverage
+
+Use [the article construction method](article-construction.md) to derive the
+reader's questions, prerequisite relations, worked states, correctness argument
+and cost explanation from the current problem. Its final-body reconstruction
+checks each method and conditional adaptation actually introduced, before
+English approval and again where editing changes its premises. Supporting
+passages must allow the cost inference to be rebuilt from explained premises
+or explicit elementary cost assumptions; quotation presence is not completion.
+It applies without a polished example. The following coverage list checks the resulting
+article; it does not replace construction with a topic checklist.
 
 ## Required complete content, not fixed headings
 
@@ -23,7 +35,44 @@ From the *actual* problem statement and assumptions derive a connected, zero-con
 7. A relevant alternative and its trade-off. Clearly name the constraint under which it becomes preferable.
 8. Concise English interview Q&A *grounded in the approved technical claims*, plus a closing zero-context Master Map that only connects facts already established.
 
-This is a **content coverage contract**, not eight mandatory section names. The number of sections is determined by the actual reader decisions and distinct runtime boundaries, not a default quota. Build a single causal narrative in natural paragraphs. Merge repeated claims across teaching passes, repeated summaries and duplicated introduction/closing sections, **without dropping unique examples, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
+This is a **content coverage contract**, not eight mandatory section names. The number of sections is determined by the actual reader decisions and distinct runtime boundaries, not a default quota. Build a single causal narrative in natural paragraphs. Merge passages only when they perform the same teaching work, **without dropping examples, intermediate states, derivations, limitations, proof obligations or decision outcomes**. For the Medium edition do not force the ordinary v4 fourteen pedagogical blocks into fourteen article headings; Four-Pass exercise material remains on the separate selected teaching route.
+
+## Reader prerequisites and explanatory steps
+
+Fix the actual audience before choosing detail. A reader who knows basic Python syntax
+does not thereby know hashability, a library factory, a data-structure operation or a
+logarithmic cost derivation. Naming a mechanism, stating its result or linking to a
+source does not explain it. Supply the missing steps where that reader would otherwise
+have to obtain the answer from prior knowledge.
+
+Separate **algorithm decisions** from **teaching steps**. One design choice can require
+several explanations: what information an object represents, why the next operation is
+valid, its input state, the operation itself, its returned value or mutation, and the
+effect on the next operation. A small decision count does not justify compressing those
+steps into one paragraph. Use prose and worked states as needed; neither a sentence per
+operation nor a fixed section count is required.
+
+When a complete reference is supplied, read its body and account for its material
+explanations, examples and derivations before drafting. Correct technical mistakes while
+preserving their teaching purpose. A previously unreadable external link is not a reason
+to ignore a later user-supplied full text. A requested API or runtime mechanism remains
+in scope if the author chooses an equivalent implementation; changing code cannot silently
+remove the teaching requirement. Explain that mechanism and show how it relates to the
+chosen solution, or resolve a real scope conflict with the user.
+
+Keep purposeful recurrence. Explaining a mechanism, following it with concrete values,
+mapping it to complete code, and recalling it in concise interview English have different
+reader purposes even when they mention the same fact. Preserve the necessary bridge in
+each context; remove verbatim repetition that does no additional teaching work. This does
+not require every concept to appear a fixed number of times. A Master Map may compress
+previously explained relations, but cannot supply an explanation missing from the body.
+
+Before accepting an editorial deletion, test the result against this reader and the
+requested source coverage. Can the reader derive the next state and explain why it
+follows, using the remaining article alone? If not, restore or rewrite the bridge.
+Preserving the conclusion, technical terms and code is insufficient. Keep this semantic
+review outside copyable prose; the detector, heading count, paragraph count and digest
+cannot certify it.
 
 ## Language, editorial review and evidence
 
@@ -41,6 +90,45 @@ A cover is optional; figure image generation is **not** mandatory. Generate imag
 
 Handoff to medium-writing contains the approved full English and zh-TW narratives, source/claim coverage and unresolved limits, complete reference code, ordered section plan, figure positions/captions/alt text/briefs, and the actual editorial/execution evidence status. This is a semantic handoff description **using existing article/coverage/CLI inputs**, not a new persistent schema, state machine or invented hash/digest. Deterministic byte IDs come only from the original CLI/producer.
 
+## Website-ready handoff when website delivery is selected
+
+Supply both complete approved Markdown editions and the article-list data in
+[the existing bilingual website contract](../../../../docs/bilingual-articles.md):
+one stable slug, each language's title and short source-faithful description,
+and the exact repository source paths. Titles must match their edition's H1;
+do not put registry metadata, review notes or generated HTML into the prose.
+The Content Owner approves both descriptions as well as the unchanged bodies.
+An already approved edition can be handed off without reauthoring it; retain
+its original draft, review and failure evidence separately.
+
+Use the site's explicit article registry. Do not publish by scanning evaluation
+directories or treating every generated draft as an accepted article.
+The formatter/build owner preserves the supplied Markdown, renders separate
+language routes and their own heading contents, and connects the article list,
+language links and source downloads. Missing titles, descriptions or a complete
+language edition return to the Content Owner; a build or navigation defect
+belongs to the site builder. Do not shorten prose to make a page fit.
+
+Verify the built article list and both complete pages through real desktop and
+mobile navigation, heading links, language switching and source downloads.
+Compare downloaded bytes and rendered code with the supplied editions.
+When the selected site includes ALG Four reading support, hand both approved
+editions to `speed-reading` for annotation content and the existing `alg-four`
+integration for source binding, admission validation and navigation. Include its source-bound
+per-paragraph notes in the website handoff, not just heading links. The site
+builder validates the paired editions, original Git blobs and full annotation
+coverage before rendering; it must refuse missing or stale notes. Active items
+require paragraph evidence and a faithful production sentence/cue/oracle, without
+per-article quotas. Plain English is the fallback when pronunciation or chunk
+annotation has not been verified. Keep annotations outside the complete body.
+
+Keep content/reader evidence, website runtime, compiler admission and Provider
+publication distinct. Website-ready files and a successful CI do not authorize
+merge or deployment; preserve the task's selected host and explicit effect scope.
+For each article update, first deliver the actual localhost browser preview under
+[the shared local-review contract](../../../../writing-contract.md#article-updates-local-preview-before-deployment).
+Website-ready means ready for that review; it does not request a remote release.
+
 ## Part delivery and Stage boundary
 
 The existing medium-compiler **Stage 0–7 remains unchanged**. Leetcode-mental supplies content needed for those stages; medium-writing sends it through the actual legal CLI steps and preserves source/code semantics. Stage 6 for this profile is a format-preserving pass over already approved wording (not a second editorial author); Stage 7 copies admitted bytes. Existing-article revisions follow the CLI's supported `init --draft` or authorized technical correction route; do not fabricate historical stages.
@@ -56,3 +144,9 @@ Before handoff, check that an unfamiliar reader can reconstruct: goal and constr
 Acceptance claims must separate `CONTENT_REVIEWED`, `SLOPTRIM_RUN/NOT_RUN`, `TRANSLATION_REVIEWED`, `CLI_VALIDATED`, `RUNTIME_TESTED/NOT_RUN`, `INDEPENDENT_READER/NOT_RUN`, `IMAGES_RENDERED/NOT_RUN` and `PUBLISHED/NOT_RUN`. These are reporting labels, **not** new CLI statuses.
 
 Stop cognitive recursion once no new source-grounded, falsifiable issue could change scope, owner, behavior or verification. Do not re-run thinking methods as ceremony.
+
+For speed-reading-authored notes, the complete annotation is the acceptance unit:
+show source-bound premises and any state/order checkpoint before the short
+reading cue (閱讀提示，非獨立結論). A source citation alone does not explain why
+its premise matters. Follow the speed-reading Owner contract; the UI/validator
+checks presence and exact bindings, while Owner/Reader review completeness.

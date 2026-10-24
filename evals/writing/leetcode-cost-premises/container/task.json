@@ -1,0 +1,65 @@
+{
+  "topic": "LeetCode 11 Container With Most Water",
+  "source": "https://leetcode.com/problems/container-with-most-water/",
+  "profile": "COMPLETE_MEDIUM_ARTICLE",
+  "audience": "Knows basic Python syntax; no prior algorithm, data-structure, runtime-internals or asymptotic-complexity background.",
+  "goal": "From zero, produce one complete, self-contained English article and a faithful complete Traditional Chinese edition with English technical terms, using only the selected final leetcode-mental method. Choose the solution, explanation, witnesses, headings and figure needs yourself. No reference article or solution outline is provided.",
+  "instructions": [
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/SKILL.md",
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-content-profile.md",
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/leetcode-mental/references/article-construction.md",
+    "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/instructions/.agents/skills/sloptrim/SKILL.md"
+  ],
+  "allowed_sources": [
+    "https://leetcode.com/problems/container-with-most-water/",
+    "https://docs.python.org/3.14/ and task-relevant official CPython v3.14 sources only; no LeetCode editorials/community solutions or other teaching articles."
+  ],
+  "allowed_local_files": "Only this task, its listed instruction snapshots (and the sloptrim pattern reference/detector within the same snapshot), and your own output directory. Do not read repository articles/examples/history, past task outputs, other agents, observer material or grading questions. Do not follow linked local exemplar articles.",
+  "execution": "Read all four selected instruction files before writing. Preserve the first complete English draft as article.first.en.md before editorial/source corrections, then the approved final as article.en.md. Run the actual snapshot sloptrim detector and reader-article supplement on English; review technical fidelity before translation begins. Preserve the first complete translation as article.first.zh-TW.md and the author-reviewed final as article.zh-TW.md. Execute complete solutions extracted from your final English against literal cases, independent small-input checks and practical statement-boundary controls. Keep every failed command/case and any author repair separately. Do not invent execution, publication or learner evidence. Record your actual final-body reconstruction and supporting passages in your private report/notes as directed by the selected method. Preserve exact files; report-only article hashes are unnecessary.",
+  "outputs": [
+    "article.first.en.md",
+    "article.en.md",
+    "article.first.zh-TW.md",
+    "article.zh-TW.md",
+    "report.md",
+    "verify.py",
+    "runtime.json",
+    "output.json"
+  ],
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "english_reviewed_before_translation": {
+        "type": "boolean"
+      },
+      "runtime_test_executed": {
+        "type": "boolean"
+      },
+      "reference_article_read": {
+        "type": "boolean"
+      },
+      "published": {
+        "type": "boolean"
+      },
+      "final_body_review_recorded": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "english_reviewed_before_translation",
+      "runtime_test_executed",
+      "reference_article_read",
+      "published",
+      "final_body_review_recorded"
+    ]
+  },
+  "output_semantics": {
+    "english_reviewed_before_translation": "Whether each actually translated complete English edition was reviewed against primary sources before translating that edition; record later discovered repairs and renewed approvals rather than hiding them.",
+    "runtime_test_executed": "Whether extracted article code actually ran against requested controls.",
+    "reference_article_read": "Whether any exemplar/other article was read, including an accidental unauthorized read.",
+    "published": "Whether you actually published externally.",
+    "final_body_review_recorded": "Whether the existing private author review records final-body reconstruction with exact supporting article passages; this field reports the action, not whether every semantic claim is correct."
+  },
+  "output_directory": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/leetcode-cost-premises-0pm97zkf/writers/container",
+  "effects": "Write only your assigned output directory. No repository/Git/CI/provider/publication/model/other-agent writes or launches. Do not modify instructions. Stop after your own first complete delivery; later Reader feedback is not part of this generation."
+}

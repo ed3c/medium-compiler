@@ -1,0 +1,832 @@
+[
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 0,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "aacebfb6f45fc47ee9800cf82aefdfcaca3e4aa2de5d6169fc3403a68ea4b7bb"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 1,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "fea821a043b30f3995a65a2f99fe42b319c55a027e58c708cabf966c06b4d820"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 2,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "621682ec4ce301bffa0838a00c7ff88e3229d792c1cd14ff7678765e037360ad"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 3,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "2c1fbab674decc9b30a1d07b337962511175ee1e580e2ae343cbdc08eafe6d0f"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 4,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "0f6a9b387d5e99acbed2eeeb705809d50ded7d6708fc608e2788ea234430417b"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 5,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "2a56face573dc3a6bca99666b9fc4d801f8e2fef44772f0bc3cf505d2aff42c1"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 6,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "405668e0ce6135f69901eac4f13eb120292e7f3d20afddde7bf82b4ddc6cc458"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 7,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "c9d13f39dd7567e5b73f119b98a64b3dcb3fc132a1a743bc3db02840fc8ce780"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 8,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "b4cd8068c9aa4b4d6b8e37d2b3b0760edace1afad37b4af2939f6b3a37f5347c"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 9,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "4227edccc5864db43b2d9550a6703b659c3606e6b9c7b8fc0fefe7990c8aba48"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 10,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "beab61f47992b63ce73e108b7e95a4ebc093714b0996da3f7548c5c79f52b486"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 11,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "b65782df6acf42ad826a3fe2d015a1c4b226dde360cad509d59b2a79e976f4d6"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 12,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6dbf472695cfd86c33368dcbf7b048f9fea545cbfa5cb01b8f8f409bc118f118"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 13,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "d7525717b69f73cd04a90860559a847ecb377c8e2de7b1be4e7a251caa2a7608"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 14,
+    "cue_words": 7,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "c447d8c62284bc7cc9effe0447bf06d804c59672b6de4bf216b021e371f2d4d5"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 15,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "66b53ec2a5638b95b17aca4f9a714af0fd5bac23a97f6b40d59d42efbf8ad334"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 16,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9037a9ecb47dde8fe85687faf816f48eace22b912c8a7ba65208dfdca18cd650"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 17,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "5e43549ad23b909a8f2f5e15455f8814ba9038f3589487e6d3ac27c4b32d9b41"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 18,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "44362c4726188f3daea6257acdbfbb1fbc4fdb58b318fec7f7f79039a5d148bb"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 19,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6c1a0695c80c2ae01b406bbea7d034534b5d8b44ccef40b1fa77b74571f8eaf1"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 20,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "ee9c371d455651feeb09ec478cf807a53b146107518e32a87bde9d676284d226"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 21,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9d8f7e8aa2d90fd3329ad2c7d91cfd61452ca9100fbb37a8028621fe4f5e9d6f"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 22,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "8fa6dd2fe20fda07584778631800b9f029348bd8dc692ceef6d14d7c326acbcf"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 23,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "359873c3f5390cf928f135b8530742f7d0e5bef032907062b85cb109b260b77b"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 24,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6889e183f98d251c60522df3ccb17879464e48fad3ee4730918b8a60ab603475"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 25,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "5158c38ff5ce77fe53a364311e711b8bd967d8e4a3415ec43e57979b5358d447"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 26,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "4f2de140c5c6d5ce44445462d0ebe2e4a8fc79e3c30e0740d22be3f3b2e0735d"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 27,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "bf449805099c062356520caaef42a95035f18a029e866c68ff81a2831c1a3402"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 28,
+    "cue_words": 7,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "a1af3ccf8f77186f1d628eefc9fad040f2c506f97bec35811e7e8d7a8c5a77b1"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 29,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6f7e4ab825c9ea7394a8810660d01487d21296ca27c3858b6043bb00183a1a10"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 30,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "deffcf5aca9d6ae72ad34b4b2a8402076c6a78a64652960b310bd596f3c80781"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 31,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "c7d7b042ee4c8e56f173ba20117ea8ce59e9a4ee658f1e3b4401d4ae5bc43daf"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 32,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "4bd3a36b4188c706d5668b8f373c0a0b4937580371d1ded4c2a099938715ea4a"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 33,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "bde4dcdd3b6187856b801ace555834b6847835b9ecfa5a9bd4d25d576dc7bca2"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 34,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "281d5ba6b8b895d7820f655304ff4a9d6fc21a6fc82589e05d6d20ab6d0180ef"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 35,
+    "cue_words": 7,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "adff4c089f7273440b2ca8d57a7f8857ae5b9053dff2f1637a4b66ccbb6ccaef"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 36,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "19c3e45f9db4a12b293deeaeef1fb88993a1a431c40f8dceaafb01fe8e6028b4"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 37,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "2fda1ab3658b194cecfc40a065f7f99e10c68891bc8c4cecc042945cfe28b400"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 38,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "ccbf8029b57c35e02a89f49d11907d91d22b2fb7cab492f0fcf78c83d8b6f97d"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 39,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "d94b24e6ce0269933f4bb7057d486deead9ad0c43958ab459cc6884fcc40036d"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 40,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "e95176b3eb8b4fb6e4873ddb8c1dabf8671b8263471839e4af80d2df2f4037f1"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 41,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "3b7b918bb8d98113259238f88098c2877395ecb3850a36ef1bf50031feaf28ba"
+  },
+  {
+    "article": "container-with-most-water",
+    "paragraph_index": 42,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "8d45443da00f138f59b09495536ea88dbf1bf6bf062697b719c9828320fa0c28"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 0,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "3838cd2019014735caf6794fed63e348c186dd766439668dc9d54cfb89c1798c"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 1,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "bb6cf69a007f93b2665e033a92eb75aa1ee03df0265dc724b29a32cdeafe7653"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 2,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "2491537f9b9d72cee6be2b7c83a35a6b5280d6c54032c1daa3f2cef41ef015d0"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 3,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6b6c2b7b2b02b15ae45dc1b2869824b2f8bc611a182432819af3b2f1e29ba871"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 4,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "5527fdf2c5322b595e652e67c69283d8a26baf57766e12586c21d3b515aca305"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 5,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "15ee4d4ae85a10aae8b88e45dc0511410a11acb221c7adef96e1a1249a07ab2e"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 6,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "56c2be9196e76afa4972f44cbbe071d8e36cd0d4c792338599fabe4c34e107ce"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 7,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "74920b225ff7bb29ae127ea1d9c1886023a2f4c1ebaccd168885f6de93248695"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 8,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "1411df7a65bf747de5c6e16f29db8d8f8cb0a87c0148c57224eb68401dea6225"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 9,
+    "cue_words": 7,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "8405d9b4092cdcf5b56e907c7ec9ea06a9ba3691c81b9fa80bfca270f42e2696"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 10,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "825b36904f566a294fac93f2d2c56c8f050f8f7224aaa01137fd55688e3309b5"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 11,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9e747fe40c703ca62e2645b88886a8cfcb5552a0c4e6a5a36c4677890870b568"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 12,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "58279874939663d52bfcafe2acb07acf60c0f6018fc7f4786ebe77684844be95"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 13,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "091eae6dc85ff4549dc1bbdc8643210bd20cc826ec11d53d6d421ffbf28cf4b3"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 14,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "4d280dc3d373c90fce51c08904b48b8c1e34d6115a4bd9b223c3d14a28fa00eb"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 15,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "d164f88ca8ce34027428b7a57f18d505b042e1996ec475e59958381d6ace3045"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 16,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "18a7c261f61c758b4ab204994aec5244e120f934ab97cdf6eeba78ecb38cbe4e"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 17,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "18d0b9211635358577ba384616f4c05fbd8c13ddd34363c1dd9121c156ff4e2a"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 18,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9fbd5175d992f89afa67c61ffbe434139625d83d6b4f35bde50a8c54ee3810a2"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 19,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9baeed3e69f34196e299f65457ee1c143c44fa42b4a34537d63d98e8746f9aa0"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 20,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "65dbb38e08ae2ad4e265479dd364aa30e69d7fd9ef7e72c97752849cdc7247f8"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 21,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "8c7ffd73ea6fc25022dcbc3f3b0ad6f470ace2b67f484d43d1c3237be283ee6b"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 22,
+    "cue_words": 7,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "9457d3cb4d6ea1dc83d55fa9b5e00528a7b4ac953b184ed326fce39c8e723f2d"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 23,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "30432d3c22bed53d32d50b8bd8aea454414affa553a6efdd179771c5cec59dfc"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 24,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "36b120a41bd2b31d847e21d782e42ff1abb1a6af98dd7c67de75e8fec9e6b950"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 25,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "0c72527cc39ff176097a8a0401d980765717c9507fb3243ee2c42d524fff8ca6"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 26,
+    "cue_words": 13,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "0101fc858ab1719930ca8b5edee2d0bf5b540788bb492d8258f22fa794238e9d"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 27,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "8d14580e35b7fd2c4187531469435af6cb10252bae45c1514c5db4d55355c016"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 28,
+    "cue_words": 9,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "aa3bfecc7cccb9c7eb3eb43964aa4b96a0bc17f1dc003d9e0fa8f12ffbad43b0"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 29,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "4f53f67183d9bdfe7810be1702e019ef39da0ed505ef82000c08ff88ca395680"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 30,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "83364f5e5fe9e7f13175e801841798658ccd944c4a10e0bf8e4f9b64552bbe8b"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 31,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "d967a8eb8cfda99257ff3a71b0b5ab28562083c6dcbb028f89efcd70942324b5"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 32,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "b44619a6512d74910a7d8199643adb5012d2c6ab2af3f1aaaf1c463aeea1c266"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 33,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "dc9ec7bd63d02a81b02d157de534e70efdc209fa79dd1df70587a0bd2a5237cd"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 34,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "cace9657e25436bbd4ef801741c29bf13f74c19f3b8ca21f00fa2edf15c1c7d5"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 35,
+    "cue_words": 8,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "c950ffbde81f27d385a778b67d69a526642108795e85c6db53d2f903b266d4d4"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 36,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "6c14b95997515143d212e0dc602399b75af3be6e942a57fb87ed9322aa276a5f"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 37,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "cfe1c1e6a9925a6b3e7164738abd05f9ef05456ad715fe6df9a56a18941dfa9d"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 38,
+    "cue_words": 10,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "dbe4daa5e16c609b2e87692bb952d2a5db3e1f1e6300c090531bdb4850eeb1d9"
+  },
+  {
+    "article": "course-schedule",
+    "paragraph_index": 39,
+    "cue_words": 11,
+    "tokens_stress_identity": true,
+    "english_source_identity": true,
+    "zh_note_identity": true,
+    "inverse_identity": true,
+    "english_sha256": "ab49ff93e039c1efe20a96745b1eac85029b8ff1d2111cab593c8fdfef081344"
+  }
+]

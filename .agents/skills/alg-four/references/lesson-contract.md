@@ -1,19 +1,29 @@
 # ALG Four source-preserving annotation and Active-2000 admission contract
 
-The input is one approved complete article: for the selected LeetCode Medium profile, `leetcode-mental` owns all source-grounded English and zh-TW meaning and `medium-writing` assembles the approved Medium edition. The exact source Markdown Git blob is immutable for annotation. A needed semantic correction belongs to the original Content Owner and must be re-admitted before the annotation is regenerated.
+The input is one approved complete article: for the selected LeetCode Medium profile, `leetcode-mental` owns all source-grounded English and zh-TW meaning and `medium-writing` assembles the approved Medium edition. `speed-reading` owns the paragraph annotation meaning (Traditional Chinese note,
+English reading projection, skeleton and source-supported Active practice);
+`alg-four` owns source binding, admission validation, navigation and rendering.
+The exact source Markdown Git blob is immutable for annotation. A needed semantic correction belongs to the original Content Owner and must be re-admitted before the annotation is regenerated.
 
 ## Paragraph-bound output
 
-Create **one source-bound Traditional Chinese/English annotation in the right-hand outline for each original prose paragraph or blockquote**, never inline beneath the article. Preserve the original English technical terms, conditions and causal links. Original HTML content must be recoverable by stripping only added anchor attributes; no insertion, reordering or mutation of source paragraphs. Do not replace article sections with four rewritten passes.
+Consume **one speed-reading-authored, source-bound Traditional Chinese/English annotation in the right-hand outline for each original prose paragraph or blockquote**, never inline beneath the article. Preserve the original English technical terms, conditions and causal links. Original HTML content must be recoverable by stripping only added anchor attributes; no insertion, reordering or mutation of source paragraphs. Do not replace article sections with four rewritten passes.
 
-Bind every note to `source.git_blob`, a zero-based paragraph index, a source-derived decision/concept ID and one of `PASSIVE` or `PASSIVE_AND_ACTIVE`. Active and Passive semantic roles may overlap; a source paragraph can be read and rehearsed. Every Active phrase has a source paragraph and at least one complete technically correct English sentence. Each source revision requires a new reviewed manifest. Omitted or extra notes, source drift, unknown decision IDs, missing English sentences and duplicate active IDs refuse publication.
+Bind every note to `source.git_blob`, a zero-based paragraph index, a source-derived decision/concept ID and one of `PASSIVE` or `PASSIVE_AND_ACTIVE`. Active and Passive semantic roles may overlap; a source paragraph can be read and rehearsed. Every Active phrase has a source paragraph and at least one complete technically correct English sentence. Each source revision requires a new reviewed manifest. If a production sentence or oracle depends on another paragraph, bind each
+supporting premise as `supporting_sources` (paragraph index plus exact English
+quote) on that Active item and expose navigable source links. An exact quote at
+the primary anchor does not establish every cost premise or inference. Review
+the complete supporting chain; do not use a heading summary as the missing proof.
+Omitted or extra notes, source drift, unknown decision IDs, missing English sentences and duplicate active IDs refuse publication.
 
 ## Mode C sidecar and navigable outline
 
 Derive major/minor heading order from the source Markdown, not a fabricated index.
-Use one paragraph anchor for each rendered prose paragraph. On wide screens show
-a sticky right-hand outline; on narrow screens expose a collapsible navigation
-panel. Selecting an index item jumps to its source location. Scrolling follows
+Use one paragraph anchor for each rendered prose paragraph. Keep a centered
+reading column and a normally closed middle-right chapter rail. Bar length
+represents chapter text amount, not difficulty or mastery. Expand a scrollable
+dialog on hover or explicit activation; support touch, keyboard, Escape and focus
+return. Show chapter/paragraph counts, current position and the source-bound notes. Selecting an index item jumps to its source location. Scrolling follows
 the active paragraph, expands only its heading/subheading ancestry, and presents
 that paragraph's annotation. This UI state is not a learner observation.
 
@@ -26,8 +36,13 @@ the primary stressed syllable of genuinely verified content words. Keep function
 words plain; do not apply bionic initial-letter bolding or add syllable dots.
 Prefer roughly 3–5 words per visual chunk only when grammar and scope permit.
 If stress/segmentation evidence is absent, use faithful plain English.
-One optional 10–15-word decision-bound subject/action/object skeleton may appear
-beneath this projection, never replacing a complete source claim.
+For speed-reading-authored notes, render the complete source-bound
+`reading_context.premises` and any `checkpoint` before a short reading cue.
+Each statement has text plus exact quoted supporting paragraphs. Validate these
+bindings mechanically; completeness remains an Owner/Reader judgment. Label the
+cue 閱讀提示（非獨立結論）; it asks what to inspect and is not a standalone theorem.
+The complete annotation and its linked argument form the acceptance unit.
+Legacy Mode C skeletons remain supplemental and do not replace a source claim.
 
 Mode C is a formatting/learning hypothesis, not proof of fewer regressions,
 fixations or better reading speed. Tests must verify source HTML recoverability,

@@ -1,0 +1,49 @@
+{
+  "1_ai_vocabulary": {
+    "label": "AI vocabulary",
+    "count": 5,
+    "samples": [
+      "the courses it can unlock  Scanning every pai",
+      "dependent. Course 0 unlocks 1 and 2; both must",
+      "tion even though it unlocks nothing.  Removing"
+    ]
+  },
+  "56_boldface": {
+    "label": "Boldface overuse",
+    "count": 4,
+    "samples": [
+      "h and a master map  **Why use indegree?** \"It counts unfinish",
+      "unt reaches zero.\"  **Why can each edge be handled once?** \"I store each depen",
+      "e one obligation.\"  **Why does an empty queue sometimes mean failure?** \"If unfinished cour"
+    ]
+  },
+  "_metrics": {
+    "scanned_chars": 19034,
+    "truncated": false,
+    "sentences": 213,
+    "length_cv": 0.548,
+    "has_short_sentence": true,
+    "monotonous": false,
+    "paragraph_cv": 0.649,
+    "paragraph_monotonous": false,
+    "invisible_chars": 0,
+    "evasion_defused": 0,
+    "nonstandard_spaces": 0,
+    "trailing_newlines": 1,
+    "eol_trailing_spaces": 0,
+    "leading_whitespace": 0,
+    "first_person_ratio": 0.001,
+    "semicolons_per_1k": 11.64,
+    "parentheticals_per_1k": 2.33,
+    "passive_voice_ratio": 0.136,
+    "readability_fk_stdev": 2.61,
+    "readability_uniform": false,
+    "cadence_zigzag": 0.597,
+    "homoglyphs": 0,
+    "ai_tell_score": 7,
+    "ai_tell_band": "clean",
+    "patterns_flagged": 2,
+    "confidence": "high",
+    "confidence_reason": ""
+  }
+}

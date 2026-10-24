@@ -1,0 +1,14 @@
+[
+  {
+    "file": "evals/writing/article-inference/koko/body-reader-output/answers.md",
+    "raw_original": "evals/writing/article-inference/koko/body-reader-output/answers.md.original.gz",
+    "change": "Readable Markdown copy only: trailing spaces removed. Exact original also in raw-case.tar.gz. No verdict, source body, annotation or question changed.",
+    "recovery_equality_verified": true
+  },
+  {
+    "file": "evals/writing/article-inference/koko/annotation-reader-output-v2/audit.md",
+    "raw_original": "evals/writing/article-inference/koko/annotation-reader-output-v2/audit.md.original.gz",
+    "change": "Readable Markdown copy only: extra blank line at EOF removed after git diff --check. Exact original also in raw-case.tar.gz. No verdict or content changed.",
+    "recovery_equality_verified": true
+  }
+]

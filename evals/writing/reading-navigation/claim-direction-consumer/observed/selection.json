@@ -1,0 +1,24 @@
+{
+  "criteria_review": {
+    "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/criteria-review.json",
+    "sha256": "352dcc8f93068a60f10d8d6342e1720037d321f63fe7597294c5f664d5bcb9c7"
+  },
+  "observations": [
+    {
+      "case_id": "annotation-owner",
+      "report": {
+        "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/observed-reports/annotation-owner.json",
+        "sha256": "d0997fd4a5d831beb84a9c2cd211a1de418c35e9437058562de4724cda7bf815"
+      },
+      "trace": {
+        "path": "/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/consumer/trace.jsonl",
+        "sha256": "00e0581a5b309c109d6120b10a2ea3f674439a0d7cf105fd2c8cdaf6e231d2c1"
+      }
+    }
+  ],
+  "protocol": {
+    "path": "/private/var/folders/l6/44bf7nvs64j60f1mpyy88hdm0000gn/T/reading-navigation-mtgts0x3/pclass-claim-direction/initial/protocol.json",
+    "sha256": "1bb862974ea200a1be71c726e04cb48cccc554f71feab62dd24f057b0fc5f08b"
+  },
+  "schema": 2
+}
