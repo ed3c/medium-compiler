@@ -24,7 +24,12 @@ jobs:
           node --check examples/cloudflare-checkout-sandbox/src/index.mjs
           node --check site/reliability/browser-worker.mjs
           node --check site/more-route/more-route.js
+          node --check workers/neon/index.mjs
+          node --check workers/neon/lead_mail.mjs
+          node --check site/neon/neon.js
+          node --check site/neon/visit_attribution.mjs
           node --test tests/more_route_interactions.test.mjs
+          node --test tests/neon_landing.test.mjs
           npm ci --ignore-scripts
           node --test tests/scoped_readback_runtime.test.mjs tests/outbox_runtime.test.mjs > /tmp/writing-evidence/scoped-readback-runtime.txt 2>&1
           npm run build > /tmp/writing-evidence/cloudflare-site-build.txt
@@ -67,7 +72,8 @@ jobs:
           retention-days: 7
 
   browser-alg-four:
-    runs-on: ubuntu-latest
+    # Playwright 1.55.0 cannot install Chromium on ubuntu-latest (26.04).
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
