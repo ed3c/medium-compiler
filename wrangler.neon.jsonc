@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "neon-landing",
+  "account_id": "3751568573ab98ef44d3224c418b1c61",
+  "main": "workers/neon/index.mjs",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./site/neon",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "none"
+  },
+  "kv_namespaces": [
+    {
+      // Owner creates this free namespace and replaces the id. Do not deploy until then.
+      "binding": "LEADS",
+      "id": "00000000000000000000000000000000"
+    }
+  ],
+  // Lead copies use the Worker secret RESEND_API_KEY. Do not put the key in this file.
+  "triggers": {"crons": []},
+  "observability": {"enabled": false}
+}

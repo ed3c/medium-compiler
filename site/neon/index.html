@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>免費創意提案</title>
+  <meta name="description" content="用 Higgsfield 做短影音、產品廣告和圖片。索取一份免費創意提案。">
+  <link rel="stylesheet" href="/neon.css">
+</head>
+<body>
+  <header><p class="brand" data-brand>EEON</p></header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">免費創意提案</h1>
+      <p class="lede">我們用 Higgsfield 做短影音、產品廣告和圖片。留下這次想做的內容，先拿一份提案。</p>
+      <a class="button" href="#proposal">索取免費創意提案</a>
+    </section>
+    <section class="offer" aria-labelledby="offer-title">
+      <h2 id="offer-title">可以做的三件事</h2>
+      <ul>
+        <li><strong>短影音</strong> 一支把一件事講完的影片。</li>
+        <li><strong>產品廣告</strong> 一段可以投放的產品廣告。</li>
+        <li><strong>圖片</strong> 一張可以單獨使用的畫面。</li>
+      </ul>
+    </section>
+    <form id="proposal" action="/api/proposal" method="post" accept-charset="utf-8" aria-labelledby="form-title">
+      <h2 id="form-title">告訴我們你要什麼</h2>
+      <div class="field">
+        <label for="caller">稱呼</label>
+        <input id="caller" name="name" type="text" autocomplete="name" required maxlength="80" enterkeyhint="next">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <span id="email-hint" class="hint">格式：you@example.com</span>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" spellcheck="false" autocapitalize="none" aria-describedby="email-hint" enterkeyhint="next">
+      </div>
+      <fieldset id="types">
+        <legend>類型</legend>
+        <span class="hint">可複選。</span>
+        <label class="check" for="type-short"><input id="type-short" name="type" type="checkbox" value="短影音">短影音</label>
+        <label class="check" for="type-ad"><input id="type-ad" name="type" type="checkbox" value="產品廣告">產品廣告</label>
+        <label class="check" for="type-image"><input id="type-image" name="type" type="checkbox" value="圖片">圖片</label>
+      </fieldset>
+      <div class="field">
+        <label for="detail">說明（最多 2000 字）</label>
+        <textarea id="detail" name="detail" required maxlength="2000" enterkeyhint="done"></textarea>
+      </div>
+      <!-- Consent wording is a draft pending owner approval. -->
+      <label class="check" for="consent"><input id="consent" name="consent" type="checkbox" value="yes" required>我同意本站保存稱呼、email、需求，以及這次連結的來源標記，只用來回覆這份免費創意提案。</label>
+      <div class="trap" aria-hidden="true">
+        <label for="company_website">Website</label>
+        <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off" autocapitalize="none" spellcheck="false">
+      </div>
+      <input type="hidden" name="utm_source" value="">
+      <input type="hidden" name="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" value="">
+      <input type="hidden" name="utm_content" value="">
+      <input type="hidden" name="utm_term" value="">
+      <p id="proposal-status" role="status"></p>
+      <button type="submit">送出免費創意提案</button>
+    </form>
+  </main>
+  <footer><p>送出後，這份提案會留在站上的名單裡。我們用 email 回覆。</p></footer>
+  <script type="module" src="/neon.js"></script>
+</body>
+</html>
